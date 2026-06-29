@@ -82,9 +82,22 @@ public class Enemy : MonoBehaviour
 
     void Fire()
     {
-        if (_enemyBulletPrefab == null || _firePoint == null) return;
+        if (_enemyBulletPrefab == null) return;
+        if (_player == null) return;
 
-        Instantiate(_enemyBulletPrefab, _firePoint.position, Quaternion.identity);
+        GameObject bulletObj =
+            Instantiate(_enemyBulletPrefab,
+                        _firePoint.position,
+                        Quaternion.identity);
+
+        EnemyBullet bullet =
+            bulletObj.GetComponent<EnemyBullet>();
+
+        if (bullet != null)
+        {
+            // 발사 순간 플레이어 위치를 저장
+            bullet.SetDirection(_player.position);
+        }
     }
 
     public void TakeHit(int damage)
