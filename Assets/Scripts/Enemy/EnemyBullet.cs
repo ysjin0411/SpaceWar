@@ -11,17 +11,25 @@ public class EnemyBullet : MonoBehaviour
     [Header("»èÁ¦")]
     [SerializeField] float _lifeTime = 5f;
 
-    Vector2 _dir;
+    [Header("ÄÄÆ÷³ÍÆ®")]
+    [SerializeField] PlayerController _playerController;
+    [SerializeField] Animator _animator;
 
-    private void Start()
-    {
-        Destroy(gameObject, _lifeTime);
-    }
+    [Header("½ºÅÈ")]
+    [SerializeField] int _damage;
+
+
+    Vector2 _dir;
 
     private void Update()
     {
         transform.Translate(_dir * _speed * Time.deltaTime,
                             Space.World);
+        if(gameObject.transform.position.x > 9.0f || gameObject.transform.position.x < -9.0f 
+            || gameObject.transform.position.y > 5.0f || gameObject.transform.position.y < -5.0f)
+        {
+            Destroy(gameObject);
+        }
     }
 
     /// <summary>
@@ -34,10 +42,12 @@ public class EnemyBullet : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        PlayerHealth player = collision.GetComponent<PlayerHealth>();
-        if(player != null)
-        {
-            return;
-        }
+        PlayerController player = collision.GetComponent<PlayerController>();
+        if (player == null) return;
+        player.TakeHit(_damage);
+        Destroy(gameObject);
+        _animator.Play("Hit");
     }
+
+
 }

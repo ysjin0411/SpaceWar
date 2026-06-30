@@ -11,6 +11,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float _minY = -4f;
     [SerializeField] float _maxY = 4f;
 
+    [Header("플레이어 체력")]
+    [SerializeField] int _maxHp;
+    [SerializeField] int _currentHp;
+
+    [Header("총알")]
+    [SerializeField] GameObject _bulletPrefab;
+
+    [Header("발사 위치")]
+    [SerializeField] Transform _firePoint;
+
     Rigidbody2D _rigid;
 
     private void Awake()
@@ -32,5 +42,34 @@ public class PlayerController : MonoBehaviour
         pos.y = Mathf.Clamp(pos.y, _minY, _maxY);
 
         _rigid.position = pos;
+
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            Fire();
+        }
+    }
+
+    public void TakeHit(int damage)
+    {
+        _currentHp -= damage;
+        Debug.Log($"입은 데미지: {damage}");
+        if (_currentHp < 0)
+        {
+            Die();
+        }
+    }
+
+    public void Die()
+    {
+        Debug.Log("사망");
+        Time.timeScale = 0f;
+    }
+
+    public void Fire()
+    {
+        Instantiate(
+            _bulletPrefab,
+            _firePoint.position,
+            Quaternion.identity);
     }
 }

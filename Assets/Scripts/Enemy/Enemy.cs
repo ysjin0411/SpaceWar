@@ -3,8 +3,8 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [Header("체력")]
-    [SerializeField] int _maxHp = 10;
-    int _currentHp;
+    [SerializeField] int _maxHp;
+    [SerializeField] int _currentHp;
 
     [Header("이동")]
     [SerializeField] float _moveSpeed = 2f;
@@ -15,6 +15,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] GameObject _enemyBulletPrefab;
     [SerializeField] Transform _firePoint;
     [SerializeField] float _fireInterval = 1.5f;
+    [SerializeField] float _coolTime;
+    [SerializeField] float _coll
 
     Transform _player;
     float _fireTimer;
@@ -73,7 +75,7 @@ public class Enemy : MonoBehaviour
     {
         _fireTimer += Time.deltaTime;
 
-        if (_fireTimer >= _fireInterval)
+        if (_fireTimer >= _coolTime)
         {
             Fire();
             _fireTimer = 0f;
@@ -113,5 +115,11 @@ public class Enemy : MonoBehaviour
     void Die()
     {
         Destroy(gameObject);
+    }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        PlayerController player = GetComponent<PlayerController>();
+        player.TakeHit()
     }
 }
