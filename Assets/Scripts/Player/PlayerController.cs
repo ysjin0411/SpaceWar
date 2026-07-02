@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour
 
     [Header("총알")]
     [SerializeField] GameObject _bulletPrefab;
+    [SerializeField] float _cooltime;
+    [SerializeField] float _timer;
 
     [Header("발사 위치")]
     [SerializeField] Transform _firePoint;
@@ -30,6 +32,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        _timer += Time.deltaTime;
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
 
@@ -43,9 +46,13 @@ public class PlayerController : MonoBehaviour
 
         _rigid.position = pos;
 
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetKey(KeyCode.Z))
         {
-            Fire();
+            if (_timer > _cooltime)
+            {
+                Fire();
+                _timer = 0;
+            }
         }
     }
 
@@ -67,9 +74,6 @@ public class PlayerController : MonoBehaviour
 
     public void Fire()
     {
-        Instantiate(
-            _bulletPrefab,
-            _firePoint.position,
-            Quaternion.identity);
+        Instantiate(_bulletPrefab,_firePoint.position,Quaternion.identity);
     }
 }

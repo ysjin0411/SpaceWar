@@ -16,7 +16,6 @@ public class Enemy : MonoBehaviour
     [SerializeField] Transform _firePoint;
     [SerializeField] float _fireInterval = 1.5f;
     [SerializeField] float _coolTime;
-    [SerializeField] float _coll
 
     Transform _player;
     float _fireTimer;
@@ -117,9 +116,9 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void OnTriggerEnter2D(Collider2D collision)
-    {
-        PlayerController player = GetComponent<PlayerController>();
-        player.TakeHit()
-    }
+    //public void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    PlayerController player = GetComponent<PlayerController>();
+    //    player.TakeHit()
+    //}
 }

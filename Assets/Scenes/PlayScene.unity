@@ -1708,6 +1708,8 @@ MonoBehaviour:
   _maxHp: 100
   _currentHp: 100
   _bulletPrefab: {fileID: 7794189853625743750, guid: 2d881fa82784d894ea1a6dc6c2743bb5, type: 3}
+  _cooltime: 0.1
+  _timer: 0
   _firePoint: {fileID: 128470415}
 --- !u!1 &1342245857
 GameObject:
@@ -2842,10 +2844,10 @@ SceneRoots:
   - {fileID: 1150832208}
   - {fileID: 1270022891}
   - {fileID: 922143626}
-  - {fileID: 1644372883}
   - {fileID: 1551781756}
   - {fileID: 314812581}
   - {fileID: 165687730}
   - {fileID: 997056222}
   - {fileID: 2127851458}
   - {fileID: 652608762}
+  - {fileID: 1644372883}
