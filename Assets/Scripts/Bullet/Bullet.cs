@@ -17,7 +17,7 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Enemy enemy = collision.GetComponent<Enemy>();
+        FastEnemy enemy = collision.GetComponent<FastEnemy>();
 
         if (enemy != null)
         {

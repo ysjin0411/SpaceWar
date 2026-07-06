@@ -3,40 +3,78 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     [Header("프리팹")]
-    [SerializeField] GameObject _normalEnemyPrefab;
-    [SerializeField] GameObject _bossEnemyPrefab;
+    [SerializeField] GameObject _fastEnemyPrefab;
+
+    [Header("플레이어")]
+    [SerializeField] PlayerController _playerController;
+
+    [Header("적 종류")]
+    [SerializeField] FastEnemy _fastenemy;
 
     [Header("스폰 설정")]
-    [SerializeField] float _spawnInterval = 2f;
+    [SerializeField] float _patternCoolTime;
     [SerializeField] float _spawnX = 10f;
     [SerializeField] float _minY = -4f;
     [SerializeField] float _maxY = 4f;
 
-    float _timer;
+    [Header("패턴 확률")]
+    [SerializeField] int _reducedPercent = 15;
+    [SerializeField] int _totalPercent = 100;
+    [SerializeField] int _patternAPercent = 50;
+    [SerializeField] int _patternBPercent = 50;
+
+    [SerializeField] float _timer;
 
     private void Update()
     {
         _timer += Time.deltaTime;
 
-        if (_timer >= _spawnInterval)
+        if(_timer >= _patternCoolTime)
         {
-            SpawnNormalEnemy();
-            _timer = 0f;
+            PickPattern();
+            _timer = 0;
         }
     }
 
-    void SpawnNormalEnemy()
+    public void SpawnFastEnemyPatternA()
     {
-        float randomY = Random.Range(_minY, _maxY);
-        Vector3 spawnPos = new Vector3(_spawnX, randomY, 0f);
-
-        Instantiate(_normalEnemyPrefab, spawnPos, Quaternion.identity);
+        _patternBPercent += _reducedPercent;
+        _patternAPercent -= _reducedPercent;
+        for (int i = 0; i < 5; i++)
+        {
+            Vector3 spawnPos = new Vector3(10f + 2 * i, 2f, 0f);
+            GameObject enemyObj = Instantiate(_fastEnemyPrefab, spawnPos, Quaternion.identity);
+            FastEnemy enemy = enemyObj.GetComponent<FastEnemy>();
+            enemy.Init(_playerController);
+            enemy._moveType = MoveType.RightToLeft;
+        }
     }
 
-    public void SpawnBoss()
+    public void SpawnFastEnemyPatternB()
     {
-        Vector3 spawnPos = new Vector3(_spawnX, 0f, 0f);
+        _patternBPercent -= _reducedPercent;
+        _patternAPercent += _reducedPercent;
+            for (int i = 0; i < 5; i++)
+            {
+                Vector3 spawnPos = new Vector3(5f, -6f - i, 0f);
+                GameObject enemyObj = Instantiate(_fastEnemyPrefab, spawnPos, Quaternion.identity);
+                FastEnemy enemy = enemyObj.GetComponent<FastEnemy>();
+            enemy.Init(_playerController);
+            enemy._moveType = MoveType.DownToUp;
+            }        
+    }
 
-        Instantiate(_bossEnemyPrefab, spawnPos, Quaternion.identity);
+    private void PickPattern()
+    {
+        _totalPercent = _patternAPercent + _patternBPercent;
+        int num = Random.Range(0, _totalPercent);
+        if(num <= _patternAPercent)
+        {
+            SpawnFastEnemyPatternA();
+        }
+        else
+        {
+            SpawnFastEnemyPatternB(); 
+        }
     }
 }

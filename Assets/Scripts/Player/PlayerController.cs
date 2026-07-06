@@ -1,7 +1,11 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("체력바")]
+    [SerializeField] GameObject[] _hpIcons;
+
     [Header("이동")]
     [SerializeField] float _moveSpeed = 5f;
 
@@ -24,6 +28,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform _firePoint;
 
     Rigidbody2D _rigid;
+
+    private void Start()
+    {
+        _currentHp = _maxHp;
+        UpdateHpUI();
+    }
 
     private void Awake()
     {
@@ -59,6 +69,7 @@ public class PlayerController : MonoBehaviour
     public void TakeHit(int damage)
     {
         _currentHp -= damage;
+        UpdateHpUI();
         Debug.Log($"입은 데미지: {damage}");
         if (_currentHp < 0)
         {
@@ -66,7 +77,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void Die()
+    private void Die()
     {
         Debug.Log("사망");
         Time.timeScale = 0f;
@@ -76,4 +87,14 @@ public class PlayerController : MonoBehaviour
     {
         Instantiate(_bulletPrefab,_firePoint.position,Quaternion.identity);
     }
+
+    private void UpdateHpUI()
+    {
+        for (int i = 0; i < _hpIcons.Length; i++)
+        {
+            _hpIcons[i].SetActive(i < _currentHp);
+        }
+    }
+
+
 }

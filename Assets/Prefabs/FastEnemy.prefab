@@ -185,8 +185,8 @@ GameObject:
   - component: {fileID: 3911786777154052580}
   - component: {fileID: 636532698536025731}
   - component: {fileID: 1528793276418901857}
-  m_Layer: 0
-  m_Name: NormalEnemy
+  m_Layer: 8
+  m_Name: FastEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -223,13 +223,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHp: 10
   _currentHp: 0
-  _moveSpeed: 3
-  _chaseDistance: 6
-  _stopDistance: 3
+  _moveSpeed: 8
   _enemyBulletPrefab: {fileID: 950170354894911369, guid: ddb96700977591f40b3eaba27a097cb7, type: 3}
   _firePoint: {fileID: 5398899518243365422}
-  _fireInterval: 1.5
   _coolTime: 1
+  _fireDist: 3
+  _crashDamage: 1
+  _moveType: 0
+  _isFired: 0
 --- !u!50 &636532698536025731
 Rigidbody2D:
   serializedVersion: 5

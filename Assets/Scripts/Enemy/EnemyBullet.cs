@@ -21,33 +21,40 @@ public class EnemyBullet : MonoBehaviour
 
     Vector2 _dir;
 
+    public void Init(PlayerController playerController)
+    {
+        _playerController = playerController;
+    }
+
+    private void Start()
+    {
+        SetDirection();
+    }
     private void Update()
     {
-        transform.Translate(_dir * _speed * Time.deltaTime,
-                            Space.World);
-        if(gameObject.transform.position.x > 9.0f || gameObject.transform.position.x < -9.0f 
-            || gameObject.transform.position.y > 5.0f || gameObject.transform.position.y < -5.0f)
+        transform.Translate(_dir * _speed * Time.deltaTime, Space.World);
+
+        if(gameObject.transform.position.x > 9.0f 
+            || gameObject.transform.position.x < -9.0f 
+            || gameObject.transform.position.y > 5.0f 
+            || gameObject.transform.position.y < -5.0f)
         {
             Destroy(gameObject);
         }
     }
 
-    /// <summary>
-    /// 방향 설정
-    /// </summary>
-    public void SetDirection(Vector3 targetPos)
+    public void SetDirection()
     {
+        //_playerController.transform.position = targetPos;
+        Vector3 targetPos = _playerController.transform.position;
         _dir = (targetPos - transform.position).normalized;
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
         PlayerController player = collision.GetComponent<PlayerController>();
-        if (player == null) return;
         player.TakeHit(_damage);
         Destroy(gameObject);
         _animator.Play("Hit");
     }
-
-
 }

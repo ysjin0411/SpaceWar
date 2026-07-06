@@ -422,12 +422,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b5152a732800bc4b8a2036f221c46e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _normalEnemyPrefab: {fileID: 9200333248802534134, guid: 6b64a364a12f0964ab2ad976a48755d6, type: 3}
-  _bossEnemyPrefab: {fileID: 0}
-  _spawnInterval: 2
+  _fastEnemyPrefab: {fileID: 9200333248802534134, guid: 6b64a364a12f0964ab2ad976a48755d6, type: 3}
+  _playerController: {fileID: 1270022896}
+  _fastenemy: {fileID: 3911786777154052580, guid: 6b64a364a12f0964ab2ad976a48755d6, type: 3}
+  _patternCoolTime: 3
   _spawnX: 10
   _minY: -4
   _maxY: 4
+  _reducedPercent: 15
+  _totalPercent: 100
+  _patternAPercent: 50
+  _patternBPercent: 50
+  _timer: 0
 --- !u!4 &314812581
 Transform:
   m_ObjectHideFlags: 0
@@ -1700,6 +1706,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6163478cd001c2a498e5f9eb4a538cff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _hpIcons:
+  - {fileID: 1534331694}
+  - {fileID: 489398713}
+  - {fileID: 486436541}
+  - {fileID: 1450018640}
+  - {fileID: 186232850}
   _moveSpeed: 5
   _minX: -8
   _maxX: 8
@@ -2669,7 +2681,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2039294172
 RectTransform:
   m_ObjectHideFlags: 0
