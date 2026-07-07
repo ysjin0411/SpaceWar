@@ -3,8 +3,12 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    [Header("체력바")]
-    [SerializeField] GameObject[] _hpIcons;
+    [Header("컴포넌트")]
+    [SerializeField] HPUI _hpUI;
+
+    [Header("무기프리팹")]
+    [SerializeField] GameObject[] _weaponPrefabs;
+    int _currentWeaponIndex;
 
     [Header("이동")]
     [SerializeField] float _moveSpeed = 5f;
@@ -27,12 +31,13 @@ public class PlayerController : MonoBehaviour
     [Header("발사 위치")]
     [SerializeField] Transform _firePoint;
 
+    
+
     Rigidbody2D _rigid;
 
     private void Start()
     {
         _currentHp = _maxHp;
-        UpdateHpUI();
     }
 
     private void Awake()
@@ -64,17 +69,27 @@ public class PlayerController : MonoBehaviour
                 _timer = 0;
             }
         }
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            // 추가 작업 필요: 무기가 바뀌는 UI, 애니메이션
+            _currentWeaponIndex++;
+            if(_currentWeaponIndex > _weaponPrefabs.Length)
+            {
+                _currentWeaponIndex = 0;
+            }
+        }
     }
 
     public void TakeHit(int damage)
     {
         _currentHp -= damage;
-        UpdateHpUI();
-        Debug.Log($"입은 데미지: {damage}");
         if (_currentHp < 0)
         {
             Die();
+            return;
         }
+        _hpUI.UpdateHpUI();
+        Debug.Log($"입은 데미지: {damage}");
     }
 
     private void Die()
@@ -85,16 +100,6 @@ public class PlayerController : MonoBehaviour
 
     public void Fire()
     {
-        Instantiate(_bulletPrefab,_firePoint.position,Quaternion.identity);
+        Instantiate(_weaponPrefabs[_currentWeaponIndex],_firePoint.position,Quaternion.identity);
     }
-
-    private void UpdateHpUI()
-    {
-        for (int i = 0; i < _hpIcons.Length; i++)
-        {
-            _hpIcons[i].SetActive(i < _currentHp);
-        }
-    }
-
-
 }

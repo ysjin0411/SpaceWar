@@ -8,8 +8,7 @@ public class EnemyBullet : MonoBehaviour
     [Header("이동")]
     [SerializeField] float _speed = 5f;
 
-    [Header("삭제")]
-    [SerializeField] float _lifeTime = 5f;
+
 
     [Header("컴포넌트")]
     [SerializeField] PlayerController _playerController;

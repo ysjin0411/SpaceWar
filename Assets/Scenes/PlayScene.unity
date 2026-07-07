@@ -1355,37 +1355,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 875954850}
   m_CullTransparentMesh: 1
---- !u!1 &922143625
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 922143626}
-  m_Layer: 0
-  m_Name: Background
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &922143626
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 922143625}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &997056218
 GameObject:
   m_ObjectHideFlags: 0
@@ -1706,12 +1675,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6163478cd001c2a498e5f9eb4a538cff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hpIcons:
-  - {fileID: 1534331694}
-  - {fileID: 489398713}
-  - {fileID: 486436541}
-  - {fileID: 1450018640}
-  - {fileID: 186232850}
+  _hpUI: {fileID: 1637437468}
+  _weaponPrefabs:
+  - {fileID: 7794189853625743750, guid: 2d881fa82784d894ea1a6dc6c2743bb5, type: 3}
+  - {fileID: 8053201812717553051, guid: 64ac5ef0f50f9a4488248d0a32fba795, type: 3}
   _moveSpeed: 5
   _minX: -8
   _maxX: 8
@@ -2181,7 +2148,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!50 &1551781755
 Rigidbody2D:
   serializedVersion: 5
@@ -2237,6 +2204,7 @@ GameObject:
   - component: {fileID: 1637437467}
   - component: {fileID: 1637437466}
   - component: {fileID: 1637437465}
+  - component: {fileID: 1637437468}
   m_Layer: 0
   m_Name: HpBarFrame
   m_TagString: Untagged
@@ -2330,6 +2298,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1637437463}
   m_CullTransparentMesh: 1
+--- !u!114 &1637437468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1637437463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43083910da1cbdc4c85e1811ccdc66a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hpIcons:
+  - {fileID: 1534331694}
+  - {fileID: 489398713}
+  - {fileID: 486436541}
+  - {fileID: 1450018640}
+  - {fileID: 186232850}
+  _hp: 5
+  _currentHp: {fileID: 1270022896}
 --- !u!1 &1644372880
 GameObject:
   m_ObjectHideFlags: 0
@@ -2855,7 +2843,6 @@ SceneRoots:
   - {fileID: 603527}
   - {fileID: 1150832208}
   - {fileID: 1270022891}
-  - {fileID: 922143626}
   - {fileID: 1551781756}
   - {fileID: 314812581}
   - {fileID: 165687730}
