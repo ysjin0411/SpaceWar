@@ -2,15 +2,27 @@ using UnityEngine;
 
 public class Lazer : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] float _speed = 10f;
+    [SerializeField] int _damage = 1;
+
+    private void Update()
     {
-        
+        transform.Translate(Vector2.right * _speed * Time.deltaTime);
+
+        if (transform.position.x > 15f)
+        {
+            Destroy(gameObject);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        
+        FastEnemy enemy = collision.GetComponent<FastEnemy>();
+
+        if (enemy != null)
+        {
+            enemy.TakeHit(_damage);
+            Destroy(gameObject);
+        }
     }
 }

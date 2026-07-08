@@ -5,10 +5,12 @@ public class PlayerController : MonoBehaviour
 {
     [Header("컴포넌트")]
     [SerializeField] HPUI _hpUI;
+    [SerializeField] GameObject _weaponSlotPanel;
+    [SerializeField] bool _isWeaponSlotPanel;
 
     [Header("무기프리팹")]
     [SerializeField] GameObject[] _weaponPrefabs;
-    int _currentWeaponIndex;
+    int _currentWeaponIndex = 0;
 
     [Header("이동")]
     [SerializeField] float _moveSpeed = 5f;
@@ -30,8 +32,9 @@ public class PlayerController : MonoBehaviour
 
     [Header("발사 위치")]
     [SerializeField] Transform _firePoint;
+    Vector2 _dir;
 
-    
+
 
     Rigidbody2D _rigid;
 
@@ -45,15 +48,15 @@ public class PlayerController : MonoBehaviour
         _rigid = GetComponent<Rigidbody2D>();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         _timer += Time.deltaTime;
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
 
-        Vector2 dir = new Vector2(h, v).normalized;
+        _dir = new Vector2(h, v).normalized;
 
-        _rigid.linearVelocity = dir * _moveSpeed;
+
 
         Vector2 pos = _rigid.position;
         pos.x = Mathf.Clamp(pos.x, _minX, _maxX);
@@ -71,13 +74,33 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            // 추가 작업 필요: 무기가 바뀌는 UI, 애니메이션
-            _currentWeaponIndex++;
-            if(_currentWeaponIndex > _weaponPrefabs.Length)
+            _isWeaponSlotPanel = true;
+            _weaponSlotPanel.SetActive(true);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            if(_isWeaponSlotPanel == true)
             {
                 _currentWeaponIndex = 0;
+                _weaponSlotPanel.SetActive(false);
+                _isWeaponSlotPanel = false;
             }
         }
+
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            if (_isWeaponSlotPanel == true)
+            {
+                _currentWeaponIndex = 1;
+                _weaponSlotPanel.SetActive(false);
+                _isWeaponSlotPanel = false;
+            }
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        _rigid.linearVelocity = _dir * _moveSpeed;
     }
 
     public void TakeHit(int damage)

@@ -46,7 +46,7 @@ public class EnemySpawner : MonoBehaviour
             GameObject enemyObj = Instantiate(_fastEnemyPrefab, spawnPos, Quaternion.identity);
             FastEnemy enemy = enemyObj.GetComponent<FastEnemy>();
             enemy.Init(_playerController);
-            enemy._moveType = MoveType.RightToLeft;
+            enemy.SetMoveType(MoveType.RightToLeft);
         }
     }
 
@@ -60,7 +60,7 @@ public class EnemySpawner : MonoBehaviour
                 GameObject enemyObj = Instantiate(_fastEnemyPrefab, spawnPos, Quaternion.identity);
                 FastEnemy enemy = enemyObj.GetComponent<FastEnemy>();
             enemy.Init(_playerController);
-            enemy._moveType = MoveType.DownToUp;
+            enemy.SetMoveType(MoveType.DownToUp);
             }        
     }
 

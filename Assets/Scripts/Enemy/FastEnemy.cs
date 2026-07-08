@@ -27,13 +27,17 @@ public class FastEnemy : MonoBehaviour
     PlayerController _playerController;
 
 
-    public MoveType _moveType;
+    [SerializeField] MoveType _moveType;
     Transform _player;
     public bool _isFired;
 
     public void Init(PlayerController playerController)
     {
         _playerController = playerController;
+    }
+    public void SetMoveType(MoveType moveType)
+    {
+        _moveType = moveType;
     }
 
     private void Start()
