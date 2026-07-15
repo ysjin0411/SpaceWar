@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
 
     [Header("무기프리팹")]
     [SerializeField] GameObject[] _weaponPrefabs;
+    [SerializeField] GameObject _bulletIcon;
+    [SerializeField] GameObject _lazerIcon;
     int _currentWeaponIndex = 0;
 
     [Header("이동")]
@@ -25,7 +27,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] int _maxHp;
     [SerializeField] int _currentHp;
 
-    [Header("총알")]
+    [Header("현재 총")]
     [SerializeField] GameObject _bulletPrefab;
     [SerializeField] float _cooltime;
     [SerializeField] float _timer;
@@ -64,6 +66,7 @@ public class PlayerController : MonoBehaviour
 
         _rigid.position = pos;
 
+        // 공격
         if (Input.GetKey(KeyCode.Z))
         {
             if (_timer > _cooltime)
@@ -72,11 +75,23 @@ public class PlayerController : MonoBehaviour
                 _timer = 0;
             }
         }
+
+        // 무기 슬롯 열고 닫기
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            _isWeaponSlotPanel = true;
-            _weaponSlotPanel.SetActive(true);
+            if (_isWeaponSlotPanel == true)
+            {
+                _isWeaponSlotPanel = false;
+                _weaponSlotPanel.SetActive(false);
+            }
+            else
+            {
+                _isWeaponSlotPanel = true;
+                _weaponSlotPanel.SetActive(true);
+            }
         }
+
+        // 1번 무기 선택
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             if(_isWeaponSlotPanel == true)
@@ -84,16 +99,23 @@ public class PlayerController : MonoBehaviour
                 _currentWeaponIndex = 0;
                 _weaponSlotPanel.SetActive(false);
                 _isWeaponSlotPanel = false;
+                _cooltime = 0.1f;
+                _bulletIcon.SetActive(true);
+                _lazerIcon.SetActive(false);
             }
         }
 
+        // 2번 무기 선택
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             if (_isWeaponSlotPanel == true)
             {
+                _cooltime = -0.2f;
                 _currentWeaponIndex = 1;
                 _weaponSlotPanel.SetActive(false);
                 _isWeaponSlotPanel = false;
+                _bulletIcon.SetActive(false);
+                _lazerIcon.SetActive(true);
             }
         }
     }
