@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class UIManager : MonoBehaviour
+public class TitleManager : MonoBehaviour
 {
     [Header("Panels")]
     public GameObject _mainPanel;

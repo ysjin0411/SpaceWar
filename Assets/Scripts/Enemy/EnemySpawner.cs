@@ -5,8 +5,10 @@ public class EnemySpawner : MonoBehaviour
     [Header("프리팹")]
     [SerializeField] GameObject _fastEnemyPrefab;
 
-    [Header("플레이어")]
+    [Header("컴포넌트")]
     [SerializeField] PlayerController _playerController;
+    [SerializeField] GameManager _gameManager;
+
 
     [Header("적 종류")]
     [SerializeField] FastEnemy _fastenemy;
@@ -45,7 +47,8 @@ public class EnemySpawner : MonoBehaviour
             Vector3 spawnPos = new Vector3(10f + 2 * i, 2f, 0f);
             GameObject enemyObj = Instantiate(_fastEnemyPrefab, spawnPos, Quaternion.identity);
             FastEnemy enemy = enemyObj.GetComponent<FastEnemy>();
-            enemy.Init(_playerController);
+            enemy.InitPlayerController(_playerController);
+            enemy.InitGameManager(_gameManager);
             enemy.SetMoveType(MoveType.RightToLeft);
         }
     }
@@ -59,7 +62,8 @@ public class EnemySpawner : MonoBehaviour
                 Vector3 spawnPos = new Vector3(5f, -6f - i, 0f);
                 GameObject enemyObj = Instantiate(_fastEnemyPrefab, spawnPos, Quaternion.identity);
                 FastEnemy enemy = enemyObj.GetComponent<FastEnemy>();
-            enemy.Init(_playerController);
+            enemy.InitPlayerController(_playerController);
+            enemy.InitGameManager(_gameManager);
             enemy.SetMoveType(MoveType.DownToUp);
             }        
     }

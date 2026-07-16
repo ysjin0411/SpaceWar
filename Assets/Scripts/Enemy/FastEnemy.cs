@@ -8,6 +8,7 @@ public enum MoveType
 
 public class FastEnemy : MonoBehaviour
 {
+
     [Header("체력")]
     [SerializeField] int _maxHp;
     [SerializeField] int _currentHp;
@@ -24,16 +25,23 @@ public class FastEnemy : MonoBehaviour
     [Header("몸박데미지")]
     [SerializeField] int _crashDamage;
 
+    // 의존성들
     PlayerController _playerController;
+    GameManager _gameManager;
+
 
 
     [SerializeField] MoveType _moveType;
     Transform _player;
     public bool _isFired;
 
-    public void Init(PlayerController playerController)
+    public void InitPlayerController(PlayerController playerController)
     {
         _playerController = playerController;
+    }
+    public void InitGameManager(GameManager gameManager)
+    {
+        _gameManager = gameManager;
     }
     public void SetMoveType(MoveType moveType)
     {
@@ -81,6 +89,7 @@ public class FastEnemy : MonoBehaviour
 
     private void Die()
     {
+        _gameManager.BonusGauge();
         Destroy(gameObject);
     }
 
