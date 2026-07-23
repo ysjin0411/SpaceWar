@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject _weaponSlotPanel;
     [SerializeField] bool _isWeaponSlotPanel;
 
-    [Header("¹«±âÇÁ¸®ÆÕ")]
+    [Header("ÃÑ¾ËÇÁ¸®ÆÕ")]
     [SerializeField] GameObject[] _weaponPrefabs;
     [SerializeField] GameObject _bulletIcon;
     [SerializeField] GameObject _lazerIcon;

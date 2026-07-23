@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
 
     public void UpdateGaugeBar()
     {
-        if (_timeCharge > _maxGaugeBar)
+        if (_timeCharge >= _maxGaugeBar)
         {
             Time.timeScale = 0f;
             // 증강 패널 열기
