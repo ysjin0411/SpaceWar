@@ -5,8 +5,109 @@ public class PlayerController : MonoBehaviour
 {
     [Header("컴포넌트")]
     [SerializeField] HPUI _hpUI;
+    [SerializeField] Weapon _weapon;
+
+    [Header("이동")]
+    [SerializeField] float _moveSpeed = 5f;
+
+    [Header("이동 제한")]
+    [SerializeField] float _minX = -8f;
+    [SerializeField] float _maxX = 8f;
+    [SerializeField] float _minY = -4f;
+    [SerializeField] float _maxY = 4f;
+
+    [Header("플레이어 체력")]
+    [SerializeField] int _maxHp;
+    [SerializeField] int _currentHp;
+
+    [Header("현재 총")]
+    [SerializeField] GameObject _bulletPrefab;
+
+
+
+    Vector2 _dir;
+
+
+
+    Rigidbody2D _rigid;
+
+    private void Start()
+    {
+        _currentHp = _maxHp;
+    }
+
+    private void Awake()
+    {
+        _rigid = GetComponent<Rigidbody2D>();
+    }
+
+    private void Update()
+    {
+        float h = Input.GetAxisRaw("Horizontal");
+        float v = Input.GetAxisRaw("Vertical");
+
+        _dir = new Vector2(h, v).normalized;
+        Vector2 pos = _rigid.position;
+        pos.x = Mathf.Clamp(pos.x, _minX, _maxX);
+        pos.y = Mathf.Clamp(pos.y, _minY, _maxY);
+
+        _rigid.position = pos;
+    }
+
+    private void FixedUpdate()
+    {
+        _rigid.linearVelocity = _dir * _moveSpeed;
+    }
+
+    /// <summary>
+    /// 피격
+    /// </summary>
+    /// <param name="damage">피격량</param>
+    public void TakeHit(int damage)
+    {
+        _currentHp -= damage;
+        if (_currentHp < 0)
+        {
+            Die();
+            return;
+        }
+        _hpUI.UpdateHpUI();
+        Debug.Log($"입은 데미지: {damage}");
+    }
+
+    /// <summary>
+    /// 사망
+    /// </summary>
+    private void Die()
+    {
+        Debug.Log("사망");
+        Time.timeScale = 0f;
+    }
+
+    /// <summary>
+    /// 이동속도 증가
+    /// </summary>
+    /// <param name="value">이동속도 증가량</param>
+    public void AddMoveSpeed(float value)
+    {
+        _moveSpeed += value;
+    }
+}
+
+
+/*
+ using UnityEngine;
+using UnityEngine.UI;
+
+public class PlayerController : MonoBehaviour
+{
+    [Header("컴포넌트")]
+    [SerializeField] HPUI _hpUI;
     [SerializeField] GameObject _weaponSlotPanel;
     [SerializeField] bool _isWeaponSlotPanel;
+
+    [Header("무기")]
+    [SerializeField] Weapon _weapon;
 
     [Header("총알프리팹")]
     [SerializeField] GameObject[] _weaponPrefabs;
@@ -71,7 +172,7 @@ public class PlayerController : MonoBehaviour
         {
             if (_timer > _cooltime)
             {
-                Fire();
+                _weapon.Fire();
                 _timer = 0;
             }
         }
@@ -148,3 +249,7 @@ public class PlayerController : MonoBehaviour
         Instantiate(_weaponPrefabs[_currentWeaponIndex],_firePoint.position,Quaternion.identity);
     }
 }
+
+ 
+ 
+ */
