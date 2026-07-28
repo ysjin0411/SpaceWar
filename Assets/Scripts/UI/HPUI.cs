@@ -1,18 +1,19 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HPUI : MonoBehaviour
 {
-    [Header("체력UI")]
-    [SerializeField] GameObject[] _hpIcons;
-    [SerializeField] int _hp;
+    [Header("컴포넌트")]
+    [SerializeField] PlayerController _playerController;        // 플레이어 컨트롤러 컴포넌트
 
-    [Header("플레이어")]
-    [SerializeField] PlayerController _currentHp;
+    [Header("체력바 이미지")]
+    [SerializeField] Image _hpBar;      // 체력바 이미지
+
+
 
     public void UpdateHpUI()
     {
-        _hp--;
-        _hpIcons[_hp].SetActive(false);
+        _hpBar.fillAmount = (float)_playerController.CurrentHp / _playerController.MaxHp;
     }
 }
 

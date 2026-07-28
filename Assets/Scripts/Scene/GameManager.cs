@@ -100,9 +100,9 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 증강 업그레이드 준비
+    /// 플레이어가 몇번을 골라왔는지 받아와서 스위치로 몇번인지 알려주는 함수
     /// </summary>
-    /// <param name="data"></param>
+    /// <param name="data">N번째 증강</param>
     private void ApplyUpgrade(UpgradeData data)
     {
         switch (data.Target)
@@ -118,7 +118,7 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 증강 이동속도 업그레이드
+    /// 증강 이동속도 업그레이드를 골랐을때, 업그레이드한테 이속올리라고 전달.
     /// </summary>
     /// <param name="data"></param>
     private void ApplyPlayerUpgrade(UpgradeData data)
@@ -126,7 +126,7 @@ public class GameManager : MonoBehaviour
         switch (data.Type)
         {
             case UpgradeType.MoveSpeed:
-                _playerController.AddMoveSpeed(data.Value);
+                _playerController.AddMoveSpeed(data.UpgradeSpeedValue);
                 break;
         }
     }
@@ -140,13 +140,13 @@ public class GameManager : MonoBehaviour
         switch (data.Type)
         {
             case UpgradeType.FireRate:
-                _weapon.ReduceCurrentWeaponCooltime(data.Value);
+                _weapon.ReduceCurrentWeaponCooltime(data.UpgradeDamageValue);
                 break;
         }
     }
 
     /// <summary>
-    /// 증강패널 닫기
+    /// 증강 선택 종료 후 패널 닫기
     /// </summary>
     private void CloseUpgradePanel()
     {

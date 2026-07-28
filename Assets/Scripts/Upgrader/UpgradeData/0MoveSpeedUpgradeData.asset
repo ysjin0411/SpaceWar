@@ -14,7 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: 0
   _name: MoveSpeedUpgrade
-  _info: "\uC774\uB3D9\uC18D\uB3C4\uB97C 2\uB9CC\uD07C \uC5BB\uB294\uB2E4."
+  _info: "\uCE90\uB9AD\uD130\uC758 \uC774\uB3D9\uC18D\uB3C4\uB97C 2\uB9CC\uD07C \uC5BB\uB294\uB2E4."
   _icon: {fileID: 21300000, guid: b14bc6a2e58022748abe0274a8345df0, type: 3}
   _type: 0
-  _value: 2
+  _target: 0
+  _upgradeSpeedValue: 2
+  _upgradeDamageValue: 0
+  _upgradeFireRateValue: 0
