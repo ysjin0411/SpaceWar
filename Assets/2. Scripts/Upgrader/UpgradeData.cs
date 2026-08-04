@@ -25,11 +25,6 @@ public class UpgradeData : ScriptableObject
     [SerializeField] UpgradeType _type;
     [SerializeField] UpgradeTarget _target;
 
-	[Header("후속 증강")]
-	[SerializeField] UpgradeData[] _nextUpgrades;
-	public UpgradeData[] NextUpgrades => _nextUpgrades;
-	public bool HasNextUpgrades => _nextUpgrades != null && _nextUpgrades.Length > 0;
-
 	[Header("증강 수치")]
     [SerializeField] float _upgradeSpeedValue;          // 이속 증가 밸류
     [SerializeField] float _upgradeDamageValue;        // 공격력 증가 밸류
