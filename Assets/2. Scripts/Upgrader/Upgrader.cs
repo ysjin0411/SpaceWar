@@ -7,6 +7,7 @@ public class Upgrader : MonoBehaviour
 	[SerializeField] GameManager _gameManager;
 	[SerializeField] PlayerController _playerController;
 	[SerializeField] Weapon _weapon;
+	[SerializeField] GameObject _upgradeUI;			// UpgradeUI 게임 오브젝트
 
 
 	[Header("증강패널")]
@@ -38,8 +39,8 @@ public class Upgrader : MonoBehaviour
 		// 일시정지
 		Time.timeScale = 0f;
 
-		// 1차 증강 패널 열기
-		_firstSelectPanel.SetActive(true);
+        // 1차 증강 패널 열기
+        _upgradeUI.SetActive(true);
 
 		// 1차 증강 데이터 띄우기
 		UpdateDataToUpgradePanel();

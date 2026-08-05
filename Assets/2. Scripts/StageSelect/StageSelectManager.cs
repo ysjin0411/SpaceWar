@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class StageSelectManager : MonoBehaviour
@@ -8,9 +7,6 @@ public class StageSelectManager : MonoBehaviour
     [Header("셀렉")]
     [SerializeField] GameObject[] _selectImage;     // 선택됐을때 보여질 화면
     [SerializeField] GameObject[] _selectButton;    // 선택됐을때 보여질 버튼
-
-    [Header("입력")]
-    [SerializeField] private InputActionReference _submitAction;
 
     private int _currentStageIndex = -1;            // 현재 선택중인 스테이지 인덱스
 
