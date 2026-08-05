@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Upgrader : MonoBehaviour
 {
@@ -9,11 +10,9 @@ public class Upgrader : MonoBehaviour
 	[SerializeField] Weapon _weapon;
 	[SerializeField] GameObject _upgradeUI;			// UpgradeUI 게임 오브젝트
 
-
 	[Header("증강패널")]
 	[SerializeField] GameObject _firstSelectPanel;               // 1차 증강 목록 패널
 	[SerializeField] GameObject _weaponSelectPanel;         // 2차 무기 증강 목록 패널
-
 
 	[Header("증강데이터")]
 	[SerializeField] UpgradeData[] _selectedUpgrades = new UpgradeData[3];
@@ -21,14 +20,16 @@ public class Upgrader : MonoBehaviour
 	[Header("1차 증강Info")]
 	[SerializeField] TMP_Text[] _firstUpgradeInfoTexts;
 
-	[Header("2차 무기 선택 Info")]
-	[SerializeField] TMP_Text[] _weaponSelectInfoTexts;
+    [Header("2차 무기 선택 슬롯")]
+    [SerializeField] GameObject[] _weaponSelectSlots;
 
+    [Header("2차 무기 선택 아이콘")]
+    [SerializeField] Image[] _weaponSelectIcons;
 
-	UpgradeData _pendingUpgrade;		// 1차 증강 선택 임시 데이터 보관용
+    [Header("2차 무기 선택 Info")]
+    [SerializeField] TMP_Text[] _weaponSelectInfoTexts;
 
-
-
+    UpgradeData _pendingUpgrade;		// 1차 증강 선택 임시 데이터 보관용
 
 
 	/// <summary>
@@ -41,10 +42,11 @@ public class Upgrader : MonoBehaviour
 
         // 1차 증강 패널 열기
         _upgradeUI.SetActive(true);
+        _firstSelectPanel.SetActive(true);
+        _weaponSelectPanel.SetActive(false);
 
-		// 1차 증강 데이터 띄우기
-		UpdateDataToUpgradePanel();
-		//_isWeaponSelectPanel = true;
+        // 1차 증강 데이터 띄우기
+        UpdateDataToUpgradePanel();
 	}
 
 	/// <summary>
@@ -105,41 +107,88 @@ public class Upgrader : MonoBehaviour
 		_gameManager.SetWeaponSelectPanelState(true);
 	}
 
-	public void ChooseWeapon(int index)
-	{
-		// 만약 1차선택이 연사였을때
-		if (_pendingUpgrade.Type == UpgradeType.FireRate)
-		{
-			// value에 1차선택에서의 연사값 저장
-			float value = _pendingUpgrade.UpgradeFireRateValue;
+    /// <summary>
+    /// 선택한 장착 슬롯의 무기에 대기 중인 증강을 적용한다.
+    /// </summary>
+    /// <param name="slotIndex">강화할 장착 무기 슬롯 번호</param>
+    public void ChooseWeapon(int slotIndex)
+    {
+        // 적용할 증강 데이터가 없다면 함수를 종료한다.
+        if (_pendingUpgrade == null)
+        {
+            return;
+        }
 
-			// 웨폰에 연사강화 함수 호출
-			_weapon.AddFireRate(index, value);
-		}
-		// 만약 1차선택이 공격력이였을때
-		else if (_pendingUpgrade.Type == UpgradeType.Damage)
-		{
-			// value에 1차선택에서의 공격력 저장 + 그 값을 반올림처리
-			int value = Mathf.RoundToInt(_pendingUpgrade.UpgradeDamageValue);
+        // 선택한 슬롯에 실제로 장착된 무기가 있는지 확인한다.
+        WeaponData weaponData = _weapon.GetWeaponDataAtSlot(slotIndex);
 
-			// 웨폰에 공격력강화 함수 호출
-			_weapon.AddDamage(index, value);
-		}
+        // 해당 슬롯에 무기가 없다면 증강을 적용하지 않는다.
+        if (weaponData == null)
+        {
+            return;
+        }
 
-		// 사용이 끝난 임시 데이터 비우기
-		_pendingUpgrade = null;
+        // 선택한 증강이 연사력 강화인 경우
+        if (_pendingUpgrade.Type == UpgradeType.FireRate)
+        {
+            // 실제 연사 강화량은 해당 슬롯 무기의 WeaponData에서 가져와 적용한다.
+            _weapon.AddFireRate(slotIndex);
+        }
 
-		// 패널 닫기 및 게임 재개
-		_gameManager.ExitUpgrade();
-	}
+        // 선택한 증강이 공격력 강화인 경우
+        else if (_pendingUpgrade.Type == UpgradeType.Damage)
+        {
+            // UpgradeData의 공격력 증가값을 정수로 변환한다.
+            int value = Mathf.RoundToInt(_pendingUpgrade.UpgradeDamageValue);
 
-	/// <summary>
-	/// 2차 증강 텍스트 띄우기
-	/// </summary>
-	private void UpdateWeaponSelectInfo()
-	{
-		_weaponSelectInfoTexts[0].text = "1. Bullet을 강화한다.";
+            // 선택한 슬롯 무기의 현재 공격력을 증가시킨다.
+            _weapon.AddDamage(slotIndex, value);
+        }
 
-		_weaponSelectInfoTexts[1].text = "2. Lazer를 강화한다.";
-	}
+        // 증강 적용이 끝났으므로 대기 데이터를 비운다.
+        _pendingUpgrade = null;
+
+        // 증강 UI를 닫고 게임을 다시 진행한다.
+        _gameManager.ExitUpgrade();
+    }
+
+    /// <summary>
+    /// 현재 장착된 무기만 증강 대상 화면에 표시한다.
+    /// </summary>
+    private void UpdateWeaponSelectInfo()
+    {
+        // 증강 선택 카드의 개수만큼 반복한다.
+        for (int slotIndex = 0;slotIndex < _weaponSelectSlots.Length;slotIndex++)
+        {
+            // 해당 장착 슬롯의 무기 원본 데이터를 가져온다.
+            WeaponData weaponData = _weapon.GetWeaponDataAtSlot(slotIndex);
+
+            // 해당 슬롯에 무기가 장착되어 있는지 확인한다.
+            bool hasWeapon = weaponData != null;
+
+            // 무기가 있으면 카드 전체를 켜고, 무기가 없으면 번호와 배경을 포함한 카드 전체를 끈다.
+            _weaponSelectSlots[slotIndex].SetActive(hasWeapon);
+
+            // 무기가 없는 슬롯은 텍스트를 설정할 필요가 없다.
+            if (!hasWeapon)
+            {
+                continue;
+            }
+
+            // 해당 슬롯의 아이콘 Image를 가져온다.
+            Image weaponIconImage = _weaponSelectIcons[slotIndex];
+
+            // Image가 Inspector에 정상적으로 연결된 경우에만 WeaponData의 아이콘을 표시한다.
+            if (weaponIconImage != null)
+            {
+                weaponIconImage.sprite = weaponData.Icon;
+
+                // WeaponData에 아이콘이 있을 때만 Image 컴포넌트를 활성화한다.
+                weaponIconImage.enabled = weaponData.Icon != null;
+            }
+
+            // 카드 인포 설명
+            _weaponSelectInfoTexts[slotIndex].text = "강화 대상: " + weaponData.WeaponName;
+        }
+    }
 }

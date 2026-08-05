@@ -44,25 +44,34 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         _timeCharge += Time.deltaTime;
-        
-        // 2차선택 화면이 켜져있을때
-		if (_isWeaponSelectPanel)         
-		{
-			if (Input.GetKeyDown(KeyCode.Alpha1))
-			{
-                // 1번 웨폰 선택
-				_upgrader.ChooseWeapon(0);
-			}
-			else if (Input.GetKeyDown(KeyCode.Alpha2))
-			{
-                // 2번 웨폰 선택
-				_upgrader.ChooseWeapon(1);
-			}
-			else {return;}
-		}
 
-		// 게이지완 후 증강패널오픈함수 호출
-		if (_timeCharge >= _maxGaugeBar)
+        // 무기 증강 대상 선택 화면이 열려 있을 때
+        if (_isWeaponSelectPanel)
+        {
+            // 첫 번째 장착 무기를 증강 대상으로 선택한다.
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                _upgrader.ChooseWeapon(0);
+            }
+            // 두 번째 장착 무기를 증강 대상으로 선택한다.
+            else if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                _upgrader.ChooseWeapon(1);
+            }
+            // 세 번째 장착 무기를 증강 대상으로 선택한다.
+            else if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                _upgrader.ChooseWeapon(2);
+            }
+            else
+            {
+                // 선택 입력이 없다면 아래 증강 시작 로직을 실행하지 않는다.
+                return;
+            }
+        }
+
+        // 게이지완 후 증강패널오픈함수 호출
+        if (_timeCharge >= _maxGaugeBar)
         {
             // 증강 오픈
             _upgrader.UpgradeSelectFirst();

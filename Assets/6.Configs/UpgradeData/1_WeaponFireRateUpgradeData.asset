@@ -20,4 +20,6 @@ MonoBehaviour:
   _target: 1
   _upgradeSpeedValue: 0
   _upgradeDamageValue: 0
-  _upgradeFireRateValue: 0.1
+  _upgradeFireRateValues:
+  - 0.1
+  - 0.02
