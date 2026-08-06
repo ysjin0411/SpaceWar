@@ -10,8 +10,6 @@ public class CharacterLoadoutSaveData
 [System.Serializable]
 public class PlayerSaveData
 {
-    // 현재 선택한 캐릭터의 고유 ID
-    public string selectedCharacterId;
 
     // 캐릭터마다 별도의 장착 무기 정보를 보관한다. new()를 붙여 처음부터 사용할 수 있는 빈 리스트로 만든다.
     public List<CharacterLoadoutSaveData> characterLoadouts = new();

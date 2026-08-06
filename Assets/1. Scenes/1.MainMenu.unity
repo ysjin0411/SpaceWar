@@ -440,7 +440,7 @@ GameObject:
   m_Component:
   - component: {fileID: 379031101}
   m_Layer: 5
-  m_Name: Skill
+  m_Name: Equipment
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -863,7 +863,7 @@ GameObject:
   - component: {fileID: 740463447}
   - component: {fileID: 740463446}
   m_Layer: 5
-  m_Name: SkillSelectEffect
+  m_Name: EquipmentSelectEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1343,7 +1343,7 @@ GameObject:
   - component: {fileID: 1375863036}
   - component: {fileID: 1375863035}
   m_Layer: 5
-  m_Name: SkillText
+  m_Name: EquipmentText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1388,7 +1388,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC2A4\uD0AC"
+  m_text: "\uC7A5\uBE44"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ce09b988b18c43e4b8e33e54f0da6b73, type: 2}
   m_sharedMaterial: {fileID: 1350282831172619633, guid: ce09b988b18c43e4b8e33e54f0da6b73, type: 2}
@@ -1618,7 +1618,7 @@ GameObject:
   - component: {fileID: 1571287606}
   - component: {fileID: 1571287605}
   m_Layer: 5
-  m_Name: SkillButton
+  m_Name: EquipmentButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1691,7 +1691,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1671139799}
         m_TargetAssemblyTypeName: TitleManager, Assembly-CSharp
-        m_MethodName: LoadSkill
+        m_MethodName: LoadEquipment
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -85,7 +85,7 @@ public class StageSelectManager : MonoBehaviour
     /// <summary>
     /// 캐릭터 선택 씬 로드
     /// </summary>
-    public void LoadCharacterSelect()
+    public void LoadPlayCharacterSelect()
     {
         // 이상한 stage index 쳐내기
         if (_currentStageIndex < 0) return;
@@ -93,7 +93,7 @@ public class StageSelectManager : MonoBehaviour
         // 세션매니저 자체에서 선택된 스테이지 인덱스 저장
         GameSessionManager.Instance.SelectStage(_currentStageIndex);
 
-        SceneManager.LoadScene($"CharacterSelect");
+        SceneManager.LoadScene($"PlayCharacterSelect");
     }
 
 }

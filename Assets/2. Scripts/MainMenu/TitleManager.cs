@@ -86,12 +86,24 @@ public class TitleManager : MonoBehaviour
 		SceneManager.LoadScene("StageSelect");
 	}
 
-	public void LoadSkill()
+	public void LoadPlayCharacterSelect()
 	{
-		SceneManager.LoadScene("SkillManage");
-	}
+		SceneManager.LoadScene("PlayCharacterSelect");
+    }
 
-	public void LoadAbility()
+    /// <summary>
+    /// 장비를 수정할 캐릭터를 선택하기 위해 장비 편집 목적을 기록하고 CharacterSelect 씬으로 이동한다.
+    /// </summary>
+    public void LoadEquipmentCharacterSelect()
+    {
+        // 이번 캐릭터 선택은 전투 출전이 아니라 캐릭터의 장착 무기를 수정하기 위한 선택이라고 기록한다.
+        GameSessionManager.Instance.BeginCharacterSelection(CharacterSelectPurpose.LoadoutEdit);
+
+        // 장비를 수정할 캐릭터를 고르기 위해 CharacterSelect 씬으로 이동한다.
+        SceneManager.LoadScene("EquipmentCharacterSelect");
+    }
+
+    public void LoadAbility()
 	{
 		SceneManager.LoadScene("AbilityManage");
 	}

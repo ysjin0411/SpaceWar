@@ -1,15 +1,22 @@
 using System;
+using System.IO;
 using UnityEngine;
 
 /// <summary>
 /// 플레이어의 세이브 데이터를 메모리에서 관리한다.
-/// 캐릭터 선택과 캐릭터별 장착 무기 정보를 저장한다.
+/// 캐릭터별 장착 무기 정보를 저장한다.
 /// 실제 파일 저장과 불러오기는 이후 단계에서 추가한다.
 /// </summary>
 public class SaveManager : MonoBehaviour
 {
     // 다른 씬에서도 SaveManager에 접근하기 위한 현재 인스턴스
     public static SaveManager Instance { get; private set; }
+
+    // 로컬에 생성할 세이브 파일 이름
+    const string SaveFileName = "player_save.json";
+
+    // 실행 중 사용할 세이브 파일의 전체 경로
+    string _savePath;
 
     [Header("현재 플레이어 세이브 데이터")]
     [SerializeField] PlayerSaveData _playerSaveData = new();
@@ -28,6 +35,12 @@ public class SaveManager : MonoBehaviour
 
         // 현재 SaveManager를 전역 접근 인스턴스로 등록한다.
         Instance = this;
+
+        // 운영체제에서 이 게임의 저장 데이터에 적합한 폴더와 저장 파일 이름을 합쳐 전체 경로를 만든다.
+        _savePath = Path.Combine(Application.persistentDataPath, SaveFileName);
+
+        // 게임이 시작될 때 로컬 저장 데이터를 불러온다.
+        LoadFromFile();
     }
 
     private void OnDestroy()
@@ -40,8 +53,72 @@ public class SaveManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 캐릭터 ID에 해당하는 장착 정보를 찾아 반환한다.
-    /// 아직 장착 정보가 없다면 새로 만들어서 반환한다.
+    /// 현재 메모리에 있는 플레이어 데이터를 JSON 문자열로 변환해 로컬 파일에 저장한다.
+    /// </summary>
+    public void SaveToFile()
+    {
+        // json(문자열) = _playerSaveData를 JSON으로 변환한 결과
+        string json = JsonUtility.ToJson(_playerSaveData, true);
+
+        // 만들어진 JSON 문자열을 로컬 파일에 기록한다. 같은 이름의 파일이 있으면 최신 내용으로 덮어쓴다.
+        // _savePath에  json문자열을 기록
+        File.WriteAllText(_savePath, json);
+    }
+
+    /// <summary>
+    /// 로컬 JSON 파일을 읽어 플레이어 세이브 데이터로 복원한다. 
+    /// 첫 실행이라 파일이 없다면 새로운 빈 세이브 파일을 만든다.
+    /// </summary>
+    private void LoadFromFile()
+    {
+        // 아직 세이브 파일이 없는 첫 실행인지 확인한다.
+        if (!File.Exists(_savePath))
+        {
+            // 새로운 빈 플레이어 데이터를 만든다.
+            _playerSaveData = new PlayerSaveData();
+
+            // 첫 실행용 빈 세이브 파일을 실제 로컬에 생성한다.
+            SaveToFile();
+
+            // 새 데이터를 만들었으므로 더 읽을 파일이 없다.
+            return;
+        }
+
+        // 기존 로컬 세이브 파일의 JSON 문자열을 읽는다.
+        // _savePath에 있는 저장데이터 json문자열을 읽어서 json에 받아오기.
+        string json = File.ReadAllText(_savePath);
+
+        // 파일이 존재하지만 내용이 비어 있으면 정상적인 세이브 파일이 아니므로 오류를 발생시킨다.
+        if (string.IsNullOrWhiteSpace(json))
+        {
+            throw new InvalidDataException($"세이브 파일이 비어 있습니다. 경로: {_savePath}");
+        }
+
+        // JSON 문자열을 PlayerSaveData 객체로 변환한다.
+        // PlayerSaveData로 사용할 수 있게 json에서 읽어온 데이터를 loadedData에 저장.
+        PlayerSaveData loadedData = JsonUtility.FromJson<PlayerSaveData>(json);
+
+        // 변환 결과가 없다면 손상되었거나 형식이 잘못된 파일이다.
+        if (loadedData == null)
+        {
+            throw new InvalidDataException($"세이브 파일을 불러올 수 없습니다. 경로: {_savePath}");
+        }
+
+        // 캐릭터 장착 정보 리스트가 없다면 현재 세이브 데이터 구조와 맞지 않는 파일이다.
+        if (loadedData.characterLoadouts == null)
+        {
+            throw new InvalidDataException($"세이브 파일에 캐릭터 장착 정보가 없습니다. 경로: {_savePath}");
+        }
+
+        // PlayerSaveData자료형 loadedData를 _playerSaveData에 저장.
+        _playerSaveData = loadedData;
+
+        // 실제 저장 위치를 Unity Console에서 확인할 수 있게 표시한다.
+        Debug.Log($"세이브 데이터를 불러왔습니다: {_savePath}");
+    }
+
+    /// <summary>
+    /// 캐릭터 ID에 해당하는 장착 정보를 찾아 반환한다. 아직 장착 정보가 없다면 새로 만들어서 반환한다.
     /// </summary>
     /// <param name="characterId">장착 정보를 찾을 캐릭터 ID</param>
     public CharacterLoadoutSaveData GetOrCreateCharacterLoadout(string characterId)
@@ -74,22 +151,13 @@ public class SaveManager : MonoBehaviour
         // 플레이어의 캐릭터별 장착 정보 목록에 추가한다.
         _playerSaveData.characterLoadouts.Add(newLoadout);
 
+        // 새 캐릭터의 장착 정보가 만들어졌으므로 게임을 종료해도 유지되도록 로컬 파일에 저장한다.
+        SaveToFile();
+
         // 생성한 장착 정보를 호출한 곳에 반환한다.
         return newLoadout;
     }
 
-    /// <summary>
-    /// 현재 사용할 캐릭터를 선택한다. 해당 캐릭터의 장착 정보가 없다면 함께 생성한다.
-    /// </summary>
-    /// <param name="characterId">선택할 캐릭터 ID</param>
-    public void SelectCharacter(string characterId)
-    {
-        // 선택할 캐릭터의 장착 정보를 준비한다.
-        GetOrCreateCharacterLoadout(characterId);
-
-        // 현재 선택한 캐릭터 ID를 세이브 데이터에 기록한다.
-        _playerSaveData.selectedCharacterId = characterId;
-    }
 
     /// <summary>
     /// 지정한 캐릭터의 지정한 슬롯에 무기를 장착한다.
@@ -116,6 +184,9 @@ public class SaveManager : MonoBehaviour
 
         // 지정한 슬롯에 무기 ID를 기록한다.
         loadout.equippedWeaponIds[slotIndex] = weaponId;
+
+        // 장착 정보가 변경됐으므로 로컬 파일에 즉시 저장한다.
+        SaveToFile();
     }
 
     /// <summary>
@@ -136,5 +207,11 @@ public class SaveManager : MonoBehaviour
 
         // null을 넣어 해당 슬롯을 장착 해제 상태로 만든다.
         loadout.equippedWeaponIds[slotIndex] = null;
+
+        // 장착 정보가 변경됐으므로 로컬 파일에 즉시 저장한다.
+        SaveToFile();
     }
+
+    
+
 }

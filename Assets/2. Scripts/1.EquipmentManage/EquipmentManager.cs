@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SkillManager : MonoBehaviour
+public class EquipmentManager : MonoBehaviour
 {
 //    loadout.characterId = "soldier";
 

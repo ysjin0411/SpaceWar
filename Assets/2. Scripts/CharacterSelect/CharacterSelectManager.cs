@@ -85,6 +85,6 @@ public class CharacterSelectManager : MonoBehaviour
         // 세션매니저에 선택한 캐릭터 번호 저장
         GameSessionManager.Instance.SelectCharacter(_currentCharacterIndex);
 
-        SceneManager.LoadScene("Play");
+        SceneManager.LoadScene("Stage1");
     }
 }
