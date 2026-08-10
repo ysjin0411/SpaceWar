@@ -212,6 +212,15 @@ public class SaveManager : MonoBehaviour
         SaveToFile();
     }
 
-    
+    public void AddGold(int amount)
+    {
+        if (amount <= 0)
+        {
+            return;
+        }
+
+        //_playerSaveData.gold += amount;
+        SaveToFile();
+    }
 
 }

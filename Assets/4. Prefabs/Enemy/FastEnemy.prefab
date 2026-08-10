@@ -229,6 +229,8 @@ MonoBehaviour:
   _coolTime: 1
   _fireDist: 3
   _crashDamage: 20
+  _gold: 10
+  _exp: 10
   _moveType: 0
   _isFired: 0
 --- !u!50 &636532698536025731

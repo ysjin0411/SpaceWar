@@ -8,7 +8,12 @@ public enum MoveType
 
 public class FastEnemy : MonoBehaviour
 {
+    [Header("컴포넌트")]
+    [SerializeField] GameManager _gameManager;
 
+    [Header("프리팹")]
+    [SerializeField] GameObject _goldPrefab;
+ 
     [Header("체력")]
     [SerializeField] int _maxHp;
     [SerializeField] int _currentHp;
@@ -25,9 +30,14 @@ public class FastEnemy : MonoBehaviour
     [Header("몸박데미지")]
     [SerializeField] int _crashDamage;
 
+    [Header("보상")]
+    [SerializeField] int _getGold;
+    [SerializeField] float _getExp;
+    [SerializeField] int _goldDropCount;            // 골드를 떨어뜨릴 갯수
+    [SerializeField] int _goldAmountPerDrop;        // 골드 한개당 획득량
+
     // 의존성들
     PlayerController _playerController;
-    GameManager _gameManager;
 
 
 
@@ -90,6 +100,20 @@ public class FastEnemy : MonoBehaviour
     private void Die()
     {
         _gameManager.BonusGauge();
+
+        // 드랍할 갯수만큼 생성반복
+        for (int i = 0; i < _goldDropCount; i++)
+        {
+            // 생성
+            GameObject goldObject = Instantiate(_goldPrefab,transform.position,Quaternion.identity);
+
+            // Gold컴포넌트 가져오기
+            Gold gold = goldObject.GetComponent<Gold>();
+
+            // 의존성
+            gold.Init(_goldAmountPerDrop);
+        }
+
         Destroy(gameObject);
     }
 
