@@ -10,14 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c420b9c456cfa094a9e96f54c4f32a05, type: 3}
-  m_Name: 0_BulletWeaponData
+  m_Name: Vampire Bat WeaponData
   m_EditorClassIdentifier: 
-  _id: bullet
-  _name: Bullet
-  _type: 0
-  _icon: {fileID: 21300000, guid: fbb1d6579247c3d4299254b726829415, type: 3}
-  _projectilePrefab: {fileID: 7794189853625743750, guid: 2d881fa82784d894ea1a6dc6c2743bb5, type: 3}
+  _id: vampire_bat
+  _name: Bat
+  _type: 1
+  _icon: {fileID: 21300000, guid: 2851a4fd4ed642142bf16c6403d5293e, type: 3}
+  _projectilePrefab: {fileID: 8053201812717553051, guid: a0136871e6a03024ab1120ee5db02527, type: 3}
   _baseDamage: 10
-  _baseCooltime: 0.5
-  _fireRateUpgradeValue: 0.1
+  _baseCooltime: 1
+  _price: 3
+  _requiredCharacterLevel: 1
+  _isInitiallyOwned: 0
+  _fireRateUpgradeValue: 0.01
   _minimumCooltime: 0.05

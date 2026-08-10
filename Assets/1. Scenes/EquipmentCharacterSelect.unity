@@ -518,6 +518,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a284b2c80727c1468b2ce543f373e10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _characterDatabase: {fileID: 11400000, guid: 1c59cb6bc6bb27747806424f4a35c446, type: 2}
   _soldierButton: {fileID: 1841182699}
   _vampireButton: {fileID: 368658956}
   _soldierSelectImage: {fileID: 1194360557}

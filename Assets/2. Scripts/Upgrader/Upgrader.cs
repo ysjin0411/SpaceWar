@@ -1,24 +1,34 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// 전투 중 플레이어와 무기의 증강을 처리한다.
+/// 캐릭터는 Stage 시작 시 동적으로 생성되므로, StageManager가 새 PlayerController와 Weapon을 Initialize()를 통해 전달한다.
+/// </summary>
 public class Upgrader : MonoBehaviour
 {
-	[Header("컴포넌트")]
-	[SerializeField] GameManager _gameManager;
-	[SerializeField] PlayerController _playerController;
-	[SerializeField] Weapon _weapon;
-	[SerializeField] GameObject _upgradeUI;			// UpgradeUI 게임 오브젝트
+    [Header("런타임 의존성")]
+    [Tooltip("현재 Stage의 GameManager")]
+    [SerializeField] GameManager _gameManager;
+    [Tooltip("StageManager가 생성한 현재 플레이어")]
+    [SerializeField] PlayerController _playerController;
+    [Tooltip("현재 플레이어 프리팹에 있는 Weapon")]
+    [SerializeField] Weapon _weapon;
 
-	[Header("증강패널")]
-	[SerializeField] GameObject _firstSelectPanel;               // 1차 증강 목록 패널
-	[SerializeField] GameObject _weaponSelectPanel;         // 2차 무기 증강 목록 패널
+    [Header("증강 전체 UI")]
+    [SerializeField] GameObject _upgradeUI;
 
-	[Header("증강데이터")]
-	[SerializeField] UpgradeData[] _selectedUpgrades = new UpgradeData[3];
+    [Header("증강 패널")]
+    [SerializeField] GameObject _firstSelectPanel;
+    [SerializeField] GameObject _weaponSelectPanel;
 
-	[Header("1차 증강Info")]
-	[SerializeField] TMP_Text[] _firstUpgradeInfoTexts;
+    [Header("증강 데이터")]
+    [SerializeField] UpgradeData[] _selectedUpgrades = new UpgradeData[3];
+
+    [Header("1차 증강 설명")]
+    [SerializeField] TMP_Text[] _firstUpgradeInfoTexts;
 
     [Header("2차 무기 선택 슬롯")]
     [SerializeField] GameObject[] _weaponSelectSlots;
@@ -26,169 +36,244 @@ public class Upgrader : MonoBehaviour
     [Header("2차 무기 선택 아이콘")]
     [SerializeField] Image[] _weaponSelectIcons;
 
-    [Header("2차 무기 선택 Info")]
+    [Header("2차 무기 선택 설명")]
     [SerializeField] TMP_Text[] _weaponSelectInfoTexts;
 
-    UpgradeData _pendingUpgrade;		// 1차 증강 선택 임시 데이터 보관용
+    // 무기 선택 전까지 임시로 보관할 증강 데이터
+    UpgradeData _pendingUpgrade;
 
+    // StageManager로부터 새 플레이어를 전달받았는지 확인한다.
+    bool _isInitialized;
 
-	/// <summary>
-	/// 정지 > 증강패널 열기 >  증강 데이터 띄우기
-	/// </summary>
-	public void UpgradeSelectFirst()
-	{
-		// 일시정지
-		Time.timeScale = 0f;
+    /// <summary>
+    /// StageManager가 생성한 플레이어와 Weapon을 연결한다.
+    /// </summary>
+    public void Initialize(GameManager gameManager, PlayerController playerController, Weapon weapon)
+    {
+        if (gameManager == null)
+        {
+            throw new ArgumentNullException(nameof(gameManager));
+        }
 
-        // 1차 증강 패널 열기
+        if (playerController == null)
+        {
+            throw new ArgumentNullException(nameof(playerController));
+        }
+
+        if (weapon == null)
+        {
+            throw new ArgumentNullException(nameof(weapon));
+        }
+
+        // 비활성화된 기존 Player 참조를 새로 생성된 캐릭터의 컴포넌트로 교체한다.
+        _gameManager = gameManager;
+        _playerController = playerController;
+        _weapon = weapon;
+
+        // 이전 전투에서 선택 중이던 증강 데이터를 비운다.
+        _pendingUpgrade = null;
+        _isInitialized = true;
+    }
+
+    /// <summary>
+    /// 정지 후 첫 번째 증강 선택 화면을 연다.
+    /// </summary>
+    public void UpgradeSelectFirst()
+    {
+        EnsureInitialized();
+
+        Time.timeScale = 0f;
+
         _upgradeUI.SetActive(true);
         _firstSelectPanel.SetActive(true);
         _weaponSelectPanel.SetActive(false);
 
-        // 1차 증강 데이터 띄우기
         UpdateDataToUpgradePanel();
-	}
-
-	/// <summary>
-	/// 증강에 데이터 띄우기
-	/// </summary>
-	private void UpdateDataToUpgradePanel()
-	{
-		for (int i = 0; i < _selectedUpgrades.Length; i++)
-		{
-			_firstUpgradeInfoTexts[i].text = _selectedUpgrades[i].UpgradeInfo;
-		}
-	}
-
-	/// <summary>
-	/// 번호를 받고 1차적 판단
-	/// </summary>
-	/// <param name="index">선택증강번호</param>
-	public void FirstSelectUpgrade(int index)
-	{
-		// selectedData에 증강목록[인덱스]를 가져옴.
-		UpgradeData selectedData = _selectedUpgrades[index];
-		// 0번 타입일때
-		if (index == 0)
-		{
-			// 이속증가함수 호출, 가져온 증강목록에서 UpgradeSpeedValue만큼 AddMoveSpeed해줌
-			_playerController.AddMoveSpeed(selectedData.UpgradeSpeedValue);
-
-			// 선택 종료
-			_gameManager.ExitUpgrade();
-		}
-		// 1번 타입이 아닐때
-		else
-		{
-			// 1차 패널 닫기
-			_firstSelectPanel.SetActive(false);
-
-			// 2차 선택으로 넘기기
-			OpenWeaponSelect(selectedData);
-		}
-	}
-
-	/// <summary>
-	/// 2차 선택 시작
-	/// </summary>
-	/// <param name="data"></param>
-	private void OpenWeaponSelect(UpgradeData data)
-	{
-		// 1차증강 선택 데이터를 임시 보관소 펜딩업그레이드에 적용
-		_pendingUpgrade = data;
-
-		// 2차 무기 선택 설명 표시
-		UpdateWeaponSelectInfo();
-
-		// 2차 무기 증강 목록 펼치기
-		_weaponSelectPanel.SetActive(true);
-
-		// 2차 증강중이라고 스테이트 변경
-		_gameManager.SetWeaponSelectPanelState(true);
-	}
+    }
 
     /// <summary>
-    /// 선택한 장착 슬롯의 무기에 대기 중인 증강을 적용한다.
+    /// 현재 증강 후보들의 설명을 첫 번째 패널에 표시한다.
     /// </summary>
-    /// <param name="slotIndex">강화할 장착 무기 슬롯 번호</param>
+    private void UpdateDataToUpgradePanel()
+    {
+        // 데이터와 UI 중 더 적은 개수까지만 처리하여
+        // 배열 크기가 다를 때 범위를 벗어나지 않게 한다.
+        int displayCount = Mathf.Min(
+            _selectedUpgrades.Length,
+            _firstUpgradeInfoTexts.Length);
+
+        for (int i = 0; i < displayCount; i++)
+        {
+            UpgradeData upgradeData =
+                _selectedUpgrades[i];
+
+            TMP_Text infoText =
+                _firstUpgradeInfoTexts[i];
+
+            if (upgradeData == null || infoText == null)
+            {
+                continue;
+            }
+
+            infoText.text =
+                upgradeData.UpgradeInfo;
+        }
+    }
+
+    /// <summary>
+    /// 첫 번째 증강 선택 결과를 처리한다.
+    /// </summary>
+    /// <param name="index">선택한 증강의 배열 인덱스</param>
+    public void FirstSelectUpgrade(int index)
+    {
+        EnsureInitialized();
+
+        if (index < 0 ||
+            index >= _selectedUpgrades.Length)
+        {
+            throw new ArgumentOutOfRangeException(
+                nameof(index),
+                index,
+                "선택한 증강 인덱스가 범위를 벗어났습니다.");
+        }
+
+        UpgradeData selectedData =
+            _selectedUpgrades[index];
+
+        if (selectedData == null)
+        {
+            throw new InvalidOperationException(
+                $"{index}번 증강 데이터가 비어 있습니다.");
+        }
+
+        // 이동속도 증강은 플레이어에게 바로 적용한다.
+        if (selectedData.Type == UpgradeType.MoveSpeed)
+        {
+            _playerController.AddMoveSpeed(
+                selectedData.UpgradeSpeedValue);
+
+            _gameManager.ExitUpgrade();
+            return;
+        }
+
+        // 연사력과 공격력은 어떤 무기에 적용할지 한 번 더 선택해야 한다.
+        _firstSelectPanel.SetActive(false);
+
+        OpenWeaponSelect(selectedData);
+    }
+
+    /// <summary>
+    /// 무기 증강을 적용할 슬롯을 선택하는 패널을 연다.
+    /// </summary>
+    private void OpenWeaponSelect(
+        UpgradeData upgradeData)
+    {
+        _pendingUpgrade = upgradeData;
+
+        UpdateWeaponSelectInfo();
+
+        _weaponSelectPanel.SetActive(true);
+
+        _gameManager.SetWeaponSelectPanelState(true);
+    }
+
+    /// <summary>
+    /// 선택한 장착 슬롯의 무기에
+    /// 대기 중인 증강을 적용한다.
+    /// </summary>
+    /// <param name="slotIndex">장착 무기 슬롯 번호</param>
     public void ChooseWeapon(int slotIndex)
     {
-        // 적용할 증강 데이터가 없다면 함수를 종료한다.
+        EnsureInitialized();
+
         if (_pendingUpgrade == null)
         {
             return;
         }
 
-        // 선택한 슬롯에 실제로 장착된 무기가 있는지 확인한다.
         WeaponData weaponData = _weapon.GetWeaponDataAtSlot(slotIndex);
 
-        // 해당 슬롯에 무기가 없다면 증강을 적용하지 않는다.
+        // 빈 슬롯에는 증강을 적용하지 않는다.
         if (weaponData == null)
         {
             return;
         }
 
-        // 선택한 증강이 연사력 강화인 경우
         if (_pendingUpgrade.Type == UpgradeType.FireRate)
         {
-            // 실제 연사 강화량은 해당 슬롯 무기의 WeaponData에서 가져와 적용한다.
             _weapon.AddFireRate(slotIndex);
         }
-
-        // 선택한 증강이 공격력 강화인 경우
         else if (_pendingUpgrade.Type == UpgradeType.Damage)
         {
-            // UpgradeData의 공격력 증가값을 정수로 변환한다.
-            int value = Mathf.RoundToInt(_pendingUpgrade.UpgradeDamageValue);
+            int damageValue = Mathf.RoundToInt(_pendingUpgrade.UpgradeDamageValue);
 
-            // 선택한 슬롯 무기의 현재 공격력을 증가시킨다.
-            _weapon.AddDamage(slotIndex, value);
+            _weapon.AddDamage(slotIndex, damageValue);
         }
 
-        // 증강 적용이 끝났으므로 대기 데이터를 비운다.
         _pendingUpgrade = null;
 
-        // 증강 UI를 닫고 게임을 다시 진행한다.
         _gameManager.ExitUpgrade();
     }
 
     /// <summary>
-    /// 현재 장착된 무기만 증강 대상 화면에 표시한다.
+    /// 현재 실제로 장착된 무기만
+    /// 증강 대상 화면에 표시한다.
     /// </summary>
     private void UpdateWeaponSelectInfo()
     {
-        // 증강 선택 카드의 개수만큼 반복한다.
-        for (int slotIndex = 0;slotIndex < _weaponSelectSlots.Length;slotIndex++)
+        for (int slotIndex = 0; slotIndex < _weaponSelectSlots.Length; slotIndex++)
         {
-            // 해당 장착 슬롯의 무기 원본 데이터를 가져온다.
             WeaponData weaponData = _weapon.GetWeaponDataAtSlot(slotIndex);
 
-            // 해당 슬롯에 무기가 장착되어 있는지 확인한다.
             bool hasWeapon = weaponData != null;
 
-            // 무기가 있으면 카드 전체를 켜고, 무기가 없으면 번호와 배경을 포함한 카드 전체를 끈다.
-            _weaponSelectSlots[slotIndex].SetActive(hasWeapon);
+            GameObject slotObject = _weaponSelectSlots[slotIndex];
 
-            // 무기가 없는 슬롯은 텍스트를 설정할 필요가 없다.
+            if (slotObject != null)
+            {
+                slotObject.SetActive(hasWeapon);
+            }
+
             if (!hasWeapon)
             {
                 continue;
             }
 
-            // 해당 슬롯의 아이콘 Image를 가져온다.
-            Image weaponIconImage = _weaponSelectIcons[slotIndex];
-
-            // Image가 Inspector에 정상적으로 연결된 경우에만 WeaponData의 아이콘을 표시한다.
-            if (weaponIconImage != null)
+            // 아이콘 배열에 해당 인덱스가 있는 경우에만 표시한다.
+            if (slotIndex < _weaponSelectIcons.Length)
             {
-                weaponIconImage.sprite = weaponData.Icon;
+                Image weaponIcon = _weaponSelectIcons[slotIndex];
 
-                // WeaponData에 아이콘이 있을 때만 Image 컴포넌트를 활성화한다.
-                weaponIconImage.enabled = weaponData.Icon != null;
+                if (weaponIcon != null)
+                {
+                    weaponIcon.sprite = weaponData.Icon;
+
+                    weaponIcon.enabled = weaponData.Icon != null;
+                }
             }
 
-            // 카드 인포 설명
-            _weaponSelectInfoTexts[slotIndex].text = "강화 대상: " + weaponData.WeaponName;
+            // 설명 배열에 해당 인덱스가 있는 경우에만 표시한다.
+            if (slotIndex < _weaponSelectInfoTexts.Length)
+            {
+                TMP_Text infoText = _weaponSelectInfoTexts[slotIndex];
+
+                if (infoText != null)
+                {
+                    infoText.text = "강화 대상: " + weaponData.WeaponName;
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// 새 플레이어가 연결되기 전에 증강 기능이 호출되면 원인을 알 수 있는 예외를 발생시킨다.
+    /// </summary>
+    private void EnsureInitialized()
+    {
+        if (!_isInitialized)
+        {
+            throw new InvalidOperationException(
+                "Upgrader가 아직 초기화되지 않았습니다.");
         }
     }
 }

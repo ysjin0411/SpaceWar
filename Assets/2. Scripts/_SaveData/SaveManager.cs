@@ -219,7 +219,7 @@ public class SaveManager : MonoBehaviour
             return;
         }
 
-        //_playerSaveData.gold += amount;
+        _playerSaveData.gold += amount;
         SaveToFile();
     }
 

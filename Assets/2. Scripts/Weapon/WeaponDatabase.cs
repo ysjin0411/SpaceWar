@@ -37,7 +37,6 @@ public class WeaponDatabase : ScriptableObject
         }
 
         // 반복문이 끝날 때까지 찾지 못했다면 세이브 ID가 잘못됐거나 데이터베이스 등록이 빠진 것이다.
-        //Debug.LogWarning($"WeaponDatabase에서 ID가 '{weaponId}'인 무기를 찾을 수 없습니다.");
         throw new InvalidOperationException($"WeaponDatabase에서 ID가 '{weaponId}'인 무기를 찾을 수 없습니다.");
     }
 }

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6233448519816325409}
   - component: {fileID: 2230558535362797252}
   m_Layer: 7
-  m_Name: Player
+  m_Name: Vampier
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -69,19 +69,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55ac97876bb67924f8228a6d58e84e74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _weaponDamages: 
-  _currentWeaponCooltimes:
-  - 0.5
-  - 0.15
-  _projectilePrefabs: []
   _weaponUI: {fileID: 0}
+  _testEquippedWeaponDatas: []
   _equippedWeapons: []
-  _weaponPrefabs:
-  - {fileID: 7794189853625743750, guid: 2d881fa82784d894ea1a6dc6c2743bb5, type: 3}
-  - {fileID: 8053201812717553051, guid: 64ac5ef0f50f9a4488248d0a32fba795, type: 3}
   _currentSlotIndex: 0
-  _bulletIcon: {fileID: 7794189853625743750, guid: 2d881fa82784d894ea1a6dc6c2743bb5, type: 3}
-  _lazerIcon: {fileID: 8053201812717553051, guid: 64ac5ef0f50f9a4488248d0a32fba795, type: 3}
   _firePoint: {fileID: 5470202707007144418}
   _isWeaponSlotPanel: 0
   _weaponSlotPanel: {fileID: 0}
@@ -159,9 +150,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2503656961190058448}
   - component: {fileID: 3701499836436583151}
-  - component: {fileID: 3614063537549607022}
-  - component: {fileID: 7366216975731852813}
-  - component: {fileID: 5694316929414888429}
   m_Layer: 7
   m_Name: Renderer
   m_TagString: Untagged
@@ -228,7 +216,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 33455829c28e8d74180ba2cfd75c5cb2, type: 3}
+  m_Sprite: {fileID: -7285918330323661122, guid: 2f196da5980551d42a2c146266db324f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -239,58 +227,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3614063537549607022
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2637565476594104640}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c29cff538c195c249b69c6f2236de67b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Library: []
-  m_SpriteLibraryAsset: {fileID: 7108339969198208228, guid: d7673ff9e25a2764b8a662abef3ae834, type: 3}
---- !u!114 &7366216975731852813
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2637565476594104640}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed8b1ae4e4e52b34ea557c1c11e076fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_CategoryHash: 0.00000000389488
-  m_labelHash: 0.0016079415
-  m_SpriteKey: 0
-  m_SpriteHash: 492517224
---- !u!95 &5694316929414888429
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2637565476594104640}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 0702b4a90189c3146a31b0118efa1718, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5510774894462306497
 GameObject:
   m_ObjectHideFlags: 0
