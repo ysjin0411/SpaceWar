@@ -1,17 +1,11 @@
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class Bullet : Projectile
 {
-    [Header("초기 옵션")]
-    [SerializeField] float _speed = 10f;
-    [SerializeField] int _damage = 2;
-
-    public float BulletSpeed => _speed;
-    public int BulletDamage => _damage;
 
     private void Update()
     {
-        transform.Translate(Vector2.right * _speed * Time.deltaTime);
+        transform.Translate(Vector2.right * MoveSpeed * Time.deltaTime);
 
         if (transform.position.x > 15f)
         {
@@ -25,7 +19,7 @@ public class Bullet : MonoBehaviour
 
         if (enemy != null)
         {
-            enemy.TakeHit(_damage);
+            enemy.TakeHit(Damage);
             Destroy(gameObject);
         }
     }
@@ -36,6 +30,6 @@ public class Bullet : MonoBehaviour
     /// <param name="damage">공격력</param>
 	public void SetDamage(int damage)
 	{
-		_damage = damage;
+		//Damage = damage;
 	}
 }
