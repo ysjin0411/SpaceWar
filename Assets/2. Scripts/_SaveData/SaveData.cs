@@ -4,7 +4,9 @@ using System.Collections.Generic;
 public class CharacterLoadoutSaveData
 {
     public string characterId;                                    // 캐릭터 ID
-    public string[] equippedWeaponIds = new string[3];            // 장착 무기 ID(최대 3개)
+    public int level = 1;
+    public int currentExp = 0;
+    public string[] equippedWeaponIds = new string[3];            // 캐릭터 장착 무기 ID(최대 3개)
 }
 
 [System.Serializable]

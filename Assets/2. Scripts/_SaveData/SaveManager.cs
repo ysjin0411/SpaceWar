@@ -26,6 +26,8 @@ public class SaveManager : MonoBehaviour
 
     private void Awake()
     {
+        _savePath = $"{Application.persistentDataPath}/GameSaveData.json";
+
         // 이미 SaveManager가 있는데 또 생성됐다면 새로 생성된 중복 SaveManager만 제거한다.
         if (Instance != null && Instance != this)
         {
@@ -41,6 +43,14 @@ public class SaveManager : MonoBehaviour
 
         // 게임이 시작될 때 로컬 저장 데이터를 불러온다.
         LoadFromFile();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha9))
+        {
+            Application.OpenURL(Application.persistentDataPath);
+        }
     }
 
     private void OnDestroy()
@@ -116,6 +126,8 @@ public class SaveManager : MonoBehaviour
         // 실제 저장 위치를 Unity Console에서 확인할 수 있게 표시한다.
         Debug.Log($"세이브 데이터를 불러왔습니다: {_savePath}");
     }
+
+    
 
     /// <summary>
     /// 캐릭터 ID에 해당하는 장착 정보를 찾아 반환한다. 아직 장착 정보가 없다면 새로 만들어서 반환한다.
@@ -222,5 +234,7 @@ public class SaveManager : MonoBehaviour
         _playerSaveData.gold += amount;
         SaveToFile();
     }
+
+
 
 }

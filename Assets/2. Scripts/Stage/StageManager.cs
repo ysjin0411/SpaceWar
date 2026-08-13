@@ -10,6 +10,7 @@ using UnityEngine;
 /// </summary>
 [RequireComponent(typeof(GameManager))]
 [RequireComponent(typeof(Upgrader))]
+[RequireComponent(typeof(CharacterProgression))]
 public class StageManager : MonoBehaviour
 {
     [Header("캐릭터 데이터")]
@@ -47,6 +48,7 @@ public class StageManager : MonoBehaviour
     // StageManager와 같은 오브젝트에 있는 GameManager
     GameManager _gameManager;
     Upgrader _upgrader;
+    CharacterProgression _characterProgression;
 
     /// <summary>
     /// 이번 Stage에서 선택한 캐릭터의 원본 데이터.
@@ -68,10 +70,14 @@ public class StageManager : MonoBehaviour
 
     private void Awake()
     {
-        // StageManager와 같은 GameObject에 있는 GameManager를 자동으로 가져온다.
+        // 게임매니저 가져오기
         _gameManager = GetComponent<GameManager>();
 
+        // 업그레이더 가져오기
         _upgrader = GetComponent<Upgrader>();
+
+        // 캐릭터프로그레션 가져오기
+        _characterProgression = GetComponent<CharacterProgression>();
 
         if (_gameManager == null)
         {
@@ -80,6 +86,10 @@ public class StageManager : MonoBehaviour
         if (_upgrader == null)
         {
             throw new MissingComponentException("StageManager와 같은 오브젝트에 Upgrader가 없습니다.");
+        }
+        if (_characterProgression == null)
+        {
+            throw new MissingComponentException("StageManager와 같은 오브젝트에 CharacterProgression이 없습니다.");
         }
     }
 
@@ -219,6 +229,7 @@ public class StageManager : MonoBehaviour
     /// </summary>
     private void InitializeStageSystems()
     {
+        // null 검사들
         if (_enemySpawner == null)
         {
             throw new InvalidOperationException("StageManager에 EnemySpawner가 연결되지 않았습니다.");
@@ -239,11 +250,13 @@ public class StageManager : MonoBehaviour
         // 선택한 캐릭터의 저장된 장착 무기를 불러온다. InitializeWeapons()가 호출되면서 현재 무기 아이콘도 갱신된다.
         InitializeEquippedWeapons();
 
+        // 선택한 캐릭터의 저장된 레벨과 경험치를 불러온다.
+        _characterProgression.Initialize(_selectedCharacterData.Id);
+
         // 적과 적 투사체가 새로 생성된 플레이어를 사용하도록 연결한다.
         _enemySpawner.Initialize(_spawnedPlayerController,_gameManager);
 
-        // 증강 시스템이 새 플레이어와
-        // 해당 플레이어 프리팹의 Weapon을 사용하도록 한다.
+        // 증강 시스템이 새 플레이어와 해당 플레이어 프리팹의 Weapon을 사용하도록 한다.
         _upgrader.Initialize(_gameManager, _spawnedPlayerController, _spawnedWeapon);
     }
 }
