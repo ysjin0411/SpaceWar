@@ -31,10 +31,8 @@ public class FastEnemy : MonoBehaviour
     [SerializeField] int _crashDamage;
 
     [Header("보상")]
-    [SerializeField] int _getGold;
     [SerializeField] float _getExp;
     [SerializeField] int _goldDropCount;            // 골드를 떨어뜨릴 갯수
-    [SerializeField] int _goldAmountPerDrop;        // 골드 한개당 획득량
 
     // 의존성들
     PlayerController _playerController;
@@ -104,16 +102,9 @@ public class FastEnemy : MonoBehaviour
         // 드랍할 갯수만큼 생성반복
         for (int i = 0; i < _goldDropCount; i++)
         {
-            // 생성
-            GameObject goldObject = Instantiate(_goldPrefab,transform.position,Quaternion.identity);
-
-            // Gold컴포넌트 가져오기
-            Gold gold = goldObject.GetComponent<Gold>();
-
-            // 의존성
-            gold.Init(_goldAmountPerDrop);
+            // 몬스터의 현재 위치에 골드 프리팹을 생성합니다.
+            Instantiate(_goldPrefab, transform.position, Quaternion.identity);
         }
-
         Destroy(gameObject);
     }
 

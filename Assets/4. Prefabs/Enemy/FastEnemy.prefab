@@ -221,6 +221,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58eef901144b6ee47b78fa21f46e2adb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameManager: {fileID: 0}
+  _goldPrefab: {fileID: 8688147092037589463, guid: 02f86527c15f5bc4cad8b61a57339f3d, type: 3}
   _maxHp: 20
   _currentHp: 20
   _moveSpeed: 8
@@ -229,8 +231,10 @@ MonoBehaviour:
   _coolTime: 1
   _fireDist: 3
   _crashDamage: 20
-  _gold: 10
-  _exp: 10
+  _getGold: 10
+  _getExp: 10
+  _goldDropCount: 2
+  _goldAmountPerDrop: 1
   _moveType: 0
   _isFired: 0
 --- !u!50 &636532698536025731
