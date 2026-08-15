@@ -109,7 +109,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: d5badcc053e6ffd46b71e0e2aba8e99b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -221,21 +221,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58eef901144b6ee47b78fa21f46e2adb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameManager: {fileID: 0}
-  _goldPrefab: {fileID: 8688147092037589463, guid: 02f86527c15f5bc4cad8b61a57339f3d, type: 3}
   _maxHp: 20
+  _crashDamage: 20
+  _goldPrefab: {fileID: 27950595337174180, guid: 02f86527c15f5bc4cad8b61a57339f3d, type: 3}
+  _goldDropCount: 3
+  _expReward: 10
+  _upgradeGaugeReward: 10
   _currentHp: 20
+  _isDead: 0
   _moveSpeed: 8
+  _moveType: 0
   _enemyBulletPrefab: {fileID: 950170354894911369, guid: ddb96700977591f40b3eaba27a097cb7, type: 3}
   _firePoint: {fileID: 5398899518243365422}
-  _coolTime: 1
-  _fireDist: 3
-  _crashDamage: 20
-  _getGold: 10
-  _getExp: 10
-  _goldDropCount: 2
-  _goldAmountPerDrop: 1
-  _moveType: 0
   _isFired: 0
 --- !u!50 &636532698536025731
 Rigidbody2D:

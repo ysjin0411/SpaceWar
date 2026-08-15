@@ -19,7 +19,9 @@ public class GameSessionManager : MonoBehaviour
 {
     public static GameSessionManager Instance { get; private set; }     // 인스턴스 프로퍼티
 
-    public int SelectedStageIndex { get; private set; } = -1;           // 스테이지 번호 저장
+    [Header("런타임 선택 정보")]
+    [SerializeField] int _selectedStageIndex = -1;
+    public int SelectedStageIndex => _selectedStageIndex;
     public int SelectedCharacterIndex { get; private set; } = -1;       // 캐릭터 번호 저장
 
     // CharacterSelect 씬을 연 목적
@@ -57,7 +59,7 @@ public class GameSessionManager : MonoBehaviour
     /// <param name="stageIndex"></param>
     public void SelectStage(int stageIndex)
     {
-        SelectedStageIndex = stageIndex;
+        _selectedStageIndex = stageIndex;
     }
 
     /// <summary>
@@ -110,7 +112,7 @@ public class GameSessionManager : MonoBehaviour
     public void ResetSelection()
     {
         // 선택된 스테이지가 없는 상태로 되돌린다.
-        SelectedStageIndex = -1;
+        _selectedStageIndex = -1;
 
         // 아직 기존 인덱스 방식을 사용 중이므로 함께 초기화한다.
         SelectedCharacterIndex = -1;

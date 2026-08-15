@@ -77,7 +77,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: c96e8a42965e3074db422775811f82f3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -167,12 +167,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHp: 100
+  _crashDamage: 0
+  _goldPrefab: {fileID: 0}
+  _goldDropCount: 0
+  _currentHp: 0
+  _isDead: 0
   _moveSpeed: 3
-  _chaseDistance: 6
-  _stopDistance: 3
+  _moveType: 0
   _enemyBulletPrefab: {fileID: 0}
   _firePoint: {fileID: 0}
-  _fireInterval: 1.5
+  _isFired: 0
 --- !u!50 &486255449174284901
 Rigidbody2D:
   serializedVersion: 5

@@ -1,150 +1,178 @@
+using System;
 using UnityEngine;
 
+/// <summary>
+/// FastEnemy가 이동할 방향과 패턴.
+/// </summary>
 public enum MoveType
 {
     DownToUp,
     RightToLeft
 }
 
-public class FastEnemy : MonoBehaviour
+/// <summary>
+/// 빠르게 이동하며 지정된 위치에서 한 번 총알을 발사하는 적.
+/// 체력, 피해, 사망, 골드, 몸박 처리는 Enemy 부모가 담당한다.
+/// </summary>
+public class FastEnemy : Enemy
 {
-    [Header("컴포넌트")]
-    [SerializeField] GameManager _gameManager;
-
-    [Header("프리팹")]
-    [SerializeField] GameObject _goldPrefab;
- 
-    [Header("체력")]
-    [SerializeField] int _maxHp;
-    [SerializeField] int _currentHp;
-
-    [Header("이동")]
+    [Header("이동 설정")]
+    [Tooltip("FastEnemy의 이동속도")]
+    [Min(0f)]
     [SerializeField] float _moveSpeed = 2f;
 
-    [Header("공격")]
-    [SerializeField] GameObject _enemyBulletPrefab;
-    [SerializeField] Transform _firePoint;
-    [SerializeField] float _coolTime;
-    [SerializeField] float _fireDist;
-
-    [Header("몸박데미지")]
-    [SerializeField] int _crashDamage;
-
-    [Header("보상")]
-    [SerializeField] float _getExp;
-    [SerializeField] int _goldDropCount;            // 골드를 떨어뜨릴 갯수
-
-    // 의존성들
-    PlayerController _playerController;
-
-
-
+    [Tooltip("현재 적이 사용할 이동 패턴")]
     [SerializeField] MoveType _moveType;
-    Transform _player;
-    public bool _isFired;
 
-    public void InitPlayerController(PlayerController playerController)
-    {
-        _playerController = playerController;
-    }
-    public void InitGameManager(GameManager gameManager)
-    {
-        _gameManager = gameManager;
-    }
-    public void SetMoveType(MoveType moveType)
-    {
-        _moveType = moveType;
-    }
+    [Header("공격 설정")]
+    [Tooltip("FastEnemy가 발사할 적 총알 프리팹")]
+    [SerializeField] GameObject _enemyBulletPrefab;
 
-    private void Start()
+    [Tooltip("적 총알이 생성될 위치")]
+    [SerializeField] Transform _firePoint;
+
+    [Header("FastEnemy 런타임 데이터")]
+    [Tooltip("현재 이동 중 총알을 이미 발사했는지 확인")]
+    [SerializeField] bool _isFired;
+
+    /// <summary>
+    /// 부모의 체력 런타임 데이터를 초기화하고
+    /// FastEnemy에 필요한 참조를 검사한다.
+    /// </summary>
+    protected override void Awake()
     {
-        _currentHp = _maxHp;
+        // Enemy 부모의 현재 체력과 사망 상태를 초기화한다.
+        base.Awake();
+
+        // FastEnemy가 사용할 총알 프리팹이 없으면 발사할 수 없다.
+        if (_enemyBulletPrefab == null)
+        {
+            throw new InvalidOperationException(
+                $"{name}의 FastEnemy에 Enemy Bullet Prefab이 연결되지 않았습니다.");
+        }
+
+        // FirePoint가 없으면 총알 생성 위치를 결정할 수 없다.
+        if (_firePoint == null)
+        {
+            throw new InvalidOperationException(
+                $"{name}의 FastEnemy에 FirePoint가 연결되지 않았습니다.");
+        }
+
+        // 새로 생성된 FastEnemy는 아직 총알을 발사하지 않은 상태다.
         _isFired = false;
     }
 
     private void Update()
     {
+        // 이미 사망 처리된 적은 이동하거나 공격하지 않는다.
+        if (IsDead)
+        {
+            return;
+        }
+
+        // EnemySpawner가 전달한 이동 패턴에 맞게 움직인다.
         switch (_moveType)
         {
             case MoveType.RightToLeft:
-                RightToLeft();
+                MoveRightToLeft();
                 break;
+
             case MoveType.DownToUp:
-                DownToUp();
+                MoveDownToUp();
                 break;
         }
     }
 
+    /// <summary>
+    /// EnemySpawner가 생성한 FastEnemy의 이동 패턴을 지정한다.
+    /// </summary>
+    public void SetMoveType(MoveType moveType)
+    {
+        // 전달받은 이동 패턴을 현재 FastEnemy에 저장한다.
+        _moveType = moveType;
+    }
 
+    /// <summary>
+    /// 현재 플레이어를 향해 적 총알을 한 발 생성한다.
+    /// </summary>
     private void Fire()
     {
-        GameObject enemyBullet = Instantiate(_enemyBulletPrefab, _firePoint.position, Quaternion.identity);
-
-        EnemyBullet bullet = enemyBullet.GetComponent<EnemyBullet>();
-
-        bullet.Init(_playerController);
-    }
-
-    public void TakeHit(int damage)
-    {
-        _currentHp -= damage;
-
-        if (_currentHp <= 0)
+        // Enemy.Init이 호출되지 않았다면 추적할 플레이어가 없는 상태다.
+        if (PlayerController == null)
         {
-            Die();
-        }
-    }
-
-    private void Die()
-    {
-        _gameManager.BonusGauge();
-
-        // 드랍할 갯수만큼 생성반복
-        for (int i = 0; i < _goldDropCount; i++)
-        {
-            // 몬스터의 현재 위치에 골드 프리팹을 생성합니다.
-            Instantiate(_goldPrefab, transform.position, Quaternion.identity);
-        }
-        Destroy(gameObject);
-    }
-
-    public void OnTriggerEnter2D(Collider2D collision)
-    {
-        PlayerController player = collision.GetComponent<PlayerController>();
-        if (player != null)
-        {
-            player.TakeHit(_crashDamage);
-            Destroy(gameObject);
+            throw new InvalidOperationException(
+                $"{name}의 FastEnemy에 PlayerController가 초기화되지 않았습니다.");
         }
 
+        // FirePoint 위치에서 적 총알 프리팹을 생성한다.
+        GameObject enemyBulletObject = Instantiate(
+            _enemyBulletPrefab,
+            _firePoint.position,
+            Quaternion.identity);
+
+        // 생성된 오브젝트에서 EnemyBullet 컴포넌트를 가져온다.
+        if (!enemyBulletObject.TryGetComponent(out EnemyBullet enemyBullet))
+        {
+            // 잘못 생성된 총알 오브젝트를 제거한다.
+            Destroy(enemyBulletObject);
+
+            // 프리팹 설정 오류를 확인할 수 있도록 예외를 발생시킨다.
+            throw new MissingComponentException(
+                $"{_enemyBulletPrefab.name} 프리팹에 EnemyBullet 컴포넌트가 없습니다.");
+        }
+
+        // 적 총알이 현재 플레이어를 향해 날아갈 수 있도록 전달한다.
+        enemyBullet.Init(PlayerController);
     }
 
-    public void RightToLeft()
+    /// <summary>
+    /// 화면 오른쪽에서 왼쪽으로 이동한다.
+    /// X 위치가 0 이하가 되면 총알을 한 번 발사한다.
+    /// </summary>
+    private void MoveRightToLeft()
     {
-        gameObject.transform.Translate(Vector2.left * _moveSpeed * Time.deltaTime, Space.World);
+        // 월드 좌표 기준 왼쪽으로 이동한다.
+        transform.Translate(
+            Vector2.left * _moveSpeed * Time.deltaTime,
+            Space.World);
 
-        if (gameObject.transform.position.x <= 0f && !_isFired)
+        // 발사 위치에 도달했고 아직 발사하지 않았다면 총알을 발사한다.
+        if (transform.position.x <= 0f && !_isFired)
         {
             Fire();
+
+            // 같은 적이 여러 번 발사하지 않도록 상태를 저장한다.
             _isFired = true;
         }
 
+        // 화면 왼쪽 경계를 완전히 벗어나면 보상 없이 제거한다.
         if (transform.position.x < -12f)
         {
             Destroy(gameObject);
         }
     }
 
-    public void DownToUp()
+    /// <summary>
+    /// 화면 아래에서 위쪽으로 이동한다.
+    /// Y 위치가 0 이상이 되면 총알을 한 번 발사한다.
+    /// </summary>
+    private void MoveDownToUp()
     {
-        gameObject.transform.Translate(Vector2.up * _moveSpeed * Time.deltaTime, Space.World);
+        // 월드 좌표 기준 위쪽으로 이동한다.
+        transform.Translate(
+            Vector2.up * _moveSpeed * Time.deltaTime,
+            Space.World);
 
-        if (gameObject.transform.position.y >= 0f && !_isFired)
+        // 발사 위치에 도달했고 아직 발사하지 않았다면 총알을 발사한다.
+        if (transform.position.y >= 0f && !_isFired)
         {
             Fire();
+
+            // 같은 적이 여러 번 발사하지 않도록 상태를 저장한다.
             _isFired = true;
         }
 
+        // 화면 위쪽 경계를 완전히 벗어나면 보상 없이 제거한다.
         if (transform.position.y > 6f)
         {
             Destroy(gameObject);

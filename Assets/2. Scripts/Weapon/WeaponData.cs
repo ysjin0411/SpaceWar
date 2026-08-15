@@ -21,6 +21,9 @@ public class WeaponData : ScriptableObject
     [Tooltip("무기의 공격 방식")]
     [SerializeField] WeaponType _type;
 
+    [Tooltip("이 무기가 실제 공격을 실행하는 방식")]
+    [SerializeField] WeaponFireMode _fireMode = WeaponFireMode.Projectile;
+
     [Tooltip("EquipManage 및 전투 UI에 표시할 무기 아이콘")]
     [SerializeField] Sprite _icon;
 
@@ -58,6 +61,7 @@ public class WeaponData : ScriptableObject
     public string Id => _id;
     public string WeaponName => _name;
     public WeaponType Type => _type;
+    public WeaponFireMode FireMode => _fireMode;
     public Sprite Icon => _icon;
     public GameObject ProjectilePrefab => _projectilePrefab;
 

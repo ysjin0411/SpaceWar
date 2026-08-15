@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: soldier_missile
   _name: Missile
-  _type: 1
-  _icon: {fileID: 21300000, guid: 2851a4fd4ed642142bf16c6403d5293e, type: 3}
+  _type: 2
+  _fireMode: 0
+  _icon: {fileID: 21300000, guid: 6748661efe0d997479a1121b5c042b17, type: 3}
   _projectilePrefab: {fileID: 8053201812717553051, guid: 51e804e0b9bf28648b0073826407b692, type: 3}
   _baseDamage: 10
   _baseCooltime: 1

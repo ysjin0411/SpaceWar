@@ -82,18 +82,25 @@ public class StageSelectManager : MonoBehaviour
         _selectImage[index].SetActive(false);
     }
 
-    /// <summary>
-    /// 캐릭터 선택 씬 로드
-    /// </summary>
     public void LoadPlayCharacterSelect()
     {
-        // 이상한 stage index 쳐내기
-        if (_currentStageIndex < 0) return;
+        // 아직 스테이지를 선택하지 않았다면 이동하지 않는다.
+        if (_currentStageIndex < 0)
+        {
+            return;
+        }
 
-        // 세션매니저 자체에서 선택된 스테이지 인덱스 저장
-        GameSessionManager.Instance.SelectStage(_currentStageIndex);
+        // 
+        GameSessionManager session = GameSessionManager.Instance;
 
-        SceneManager.LoadScene($"PlayCharacterSelect");
+        // 선택한 스테이지 인덱스를 세션에 저장한다.
+        session.SelectStage(_currentStageIndex);
+
+        // 전투에 입장할 캐릭터를 고르는 과정임을 세션에 저장한다.
+        session.BeginCharacterSelection(CharacterSelectPurpose.Battle);
+
+        // 캐릭터 선택 화면으로 이동한다.
+        SceneManager.LoadScene("PlayCharacterSelect");
     }
 
 }

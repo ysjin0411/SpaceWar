@@ -5,7 +5,8 @@ using UnityEngine;
 public enum WeaponType
 {
     Bullet,
-    Lazer
+    Lazer,
+    Missile,
 }
 
 /// <summary>
@@ -142,7 +143,18 @@ public class Weapon : MonoBehaviour
             }
         }
 
-        _timer = 0f;
+        // 장착 무기 초기화 직후에는 첫 공격을 즉시 사용할 수 있게 한다.
+        _timer = CurrentWeapon != null
+            ? CurrentWeapon.CurrentCooltime
+            : 0f;
+
+        // StageManager가 UI를 전달한 상태라면
+        // JSON 기반 장착 무기 3개의 아이콘을 Tab 패널에 표시한다.
+        if (_weaponUI != null)
+        {
+            _weaponUI.UpdateEquippedWeapons(
+                equippedWeaponDatas);
+        }
 
         UpdateWeaponUI();
     }
@@ -226,40 +238,121 @@ public class Weapon : MonoBehaviour
     }
 
     /// <summary>
-    /// 현재 선택한 무기를 발사한다.
+    /// 현재 선택한 무기의 FireMode에 맞는 공격을 실행한다.
+    /// Projectile은 이동형 투사체를 생성하고,
+    /// PulseBeam은 발사 지점에서 펄스 레이저를 생성한다.
     /// </summary>
     public void Fire()
     {
+        // 현재 선택된 슬롯의 런타임 무기를 가져온다.
         WeaponRuntimeState weapon = CurrentWeapon;
 
+        // 현재 선택할 수 있는 무기가 없다면 발사하지 않는다.
         if (weapon == null)
         {
             return;
         }
 
+        // 현재 무기의 쿨타임이 지나지 않았다면 발사하지 않는다.
         if (_timer < weapon.CurrentCooltime)
         {
             return;
         }
 
+        // 현재 무기에 공격 프리팹이 연결되어 있는지 확인한다.
         if (weapon.Data.ProjectilePrefab == null)
         {
-            throw new InvalidOperationException($"무기 '{weapon.Data.WeaponName}'에 ProjectilePrefab이 없습니다.");
+            throw new InvalidOperationException(
+                $"무기 '{weapon.Data.WeaponName}'에 공격 프리팹이 연결되지 않았습니다.");
         }
 
-        GameObject projectileObject = Instantiate(weapon.Data.ProjectilePrefab, _firePoint.position, _firePoint.rotation);
+        // FirePoint 위치에 현재 무기의 공격 프리팹을 생성한다.
+        GameObject attackObject = Instantiate(
+            weapon.Data.ProjectilePrefab,
+            _firePoint.position,
+            _firePoint.rotation);
 
-        // 현재 공격력을 생성된 투사체에 전달한다.
-        if (projectileObject.TryGetComponent(out Bullet bullet))
+        // WeaponData에 설정된 발사 방식에 맞는 초기화를 실행한다.
+        switch (weapon.Data.FireMode)
         {
-            bullet.SetDamage(weapon.CurrentDamage);
-        }
-        else if (projectileObject.TryGetComponent(out Lazer lazer))
-        {
-            lazer.SetDamage(weapon.CurrentDamage);
+            case WeaponFireMode.Projectile:
+
+                // 총알과 미사일처럼 이동하는 투사체를 초기화한다.
+                InitializeProjectileAttack(
+                    attackObject,
+                    weapon);
+                break;
+
+            case WeaponFireMode.PulseBeam:
+
+                // 일정 시간 나타났다 사라지는 펄스 레이저를 초기화한다.
+                InitializePulseBeamAttack(
+                    attackObject,
+                    weapon);
+                break;
+
+            default:
+
+                // 알 수 없는 발사 방식의 프리팹을 제거한다.
+                Destroy(attackObject);
+
+                throw new InvalidOperationException(
+                    $"무기 '{weapon.Data.WeaponName}'의 발사 방식이 올바르지 않습니다.");
         }
 
+        // 공격이 정상적으로 실행됐으므로 쿨타임을 처음부터 측정한다.
         _timer = 0f;
+    }
+
+    /// <summary>
+    /// 생성한 공격 오브젝트를 이동형 투사체로 초기화한다.
+    /// Bullet과 Missile 등이 이 방식을 사용한다.
+    /// </summary>
+    private void InitializeProjectileAttack(
+        GameObject attackObject,
+        WeaponRuntimeState weapon)
+    {
+        // 생성한 프리팹에서 Projectile 부모 컴포넌트를 찾는다.
+        if (!attackObject.TryGetComponent(out Projectile projectile))
+        {
+            // 잘못 생성된 공격 오브젝트를 제거한다.
+            Destroy(attackObject);
+
+            throw new MissingComponentException(
+                $"무기 '{weapon.Data.WeaponName}'은 Projectile 방식이지만 " +
+                "공격 프리팹에 Projectile을 상속한 컴포넌트가 없습니다.");
+        }
+
+        // 현재 공격력과 FirePoint가 바라보는 방향을 전달한다.
+        projectile.Initialize(
+            weapon.CurrentDamage,
+            _firePoint.right);
+    }
+
+    /// <summary>
+    /// 생성한 공격 오브젝트를 펄스 레이저로 초기화한다.
+    /// 레이저는 이동하지 않고 FirePoint에서 가장 가까운 적까지 그려진다.
+    /// </summary>
+    private void InitializePulseBeamAttack(
+        GameObject attackObject,
+        WeaponRuntimeState weapon)
+    {
+        // 생성한 프리팹에서 PulseLaserBeam 컴포넌트를 찾는다.
+        if (!attackObject.TryGetComponent(
+            out PulseLaserBeam pulseLaserBeam))
+        {
+            // 잘못 생성된 공격 오브젝트를 제거한다.
+            Destroy(attackObject);
+
+            throw new MissingComponentException(
+                $"무기 '{weapon.Data.WeaponName}'은 PulseBeam 방식이지만 " +
+                "공격 프리팹에 PulseLaserBeam 컴포넌트가 없습니다.");
+        }
+
+        // 현재 공격력과 레이저가 시작될 FirePoint를 전달한다.
+        pulseLaserBeam.Initialize(
+            weapon.CurrentDamage,
+            _firePoint);
     }
 
     /// <summary>

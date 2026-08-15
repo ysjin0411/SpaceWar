@@ -75,13 +75,13 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 2851a4fd4ed642142bf16c6403d5293e, type: 3}
-  m_Color: {r: 0.43862867, g: 1, b: 0, a: 1}
+  m_SortingOrder: 10
+  m_Sprite: {fileID: 21300000, guid: 6748661efe0d997479a1121b5c042b17, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.84, y: 0.07}
+  m_Size: {x: 0.48, y: 0.24}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -96,7 +96,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2203328679071564797}
-  - component: {fileID: 9008996694332589029}
+  - component: {fileID: 9220250308867123932}
   - component: {fileID: 2577461112239118159}
   - component: {fileID: 3487736949969639637}
   m_Layer: 9
@@ -122,7 +122,7 @@ Transform:
   - {fileID: 8542869911372476509}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9008996694332589029
+--- !u!114 &9220250308867123932
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -131,11 +131,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 8053201812717553051}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28b70cdf05e0ec3419a03cbd63d3d351, type: 3}
+  m_Script: {fileID: 11500000, guid: 317621d3101ad8342aa9061fe6cef565, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 10
-  _damage: 1
+  _moveSpeed: 8
+  _lifeTime: 5
+  _damage: 10
+  _rotationSpeed: 360
+  _targetSearchRadius: 15
+  _explosionRadius: 1.5
+  _enemyLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!50 &2577461112239118159
 Rigidbody2D:
   serializedVersion: 5

@@ -41,6 +41,10 @@ public class CharacterData : ScriptableObject
     [Tooltip("이 캐릭터가 구매하고 장착할 수 있는 무기 목록")]
     [SerializeField] WeaponData[] _availableWeapons;
 
+    [Header("기본 장착 무기")]
+    [Tooltip("전투 시작 시 기본으로 장착할 무기 3개. 배열 순서가 슬롯 순서다.")]
+    [SerializeField] WeaponData[] _initialEquippedWeapons = new WeaponData[3];
+
     public string Id => _id;
     public string CharacterName => _name;
     public Sprite Icon => _icon;
@@ -48,4 +52,5 @@ public class CharacterData : ScriptableObject
     public int BaseHp => _baseHp;
     public float BaseMoveSpeed => _baseMoveSpeed;
     public WeaponData[] AvailableWeapons => _availableWeapons;
+    public WeaponData[] InitialEquippedWeapons => _initialEquippedWeapons;
 }

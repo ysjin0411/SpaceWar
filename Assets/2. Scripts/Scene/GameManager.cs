@@ -11,117 +11,232 @@ public class GameManager : MonoBehaviour
     [SerializeField] UpgradeMap _upgradeDataMap;
     [SerializeField] Weapon _weapon;
     [SerializeField] Upgrader _upgrader;
+    [SerializeField] GoldUI _goldUI; // 몬스터가 드롭한 골드를 화면에 생성할 GoldUI
 
-	[Header("증강패널")]
+    [Header("증강패널")]
 	[SerializeField] GameObject _firstSelectPanel;               // 1차 증강 목록 패널
 	[SerializeField] GameObject _weaponSelectPanel;         // 2차 무기 증강 목록 패널
 
 	[Header("게이지관련")]
-    [SerializeField] Image _gaugeBar;
+    [Tooltip("증강 게이지의 화면 연출을 담당하는 UI")]
+    [SerializeField] GaugeUIManager _gaugeUIManager;
     [SerializeField] float _maxGaugeBar = 100f;
     [SerializeField] float _timeCharge;
-    [SerializeField] float _bonusCharge;
 
     [Header("프리팹")]
     [SerializeField] GameObject _fastEnemyPrefab;
 
-	bool _isWeaponSelectPanel;          // 2차증강 열려있는지 여부
+    // 같은 오브젝트에 있는 캐릭터 성장 시스템
+    CharacterProgression _characterProgression;
 
+    bool _isWeaponSelectPanel;          // 2차증강 열려있는지 여부
 
+    // 현재 증강 선택 화면이 열려 있는지 확인한다.
+    bool _isUpgradeOpen;
 
-	public void UpdateGaugeBar()
+    private void Awake()
     {
+        // StageManager와 같은 오브젝트에 있는 성장 시스템을 가져온다.
+        _characterProgression = GetComponent<CharacterProgression>();
 
-        _gaugeBar.fillAmount = _timeCharge / _maxGaugeBar;
+        // 성장 시스템이 없으면 적 처치 경험치를 지급할 수 없다.
+        if (_characterProgression == null)
+        {
+            throw new MissingComponentException(
+                $"{name}에 CharacterProgression 컴포넌트가 없습니다.");
+        }
+
+        if (_gaugeUIManager == null)
+        {
+            throw new InvalidOperationException(
+                $"{name}의 GameManager에 GaugeUIManager가 연결되지 않았습니다.");
+        }
+
+        if (_maxGaugeBar <= 0f)
+        {
+            throw new InvalidOperationException(
+                $"{name}의 Max Gauge Bar는 0보다 커야 합니다.");
+        }
     }
 
-    public void BonusGauge()
+    private void Start()
     {
-        _timeCharge += _bonusCharge;
+        // 새로운 스테이지에서는 빈 게이지로 시작한다.
+        _timeCharge = 0f;
+        _isUpgradeOpen = false;
+
+        // 현재 충전량부터 최대치까지 DOTween 충전을 시작한다.
+        _gaugeUIManager.StartCharging(
+            _timeCharge,
+            _maxGaugeBar);
+    }
+
+    /// <summary>
+    /// 적을 처치했을 때 현재 캐릭터에게 경험치를 지급한다.
+    /// </summary>
+    public void AddExperience(int amount)
+    {
+        // 경험치가 0 이하라면 지급하지 않는다.
+        if (amount <= 0)
+        {
+            return;
+        }
+
+        // 실제 레벨과 경험치를 관리하는 성장 시스템에 전달한다.
+        _characterProgression.AddExp(amount);
+    }
+
+    /// <summary>
+    /// 적이 전달한 보상량만큼 현재 증강 게이지를 증가시킨다.
+    /// </summary>
+    public void BonusGauge(float amount)
+    {
+        // 보상량이 0 이하라면 게이지를 증가시키지 않는다.
+        if (amount <= 0f)
+        {
+            return;
+        }
+
+        // 이미 증강 선택 중이라면 추가 게이지를 받지 않는다.
+        if (_isUpgradeOpen)
+        {
+            return;
+        }
+
+        // 적이 전달한 보상량을 실제 게이지에 반영한다.
+        _timeCharge = Mathf.Min(
+            _maxGaugeBar,
+            _timeCharge + amount);
+
+        // 화면 게이지는 변경된 위치까지 부드럽게 따라간다.
+        _gaugeUIManager.AnimateBonus(
+            _timeCharge,
+            _maxGaugeBar);
+
+        // 적 처치 보상으로 최대치에 도달했다면 증강을 시작한다.
+        if (_timeCharge >= _maxGaugeBar)
+        {
+            OpenUpgrade();
+        }
     }
 
 
     private void Update()
     {
-        _timeCharge += Time.deltaTime;
+        // 증강 선택 중이 아닐 때만 실제 게이지 시간을 증가시킨다.
+        if (!_isUpgradeOpen)
+        {
+            _timeCharge = Mathf.Min(
+                _maxGaugeBar,
+                _timeCharge + Time.deltaTime);
 
-        // 무기 증강 대상 선택 화면이 열려 있을 때
+            // 시간 충전으로 최대치에 도달했다.
+            if (_timeCharge >= _maxGaugeBar)
+            {
+                OpenUpgrade();
+            }
+
+            return;
+        }
+
+        // 무기 증강 대상을 선택하는 단계다.
         if (_isWeaponSelectPanel)
         {
-            // 첫 번째 장착 무기를 증강 대상으로 선택한다.
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 _upgrader.ChooseWeapon(0);
             }
-            // 두 번째 장착 무기를 증강 대상으로 선택한다.
             else if (Input.GetKeyDown(KeyCode.Alpha2))
             {
                 _upgrader.ChooseWeapon(1);
             }
-            // 세 번째 장착 무기를 증강 대상으로 선택한다.
             else if (Input.GetKeyDown(KeyCode.Alpha3))
             {
                 _upgrader.ChooseWeapon(2);
             }
-            else
-            {
-                // 선택 입력이 없다면 아래 증강 시작 로직을 실행하지 않는다.
-                return;
-            }
+
+            return;
         }
 
-        // 게이지완 후 증강패널오픈함수 호출
-        if (_timeCharge >= _maxGaugeBar)
+        // 첫 번째 증강 종류를 선택하는 단계다.
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            // 증강 오픈
-            _upgrader.UpgradeSelectFirst();
-            // 일시 정지
-            Time.timeScale = 0f;
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                // 이속 선택
-                _upgrader.FirstSelectUpgrade(0);
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha2))
-            {
-                // 연사 강화 선택
-                _upgrader.FirstSelectUpgrade(1);
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha3))
-            {
-                // 공격력 강화 선택
-                _upgrader.FirstSelectUpgrade(2); 
-            }
+            _upgrader.FirstSelectUpgrade(0);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            _upgrader.FirstSelectUpgrade(1);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            _upgrader.FirstSelectUpgrade(2);
         }
     }
-    
 
-	/// <summary>
-	/// 패널 닫고 게임 재생
-	/// </summary>
-	public void ExitUpgrade()
-	{
-        // 웨폰창 닫기
-		_isWeaponSelectPanel = false;       
 
-        // 게이지 초기화
-		_timeCharge = 0f;
+    public void ExitUpgrade()
+    {
+        _isWeaponSelectPanel = false;
+        _isUpgradeOpen = false;
+        _timeCharge = 0f;
 
-        // 증강들 다 닫기
-		_firstSelectPanel.SetActive(false);
-		_weaponSelectPanel.SetActive(false);
+        _firstSelectPanel.SetActive(false);
+        _weaponSelectPanel.SetActive(false);
 
-        // 게임 재생
-		Time.timeScale = 1f;
-	}
+        // 먼저 게임 시간을 정상화한다.
+        Time.timeScale = 1f;
 
-	/// <summary>
-	/// 2차 무기 증강 선택 상태를 변경
-	/// </summary>
-	public void SetWeaponSelectPanelState(bool isOpen)
+        // 빈 상태부터 다음 증강 게이지 충전을 시작한다.
+        _gaugeUIManager.StartCharging(
+            _timeCharge,
+            _maxGaugeBar);
+    }
+
+    /// <summary>
+    /// 2차 무기 증강 선택 상태를 변경
+    /// </summary>
+    public void SetWeaponSelectPanelState(bool isOpen)
 	{
 		_isWeaponSelectPanel = isOpen;
 	}
 
+    public void SpawnGold(
+    Gold goldPrefab,
+    Vector3 worldPosition,
+    int dropCount)
+    {
+        if (_goldUI == null)
+        {
+            throw new InvalidOperationException(
+                $"{name}의 GameManager에 GoldUI가 연결되지 않았습니다.");
+        }
 
+        _goldUI.SpawnGold(
+            goldPrefab,
+            worldPosition,
+            dropCount);
+    }
+
+    /// <summary>
+    /// 증강 게이지가 최대치에 도달했을 때 선택 화면을 연다.
+    /// </summary>
+    private void OpenUpgrade()
+    {
+        // 이미 열려 있다면 중복 실행하지 않는다.
+        if (_isUpgradeOpen)
+        {
+            return;
+        }
+
+        _isUpgradeOpen = true;
+
+        // 화면 게이지를 정확히 1까지 마무리한다.
+        _gaugeUIManager.CompleteGauge();
+
+        // 첫 번째 증강 선택 화면을 연다.
+        _upgrader.UpgradeSelectFirst();
+
+        // 증강을 선택하는 동안 게임을 정지한다.
+        Time.timeScale = 0f;
+    }
 }

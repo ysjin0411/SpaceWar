@@ -1,35 +1,19 @@
 using UnityEngine;
 
+/// <summary>
+/// 발사된 방향으로 직선 이동하는 기본 총알.
+/// 공격력, 수명, 충돌 처리는 Projectile 부모가 담당한다.
+/// </summary>
 public class Bullet : Projectile
 {
-
-    private void Update()
-    {
-        transform.Translate(Vector2.right * MoveSpeed * Time.deltaTime);
-
-        if (transform.position.x > 15f)
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        FastEnemy enemy = collision.GetComponent<FastEnemy>();
-
-        if (enemy != null)
-        {
-            enemy.TakeHit(Damage);
-            Destroy(gameObject);
-        }
-    }
-
     /// <summary>
-    /// 적용중인 공격력값 가져오기
+    /// Projectile의 FixedUpdate에서 호출된다.
+    /// Weapon이 전달한 발사 방향으로 총알을 직선 이동시킨다.
     /// </summary>
-    /// <param name="damage">공격력</param>
-	public void SetDamage(int damage)
-	{
-		//Damage = damage;
-	}
+    protected override void MoveProjectile()
+    {
+        // 현재 진행 방향에 이동속도를 곱해서
+        // Rigidbody2D의 이동 속도로 적용한다.
+        Body.linearVelocity = Direction * MoveSpeed;
+    }
 }

@@ -166,61 +166,147 @@ public class StageManager : MonoBehaviour
             throw new MissingComponentException($"캐릭터 프리팹 '{_selectedCharacterData.CharacterName}'에 Weapon이 없습니다.");
         }
 
-        // HP UI가 새로 생성한 PlayerController를 바라보게 한다.
-        _hpUI.Initialize(_spawnedPlayerController);
-
         // CharacterData의 체력과 이동속도를 적용한다.
         _spawnedPlayerController.Initialize(_selectedCharacterData, _hpUI);
+
+        // HP UI가 새로 생성한 PlayerController를 바라보게 한다.
+        _hpUI.Initialize(_spawnedPlayerController);
 
         Debug.Log($"선택한 캐릭터를 생성했습니다: {_selectedCharacterData.CharacterName}");
     }
 
     /// <summary>
-    /// 선택한 캐릭터의 JSON 장착정보를 읽어서
-    /// 생성된 캐릭터의 Weapon에 전달한다.
+    /// 현재 선택한 캐릭터의 장착 무기 ID를 세이브 데이터에서 가져온다.
+    /// 장착 무기가 하나도 없다면 기본 무기를 0번 슬롯에 자동 장착한다.
+    /// 이후 무기 ID를 실제 WeaponData로 변환하여 플레이어의 Weapon에 전달한다.
     /// </summary>
     private void InitializeEquippedWeapons()
     {
-        // Bootstrap 씬의 SaveManager가 유지되고 있는지 확인한다.
+        // Bootstrap 씬에서 생성되는 SaveManager가 현재 존재하는지 확인한다.
         if (SaveManager.Instance == null)
         {
-            throw new InvalidOperationException("SaveManager가 없습니다. Bootstrap 씬부터 실행해야 합니다.");
+            // SaveManager가 없으면 세이브 데이터를 읽을 수 없으므로 실행을 중단한다.
+            throw new InvalidOperationException(
+                "SaveManager가 없습니다. Bootstrap 씬부터 실행해야 합니다.");
         }
 
-        // 저장된 무기 ID를 WeaponData로 바꾸려면 데이터베이스가 필요하다.
+        // StageManager의 Inspector에 WeaponDatabase가 연결되어 있는지 확인한다.
         if (_weaponDatabase == null)
         {
-            throw new InvalidOperationException("StageManager에 WeaponDatabase가 연결되지 않았습니다.");
+            // WeaponDatabase가 없으면 저장된 무기 ID를 WeaponData로 변환할 수 없다.
+            throw new InvalidOperationException(
+                "StageManager에 WeaponDatabase가 연결되지 않았습니다.");
         }
 
-        // 현재 선택한 캐릭터의 장착정보를 가져온다.
-        // 아직 장착정보가 없는 캐릭터라면 빈 슬롯 3개가 새로 만들어진다.
-        CharacterLoadoutSaveData loadout = SaveManager.Instance.GetOrCreateCharacterLoadout(_selectedCharacterData.Id);
+        // 현재 선택한 캐릭터의 고유 ID를 사용해서 해당 캐릭터의 장착 정보를 가져온다.
+        // 기존 장착 정보가 없다면 SaveManager가 빈 무기 슬롯 3개를 가진 정보를 새로 만든다.
+        CharacterLoadoutSaveData loadout =
+            SaveManager.Instance.GetOrCreateCharacterLoadout(
+                _selectedCharacterData.Id);
 
+        // 장착 무기 ID 배열 자체가 생성되어 있는지 확인한다.
         if (loadout.equippedWeaponIds == null)
         {
-            throw new InvalidOperationException($"캐릭터 '{_selectedCharacterData.Id}'의 장착 무기 배열이 없습니다.");
+            // 배열이 null이면 정상적인 장착 정보를 처리할 수 없으므로 실행을 중단한다.
+            throw new InvalidOperationException(
+                $"캐릭터 '{_selectedCharacterData.Id}'의 장착 무기 배열이 없습니다.");
         }
 
-        // Weapon은 ID 문자열이 아니라 WeaponData를 사용하므로 장착 슬롯과 같은 크기의 배열을 만든다.
-        WeaponData[] equippedWeaponDatas = new WeaponData[loadout.equippedWeaponIds.Length];
-
-        for (int slotIndex = 0; slotIndex < loadout.equippedWeaponIds.Length; slotIndex++)
+        // 장착 무기 슬롯이 하나 이상 존재하는지 확인한다.
+        if (loadout.equippedWeaponIds.Length == 0)
         {
-            string weaponId = loadout.equippedWeaponIds[slotIndex];
+            // 슬롯 개수가 0이면 기본 무기를 넣을 위치가 없으므로 실행을 중단한다.
+            throw new InvalidOperationException(
+                $"캐릭터 '{_selectedCharacterData.Id}'의 장착 무기 슬롯이 없습니다.");
+        }
 
-            // 저장된 ID가 없다면 장착되지 않은 빈 슬롯이다.
-            if (string.IsNullOrWhiteSpace(weaponId))
+        // 캐릭터 데이터에 설정된 기본 장착 무기 3개를 가져온다.
+        WeaponData[] initialEquippedWeapons =
+            _selectedCharacterData.InitialEquippedWeapons;
+
+        // 기본 장착 무기 배열 자체가 존재하는지 확인한다.
+        if (initialEquippedWeapons == null)
+        {
+            throw new InvalidOperationException(
+                $"캐릭터 '{_selectedCharacterData.CharacterName}'의 기본 장착 무기 배열이 없습니다.");
+        }
+
+        // 기본 장착 무기 개수와 실제 세이브 슬롯 개수가 같은지 확인한다.
+        if (initialEquippedWeapons.Length !=
+            loadout.equippedWeaponIds.Length)
+        {
+            throw new InvalidOperationException(
+                $"캐릭터 '{_selectedCharacterData.CharacterName}'의 기본 장착 무기 개수와 슬롯 개수가 다릅니다.");
+        }
+
+        // 0번부터 2번까지 모든 무기 슬롯을 확인한다.
+        for (int slotIndex = 0;
+             slotIndex < loadout.equippedWeaponIds.Length;
+             slotIndex++)
+        {
+            // 현재 슬롯에 저장된 무기 ID를 가져온다.
+            string savedWeaponId =
+                loadout.equippedWeaponIds[slotIndex];
+
+            // 이미 저장된 무기가 있다면 유저가 장착한 무기를 유지한다.
+            if (!string.IsNullOrWhiteSpace(savedWeaponId))
             {
-                equippedWeaponDatas[slotIndex] = null;
                 continue;
             }
 
-            // 저장된 무기 ID를 실제 WeaponData로 변환한다.
-            equippedWeaponDatas[slotIndex] = _weaponDatabase.GetWeaponData(weaponId);
+            // 현재 슬롯에 대응하는 기본 장착 무기를 가져온다.
+            WeaponData initialWeapon =
+                initialEquippedWeapons[slotIndex];
+
+            // 기본 장착 무기가 비어 있다면 캐릭터 데이터 설정 오류다.
+            if (initialWeapon == null)
+            {
+                throw new InvalidOperationException(
+                    $"캐릭터 '{_selectedCharacterData.CharacterName}'의 " +
+                    $"{slotIndex}번 기본 장착 무기가 비어 있습니다.");
+            }
+
+            // 비어 있는 현재 슬롯에 대응하는 기본 무기를 장착하고 JSON에 저장한다.
+            SaveManager.Instance.EquipWeapon(
+                _selectedCharacterData.Id,
+                slotIndex,
+                initialWeapon.Id);
         }
 
-        // 변환된 장착 무기를 생성된 캐릭터의 Weapon에 전달한다.
+        // 세이브 데이터에는 무기 ID 문자열만 저장되어 있다.
+        // Weapon 컴포넌트는 WeaponData를 사용하므로 같은 슬롯 개수의 배열을 새로 만든다.
+        WeaponData[] equippedWeaponDatas =
+            new WeaponData[loadout.equippedWeaponIds.Length];
+
+        // 저장된 모든 장착 슬롯을 순서대로 WeaponData로 변환한다.
+        for (int slotIndex = 0;
+             slotIndex < loadout.equippedWeaponIds.Length;
+             slotIndex++)
+        {
+            // 현재 슬롯에 저장된 무기 ID를 가져온다.
+            string weaponId =
+                loadout.equippedWeaponIds[slotIndex];
+
+            // 현재 슬롯의 무기 ID가 비어 있는지 확인한다.
+            if (string.IsNullOrWhiteSpace(weaponId))
+            {
+                // 무기 ID가 없으므로 WeaponData 배열에서도 빈 슬롯을 null로 표시한다.
+                equippedWeaponDatas[slotIndex] = null;
+
+                // 현재 슬롯 처리를 끝내고 다음 슬롯으로 넘어간다.
+                continue;
+            }
+
+            // WeaponDatabase에서 현재 무기 ID와 일치하는 WeaponData를 찾는다.
+            WeaponData weaponData =
+                _weaponDatabase.GetWeaponData(weaponId);
+
+            // 찾은 WeaponData를 동일한 슬롯 인덱스에 저장한다.
+            equippedWeaponDatas[slotIndex] = weaponData;
+        }
+
+        // 완성된 장착 무기 배열을 현재 생성된 플레이어의 Weapon 컴포넌트에 전달한다.
+        // Weapon은 각 WeaponData를 전투 중 증강 가능한 WeaponRuntimeState로 변환한다.
         _spawnedWeapon.InitializeWeapons(equippedWeaponDatas);
     }
 

@@ -1,41 +1,25 @@
 using UnityEngine;
 
-public class Lazer : MonoBehaviour
+/// <summary>
+/// 발사된 방향으로 직선 이동하며,
+/// 적을 관통하는 레이저 투사체.
+/// 공격력, 수명, 충돌 처리는 Projectile 부모가 담당한다.
+/// </summary>
+public class Lazer : Projectile
 {
-    [Header("초기 옵션")]
-    [SerializeField] float _speed = 10f;
-    [SerializeField] int _damage = 1;
-
-    public float LazerSpeed => _speed;
-    public int LazerDamage => _damage;
-
-    private void Update()
-    {
-        transform.Translate(Vector2.right * _speed * Time.deltaTime);
-
-        if (transform.position.x > 15f)
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        FastEnemy enemy = collision.GetComponent<FastEnemy>();
-
-        if (enemy != null)
-        {
-            enemy.TakeHit(_damage);
-            Destroy(gameObject);
-        }
-    }
+    /// <summary>
+    /// 레이저는 적에게 명중해도 바로 제거되지 않고 관통한다.
+    /// Projectile 부모의 Life Time이 지나면 자동으로 제거된다.
+    /// </summary>
+    protected override bool DestroyAfterHit => false;
 
     /// <summary>
-    /// 적용중인 공격력값 가져오기
+    /// Projectile의 FixedUpdate에서 호출된다.
+    /// Weapon이 전달한 발사 방향으로 레이저를 직선 이동시킨다.
     /// </summary>
-    /// <param name="damage">공격력</param>
-	public void SetDamage(int damage)
-	{
-		_damage = damage;
-	}
+    protected override void MoveProjectile()
+    {
+        // 현재 진행 방향으로 레이저를 일정한 속도로 이동시킨다.
+        Body.linearVelocity = Direction * MoveSpeed;
+    }
 }

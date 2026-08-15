@@ -21,6 +21,6 @@ MonoBehaviour:
   _baseCooltime: 0.5
   _price: 6
   _requiredCharacterLevel: 1
-  _isInitiallyOwned: 0
+  _isInitiallyOwned: 1
   _fireRateUpgradeValue: 0.1
   _minimumCooltime: 0.05

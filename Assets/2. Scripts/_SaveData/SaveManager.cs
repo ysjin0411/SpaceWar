@@ -21,6 +21,17 @@ public class SaveManager : MonoBehaviour
     [Header("현재 플레이어 세이브 데이터")]
     [SerializeField] PlayerSaveData _playerSaveData = new();
 
+    /// <summary>
+    /// 현재 총 골드가 변경됐을 때 변경된 골드량을 전달한다.
+    /// </summary>
+    public event Action<int> GoldChanged;
+
+    /// <summary>
+    /// JSON에서 불러온 현재 플레이어의 총 골드.
+    /// 외부에서는 읽기만 할 수 있다.
+    /// </summary>
+    public int CurrentGold => _playerSaveData.gold;
+
     // 다른 클래스에는 읽기 전용으로 현재 세이브 데이터를 공개한다.
     public PlayerSaveData PlayerSaveData => _playerSaveData;
 
@@ -224,15 +235,25 @@ public class SaveManager : MonoBehaviour
         SaveToFile();
     }
 
+    /// <summary>
+    /// 현재 총 골드를 증가시키고 JSON과 UI에 반영한다.
+    /// </summary>
     public void AddGold(int amount)
     {
+        // 0 이하의 값은 정상적인 골드 획득량이 아니다.
         if (amount <= 0)
         {
             return;
         }
 
+        // 메모리에 로드된 플레이어 총 골드를 증가시킨다.
         _playerSaveData.gold += amount;
+
+        // 변경된 총 골드를 JSON 파일에 저장한다.
         SaveToFile();
+
+        // 현재 총 골드가 변경됐다고 UI에 알린다.
+        GoldChanged?.Invoke(_playerSaveData.gold);
     }
 
 

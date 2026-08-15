@@ -17,6 +17,8 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] PlayerController _playerController;
     [Tooltip("현재 Stage의 GameManager")]
     [SerializeField] GameManager _gameManager;
+    [Tooltip("현재 스테이지의 진행 상태를 관리하는 StageFlowManager")]
+    [SerializeField] StageFlowManager _stageFlowManager;
 
     [Header("스폰 설정")]
     [Tooltip("하나의 패턴을 생성한 후 다음 패턴까지의 시간")]
@@ -37,6 +39,8 @@ public class EnemySpawner : MonoBehaviour
 
     // StageManager가 새 플레이어를 전달했는지 확인한다.
     bool _isInitialized;
+    // 현재 일반 적을 생성해도 되는 상태인지 확인한다.
+    bool _isSpawning;
 
     /// <summary>
     /// StageManager가 생성한 플레이어와 현재 Stage의 GameManager를 전달한다.
@@ -57,6 +61,11 @@ public class EnemySpawner : MonoBehaviour
         {
             throw new InvalidOperationException("EnemySpawner에 FastEnemy 프리팹이 연결되지 않았습니다.");
         }
+        if (_stageFlowManager == null)
+        {
+            throw new InvalidOperationException(
+                "EnemySpawner에 StageFlowManager가 연결되지 않았습니다.");
+        }
 
         // 비활성화된 옛 Player 참조를 새로 생성된 선택 캐릭터로 교체한다.
         _playerController = playerController;
@@ -67,12 +76,20 @@ public class EnemySpawner : MonoBehaviour
 
         // 이제 적을 생성해도 되는 상태다.
         _isInitialized = true;
+
+        // 현재 스테이지 페이즈가 일반 전투 구간인지 확인한다.
+        bool isNormalBattlePhase =
+            _stageFlowManager.CurrentPhase == StagePhase.Section1 ||
+            _stageFlowManager.CurrentPhase == StagePhase.Section2;
+
+        // 일반 전투 구간일 때만 적 생성을 시작한다.
+        _isSpawning = isNormalBattlePhase;
     }
 
     private void Update()
     {
         // 새 플레이어가 연결되기 전에는 적을 생성하지 않는다.
-        if (!_isInitialized)
+        if (!_isInitialized || !_isSpawning)
         {
             return;
         }
@@ -140,12 +157,12 @@ public class EnemySpawner : MonoBehaviour
             throw new MissingComponentException("FastEnemy 프리팹에 FastEnemy 컴포넌트가 없습니다.");
         }
 
-        // 적과 적 투사체가 새로 생성된 플레이어를 추적하도록 전달한다.
-        enemy.InitPlayerController(_playerController);
+        // Enemy 부모에 현재 플레이어와 GameManager를 함께 전달한다.
+        enemy.Init(
+            _playerController,
+            _gameManager);
 
-        // 적 처치 시 보너스 게이지를 처리할 GameManager를 전달한다.
-        enemy.InitGameManager(_gameManager);
-
+        // FastEnemy가 사용할 이동 패턴을 전달한다.
         enemy.SetMoveType(moveType);
     }
 
@@ -177,5 +194,69 @@ public class EnemySpawner : MonoBehaviour
         {
             SpawnFastEnemyPatternB();
         }
+    }
+    private void OnEnable()
+    {
+        // StageFlowManager가 연결되어 있다면 페이즈 변경 이벤트를 구독한다.
+        if (_stageFlowManager != null)
+        {
+            _stageFlowManager.PhaseChanged += HandlePhaseChanged;
+        }
+    }
+
+    private void OnDisable()
+    {
+        // 오브젝트가 비활성화되거나 제거될 때 이벤트 구독을 해제한다.
+        if (_stageFlowManager != null)
+        {
+            _stageFlowManager.PhaseChanged -= HandlePhaseChanged;
+        }
+    }
+
+    /// <summary>
+    /// 스테이지 진행 상태가 변경됐을 때
+    /// 일반 적을 계속 생성할지 결정한다.
+    /// </summary>
+    private void HandlePhaseChanged(StagePhase phase)
+    {
+        switch (phase)
+        {
+            // 일반 전투 구간에서는 적 생성을 허용한다.
+            case StagePhase.Section1:
+            case StagePhase.Section2:
+                StartSpawning();
+                break;
+
+            // 보스 경고, 보스 전투, 구간 전환 중에는
+            // 일반 적을 추가로 생성하지 않는다.
+            default:
+                StopSpawning();
+                break;
+        }
+    }
+
+    /// <summary>
+    /// 일반 적 생성을 시작한다.
+    /// </summary>
+    public void StartSpawning()
+    {
+        // 새로운 구간이 시작되면 스폰 대기 시간을 처음부터 측정한다.
+        _timer = 0f;
+
+        // EnemySpawner의 Update에서 적 생성을 허용한다.
+        _isSpawning = true;
+    }
+
+    /// <summary>
+    /// 일반 적 생성을 중지한다.
+    /// 이미 생성된 적은 제거하지 않는다.
+    /// </summary>
+    public void StopSpawning()
+    {
+        // 현재까지 측정한 스폰 대기 시간을 초기화한다.
+        _timer = 0f;
+
+        // EnemySpawner의 Update에서 추가 생성을 막는다.
+        _isSpawning = false;
     }
 }

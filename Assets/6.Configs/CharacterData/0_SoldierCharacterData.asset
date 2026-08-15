@@ -22,3 +22,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 243fc29c1a4804a4ca791bdef396a6e0, type: 2}
   - {fileID: 11400000, guid: a06171464db15e04eb56c99c990b978f, type: 2}
   - {fileID: 11400000, guid: 4be91cef2e7208d42810bc9c16e2c5ea, type: 2}
+  _initialEquippedWeapons:
+  - {fileID: 11400000, guid: 243fc29c1a4804a4ca791bdef396a6e0, type: 2}
+  - {fileID: 11400000, guid: a06171464db15e04eb56c99c990b978f, type: 2}
+  - {fileID: 11400000, guid: 4be91cef2e7208d42810bc9c16e2c5ea, type: 2}
