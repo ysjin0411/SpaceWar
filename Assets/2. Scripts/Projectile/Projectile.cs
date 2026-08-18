@@ -114,12 +114,12 @@ public abstract class Projectile : MonoBehaviour
     }
 
     /// <summary>
-    /// 적에게 명중했을 때 적용할 효과.
-    /// 기본 동작은 현재 공격력만큼 피해를 주는 것이다.
+    /// 피해를 받을 수 있는 대상에게 현재 공격력을 적용한다.
+    /// Enemy와 BossEnemy를 모두 처리할 수 있다.
     /// </summary>
-    protected virtual void HandleEnemyHit(Enemy enemy)
+    protected virtual void HandleTargetHit(IDamageable target)
     {
-        enemy.TakeHit(_damage);
+        target.TakeHit(_damage);
     }
 
     /// <summary>
@@ -130,16 +130,24 @@ public abstract class Projectile : MonoBehaviour
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
-        Enemy enemy = collision.GetComponentInParent<Enemy>();
+        // 충돌한 오브젝트 또는 부모에서 피해를 받을 대상을 찾는다.
+        IDamageable target =
+            collision.GetComponentInParent<IDamageable>();
 
-        // 적이 아니라면 아무것도 처리하지 않는다.
-        if (enemy == null)
+        // Enemy와 BossEnemy가 아니라면 처리하지 않는다.
+        if (target == null)
         {
             return;
         }
 
-        // 자식 종류에 맞는 타격 효과를 실행한다.
-        HandleEnemyHit(enemy);
+        // 이미 사망 처리된 대상은 다시 공격하지 않는다.
+        if (target.IsDead)
+        {
+            return;
+        }
+
+        // 투사체 종류에 맞는 타격 효과를 실행한다.
+        HandleTargetHit(target);
 
         // 명중 후 제거되는 투사체라면 현재 오브젝트를 제거한다.
         if (DestroyAfterHit)

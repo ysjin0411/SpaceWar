@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 8128092505325286351}
   - component: {fileID: 3766248222689466274}
   - component: {fileID: 5749066858517489700}
-  m_Layer: 0
+  - component: {fileID: 7177751443503475103}
+  m_Layer: 8
   m_Name: Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,7 +103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Library: []
-  m_SpriteLibraryAsset: {fileID: 0}
+  m_SpriteLibraryAsset: {fileID: 7108339969198208228, guid: c7140addb0b4d284ea0ea92a77b283c1, type: 3}
 --- !u!114 &5749066858517489700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,10 +116,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed8b1ae4e4e52b34ea557c1c11e076fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_CategoryHash: 0
-  m_labelHash: 0
+  m_CategoryHash: 0.009161512
+  m_labelHash: 0.0000000050322657
   m_SpriteKey: 0
-  m_SpriteHash: 0
+  m_SpriteHash: 527333348
+--- !u!95 &7177751443503475103
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5750769060912991443}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 048b200e5a188b34999c24200abdcb05, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6958316962597483750
 GameObject:
   m_ObjectHideFlags: 0
@@ -128,11 +151,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 752563982060792401}
-  - component: {fileID: 3659406932595098636}
+  - component: {fileID: 7667251967294688097}
   - component: {fileID: 486255449174284901}
   - component: {fileID: 4757110715007747093}
-  m_Layer: 0
-  m_Name: Boss1
+  m_Layer: 8
+  m_Name: Boss_Dog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -152,9 +175,10 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1320381252059303155}
+  - {fileID: 8735207689797437126}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3659406932595098636
+--- !u!114 &7667251967294688097
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -163,20 +187,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 6958316962597483750}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58eef901144b6ee47b78fa21f46e2adb, type: 3}
+  m_Script: {fileID: 11500000, guid: fb82dba2cbc5bfa44943b9681193e851, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHp: 100
-  _crashDamage: 0
-  _goldPrefab: {fileID: 0}
-  _goldDropCount: 0
+  _maxHp: 1000
+  _crashDamage: 10
+  _destroyDelay: 0
   _currentHp: 0
   _isDead: 0
-  _moveSpeed: 3
-  _moveType: 0
-  _enemyBulletPrefab: {fileID: 0}
-  _firePoint: {fileID: 0}
-  _isFired: 0
+  _moveSpeed: 10
+  _canAct: 0
 --- !u!50 &486255449174284901
 Rigidbody2D:
   serializedVersion: 5
@@ -250,3 +270,34 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 3.5, y: 1.9}
   m_EdgeRadius: 0
+--- !u!1 &9182107632142494943
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8735207689797437126}
+  m_Layer: 8
+  m_Name: FirePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8735207689797437126
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9182107632142494943}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 752563982060792401}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

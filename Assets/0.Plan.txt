@@ -1,3 +1,7 @@
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ코덱스 개인맞춤설정ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+우선 최신파일을 읽어. 나는 게임 클라이언트 개발자로 취업을 준비하는 취준생이야. 너가 파일을 직접 건드리지는 마.
+프로젝트는 내가 직접 건드릴거야. 너는 말만해.나한테 코드를 줄때는 주석을 같이 붙여서 줘. 내가 물어보면 설명하고, 하나하나 설명하진마.주석으로 설명해.
+어디 스크립트에서 무슨작업을 해야하는지 말해주면 좋아. 개발단계야.
 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ전체 흐름 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 메인메뉴(1.플레이 2.캐릭터 관리 3.스킬 4. 환경설정)
 1-1. 플레이 > 스테이지선택 > 캐릭터 선택 > 스킬 프리셋 가져오기 전투
@@ -5,38 +9,15 @@
 2-1. 캐릭터 관리 > 캐릭터 목록 > 해당 캐릭터의 스킬프리셋(스킬 장착)
 
 3-1. 캐릭터 선택 > 해당 캐릭터의 해금, 미해금 관련 정보와 스킬장착프리셋 / 레벨달성해금or비급획득시스킬
-
-
-
-
-
-
-
-
-ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ화면ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ화면좌표ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 -8 <= x <= 8
 -4 <= y <= 4
-
-
-
-
 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ일반 몬스터ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-1. 스테이지 1의 몬스터 패턴
-
-몬스터 종류1 - 다여섯 기체가 지나가면서 플레이어에게 공격
+1. FastEnemy - 일정 기체들이 빠르게 지나가며 공격을 쏟고 지나감.
 
 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ보스 몬스터ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 보스몬스터 특징1 - 화면 절반 이상 다가오지 못한다.
-
-
 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ플레이어ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-근접 모드 / 원거리 모드 전환 (1번키)
-근접 모드 스킬 해금 여러가지 (장검, 단검 등등) (스킬 착용 탭키)
-원거리 모드 스킬 해금 여러가지
-
-ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ해야할것ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-- 게이지바 차오르는것 구현
-- 게이지바가 다 차올랐을때의 이벤트 (증강)
 
 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ전체 구조ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 각 캐릭터는 프리팹 형태로 스테이지에 불러올 것이다.
@@ -72,41 +53,43 @@ GameSessionManager: 현재 화면 흐름의 임시 정보 / 선택한 스테이지, 선택한 캐릭터
 └─ WeaponUI
 
 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ해야할것ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-1. 캐릭터별 고유 레벨 - stage 플레이 중, 실시간으로 올라가며 세이브데이터로 존재하게 할것. 게임이 다시 켜져도 레벨을 불러오게.
-2. 캐릭터에 레벨 상승에 따라 EquipmentManage씬에 있는 구매 가능 웨폰을 활성화 시킬 것.
-3. Projectile을 무기에 따라 상속시켜서 관리할 것.
-4. 잡몹들과 보스 부모 스크립트를 따로 관리할 것.
-5. 업적시스템 - 특정 Stage를 피격 N회 이하로 클리어 시 보상을 주는 구조.(소량의 레벨과 경험치)
-5-1. 그리고 해당 StageN의 상단에 업적 버튼을 만들어 누르면, 현재 클리어한 업적과 미클리어한 업적을 보상과 함께 보여줄 것.
-6. 플레이어가 쏘는 총알, 적이 쏘는 총알, 다 풀링화 시킬 것.
-7. 몬스터에 따라 재화를 적게는 1개, 많게는 여러개 생성시켜서 좌측 상단에 올라가면서 합산시킬것.
-8. 재화는 User 자체 데이터이므로, 어떤 캐릭터로 플레이하던 재화는 공유된다.
-9. 스테이지에 타이머를 만들어서 일정 타이머가 되면 보스 등장.
-10. 배경 스크롤 적용.
+2. 솔져의 weapon을 3개 더 만들기.
+
+3. 세이브데이터, 캐릭터별 레벨초기화(보유중인 무기도 기본 무기로 리셋), 1레벨 증가 콘텍스트메뉴 만들기 / 전체골드 보유량 +500골드 함수 만들기, 전체골드 초기화 함수 만들기
+
+4. 이큅매니지 씬에 중간패널 스크롤화
+
+5. 이큅매니지 씬에 UI적인것들 캐릭터마다 다르게 연동 + 보유골드 연동
+
+6. 무기 인포에 data연결
+
+7. 실시간으로 상점 구매 시스템. 당연히 save도. / 동시에 환불기능도 만들기
+
+8. 일정 레벨이상일때 구매가능하게 활성화하기
+
+* warrior 구현
+* 상점에서 구매한 무기, 스테이지까지 잘 갖고오는지 확인.
+* 골드획득시 +10 같은 연출
+* 미사일 폭발 범위 애니메이션
+* 적 사망 애니메이션
+* 각 프로젝타일의 히트 연출
+* 캐릭터 피격 연출
+* 무기마다 다른 캐릭터 스프라이트
+* 증강연출 + 내가 뭘 골랐는지 이펙트
+*. 업적시스템 - 특정 Stage를 피격 N회 이하로 클리어 시 보상을 주는 구조.(소량의 레벨과 경험치)
+*. 그리고 해당 StageN의 상단에 업적 버튼을 만들어 누르면, 현재 클리어한 업적과 미클리어한 업적을 보상과 함께 보여줄 것.
+*. 플레이어가 쏘는 총알, 적이 쏘는 총알, 다 풀링화 시킬 것.
+*. 스테이지에 타이머를 만들어서 일정 타이머가 되면 보스 등장.
+* 환경설정 - 사운드 볼륨 조절 / 설정한 환경설정, 버튼으로 저장.
+* 특정 구간(보스등장)마다 사운드 트랙 바꾸기
+* 어빌리티매니지씬 구상.(캐릭터 상태 보여주는 씬, 레벨, 장착중인 무기, 보유골드 등등)
 
 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ현재 진행중인 작업ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-0816_0037
-* 중간보스 warning후에 중간보스 소환 > 스테이지진행바 멈춤 > 전투 > 중간보스 클리어 > 캐릭터를 화면 오른쪽으로 이동시키는 연출 > 게임 재개 > 찐보스 > 스테이지진행바 멈춤 > 보스 전투
+0818
+1. 중간보스 warning후에 중간보스 소환 > 스테이지진행바 멈춤 > 전투 > 중간보스 클리어 > 캐릭터를 화면 오른쪽으로 이동시키는 연출 > 게임 재개 > 찐보스 > 스테이지진행바 멈춤 > 보스 전투
 > 클리어시 스테이지클리어 이벤트와 연출 > 클리어타임 기록(Json세이브데이터) > 스테이지셀렉트씬에서 저장된 클리어타임 받아오기 > 연동된 스테이지셀렉트씬으로 넘어감
 
-* 솔져 무기 종류 2개정도 더 만들어서 이큅매니지씬에서 상점 기능 구현. 실제 상점에서 산 무기를 장착해서 스테이지에 갖고 오는것까지 구현. 장착한 무기를 게임꺼도 저장됐는지 확인
-
-* Warrior 구현. > 솔져처럼 잘 작동되는지 확인
-
-* 골드를 획득했을때 +10 이런식으로 작게 떴다가 사라지는 연출
-
-* 피격or타격 이펙트와 연출 / 내가 피격시 캐릭터 깜빡, 적 피격시 적 개체 깜빡+내 불렛 적중 이펙트
-
-* 미사일 폭발 범위 표시.
-
-* 적 사망 애니메이션
-
-* 무기마다 다른 캐릭터 포즈와 에셋
-
-* 증강 뜨고 사라지는거 두트윈 연출 + 내가 뭘 골랐는지 이펙트
-
-* 환경설정 구현 - 
-
+2. 같은 애니메이션 녹화에서 개체마다 다른 스프라이트만 재생시키고싶음.
 
 
 
@@ -115,3 +98,143 @@ projectile = 10
 background = 0
 FastEnemy = 10
 BossEnemy = 10
+
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ공부ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+애니메이션관련
+결론부터 말하면, 네가 원하는 구조에서는:
+Idle Animation Clip은 하나만 만들고, Animator Controller도 공유한다.
+Enemy마다 Sprite Library Asset만 다르게 연결한다.
+
+핵심은 애니메이션 클립에 실제 스프라이트를 박아 넣는 게 아니라, Idle/Frame0, Idle/Frame1 같은 “주소”를 기록하는 것이다.
+쉬운 비유
+게임 캐릭터를 연극배우라고 생각하면 된다.
+Unity 구성요소	비유	역할
+Sprite	실제 의상	화면에 표시할 한 장의 이미지
+Sprite Library Asset	배우별 의상 창고	사용할 Sprite들을 주소별로 보관
+Sprite Library 컴포넌트	오늘 사용할 창고 지정	현재 프리팹이 사용할 Library Asset 연결
+Sprite Resolver	의상 담당 스태프	주소를 보고 창고에서 Sprite를 꺼냄
+SpriteRenderer	배우의 겉모습	Resolver가 꺼낸 Sprite를 실제 화면에 표시
+Animation Clip	시간표/연기 대본	0초에는 Frame0, 0.2초에는 Frame1 지정
+Animator Controller	연출 흐름표	Idle, Attack, Die 상태와 전환 조건 관리
+Animator	실제 실행 담당자	Controller를 읽고 현재 Clip을 재생
+
+
+Unity 공식 설명에서도 SpriteResolver는 설정된 Category와 Label로 SpriteLibrary에 등록된 Sprite를 찾아 같은 오브젝트의 SpriteRenderer에 적용한다. Unity SpriteResolver 문서
+네가 원하는 실제 구조
+Enemy1 Sprite Library
+Category: Idle
+├─ Frame0 → Enemy1_Idle_0.png
+├─ Frame1 → Enemy1_Idle_1.png
+├─ Frame2 → Enemy1_Idle_2.png
+└─ Frame3 → Enemy1_Idle_3.png
+Enemy2 Sprite Library
+Category: Idle
+├─ Frame0 → Enemy2_Idle_0.png
+├─ Frame1 → Enemy2_Idle_1.png
+├─ Frame2 → Enemy2_Idle_2.png
+└─ Frame3 → Enemy2_Idle_3.png
+두 라이브러리의 Category/Label 이름은 완전히 같고, 연결된 Sprite만 다르다.
+공용 Idle.anim은 이렇게 동작한다.
+0.00초 → Idle / Frame0
+0.25초 → Idle / Frame1
+0.50초 → Idle / Frame2
+0.75초 → Idle / Frame3
+1.00초 → Idle / Frame0
+그러면 같은 Idle.anim을 재생해도:
+Enemy1
+→ 자기 Sprite Library에서 Idle/Frame0을 검색
+→ Enemy1_Idle_0 표시
+
+Enemy2
+→ 자기 Sprite Library에서 Idle/Frame0을 검색
+→ Enemy2_Idle_0 표시
+즉, 대본은 같지만 배우별 의상이 다르게 나오는 구조다.
+Animation Clip의 역할
+Animation Clip은 “시간에 따라 어떤 값을 바꿀지” 기록한다.
+일반적으로 Sprite 애니메이션을 만들면 다음 두 방식이 있다.
+직접 Sprite를 기록하는 방식
+SpriteRenderer.Sprite
+→ Enemy1_Idle_0
+→ Enemy1_Idle_1
+→ Enemy1_Idle_2
+이 방식은 클립에 Enemy1의 실제 Sprite가 들어간다. 따라서 Enemy2가 같은 클립을 사용하면 Enemy1의 모습이 나온다.
+Sprite Resolver를 기록하는 방식
+SpriteResolver Label
+→ Frame0
+→ Frame1
+→ Frame2
+이 방식은 실제 Sprite가 아니라 Library의 주소를 변경한다. 따라서 Enemy마다 다른 Sprite Library를 연결하면 같은 클립을 재사용할 수 있다.
+네 프로젝트의 [Normal/Idle.anim](C:/YSJStudy/SubPF/Assets/3. Animations/Enemy/Normal/Idle.anim)은 SpriteRenderer.Sprite가 아니라 SpriteResolver.m_SpriteHash를 변경하고 있다. 즉, 재사용에 적합한 Resolver 방식으로 이미 만들고 있어.
+Animator Controller의 역할
+Animator Controller는 애니메이션 파일이 아니라 애니메이션들의 진행 흐름이다.
+Idle
+  ├─ 공격 조건 발생 → Attack
+  ├─ 피격 조건 발생 → Hit
+  └─ 체력 0 → Die
+예를 들어 Controller에 이런 파라미터를 만들 수 있다.
+Attack : Trigger
+Hit    : Trigger
+IsDead : Bool
+코드에서:
+_animator.SetTrigger("Attack");
+_animator.SetTrigger("Hit");
+_animator.SetBool("IsDead", true);
+라고 요청하면 Controller가 조건에 맞는 State로 이동하고 그 State에 연결된 Clip을 재생한다.
+Animator Controller는 Animation Clip들과 전환을 상태 머신으로 관리하며, Animation Clip이 하나뿐이어도 GameObject에서 재생하려면 Controller에 배치해야 한다. Unity Animator Controller 문서
+Animator 컴포넌트의 역할
+Animator는 프리팹에 붙어 있는 실행기다.
+Animator
+└─ Controller: EnemyCommon.controller
+Animator 자신은 Idle의 프레임을 저장하지 않는다. 연결된 Controller를 읽고 Controller가 선택한 Clip을 실행한다.
+Unity 공식 문서도 Animator 컴포넌트가 Controller를 참조하고, Controller가 어떤 Clip을 언제 재생·전환할지 결정한다고 설명한다. Unity Animator 컴포넌트 문서
+네 프로젝트의 현재 상태
+현재 확인되는 구조는 다음과 같다.
+Normal/Idle.anim과 Boss/Idle.anim은 키프레임 시간과 Resolver 값이 동일함
+Normal과 Boss가 각각 별도의 Controller를 사용함
+그런데 FastEnemy와 Boss_Dog가 동일한 Normal/Idle.spriteLib를 참조하고 있음
+Boss 전용 Sprite Library는 아직 없음
+따라서 현재는 같은 역할의 Idle Clip을 중복 생성한 상태에 가깝다.
+원하는 구조로 정리하면 다음과 같다.
+공용
+├─ EnemyCommon_Idle.anim
+└─ EnemyCommon.controller
+
+Enemy1 프리팹
+├─ Sprite Library → Enemy1.spriteLib
+├─ Sprite Resolver
+└─ Animator → EnemyCommon.controller
+
+Enemy2 프리팹
+├─ Sprite Library → Enemy2.spriteLib
+├─ Sprite Resolver
+└─ Animator → EnemyCommon.controller
+둘의 Category와 Label은 반드시 같아야 한다.
+Idle / Frame0
+Idle / Frame1
+Idle / Frame2
+Idle / Frame3
+Sprite만 다르게 연결한다.
+언제 Controller까지 공유하지 않는가
+행동 흐름까지 같다면 Controller도 공유한다.
+Enemy1: Idle → Attack → Hit → Die
+Enemy2: Idle → Attack → Hit → Die
+반대로 보스처럼 상태 구조가 다르면 Controller는 분리해도 된다.
+일반 적 Controller
+Idle → Attack → Die
+
+보스 Controller
+Enter → Idle → PatternA → PatternB → Groggy → Die
+이 경우에도 Idle.anim 자체는 같은 Label 구조를 사용한다면 공유할 수 있다.
+정리하면:
+동작 타이밍까지 같음
+→ Clip 공유
+
+상태와 전환 구조까지 같음
+→ Controller도 공유
+
+외형만 다름
+→ Sprite Library만 교체
+
+상태 구조는 같지만 Clip 타이밍이 다름
+→ Animator Override Controller 고려
+네 경우에는 우선 공용 Idle Clip + Enemy별 Sprite Library 구조를 잡는 것이 정확하다.

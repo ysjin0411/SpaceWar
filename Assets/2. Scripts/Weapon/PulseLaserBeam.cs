@@ -185,27 +185,25 @@ public class PulseLaserBeam : MonoBehaviour
     }
 
     /// <summary>
-    /// 레이저를 처음 발사했을 때 가장 가까운 적 하나에게 피해를 준다.
-    /// 빔 길이는 계속 갱신하지만 같은 펄스에서 추가 피해는 주지 않는다.
+    /// 레이저를 처음 발사했을 때 가장 가까운 대상 하나에게 피해를 준다.
     /// </summary>
     private void DamageFirstEnemy(RaycastHit2D hit)
     {
-        // 충돌한 Collider가 없다면 피해를 줄 대상도 없다.
         if (hit.collider == null)
         {
             return;
         }
 
-        // 적의 자식 Collider와 충돌할 수 있으므로 부모까지 확인한다.
-        Enemy enemy = hit.collider.GetComponentInParent<Enemy>();
+        // 일반 적과 보스를 공통 인터페이스로 찾는다.
+        IDamageable target =
+            hit.collider.GetComponentInParent<IDamageable>();
 
-        if (enemy == null)
+        if (target == null || target.IsDead)
         {
             return;
         }
 
-        // 이번 레이저 펄스의 공격력을 적용한다.
-        enemy.TakeHit(_damage);
+        target.TakeHit(_damage);
     }
 
     /// <summary>

@@ -24,8 +24,8 @@ public class Missile : Projectile
     [Tooltip("Enemy 레이어만 선택한다.")]
     [SerializeField] LayerMask _enemyLayerMask;
 
-    // 현재 미사일이 추적하고 있는 적을 저장한다.
-    Enemy _target;
+    // 현재 미사일이 추적하고 있는 대상의 Transform
+    Transform _target;
 
     /// <summary>
     /// Weapon에서 공격력과 발사 방향을 받은 직후 실행된다.
@@ -59,48 +59,63 @@ public class Missile : Projectile
     }
 
     /// <summary>
-    /// 현재 미사일 주변에서 가장 가까운 Enemy를 찾는다.
-    /// FastEnemy, BossEnemy 등 Enemy를 상속받은 적을 모두 찾을 수 있다.
+    /// 탐색 범위 안에서 가장 가까운 IDamageable 대상을 찾는다.
+    /// 일반 적과 보스를 모두 탐색한다.
     /// </summary>
     private void FindNearestEnemy()
     {
-        // 현재 씬에 활성화되어 있는 모든 Enemy를 가져온다.
-        Enemy[] enemies =
-            FindObjectsByType<Enemy>(FindObjectsSortMode.None);
-
         // 아직 추적 대상이 없다는 뜻으로 null을 넣는다.
         _target = null;
 
-        // 탐색 반경의 제곱값을 저장한다.
-        // 거리 비교에서 제곱근 계산을 피하기 위해 sqrMagnitude와 비교한다.
+        // 탐색 범위 안에 있는 Enemy 레이어의 Collider를 가져온다.
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(
+            transform.position,
+            _targetSearchRadius,
+            _enemyLayerMask);
+
+        // 하나의 적이 여러 Collider를 가졌을 때 중복 검사하지 않는다.
+        HashSet<IDamageable> checkedTargets =
+            new HashSet<IDamageable>();
+
         float nearestDistanceSqr =
             _targetSearchRadius * _targetSearchRadius;
 
-        // 발견한 모든 적을 확인한다.
-        foreach (Enemy enemy in enemies)
+        foreach (Collider2D hitCollider in hitColliders)
         {
-            // 안전을 위해 사라진 적은 건너뛴다.
-            if (enemy == null)
+            // Collider 또는 부모에서 피해를 받을 대상을 찾는다.
+            IDamageable target =
+                hitCollider.GetComponentInParent<IDamageable>();
+
+            if (target == null || target.IsDead)
             {
                 continue;
             }
 
-            // 현재 미사일에서 적까지 향하는 벡터를 구한다.
-            Vector2 offset =
-                enemy.transform.position - transform.position;
+            // 같은 대상의 다른 Collider라면 다시 검사하지 않는다.
+            if (!checkedTargets.Add(target))
+            {
+                continue;
+            }
 
-            // 현재 미사일과 적 사이 거리의 제곱값을 구한다.
+            Transform targetTransform = target.TargetTransform;
+
+            if (targetTransform == null)
+            {
+                continue;
+            }
+
+            Vector2 offset =
+                targetTransform.position - transform.position;
+
             float distanceSqr = offset.sqrMagnitude;
 
-            // 현재까지 발견한 적보다 멀다면 선택하지 않는다.
             if (distanceSqr > nearestDistanceSqr)
             {
                 continue;
             }
 
-            // 더 가까운 적을 새로운 추적 대상으로 저장한다.
             nearestDistanceSqr = distanceSqr;
-            _target = enemy;
+            _target = targetTransform;
         }
     }
 
@@ -111,7 +126,7 @@ public class Missile : Projectile
     {
         // 현재 위치에서 추적 대상까지의 방향을 구한다.
         Vector2 targetDirection =
-            (Vector2)(_target.transform.position - transform.position);
+            (Vector2)(_target.position - transform.position);
 
         // 적과 미사일의 위치가 완전히 같다면 회전하지 않는다.
         if (targetDirection.sqrMagnitude <= Mathf.Epsilon)
@@ -153,45 +168,44 @@ public class Missile : Projectile
     }
 
     /// <summary>
-    /// 미사일이 적에게 명중했을 때 호출된다.
-    /// 명중 지점을 중심으로 폭발 범위 안의 Enemy에게 피해를 준다.
+    /// 미사일이 대상에게 명중하면 주변의 일반 적과 보스에게 범위 피해를 준다.
     /// </summary>
-    protected override void HandleEnemyHit(Enemy hitEnemy)
+    protected override void HandleTargetHit(IDamageable hitTarget)
     {
-        // 처음 충돌한 적의 위치를 폭발 중심으로 사용한다.
-        Vector2 explosionPosition = hitEnemy.transform.position;
+        Transform hitTransform = hitTarget.TargetTransform;
 
-        // 폭발 범위 안에 있으면서 Enemy 레이어인 Collider를 가져온다.
+        if (hitTransform == null)
+        {
+            return;
+        }
+
+        Vector2 explosionPosition = hitTransform.position;
+
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(
             explosionPosition,
             _explosionRadius,
             _enemyLayerMask);
 
-        // 하나의 적에게 여러 Collider가 있을 경우
-        // 피해가 여러 번 들어가지 않도록 처리한 적을 저장한다.
-        HashSet<Enemy> damagedEnemies = new HashSet<Enemy>();
+        // 하나의 대상이 여러 Collider를 가져도 피해는 한 번만 적용한다.
+        HashSet<IDamageable> damagedTargets =
+            new HashSet<IDamageable>();
 
-        // 폭발 범위 안의 모든 Collider를 확인한다.
         foreach (Collider2D hitCollider in hitColliders)
         {
-            // Collider 또는 부모 오브젝트에서 Enemy를 찾는다.
-            Enemy enemy =
-                hitCollider.GetComponentInParent<Enemy>();
+            IDamageable target =
+                hitCollider.GetComponentInParent<IDamageable>();
 
-            // Enemy가 아니면 피해를 처리하지 않는다.
-            if (enemy == null)
+            if (target == null || target.IsDead)
             {
                 continue;
             }
 
-            // 이미 피해를 준 적이라면 중복 피해를 주지 않는다.
-            if (!damagedEnemies.Add(enemy))
+            if (!damagedTargets.Add(target))
             {
                 continue;
             }
 
-            // Weapon에서 전달받은 현재 공격력만큼 피해를 준다.
-            enemy.TakeHit(Damage);
+            target.TakeHit(Damage);
         }
     }
 

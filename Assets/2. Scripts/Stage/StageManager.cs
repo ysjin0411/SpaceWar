@@ -35,6 +35,9 @@ public class StageManager : MonoBehaviour
     [Tooltip("생성된 플레이어를 적들에게 전달할 EnemySpawner")]
     [SerializeField] EnemySpawner _enemySpawner;
 
+    [Tooltip("스테이지 페이즈에 맞춰 보스를 생성할 BossEncounterManager")]
+    [SerializeField] BossEncounterManager _bossEncounterManager;
+
     // 이번 Stage에 생성된 캐릭터의 원본 데이터
     CharacterData _selectedCharacterData;
 
@@ -316,6 +319,11 @@ public class StageManager : MonoBehaviour
     private void InitializeStageSystems()
     {
         // null 검사들
+        if (_bossEncounterManager == null)
+        {
+            throw new InvalidOperationException(
+                "StageManager에 BossEncounterManager가 연결되지 않았습니다.");
+        }
         if (_enemySpawner == null)
         {
             throw new InvalidOperationException("StageManager에 EnemySpawner가 연결되지 않았습니다.");
@@ -341,6 +349,9 @@ public class StageManager : MonoBehaviour
 
         // 적과 적 투사체가 새로 생성된 플레이어를 사용하도록 연결한다.
         _enemySpawner.Initialize(_spawnedPlayerController,_gameManager);
+
+        // 보스 생성 시스템에도 현재 플레이어를 전달한다.
+        _bossEncounterManager.Initialize(_spawnedPlayerController, _gameManager);
 
         // 증강 시스템이 새 플레이어와 해당 플레이어 프리팹의 Weapon을 사용하도록 한다.
         _upgrader.Initialize(_gameManager, _spawnedPlayerController, _spawnedWeapon);

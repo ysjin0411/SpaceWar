@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5398899518243365422}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 3781501794125578494}
   - component: {fileID: 4896179352009070078}
   - component: {fileID: 5597192801054440021}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -110,7 +110,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: d5badcc053e6ffd46b71e0e2aba8e99b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c96e8a42965e3074db422775811f82f3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -150,7 +150,7 @@ MonoBehaviour:
   m_CategoryHash: 0.009161512
   m_labelHash: 7.277501e-38
   m_SpriteKey: 0
-  m_SpriteHash: 788824939
+  m_SpriteHash: 527333348
 --- !u!95 &5597192801054440021
 Animator:
   serializedVersion: 7

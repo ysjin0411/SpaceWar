@@ -5,7 +5,7 @@ using UnityEngine;
 /// 모든 적이 공통으로 상속받는 부모 클래스.
 /// 체력, 피해, 사망, 골드 보상, 플레이어 충돌을 담당한다.
 /// </summary>
-public abstract class Enemy : MonoBehaviour
+public abstract class Enemy : MonoBehaviour, IDamageable
 {
     [Header("체력 설정")]
     [Tooltip("적이 생성됐을 때 가지는 최대 체력")]
@@ -56,6 +56,9 @@ public abstract class Enemy : MonoBehaviour
 
     // 외부에서 사망 여부를 읽을 수 있게 제공한다.
     public bool IsDead => _isDead;
+
+    // 유도 투사체가 현재 적의 위치를 추적할 때 사용한다.
+    public Transform TargetTransform => transform;
 
     /// <summary>
     /// 적 오브젝트가 생성될 때 공통 런타임 데이터를 초기화한다.
