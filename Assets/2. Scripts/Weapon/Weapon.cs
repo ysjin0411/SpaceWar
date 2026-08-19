@@ -15,6 +15,9 @@ public enum WeaponType
 /// </summary>
 public class Weapon : MonoBehaviour
 {
+    [Header("컴포넌트")]
+    [SerializeField] Animator _animator;
+
     [Header("테스트용 장착 무기")]
     [Tooltip("세이브 연결 전 테스트할 때만 사용한다.")]
     [SerializeField] WeaponData[] _testEquippedWeaponDatas;
@@ -40,6 +43,9 @@ public class Weapon : MonoBehaviour
     // 마지막 발사 이후 흐른 시간
     float _timer;
 
+    // 문자열을 매 프레임 검색하지 않도록 파라미터 ID를 미리 저장한다.
+    static readonly int AttackHash = Animator.StringToHash("Attack");
+    
     /// <summary>
     /// 현재 선택한 슬롯의 무기 상태를 반환한다. 장착 무기가 없다면 null을 반환한다.
     /// </summary>
@@ -58,6 +64,13 @@ public class Weapon : MonoBehaviour
 
     private void Awake()
     {
+        // Animator 연결 누락을 개발 단계에서 바로 확인한다.
+        if (_animator == null)
+        {
+            throw new MissingComponentException(
+                $"{name}의 Weapon에 Animator가 연결되지 않았습니다.");
+        }
+
         // FirePoint는 캐릭터 프리팹 내부 참조이므로 프리팹에 반드시 연결되어 있어야 한다.
         if (_firePoint == null)
         {
@@ -163,8 +176,14 @@ public class Weapon : MonoBehaviour
     {
         _timer += Time.deltaTime;
 
-        // Z키를 누르는 동안 현재 무기를 발사한다.
-        if (Input.GetKey(KeyCode.Z))
+        // Z키를 누르고 있고 현재 무기가 있을 때 공격 상태가 된다.
+        bool isAttackHeld = Input.GetKey(KeyCode.Z) && CurrentWeapon != null;
+
+        // 누르는 순간 Attack으로 전환되고 키를 떼는 프레임에 false가 되어 Idle로 돌아간다.
+        _animator.SetBool(AttackHash, isAttackHeld);
+
+        // Z키를 누르는 동안 기존 쿨타임에 따라 반복 발사한다.
+        if (isAttackHeld)
         {
             Fire();
         }

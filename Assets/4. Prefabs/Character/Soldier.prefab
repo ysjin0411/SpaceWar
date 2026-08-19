@@ -66,6 +66,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55ac97876bb67924f8228a6d58e84e74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _animator: {fileID: 5694316929414888429}
   _testEquippedWeaponDatas: []
   _equippedWeapons: []
   _currentSlotIndex: 0
@@ -213,7 +214,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: 33455829c28e8d74180ba2cfd75c5cb2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a0d04bc828fd4084cb8c7a08091f1aae, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -237,7 +238,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Library: []
-  m_SpriteLibraryAsset: {fileID: 7108339969198208228, guid: d7673ff9e25a2764b8a662abef3ae834, type: 3}
+  m_SpriteLibraryAsset: {fileID: 7108339969198208228, guid: 4d52b8326e59c6d46aed91038b4df258, type: 3}
 --- !u!114 &7366216975731852813
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -250,10 +251,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed8b1ae4e4e52b34ea557c1c11e076fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_CategoryHash: 0.00000000389488
-  m_labelHash: 0.0016079415
+  m_CategoryHash: 2.68861e-38
+  m_labelHash: 0.0020918234
   m_SpriteKey: 0
-  m_SpriteHash: 492517224
+  m_SpriteHash: 858988955
 --- !u!95 &5694316929414888429
 Animator:
   serializedVersion: 7
@@ -264,7 +265,7 @@ Animator:
   m_GameObject: {fileID: 2637565476594104640}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 0702b4a90189c3146a31b0118efa1718, type: 2}
+  m_Controller: {fileID: 22100000, guid: 09aeef063e4ac4d44a8a92e317ca4cda, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

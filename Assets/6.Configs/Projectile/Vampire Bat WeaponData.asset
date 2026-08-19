@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c420b9c456cfa094a9e96f54c4f32a05, type: 3}
   m_Name: Vampire Bat WeaponData
   m_EditorClassIdentifier: 
-  _id: vampire_bat
-  _name: Bat
-  _type: 1
+  _id: warrior_sword
+  _name: Sword
+  _type: 0
+  _fireMode: 0
   _icon: {fileID: 21300000, guid: 2851a4fd4ed642142bf16c6403d5293e, type: 3}
   _projectilePrefab: {fileID: 8053201812717553051, guid: a0136871e6a03024ab1120ee5db02527, type: 3}
   _baseDamage: 10
