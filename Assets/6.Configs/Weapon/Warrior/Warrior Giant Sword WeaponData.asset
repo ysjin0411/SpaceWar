@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c420b9c456cfa094a9e96f54c4f32a05, type: 3}
+  m_Name: Warrior Giant Sword WeaponData
+  m_EditorClassIdentifier: 
+  _id: warrior_sword
+  _name: Giant Sword
+  _type: 0
+  _fireMode: 0
+  _icon: {fileID: -7839315311559736734, guid: 19ce3fdb5e773fa4aaf15feaa423f8c4, type: 3}
+  _projectilePrefab: {fileID: 8053201812717553051, guid: a0136871e6a03024ab1120ee5db02527, type: 3}
+  _baseDamage: 10
+  _baseCooltime: 1
+  _price: 3
+  _requiredCharacterLevel: 1
+  _isInitiallyOwned: 1
+  _fireRateUpgradeValue: 0.01
+  _minimumCooltime: 0.05

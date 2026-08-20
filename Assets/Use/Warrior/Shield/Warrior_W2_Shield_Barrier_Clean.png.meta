@@ -1,0 +1,1807 @@
+fileFormatVersion: 2
+guid: 3a6260fec75235046a92e751dbba925f
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 5792872824325080458
+    second: Warrior_W2_Shield_Barrier_Clean_0
+  - first:
+      213: 1628316275723112861
+    second: Warrior_W2_Shield_Barrier_Clean_1
+  - first:
+      213: 3658361024876562486
+    second: Warrior_W2_Shield_Barrier_Clean_2
+  - first:
+      213: 5897503158646432762
+    second: Warrior_W2_Shield_Barrier_Clean_3
+  - first:
+      213: 8268160770922045637
+    second: Warrior_W2_Shield_Barrier_Clean_4
+  - first:
+      213: 7758835287747915130
+    second: Warrior_W2_Shield_Barrier_Clean_5
+  - first:
+      213: 6003767451500923600
+    second: Warrior_W2_Shield_Barrier_Clean_6
+  - first:
+      213: 228705650001440939
+    second: Warrior_W2_Shield_Barrier_Clean_7
+  - first:
+      213: -6429792730851446958
+    second: Warrior_W2_Shield_Barrier_Clean_8
+  - first:
+      213: -1879933984367014279
+    second: Warrior_W2_Shield_Barrier_Clean_9
+  - first:
+      213: 7850589078537238188
+    second: Warrior_W2_Shield_Barrier_Clean_10
+  - first:
+      213: 2379088774024375011
+    second: Warrior_W2_Shield_Barrier_Clean_11
+  - first:
+      213: -8040321086196232258
+    second: Warrior_W2_Shield_Barrier_Clean_12
+  - first:
+      213: 5964827388540366311
+    second: Warrior_W2_Shield_Barrier_Clean_13
+  - first:
+      213: -7815936028100601434
+    second: Warrior_W2_Shield_Barrier_Clean_14
+  - first:
+      213: -6030096046126829070
+    second: Warrior_W2_Shield_Barrier_Clean_15
+  - first:
+      213: -3056198754897472511
+    second: Warrior_W2_Shield_Barrier_Clean_16
+  - first:
+      213: 8933879271590293548
+    second: Warrior_W2_Shield_Barrier_Clean_17
+  - first:
+      213: 8285730737561861194
+    second: Warrior_W2_Shield_Barrier_Clean_18
+  - first:
+      213: -7645534704176217438
+    second: Warrior_W2_Shield_Barrier_Clean_19
+  - first:
+      213: 7192733463391667805
+    second: Warrior_W2_Shield_Barrier_Clean_20
+  - first:
+      213: 1040224907120259494
+    second: Warrior_W2_Shield_Barrier_Clean_21
+  - first:
+      213: -5969810787185343689
+    second: Warrior_W2_Shield_Barrier_Clean_22
+  - first:
+      213: 5412089146129117140
+    second: Warrior_W2_Shield_Barrier_Clean_23
+  - first:
+      213: -894210518050356639
+    second: Warrior_W2_Shield_Barrier_Clean_24
+  - first:
+      213: -4951942427818507865
+    second: Warrior_W2_Shield_Barrier_Clean_25
+  - first:
+      213: -2435838009569100687
+    second: Warrior_W2_Shield_Barrier_Clean_26
+  - first:
+      213: 7880975462581895396
+    second: Warrior_W2_Shield_Barrier_Clean_27
+  - first:
+      213: -9093155359781300363
+    second: Warrior_W2_Shield_Barrier_Clean_28
+  - first:
+      213: 6097122659860840940
+    second: Warrior_W2_Shield_Barrier_Clean_29
+  - first:
+      213: -2771859065180945595
+    second: Warrior_W2_Shield_Barrier_Clean_30
+  - first:
+      213: 4042557619851876527
+    second: Warrior_W2_Shield_Barrier_Clean_31
+  - first:
+      213: 639483537192768992
+    second: Warrior_W2_Shield_Barrier_Clean_32
+  - first:
+      213: 1907555767585076855
+    second: Warrior_W2_Shield_Barrier_Clean_33
+  - first:
+      213: -383963882216331163
+    second: Warrior_W2_Shield_Barrier_Clean_34
+  - first:
+      213: 1884250290639752778
+    second: Warrior_W2_Shield_Barrier_Clean_35
+  - first:
+      213: 965372424513555104
+    second: Warrior_W2_Shield_Barrier_Clean_36
+  - first:
+      213: 3888204263831145540
+    second: Warrior_W2_Shield_Barrier_Clean_37
+  - first:
+      213: -4839148129834433717
+    second: Warrior_W2_Shield_Barrier_Clean_38
+  - first:
+      213: -6621182243858373268
+    second: Warrior_W2_Shield_Barrier_Clean_39
+  - first:
+      213: -4267309946902501375
+    second: Warrior_W2_Shield_Barrier_Clean_40
+  - first:
+      213: 724299200244148209
+    second: Warrior_W2_Shield_Barrier_Clean_41
+  - first:
+      213: -1422679186771508649
+    second: Warrior_W2_Shield_Barrier_Clean_42
+  - first:
+      213: -7062367718816972679
+    second: Warrior_W2_Shield_Barrier_Clean_43
+  - first:
+      213: -6521658474017499064
+    second: Warrior_W2_Shield_Barrier_Clean_44
+  - first:
+      213: -5508120617327183503
+    second: Warrior_W2_Shield_Barrier_Clean_45
+  - first:
+      213: -5818373200192303341
+    second: Warrior_W2_Shield_Barrier_Clean_46
+  - first:
+      213: -124661057798755542
+    second: Warrior_W2_Shield_Barrier_Clean_47
+  - first:
+      213: -483295097119587321
+    second: Warrior_W2_Shield_Barrier_Clean_48
+  - first:
+      213: -9186998447474699423
+    second: Warrior_W2_Shield_Barrier_Clean_49
+  - first:
+      213: -2381999276746660957
+    second: Warrior_W2_Shield_Barrier_Clean_50
+  - first:
+      213: 6223893356139620925
+    second: Warrior_W2_Shield_Barrier_Clean_51
+  - first:
+      213: 4738752351075492127
+    second: Warrior_W2_Shield_Barrier_Clean_52
+  - first:
+      213: -5011521174411441912
+    second: Warrior_W2_Shield_Barrier_Clean_53
+  - first:
+      213: -523170810331171239
+    second: Warrior_W2_Shield_Barrier_Clean_54
+  - first:
+      213: -4467622341691657046
+    second: Warrior_W2_Shield_Barrier_Clean_55
+  - first:
+      213: 4062876973033547252
+    second: Warrior_W2_Shield_Barrier_Clean_56
+  - first:
+      213: -8650734581613692912
+    second: Warrior_W2_Shield_Barrier_Clean_57
+  - first:
+      213: 5729654432210486907
+    second: Warrior_W2_Shield_Barrier_Clean_58
+  - first:
+      213: -5539185659234433559
+    second: Warrior_W2_Shield_Barrier_Clean_59
+  - first:
+      213: -5035938088994569277
+    second: Warrior_W2_Shield_Barrier_Clean_60
+  - first:
+      213: 7616801256067301377
+    second: Warrior_W2_Shield_Barrier_Clean_61
+  - first:
+      213: -3103314252218592279
+    second: Warrior_W2_Shield_Barrier_Clean_62
+  - first:
+      213: -8683227402949269669
+    second: Warrior_W2_Shield_Barrier_Clean_63
+  - first:
+      213: -5405818653535301487
+    second: Warrior_W2_Shield_Barrier_Clean_64
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_0
+      rect:
+        serializedVersion: 2
+        x: 1605
+        y: 64
+        width: 500
+        height: 613
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8509ea442b646050800000000000000
+      internalID: 5792872824325080458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_1
+      rect:
+        serializedVersion: 2
+        x: 2128
+        y: 591
+        width: 106
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d91967c8601f89610800000000000000
+      internalID: 1628316275723112861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_2
+      rect:
+        serializedVersion: 2
+        x: 2132
+        y: 671
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 638c6e328fb15c230800000000000000
+      internalID: 3658361024876562486
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_3
+      rect:
+        serializedVersion: 2
+        x: 2374
+        y: 64
+        width: 610
+        height: 613
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af36dd060e328d150800000000000000
+      internalID: 5897503158646432762
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_4
+      rect:
+        serializedVersion: 2
+        x: 2374
+        y: 361
+        width: 88
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c0e0a02a686eb270800000000000000
+      internalID: 8268160770922045637
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_5
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 64
+        width: 473
+        height: 594
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7deafc069becab60800000000000000
+      internalID: 7758835287747915130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_6
+      rect:
+        serializedVersion: 2
+        x: 838
+        y: 265
+        width: 92
+        height: 365
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0dac3c410baa15350800000000000000
+      internalID: 6003767451500923600
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_7
+      rect:
+        serializedVersion: 2
+        x: 862
+        y: 63
+        width: 576
+        height: 599
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba0f572b3968c2300800000000000000
+      internalID: 228705650001440939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_8
+      rect:
+        serializedVersion: 2
+        x: 870
+        y: 617
+        width: 21
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 25fe53ae399c4c6a0800000000000000
+      internalID: -6429792730851446958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_9
+      rect:
+        serializedVersion: 2
+        x: 2116
+        y: 627
+        width: 22
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 97e8e94600229e5e0800000000000000
+      internalID: -1879933984367014279
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_10
+      rect:
+        serializedVersion: 2
+        x: 2134
+        y: 619
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca6f5c73c25e2fc60800000000000000
+      internalID: 7850589078537238188
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_11
+      rect:
+        serializedVersion: 2
+        x: 1407
+        y: 578
+        width: 27
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3eaa7d092a8340120800000000000000
+      internalID: 2379088774024375011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_12
+      rect:
+        serializedVersion: 2
+        x: 1605
+        y: 536
+        width: 95
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ebfc031529a0b6090800000000000000
+      internalID: -8040321086196232258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_13
+      rect:
+        serializedVersion: 2
+        x: 2151
+        y: 587
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ed287828e257c250800000000000000
+      internalID: 5964827388540366311
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_14
+      rect:
+        serializedVersion: 2
+        x: 2161
+        y: 586
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a9d2e1d797388390800000000000000
+      internalID: -7815936028100601434
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_15
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 570
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f17f19489bc05ca0800000000000000
+      internalID: -6030096046126829070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_16
+      rect:
+        serializedVersion: 2
+        x: 590
+        y: 490
+        width: 44
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1045853cc633695d0800000000000000
+      internalID: -3056198754897472511
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_17
+      rect:
+        serializedVersion: 2
+        x: 1334
+        y: 568
+        width: 9
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c207d512dd38bfb70800000000000000
+      internalID: 8933879271590293548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_18
+      rect:
+        serializedVersion: 2
+        x: 1342
+        y: 564
+        width: 8
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a4cf8e4c434dcf270800000000000000
+      internalID: 8285730737561861194
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_19
+      rect:
+        serializedVersion: 2
+        x: 2151
+        y: 392
+        width: 83
+        height: 190
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a2c7afb1ba95e590800000000000000
+      internalID: -7645534704176217438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_20
+      rect:
+        serializedVersion: 2
+        x: 1350
+        y: 552
+        width: 18
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d568689e9f8b1d360800000000000000
+      internalID: 7192733463391667805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_21
+      rect:
+        serializedVersion: 2
+        x: 1364
+        y: 528
+        width: 16
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a1ba6baa0f9f6e00800000000000000
+      internalID: 1040224907120259494
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_22
+      rect:
+        serializedVersion: 2
+        x: 633
+        y: 243
+        width: 65
+        height: 284
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 733c58de7b8f62da0800000000000000
+      internalID: -5969810787185343689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_23
+      rect:
+        serializedVersion: 2
+        x: 1368
+        y: 498
+        width: 20
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4dfe5c7676a9b1b40800000000000000
+      internalID: 5412089146129117140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_24
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 425
+        width: 147
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 162c03585402793f0800000000000000
+      internalID: -894210518050356639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_25
+      rect:
+        serializedVersion: 2
+        x: 586
+        y: 440
+        width: 10
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a141b1399a274bb0800000000000000
+      internalID: -4951942427818507865
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_26
+      rect:
+        serializedVersion: 2
+        x: 1692
+        y: 423
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 17c3d356c3a223ed0800000000000000
+      internalID: -2435838009569100687
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_27
+      rect:
+        serializedVersion: 2
+        x: 1696
+        y: 426
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4e083c29d69de5d60800000000000000
+      internalID: 7880975462581895396
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_28
+      rect:
+        serializedVersion: 2
+        x: 1702
+        y: 426
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 577dbccb06f9ec180800000000000000
+      internalID: -9093155359781300363
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_29
+      rect:
+        serializedVersion: 2
+        x: 1694
+        y: 345
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce18df451c45d9450800000000000000
+      internalID: 6097122659860840940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_30
+      rect:
+        serializedVersion: 2
+        x: 1700
+        y: 337
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 543817cbdd06889d0800000000000000
+      internalID: -2771859065180945595
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_31
+      rect:
+        serializedVersion: 2
+        x: 1700
+        y: 331
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa8d153acbc0a1830800000000000000
+      internalID: 4042557619851876527
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_32
+      rect:
+        serializedVersion: 2
+        x: 1706
+        y: 311
+        width: 16
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e5d51293e6efd800800000000000000
+      internalID: 639483537192768992
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_33
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 295
+        width: 17
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 776f72c2ddff87a10800000000000000
+      internalID: 1907555767585076855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_34
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 72
+        width: 86
+        height: 196
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5686ae922e2ebaaf0800000000000000
+      internalID: -383963882216331163
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_35
+      rect:
+        serializedVersion: 2
+        x: 2136
+        y: 116
+        width: 98
+        height: 113
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a4e4289f7a3362a10800000000000000
+      internalID: 1884250290639752778
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_36
+      rect:
+        serializedVersion: 2
+        x: 2151
+        y: 231
+        width: 27
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0aa8617fa11b56d00800000000000000
+      internalID: 965372424513555104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_37
+      rect:
+        serializedVersion: 2
+        x: 2193
+        y: 199
+        width: 35
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 44c80d76d2da5f530800000000000000
+      internalID: 3888204263831145540
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_38
+      rect:
+        serializedVersion: 2
+        x: 572
+        y: 163
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4309b13a64e7dcb0800000000000000
+      internalID: -4839148129834433717
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_39
+      rect:
+        serializedVersion: 2
+        x: 584
+        y: 171
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c65a2b964d5dc14a0800000000000000
+      internalID: -6621182243858373268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_40
+      rect:
+        serializedVersion: 2
+        x: 592
+        y: 166
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 108a264663877c4c0800000000000000
+      internalID: -4267309946902501375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_41
+      rect:
+        serializedVersion: 2
+        x: 2118
+        y: 152
+        width: 16
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f7e6adf84a3d0a00800000000000000
+      internalID: 724299200244148209
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_42
+      rect:
+        serializedVersion: 2
+        x: 566
+        y: 148
+        width: 10
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 752842b31d0a14ce0800000000000000
+      internalID: -1422679186771508649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_43
+      rect:
+        serializedVersion: 2
+        x: 574
+        y: 144
+        width: 9
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9708abe4afd6dfd90800000000000000
+      internalID: -7062367718816972679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_44
+      rect:
+        serializedVersion: 2
+        x: 582
+        y: 147
+        width: 12
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 84855cdcb2a6e75a0800000000000000
+      internalID: -6521658474017499064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_45
+      rect:
+        serializedVersion: 2
+        x: 2098
+        y: 149
+        width: 18
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 17935385b793f83b0800000000000000
+      internalID: -5508120617327183503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_46
+      rect:
+        serializedVersion: 2
+        x: 2140
+        y: 142
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 31f82e7c66cf04fa0800000000000000
+      internalID: -5818373200192303341
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_47
+      rect:
+        serializedVersion: 2
+        x: 2482
+        y: 150
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2ba49cad6d154ef0800000000000000
+      internalID: -124661057798755542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_48
+      rect:
+        serializedVersion: 2
+        x: 2118
+        y: 136
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 704cf767badfa49f0800000000000000
+      internalID: -483295097119587321
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_49
+      rect:
+        serializedVersion: 2
+        x: 2124
+        y: 142
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 163943a3699318080800000000000000
+      internalID: -9186998447474699423
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_50
+      rect:
+        serializedVersion: 2
+        x: 2134
+        y: 135
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a32746374071fed0800000000000000
+      internalID: -2381999276746660957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_51
+      rect:
+        serializedVersion: 2
+        x: 2143
+        y: 135
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d3aad942806bf5650800000000000000
+      internalID: 6223893356139620925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_52
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 128
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f11e664082e63c140800000000000000
+      internalID: 4738752351075492127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_53
+      rect:
+        serializedVersion: 2
+        x: 582
+        y: 126
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8098bd64b00837ab0800000000000000
+      internalID: -5011521174411441912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_54
+      rect:
+        serializedVersion: 2
+        x: 1702
+        y: 122
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9567b5d7be25db8f0800000000000000
+      internalID: -523170810331171239
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_55
+      rect:
+        serializedVersion: 2
+        x: 572
+        y: 100
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa4bed49621dff1c0800000000000000
+      internalID: -4467622341691657046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_56
+      rect:
+        serializedVersion: 2
+        x: 950
+        y: 88
+        width: 16
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f567c7b41d326830800000000000000
+      internalID: 4062876973033547252
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_57
+      rect:
+        serializedVersion: 2
+        x: 965
+        y: 87
+        width: 33
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0187ab84bba62f780800000000000000
+      internalID: -8650734581613692912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_58
+      rect:
+        serializedVersion: 2
+        x: 2428
+        y: 91
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b7606ad5952d38f40800000000000000
+      internalID: 5729654432210486907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_59
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 80
+        width: 19
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e5c464adfbd023b0800000000000000
+      internalID: -5539185659234433559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_60
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 63
+        width: 38
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c38e965df0cc1ab0800000000000000
+      internalID: -5035938088994569277
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_61
+      rect:
+        serializedVersion: 2
+        x: 926
+        y: 66
+        width: 24
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 10004a8036054b960800000000000000
+      internalID: 7616801256067301377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_62
+      rect:
+        serializedVersion: 2
+        x: 1080
+        y: 63
+        width: 130
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e39a123120dee4d0800000000000000
+      internalID: -3103314252218592279
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_63
+      rect:
+        serializedVersion: 2
+        x: 2490
+        y: 76
+        width: 12
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b576547ceaafe7780800000000000000
+      internalID: -8683227402949269669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_W2_Shield_Barrier_Clean_64
+      rect:
+        serializedVersion: 2
+        x: 342
+        y: 63
+        width: 105
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 19019db639caaf4b0800000000000000
+      internalID: -5405818653535301487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Warrior_W2_Shield_Barrier_Clean_0: 5792872824325080458
+      Warrior_W2_Shield_Barrier_Clean_1: 1628316275723112861
+      Warrior_W2_Shield_Barrier_Clean_10: 7850589078537238188
+      Warrior_W2_Shield_Barrier_Clean_11: 2379088774024375011
+      Warrior_W2_Shield_Barrier_Clean_12: -8040321086196232258
+      Warrior_W2_Shield_Barrier_Clean_13: 5964827388540366311
+      Warrior_W2_Shield_Barrier_Clean_14: -7815936028100601434
+      Warrior_W2_Shield_Barrier_Clean_15: -6030096046126829070
+      Warrior_W2_Shield_Barrier_Clean_16: -3056198754897472511
+      Warrior_W2_Shield_Barrier_Clean_17: 8933879271590293548
+      Warrior_W2_Shield_Barrier_Clean_18: 8285730737561861194
+      Warrior_W2_Shield_Barrier_Clean_19: -7645534704176217438
+      Warrior_W2_Shield_Barrier_Clean_2: 3658361024876562486
+      Warrior_W2_Shield_Barrier_Clean_20: 7192733463391667805
+      Warrior_W2_Shield_Barrier_Clean_21: 1040224907120259494
+      Warrior_W2_Shield_Barrier_Clean_22: -5969810787185343689
+      Warrior_W2_Shield_Barrier_Clean_23: 5412089146129117140
+      Warrior_W2_Shield_Barrier_Clean_24: -894210518050356639
+      Warrior_W2_Shield_Barrier_Clean_25: -4951942427818507865
+      Warrior_W2_Shield_Barrier_Clean_26: -2435838009569100687
+      Warrior_W2_Shield_Barrier_Clean_27: 7880975462581895396
+      Warrior_W2_Shield_Barrier_Clean_28: -9093155359781300363
+      Warrior_W2_Shield_Barrier_Clean_29: 6097122659860840940
+      Warrior_W2_Shield_Barrier_Clean_3: 5897503158646432762
+      Warrior_W2_Shield_Barrier_Clean_30: -2771859065180945595
+      Warrior_W2_Shield_Barrier_Clean_31: 4042557619851876527
+      Warrior_W2_Shield_Barrier_Clean_32: 639483537192768992
+      Warrior_W2_Shield_Barrier_Clean_33: 1907555767585076855
+      Warrior_W2_Shield_Barrier_Clean_34: -383963882216331163
+      Warrior_W2_Shield_Barrier_Clean_35: 1884250290639752778
+      Warrior_W2_Shield_Barrier_Clean_36: 965372424513555104
+      Warrior_W2_Shield_Barrier_Clean_37: 3888204263831145540
+      Warrior_W2_Shield_Barrier_Clean_38: -4839148129834433717
+      Warrior_W2_Shield_Barrier_Clean_39: -6621182243858373268
+      Warrior_W2_Shield_Barrier_Clean_4: 8268160770922045637
+      Warrior_W2_Shield_Barrier_Clean_40: -4267309946902501375
+      Warrior_W2_Shield_Barrier_Clean_41: 724299200244148209
+      Warrior_W2_Shield_Barrier_Clean_42: -1422679186771508649
+      Warrior_W2_Shield_Barrier_Clean_43: -7062367718816972679
+      Warrior_W2_Shield_Barrier_Clean_44: -6521658474017499064
+      Warrior_W2_Shield_Barrier_Clean_45: -5508120617327183503
+      Warrior_W2_Shield_Barrier_Clean_46: -5818373200192303341
+      Warrior_W2_Shield_Barrier_Clean_47: -124661057798755542
+      Warrior_W2_Shield_Barrier_Clean_48: -483295097119587321
+      Warrior_W2_Shield_Barrier_Clean_49: -9186998447474699423
+      Warrior_W2_Shield_Barrier_Clean_5: 7758835287747915130
+      Warrior_W2_Shield_Barrier_Clean_50: -2381999276746660957
+      Warrior_W2_Shield_Barrier_Clean_51: 6223893356139620925
+      Warrior_W2_Shield_Barrier_Clean_52: 4738752351075492127
+      Warrior_W2_Shield_Barrier_Clean_53: -5011521174411441912
+      Warrior_W2_Shield_Barrier_Clean_54: -523170810331171239
+      Warrior_W2_Shield_Barrier_Clean_55: -4467622341691657046
+      Warrior_W2_Shield_Barrier_Clean_56: 4062876973033547252
+      Warrior_W2_Shield_Barrier_Clean_57: -8650734581613692912
+      Warrior_W2_Shield_Barrier_Clean_58: 5729654432210486907
+      Warrior_W2_Shield_Barrier_Clean_59: -5539185659234433559
+      Warrior_W2_Shield_Barrier_Clean_6: 6003767451500923600
+      Warrior_W2_Shield_Barrier_Clean_60: -5035938088994569277
+      Warrior_W2_Shield_Barrier_Clean_61: 7616801256067301377
+      Warrior_W2_Shield_Barrier_Clean_62: -3103314252218592279
+      Warrior_W2_Shield_Barrier_Clean_63: -8683227402949269669
+      Warrior_W2_Shield_Barrier_Clean_64: -5405818653535301487
+      Warrior_W2_Shield_Barrier_Clean_7: 228705650001440939
+      Warrior_W2_Shield_Barrier_Clean_8: -6429792730851446958
+      Warrior_W2_Shield_Barrier_Clean_9: -1879933984367014279
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

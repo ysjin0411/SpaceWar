@@ -192,7 +192,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHp: 1000
   _crashDamage: 10
-  _destroyDelay: 0
   _currentHp: 0
   _isDead: 0
   _moveSpeed: 10
