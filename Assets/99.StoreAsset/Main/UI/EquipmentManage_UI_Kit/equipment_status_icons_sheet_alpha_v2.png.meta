@@ -1,0 +1,533 @@
+fileFormatVersion: 2
+guid: ae5b130b46be6934b90c6f1db1fd8c6f
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1185268991158226672
+    second: equipment_status_icons_sheet_alpha_v2_0
+  - first:
+      213: 1286044683026577581
+    second: equipment_status_icons_sheet_alpha_v2_1
+  - first:
+      213: 8174611668842727958
+    second: equipment_status_icons_sheet_alpha_v2_2
+  - first:
+      213: -9152472076132679497
+    second: equipment_status_icons_sheet_alpha_v2_3
+  - first:
+      213: -8211577719591183596
+    second: equipment_status_icons_sheet_alpha_v2_4
+  - first:
+      213: 6980608277577213572
+    second: equipment_status_icons_sheet_alpha_v2_5
+  - first:
+      213: 5405287448146270589
+    second: equipment_status_icons_sheet_alpha_v2_6
+  - first:
+      213: 4262006381650399170
+    second: equipment_status_icons_sheet_alpha_v2_7
+  - first:
+      213: 4138071324053302478
+    second: equipment_status_icons_sheet_alpha_v2_8
+  - first:
+      213: -6853346686031048805
+    second: equipment_status_icons_sheet_alpha_v2_9
+  - first:
+      213: 1183788437625144873
+    second: equipment_status_icons_sheet_alpha_v2_10
+  - first:
+      213: -6112024786988873765
+    second: equipment_status_icons_sheet_alpha_v2_11
+  - first:
+      213: 7585146001281589492
+    second: equipment_status_icons_sheet_alpha_v2_12
+  - first:
+      213: 393282599662584773
+    second: equipment_status_icons_sheet_alpha_v2_13
+  - first:
+      213: 8455143693545862083
+    second: equipment_status_icons_sheet_alpha_v2_14
+  - first:
+      213: 4106412756741976754
+    second: equipment_status_icons_sheet_alpha_v2_15
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: equipment_status_icons_sheet_alpha_v2_0
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 964
+        width: 235
+        height: 242
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0fe854d1edbe27010800000000000000
+      internalID: 1185268991158226672
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: equipment_status_icons_sheet_alpha_v2_1
+      rect:
+        serializedVersion: 2
+        x: 354
+        y: 939
+        width: 244
+        height: 269
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da8341153d2f8d110800000000000000
+      internalID: 1286044683026577581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: equipment_status_icons_sheet_alpha_v2_2
+      rect:
+        serializedVersion: 2
+        x: 658
+        y: 962
+        width: 243
+        height: 244
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61a422a700e027170800000000000000
+      internalID: 8174611668842727958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: equipment_status_icons_sheet_alpha_v2_3
+      rect:
+        serializedVersion: 2
+        x: 956
+        y: 964
+        width: 238
+        height: 244
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b00e6d7323ebf080800000000000000
+      internalID: -9152472076132679497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: equipment_status_icons_sheet_alpha_v2_4
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 665
+        width: 234
+        height: 238
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 41b5142229d9a0e80800000000000000
+      internalID: -8211577719591183596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: equipment_status_icons_sheet_alpha_v2_5
+      rect:
+        serializedVersion: 2
+        x: 356
+        y: 665
+        width: 240
+        height: 237
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 486242d5e3a10e060800000000000000
+      internalID: 6980608277577213572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: equipment_status_icons_sheet_alpha_v2_6
+      rect:
+        serializedVersion: 2
+        x: 657
+        y: 660
+        width: 244
+        height: 243
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d79d2afab40730b40800000000000000
+      internalID: 5405287448146270589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: equipment_status_icons_sheet_alpha_v2_7
+      rect:
+        serializedVersion: 2
+        x: 959
+        y: 666
+        width: 244
+        height: 237
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2cf48b81930b52b30800000000000000
+      internalID: 4262006381650399170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: equipment_status_icons_sheet_alpha_v2_8
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 364
+        width: 235
+        height: 234
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ecc6d6dd1f16d6930800000000000000
+      internalID: 4138071324053302478
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: equipment_status_icons_sheet_alpha_v2_9
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 366
+        width: 247
+        height: 231
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9fc488ef7504e0a0800000000000000
+      internalID: -6853346686031048805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: equipment_status_icons_sheet_alpha_v2_10
+      rect:
+        serializedVersion: 2
+        x: 657
+        y: 329
+        width: 244
+        height: 269
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9268cd1ef49ad6010800000000000000
+      internalID: 1183788437625144873
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: equipment_status_icons_sheet_alpha_v2_11
+      rect:
+        serializedVersion: 2
+        x: 934
+        y: 361
+        width: 261
+        height: 236
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd74521d6d9bd2ba0800000000000000
+      internalID: -6112024786988873765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: equipment_status_icons_sheet_alpha_v2_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 329
+        height: 294
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f02ddfa91ad34960800000000000000
+      internalID: 7585146001281589492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: equipment_status_icons_sheet_alpha_v2_13
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 61
+        width: 272
+        height: 233
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c30b31d078357500800000000000000
+      internalID: 393282599662584773
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: equipment_status_icons_sheet_alpha_v2_14
+      rect:
+        serializedVersion: 2
+        x: 656
+        y: 54
+        width: 257
+        height: 240
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c37faa5464b65570800000000000000
+      internalID: 8455143693545862083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: equipment_status_icons_sheet_alpha_v2_15
+      rect:
+        serializedVersion: 2
+        x: 948
+        y: 61
+        width: 247
+        height: 253
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b2fcb245a8ecf830800000000000000
+      internalID: 4106412756741976754
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      equipment_status_icons_sheet_alpha_v2_0: 1185268991158226672
+      equipment_status_icons_sheet_alpha_v2_1: 1286044683026577581
+      equipment_status_icons_sheet_alpha_v2_10: 1183788437625144873
+      equipment_status_icons_sheet_alpha_v2_11: -6112024786988873765
+      equipment_status_icons_sheet_alpha_v2_12: 7585146001281589492
+      equipment_status_icons_sheet_alpha_v2_13: 393282599662584773
+      equipment_status_icons_sheet_alpha_v2_14: 8455143693545862083
+      equipment_status_icons_sheet_alpha_v2_15: 4106412756741976754
+      equipment_status_icons_sheet_alpha_v2_2: 8174611668842727958
+      equipment_status_icons_sheet_alpha_v2_3: -9152472076132679497
+      equipment_status_icons_sheet_alpha_v2_4: -8211577719591183596
+      equipment_status_icons_sheet_alpha_v2_5: 6980608277577213572
+      equipment_status_icons_sheet_alpha_v2_6: 5405287448146270589
+      equipment_status_icons_sheet_alpha_v2_7: 4262006381650399170
+      equipment_status_icons_sheet_alpha_v2_8: 4138071324053302478
+      equipment_status_icons_sheet_alpha_v2_9: -6853346686031048805
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

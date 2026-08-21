@@ -7,6 +7,12 @@ public enum WeaponType
     Bullet,
     Lazer,
     Missile,
+    Grenade,
+    Sniper,
+    GiantSword,
+    Shield,
+    Slash,
+    Hammer,
 }
 
 /// <summary>

@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c420b9c456cfa094a9e96f54c4f32a05, type: 3}
   m_Name: Warrior Shield WeaponData
   m_EditorClassIdentifier: 
-  _id: warrior_Shield
+  _id: warrior_shield
   _name: Shield
-  _type: 1
+  _type: 6
   _fireMode: 0
   _icon: {fileID: -1091532343250817282, guid: dfc7986ed5e681a4ca5654fd8e8be388, type: 3}
   _projectilePrefab: {fileID: 8053201812717553051, guid: ca6d9fc1d4271d148af848ecd7e6eaf5, type: 3}

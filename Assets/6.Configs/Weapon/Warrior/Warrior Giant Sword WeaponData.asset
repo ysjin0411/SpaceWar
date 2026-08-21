@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c420b9c456cfa094a9e96f54c4f32a05, type: 3}
   m_Name: Warrior Giant Sword WeaponData
   m_EditorClassIdentifier: 
-  _id: warrior_sword
+  _id: warrior_giantsword
   _name: Giant Sword
-  _type: 0
+  _type: 5
   _fireMode: 0
   _icon: {fileID: -7839315311559736734, guid: 19ce3fdb5e773fa4aaf15feaa423f8c4, type: 3}
-  _projectilePrefab: {fileID: 8053201812717553051, guid: a0136871e6a03024ab1120ee5db02527, type: 3}
+  _projectilePrefab: {fileID: 8053201812717553051, guid: 7d07b36b0eddc6646b88a08314950e16, type: 3}
   _baseDamage: 10
   _baseCooltime: 1
   _price: 3

@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c420b9c456cfa094a9e96f54c4f32a05, type: 3}
   m_Name: Warrior Slash WeaponData
   m_EditorClassIdentifier: 
-  _id: vampire_blood_shot
-  _name: BloodShot
-  _type: 1
+  _id: warrior_slash
+  _name: Slash
+  _type: 7
   _fireMode: 0
   _icon: {fileID: -2460880553077781468, guid: f9c2ef65a63e94c49a5fa9ef36090440, type: 3}
   _projectilePrefab: {fileID: 8053201812717553051, guid: a0136871e6a03024ab1120ee5db02527, type: 3}

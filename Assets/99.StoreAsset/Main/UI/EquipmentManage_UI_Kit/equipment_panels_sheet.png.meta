@@ -1,0 +1,375 @@
+fileFormatVersion: 2
+guid: 0a5a7b78a8fd42e41b75ebc4ab88cbdf
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -7761835802205695004
+    second: equipment_panels_sheet_0
+  - first:
+      213: -5969150706568917633
+    second: equipment_panels_sheet_1
+  - first:
+      213: 6639936690436754682
+    second: equipment_panels_sheet_2
+  - first:
+      213: 4124535046884514246
+    second: equipment_panels_sheet_3
+  - first:
+      213: -2696629874877579484
+    second: equipment_panels_sheet_4
+  - first:
+      213: -6728520054529899815
+    second: equipment_panels_sheet_5
+  - first:
+      213: -1382998814331641780
+    second: equipment_panels_sheet_6
+  - first:
+      213: -6885470497075307054
+    second: equipment_panels_sheet_7
+  - first:
+      213: -2530693944684739351
+    second: equipment_panels_sheet_8
+  - first:
+      213: 793617812844921617
+    second: equipment_panels_sheet_9
+  - first:
+      213: 2342465278646646166
+    second: equipment_panels_sheet_10
+  - first:
+      213: -1095352791453405530
+    second: equipment_panels_sheet_11
+  - first:
+      213: 3584666785269417551
+    second: equipment_panels_sheet_12
+  - first:
+      213: 4863030583898704664
+    second: equipment_panels_sheet_13
+  - first:
+      213: -1929324666395721585
+    second: equipment_panels_sheet_14
+  - first:
+      213: 67409913009814489
+    second: equipment_panels_sheet_15
+  - first:
+      213: -3587038748579851214
+    second: equipment_panels_sheet_16
+  - first:
+      213: 3041714900103938537
+    second: equipment_panels_sheet_17
+  - first:
+      213: -8287175270342955776
+    second: equipment_panels_sheet_18
+  - first:
+      213: 3414309134009453448
+    second: equipment_panels_sheet_19
+  - first:
+      213: -1235323165089762079
+    second: equipment_panels_sheet_20
+  - first:
+      213: 3345227217127685250
+    second: equipment_panels_sheet_21
+  - first:
+      213: -5448241809517553640
+    second: equipment_panels_sheet_22
+  - first:
+      213: -3385397690912055983
+    second: equipment_panels_sheet_23
+  - first:
+      213: 1417713079077810528
+    second: equipment_panels_sheet_24
+  - first:
+      213: 6463666414120758670
+    second: equipment_panels_sheet_25
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: equipment_title
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 1009
+        width: 779
+        height: 199
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4e3de9c367b684490800000000000000
+      internalID: -7761835802205695004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: equipment_slot
+      rect:
+        serializedVersion: 2
+        x: 778
+        y: 946
+        width: 400
+        height: 322
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: afcc0947d3bc52c50800000000000000
+      internalID: 6639936690436754682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: equipment_weaponList
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 359
+        width: 720
+        height: 604
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c9533db5ca4d3930800000000000000
+      internalID: 4124535046884514246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: equipment_panels_sheet_4
+      rect:
+        serializedVersion: 2
+        x: 774
+        y: 624
+        width: 420
+        height: 265
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42f37398a65a39ad0800000000000000
+      internalID: -2696629874877579484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: equipment_tooltip
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 18
+        width: 440
+        height: 549
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d247add8ae7f92a0800000000000000
+      internalID: -6728520054529899815
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: equipment_slotBackground
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 141
+        width: 747
+        height: 181
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ddd46e4015e170a0800000000000000
+      internalID: -6885470497075307054
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: equipment_panels_sheet_1
+      rect:
+        serializedVersion: 2
+        x: 266
+        y: 1002
+        width: 41
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a0d02633b97b784caf4d26c37d95679
+      internalID: -5969150706568917633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 802c680b0b6d557478b6be7b06da0a22
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      equipment_panels_sheet_1: -5969150706568917633
+      equipment_panels_sheet_10: 2342465278646646166
+      equipment_panels_sheet_11: -1095352791453405530
+      equipment_panels_sheet_12: 3584666785269417551
+      equipment_panels_sheet_13: 4863030583898704664
+      equipment_panels_sheet_14: -1929324666395721585
+      equipment_panels_sheet_15: 67409913009814489
+      equipment_panels_sheet_16: -3587038748579851214
+      equipment_panels_sheet_17: 3041714900103938537
+      equipment_panels_sheet_18: -8287175270342955776
+      equipment_panels_sheet_19: 3414309134009453448
+      equipment_panels_sheet_20: -1235323165089762079
+      equipment_panels_sheet_21: 3345227217127685250
+      equipment_panels_sheet_22: -5448241809517553640
+      equipment_panels_sheet_23: -3385397690912055983
+      equipment_panels_sheet_24: 1417713079077810528
+      equipment_panels_sheet_25: 6463666414120758670
+      equipment_panels_sheet_4: -2696629874877579484
+      equipment_panels_sheet_6: -1382998814331641780
+      equipment_panels_sheet_8: -2530693944684739351
+      equipment_panels_sheet_9: 793617812844921617
+      equipment_slot: 6639936690436754682
+      equipment_slotBackground: -6885470497075307054
+      equipment_title: -7761835802205695004
+      equipment_tooltip: -6728520054529899815
+      equipment_weaponList: 4124535046884514246
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
