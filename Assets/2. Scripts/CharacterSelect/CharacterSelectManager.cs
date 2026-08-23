@@ -484,11 +484,46 @@ public class CharacterSelectManager : MonoBehaviour
 
 
     /// <summary>
-    /// 캐릭터 선택 화면에서 이전 씬으로 돌아간다.
+    /// 캐릭터 선택 목적에 따라 이전 화면으로 돌아간다.
+    /// 전투용 선택이면 스테이지 선택으로,
+    /// 장비 관리용 선택이면 메인 메뉴로 이동한다.
     /// </summary>
     public void Back()
     {
-        // StageSelect 씬으로 돌아간다.
-        SceneManager.LoadScene("StageSelect");
+        // 캐릭터 선택 목적은 GameSessionManager에 저장되어 있다.
+        GameSessionManager session =
+            GameSessionManager.Instance;
+
+        // Bootstrap을 거치지 않았다면 이전 화면을 판단할 수 없다.
+        if (session == null)
+        {
+            throw new InvalidOperationException(
+                "GameSessionManager가 존재하지 않습니다.");
+        }
+
+        // ResetSelection을 호출하기 전에 현재 선택 목적을 보관한다.
+        CharacterSelectPurpose purpose =
+            session.CurrentCharacterSelectPurpose;
+
+        // 현재 진행 중이던 스테이지 및 캐릭터 선택 정보를 초기화한다.
+        session.ResetSelection();
+
+        switch (purpose)
+        {
+            case CharacterSelectPurpose.Battle:
+                // 전투용 캐릭터 선택은 StageSelect에서 진입했다.
+                SceneManager.LoadScene("StageSelect");
+                return;
+
+            case CharacterSelectPurpose.LoadoutEdit:
+                // 장비 관리용 캐릭터 선택은 메인 메뉴에서 진입했다.
+                SceneManager.LoadScene("1.MainMenu");
+                return;
+
+            default:
+                // 선택 목적 없이 CharacterSelect에 진입한 것은 잘못된 흐름이다.
+                throw new InvalidOperationException(
+                    $"처리할 수 없는 캐릭터 선택 목적입니다: {purpose}");
+        }
     }
 }

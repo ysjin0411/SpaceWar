@@ -57,6 +57,13 @@ public class WeaponData : ScriptableObject
     [Tooltip("연사력 증강으로 감소할 수 있는 최소 쿨타임")]
     [Min(0.01f)][SerializeField] float _minimumCooltime = 0.05f;
 
+    [Header("UI 표시 정보")]
+    [TextArea(2, 5)][SerializeField] string _info; // 장비 상세 화면과 툴팁에 표시할 무기 설명
+                                                   // 2차 증강 대상 선택 화면에서 표시할 전용 설명
+    [TextArea(2, 5)]
+    [SerializeField] private string _upgradeSelectionInfo;
+
+
     // 무기 기본 정보
     public string Id => _id;
     public string WeaponName => _name;
@@ -77,4 +84,10 @@ public class WeaponData : ScriptableObject
     // 전투 중 증강 수치
     public float FireRateUpgradeValue => _fireRateUpgradeValue;
     public float MinimumCooltime => _minimumCooltime;
+
+    // UI
+    public string Info => _info;
+    // 2차 증강 대상 선택 슬롯에 표시할 전용 설명
+    public string UpgradeSelectionInfo =>
+        _upgradeSelectionInfo;
 }

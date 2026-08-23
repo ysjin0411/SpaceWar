@@ -88,7 +88,7 @@ public class TitleManager : MonoBehaviour
 
 	public void LoadPlayCharacterSelect()
 	{
-		SceneManager.LoadScene("PlayCharacterSelect");
+		SceneManager.LoadScene("CharacterSelect_play");
     }
 
     /// <summary>
@@ -100,7 +100,7 @@ public class TitleManager : MonoBehaviour
         GameSessionManager.Instance.BeginCharacterSelection(CharacterSelectPurpose.LoadoutEdit);
 
         // 장비를 수정할 캐릭터를 고르기 위해 CharacterSelect 씬으로 이동한다.
-        SceneManager.LoadScene("EquipmentCharacterSelect");
+        SceneManager.LoadScene("CharacterSelect_equip");
     }
 
     public void LoadAbility()

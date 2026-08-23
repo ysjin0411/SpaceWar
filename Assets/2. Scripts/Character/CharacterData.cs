@@ -4,7 +4,7 @@ using UnityEngine;
 /// 캐릭터의 변하지 않는 원본 데이터를 보관한다.
 ///
 /// 이 데이터는 ScriptableObject 에셋으로 만들어 사용한다.
-/// Soldier와 Vampire는 각각 서로 다른 CharacterData 에셋을 가진다.
+/// Soldier와 Warrior는 각각 서로 다른 CharacterData 에셋을 가진다.
 ///
 /// 주의:
 /// 캐릭터의 현재 레벨, 경험치, 장착 무기처럼

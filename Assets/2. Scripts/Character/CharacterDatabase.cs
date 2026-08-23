@@ -22,7 +22,7 @@ public class CharacterDatabase : ScriptableObject
     /// <summary>
     /// 캐릭터 선택 화면에서 선택한 순번에 해당하는 CharacterData를 반환한다.
     /// </summary>
-    /// <param name="index">캐릭터 선택 순번. Soldier가 0, Vampire가 1인 방식</param>
+    /// <param name="index">캐릭터 선택 순번. Soldier가 0, Warrior가 1인 방식</param>
     public CharacterData GetCharacterDataAt(int index)
     {
         // 캐릭터 배열의 범위를 벗어난 인덱스는 코드 오류다.

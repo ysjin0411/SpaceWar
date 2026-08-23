@@ -12,12 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf32ef244788b9648b84802fef889427, type: 3}
   m_Name: 0_MoveSpeedUpgradeData
   m_EditorClassIdentifier: 
-  _id: 0
-  _name: MoveSpeedUpgrade
+  _id: move_speed
+  _name: "\uC774\uB3D9\uC18D\uB3C4 \uAC15\uD654"
   _info: "\uCE90\uB9AD\uD130\uC758 \uC774\uB3D9\uC18D\uB3C4\uB97C 2\uB9CC\uD07C \uC5BB\uB294\uB2E4."
-  _icon: {fileID: 21300000, guid: b14bc6a2e58022748abe0274a8345df0, type: 3}
+  _icon: {fileID: -3458589160365740604, guid: 79b94d8569b582f439d375b705572f2c, type: 3}
   _type: 0
   _target: 0
-  _upgradeSpeedValue: 2
-  _upgradeDamageValue: 0
-  _upgradeFireRateValue: 0
+  _value: 2

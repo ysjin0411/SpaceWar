@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c420b9c456cfa094a9e96f54c4f32a05, type: 3}
+  m_Name: 3_Soldier Missile WeaponData
+  m_EditorClassIdentifier: 
+  _id: soldier_missile
+  _name: Missile
+  _type: 2
+  _fireMode: 0
+  _icon: {fileID: 21300000, guid: 6748661efe0d997479a1121b5c042b17, type: 3}
+  _projectilePrefab: {fileID: 8053201812717553051, guid: 51e804e0b9bf28648b0073826407b692, type: 3}
+  _baseDamage: 10
+  _baseCooltime: 1
+  _price: 0
+  _requiredCharacterLevel: 1
+  _isInitiallyOwned: 1
+  _fireRateUpgradeValue: 0.01
+  _minimumCooltime: 0.05
+  _info: "\uC720\uB3C4\uD615 \uBBF8\uC0AC\uC77C\uC744 \uBC1C\uC0AC\uD55C\uB2E4."
+  _upgradeSelectionInfo: "Missile\uC744 \uAC15\uD654\uD55C\uB2E4."

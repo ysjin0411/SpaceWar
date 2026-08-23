@@ -20,6 +20,9 @@ public class GoldUI : MonoBehaviour
     [Tooltip("JSON에 저장된 현재 총 골드를 표시할 텍스트")]
     [SerializeField] TMP_Text _currentGoldText;
 
+    // 이번 스테이지에서 골드를 획득할 때 획득량을 외부에 알린다.
+    public event Action<int> GoldCollected;
+
     /// <summary>
     /// Stage가 시작되면 JSON에서 불러온 현재 총 골드를 표시하고,
     /// 이후 골드 변경 이벤트를 구독한다.
@@ -143,16 +146,26 @@ public class GoldUI : MonoBehaviour
     }
 
     /// <summary>
-    /// 골드가 UI 목적지에 도착하면 실제 세이브 골드를 증가시킨다.
+    /// 골드를 저장 데이터에 반영하고 획득량을 결과 집계 시스템에 알린다.
     /// </summary>
     public void CollectGold(int amount)
     {
+        // 0 이하의 골드는 저장하거나 집계하지 않는다.
+        if (amount <= 0)
+        {
+            return;
+        }
+
         if (SaveManager.Instance == null)
         {
             throw new InvalidOperationException(
                 "SaveManager가 없습니다. Bootstrap 씬부터 실행해야 합니다.");
         }
 
+        // 실제 보유 골드와 세이브 파일에 반영한다.
         SaveManager.Instance.AddGold(amount);
+
+        // 이번 스테이지에서 획득한 골드 양을 외부에 알린다.
+        GoldCollected?.Invoke(amount);
     }
 }

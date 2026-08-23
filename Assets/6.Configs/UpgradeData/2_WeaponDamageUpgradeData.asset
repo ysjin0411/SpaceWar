@@ -12,12 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf32ef244788b9648b84802fef889427, type: 3}
   m_Name: 2_WeaponDamageUpgradeData
   m_EditorClassIdentifier: 
-  _id: 2
-  _name: WeaponDamageUpgradeData
+  _id: weapon_damage
+  _name: "\uACF5\uACA9\uB825 \uAC15\uD654"
   _info: "\uBB34\uAE30\uC758 \uACF5\uACA9\uB825\uC744 \uAC15\uD654\uC2DC\uD0A8\uB2E4."
-  _icon: {fileID: 21300000, guid: 0fcb35a6fe09a6a4ab4f178df81a5d49, type: 3}
+  _icon: {fileID: 8182600923863120443, guid: 79b94d8569b582f439d375b705572f2c, type: 3}
   _type: 2
   _target: 1
-  _upgradeSpeedValue: 0
-  _upgradeDamageValue: 3
-  _upgradeFireRateValue: 0
+  _value: 3

@@ -171,75 +171,22 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
-    - serializedVersion: 2
-      name: equipment_title
-      rect:
-        serializedVersion: 2
-        x: 24
-        y: 1009
-        width: 779
-        height: 199
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 4e3de9c367b684490800000000000000
-      internalID: -7761835802205695004
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: equipment_slot
-      rect:
-        serializedVersion: 2
-        x: 778
-        y: 946
-        width: 400
-        height: 322
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: afcc0947d3bc52c50800000000000000
-      internalID: 6639936690436754682
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: equipment_weaponList
-      rect:
-        serializedVersion: 2
-        x: 28
-        y: 359
-        width: 720
-        height: 604
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 6c9533db5ca4d3930800000000000000
-      internalID: 4124535046884514246
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     - serializedVersion: 2
       name: equipment_panels_sheet_4
       rect:
@@ -249,7 +196,7 @@ TextureImporter:
         width: 420
         height: 265
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -263,67 +210,111 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: equipment_tooltip
+      name: equipment_ManageTitle
       rect:
         serializedVersion: 2
-        x: 768
-        y: 18
-        width: 440
-        height: 549
+        x: 24
+        y: 1009
+        width: 779
+        height: 199
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 9d247add8ae7f92a0800000000000000
-      internalID: -6728520054529899815
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: equipment_slotBackground
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 141
-        width: 747
-        height: 181
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2ddd46e4015e170a0800000000000000
-      internalID: -6885470497075307054
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: equipment_panels_sheet_1
-      rect:
-        serializedVersion: 2
-        x: 266
-        y: 1002
-        width: 41
-        height: 8
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8a0d02633b97b784caf4d26c37d95679
-      internalID: -5969150706568917633
+      spriteID: 53238ba4cf4482c46a8ea038d690e21f
+      internalID: 1659796206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: equipment_slot
+      rect:
+        serializedVersion: 2
+        x: 840
+        y: 946
+        width: 334
+        height: 321
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 641f157e89fc9a744800d063aae92fd3
+      internalID: 6639936690436754682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: equipment_Weapon_slots
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 383
+        width: 720
+        height: 545
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb01dc61bfa630d479a76a1462cc90c7
+      internalID: -1434019856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: equipment_tooltip
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 117
+        width: 440
+        height: 452
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab28e4699c12f93488d2607a1a28170a
+      internalID: -6728520054529899815
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: equipment_equied_weaponSlot
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 166
+        width: 704
+        height: 139
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 35d560968241ac54984f3d30c33e494b
+      internalID: -830466962
       vertices: []
       indices: 
       edges: []
@@ -342,6 +333,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
+      equipment_ManageTitle: 1659796206
+      equipment_Weapon_slots: -1434019856
+      equipment_equied_weaponSlot: -830466962
       equipment_panels_sheet_1: -5969150706568917633
       equipment_panels_sheet_10: 2342465278646646166
       equipment_panels_sheet_11: -1095352791453405530
@@ -364,10 +358,7 @@ TextureImporter:
       equipment_panels_sheet_8: -2530693944684739351
       equipment_panels_sheet_9: 793617812844921617
       equipment_slot: 6639936690436754682
-      equipment_slotBackground: -6885470497075307054
-      equipment_title: -7761835802205695004
       equipment_tooltip: -6728520054529899815
-      equipment_weaponList: 4124535046884514246
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

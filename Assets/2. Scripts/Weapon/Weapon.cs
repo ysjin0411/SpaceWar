@@ -51,7 +51,10 @@ public class Weapon : MonoBehaviour
 
     // 문자열을 매 프레임 검색하지 않도록 파라미터 ID를 미리 저장한다.
     static readonly int AttackHash = Animator.StringToHash("Attack");
-    
+
+    // 현재 런타임에 구성된 장착 무기 슬롯 개수
+    public int EquippedSlotCount => _equippedWeapons.Count;
+
     /// <summary>
     /// 현재 선택한 슬롯의 무기 상태를 반환한다. 장착 무기가 없다면 null을 반환한다.
     /// </summary>
@@ -180,6 +183,18 @@ public class Weapon : MonoBehaviour
 
     private void Update()
     {
+        // 증강, Pause, 사망 등 인게임 시간이 멈춘 동안에는
+        // 공격과 TAB 무기 선택 입력을 처리하지 않는다.
+        if (Time.timeScale <= 0f)
+        {
+            // 정지 직전에 공격 중이었다면 Animator의 공격 상태도 해제한다.
+            _animator.SetBool(
+                AttackHash,
+                false);
+
+            return;
+        }
+
         _timer += Time.deltaTime;
 
         // Z키를 누르고 있고 현재 무기가 있을 때 공격 상태가 된다.
@@ -451,5 +466,19 @@ public class Weapon : MonoBehaviour
         Sprite currentIcon = weapon != null ? weapon.Data.Icon : null;
 
         _weaponUI.UpdateCurrentWeapon(currentIcon);
+    }
+
+    /// <summary>
+    /// TAB으로 열리는 장착 무기 패널을 닫는다.
+    /// 증강이나 일시정지처럼 다른 모달 UI가 열릴 때 사용한다.
+    /// </summary>
+    public void CloseWeaponSlotPanel()
+    {
+        _isWeaponSlotPanelOpen = false;
+
+        if (_weaponSlotPanel != null)
+        {
+            _weaponSlotPanel.SetActive(false);
+        }
     }
 }

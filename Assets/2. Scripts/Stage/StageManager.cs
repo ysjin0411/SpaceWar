@@ -34,7 +34,7 @@ public class StageManager : MonoBehaviour
     [Header("Stage 시스템")]
     [Tooltip("생성된 플레이어를 적들에게 전달할 EnemySpawner")]
     [SerializeField] EnemySpawner _enemySpawner;
-
+    [SerializeField] StageTransitionManager _stageTransitionManager;        // 플레이어 입장과 구간 이동 연출을 담당하는 매니저
     [Tooltip("스테이지 페이즈에 맞춰 보스를 생성할 BossEncounterManager")]
     [SerializeField] BossEncounterManager _bossEncounterManager;
 
@@ -319,6 +319,11 @@ public class StageManager : MonoBehaviour
     private void InitializeStageSystems()
     {
         // null 검사들
+        if (_stageTransitionManager == null)
+        {
+            throw new InvalidOperationException(
+                "StageManager의 StageTransitionManager가 연결되지 않았습니다.");
+        }
         if (_bossEncounterManager == null)
         {
             throw new InvalidOperationException(
@@ -355,5 +360,8 @@ public class StageManager : MonoBehaviour
 
         // 증강 시스템이 새 플레이어와 해당 플레이어 프리팹의 Weapon을 사용하도록 한다.
         _upgrader.Initialize(_gameManager, _spawnedPlayerController, _spawnedWeapon);
+
+        // 입장과 구간 전환 연출에서 사용할 플레이어를 전달한다.
+        _stageTransitionManager.Initialize(_spawnedPlayerController);
     }
 }

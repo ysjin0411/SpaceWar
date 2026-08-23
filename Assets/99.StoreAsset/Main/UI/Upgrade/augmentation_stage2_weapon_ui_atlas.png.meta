@@ -1,0 +1,284 @@
+fileFormatVersion: 2
+guid: 2857bf1925b9120468c2c75e0109ec5e
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6322208985356771865
+    second: augmentation_stage2_weapon_ui_atlas_0
+  - first:
+      213: -5186243929909563632
+    second: augmentation_stage2_weapon_ui_atlas_1
+  - first:
+      213: -3311010440081355319
+    second: augmentation_stage2_weapon_ui_atlas_2
+  - first:
+      213: 6673054346541669722
+    second: augmentation_stage2_weapon_ui_atlas_3
+  - first:
+      213: -3062899966765077776
+    second: augmentation_stage2_weapon_ui_atlas_4
+  - first:
+      213: 673712078234593568
+    second: augmentation_stage2_weapon_ui_atlas_5
+  - first:
+      213: -689703525382188302
+    second: augmentation_stage2_weapon_ui_atlas_6
+  - first:
+      213: -7116817817332675639
+    second: augmentation_stage2_weapon_ui_atlas_7
+  - first:
+      213: 1988379810222012904
+    second: augmentation_stage2_weapon_ui_atlas_8
+  - first:
+      213: -4476525788741039024
+    second: augmentation_stage2_weapon_ui_atlas_9
+  - first:
+      213: 2537873967532505741
+    second: augmentation_stage2_weapon_ui_atlas_10
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: augmentation_select2_Title
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 745
+        width: 1228
+        height: 279
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7edd600ac600348a0800000000000000
+      internalID: -6322208985356771865
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: augmentation_select2_slot_un
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 40
+        width: 447
+        height: 683
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 01fe637af92c608b0800000000000000
+      internalID: -5186243929909563632
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: augmentation_select2_slot_on
+      rect:
+        serializedVersion: 2
+        x: 632
+        y: 32
+        width: 453
+        height: 689
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9cd47571c8dec02d0800000000000000
+      internalID: -3311010440081355319
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: augmentation_select2_weapon_icon_background
+      rect:
+        serializedVersion: 2
+        x: 1125
+        y: 449
+        width: 263
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a5d1e74a2937b9c50800000000000000
+      internalID: 6673054346541669722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: augmentation_select2_arrow
+      rect:
+        serializedVersion: 2
+        x: 1150
+        y: 175
+        width: 171
+        height: 176
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e977da07e4289b10800000000000000
+      internalID: 1988379810222012904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: f2088903096bf454d98ae2ebfe0884cd
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      augmentation_select2_Title: -6322208985356771865
+      augmentation_select2_arrow: 1988379810222012904
+      augmentation_select2_slot_on: -3311010440081355319
+      augmentation_select2_slot_un: -5186243929909563632
+      augmentation_select2_weapon_icon_background: 6673054346541669722
+      augmentation_stage2_weapon_ui_atlas_10: 2537873967532505741
+      augmentation_stage2_weapon_ui_atlas_4: -3062899966765077776
+      augmentation_stage2_weapon_ui_atlas_5: 673712078234593568
+      augmentation_stage2_weapon_ui_atlas_6: -689703525382188302
+      augmentation_stage2_weapon_ui_atlas_7: -7116817817332675639
+      augmentation_stage2_weapon_ui_atlas_9: -4476525788741039024
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

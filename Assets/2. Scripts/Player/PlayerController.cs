@@ -36,6 +36,13 @@ public class PlayerController : MonoBehaviour
     // Update에서 입력받고 FixedUpdate에서 사용할 이동 방향
     Vector2 _moveDirection;
 
+    // 플레이어가 직접 이동 입력을 사용할 수 있는지 나타낸다.
+    // 입장 연출과 구간 전환 연출 중에는 false로 변경한다.
+    bool _canControl = true;
+
+    // 외부 시스템에서 현재 플레이어 조작 가능 여부를 확인할 때 사용한다.
+    public bool CanControl => _canControl;
+
     Rigidbody2D _rigidbody;
 
     private void Awake()
@@ -92,6 +99,13 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        // 입장이나 구간 전환 연출 중에는 플레이어 입력을 받지 않는다.
+        if (!_canControl)
+        {
+            _moveDirection = Vector2.zero;
+            return;
+        }
+
         // 방향키 입력을 받는다.
         float horizontal = Input.GetAxisRaw("Horizontal");
 
@@ -103,6 +117,14 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // 연출 중에는 PlayerController가 플레이어 위치에 간섭하지 않는다.
+        // 위치 제한도 건너뛰어야 플레이어가 화면 밖으로 이동할 수 있다.
+        if (!_canControl)
+        {
+            _rigidbody.linearVelocity = Vector2.zero;
+            return;
+        }
+
         // 물리 프레임에서 플레이어를 이동시킨다.
         _rigidbody.linearVelocity = _moveDirection * _moveSpeed;
 
@@ -113,6 +135,24 @@ public class PlayerController : MonoBehaviour
 
         // 실제 내 위치
         _rigidbody.position = clampedPosition;
+    }
+
+    /// <summary>
+    /// 플레이어의 직접 이동 조작 가능 여부를 변경한다.
+    /// 입장·퇴장 연출에서는 false, 전투 시작 시에는 true를 전달한다.
+    /// </summary>
+    public void SetControlEnabled(bool canControl)
+    {
+        _canControl = canControl;
+
+        // 이전 프레임의 입력 방향이 연출 종료 후 다시 적용되지 않게 초기화한다.
+        _moveDirection = Vector2.zero;
+
+        // 조작을 잠글 때 현재 이동 속도도 즉시 제거한다.
+        if (!_canControl)
+        {
+            _rigidbody.linearVelocity = Vector2.zero;
+        }
     }
 
     /// <summary>
@@ -177,5 +217,26 @@ public class PlayerController : MonoBehaviour
     public void AddMoveSpeed(float value)
     {
         _moveSpeed += value;
+    }
+
+    /// <summary>
+    /// 최대체력을 증가시키고 현재 체력을 새로운 최대체력까지 회복한다.
+    /// </summary>
+    /// <param name="amount">증가할 최대체력</param>
+    public void IncreaseMaxHpAndFullHeal(int amount)
+    {
+        if (amount <= 0)
+        {
+            return;
+        }
+
+        // 최대체력을 먼저 증가시킨다.
+        _maxHp += amount;
+
+        // 증가된 최대체력까지 현재 체력을 완전히 회복한다.
+        _currentHp = _maxHp;
+
+        // 변경된 현재체력과 최대체력을 즉시 화면에 반영한다.
+        UpdateHpUI();
     }
 }

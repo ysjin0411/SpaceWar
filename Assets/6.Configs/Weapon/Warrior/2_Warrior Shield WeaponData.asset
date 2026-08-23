@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c420b9c456cfa094a9e96f54c4f32a05, type: 3}
+  m_Name: 2_Warrior Shield WeaponData
+  m_EditorClassIdentifier: 
+  _id: warrior_shield
+  _name: Shield
+  _type: 6
+  _fireMode: 0
+  _icon: {fileID: -1091532343250817282, guid: dfc7986ed5e681a4ca5654fd8e8be388, type: 3}
+  _projectilePrefab: {fileID: 8053201812717553051, guid: ca6d9fc1d4271d148af848ecd7e6eaf5, type: 3}
+  _baseDamage: 10
+  _baseCooltime: 1
+  _price: 0
+  _requiredCharacterLevel: 1
+  _isInitiallyOwned: 1
+  _fireRateUpgradeValue: 0.01
+  _minimumCooltime: 0.05
+  _info: "\uBC29\uD328\uB97C \uB4E4\uC5B4 \uC801\uC744 \uBC00\uC5B4\uB0B8\uB2E4."
+  _upgradeSelectionInfo: "Shield\uB97C \uAC15\uD654\uD55C\uB2E4."

@@ -51,33 +51,60 @@ public class CharacterProgression : MonoBehaviour
     /// </summary>
     public void AddExp(int amount)
     {
+        // 0 이하의 경험치는 적용하지 않는다.
         if (amount <= 0)
         {
             return;
         }
 
+        // 이번 경험치 지급으로 레벨이 올랐는지 기록한다.
+        bool didLevelUp = false;
+
+        // 현재 경험치에 획득 경험치를 더한다.
         _currentExp += amount;
 
-        // 많은 경험치를 한 번에 받아 여러 레벨이 오르는 경우도 처리한다.
+        // 많은 경험치를 한 번에 받아
+        // 여러 레벨이 오르는 경우도 모두 처리한다.
         while (_currentExp >= GetRequiredExp(_currentLevel))
         {
-            int levelUpExp = GetRequiredExp(_currentLevel);
+            // 현재 레벨업에 필요한 경험치를 가져온다.
+            int levelUpExp =
+                GetRequiredExp(_currentLevel);
 
+            // 사용한 경험치를 차감하고 레벨을 증가시킨다.
             _currentExp -= levelUpExp;
             _currentLevel++;
 
+            // 이번 경험치 지급으로 레벨이 올랐다고 기록한다.
+            didLevelUp = true;
+
+            // 레벨업을 구독 중인 UI와 시스템에 알린다.
             OnLevelUp?.Invoke(_currentLevel);
         }
 
-        // 레벨업 계산 후 경험치 통과 남은 경험치를 다시 계산한다.
+        // 레벨업 계산 후 경험치 관련 값을 다시 계산한다.
         UpdateCalculatedExp();
 
         // 런타임 결과를 영구 저장 데이터에 반영한다.
         ApplyToSaveData();
 
+        // 경험치 UI에 변경된 값을 알린다.
         NotifyProgressChanged();
 
+        // 변경된 레벨과 경험치를 JSON에 먼저 저장한다.
         SaveManager.Instance.SaveToFile();
+
+        // 실제로 레벨이 오른 경우에만 레벨 업적을 검사한다.
+        if (didLevelUp)
+        {
+            if (AchievementManager.Instance == null)
+            {
+                throw new InvalidOperationException(
+                    "AchievementManager가 존재하지 않습니다.");
+            }
+
+            AchievementManager.Instance.EvaluateAllAchievements();
+        }
     }
 
     /// <summary>

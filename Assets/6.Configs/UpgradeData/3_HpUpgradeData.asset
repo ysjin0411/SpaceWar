@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf32ef244788b9648b84802fef889427, type: 3}
+  m_Name: 3_HpUpgradeData
+  m_EditorClassIdentifier: 
+  _id: hp_upgrade
+  _name: "\uCCB4\uB825\uAC15\uD654"
+  _info: "\uCD5C\uB300\uCCB4\uB825\uC744 \uC99D\uAC00\uC2DC\uD0A4\uACE0, \uCCB4\uB825\uC744
+    \uD68C\uBCF5\uC2DC\uD0A8\uB2E4."
+  _icon: {fileID: 21300000, guid: a38de2af0ebcd1d438398af9491043ac, type: 3}
+  _type: 3
+  _target: 0
+  _value: 20

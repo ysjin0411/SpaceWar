@@ -1,14 +1,32 @@
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class StageSelectManager : MonoBehaviour
 {
     [Header("셀렉")]
     [SerializeField] GameObject[] _selectImage;     // 선택됐을때 보여질 화면
     [SerializeField] GameObject[] _selectButton;    // 선택됐을때 보여질 버튼
+    [Header("스테이지 클리어 기록 UI")]
+    // 배열 순서가 스테이지 인덱스와 일치하는 클리어 타임 텍스트 목록
+    [SerializeField] TMP_Text[] _clearTimeTexts;
 
     private int _currentStageIndex = -1;            // 현재 선택중인 스테이지 인덱스
+
+    private void Start()
+    {
+        // Bootstrap에서 SaveManager가 정상적으로 생성됐는지 확인한다.
+        if (SaveManager.Instance == null)
+        {
+            throw new InvalidOperationException(
+                "SaveManager가 존재하지 않습니다.");
+        }
+
+        // 스테이지별 최단 클리어 기록을 화면에 표시한다.
+        RefreshClearTimeTexts();
+    }
 
     private void LateUpdate()
     {
@@ -100,7 +118,82 @@ public class StageSelectManager : MonoBehaviour
         session.BeginCharacterSelection(CharacterSelectPurpose.Battle);
 
         // 캐릭터 선택 화면으로 이동한다.
-        SceneManager.LoadScene("PlayCharacterSelect");
+        SceneManager.LoadScene("CharacterSelect_play");
     }
 
+    /// <summary>
+    /// 스테이지 선택을 취소하고 메인 메뉴로 돌아간다.
+    /// </summary>
+    public void BackToMainMenu()
+    {
+        // Bootstrap을 거치지 않았다면 세션 상태를 정리할 수 없다.
+        if (GameSessionManager.Instance == null)
+        {
+            throw new InvalidOperationException(
+                "GameSessionManager가 존재하지 않습니다.");
+        }
+
+        // 전투 진입 과정에서 선택했던 스테이지와 캐릭터 정보를 초기화한다.
+        GameSessionManager.Instance.ResetSelection();
+
+        // 메인 메뉴로 돌아간다.
+        SceneManager.LoadScene("1.MainMenu");
+    }
+
+    /// <summary>
+    /// 저장된 스테이지별 최단 클리어 기록을 각 카드에 표시한다.
+    /// 배열 인덱스가 그대로 스테이지 인덱스로 사용된다.
+    /// </summary>
+    private void RefreshClearTimeTexts()
+    {
+        // 클리어 타임 텍스트 배열이 연결되지 않은 경우 설정 오류를 알린다.
+        if (_clearTimeTexts == null ||
+            _clearTimeTexts.Length == 0)
+        {
+            throw new InvalidOperationException(
+                "Clear Time Text 배열이 비어 있습니다.");
+        }
+
+        for (int stageIndex = 0;
+             stageIndex < _clearTimeTexts.Length;
+             stageIndex++)
+        {
+            // 배열 중간에 연결되지 않은 텍스트가 있으면 어떤 위치인지 알려준다.
+            if (_clearTimeTexts[stageIndex] == null)
+            {
+                throw new InvalidOperationException(
+                    $"Stage {stageIndex + 1}의 Clear Time Text가 연결되지 않았습니다.");
+            }
+
+            // 현재 스테이지의 저장된 최단 클리어 시간을 가져온다.
+            float bestClearTime =
+                SaveManager.Instance.GetBestClearTime(stageIndex);
+
+            // 기록 유무에 맞는 문자열을 해당 스테이지 카드에 표시한다.
+            _clearTimeTexts[stageIndex].text =
+                FormatBestClearTime(bestClearTime);
+        }
+    }
+
+    /// <summary>
+    /// 저장된 초 단위 기록을 스테이지 선택 화면용 문자열로 변환한다.
+    /// </summary>
+    private string FormatBestClearTime(float bestClearTime)
+    {
+        // 0 이하의 값은 아직 클리어 기록이 없다는 의미다.
+        if (bestClearTime <= 0f)
+        {
+            return "ClearTime:-- : --";
+        }
+
+        // 소수점 이하는 버리고 전체 초로 변환한다.
+        int totalSeconds =
+            Mathf.FloorToInt(bestClearTime);
+
+        int minutes = totalSeconds / 60;
+        int seconds = totalSeconds % 60;
+
+        // 예: 1분 5초를 ClearTime:01 : 05로 표시한다.
+        return $"ClearTime:{minutes:00} : {seconds:00}";
+    }
 }

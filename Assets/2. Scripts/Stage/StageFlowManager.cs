@@ -9,10 +9,12 @@ using DG.Tweening;
 /// </summary>
 public enum StagePhase
 {
+    None,              // 아직 스테이지 흐름이 시작되지 않은 상태
+    StageIntro,        // 플레이어 입장 연출 상태
     Section1,          // 스테이지 1-1 일반 전투
     MidBossWarning,    // 중간보스 출현 경고
     MidBossBattle,     // 중간보스 전투
-    SectionTransition, // 1-1에서 1-2로 이동하는 연출
+    SectionTransition, // 첫 번째 맵에서 두 번째 맵으로 이동하는 상태
     Section2,          // 스테이지 1-2 일반 전투
     FinalBossWarning,  // 최종보스 출현 경고
     FinalBossBattle,   // 최종보스 전투
@@ -66,6 +68,8 @@ public class StageFlowManager : MonoBehaviour
 
     [Tooltip("현재 스테이지 타이머가 작동 중인지 확인")]
     [SerializeField] bool _isTimerRunning;
+
+
 
     // 스테이지 진행 상태가 변경됐을 때 외부 시스템에 알려주는 이벤트
     public event Action<StagePhase> PhaseChanged;
@@ -134,27 +138,31 @@ public class StageFlowManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 새로운 스테이지의 시간 측정을 시작한다.
+    /// 새로운 스테이지의 시간과 최초 상태를 초기화한다.
+    /// 플레이어 입장 연출이 끝나기 전에는 전투 타이머를 시작하지 않는다.
     /// </summary>
     private void BeginStage()
     {
-        // 전체 플레이 시간을 처음부터 측정한다.
+        // 전체 플레이 시간을 초기화한다.
         _stageElapsedTime = 0f;
 
-        // 첫 번째 구간의 시간도 처음부터 측정한다.
+        // 현재 페이즈의 진행 시간을 초기화한다.
         _phaseElapsedTime = 0f;
 
-        // 처음 진행 상태는 1-1 일반 전투다.
-        _currentPhase = StagePhase.Section1;
+        // 최초 상태를 아직 시작되지 않은 상태로 설정한다.
+        _currentPhase = StagePhase.None;
 
-        // 시간 측정을 시작한다.
-        _isTimerRunning = true;
+        // 플레이어 입장 연출 중에는 클리어 타이머를 흐르게 하지 않는다.
+        _isTimerRunning = false;
 
-        // 화면에 초기 시간인 00:00을 표시한다.
+        // 화면에 초기 시간 00:00을 표시한다.
         UpdateTimerText();
 
-        // 선택한 스테이지 번호를 화면에 표시한다.
+        // 스테이지 번호 연출을 시작한다.
         PlayStageIntro();
+
+        // 플레이어 입장 연출 상태를 시작한다.
+        ChangePhase(StagePhase.StageIntro);
     }
 
     /// <summary>
@@ -217,6 +225,46 @@ public class StageFlowManager : MonoBehaviour
     }
 
     /// <summary>
+    /// 플레이어 입장 연출이 끝났다는 알림을 받는다.
+    /// 이 시점부터 전투 타이머와 Section1을 시작한다.
+    /// </summary>
+    public void NotifyStageIntroCompleted()
+    {
+        // 입장 상태가 아닌데 호출됐다면 잘못된 흐름이므로 처리하지 않는다.
+        if (_currentPhase != StagePhase.StageIntro)
+        {
+            Debug.LogWarning(
+                $"StageIntro 상태가 아니므로 입장 완료를 처리할 수 없습니다: {_currentPhase}");
+
+            return;
+        }
+
+        // 플레이어 입장이 끝난 시점부터 클리어 시간을 측정한다.
+        _isTimerRunning = true;
+
+        // 첫 번째 일반 전투 구간을 시작한다.
+        ChangePhase(StagePhase.Section1);
+    }
+
+    /// <summary>
+    /// 플레이어 퇴장, 배경 교체, 재입장 연출이 모두 끝났다는 알림을 받는다.
+    /// </summary>
+    public void NotifySectionTransitionCompleted()
+    {
+        // 구간 전환 상태가 아니라면 잘못된 호출이므로 처리하지 않는다.
+        if (_currentPhase != StagePhase.SectionTransition)
+        {
+            Debug.LogWarning(
+                $"SectionTransition 상태가 아니므로 전환 완료를 처리할 수 없습니다: {_currentPhase}");
+
+            return;
+        }
+
+        // 두 번째 일반 전투 구간을 시작한다.
+        ChangePhase(StagePhase.Section2);
+    }
+
+    /// <summary>
     /// 보스 경고 UI 연출이 끝났을 때 호출한다.
     /// 현재 경고 종류에 맞는 보스 전투 상태로 변경한다.
     /// </summary>
@@ -241,6 +289,35 @@ public class StageFlowManager : MonoBehaviour
                 // 보스 경고 상태가 아닐 때 잘못 호출된 경우다.
                 Debug.LogWarning(
                     $"현재 상태가 보스 경고가 아니므로 경고 종료를 처리할 수 없습니다: {_currentPhase}");
+                break;
+        }
+    }
+
+    /// <summary>
+    /// BossEncounterManager로부터 현재 보스가 처치됐다는 알림을 받는다.
+    /// 현재 보스 전투 단계에 따라 다음 스테이지 단계로 전환한다.
+    /// </summary>
+    public void NotifyBossDefeated()
+    {
+        switch (_currentPhase)
+        {
+            case StagePhase.MidBossBattle:
+
+                // 미드보스를 처치했으므로 Section2 전환 구간을 시작한다.
+                ChangePhase(StagePhase.SectionTransition);
+                break;
+
+            case StagePhase.FinalBossBattle:
+
+                // 최종보스를 처치했으므로 스테이지를 클리어 처리한다.
+                CompleteStage();
+                break;
+
+            default:
+
+                // 보스 전투가 아닌 상태에서 호출됐다면 잘못된 흐름이므로 경고한다.
+                Debug.LogWarning(
+                    $"보스 전투 상태가 아니므로 보스 처치를 처리할 수 없습니다: {_currentPhase}");
                 break;
         }
     }

@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c420b9c456cfa094a9e96f54c4f32a05, type: 3}
+  m_Name: 4_Warrior Hammer WeaponData
+  m_EditorClassIdentifier: 
+  _id: warrior_hammer
+  _name: Hammer
+  _type: 8
+  _fireMode: 0
+  _icon: {fileID: -1235648141532224321, guid: dd0db2facc676c14fb7b5c1606f73247, type: 3}
+  _projectilePrefab: {fileID: 8053201812717553051, guid: 13f877c4d989a9c469d29989a9697aa7, type: 3}
+  _baseDamage: 10
+  _baseCooltime: 1
+  _price: 1000
+  _requiredCharacterLevel: 5
+  _isInitiallyOwned: 0
+  _fireRateUpgradeValue: 0.01
+  _minimumCooltime: 0.05
+  _info: "\uAC70\uB300 \uD574\uBA38."
+  _upgradeSelectionInfo: "Hammer\uB97C \uAC15\uD654\uD55C\uB2E4."

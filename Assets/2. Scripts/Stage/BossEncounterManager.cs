@@ -165,11 +165,36 @@ public class BossEncounterManager : MonoBehaviour
             spawnPoint.position,
             spawnPoint.rotation);
 
+        // 생성된 보스가 처치됐을 때 알림을 받는다.
+        _currentBoss.Defeated += HandleBossDefeated;
+
         // 보스 패턴에서 사용할 플레이어와 GameManager를 전달한다.
         _currentBoss.Initialize(
             _playerController,
             _gameManager);
 
         Debug.Log($"보스를 생성했습니다: {_currentBoss.name}");
+    }
+
+    /// <summary>
+    /// 현재 보스가 처치됐을 때 호출된다.
+    /// 보스 참조를 정리하고 StageFlowManager에 처치 사실을 전달한다.
+    /// </summary>
+    private void HandleBossDefeated(BossEnemy defeatedBoss)
+    {
+        // 예상하지 않은 다른 보스가 이벤트를 보냈다면 처리하지 않는다.
+        if (defeatedBoss != _currentBoss)
+        {
+            return;
+        }
+
+        // 같은 이벤트가 다시 전달되지 않도록 구독을 해제한다.
+        defeatedBoss.Defeated -= HandleBossDefeated;
+
+        // 현재 보스가 사라졌다는 것을 기록한다.
+        _currentBoss = null;
+
+        // 현재 페이즈에 맞는 다음 스테이지 흐름으로 넘어간다.
+        _stageFlowManager.NotifyBossDefeated();
     }
 }

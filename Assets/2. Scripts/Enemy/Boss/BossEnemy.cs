@@ -18,10 +18,15 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
     [Min(0)]
     [SerializeField] int _crashDamage;
 
-    //[Header("사망 처리 설정")]
-    //[Tooltip("사망 처리 후 보스 오브젝트를 제거하기까지의 시간")]
-    //[Min(0f)]
-    //[SerializeField] float _destroyDelay;
+    // Animator의 Die Trigger 이름을 해시값으로 보관한다.
+    static readonly int DieTriggerHash =
+        Animator.StringToHash("Die");
+
+    // 자식 Renderer에 있는 보스 Animator
+    Animator _animator;
+
+    // 사망 완료 처리가 중복 실행되는 것을 방지한다.
+    bool _isDefeatCompleted;
 
     [Header("보스 런타임 데이터")]
     [Tooltip("현재 보스 체력")]
@@ -62,11 +67,23 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
 
     protected virtual void Awake()
     {
-        // 보스가 생성되면 최대 체력으로 시작한다.
+        // 보스가 생성되면 최대 체력으로 초기화한다.
         _currentHp = _maxHp;
 
         // 새로 생성된 보스는 살아 있는 상태다.
         _isDead = false;
+
+        // 아직 사망 애니메이션 완료 처리를 하지 않은 상태다.
+        _isDefeatCompleted = false;
+
+        // 보스 자식 Renderer에서 Animator를 찾는다.
+        _animator = GetComponentInChildren<Animator>();
+
+        if (_animator == null)
+        {
+            throw new MissingComponentException(
+                $"{name}의 자식에서 Animator를 찾을 수 없습니다.");
+        }
     }
 
     /// <summary>
@@ -143,7 +160,7 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
         // 사망 후 플레이어 공격과 충돌하지 않도록 Collider를 비활성화한다.
         SetCollidersEnabled(false);
 
-        // Rigidbody2D를 사용 중이라면 이동을 정지시킨다.
+        // 보스 이동을 즉시 정지한다.
         if (TryGetComponent(out Rigidbody2D body))
         {
             body.linearVelocity = Vector2.zero;
@@ -152,10 +169,34 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
         // 보스별 폭발, 애니메이션, 사운드 처리를 실행한다.
         OnBossDefeated();
 
-        // BossEncounterManager에 보스 처치를 알린다.
+        // Animator를 사망 상태로 전환한다.
+        _animator.SetTrigger(DieTriggerHash);
+    }
+
+    /// <summary>
+    /// 사망 애니메이션의 마지막 프레임에서 호출된다.
+    /// 이 시점에 보스 처치 이벤트를 보내고 보스 오브젝트를 삭제한다.
+    /// </summary>
+    public void CompleteDefeat()
+    {
+        // 아직 사망 상태가 아니라면 잘못 호출된 것이므로 처리하지 않는다.
+        if (!_isDead)
+        {
+            return;
+        }
+
+        // Animation Event가 중복 호출돼도 한 번만 처리한다.
+        if (_isDefeatCompleted)
+        {
+            return;
+        }
+
+        _isDefeatCompleted = true;
+
+        // BossEncounterManager에 사망 연출까지 끝났다고 알린다.
         Defeated?.Invoke(this);
 
-        // 사망 연출 시간을 확보한 뒤 보스 오브젝트를 제거한다.
+        // 사망 연출이 모두 끝났으므로 보스 오브젝트를 삭제한다.
         Destroy(gameObject);
     }
 
