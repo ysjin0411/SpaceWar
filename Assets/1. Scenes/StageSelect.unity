@@ -393,6 +393,12 @@ MonoBehaviour:
   - {fileID: 4957598581174128106}
   - {fileID: 2412452702312485489}
   - {fileID: 5322961879083651853}
+  _selectedClearTimeTexts:
+  - {fileID: 5453032855457458026}
+  - {fileID: 68471751775490102}
+  - {fileID: 911196260289898067}
+  - {fileID: 7571419021131086280}
+  - {fileID: 123602901369698484}
 --- !u!1 &388960839
 GameObject:
   m_ObjectHideFlags: 0
@@ -3117,7 +3123,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &3594041725896153175
 MonoBehaviour:
   m_ObjectHideFlags: 0

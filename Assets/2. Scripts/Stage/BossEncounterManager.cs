@@ -40,6 +40,9 @@ public class BossEncounterManager : MonoBehaviour
     // 외부에서 현재 보스를 확인할 때 사용한다.
     public BossEnemy CurrentBoss => _currentBoss;
 
+    // 새 보스가 생성되었을 때 생성된 보스를 UI에 전달한다.
+    public event Action<BossEnemy> BossSpawned;
+
     private void Awake()
     {
         if (_stageFlowManager == null)
@@ -167,6 +170,10 @@ public class BossEncounterManager : MonoBehaviour
 
         // 생성된 보스가 처치됐을 때 알림을 받는다.
         _currentBoss.Defeated += HandleBossDefeated;
+
+        // 보스 UI가 HealthChanged 이벤트를 먼저 구독할 수 있도록
+        // 보스 초기화 전에 생성된 보스를 전달한다.
+        BossSpawned?.Invoke(_currentBoss);
 
         // 보스 패턴에서 사용할 플레이어와 GameManager를 전달한다.
         _currentBoss.Initialize(

@@ -60,6 +60,9 @@ public class StageTransitionManager : MonoBehaviour
     // 동일한 입장 연출이 중복 실행되는 것을 방지한다.
     bool _isEntrancePlaying;
 
+    // 중간보스 이후 실제 맵 배경이 교체된 순간을 알린다.
+    public event Action SectionMapChanged;
+
     private void Awake()
     {
         if (_stageFlowManager == null)
@@ -265,6 +268,10 @@ public class StageTransitionManager : MonoBehaviour
 
             _backgroundScroller.ChangeBackground(
                 _section2BackgroundSprite);
+
+            // 맵이 교체된 바로 이 순간에
+            // 스테이지 진행도 UI를 다시 펼치도록 알린다.
+            SectionMapChanged?.Invoke();
 
             // 플레이어를 화면 왼쪽 바깥으로 옮긴다.
             _playerRigidbody.position =

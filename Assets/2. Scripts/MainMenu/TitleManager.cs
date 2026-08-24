@@ -8,14 +8,14 @@ public class TitleManager : MonoBehaviour
     [Header("버튼")]
     [SerializeField] Button _playButton;
 	[SerializeField] Button _skillButton;
-	[SerializeField] Button _abilityButton;
-	[SerializeField] Button _settingButton;
+    [SerializeField] Button _achievementButton;
+    [SerializeField] Button _settingButton;
 
     [Header("셀렉이펙트")]
     [SerializeField] Image _playSelectEffect;
 	[SerializeField] Image _skillSelectEffect;
-	[SerializeField] Image _abilitySelectEffect;
-	[SerializeField] Image _settingSelectEffect;
+    [SerializeField] Image _achievementSelectEffect;
+    [SerializeField] Image _settingSelectEffect;
 
 
 	private void Start()
@@ -61,7 +61,7 @@ public class TitleManager : MonoBehaviour
 		// 해당 이펙트는 현재선택중인 오브젝트일때 SetActive
 		_playSelectEffect.gameObject.SetActive(selectedObject == _playButton.gameObject);
 		_skillSelectEffect.gameObject.SetActive(selectedObject == _skillButton.gameObject);
-		_abilitySelectEffect.gameObject.SetActive(selectedObject == _abilityButton.gameObject);
+        _achievementSelectEffect.gameObject.SetActive(selectedObject == _achievementButton.gameObject);
 		_settingSelectEffect.gameObject.SetActive(selectedObject == _settingButton.gameObject);
 	}
 
@@ -77,7 +77,7 @@ public class TitleManager : MonoBehaviour
     {
         _playSelectEffect.gameObject.SetActive(false);
 		_skillSelectEffect.gameObject.SetActive(false);
-		_abilitySelectEffect.gameObject.SetActive(false);
+        _achievementSelectEffect.gameObject.SetActive(false);
 		_settingSelectEffect.gameObject.SetActive(false);
 	}
 
@@ -105,7 +105,7 @@ public class TitleManager : MonoBehaviour
 
     public void LoadAbility()
 	{
-		SceneManager.LoadScene("AbilityManage");
+		
 	}
 
 	public void LoadSetting()

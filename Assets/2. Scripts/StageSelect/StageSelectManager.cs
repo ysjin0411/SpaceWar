@@ -12,6 +12,7 @@ public class StageSelectManager : MonoBehaviour
     [Header("스테이지 클리어 기록 UI")]
     // 배열 순서가 스테이지 인덱스와 일치하는 클리어 타임 텍스트 목록
     [SerializeField] TMP_Text[] _clearTimeTexts;
+    [SerializeField] TMP_Text[] _selectedClearTimeTexts;  // Select 상태의 클리어 타임
 
     private int _currentStageIndex = -1;            // 현재 선택중인 스테이지 인덱스
 
@@ -141,37 +142,45 @@ public class StageSelectManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 저장된 스테이지별 최단 클리어 기록을 각 카드에 표시한다.
-    /// 배열 인덱스가 그대로 스테이지 인덱스로 사용된다.
+    /// 저장된 최고 클리어 타임을 Unselect/Select 상태 양쪽에 표시한다.
+    /// 비활성화된 SelectImage의 TMP_Text도 값 설정은 가능하다.
     /// </summary>
     private void RefreshClearTimeTexts()
     {
-        // 클리어 타임 텍스트 배열이 연결되지 않은 경우 설정 오류를 알린다.
+        // 두 배열은 스테이지 개수만큼 동일하게 구성되어야 한다.
         if (_clearTimeTexts == null ||
-            _clearTimeTexts.Length == 0)
+            _selectedClearTimeTexts == null ||
+            _clearTimeTexts.Length == 0 ||
+            _clearTimeTexts.Length != _selectedClearTimeTexts.Length)
         {
             throw new InvalidOperationException(
-                "Clear Time Text 배열이 비어 있습니다.");
+                "Unselect/Select Clear Time Text 배열의 개수가 올바르지 않습니다.");
         }
 
         for (int stageIndex = 0;
              stageIndex < _clearTimeTexts.Length;
              stageIndex++)
         {
-            // 배열 중간에 연결되지 않은 텍스트가 있으면 어떤 위치인지 알려준다.
-            if (_clearTimeTexts[stageIndex] == null)
+            // 어느 한쪽이라도 빠졌으면 잘못 연결된 스테이지를 바로 확인한다.
+            if (_clearTimeTexts[stageIndex] == null ||
+                _selectedClearTimeTexts[stageIndex] == null)
             {
                 throw new InvalidOperationException(
                     $"Stage {stageIndex + 1}의 Clear Time Text가 연결되지 않았습니다.");
             }
 
-            // 현재 스테이지의 저장된 최단 클리어 시간을 가져온다.
             float bestClearTime =
                 SaveManager.Instance.GetBestClearTime(stageIndex);
 
-            // 기록 유무에 맞는 문자열을 해당 스테이지 카드에 표시한다.
-            _clearTimeTexts[stageIndex].text =
+            // 같은 저장값을 두 UI 상태에 동시에 적용한다.
+            string formattedClearTime =
                 FormatBestClearTime(bestClearTime);
+
+            _clearTimeTexts[stageIndex].text =
+                formattedClearTime;
+
+            _selectedClearTimeTexts[stageIndex].text =
+                formattedClearTime;
         }
     }
 

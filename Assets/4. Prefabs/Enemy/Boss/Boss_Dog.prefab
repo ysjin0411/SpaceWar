@@ -92,7 +92,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: -1756659314249247648, guid: 92d09b964c3723248a33171f9efed876, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c96e8a42965e3074db422775811f82f3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -132,7 +132,7 @@ MonoBehaviour:
   m_CategoryHash: 3.3377335e-38
   m_labelHash: 1.7176944e-11
   m_SpriteKey: 0
-  m_SpriteHash: 322432235
+  m_SpriteHash: 742935378
 --- !u!95 &7177751443503475103
 Animator:
   serializedVersion: 7
@@ -203,9 +203,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb82dba2cbc5bfa44943b9681193e851, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHp: 1000
+  _bossName: Boss_Dog
+  _maxHp: 100
   _crashDamage: 10
-  _currentHp: 0
+  _currentHp: 100
   _isDead: 0
   _moveSpeed: 10
   _canAct: 0
@@ -280,7 +281,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 3.5, y: 1.9}
+  m_Size: {x: 3, y: 1}
   m_EdgeRadius: 0
 --- !u!1 &9182107632142494943
 GameObject:

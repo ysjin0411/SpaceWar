@@ -8,6 +8,12 @@ using UnityEngine;
 /// </summary>
 public abstract class BossEnemy : MonoBehaviour, IDamageable
 {
+    [Header("보스 기본 정보")]
+
+    // UI에 표시할 보스 이름이다.
+    // 각 보스 프리팹의 인스펙터에서 설정한다.
+    [SerializeField] string _bossName;
+
     [Header("보스 체력 설정")]
     [Tooltip("보스의 최대 체력")]
     [Min(1)]
@@ -65,8 +71,18 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
     // 유도 투사체가 보스를 추적할 때 사용할 Transform이다.
     public Transform TargetTransform => transform;
 
+    // 외부 UI에서 보스 이름을 읽을 수 있도록 제공한다.
+    public string BossName => _bossName;
+
     protected virtual void Awake()
     {
+        // 보스 프리팹에 표시 이름이 입력되지 않았다면 설정 오류로 처리한다.
+        if (string.IsNullOrWhiteSpace(_bossName))
+        {
+            throw new InvalidOperationException(
+                $"{name} 보스 프리팹에 Boss Name이 설정되지 않았습니다.");
+        }
+
         // 보스가 생성되면 최대 체력으로 초기화한다.
         _currentHp = _maxHp;
 
