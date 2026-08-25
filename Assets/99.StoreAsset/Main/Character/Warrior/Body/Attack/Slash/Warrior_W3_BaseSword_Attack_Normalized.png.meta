@@ -46,7 +46,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -84,7 +84,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -105,11 +105,24 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Warrior_W3_BaseSword_Attack_Normalized_0
+      name: Warrior_W3_Slash_Attack_Normalized_0
       rect:
         serializedVersion: 2
         x: 373
@@ -117,7 +130,7 @@ TextureImporter:
         width: 277
         height: 461
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -131,7 +144,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Warrior_W3_BaseSword_Attack_Normalized_1
+      name: Warrior_W3_Slash_Attack_Normalized_1
       rect:
         serializedVersion: 2
         x: 1314
@@ -139,7 +152,7 @@ TextureImporter:
         width: 444
         height: 354
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -153,7 +166,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Warrior_W3_BaseSword_Attack_Normalized_2
+      name: Warrior_W3_Slash_Attack_Normalized_2
       rect:
         serializedVersion: 2
         x: 2301
@@ -161,7 +174,7 @@ TextureImporter:
         width: 518
         height: 345
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -175,7 +188,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Warrior_W3_BaseSword_Attack_Normalized_3
+      name: Warrior_W3_Slash_Attack_Normalized_3
       rect:
         serializedVersion: 2
         x: 3392
@@ -183,7 +196,7 @@ TextureImporter:
         width: 384
         height: 356
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -200,7 +213,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 37d5d49fa20f97d439884567e9dc30cf
     internalID: 0
     vertices: []
     indices: 
@@ -210,10 +223,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Warrior_W3_BaseSword_Attack_Normalized_0: 958140939185695388
-      Warrior_W3_BaseSword_Attack_Normalized_1: -5730511739101293187
-      Warrior_W3_BaseSword_Attack_Normalized_2: -5005188287954672218
-      Warrior_W3_BaseSword_Attack_Normalized_3: -7861217130172717088
+      Warrior_W3_Slash_Attack_Normalized_0: 958140939185695388
+      Warrior_W3_Slash_Attack_Normalized_1: -5730511739101293187
+      Warrior_W3_Slash_Attack_Normalized_2: -5005188287954672218
+      Warrior_W3_Slash_Attack_Normalized_3: -7861217130172717088
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 /// <summary>
@@ -7,6 +8,9 @@ using UnityEngine;
 /// </summary>
 public interface IDamageable
 {
+    // 대미지를 받아 체력이 변경되었을 때 발생한다.
+    event Action<int> Damaged;
+
     // 현재 대상이 사망 처리됐는지 외부에서 확인한다.
     bool IsDead { get; }
 

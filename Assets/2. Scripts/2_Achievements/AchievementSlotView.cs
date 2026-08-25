@@ -53,6 +53,9 @@ public class AchievementSlotView :
     // 달성 후 보상을 수령할 때 누르는 버튼이다.
     [SerializeField] Button _claimRewardButton;
 
+    // 보상을 받을 수 있을 때 보상받기 버튼 주변에서 점멸할 효과다.
+    [SerializeField] UIAttentionPulse _claimRewardAttentionPulse;
+
     // 보상 버튼의 현재 상태 문구를 표시한다.
     [SerializeField] TMP_Text _claimRewardButtonText;
 
@@ -146,6 +149,10 @@ public class AchievementSlotView :
             AchievementManager.Instance.GetAchievementState(
                 _achievementData);
 
+        // 보상 수령 가능 상태에서만 버튼 테두리를 점멸한다.
+        bool isRewardAvailable =
+            achievementState == AchievementState.RewardAvailable;
+
         switch (achievementState)
         {
             case AchievementState.InProgress:
@@ -186,6 +193,11 @@ public class AchievementSlotView :
                     achievementState,
                     "지원하지 않는 업적 상태입니다.");
         }
+
+        // 미달성 또는 보상 수령 완료 상태에서는 꺼지고,
+        // 보상을 받을 수 있을 때만 점멸한다.
+        _claimRewardAttentionPulse.SetAttention(
+            isRewardAvailable);
     }
 
     /// <summary>
@@ -319,6 +331,12 @@ public class AchievementSlotView :
             throw new InvalidOperationException(
                 $"{name}의 보상 버튼이 연결되지 않았습니다.");
         }
+
+        if (_claimRewardAttentionPulse == null)
+        {
+            throw new InvalidOperationException(
+                $"{name}에 보상 버튼 알림 효과가 연결되지 않았습니다.");
+        }
     }
 
     private void OnDestroy()
@@ -328,6 +346,31 @@ public class AchievementSlotView :
         {
             _claimRewardButton.onClick.RemoveListener(
                 HandleClaimRewardButtonClicked);
+        }
+    }
+
+    private void OnEnable()
+    {
+        if (AchievementManager.Instance == null)
+        {
+            return;
+        }
+
+        // 다른 슬롯에서 보상을 받더라도 현재 슬롯의 상태를 다시 확인한다.
+        AchievementManager.Instance.AchievementStateChanged +=
+            RefreshState;
+
+        // 업적창을 다시 열었을 때 점멸 효과를 포함한 상태를 복구한다.
+        RefreshState();
+    }
+
+    private void OnDisable()
+    {
+        // 비활성화된 슬롯이 계속 이벤트를 받지 않도록 해제한다.
+        if (AchievementManager.Instance != null)
+        {
+            AchievementManager.Instance.AchievementStateChanged -=
+                RefreshState;
         }
     }
 }

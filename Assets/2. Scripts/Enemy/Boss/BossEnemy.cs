@@ -52,6 +52,7 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
     /// BossEncounterManager가 이 이벤트를 구독한다.
     /// </summary>
     public event Action<BossEnemy> Defeated;
+    public event Action<int> Damaged;
 
     // 보스별 이동 및 공격 패턴에서 현재 플레이어를 사용한다.
     protected PlayerController TargetPlayer { get; private set; }
@@ -126,6 +127,7 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
         // 이벤트 연결 이후 최초 체력을 UI에 전달한다.
         HealthChanged?.Invoke(_currentHp, _maxHp);
 
+
         // 보스별 초기화 작업을 실행한다.
         OnBossInitialized();
     }
@@ -148,6 +150,13 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
         }
 
         _currentHp = Mathf.Max(0, _currentHp - damage);
+
+        // 살아남은 피격에서만 피격 애니메이션 이벤트를 발생시킨다.
+        // 사망 공격에서는 Die 애니메이션이 우선되어야 한다.
+        if (_currentHp > 0)
+        {
+            Damaged?.Invoke(damage);
+        }
 
         // 변경된 체력을 보스 체력 UI에 전달한다.
         HealthChanged?.Invoke(_currentHp, _maxHp);

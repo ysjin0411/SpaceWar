@@ -1,0 +1,112 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &1
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5e6fedc2472449cead18ef23b5cb30d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Library:
+  - m_Name: Idle3
+    m_Hash: 17981889
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: Robot_idle 1
+      m_Hash: 990451449
+      m_Sprite: {fileID: 21300000, guid: a0d04bc828fd4084cb8c7a08091f1aae, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: a0d04bc828fd4084cb8c7a08091f1aae, type: 3}
+    - m_Name: Robot_idle 2
+      m_Hash: 570443587
+      m_Sprite: {fileID: 21300000, guid: 8469d33fea3aa6c4387815d172e7bc77, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 8469d33fea3aa6c4387815d172e7bc77, type: 3}
+    - m_Name: Robot_idle 3
+      m_Hash: 352810965
+      m_Sprite: {fileID: 21300000, guid: 455eebe95dcf50a40bd238252b463401, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 455eebe95dcf50a40bd238252b463401, type: 3}
+    m_FromMain: 1
+    m_EntryOverrideCount: 0
+  - m_Name: Attack3
+    m_Hash: 321101326
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: Robot_shoot 1
+      m_Hash: 601591850
+      m_Sprite: {fileID: 9031487949072256324, guid: efc36ac330e7d384c9652e3e3b2d97bd, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 9031487949072256324, guid: efc36ac330e7d384c9652e3e3b2d97bd, type: 3}
+    - m_Name: Robot_shoot 2
+      m_Hash: 986890640
+      m_Sprite: {fileID: 6568509620544464776, guid: efc36ac330e7d384c9652e3e3b2d97bd, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 6568509620544464776, guid: efc36ac330e7d384c9652e3e3b2d97bd, type: 3}
+    - m_Name: Robot_shoot 3
+      m_Hash: 232124678
+      m_Sprite: {fileID: -4585497467265077971, guid: efc36ac330e7d384c9652e3e3b2d97bd, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: -4585497467265077971, guid: efc36ac330e7d384c9652e3e3b2d97bd, type: 3}
+    m_FromMain: 1
+    m_EntryOverrideCount: 0
+  - m_Name: Idle4
+    m_Hash: 527889506
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: Warrior_Sword_Idle_0
+      m_Hash: 789113838
+      m_Sprite: {fileID: 9031487949072256324, guid: efc36ac330e7d384c9652e3e3b2d97bd, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 5406620016259268240, guid: c51526077f623be47af243bf98727d24, type: 3}
+    - m_Name: Warrior_Sword_Idle_1
+      m_Hash: 403692408
+      m_Sprite: {fileID: 6568509620544464776, guid: efc36ac330e7d384c9652e3e3b2d97bd, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: -3404722424979710346, guid: c51526077f623be47af243bf98727d24, type: 3}
+    - m_Name: Warrior_Sword_Idle_2
+      m_Hash: 17205954
+      m_Sprite: {fileID: -4585497467265077971, guid: efc36ac330e7d384c9652e3e3b2d97bd, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: -5603708521874470197, guid: c51526077f623be47af243bf98727d24, type: 3}
+    - m_Name: Warrior_Sword_Idle_3
+      m_Hash: 906082900
+      m_Sprite: {fileID: 7944273306994639001, guid: efc36ac330e7d384c9652e3e3b2d97bd, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: -8506132685242947431, guid: c51526077f623be47af243bf98727d24, type: 3}
+    m_FromMain: 1
+    m_EntryOverrideCount: 4
+  - m_Name: Attack4
+    m_Hash: 222759853
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: Warrior_Sword_Attack_0
+      m_Hash: 422317655
+      m_Sprite: {fileID: 8958195308597742424, guid: b4c735e210302504f9f804bacca3ab11, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 958140939185695388, guid: d4c981c079b778148ba655e68171d1bf, type: 3}
+    - m_Name: Warrior_Sword_Attack_1
+      m_Hash: 774586049
+      m_Sprite: {fileID: 2545531717585512667, guid: b4c735e210302504f9f804bacca3ab11, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 958140939185695388, guid: d4c981c079b778148ba655e68171d1bf, type: 3}
+    - m_Name: Warrior_Sword_Attack_2
+      m_Hash: 925003643
+      m_Sprite: {fileID: 7484909164523256995, guid: b4c735e210302504f9f804bacca3ab11, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: -5005188287954672218, guid: d4c981c079b778148ba655e68171d1bf, type: 3}
+    - m_Name: Warrior_Sword_Attack_3
+      m_Hash: 2449389
+      m_Sprite: {fileID: 2366037625175623697, guid: b4c735e210302504f9f804bacca3ab11, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: -7861217130172717088, guid: d4c981c079b778148ba655e68171d1bf, type: 3}
+    m_FromMain: 1
+    m_EntryOverrideCount: 4
+  m_PrimaryLibraryGUID: 3a126447cd06c8a41929bfe57b6b601f
+  m_ModificationHash: 639232950495447546
+  m_Version: 1

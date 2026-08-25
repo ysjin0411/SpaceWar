@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.U2D.Animation;
 
 /// <summary>
 /// 무기의 변하지 않는 원본 데이터를 보관한다.
@@ -29,6 +30,9 @@ public class WeaponData : ScriptableObject
 
     [Tooltip("이 무기로 공격할 때 생성할 투사체 프리팹")]
     [SerializeField] GameObject _projectilePrefab;
+    // 이 무기를 들었을 때 캐릭터가 사용할 전용 Sprite Library다.
+    // 전용 외형이 없는 무기는 비워두면 캐릭터의 기본 라이브러리를 사용한다.
+    [SerializeField] SpriteLibraryAsset _playerSpriteLibrary;
 
     [Header("기본 전투 스탯")]
 
@@ -71,6 +75,11 @@ public class WeaponData : ScriptableObject
     public WeaponFireMode FireMode => _fireMode;
     public Sprite Icon => _icon;
     public GameObject ProjectilePrefab => _projectilePrefab;
+
+    // 무기 변경 시 Weapon이 적용할 캐릭터 전용 Sprite Library다.
+    // null이면 캐릭터 프리팹에 연결된 기본 라이브러리를 사용한다.
+    public SpriteLibraryAsset PlayerSpriteLibrary =>
+        _playerSpriteLibrary;
 
     // 무기 기본 전투 스탯
     public int BaseDamage => _baseDamage;

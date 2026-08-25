@@ -7,7 +7,7 @@ using UnityEngine;
 /// 캐릭터별 체력과 이동속도는 CharacterData를 통해 전달받는다.
 /// 무기와 투사체 생성은 Weapon 컴포넌트가 담당하므로 PlayerController는 이동, 체력, 피격만 담당한다.
 /// </summary>
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IDamageable
 {
     [Header("런타임 이동 데이터")]
     [Tooltip("현재 캐릭터의 이동속도")]
@@ -43,7 +43,16 @@ public class PlayerController : MonoBehaviour
     // 외부 시스템에서 현재 플레이어 조작 가능 여부를 확인할 때 사용한다.
     public bool CanControl => _canControl;
 
+    public bool IsDead => _currentHp <= 0;
+
+    public Transform TargetTransform => transform;
+
     Rigidbody2D _rigidbody;
+
+    // 플레이어가 유효한 대미지를 받았을 때 발생한다.
+    public event Action<int> Damaged;
+
+
 
     private void Awake()
     {
@@ -169,6 +178,13 @@ public class PlayerController : MonoBehaviour
 
         // 현재 체력이 음수가 되지 않도록 제한한다.
         _currentHp = Mathf.Max(0, _currentHp - damage);
+
+        // 살아남은 피격일 때만 피격 애니메이션 이벤트를 발생시킨다.
+        // 사망 시 Time.timeScale이 0이 되므로 사망 순간 점멸은 재생하지 않는다.
+        if (_currentHp > 0)
+        {
+            Damaged?.Invoke(damage);
+        }
 
         // HPUI 업데이트
         UpdateHpUI();

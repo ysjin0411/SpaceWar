@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.U2D.Animation;
 
 public enum WeaponType
 {
@@ -23,6 +24,9 @@ public class Weapon : MonoBehaviour
 {
     [Header("컴포넌트")]
     [SerializeField] Animator _animator;
+    // 캐릭터 Renderer에 붙어 있는 SpriteLibrary다.
+    // 무기가 바뀔 때 이 컴포넌트의 Sprite Library Asset을 교체한다.
+    [SerializeField] SpriteLibrary _spriteLibrary;
 
     [Header("테스트용 장착 무기")]
     [Tooltip("세이브 연결 전 테스트할 때만 사용한다.")]
@@ -48,6 +52,10 @@ public class Weapon : MonoBehaviour
 
     // 마지막 발사 이후 흐른 시간
     float _timer;
+
+    // 캐릭터 프리팹에 처음부터 연결되어 있던 기본 Sprite Library다.
+    // 전용 라이브러리가 없는 무기로 돌아왔을 때 복구하기 위해 저장한다.
+    SpriteLibraryAsset _defaultSpriteLibraryAsset;
 
     // 문자열을 매 프레임 검색하지 않도록 파라미터 ID를 미리 저장한다.
     static readonly int AttackHash = Animator.StringToHash("Attack");
@@ -79,6 +87,19 @@ public class Weapon : MonoBehaviour
             throw new MissingComponentException(
                 $"{name}의 Weapon에 Animator가 연결되지 않았습니다.");
         }
+
+        // 무기별 캐릭터 외형을 교체하려면 SpriteLibrary가 필요하다.
+        if (_spriteLibrary == null)
+        {
+            throw new MissingComponentException(
+                $"{name}의 Weapon에 SpriteLibrary가 연결되지 않았습니다.");
+        }
+
+        // Soldier 프리팹의 경우 현재 연결된 Soldier.spriteLib가 저장된다.
+        // 나중에 Bullet, Lazer처럼 전용 라이브러리가 없는 무기로 바꾸면
+        // 이 기본 라이브러리로 다시 복구한다.
+        _defaultSpriteLibraryAsset =
+            _spriteLibrary.spriteLibraryAsset;
 
         // FirePoint는 캐릭터 프리팹 내부 참조이므로 프리팹에 반드시 연결되어 있어야 한다.
         if (_firePoint == null)
@@ -169,6 +190,10 @@ public class Weapon : MonoBehaviour
         _timer = CurrentWeapon != null
             ? CurrentWeapon.CurrentCooltime
             : 0f;
+
+        // 스테이지 시작 시 첫 번째로 선택된 무기의 외형을 적용한다.
+        // Grenade 또는 Sniper가 첫 슬롯이라면 시작부터 해당 외형이 나온다.
+        ApplyCurrentWeaponSpriteLibrary();
 
         // StageManager가 UI를 전달한 상태라면
         // JSON 기반 장착 무기 3개의 아이콘을 Tab 패널에 표시한다.
@@ -266,6 +291,9 @@ public class Weapon : MonoBehaviour
 
         _currentSlotIndex = slotIndex;
 
+        // 새로 선택된 무기에 맞는 Idle/Attack 스프라이트 세트로 바꾼다.
+        ApplyCurrentWeaponSpriteLibrary();
+
         UpdateWeaponUI();
 
         // 무기 선택을 완료했으므로 패널을 닫는다.
@@ -275,6 +303,54 @@ public class Weapon : MonoBehaviour
         {
             _weaponSlotPanel.SetActive(false);
         }
+    }
+
+    /// <summary>
+    /// 현재 무기에 맞는 캐릭터 Sprite Library를 적용하고
+    /// Animator를 Idle 상태로 초기화한다.
+    /// </summary>
+    private void ApplyCurrentWeaponSpriteLibrary()
+    {
+        WeaponRuntimeState currentWeapon = CurrentWeapon;
+
+        // 현재 선택된 무기가 없다면 외형을 적용할 수 없다.
+        if (currentWeapon == null)
+        {
+            return;
+        }
+
+        // 현재 무기에 전용 라이브러리가 연결되어 있다면 가져온다.
+        SpriteLibraryAsset nextLibrary =
+            currentWeapon.Data.PlayerSpriteLibrary;
+
+        // 전용 라이브러리가 없다면
+        // Soldier 프리팹에 처음 연결되어 있던 기본 라이브러리를 사용한다.
+        if (nextLibrary == null)
+        {
+            nextLibrary = _defaultSpriteLibraryAsset;
+        }
+
+        // 전용 라이브러리와 기본 라이브러리가 모두 없다면
+        // 캐릭터 외형을 표시할 수 없다.
+        if (nextLibrary == null)
+        {
+            throw new InvalidOperationException(
+                $"{name}에 적용할 Sprite Library가 없습니다.");
+        }
+
+        // 라이브러리가 같더라도 무기를 변경할 때는
+        // 공격 파라미터와 Idle 상태를 초기화해야 한다.
+        _animator.SetBool(AttackHash, false);
+
+        // 현재 라이브러리와 새 라이브러리가 다를 때만 교체한다.
+        // 같은 에셋을 다시 넣는 불필요한 갱신만 방지한다.
+        if (_spriteLibrary.spriteLibraryAsset != nextLibrary)
+        {
+            _spriteLibrary.spriteLibraryAsset = nextLibrary;
+        }
+
+        // 라이브러리가 같든 다르든 항상 Idle 첫 프레임부터 재생한다.
+        _animator.Play("Idle", 0, 0f);
     }
 
     /// <summary>

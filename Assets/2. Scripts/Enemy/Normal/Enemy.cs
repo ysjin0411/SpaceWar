@@ -42,6 +42,8 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     [Tooltip("현재 적이 사망 처리됐는지 확인")]
     [SerializeField] bool _isDead;
 
+    public event Action<int> Damaged;
+
     // 자식 적이 현재 플레이어를 사용할 수 있도록 제공한다.
     protected PlayerController PlayerController { get; private set; }
 
@@ -116,6 +118,13 @@ public abstract class Enemy : MonoBehaviour, IDamageable
 
         // 현재 체력에서 전달받은 피해량을 차감한다.
         _currentHp = Mathf.Max(0, _currentHp - damage);
+
+        // 살아남은 일반 적에게만 피격 애니메이션을 재생한다.
+        // 체력이 0인 적은 같은 프레임에 제거되므로 점멸시킬 필요가 없다.
+        if (_currentHp > 0)
+        {
+            Damaged?.Invoke(damage);
+        }
 
         // 피격 효과가 필요한 자식 클래스가 처리할 수 있게 호출한다.
         OnDamaged(damage);

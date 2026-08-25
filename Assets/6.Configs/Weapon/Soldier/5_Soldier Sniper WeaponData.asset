@@ -18,6 +18,7 @@ MonoBehaviour:
   _fireMode: 0
   _icon: {fileID: -7617997308927173554, guid: b664d2d0e370a9743ad6c4fa0adb857f, type: 3}
   _projectilePrefab: {fileID: 8053201812717553051, guid: 78bb0c012a56e6949bf255fd021eb706, type: 3}
+  _playerSpriteLibrary: {fileID: 7108339969198208228, guid: 871250447aca08d42a766a71ce8143c3, type: 3}
   _baseDamage: 10
   _baseCooltime: 1
   _price: 2000

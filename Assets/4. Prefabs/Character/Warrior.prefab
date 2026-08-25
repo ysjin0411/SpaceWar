@@ -67,6 +67,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 5121358595812171427}
+  _spriteLibrary: {fileID: 5654995447477566822}
   _testEquippedWeaponDatas: []
   _equippedWeapons: []
   _currentSlotIndex: 0
@@ -148,6 +149,7 @@ GameObject:
   - component: {fileID: 5654995447477566822}
   - component: {fileID: 9184014773160529483}
   - component: {fileID: 5121358595812171427}
+  - component: {fileID: 3113079460966532702}
   m_Layer: 7
   m_Name: Renderer
   m_TagString: Untagged
@@ -214,7 +216,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 9031487949072256324, guid: efc36ac330e7d384c9652e3e3b2d97bd, type: 3}
+  m_Sprite: {fileID: 2366037625175623697, guid: b4c735e210302504f9f804bacca3ab11, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -252,9 +254,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_CategoryHash: 6.1335664e-31
-  m_labelHash: 8.8950875e-24
+  m_labelHash: 3.432325e-39
   m_SpriteKey: 0
-  m_SpriteHash: 951705335
+  m_SpriteHash: 980336204
 --- !u!95 &5121358595812171427
 Animator:
   serializedVersion: 7
@@ -277,6 +279,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3113079460966532702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2637565476594104640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11f93a0b005be95419f26bcc01c975db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5510774894462306497
 GameObject:
   m_ObjectHideFlags: 0

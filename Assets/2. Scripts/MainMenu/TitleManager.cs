@@ -1,7 +1,8 @@
+using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 
 public class TitleManager : MonoBehaviour
 {
@@ -17,11 +18,30 @@ public class TitleManager : MonoBehaviour
     [SerializeField] Image _achievementSelectEffect;
     [SerializeField] Image _settingSelectEffect;
 
+    [Header("업적 보상 알림")]
 
-	private void Start()
+    // 받을 수 있는 업적 보상이 있을 때 점멸할 테두리다.
+    [SerializeField] UIAttentionPulse _achievementRewardAlert;
+
+
+    private void Start()
     {
 		MainMenuBaseState();
-	}
+
+        if (AchievementManager.Instance == null)
+        {
+            throw new InvalidOperationException(
+                "AchievementManager가 존재하지 않습니다.");
+        }
+
+        // 업적 달성이나 보상 수령으로 상태가 바뀌면
+        // 메인 메뉴의 업적 알림도 즉시 갱신한다.
+        AchievementManager.Instance.AchievementStateChanged +=
+            HandleAchievementStateChanged;
+
+        // 메인 메뉴에 처음 진입한 시점의 저장 데이터를 확인한다.
+        RefreshAchievementRewardAlert();
+    }
 
 	private void LateUpdate()
 	{
@@ -38,11 +58,21 @@ public class TitleManager : MonoBehaviour
 		UpdateSelectEffects();
 	}
 
-	/// <summary>
-	/// 아무키 입력시 활성화
-	/// </summary>
-	/// <returns></returns>
-	private bool IsAnyArrowKeyDown()
+    private void OnDestroy()
+    {
+        // 씬이 종료될 때 이벤트 연결을 해제한다.
+        if (AchievementManager.Instance != null)
+        {
+            AchievementManager.Instance.AchievementStateChanged -=
+                HandleAchievementStateChanged;
+        }
+    }
+
+    /// <summary>
+    /// 아무키 입력시 활성화
+    /// </summary>
+    /// <returns></returns>
+    private bool IsAnyArrowKeyDown()
 	{
 		return Input.GetKeyDown(KeyCode.UpArrow)
 			|| Input.GetKeyDown(KeyCode.DownArrow)
@@ -112,4 +142,25 @@ public class TitleManager : MonoBehaviour
 	{
 		SceneManager.LoadScene("Setting");
 	}
+
+    /// <summary>
+    /// 받을 수 있는 업적 보상이 하나라도 있는지 확인하여
+    /// 메인 메뉴 업적 버튼의 점멸 상태를 갱신한다.
+    /// </summary>
+    private void RefreshAchievementRewardAlert()
+    {
+        bool hasClaimableAchievement =
+            AchievementManager.Instance.HasClaimableAchievement();
+
+        _achievementRewardAlert.SetAttention(
+            hasClaimableAchievement);
+    }
+
+    /// <summary>
+    /// 업적 상태가 변경되었을 때 호출된다.
+    /// </summary>
+    private void HandleAchievementStateChanged()
+    {
+        RefreshAchievementRewardAlert();
+    }
 }
