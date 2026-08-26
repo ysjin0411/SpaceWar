@@ -119,7 +119,7 @@ public class EnemySpawner : MonoBehaviour
         {
             Vector3 spawnPosition = new Vector3(_spawnX + 2f * i, 2f, 0f);
 
-            SpawnFastEnemy(spawnPosition, MoveType.RightToLeft);
+            SpawnFastEnemy(spawnPosition, FastEnemyMoveType.RightToLeft);
         }
     }
 
@@ -136,7 +136,7 @@ public class EnemySpawner : MonoBehaviour
         {
             Vector3 spawnPosition = new Vector3(5f, -6f - i, 0f);
 
-            SpawnFastEnemy(spawnPosition, MoveType.DownToUp);
+            SpawnFastEnemy(spawnPosition, FastEnemyMoveType.DownToUp);
         }
     }
 
@@ -144,7 +144,7 @@ public class EnemySpawner : MonoBehaviour
     /// FastEnemy를 한 명 생성하고
     /// 현재 플레이어와 GameManager를 전달한다.
     /// </summary>
-    private void SpawnFastEnemy(Vector3 spawnPosition, MoveType moveType)
+    private void SpawnFastEnemy(Vector3 spawnPosition, FastEnemyMoveType moveType)
     {
         GameObject enemyObject = Instantiate(_fastEnemyPrefab, spawnPosition, Quaternion.identity);
 

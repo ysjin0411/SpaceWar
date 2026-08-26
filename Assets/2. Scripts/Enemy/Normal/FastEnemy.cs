@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// FastEnemy가 이동할 방향과 패턴.
 /// </summary>
-public enum MoveType
+public enum FastEnemyMoveType
 {
     DownToUp,
     RightToLeft
@@ -22,7 +22,7 @@ public class FastEnemy : Enemy
     [SerializeField] float _moveSpeed = 2f;
 
     [Tooltip("현재 적이 사용할 이동 패턴")]
-    [SerializeField] MoveType _moveType;
+    [SerializeField] FastEnemyMoveType _moveType;
 
     [Header("공격 설정")]
     [Tooltip("FastEnemy가 발사할 적 총알 프리팹")]
@@ -73,11 +73,11 @@ public class FastEnemy : Enemy
         // EnemySpawner가 전달한 이동 패턴에 맞게 움직인다.
         switch (_moveType)
         {
-            case MoveType.RightToLeft:
+            case FastEnemyMoveType.RightToLeft:
                 MoveRightToLeft();
                 break;
 
-            case MoveType.DownToUp:
+            case FastEnemyMoveType.DownToUp:
                 MoveDownToUp();
                 break;
         }
@@ -86,7 +86,7 @@ public class FastEnemy : Enemy
     /// <summary>
     /// EnemySpawner가 생성한 FastEnemy의 이동 패턴을 지정한다.
     /// </summary>
-    public void SetMoveType(MoveType moveType)
+    public void SetMoveType(FastEnemyMoveType moveType)
     {
         // 전달받은 이동 패턴을 현재 FastEnemy에 저장한다.
         _moveType = moveType;

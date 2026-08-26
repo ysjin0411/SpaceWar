@@ -313,5 +313,5 @@ MonoBehaviour:
   _goldDropCount: 1
   _expReward: 5
   _upgradeGaugeReward: 5
-  _currentHp: 20
+  _currentHp: 10
   _isDead: 0

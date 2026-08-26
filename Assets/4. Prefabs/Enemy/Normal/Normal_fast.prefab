@@ -242,7 +242,7 @@ MonoBehaviour:
   _upgradeGaugeReward: 10
   _currentHp: 20
   _isDead: 0
-  _moveSpeed: 8
+  _moveSpeed: 10
   _moveType: 0
   _enemyBulletPrefab: {fileID: 950170354894911369, guid: ddb96700977591f40b3eaba27a097cb7, type: 3}
   _firePoint: {fileID: 5398899518243365422}
