@@ -14,29 +14,23 @@ using UnityEngine;
 public class StageManager : MonoBehaviour
 {
     [Header("캐릭터 데이터")]
-    [Tooltip("캐릭터 ID를 CharacterData로 변환할 데이터베이스")]
-    [SerializeField] CharacterDatabase _characterDatabase;
-    [Tooltip("저장된 무기 ID를 WeaponData로 변환할 데이터베이스")]
-    [SerializeField] WeaponDatabase _weaponDatabase;
+    [SerializeField] CharacterDatabase _characterDatabase;      // 캐릭터 ID를 CharacterData로 변환할 데이터베이스
+    [SerializeField] WeaponDatabase _weaponDatabase;            // 저장된 무기 ID를 WeaponData로 변환할 데이터베이스
 
     [Header("캐릭터 생성 위치")]
-    [Tooltip("선택한 캐릭터가 생성될 위치. 비어 있으면 월드 원점에 생성한다.")]
     [SerializeField] Transform _playerSpawnPoint;
 
-    [Header("Stage UI")]
-    [Tooltip("생성된 플레이어의 체력을 표시할 HP UI")]
-    [SerializeField] HPUI _hpUI;
-    [Tooltip("현재 선택한 무기 아이콘을 표시할 UI")]
-    [SerializeField] WeaponUI _weaponUI;
-    [Tooltip("Tab 키로 열고 닫을 무기 선택 패널")]
-    [SerializeField] GameObject _weaponSlotPanel;
+    [Header("UI")]
+    [SerializeField] HPUI _hpUI;        // HP UI
+    [SerializeField] WeaponUI _weaponUI;    // 현재 선택한 무기 아이콘을 표시할 UI
+
+    [Header("무기 슬롯 활성화 오브젝트(Tab)")]
+    [SerializeField] GameObject _weaponSlotOpen;
 
     [Header("Stage 시스템")]
-    [Tooltip("생성된 플레이어를 적들에게 전달할 EnemySpawner")]
-    [SerializeField] EnemySpawner _enemySpawner;
-    [SerializeField] StageTransitionManager _stageTransitionManager;        // 플레이어 입장과 구간 이동 연출을 담당하는 매니저
-    [Tooltip("스테이지 페이즈에 맞춰 보스를 생성할 BossEncounterManager")]
-    [SerializeField] BossEncounterManager _bossEncounterManager;
+    [SerializeField] EnemySpawner _enemySpawner;                          // 생성된 플레이어를 적들에게 전달할 EnemySpawner
+    [SerializeField] StageTransitionManager _stageTransitionManager;      // 플레이어 입장과 구간 이동 연출을 담당하는 매니저
+    [SerializeField] BossEncounterManager _bossEncounterManager;          // 스테이지 페이즈에 맞춰 보스를 생성할 BossEncounterManager
 
     // 이번 Stage에 생성된 캐릭터의 원본 데이터
     CharacterData _selectedCharacterData;
@@ -46,9 +40,10 @@ public class StageManager : MonoBehaviour
 
     // 생성한 캐릭터에서 가져온 PlayerController
     PlayerController _spawnedPlayerController;
+    // 생성한 캐릭터에서 가져온 Weapon
     Weapon _spawnedWeapon;
 
-    // StageManager와 같은 오브젝트에 있는 GameManager
+    // GetComponent 할것들.
     GameManager _gameManager;
     Upgrader _upgrader;
     CharacterProgression _characterProgression;
@@ -149,7 +144,7 @@ public class StageManager : MonoBehaviour
         Quaternion spawnRotation = _playerSpawnPoint != null ? _playerSpawnPoint.rotation : Quaternion.identity;
 
         // 선택한 캐릭터 프리팹을 생성한다.
-        _spawnedPlayer = Instantiate(_selectedCharacterData.CharacterPrefab,spawnPosition,spawnRotation);
+        _spawnedPlayer = Instantiate(_selectedCharacterData.CharacterPrefab, spawnPosition, spawnRotation);
 
         // 생성한 캐릭터 프리팹에서 공통 PlayerController를 찾는다.
         _spawnedPlayerController = _spawnedPlayer.GetComponent<PlayerController>();
@@ -338,13 +333,13 @@ public class StageManager : MonoBehaviour
             throw new InvalidOperationException("StageManager에 WeaponUI가 연결되지 않았습니다.");
         }
 
-        if (_weaponSlotPanel == null)
+        if (_weaponSlotOpen == null)
         {
             throw new InvalidOperationException("StageManager에 WeaponSlotPanel이 연결되지 않았습니다.");
         }
 
         // 생성된 캐릭터의 Weapon에 Stage 씬의 UI를 전달한다. 캐릭터 프리팹은 Stage UI를 직접 참조하지 않는다.
-        _spawnedWeapon.InitializeUI(_weaponUI, _weaponSlotPanel);
+        _spawnedWeapon.InitializeUI(_weaponUI, _weaponSlotOpen);
 
         // 선택한 캐릭터의 저장된 장착 무기를 불러온다. InitializeWeapons()가 호출되면서 현재 무기 아이콘도 갱신된다.
         InitializeEquippedWeapons();

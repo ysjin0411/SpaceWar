@@ -5,51 +5,41 @@ using UnityEngine;
 /// 모든 플레이어 캐릭터가 공통으로 사용하는 컨트롤러.
 /// 모든 캐릭터가 이 스크립트를 사용한다.
 /// 캐릭터별 체력과 이동속도는 CharacterData를 통해 전달받는다.
-/// 무기와 투사체 생성은 Weapon 컴포넌트가 담당하므로 PlayerController는 이동, 체력, 피격만 담당한다.
+/// PlayerController - 이동, 체력, 피격
 /// </summary>
 public class PlayerController : MonoBehaviour, IDamageable
 {
     [Header("런타임 이동 데이터")]
-    [Tooltip("현재 캐릭터의 이동속도")]
-    [SerializeField] float _moveSpeed;
+    [SerializeField] float _moveSpeed;      // 캐릭터 이동속도
 
     [Header("런타임 체력 데이터")]
-    [Tooltip("현재 캐릭터의 최대 체력")]
-    [SerializeField] int _maxHp;
-    [Tooltip("현재 캐릭터의 체력")]
-    [SerializeField] int _currentHp;
+    [SerializeField] int _maxHp;            // 최대 체력
+    [SerializeField] int _currentHp;        // 현재 체력
 
-    [Header("Stage UI")]
-    [Tooltip("현재 캐릭터의 체력을 표시할 Stage HP UI")]
+    [Header("UI")]
     [SerializeField] HPUI _hpUI;
 
-    // 외부 UI가 현재 체력 정보를 읽을 수 있게 제공한다.
-    public int MaxHp => _maxHp;
-    public int CurrentHp => _currentHp;
+    Vector2 _moveDirection;         // Update에서 입력받고 FixedUpdate에서 사용할 이동 방향
 
-    // 이동 가능한 Stage 영역
+    bool _canControl = true;        // 이동 가능 여부
+
+    Rigidbody2D _rigidbody;
+
+
+    // 이동 가능한 화면 영역
     const float MinX = -8f;
     const float MaxX = 8f;
     const float MinY = -4f;
     const float MaxY = 4f;
 
-    // Update에서 입력받고 FixedUpdate에서 사용할 이동 방향
-    Vector2 _moveDirection;
 
-    // 플레이어가 직접 이동 입력을 사용할 수 있는지 나타낸다.
-    // 입장 연출과 구간 전환 연출 중에는 false로 변경한다.
-    bool _canControl = true;
-
-    // 외부 시스템에서 현재 플레이어 조작 가능 여부를 확인할 때 사용한다.
+    public int MaxHp => _maxHp;
+    public int CurrentHp => _currentHp;
     public bool CanControl => _canControl;
+    public bool IsDead => _currentHp <= 0;    
+    public Transform TargetTransform => transform;  // 캐릭터의 위치 전달
 
-    public bool IsDead => _currentHp <= 0;
-
-    public Transform TargetTransform => transform;
-
-    Rigidbody2D _rigidbody;
-
-    // 플레이어가 유효한 대미지를 받았을 때 발생한다.
+    // 캐릭터가 데미지 입었을때 이벤트
     public event Action<int> Damaged;
 
 
@@ -68,28 +58,18 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     private void Start()
     {
-        // 아직 StageManager에서 초기화하지 않은 테스트 상황을 위해
-        // Inspector의 최대 체력으로 현재 체력을 초기화한다.
-        if (_currentHp <= 0)
-        {
-            _currentHp = _maxHp;
-        }
-
+        // HpUI 시작 업데이트
         UpdateHpUI();
     }
 
     /// <summary>
-    /// StageManager가 캐릭터 프리팹을 생성한 직후 호출한다.
+    /// StageManager가 캐릭터 프리팹을 생성한 직후 호출
     /// 선택한 CharacterData의 기본 능력치를 실제 전투용 런타임 값으로 복사한다.
     /// </summary>
-    /// <param name="characterData">
-    /// 유저가 선택한 캐릭터 원본 데이터
-    /// </param>
-    /// <param name="hpUI">
-    /// Stage에 존재하는 체력 UI
-    /// </param>
+    /// <param name="characterData">선택한 캐릭터 원본 데이터</param><param name="hpUI">Stage에 존재하는 체력 UI</param>
     public void Initialize(CharacterData characterData, HPUI hpUI)
     {
+        // 캐릭터 데이터 없음
         if (characterData == null)
         {
             throw new ArgumentNullException(nameof(characterData));
@@ -115,9 +95,8 @@ public class PlayerController : MonoBehaviour, IDamageable
             return;
         }
 
-        // 방향키 입력을 받는다.
+        // 방향키 입력 받기
         float horizontal = Input.GetAxisRaw("Horizontal");
-
         float vertical = Input.GetAxisRaw("Vertical");
 
         // 대각선 이동이 더 빨라지지 않도록 방향 벡터를 정규화한다.
@@ -191,7 +170,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
         Debug.Log($"입은 데미지: {damage}");
 
-        // 체력이 정확히 0이 되어도 사망 처리해야 한다.
+        // 사망처리
         if (_currentHp <= 0)
         {
             Die();
@@ -200,7 +179,6 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     /// <summary>
     /// 현재 체력 상태를 HP UI에 반영한다.
-    /// 아직 UI가 연결되지 않았다면 건너뛴다.
     /// </summary>
     private void UpdateHpUI()
     {
@@ -228,8 +206,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     /// <summary>
     /// 전투 중 이동속도 증강을 적용한다.
-    /// </summary>
-    /// <param name="value">추가할 이동속도</param>
+    /// </summary><param name="value">추가할 이동속도</param>
     public void AddMoveSpeed(float value)
     {
         _moveSpeed += value;

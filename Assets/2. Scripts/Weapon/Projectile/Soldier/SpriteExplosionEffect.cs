@@ -6,7 +6,7 @@ using UnityEngine;
 /// 미사일 폭발 중심부와 충격파를 재생한 뒤
 /// 폭발 이펙트 오브젝트를 제거한다.
 /// </summary>
-public class MissileExplosionEffect : MonoBehaviour
+public class SpriteExplosionEffect : MonoBehaviour
 {
     [Header("폭발 중심부")]
 

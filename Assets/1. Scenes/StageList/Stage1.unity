@@ -1408,15 +1408,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b5152a732800bc4b8a2036f221c46e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fastEnemyPrefab: {fileID: 9200333248802534134, guid: 6b64a364a12f0964ab2ad976a48755d6, type: 3}
-  _playerController: {fileID: 0}
-  _gameManager: {fileID: 938821198}
+  _patterns:
+  - {fileID: 11400000, guid: ee1bf6173f9f3cc4db8eb4e01155dd63, type: 2}
+  - {fileID: 11400000, guid: 666772ab2c13e1c48b91c087b885cf6a, type: 2}
+  - {fileID: 11400000, guid: cd040b3afbdce024d899c6202f6330ec, type: 2}
   _stageFlowManager: {fileID: 938821203}
   _patternCoolTime: 3
-  _spawnX: 10
-  _reducedPercent: 15
-  _patternAPercent: 50
-  _patternBPercent: 50
 --- !u!4 &314812581
 Transform:
   m_ObjectHideFlags: 0
@@ -4514,7 +4511,7 @@ MonoBehaviour:
   _playerSpawnPoint: {fileID: 346741452}
   _hpUI: {fileID: 674318663}
   _weaponUI: {fileID: 634102295}
-  _weaponSlotPanel: {fileID: 815237207}
+  _weaponSlotOpen: {fileID: 815237207}
   _enemySpawner: {fileID: 314812580}
   _stageTransitionManager: {fileID: 66536158}
   _bossEncounterManager: {fileID: 892676528}

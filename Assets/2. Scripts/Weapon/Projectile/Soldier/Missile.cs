@@ -24,7 +24,7 @@ public class Missile : Projectile
     [Tooltip("Enemy 레이어만 선택한다.")]
     [SerializeField] LayerMask _enemyLayerMask;
     // 적에게 명중했을 때 생성할 독립적인 폭발 이펙트 프리팹이다.
-    [SerializeField] MissileExplosionEffect _explosionEffectPrefab;
+    [SerializeField] SpriteExplosionEffect _explosionEffectPrefab;
 
     // 현재 미사일이 추적하고 있는 대상의 Transform
     Transform _target;
@@ -212,7 +212,7 @@ public class Missile : Projectile
 
         // 미사일 오브젝트와 별개로 폭발 이펙트를 생성한다.
         // 미사일이 바로 제거되어도 폭발 연출은 끝까지 재생된다.
-        MissileExplosionEffect explosionEffect =
+        SpriteExplosionEffect explosionEffect =
             Instantiate(
                 _explosionEffectPrefab,
                 explosionPosition,

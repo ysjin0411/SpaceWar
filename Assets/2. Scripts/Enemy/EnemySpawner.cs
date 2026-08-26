@@ -1,99 +1,105 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Stage의 적 생성 패턴을 관리한다.
-/// 캐릭터 프리팹은 Stage 시작 시 동적으로 생성되므로, Inspector에 고정된 PlayerController를 사용하는 대신
-/// StageManager가 생성한 PlayerController를 Initialize()로 전달받는다.
+/// 현재 스테이지에서 사용할 적 생성 패턴을 선택하고 실행한다.
+/// 구체적인 적 종류와 배치 방식은 EnemySpawnPattern 자식 클래스가 담당한다.
 /// </summary>
 public class EnemySpawner : MonoBehaviour
 {
-    [Header("적 프리팹")]
-    [Tooltip("패턴에서 생성할 FastEnemy 프리팹")]
-    [SerializeField] GameObject _fastEnemyPrefab;
+    [Header("적 생성 패턴")]
 
-    [Header("런타임 의존성")]
-    [Tooltip("StageManager가 생성한 현재 플레이어")]
-    [SerializeField] PlayerController _playerController;
-    [Tooltip("현재 Stage의 GameManager")]
-    [SerializeField] GameManager _gameManager;
-    [Tooltip("현재 스테이지의 진행 상태를 관리하는 StageFlowManager")]
-    [SerializeField] StageFlowManager _stageFlowManager;
+    [SerializeField]
+    List<EnemySpawnPattern> _patterns =
+        new List<EnemySpawnPattern>(); // 현재 스테이지에서 사용할 패턴 에셋 목록
 
-    [Header("스폰 설정")]
-    [Tooltip("하나의 패턴을 생성한 후 다음 패턴까지의 시간")]
-    [SerializeField] float _patternCoolTime;
-    [Tooltip("오른쪽에서 생성되는 적의 기본 X 위치")]
-    [SerializeField] float _spawnX = 10f;
+    [Header("스테이지 참조")]
 
-    [Header("패턴 확률")]
-    [Tooltip("패턴이 등장할 때마다 다음 확률에 적용할 변화량")]
-    [SerializeField] int _reducedPercent = 15;
-    [Tooltip("패턴 A의 현재 가중치")]
-    [SerializeField] int _patternAPercent = 50;
-    [Tooltip("패턴 B의 현재 가중치")]
-    [SerializeField] int _patternBPercent = 50;
+    [SerializeField]
+    StageFlowManager _stageFlowManager; // 일반 전투와 보스 전투 구간을 구분하는 관리자
 
-    // 다음 패턴까지 흐른 시간
+    [Header("패턴 실행 설정")]
+
+    [Min(0.1f)]
+    [SerializeField]
+    float _patternCoolTime = 3f; // 서로 다른 패턴을 실행하는 공통 시간 간격
+
+    // 다음 패턴을 실행하기까지 누적된 시간
     float _timer;
 
-    // StageManager가 새 플레이어를 전달했는지 확인한다.
+    // StageManager로부터 필요한 런타임 정보를 전달받았는지 확인
     bool _isInitialized;
-    // 현재 일반 적을 생성해도 되는 상태인지 확인한다.
+
+    // 현재 일반 적 패턴을 생성할 수 있는 전투 구간인지 확인
     bool _isSpawning;
 
+    // 현재 플레이어와 GameManager를 패턴에 전달하는 실행 컨텍스트
+    EnemySpawnContext _spawnContext;
+
+    // 패턴별 쿨다운 관리와 가중치 선택을 담당하는 선택기
+    EnemySpawnPatternSelector _patternSelector;
+
     /// <summary>
-    /// StageManager가 생성한 플레이어와 현재 Stage의 GameManager를 전달한다.
+    /// StageManager로부터 현재 플레이어와 GameManager를 전달받고
+    /// 패턴 실행에 필요한 런타임 객체를 생성한다.
     /// </summary>
-    public void Initialize(PlayerController playerController, GameManager gameManager)
+    public void Initialize(
+        PlayerController playerController,
+        GameManager gameManager)
     {
         if (playerController == null)
         {
-            throw new ArgumentNullException(nameof(playerController));
+            throw new ArgumentNullException(
+                nameof(playerController));
         }
 
         if (gameManager == null)
         {
-            throw new ArgumentNullException(nameof(gameManager));
+            throw new ArgumentNullException(
+                nameof(gameManager));
         }
 
-        if (_fastEnemyPrefab == null)
-        {
-            throw new InvalidOperationException("EnemySpawner에 FastEnemy 프리팹이 연결되지 않았습니다.");
-        }
         if (_stageFlowManager == null)
         {
             throw new InvalidOperationException(
                 "EnemySpawner에 StageFlowManager가 연결되지 않았습니다.");
         }
 
-        // 비활성화된 옛 Player 참조를 새로 생성된 선택 캐릭터로 교체한다.
-        _playerController = playerController;
-        _gameManager = gameManager;
+        // 현재 스테이지 정보를 패턴에 전달할 실행 컨텍스트를 만든다.
+        _spawnContext = new EnemySpawnContext(
+            playerController,
+            gameManager);
 
-        // Stage 시작 시 패턴 타이머를 초기화한다.
+        // Inspector에 등록된 패턴 에셋들로 범용 선택기를 만든다.
+        // 목록이 비었거나 중복된 패턴이 있으면 선택기 생성 시 예외가 발생한다.
+        _patternSelector = new EnemySpawnPatternSelector(
+            _patterns);
+
+        // 새로운 스테이지 실행이므로 공통 패턴 타이머를 초기화한다.
         _timer = 0f;
 
-        // 이제 적을 생성해도 되는 상태다.
         _isInitialized = true;
 
-        // 현재 스테이지 페이즈가 일반 전투 구간인지 확인한다.
-        bool isNormalBattlePhase =
+        // 초기화 시점이 일반 전투 구간이라면 바로 패턴 생성을 허용한다.
+        _isSpawning =
             _stageFlowManager.CurrentPhase == StagePhase.Section1 ||
             _stageFlowManager.CurrentPhase == StagePhase.Section2;
-
-        // 일반 전투 구간일 때만 적 생성을 시작한다.
-        _isSpawning = isNormalBattlePhase;
     }
 
     private void Update()
     {
-        // 새 플레이어가 연결되기 전에는 적을 생성하지 않는다.
+        // 초기화 전이거나 보스 관련 구간이면 일반 적을 생성하지 않는다.
         if (!_isInitialized || !_isSpawning)
         {
             return;
         }
 
+        // 일반 전투 중에만 패턴별 남은 쿨다운을 감소시킨다.
+        _patternSelector.UpdateCooldowns(
+            Time.deltaTime);
+
+        // 다음 패턴을 실행하기 위한 공통 시간을 누적한다.
         _timer += Time.deltaTime;
 
         if (_timer < _patternCoolTime)
@@ -101,134 +107,58 @@ public class EnemySpawner : MonoBehaviour
             return;
         }
 
-        PickPattern();
+        // 모든 패턴이 개별 쿨다운 중이면
+        // 공통 타이머를 유지하고 다음 프레임에 다시 선택을 시도한다.
+        if (!_patternSelector.TrySelect(
+            out EnemySpawnPatternRuntimeState selectedState))
+        {
+            return;
+        }
 
+        // 선택된 패턴이 자신에게 설정된 적과 대형을 생성한다.
+        selectedState.Pattern.Execute(
+            _spawnContext);
+
+        // 패턴 실행이 정상적으로 끝난 뒤 개별 쿨다운을 시작한다.
+        selectedState.StartCooldown();
+
+        // 다음 패턴 실행 간격을 처음부터 측정한다.
         _timer = 0f;
     }
 
-    /// <summary>
-    /// 오른쪽에서 왼쪽으로 이동하는 적 5명을 생성한다.
-    /// </summary>
-    public void SpawnFastEnemyPatternA()
-    {
-        // 패턴 A가 등장했으므로 다음에는 패턴 B가 등장할 가능성을 높인다.
-        _patternAPercent -= _reducedPercent;
-        _patternBPercent += _reducedPercent;
-
-        for (int i = 0; i < 5; i++)
-        {
-            Vector3 spawnPosition = new Vector3(_spawnX + 2f * i, 2f, 0f);
-
-            SpawnFastEnemy(spawnPosition, FastEnemyMoveType.RightToLeft);
-        }
-    }
-
-    /// <summary>
-    /// 아래에서 위로 이동하는 적 5명을 생성한다.
-    /// </summary>
-    public void SpawnFastEnemyPatternB()
-    {
-        // 패턴 B가 등장했으므로 다음에는 패턴 A가 등장할 가능성을 높인다.
-        _patternBPercent -= _reducedPercent;
-        _patternAPercent += _reducedPercent;
-
-        for (int i = 0; i < 5; i++)
-        {
-            Vector3 spawnPosition = new Vector3(5f, -6f - i, 0f);
-
-            SpawnFastEnemy(spawnPosition, FastEnemyMoveType.DownToUp);
-        }
-    }
-
-    /// <summary>
-    /// FastEnemy를 한 명 생성하고
-    /// 현재 플레이어와 GameManager를 전달한다.
-    /// </summary>
-    private void SpawnFastEnemy(Vector3 spawnPosition, FastEnemyMoveType moveType)
-    {
-        GameObject enemyObject = Instantiate(_fastEnemyPrefab, spawnPosition, Quaternion.identity);
-
-        FastEnemy enemy = enemyObject.GetComponent<FastEnemy>();
-
-        if (enemy == null)
-        {
-            Destroy(enemyObject);
-
-            throw new MissingComponentException("FastEnemy 프리팹에 FastEnemy 컴포넌트가 없습니다.");
-        }
-
-        // Enemy 부모에 현재 플레이어와 GameManager를 함께 전달한다.
-        enemy.Init(
-            _playerController,
-            _gameManager);
-
-        // FastEnemy가 사용할 이동 패턴을 전달한다.
-        enemy.SetMoveType(moveType);
-    }
-
-    /// <summary>
-    /// 현재 패턴 가중치에 따라 다음 패턴을 선택한다.
-    /// </summary>
-    private void PickPattern()
-    {
-        // 확률이 음수가 되지 않도록 보정한다.
-        _patternAPercent = Mathf.Max(0, _patternAPercent);
-
-        _patternBPercent = Mathf.Max(0, _patternBPercent);
-
-        int totalPercent = _patternAPercent + _patternBPercent;
-
-        // 두 패턴의 확률이 모두 0이면 선택할 수 없다.
-        if (totalPercent <= 0)
-        {
-            throw new InvalidOperationException("EnemySpawner의 패턴 확률 합계가 0입니다.");
-        }
-
-        int randomValue = UnityEngine.Random.Range(0, totalPercent);
-
-        if (randomValue < _patternAPercent)
-        {
-            SpawnFastEnemyPatternA();
-        }
-        else
-        {
-            SpawnFastEnemyPatternB();
-        }
-    }
     private void OnEnable()
     {
-        // StageFlowManager가 연결되어 있다면 페이즈 변경 이벤트를 구독한다.
+        // 스테이지 전투 구간 변경을 감지한다.
         if (_stageFlowManager != null)
         {
-            _stageFlowManager.PhaseChanged += HandlePhaseChanged;
+            _stageFlowManager.PhaseChanged +=
+                HandlePhaseChanged;
         }
     }
 
     private void OnDisable()
     {
-        // 오브젝트가 비활성화되거나 제거될 때 이벤트 구독을 해제한다.
+        // 비활성화되거나 씬이 종료될 때 이벤트 구독을 해제한다.
         if (_stageFlowManager != null)
         {
-            _stageFlowManager.PhaseChanged -= HandlePhaseChanged;
+            _stageFlowManager.PhaseChanged -=
+                HandlePhaseChanged;
         }
     }
 
     /// <summary>
-    /// 스테이지 진행 상태가 변경됐을 때
-    /// 일반 적을 계속 생성할지 결정한다.
+    /// 스테이지 구간에 따라 일반 적 생성을 시작하거나 중단한다.
     /// </summary>
-    private void HandlePhaseChanged(StagePhase phase)
+    private void HandlePhaseChanged(
+        StagePhase phase)
     {
         switch (phase)
         {
-            // 일반 전투 구간에서는 적 생성을 허용한다.
             case StagePhase.Section1:
             case StagePhase.Section2:
                 StartSpawning();
                 break;
 
-            // 보스 경고, 보스 전투, 구간 전환 중에는
-            // 일반 적을 추가로 생성하지 않는다.
             default:
                 StopSpawning();
                 break;
@@ -236,27 +166,29 @@ public class EnemySpawner : MonoBehaviour
     }
 
     /// <summary>
-    /// 일반 적 생성을 시작한다.
+    /// 새로운 일반 전투 구간의 적 생성을 시작한다.
     /// </summary>
     public void StartSpawning()
     {
-        // 새로운 구간이 시작되면 스폰 대기 시간을 처음부터 측정한다.
+        // 새로운 전투 구간에서는 공통 생성 시간을 초기화한다.
         _timer = 0f;
 
-        // EnemySpawner의 Update에서 적 생성을 허용한다.
+        // 중간보스 이후 Section2가 시작될 때
+        // 이전 전투 구간에서 남은 패턴 쿨다운을 초기화한다.
+        if (_patternSelector != null)
+        {
+            _patternSelector.ResetCooldowns();
+        }
+
         _isSpawning = true;
     }
 
     /// <summary>
-    /// 일반 적 생성을 중지한다.
-    /// 이미 생성된 적은 제거하지 않는다.
+    /// 보스 경고와 보스 전투 중 일반 적 생성을 중단한다.
     /// </summary>
     public void StopSpawning()
     {
-        // 현재까지 측정한 스폰 대기 시간을 초기화한다.
         _timer = 0f;
-
-        // EnemySpawner의 Update에서 추가 생성을 막는다.
         _isSpawning = false;
     }
 }

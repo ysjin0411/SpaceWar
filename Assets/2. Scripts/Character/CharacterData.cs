@@ -15,35 +15,20 @@ using UnityEngine;
 public class CharacterData : ScriptableObject
 {
     [Header("기본 정보")]
-
-    [Tooltip("세이브 데이터에서 캐릭터를 구분할 고유 ID")]
-    [SerializeField] string _id;
-
-    [Tooltip("UI에 표시할 캐릭터 이름")]
-    [SerializeField] string _name;
-
-    [Tooltip("캐릭터 선택 화면 등에 표시할 아이콘")]
-    [SerializeField] Sprite _icon;
-
-    [Tooltip("Stage에서 실제로 생성할 캐릭터 프리팹")]
-    [SerializeField] GameObject _characterPrefab;
+    [SerializeField] string _id;    // 캐릭터 고유 ID
+    [SerializeField] string _name;  // UI에 표시할 캐릭터 이름
+    [SerializeField] Sprite _icon;  // 캐릭터 아이콘 스프라이트
+    [SerializeField] GameObject _characterPrefab;   // 캐릭터 프리팹
 
     [Header("기본 스탯")]
-
-    [Tooltip("캐릭터의 기본 최대 체력")]
-    [SerializeField] int _baseHp;
-
-    [Tooltip("캐릭터의 기본 이동속도")]
-    [SerializeField] float _baseMoveSpeed;
+    [SerializeField] int _baseHp;   // 캐릭터 기본 최대 체력
+    [SerializeField] float _baseMoveSpeed;  // 캐릭터 기본 이속
 
     [Header("사용 가능한 무기")]
-
-    [Tooltip("이 캐릭터가 구매하고 장착할 수 있는 무기 목록")]
-    [SerializeField] WeaponData[] _availableWeapons;
+    [SerializeField] WeaponData[] _availableWeapons;    // 해당 캐릭터의 무기 종류
 
     [Header("기본 장착 무기")]
-    [Tooltip("전투 시작 시 기본으로 장착할 무기 3개. 배열 순서가 슬롯 순서다.")]
-    [SerializeField] WeaponData[] _initialEquippedWeapons = new WeaponData[3];
+    [SerializeField] WeaponData[] _initialEquippedWeapons = new WeaponData[3];  // 기본 베이스 무기 3종.
 
     public string Id => _id;
     public string CharacterName => _name;

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c908898955779c94d977992facd29e34, type: 3}
+  m_Name: SmallEnemy_Suicide_Pattern
+  m_EditorClassIdentifier: 
+  _patternId: small_suicide_net
+  _weight: 7
+  _cooldown: 8
+  _enemyPrefab: {fileID: 4397181719619663448, guid: 9bcd155378cfa09489db9d20126fc741, type: 3}
+  _enemyCount: 5
+  _spawnCenterPosition: {x: 10, y: 0}
+  _spawnYInterval: 0.7
+  _enterCenterPosition: {x: 7, y: 0}
+  _formationCenterPosition: {x: 5, y: 0}
+  _formationYInterval: 1.15
+  _formationXInterval: 0.8

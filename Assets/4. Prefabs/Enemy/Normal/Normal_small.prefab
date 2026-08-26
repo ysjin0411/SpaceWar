@@ -315,3 +315,13 @@ MonoBehaviour:
   _upgradeGaugeReward: 5
   _currentHp: 10
   _isDead: 0
+  _firePoint: {fileID: 5398899518243365422}
+  _moveType: 0
+  _enterMoveSpeed: 3
+  _spreadDuration: 0.6
+  _aimDuration: 0.8
+  _chargeMoveSpeed: 9
+  _explosionDelay: 1.2
+  _explosionRadius: 1.5
+  _explosionDamage: 20
+  _explosionEffectPrefab: {fileID: 1896309453520471981, guid: c072035894d01fe43a67daf99accc73d, type: 3}
