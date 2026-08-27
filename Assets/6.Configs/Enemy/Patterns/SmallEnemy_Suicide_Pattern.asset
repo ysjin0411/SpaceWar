@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _patternId: small_suicide_net
   _weight: 7
-  _cooldown: 8
+  _cooldown: 5
   _enemyPrefab: {fileID: 4397181719619663448, guid: 9bcd155378cfa09489db9d20126fc741, type: 3}
   _enemyCount: 5
   _spawnCenterPosition: {x: 10, y: 0}

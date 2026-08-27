@@ -16,8 +16,7 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
 
     [Header("보스 체력 설정")]
     [Tooltip("보스의 최대 체력")]
-    [Min(1)]
-    [SerializeField] int _maxHp = 100;
+    [Min(1)][SerializeField] int _maxHp = 100;
 
     [Header("플레이어 충돌 설정")]
     [Tooltip("보스와 플레이어가 충돌했을 때 주는 피해")]
@@ -37,9 +36,22 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
     [Header("보스 런타임 데이터")]
     [Tooltip("현재 보스 체력")]
     [SerializeField] int _currentHp;
+    [SerializeField] bool _isDead;  // 현재 보스가 사망 처리됐는지 확인
 
-    [Tooltip("현재 보스가 사망 처리됐는지 확인")]
-    [SerializeField] bool _isDead;
+    [Header("보스 움직임 가능 여부")]
+    [SerializeField] bool _isControllable; // 보스 움직임 여부
+
+    [Header("보스 공통 랜덤 이동")]
+    [Min(0f)][SerializeField] float _moveSpeed = 2f;                     // 보스가 랜덤 목표 위치로 이동하는 속도
+    [SerializeField] Vector2 _movementHalfRange = new Vector2(2f, 3f);   // 생성 위치 기준 X, Y 이동 반경
+    [Min(0.01f)][SerializeField] float _arrivalDistance = 0.1f;          // 다음 목표를 선정하는 도착 판정 거리
+
+    Rigidbody2D _rigidbody;          // 보스 이동에 사용하는 Rigidbody2D
+    BossRandomMover _randomMover;    // 공통 랜덤 이동을 처리하는 런타임 객체
+    BossPatternContext _patternContext; // 현재 보스의 패턴 실행에 필요한 참조 모음
+    BossPatternRunner _patternRunner; // 보스 패턴의 대기와 실행을 담당하는 객체
+    bool _isInitialized;             // 외부 초기화가 끝났는지 확인하는 값
+
 
     /// <summary>
     /// 보스 체력이 변경되면 현재 체력과 최대 체력을 전달한다.
@@ -75,6 +87,8 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
     // 외부 UI에서 보스 이름을 읽을 수 있도록 제공한다.
     public string BossName => _bossName;
 
+
+
     protected virtual void Awake()
     {
         // 보스 프리팹에 표시 이름이 입력되지 않았다면 설정 오류로 처리한다.
@@ -101,15 +115,89 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
             throw new MissingComponentException(
                 $"{name}의 자식에서 Animator를 찾을 수 없습니다.");
         }
+
+        // 보스 이동에 사용할 Rigidbody2D를 가져온다.
+        _rigidbody = GetComponent<Rigidbody2D>();
+
+        if (_rigidbody == null)
+        {
+            throw new MissingComponentException(
+                $"{name}에 Rigidbody2D가 없습니다.");
+        }
+
+        // 인스펙터에 설정한 이동 정보로 공통 랜덤 이동 객체를 생성한다.
+        _randomMover = new BossRandomMover(_rigidbody, _moveSpeed, _movementHalfRange, _arrivalDistance);
+    }
+
+    private void FixedUpdate()
+    {
+        // BossEncounterManager의 Initialize 호출 전에는 이동하지 않는다.
+        if (!_isInitialized)
+        {
+            return;
+        }
+
+        // 등장 연출이나 패턴 때문에 조작이 막혀 있으면 이동하지 않는다.
+        if (!_isControllable)
+        {
+            return;
+        }
+
+        // 사망한 보스는 더 이상 이동하지 않는다.
+        if (_isDead)
+        {
+            return;
+        }
+
+        // 물리 프레임마다 랜덤 목표 위치를 향해 이동한다.
+        _randomMover.FixedTick(Time.fixedDeltaTime);
+    }
+
+    /// <summary>
+    /// 보스의 이동과 행동 가능 상태를 변경한다.
+    /// </summary>
+    public void SetControllable(bool isOn)
+    {
+        _isControllable = isOn;
+
+        // 아직 보스 초기화가 끝나지 않았다면 이동 객체를 제어하지 않는다.
+        if (!_isInitialized)
+        {
+            return;
+        }
+
+        if (isOn)
+        {
+            // 보스 이동을 다시 시작한다.
+            _randomMover.Resume();
+        }
+        else
+        {
+            // 보스 이동을 즉시 정지한다.
+            _randomMover.Pause();
+        }
+    }
+
+    /// <summary>
+    /// 자식 보스 클래스에서 지정한 패턴의 실행을 요청한다.
+    /// 다른 패턴이 실행 중이면 Runner의 대기열에 저장된다.
+    /// </summary>
+    protected void RequestPattern(BossPattern pattern)
+    {
+        if (!_isInitialized)
+        {
+            throw new InvalidOperationException(
+                $"{name}은 초기화 전이라 패턴을 요청할 수 없습니다.");
+        }
+
+        _patternRunner.Request(pattern);
     }
 
     /// <summary>
     /// BossEncounterManager가 보스를 생성한 직후 호출한다.
     /// 보스 패턴에서 사용할 현재 플레이어와 GameManager를 전달한다.
     /// </summary>
-    public void Initialize(
-        PlayerController playerController,
-        GameManager gameManager)
+    public void Initialize(PlayerController playerController, GameManager gameManager)
     {
         if (playerController == null)
         {
@@ -123,6 +211,28 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
 
         TargetPlayer = playerController;
         GameManager = gameManager;
+
+        // 현재 보스의 패턴 실행에 필요한 참조를 하나의 Context로 구성한다.
+        _patternContext = new BossPatternContext(
+            this,
+            TargetPlayer,
+            _rigidbody,
+            _animator.transform,
+            GameManager);
+
+        // BossEnemy 자신이 코루틴 실행 주체가 되어 패턴 실행기를 생성한다.
+        _patternRunner = new BossPatternRunner(
+            this,
+            _patternContext);
+
+        // 외부에서 필요한 참조를 모두 받았으므로 초기화 완료 상태로 변경한다.
+        _isInitialized = true;
+
+        // 현재 생성 위치를 이동 범위의 중심으로 설정하고 랜덤 이동을 시작한다.
+        _randomMover.Start();
+
+        // 보스가 실제로 움직일 수 있는 상태로 변경한다.
+        _isControllable = true;
 
         // 이벤트 연결 이후 최초 체력을 UI에 전달한다.
         HealthChanged?.Invoke(_currentHp, _maxHp);
@@ -181,6 +291,12 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
         }
 
         _isDead = true;
+
+        // 실행 중인 패턴과 대기 중인 모든 패턴을 취소한다.
+        _patternRunner?.StopAll();
+
+        // 사망과 동시에 진행 중인 랜덤 이동을 정지한다.
+        _randomMover.Pause();
 
         // 사망 후 플레이어 공격과 충돌하지 않도록 Collider를 비활성화한다.
         SetCollidersEnabled(false);
@@ -281,4 +397,6 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
     protected virtual void OnBossDefeated()
     {
     }
+
+
 }
