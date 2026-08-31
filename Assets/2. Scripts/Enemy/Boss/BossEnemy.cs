@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using System.Collections.Generic;
 
 /// <summary>
 /// 모든 보스가 상속받는 공통 부모 클래스.
@@ -38,6 +39,7 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
     [SerializeField] int _currentHp;
     [SerializeField] bool _isDead;  // 현재 보스가 사망 처리됐는지 확인
 
+
     [Header("보스 움직임 가능 여부")]
     [SerializeField] bool _isControllable; // 보스 움직임 여부
 
@@ -46,12 +48,28 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
     [SerializeField] Vector2 _movementHalfRange = new Vector2(2f, 3f);   // 생성 위치 기준 X, Y 이동 반경
     [Min(0.01f)][SerializeField] float _arrivalDistance = 0.1f;          // 다음 목표를 선정하는 도착 판정 거리
 
+    [Header("보스 일반 패턴 설정")]
+
+    [Min(0f)]
+    [SerializeField] float _normalPatternFirstDelay = 2f; // 보스 등장 후 첫 일반 패턴까지 기다리는 시간
+
+    [Min(0.1f)]
+    [SerializeField] float _normalPatternInterval = 2f; // 일반 패턴 종료 후 다음 패턴까지 기다리는 시간
+
+    [Range(0f, 1f)]
+    [SerializeField] float _previousPatternWeightMultiplier = 0.1f; // 직전에 사용한 패턴의 가중치 배율
+
+    [Header("보스 일반 시간 패턴")]
+    [SerializeField]
+    List<TimedBossPatternEntry> _timedPatternEntries =
+    new List<TimedBossPatternEntry>(); // 시간 조건으로 실행할 일반 패턴 설정 목록
+
     Rigidbody2D _rigidbody;          // 보스 이동에 사용하는 Rigidbody2D
     BossRandomMover _randomMover;    // 공통 랜덤 이동을 처리하는 런타임 객체
     BossPatternContext _patternContext; // 현재 보스의 패턴 실행에 필요한 참조 모음
     BossPatternRunner _patternRunner; // 보스 패턴의 대기와 실행을 담당하는 객체
     bool _isInitialized;             // 외부 초기화가 끝났는지 확인하는 값
-
+    TimedBossPatternController _timedPatternController; // 일반 패턴 타이머를 관리하는 객체
 
     /// <summary>
     /// 보스 체력이 변경되면 현재 체력과 최대 체력을 전달한다.
@@ -86,6 +104,10 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
 
     // 외부 UI에서 보스 이름을 읽을 수 있도록 제공한다.
     public string BossName => _bossName;
+
+    // 패턴에서 보스의 원래 스폰 위치를 사용할 수 있게 제공한다.
+    public Vector2 MovementCenter =>
+        _randomMover.MovementCenter;
 
 
 
@@ -127,6 +149,25 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
 
         // 인스펙터에 설정한 이동 정보로 공통 랜덤 이동 객체를 생성한다.
         _randomMover = new BossRandomMover(_rigidbody, _moveSpeed, _movementHalfRange, _arrivalDistance);
+    }
+
+    private void Update()
+    {
+        // BossEncounterManager의 초기화 전에는 패턴 시간을 갱신하지 않는다.
+        if (!_isInitialized)
+        {
+            return;
+        }
+
+        // 사망한 보스는 새로운 패턴을 요청하지 않는다.
+        if (_isDead)
+        {
+            return;
+        }
+
+        // 일반 패턴들의 남은 시간을 갱신한다.
+        _timedPatternController.Tick(
+            Time.deltaTime);
     }
 
     private void FixedUpdate()
@@ -179,18 +220,34 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
     }
 
     /// <summary>
-    /// 자식 보스 클래스에서 지정한 패턴의 실행을 요청한다.
-    /// 다른 패턴이 실행 중이면 Runner의 대기열에 저장된다.
+    /// 시간 조건으로 발동하는 일반 패턴을 요청한다.
     /// </summary>
-    protected void RequestPattern(BossPattern pattern)
+    protected void RequestNormalPattern(
+        BossPattern pattern)
     {
         if (!_isInitialized)
         {
             throw new InvalidOperationException(
-                $"{name}은 초기화 전이라 패턴을 요청할 수 없습니다.");
+                $"{name}은 초기화 전이라 일반 패턴을 요청할 수 없습니다.");
         }
 
-        _patternRunner.Request(pattern);
+        _patternRunner.RequestNormal(pattern);
+    }
+
+    /// <summary>
+    /// 체력 조건으로 발동하는 특수 패턴을 요청한다.
+    /// 현재 패턴 종료 후 일반 대기 패턴보다 먼저 실행된다.
+    /// </summary>
+    protected void RequestSpecialPattern(
+        BossPattern pattern)
+    {
+        if (!_isInitialized)
+        {
+            throw new InvalidOperationException(
+                $"{name}은 초기화 전이라 특수 패턴을 요청할 수 없습니다.");
+        }
+
+        _patternRunner.RequestSpecial(pattern);
     }
 
     /// <summary>
@@ -224,6 +281,15 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
         _patternRunner = new BossPatternRunner(
             this,
             _patternContext);
+
+        // 인스펙터에 등록된 일반 시간 패턴 설정으로 타이머 관리자를 생성한다.
+        _timedPatternController =
+    new TimedBossPatternController(
+        _timedPatternEntries,
+        _patternRunner,
+        _normalPatternFirstDelay,
+        _normalPatternInterval,
+        _previousPatternWeightMultiplier);
 
         // 외부에서 필요한 참조를 모두 받았으므로 초기화 완료 상태로 변경한다.
         _isInitialized = true;

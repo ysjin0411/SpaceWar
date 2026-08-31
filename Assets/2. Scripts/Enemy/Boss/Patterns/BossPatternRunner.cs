@@ -11,8 +11,11 @@ public sealed class BossPatternRunner
     readonly MonoBehaviour _coroutineHost; // 패턴 코루틴을 실행해 줄 MonoBehaviour
     readonly BossPatternContext _context; // 모든 패턴에 전달할 공통 Context
 
-    readonly Queue<BossPattern> _waitingPatterns =
-        new Queue<BossPattern>(); // 실행을 기다리고 있는 패턴 대기열
+    readonly Queue<BossPattern> _normalWaitingPatterns =
+    new Queue<BossPattern>(); // 실행을 기다리는 일반 패턴 대기열
+
+    readonly Queue<BossPattern> _specialWaitingPatterns =
+        new Queue<BossPattern>(); // 체력 조건으로 요청된 특수 패턴 대기열
 
     BossPattern _currentPattern; // 현재 실행 중인 패턴
     Coroutine _runningCoroutine; // 현재 실행 중인 패턴 코루틴
@@ -40,10 +43,34 @@ public sealed class BossPatternRunner
     }
 
     /// <summary>
-    /// 패턴 실행을 요청한다.
-    /// 다른 패턴이 실행 중이라면 대기열에 저장한다.
+    /// 시간 조건을 만족한 일반 패턴의 실행을 요청한다.
     /// </summary>
-    public void Request(BossPattern pattern)
+    public void RequestNormal(
+        BossPattern pattern)
+    {
+        Request(
+            pattern,
+            _normalWaitingPatterns);
+    }
+
+    /// <summary>
+    /// 체력 조건을 만족한 특수 패턴의 실행을 요청한다.
+    /// 현재 패턴이 끝난 후 일반 대기 패턴보다 먼저 실행된다.
+    /// </summary>
+    public void RequestSpecial(
+        BossPattern pattern)
+    {
+        Request(
+            pattern,
+            _specialWaitingPatterns);
+    }
+
+    /// <summary>
+    /// 전달받은 대기열에 패턴을 등록한다.
+    /// </summary>
+    private void Request(
+        BossPattern pattern,
+        Queue<BossPattern> targetQueue)
     {
         if (pattern == null)
         {
@@ -51,15 +78,15 @@ public sealed class BossPatternRunner
                 nameof(pattern));
         }
 
-        // 죽은 보스에게 새로운 패턴을 요청하지 않는다.
+        // 사망한 보스는 새로운 패턴을 요청하지 않는다.
         if (_context.Boss.IsDead)
         {
             return;
         }
 
-        _waitingPatterns.Enqueue(pattern);
+        targetQueue.Enqueue(pattern);
 
-        // 현재 실행 중인 패턴이 없다면 바로 다음 패턴을 실행한다.
+        // 실행 중인 패턴이 없다면 바로 다음 패턴을 시작한다.
         TryStartNextPattern();
     }
 
@@ -68,7 +95,9 @@ public sealed class BossPatternRunner
     /// </summary>
     public void StopAll()
     {
-        _waitingPatterns.Clear();
+        // 일반 패턴과 특수 패턴 대기열을 모두 비운다.
+        _normalWaitingPatterns.Clear();
+        _specialWaitingPatterns.Clear();
 
         if (_runningCoroutine != null)
         {
@@ -93,28 +122,39 @@ public sealed class BossPatternRunner
     }
 
     /// <summary>
-    /// 실행 중인 패턴이 없으면 대기열의 다음 패턴을 시작한다.
+    /// 실행 중인 패턴이 없다면 특수 패턴을 우선하여 실행한다.
     /// </summary>
     private void TryStartNextPattern()
     {
+        // 현재 패턴은 중간에 중단하지 않는다.
         if (_isRunning)
-        {
-            return;
-        }
-
-        if (_waitingPatterns.Count == 0)
         {
             return;
         }
 
         if (_context.Boss.IsDead)
         {
-            _waitingPatterns.Clear();
+            _normalWaitingPatterns.Clear();
+            _specialWaitingPatterns.Clear();
             return;
         }
 
-        _currentPattern =
-            _waitingPatterns.Dequeue();
+        // 체력 조건 특수 패턴이 대기 중이면 가장 먼저 선택한다.
+        if (_specialWaitingPatterns.Count > 0)
+        {
+            _currentPattern =
+                _specialWaitingPatterns.Dequeue();
+        }
+        // 특수 패턴이 없을 때만 일반 패턴을 선택한다.
+        else if (_normalWaitingPatterns.Count > 0)
+        {
+            _currentPattern =
+                _normalWaitingPatterns.Dequeue();
+        }
+        else
+        {
+            return;
+        }
 
         _isRunning = true;
 

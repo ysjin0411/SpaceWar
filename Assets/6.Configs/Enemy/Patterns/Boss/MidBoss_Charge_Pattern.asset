@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75e3fcfe747aa6f4a8b135ea1b896d18, type: 3}
+  m_Name: MidBoss_Charge_Pattern
+  m_EditorClassIdentifier: 
+  _patternId: MidBoss_Charge
+  _pauseRandomMovement: 1
+  _aimDuration: 0.5
+  _visualAngleOffset: 180
+  _backstepDistance: 0.5
+  _backstepDuration: 0.2
+  _chargeDistance: 8
+  _chargeDuration: 0.35
+  _recoveryDuration: 0.5

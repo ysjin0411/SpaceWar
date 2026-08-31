@@ -15,6 +15,10 @@ public sealed class BossRandomMover
     Vector2 _targetPosition; // 현재 이동하고 있는 목표 위치
     bool _isActive; // 현재 랜덤 이동을 수행할 수 있는지 확인하는 값
 
+    // 보스가 생성되었을 때 저장한 랜덤 이동 범위의 중심 위치다.
+    public Vector2 MovementCenter =>
+        _movementCenter;
+
     public BossRandomMover(
         Rigidbody2D rigidbody,
         float moveSpeed,

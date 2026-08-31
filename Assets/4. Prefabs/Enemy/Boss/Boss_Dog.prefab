@@ -217,14 +217,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bossName: Boss_Dog
-  _maxHp: 100
+  _maxHp: 500
   _crashDamage: 10
-  _currentHp: 100
+  _currentHp: 500
   _isDead: 0
   _isControllable: 0
-  _moveSpeed: 10
-  _movementHalfRange: {x: 8, y: 3}
+  _moveSpeed: 2
+  _movementHalfRange: {x: 3, y: 3}
   _arrivalDistance: 0.1
+  _normalPatternFirstDelay: 2
+  _normalPatternInterval: 2
+  _previousPatternWeightMultiplier: 0.1
+  _timedPatternEntries:
+  - _pattern: {fileID: 11400000, guid: 2c88e89dc62ddb7408ee1a3d56d0bdc3, type: 2}
+    _weight: 10
 --- !u!50 &486255449174284901
 Rigidbody2D:
   serializedVersion: 5

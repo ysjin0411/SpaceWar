@@ -30,6 +30,9 @@ public sealed class BossChargePattern : BossPattern
     [Min(0f)]
     [SerializeField] float _chargeDistance = 8f; // 조준한 방향으로 돌진하는 거리
 
+    [Min(0f)]
+    [SerializeField] float _passThroughDistance = 2f; // 조준한 플레이어 위치를 지나 추가로 이동할 거리
+
     [Min(0.01f)]
     [SerializeField] float _chargeDuration = 0.35f; // 돌진 이동에 걸리는 시간
 
@@ -37,6 +40,11 @@ public sealed class BossChargePattern : BossPattern
 
     [Min(0f)]
     [SerializeField] float _recoveryDuration = 0.5f; // 돌진 후 다음 행동까지 대기하는 시간
+
+    [Header("스폰 위치 복귀 설정")]
+
+    [Min(0.01f)]
+    [SerializeField] float _returnDuration = 0.3f; // 박치기 종료 위치에서 원래 스폰 위치까지 복귀하는 시간
 
     /// <summary>
     /// 플레이어 방향을 고정한 후 후퇴와 돌진을 순서대로 실행한다.
@@ -98,11 +106,23 @@ public sealed class BossChargePattern : BossPattern
             _backstepDistance,
             _backstepDuration);
 
-        // 고정해 둔 플레이어 방향으로 빠르게 돌진한다.
+        // 후퇴가 끝난 현재 위치에서 조준 당시 플레이어 위치까지의 거리를 계산한다.
+        float distanceToPlayer =
+            Vector2.Distance(
+                context.Rigidbody.position,
+                playerPosition);
+
+        // 최소 돌진 거리와 플레이어를 완전히 통과하는 거리 중 큰 값을 사용한다.
+        float actualChargeDistance =
+            Mathf.Max(
+                _chargeDistance,
+                distanceToPlayer + _passThroughDistance);
+
+        // 조준 당시 플레이어 위치를 지나도록 빠르게 돌진한다.
         yield return MoveByDistance(
             context.Rigidbody,
             chargeDirection,
-            _chargeDistance,
+            actualChargeDistance,
             _chargeDuration);
 
         // 돌진 직후 바로 다음 행동으로 넘어가지 않도록 후딜레이를 적용한다.
@@ -111,6 +131,34 @@ public sealed class BossChargePattern : BossPattern
             yield return new WaitForSeconds(
                 _recoveryDuration);
         }
+
+        // 현재 위치에서 보스의 원래 스폰 위치로 향하는 차이를 계산한다.
+        Vector2 returnOffset =
+            context.Boss.MovementCenter -
+            context.Rigidbody.position;
+
+        // 원래 스폰 위치로 돌아갈 방향을 계산한다.
+        Vector2 returnDirection =
+            returnOffset.normalized;
+
+        // 현재 위치에서 원래 스폰 위치까지의 거리를 계산한다.
+        float returnDistance =
+            returnOffset.magnitude;
+
+        // 박치기 종료 위치에서 원래 스폰 위치로 빠르게 복귀한다.
+        yield return MoveByDistance(
+            context.Rigidbody,
+            returnDirection,
+            returnDistance,
+            _returnDuration);
+
+        // 스폰 위치에 정확히 도착하도록 마지막 위치를 보정한다.
+        context.Rigidbody.MovePosition(
+            context.Boss.MovementCenter);
+
+        // 패턴 시작 전 외형 회전 상태로 되돌린다.
+        context.VisualTransform.localRotation =
+            originalLocalRotation;
 
         // 패턴 시작 전 외형 회전 상태로 되돌린다.
         context.VisualTransform.localRotation =
