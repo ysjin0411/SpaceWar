@@ -3232,7 +3232,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &660052077
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4548,7 +4548,7 @@ MonoBehaviour:
   _stageIntroCanvasGroup: {fileID: 623040792}
   _stageIntroFadeDuration: 0.3
   _stageIntroBlinkCount: 3
-  _section1Duration: 20
+  _section1Duration: 10
   _section2Duration: 20
   _currentPhase: 0
   _stageElapsedTime: 0
@@ -7057,6 +7057,8 @@ GameObject:
   - component: {fileID: 1808024590}
   - component: {fileID: 1808024592}
   - component: {fileID: 1808024591}
+  - component: {fileID: 1808024594}
+  - component: {fileID: 1808024593}
   m_Layer: 0
   m_Name: SystemDialogueFrame
   m_TagString: Untagged
@@ -7122,6 +7124,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1808024589}
   m_CullTransparentMesh: 1
+--- !u!114 &1808024593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1808024589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea91105de0f1bbf4dafeaf1449c620c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dialogueCanvasGroup: {fileID: 1808024594}
+  _dialogueText: {fileID: 2034942992}
+  _blinkDuration: 0.15
+  _blinkCount: 3
+  _bossEncounterManager: {fileID: 892676528}
+--- !u!225 &1808024594
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1808024589}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1847464137
 GameObject:
   m_ObjectHideFlags: 0

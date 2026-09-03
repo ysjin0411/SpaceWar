@@ -84,6 +84,18 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
     public event Action<BossEnemy> Defeated;
     public event Action<int> Damaged;
 
+    /// <summary>
+    /// 보스 패턴이 시스템 알림 메시지 출력을 요청할 때 발생한다.
+    /// 문자열에는 화면에 출력할 메시지가 전달된다.
+    /// </summary>
+    public event Action<string> SystemDialogueRequested;
+
+    /// <summary>
+    /// 시스템 알림 메시지의 점멸이 완전히 끝났을 때 발생한다.
+    /// 실행 중인 특수 패턴은 이 이벤트를 기다린 후 다음 행동을 진행한다.
+    /// </summary>
+    public event Action SystemDialogueCompleted;
+
     // 보스별 이동 및 공격 패턴에서 현재 플레이어를 사용한다.
     protected PlayerController TargetPlayer { get; private set; }
 
@@ -248,6 +260,48 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
         }
 
         _patternRunner.RequestSpecial(pattern);
+    }
+
+    /// <summary>
+    /// 현재 보스가 시스템 알림 UI에 메시지 출력을 요청한다.
+    /// 실제 UI 출력은 BossEncounterManager가 연결한 SystemDialogueUI가 담당한다.
+    /// </summary>
+    public void RequestSystemDialogue(
+        string message)
+    {
+        if (string.IsNullOrWhiteSpace(message))
+        {
+            throw new ArgumentException(
+                "시스템 알림 메시지가 비어 있습니다.",
+                nameof(message));
+        }
+
+        // UI와 이벤트가 연결되지 않았다면 패턴이 완료 이벤트를
+        // 영원히 기다리게 되므로 즉시 설정 오류를 알려준다.
+        if (SystemDialogueRequested == null)
+        {
+            throw new InvalidOperationException(
+                $"{name}의 시스템 알림 이벤트를 받는 UI가 없습니다.");
+        }
+
+        // 연결된 시스템 알림 UI에 메시지를 전달한다.
+        SystemDialogueRequested.Invoke(message);
+    }
+
+    /// <summary>
+    /// SystemDialogueUI의 점멸이 끝났다는 사실을 현재 보스에게 전달한다.
+    /// BossEncounterManager가 UI의 완료 이벤트와 이 메서드를 연결한다.
+    /// </summary>
+    public void NotifySystemDialogueCompleted()
+    {
+        // 보스가 죽은 뒤 도착한 UI 완료 신호는 처리하지 않는다.
+        if (_isDead)
+        {
+            return;
+        }
+
+        // 시스템 알림 완료를 기다리는 특수 패턴에 알린다.
+        SystemDialogueCompleted?.Invoke();
     }
 
     /// <summary>

@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb5e17dcd82832b49a69ca526ad32730, type: 3}
+  m_Name: BossDogWideChargePattern
+  m_EditorClassIdentifier: 
+  _patternId: 
+  _pauseRandomMovement: 1
+  _systemMessage: "WARNING : \uBCF4\uC2A4\uAC00 \uB3CC\uC9C4\uC744 \uC900\uBE44\uD558\uACE0
+    \uC788\uC2B5\uB2C8\uB2E4!"
+  _moveToSpawnDuration: 0.4
+  _enlargedScaleMultiplier: 2
+  _enlargeDuration: 0.3
+  _restoreScaleDuration: 0.25
+  _upperChargeStartOffset: {x: 6, y: 3}
+  _middleChargeStartOffset: {x: 6, y: 0}
+  _lowerChargeStartOffset: {x: 6, y: -3}
+  _moveToChargeStartDuration: 0.4
+  _chargeWarningPrefab: {fileID: 4767245103281790610, guid: 8bd1f2d1b8cd9db40aeffbfe2a170840, type: 3}
+  _chargeDistance: 20
+  _chargeWarningHeight: 12
+  _chargeWarningColor: {r: 1, g: 0, b: 0, a: 0.45}
+  _chargeWarningBlinkDuration: 0.5
+  _chargeWarningBlinkCount: 4
+  _chargeDuration: 1
+  _returnToSpawnDuration: 0.35
