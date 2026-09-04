@@ -231,9 +231,13 @@ MonoBehaviour:
   _timedPatternEntries:
   - _pattern: {fileID: 11400000, guid: 2c88e89dc62ddb7408ee1a3d56d0bdc3, type: 2}
     _weight: 10
-  _healthSpecialPatternEntry:
-    _healthPercent: 87.5
+  - _pattern: {fileID: 11400000, guid: 78f7af7718e744d4fbb537b663305b1c, type: 2}
+    _weight: 10
+  _healthSpecialPatternEntries:
+  - _healthPercent: 90
     _pattern: {fileID: 11400000, guid: 909094ff4d83fcb458950b82ddc7479f, type: 2}
+  - _healthPercent: 80
+    _pattern: {fileID: 11400000, guid: 36ad2c337abc4ff458cf9b30a782e2d0, type: 2}
 --- !u!50 &486255449174284901
 Rigidbody2D:
   serializedVersion: 5

@@ -4548,7 +4548,7 @@ MonoBehaviour:
   _stageIntroCanvasGroup: {fileID: 623040792}
   _stageIntroFadeDuration: 0.3
   _stageIntroBlinkCount: 3
-  _section1Duration: 10
+  _section1Duration: 5
   _section2Duration: 20
   _currentPhase: 0
   _stageElapsedTime: 0

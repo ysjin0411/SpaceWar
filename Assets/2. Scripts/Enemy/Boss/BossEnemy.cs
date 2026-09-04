@@ -24,6 +24,12 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
     [Min(0)]
     [SerializeField] int _crashDamage;
 
+    // 현재 패턴이 전달한 접촉 피해량이다.
+    int _patternCrashDamage;
+
+    // true면 패턴 피해량, false면 기본 접촉 피해량을 사용한다.
+    bool _isUsingPatternCrashDamage;
+
     // Animator의 Die Trigger 이름을 해시값으로 보관한다.
     static readonly int DieTriggerHash =
         Animator.StringToHash("Die");
@@ -263,6 +269,33 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
     }
 
     /// <summary>
+    /// 패턴의 접촉 피해량을 저장하고 사용 상태를 켠다.
+    /// </summary>
+    public void SetPatternCrashDamage(int damage)
+    {
+        // 음수 피해량은 잘못된 설정으로 처리한다.
+        if (damage < 0)
+        {
+            throw new ArgumentOutOfRangeException(
+                nameof(damage),
+                "패턴 접촉 피해는 음수일 수 없습니다.");
+        }
+
+        // 피해량은 각 패턴 Config에서 전달받는다.
+        _patternCrashDamage = damage;
+        _isUsingPatternCrashDamage = true;
+    }
+
+    /// <summary>
+    /// 패턴 피해 사용을 해제하고 기본 접촉 피해로 돌아간다.
+    /// </summary>
+    public void ResetPatternCrashDamage()
+    {
+        _isUsingPatternCrashDamage = false;
+        _patternCrashDamage = 0;
+    }
+
+    /// <summary>
     /// 현재 보스가 시스템 알림 UI에 메시지 출력을 요청한다.
     /// 실제 UI 출력은 BossEncounterManager가 연결한 SystemDialogueUI가 담당한다.
     /// </summary>
@@ -480,7 +513,10 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
             return;
         }
 
-        player.TakeHit(_crashDamage);
+        // 패턴 피해 사용 여부에 따라 실제 접촉 피해량을 선택한다.
+        int damage = _isUsingPatternCrashDamage ? _patternCrashDamage : _crashDamage;
+
+        player.TakeHit(damage);
     }
 
     /// <summary>

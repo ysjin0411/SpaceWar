@@ -84,7 +84,7 @@ public sealed class TimedBossPatternController
             if (!uniquePatterns.Add(entry.Pattern))
             {
                 throw new ArgumentException(
-                    $"같은 일반 패턴이 중복 등록되었습니다: {entry.Pattern.PatternId}",
+                    $"같은 일반 패턴이 중복 등록되었습니다: {entry.Pattern.name}",
                     nameof(entries));
             }
 

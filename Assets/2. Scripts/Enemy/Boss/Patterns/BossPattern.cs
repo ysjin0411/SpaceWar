@@ -8,12 +8,7 @@ using UnityEngine;
 public abstract class BossPattern : ScriptableObject
 {
     [Header("보스 패턴 기본 설정")]
-
-    [SerializeField] string _patternId; // 패턴을 구분하거나 로그에 표시할 고유 ID
-
     [SerializeField] bool _pauseRandomMovement = true; // 패턴 실행 중 공통 랜덤 이동을 정지할지 확인하는 값
-
-    public string PatternId => _patternId;
 
     public bool PauseRandomMovement =>
         _pauseRandomMovement;

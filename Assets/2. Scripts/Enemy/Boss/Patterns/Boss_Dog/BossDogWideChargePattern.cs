@@ -67,11 +67,6 @@ public sealed class BossDogWideChargePattern : BossPattern
     [SerializeField]
     float _chargeDistance = 16f;
 
-    // 화면에 표시할 돌진 위험 범위의 높이다.
-    [Min(0.1f)]
-    [SerializeField]
-    float _chargeWarningHeight = 3f;
-
     // 돌진 위험 범위에 적용할 색상과 최대 투명도다.
     [SerializeField]
     Color _chargeWarningColor =
@@ -93,6 +88,12 @@ public sealed class BossDogWideChargePattern : BossPattern
     [Min(0.01f)]
     [SerializeField]
     float _chargeDuration = 0.3f;
+
+    // 실제 광범위 돌진 중 플레이어와 충돌했을 때 줄 피해량이다.
+    // 이 패턴 Config의 Inspector에서 개별 설정한다.
+    [Min(0)]
+    [SerializeField]
+    int _chargeDamage = 30;
 
     [Header("패턴 종료 복귀")]
 
@@ -245,16 +246,31 @@ public sealed class BossDogWideChargePattern : BossPattern
             yield break;
         }
 
-        // 현재 돌진 시작 위치에서 왼쪽으로 실제 돌진할 목적지를 계산한다.
+        // 보스 중심이 실제로 돌진할 목적지다.
         Vector2 chargeEndPosition =
             chargeStartPosition +
             Vector2.left * _chargeDistance;
 
-        // 실제 돌진 경로와 동일한 위치에 위험 범위를 생성한다.
+        // 거대화된 Collider의 실제 월드 크기를 가져온다.
+        Vector2 colliderWorldSize =
+            bossCollider.bounds.size;
+
+        // 시작 위치에서 보스 몸체의 오른쪽 끝까지 경고에 포함한다.
+        Vector2 warningStartPosition =
+            chargeStartPosition +
+            Vector2.right * (colliderWorldSize.x * 0.5f);
+
+        // 도착 위치에서 보스 몸체의 왼쪽 끝까지 경고에 포함한다.
+        Vector2 warningEndPosition =
+            chargeEndPosition +
+            Vector2.left * (colliderWorldSize.x * 0.5f);
+
+        // 보스 몸체가 지나가는 전체 너비와 실제 충돌 높이로 경고를 생성한다.
         SpriteRenderer chargeWarning =
             CreateChargeWarning(
-                chargeStartPosition,
-                chargeEndPosition);
+                warningStartPosition,
+                warningEndPosition,
+                colliderWorldSize.y);
 
         try
         {
@@ -277,11 +293,22 @@ public sealed class BossDogWideChargePattern : BossPattern
             yield break;
         }
 
-        // 위험 범위에 표시했던 것과 동일한 목적지까지 빠르게 돌진한다.
-        yield return MoveToPosition(
-            context.Rigidbody,
-            chargeEndPosition,
-            _chargeDuration);
+        // 실제 돌진을 시작할 때 이 패턴에 설정된 접촉 피해를 적용한다.
+        context.Boss.SetPatternCrashDamage(_chargeDamage);
+
+        try
+        {
+            // 경고로 표시했던 경로를 따라 왼쪽으로 돌진한다.
+            yield return MoveToPosition(
+                context.Rigidbody,
+                chargeEndPosition,
+                _chargeDuration);
+        }
+        finally
+        {
+            // 돌진 구간을 빠져나오면 기본 접촉 피해로 되돌린다.
+            context.Boss.ResetPatternCrashDamage();
+        }
 
         if (context.Boss.IsDead)
         {
@@ -478,8 +505,9 @@ public sealed class BossDogWideChargePattern : BossPattern
     /// 직사각형 모양의 빨간 위험 범위를 생성한다.
     /// </summary>
     private SpriteRenderer CreateChargeWarning(
-        Vector2 startPosition,
-        Vector2 endPosition)
+       Vector2 startPosition,
+    Vector2 endPosition,
+    float warningHeight)
     {
         if (_chargeWarningPrefab == null)
         {
@@ -515,11 +543,12 @@ public sealed class BossDogWideChargePattern : BossPattern
                 startPosition,
                 endPosition);
 
-        // 1×1 사각형 Sprite를 실제 돌진 거리와 설정된 높이에 맞게 늘린다.
+        // 실제 Collider가 지나가는 전체 너비와 높이에 맞게
+        // 경고 Sprite의 크기를 조절한다.
         warningRenderer.transform.localScale =
             new Vector3(
                 warningWidth / sourceSpriteSize.x,
-                _chargeWarningHeight / sourceSpriteSize.y,
+                warningHeight / sourceSpriteSize.y,
                 1f);
 
         // 처음에는 완전히 투명하게 만든다.

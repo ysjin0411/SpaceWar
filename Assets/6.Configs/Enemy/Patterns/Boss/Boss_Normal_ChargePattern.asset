@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 75e3fcfe747aa6f4a8b135ea1b896d18, type: 3}
-  m_Name: MidBoss_Charge_Pattern
+  m_Name: Boss_Normal_ChargePattern
   m_EditorClassIdentifier: 
   _patternId: MidBoss_Charge
   _pauseRandomMovement: 1
