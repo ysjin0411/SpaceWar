@@ -35,6 +35,19 @@ public class FastEnemy : Enemy
     [Tooltip("현재 이동 중 총알을 이미 발사했는지 확인")]
     [SerializeField] bool _isFired;
 
+    // Renderer 자식의 Animator다.
+    [SerializeField] Animator _animator;
+
+    // 공격 애니메이션이 진행 중인지 확인한다.
+    bool _attackPlaying;
+
+    // 현재 공격에서 총알을 이미 생성했는지 확인한다.
+    bool _firedThisAttack;
+
+    // 공통 컨트롤러의 공격 상태 경로다.
+    static readonly int AttackHash =
+        Animator.StringToHash("Base Layer.Attack_4Frame");
+
     /// <summary>
     /// 부모의 체력 런타임 데이터를 초기화하고
     /// FastEnemy에 필요한 참조를 검사한다.
@@ -60,6 +73,13 @@ public class FastEnemy : Enemy
 
         // 새로 생성된 FastEnemy는 아직 총알을 발사하지 않은 상태다.
         _isFired = false;
+
+        // 공격 애니메이션을 재생할 Animator를 검사한다.
+        if (_animator == null)
+        {
+            throw new InvalidOperationException(
+                $"{name}: Animator를 연결하세요.");
+        }
     }
 
     private void Update()
@@ -139,6 +159,7 @@ public class FastEnemy : Enemy
         // 발사 위치에 도달했고 아직 발사하지 않았다면 총알을 발사한다.
         if (transform.position.x <= 0f && !_isFired)
         {
+            BeginAttack();
             Fire();
 
             // 같은 적이 여러 번 발사하지 않도록 상태를 저장한다.
@@ -166,6 +187,7 @@ public class FastEnemy : Enemy
         // 발사 위치에 도달했고 아직 발사하지 않았다면 총알을 발사한다.
         if (transform.position.y >= 0f && !_isFired)
         {
+            BeginAttack();
             Fire();
 
             // 같은 적이 여러 번 발사하지 않도록 상태를 저장한다.
@@ -177,5 +199,42 @@ public class FastEnemy : Enemy
         {
             Destroy(gameObject);
         }
+    }
+
+    /// <summary>
+    /// 지정 좌표에 도착하면 공격 애니메이션을 한 번 시작한다.
+    /// </summary>
+    private void BeginAttack()
+    {
+        // 다음 프레임에도 같은 좌표 조건으로 공격을 요청하지 않도록 한다.
+        // 이 값은 이제 공격을 이미 시작했는지를 뜻한다.
+        _isFired = true;
+
+        _attackPlaying = true;
+        _firedThisAttack = false;
+
+        _animator.Play(AttackHash, 0, 0f);
+    }
+
+    /// <summary>
+    /// 세 번째 공격 컷에서 기존 총알 생성 함수를 실행한다.
+    /// </summary>
+    public override void FireFromAnimation()
+    {
+        if (IsDead || !_attackPlaying || _firedThisAttack)
+        {
+            return;
+        }
+
+        _firedThisAttack = true;
+        Fire();
+    }
+
+    /// <summary>
+    /// 공통 Relay가 Idle로 복귀시킨 뒤 공격 상태를 정리한다.
+    /// </summary>
+    public override void FinishAttackFromAnimation()
+    {
+        _attackPlaying = false;
     }
 }

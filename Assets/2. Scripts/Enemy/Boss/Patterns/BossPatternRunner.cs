@@ -19,6 +19,9 @@ public sealed class BossPatternRunner
 
     BossPattern _currentPattern; // 현재 실행 중인 패턴
     Coroutine _runningCoroutine; // 현재 실행 중인 패턴 코루틴
+
+    // 패턴 취소 시 finally 정리 코드를 실행할 실제 반복자다.
+    IEnumerator _patternExecution;
     bool _isRunning; // 현재 패턴이 실행 중인지 확인하는 값
 
     public bool IsRunning => _isRunning;
@@ -105,6 +108,9 @@ public sealed class BossPatternRunner
                 _runningCoroutine);
         }
 
+        // 중단된 패턴의 finally를 실행하여 UI와 게임 정지를 정리한다.
+        DisposePatternExecution();
+
         bool shouldResumeMovement =
             _currentPattern != null &&
             _currentPattern.PauseRandomMovement;
@@ -112,6 +118,9 @@ public sealed class BossPatternRunner
         _currentPattern = null;
         _runningCoroutine = null;
         _isRunning = false;
+
+        // 사망 등으로 취소된 경우에도 특수패턴 상태를 정리한다.
+        _context.Boss.SetSpecialPatternRunning(false);
 
         // 사망 때문에 중단한 경우에는 랜덤 이동을 다시 시작하지 않는다.
         if (shouldResumeMovement &&
@@ -139,28 +148,33 @@ public sealed class BossPatternRunner
             return;
         }
 
-        // 체력 조건 특수 패턴이 대기 중이면 가장 먼저 선택한다.
+        // 이번에 선택한 패턴이 특수패턴 대기열에서 나왔는지 기록한다.
+        bool isSpecialPattern;
+
         if (_specialWaitingPatterns.Count > 0)
         {
-            _currentPattern =
-                _specialWaitingPatterns.Dequeue();
+            _currentPattern = _specialWaitingPatterns.Dequeue();
+            isSpecialPattern = true;
         }
-        // 특수 패턴이 없을 때만 일반 패턴을 선택한다.
         else if (_normalWaitingPatterns.Count > 0)
         {
-            _currentPattern =
-                _normalWaitingPatterns.Dequeue();
+            _currentPattern = _normalWaitingPatterns.Dequeue();
+            isSpecialPattern = false;
         }
         else
         {
             return;
         }
 
+        // 이벤트 처리 중 다른 요청이 들어와도 중복 실행하지 않는다.
         _isRunning = true;
 
-        _runningCoroutine =
-            _coroutineHost.StartCoroutine(
-                ExecuteCurrentPattern());
+        // 실제 패턴 실행 전에 알린다.
+        // 특수패턴의 시스템 경고가 시작되기 전에 일반 적 생성이 중단된다.
+        _context.Boss.SetSpecialPatternRunning(isSpecialPattern);
+
+        _runningCoroutine = _coroutineHost.StartCoroutine(
+            ExecuteCurrentPattern());
     }
 
     /// <summary>
@@ -174,9 +188,14 @@ public sealed class BossPatternRunner
             _context.Boss.SetControllable(false);
         }
 
+        // 실행 중인 반복자를 보관하여 취소할 때도 정리할 수 있게 한다.
+        _patternExecution = _currentPattern.Execute(_context);
+
         // 실제 패턴의 실행이 끝날 때까지 기다린다.
-        yield return _currentPattern.Execute(
-            _context);
+        yield return _patternExecution;
+
+        // 정상 완료한 반복자를 정리한다.
+        DisposePatternExecution();
 
         bool shouldResumeMovement =
             _currentPattern.PauseRandomMovement;
@@ -184,6 +203,10 @@ public sealed class BossPatternRunner
         _currentPattern = null;
         _runningCoroutine = null;
         _isRunning = false;
+
+        // 현재 특수패턴이 끝났으므로 외부 시스템에 종료를 알린다.
+        // 다음 대기 패턴도 특수패턴이면 시작 시 다시 true로 변경된다.
+        _context.Boss.SetSpecialPatternRunning(false);
 
         // 보스가 살아 있다면 패턴에서 정지했던 랜덤 이동을 재개한다.
         if (shouldResumeMovement &&
@@ -194,5 +217,20 @@ public sealed class BossPatternRunner
 
         // 대기 중인 다음 패턴을 실행한다.
         TryStartNextPattern();
+    }
+
+    /// <summary>
+    /// 패턴의 정리 코드를 실행한다.
+    /// 중복 정리를 막기 위해 참조를 먼저 비운다.
+    /// </summary>
+    private void DisposePatternExecution()
+    {
+        IEnumerator execution = _patternExecution;
+        _patternExecution = null;
+
+        if (execution is IDisposable disposable)
+        {
+            disposable.Dispose();
+        }
     }
 }

@@ -15,11 +15,21 @@ MonoBehaviour:
   _id: warrior_hammer
   _name: Hammer
   _type: 8
-  _fireMode: 0
   _icon: {fileID: -1235648141532224321, guid: dd0db2facc676c14fb7b5c1606f73247, type: 3}
-  _projectilePrefab: {fileID: 8053201812717553051, guid: 13f877c4d989a9c469d29989a9697aa7, type: 3}
-  _baseDamage: 10
+  _projectilePrefab: {fileID: 0}
+  _playerSpriteLibrary: {fileID: 7108339969198208228, guid: 5d7fa32797b6e3a4da8cab0a0fdf9013, type: 3}
+  _characterSelectPreviewScale: 2
+  _characterSelectPreviewOffset: {x: 0, y: 0}
+  _baseDamage: 30
   _baseCooltime: 1
+  _maximumChargeCount: 0
+  _chargeRecoveryTime: 5
+  _chargeRecoveryUpgradeValue: 0.5
+  _minimumChargeRecoveryTime: 1
+  _shieldMaxHealth: 100
+  _shieldRecoveryPerSecond: 5
+  _shieldRepairAmount: 100
+  _shieldRecoveryUpgradeValue: 1
   _price: 1000
   _requiredCharacterLevel: 5
   _isInitiallyOwned: 0

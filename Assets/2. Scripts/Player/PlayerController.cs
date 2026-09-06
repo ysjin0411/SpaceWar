@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -23,6 +24,10 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     bool _canControl = true;        // 이동 가능 여부
 
+    // 흡인 등 외부 효과가 전달한 이동 속도를 효과별로 보관한다.
+    readonly Dictionary<MonoBehaviour, Vector2> _externalVelocities =
+        new Dictionary<MonoBehaviour, Vector2>();
+
     Rigidbody2D _rigidbody;
 
 
@@ -41,6 +46,9 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     // 캐릭터가 데미지 입었을때 이벤트
     public event Action<int> Damaged;
+
+    // 캐릭터가 사망했을 때 스테이지 시스템에 알린다.
+    public event Action Died;
 
 
 
@@ -105,25 +113,61 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     private void FixedUpdate()
     {
-        // 연출 중에는 PlayerController가 플레이어 위치에 간섭하지 않는다.
-        // 위치 제한도 건너뛰어야 플레이어가 화면 밖으로 이동할 수 있다.
-        if (!_canControl)
+        // 이동 연출과 사망 중에는 입력과 외부 이동을 모두 적용하지 않는다.
+        if (!_canControl || IsDead)
         {
             _rigidbody.linearVelocity = Vector2.zero;
             return;
         }
 
-        // 물리 프레임에서 플레이어를 이동시킨다.
-        _rigidbody.linearVelocity = _moveDirection * _moveSpeed;
+        // 플레이어가 직접 입력한 이동 속도다.
+        Vector2 velocity = _moveDirection * _moveSpeed;
 
-        // 이동 후 Stage 범위를 벗어나지 않도록 위치를 제한한다.
+        // 활성 상태인 외부 효과의 이동 속도를 합산한다.
+        foreach (KeyValuePair<MonoBehaviour, Vector2> entry
+                 in _externalVelocities)
+        {
+            if (entry.Key != null && entry.Key.isActiveAndEnabled)
+            {
+                velocity += entry.Value;
+            }
+        }
+
+        _rigidbody.linearVelocity = velocity;
+
+        // 기존 화면 경계 제한을 유지한다.
         Vector2 clampedPosition = _rigidbody.position;
         clampedPosition.x = Mathf.Clamp(clampedPosition.x, MinX, MaxX);
         clampedPosition.y = Mathf.Clamp(clampedPosition.y, MinY, MaxY);
-
-        // 실제 내 위치
         _rigidbody.position = clampedPosition;
     }
+
+    /// <summary>
+    /// 외부 효과가 이번 물리 프레임에 적용할 이동 속도를 전달한다.
+    /// 같은 효과는 기존 값을 갱신하므로 계속 누적되지 않는다.
+    /// </summary>
+    public void SetExternalVelocity(MonoBehaviour source, Vector2 velocity)
+    {
+        if (source == null)
+        {
+            throw new ArgumentNullException(nameof(source));
+        }
+
+        _externalVelocities[source] = velocity;
+    }
+
+    /// <summary>
+    /// 종료되거나 범위를 벗어난 외부 효과의 이동 속도를 제거한다.
+    /// </summary>
+    public void RemoveExternalVelocity(MonoBehaviour source)
+    {
+        if (source != null)
+        {
+            _externalVelocities.Remove(source);
+        }
+    }
+
+    // 이 아래에는 기존 SetControlEnabled 메서드가 이어진다.
 
     /// <summary>
     /// 플레이어의 직접 이동 조작 가능 여부를 변경한다.
@@ -145,10 +189,17 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     /// <summary>
     /// 적 또는 적 투사체로부터 피해를 받는다.
+    /// 조작이 잠긴 입장·구간 전환 연출 중에는 피해를 무시한다.
     /// </summary>
-    /// <param name="damage">받을 피해량</param>
     public void TakeHit(int damage)
     {
+        // 연출 중이거나 이미 사망했다면 피해를 처리하지 않는다.
+        // 체력 차감과 피격 이벤트 모두 이 지점에서 차단한다.
+        if (!_canControl || IsDead)
+        {
+            return;
+        }
+
         // 0 이하의 피해는 처리하지 않는다.
         if (damage <= 0)
         {
@@ -158,19 +209,18 @@ public class PlayerController : MonoBehaviour, IDamageable
         // 현재 체력이 음수가 되지 않도록 제한한다.
         _currentHp = Mathf.Max(0, _currentHp - damage);
 
-        // 살아남은 피격일 때만 피격 애니메이션 이벤트를 발생시킨다.
-        // 사망 시 Time.timeScale이 0이 되므로 사망 순간 점멸은 재생하지 않는다.
+        // 살아남은 피격에만 피격 애니메이션 이벤트를 발생시킨다.
         if (_currentHp > 0)
         {
             Damaged?.Invoke(damage);
         }
 
-        // HPUI 업데이트
+        // 변경된 체력을 UI에 반영한다.
         UpdateHpUI();
 
         Debug.Log($"입은 데미지: {damage}");
 
-        // 사망처리
+        // 체력이 소진되면 사망 처리한다.
         if (_currentHp <= 0)
         {
             Die();
@@ -191,17 +241,24 @@ public class PlayerController : MonoBehaviour, IDamageable
     }
 
     /// <summary>
-    /// 플레이어 사망 처리.
-    /// 현재는 게임 시간을 정지한다.
+    /// 플레이어 조작을 잠그고 사망 사실을 스테이지 시스템에 전달한다.
     /// </summary>
     private void Die()
     {
-        // 사망한 플레이어가 계속 움직이지 않도록 속도를 제거한다.
-        _rigidbody.linearVelocity = Vector2.zero;
+        // 입력과 현재 이동 속도를 함께 초기화한다.
+        SetControlEnabled(false);
 
-        Debug.Log("사망");
+        // 사망 후에는 흡인 등 외부 이동 효과도 유지하지 않는다.
+        _externalVelocities.Clear();
 
+        // 사망한 순간 전투를 정지한다.
         Time.timeScale = 0f;
+
+        // 결과창을 직접 참조하지 않고 사망 사실만 알린다.
+        if (Died != null)
+        {
+            Died.Invoke();
+        }
     }
 
     /// <summary>

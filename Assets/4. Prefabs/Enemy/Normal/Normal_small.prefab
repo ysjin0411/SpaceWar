@@ -44,7 +44,8 @@ GameObject:
   - component: {fileID: 3781501794125578494}
   - component: {fileID: 4896179352009070078}
   - component: {fileID: 5597192801054440021}
-  - component: {fileID: 2459962628241832312}
+  - component: {fileID: 3339233300234598918}
+  - component: {fileID: 5647012733456759729}
   m_Layer: 8
   m_Name: Renderer
   m_TagString: Untagged
@@ -90,7 +91,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: d13dbfd7e1be08f4895957cb655d9b22, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -111,7 +112,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: b4d5cffaa02a4cf4093bb742c9a4de19, type: 3}
+  m_Sprite: {fileID: -5161198836349629123, guid: 11569762e2f7cba4687f151b8f09265d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -174,7 +175,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &2459962628241832312
+--- !u!114 &3339233300234598918
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -183,9 +184,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 3231992446269752863}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11f93a0b005be95419f26bcc01c975db, type: 3}
+  m_Script: {fileID: 11500000, guid: 82b728995b5819d46958413f0f874f4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5647012733456759729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3231992446269752863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ff8460f61add584b97e9c5b71cff55e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _flashStrength: 0.55
+  _flashDuration: 0.08
 --- !u!1 &9200333248802534134
 GameObject:
   m_ObjectHideFlags: 0
@@ -195,9 +210,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7730813032050919660}
+  - component: {fileID: 4397181719619663448}
   - component: {fileID: 636532698536025731}
   - component: {fileID: 1528793276418901857}
-  - component: {fileID: 4397181719619663448}
   m_Layer: 8
   m_Name: Normal_small
   m_TagString: Untagged
@@ -222,6 +237,37 @@ Transform:
   - {fileID: 5398899518243365422}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4397181719619663448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9200333248802534134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 772bd7028b956224490bdd5f1df3b552, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHp: 20
+  _crashDamage: 10
+  _goldPrefab: {fileID: 27950595337174180, guid: 02f86527c15f5bc4cad8b61a57339f3d, type: 3}
+  _goldDropCount: 1
+  _expReward: 5
+  _upgradeGaugeReward: 5
+  _currentHp: 10
+  _isDead: 0
+  _firePoint: {fileID: 5398899518243365422}
+  _moveType: 0
+  _enterMoveSpeed: 3
+  _spreadDuration: 0.6
+  _aimDuration: 0.8
+  _chargeMoveSpeed: 9
+  _explosionDelay: 1.2
+  _explosionRadius: 1.5
+  _explosionDamage: 20
+  _explosionEffectPrefab: {fileID: 1896309453520471981, guid: c072035894d01fe43a67daf99accc73d, type: 3}
+  _animator: {fileID: 5597192801054440021}
 --- !u!50 &636532698536025731
 Rigidbody2D:
   serializedVersion: 5
@@ -295,33 +341,3 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.9, y: 0.5}
   m_EdgeRadius: 0
---- !u!114 &4397181719619663448
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9200333248802534134}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 772bd7028b956224490bdd5f1df3b552, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _maxHp: 20
-  _crashDamage: 10
-  _goldPrefab: {fileID: 27950595337174180, guid: 02f86527c15f5bc4cad8b61a57339f3d, type: 3}
-  _goldDropCount: 1
-  _expReward: 5
-  _upgradeGaugeReward: 5
-  _currentHp: 10
-  _isDead: 0
-  _firePoint: {fileID: 5398899518243365422}
-  _moveType: 0
-  _enterMoveSpeed: 3
-  _spreadDuration: 0.6
-  _aimDuration: 0.8
-  _chargeMoveSpeed: 9
-  _explosionDelay: 1.2
-  _explosionRadius: 1.5
-  _explosionDamage: 20
-  _explosionEffectPrefab: {fileID: 1896309453520471981, guid: c072035894d01fe43a67daf99accc73d, type: 3}

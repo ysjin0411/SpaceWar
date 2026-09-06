@@ -19,32 +19,52 @@ MonoBehaviour:
     m_OverrideEntries:
     - m_Name: EA1
       m_Hash: 833415239
-      m_Sprite: {fileID: 21300000, guid: 8defa1ab2abadf44e8c7d4110b782fcf, type: 3}
+      m_Sprite: {fileID: -6501838015611905424, guid: e82baa0e37eae8c4c831a093c4a0e9a7, type: 3}
       m_FromMain: 1
-      m_SpriteOverride: {fileID: 21300000, guid: b4d5cffaa02a4cf4093bb742c9a4de19, type: 3}
+      m_SpriteOverride: {fileID: -5161198836349629123, guid: 11569762e2f7cba4687f151b8f09265d, type: 3}
     - m_Name: EA2
       m_Hash: 681949693
-      m_Sprite: {fileID: 21300000, guid: cfc35f35de18f5044a0ef60e7fcace66, type: 3}
+      m_Sprite: {fileID: -8808084591795557670, guid: e5f27217712b94c48b18fc58c4df00ba, type: 3}
       m_FromMain: 1
-      m_SpriteOverride: {fileID: 21300000, guid: 7ee82070ebdc2954bb12462bced17dd7, type: 3}
+      m_SpriteOverride: {fileID: -2068693840309089264, guid: cf256a75517d49141a44ece135512dde, type: 3}
     - m_Name: EA3
       m_Hash: 530745707
-      m_Sprite: {fileID: 21300000, guid: 5f87e78c4bf453347a2b97b44a23a889, type: 3}
+      m_Sprite: {fileID: -3701756472774240923, guid: 65887a346102be545ab7a671d00c6568, type: 3}
       m_FromMain: 1
-      m_SpriteOverride: {fileID: 21300000, guid: 122be653ddfb5a644ba367f22b894e3a, type: 3}
+      m_SpriteOverride: {fileID: 7462118993764187735, guid: 47b86185fad5ac848ab585e6f650881c, type: 3}
     - m_Name: EA4
       m_Hash: 29760712
-      m_Sprite: {fileID: 21300000, guid: d5badcc053e6ffd46b71e0e2aba8e99b, type: 3}
+      m_Sprite: {fileID: -1619936531958370331, guid: a96e41c42ba36944f8cb6980cee2e4b6, type: 3}
       m_FromMain: 1
-      m_SpriteOverride: {fileID: 21300000, guid: 4bb9877302cc591488aea534e653c3d7, type: 3}
+      m_SpriteOverride: {fileID: -8741737430511467288, guid: 35ab487a6ce927b4eb856af2a4d9c287, type: 3}
     m_FromMain: 1
     m_EntryOverrideCount: 4
   - m_Name: Attack
     m_Hash: 7088141
     m_CategoryList: []
-    m_OverrideEntries: []
+    m_OverrideEntries:
+    - m_Name: FastEnemy_Attack_01_0
+      m_Hash: 753156498
+      m_Sprite: {fileID: 7533080575381215678, guid: e210bf8af825f8249ab40c0fb34da7e1, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: -3782369888599324051, guid: 1d6659e2b69ae9e428edc5b60b785df2, type: 3}
+    - m_Name: FastEnemy_Attack_02_0
+      m_Hash: 782434251
+      m_Sprite: {fileID: -8902029471044227509, guid: 2e1d5bd76280a9043b6a374ce160862f, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 7110847976324352498, guid: d9f36ac273f5f574f8f80138e1001d58, type: 3}
+    - m_Name: FastEnemy_Attack_03_0
+      m_Hash: 794859004
+      m_Sprite: {fileID: 1034731870616267998, guid: 13a7c3ac33b7f9c458c692fab2d69000, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 9077145772179492341, guid: ff94b9cc9607083479452312b6410362, type: 3}
+    - m_Name: FastEnemy_Attack_04_0
+      m_Hash: 707756921
+      m_Sprite: {fileID: 3405298630350061462, guid: 01eaaa416cc7e9244b53ae8f31d96b1a, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 6005780580797152594, guid: 109d5f332f5a88d46a97b7cea8a4a251, type: 3}
     m_FromMain: 1
-    m_EntryOverrideCount: 0
+    m_EntryOverrideCount: 4
   m_PrimaryLibraryGUID: 6e892d66820fe194ab2862b9e92a7977
-  m_ModificationHash: 639230963861522532
+  m_ModificationHash: 639242010490856440
   m_Version: 1

@@ -15,12 +15,21 @@ MonoBehaviour:
   _id: soldier_grenade
   _name: Grenade
   _type: 3
-  _fireMode: 0
   _icon: {fileID: -2539149618839620213, guid: b9518af61e8f58b428bdfd3e7a702c6a, type: 3}
   _projectilePrefab: {fileID: 8053201812717553051, guid: 137e2cae1eb9e294eab573e3517f3f44, type: 3}
   _playerSpriteLibrary: {fileID: 7108339969198208228, guid: 7fa0862f63ad8a646839f532572a45d7, type: 3}
+  _characterSelectPreviewScale: 0.7
+  _characterSelectPreviewOffset: {x: 0, y: 0}
   _baseDamage: 10
   _baseCooltime: 1
+  _maximumChargeCount: 3
+  _chargeRecoveryTime: 5
+  _chargeRecoveryUpgradeValue: 0.5
+  _minimumChargeRecoveryTime: 1
+  _shieldMaxHealth: 100
+  _shieldRecoveryPerSecond: 5
+  _shieldRepairAmount: 100
+  _shieldRecoveryUpgradeValue: 1
   _price: 500
   _requiredCharacterLevel: 5
   _isInitiallyOwned: 0

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,6 +20,9 @@ public class AchievementWindowView : MonoBehaviour
 
     // 업적창 뒤에 표시되는 검은색 반투명 배경이다.
     [SerializeField] Image _dimmedBackgroundImage;
+
+    // 업적창 우측 상단에 현재 보유 골드를 표시하는 텍스트다.
+    [SerializeField] TMP_Text _currentGoldText;
 
     [Header("업적 슬롯 생성")]
 
@@ -53,12 +57,57 @@ public class AchievementWindowView : MonoBehaviour
 
     private void Awake()
     {
-        // 인스펙터에서 설정한 어두운 배경의 알파값을 저장한다.
+        // 업적창의 필수 UI 연결을 확인한다.
+        if (_achievementWindow == null ||
+            _achievementWindowCanvasGroup == null ||
+            _dimmedBackgroundImage == null)
+        {
+            throw new InvalidOperationException(
+                $"{name}의 업적창 UI 연결이 빠졌습니다.");
+        }
+
+        // 처음 활성화될 때 Inspector의 배경 투명도를 저장한다.
+        // 여기서는 오브젝트를 켜거나 끄지 않는다.
         _dimmedTargetAlpha =
             _dimmedBackgroundImage.color.a;
+    }
 
-        // 메인메뉴가 시작될 때 업적창 전체를 숨긴다.
-        gameObject.SetActive(false);
+    /// <summary>
+    /// 업적창이 활성화될 때 현재 골드를 표시하고
+    /// 이후 발생하는 골드 변경 이벤트를 구독한다.
+    /// </summary>
+    private void OnEnable()
+    {
+        if (_currentGoldText == null)
+        {
+            throw new InvalidOperationException(
+                $"{name}의 AchievementWindowView에 Current Gold Text가 연결되지 않았습니다.");
+        }
+
+        if (SaveManager.Instance == null)
+        {
+            throw new InvalidOperationException(
+                "현재 골드를 표시할 SaveManager가 존재하지 않습니다.");
+        }
+
+        // 업적 보상 수령 등으로 골드가 변경되면
+        // 열린 업적창의 숫자도 즉시 갱신한다.
+        SaveManager.Instance.GoldChanged +=
+            UpdateCurrentGoldText;
+
+        // 창을 다시 열었을 때 저장된 최신 골드를 바로 표시한다.
+        UpdateCurrentGoldText(
+            SaveManager.Instance.CurrentGold);
+    }
+
+    /// <summary>
+    /// SaveManager가 전달한 현재 보유 골드를 화면에 표시한다.
+    /// </summary>
+    private void UpdateCurrentGoldText(int currentGold)
+    {
+        // 1000 이상의 숫자는 1,000 형식으로 표시한다.
+        _currentGoldText.text =
+            currentGold.ToString("N0");
     }
 
     /// <summary>
@@ -227,6 +276,13 @@ public class AchievementWindowView : MonoBehaviour
 
     private void OnDisable()
     {
+        // 업적창이 닫힌 뒤에는 골드 변경 이벤트 호출을 받지 않는다.
+        if (SaveManager.Instance != null)
+        {
+            SaveManager.Instance.GoldChanged -=
+                UpdateCurrentGoldText;
+        }
+
         // 비활성화될 때 남아 있는 Tween을 정리한다.
         _windowTween?.Kill();
         _windowTween = null;

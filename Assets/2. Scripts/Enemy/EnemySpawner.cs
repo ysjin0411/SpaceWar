@@ -1,48 +1,89 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 현재 스테이지에서 사용할 적 생성 패턴을 선택하고 실행한다.
-/// 구체적인 적 종류와 배치 방식은 EnemySpawnPattern 자식 클래스가 담당한다.
+/// 전투 구간에 맞는 간격으로 일반 적 패턴을 선택한다.
+/// 보스 특수패턴 중에는 새 생성과 순차 생성 예약을 중단한다.
 /// </summary>
 public class EnemySpawner : MonoBehaviour
 {
-    [Header("적 생성 패턴")]
-
+    // 현재 스테이지에서 사용할 일반 적 패턴 목록이다.
     [SerializeField]
     List<EnemySpawnPattern> _patterns =
-        new List<EnemySpawnPattern>(); // 현재 스테이지에서 사용할 패턴 에셋 목록
+        new List<EnemySpawnPattern>();
 
-    [Header("스테이지 참조")]
+    // 현재 스테이지 전투 구간을 확인한다.
+    [SerializeField] StageFlowManager _stageFlowManager;
 
-    [SerializeField]
-    StageFlowManager _stageFlowManager; // 일반 전투와 보스 전투 구간을 구분하는 관리자
+    // 생성된 보스와 특수패턴 이벤트를 연결한다.
+    [SerializeField] BossEncounterManager _bossEncounterManager;
 
-    [Header("패턴 실행 설정")]
-
+    // 일반 전투 구간에서 패턴을 선택하는 간격이다.
     [Min(0.1f)]
-    [SerializeField]
-    float _patternCoolTime = 3f; // 서로 다른 패턴을 실행하는 공통 시간 간격
+    [SerializeField] float _patternCoolTime = 3f;
 
-    // 다음 패턴을 실행하기까지 누적된 시간
+    // 보스 전투 구간에서 패턴을 선택하는 별도의 간격이다.
+    [Min(0.1f)]
+    [SerializeField] float _bossPatternCoolTime = 6f;
+
+    // 다음 패턴 선택까지 누적된 시간이다.
     float _timer;
 
-    // StageManager로부터 필요한 런타임 정보를 전달받았는지 확인
+    // 플레이어와 패턴 선택기의 초기화가 끝났는지 확인한다.
     bool _isInitialized;
 
-    // 현재 일반 적 패턴을 생성할 수 있는 전투 구간인지 확인
+    // 현재 일반 적 생성을 진행 중인지 확인한다.
     bool _isSpawning;
 
-    // 현재 플레이어와 GameManager를 패턴에 전달하는 실행 컨텍스트
+    // 이벤트를 구독 중인 보스다.
+    BossEnemy _boundBoss;
+
+    // 패턴에 전달할 생성 정보다.
     EnemySpawnContext _spawnContext;
 
-    // 패턴별 쿨다운 관리와 가중치 선택을 담당하는 선택기
+    // 기존 가중치 선택과 패턴별 쿨다운을 담당한다.
     EnemySpawnPatternSelector _patternSelector;
 
+    // 현재 구간이 중간보스 또는 최종보스 전투인지 확인한다.
+    bool IsBossBattle =>
+        _stageFlowManager.CurrentPhase == StagePhase.MidBossBattle ||
+        _stageFlowManager.CurrentPhase == StagePhase.FinalBossBattle;
+
+    private void Awake()
+    {
+        // 필수 참조 누락을 실행 시작 시 알려준다.
+        if (_stageFlowManager == null ||
+            _bossEncounterManager == null)
+        {
+            throw new InvalidOperationException(
+                $"{name}: StageFlowManager와 BossEncounterManager를 연결하세요.");
+        }
+    }
+
+    private void OnEnable()
+    {
+        // 구간 변경과 새 보스 생성을 감지한다.
+        _stageFlowManager.PhaseChanged += HandlePhaseChanged;
+        _bossEncounterManager.BossSpawned += HandleBossSpawned;
+
+        // 스포너가 나중에 활성화되어도 현재 보스에 연결한다.
+        HandleBossSpawned(_bossEncounterManager.CurrentBoss);
+    }
+
+    private void OnDisable()
+    {
+        // 비활성화 시 외부 이벤트와 생성 예약을 정리한다.
+        _stageFlowManager.PhaseChanged -= HandlePhaseChanged;
+        _bossEncounterManager.BossSpawned -= HandleBossSpawned;
+
+        UnbindBoss();
+        StopSpawning();
+    }
+
     /// <summary>
-    /// StageManager로부터 현재 플레이어와 GameManager를 전달받고
-    /// 패턴 실행에 필요한 런타임 객체를 생성한다.
+    /// StageManager가 플레이어 생성 후 호출한다.
     /// </summary>
     public void Initialize(
         PlayerController playerController,
@@ -50,145 +91,214 @@ public class EnemySpawner : MonoBehaviour
     {
         if (playerController == null)
         {
-            throw new ArgumentNullException(
-                nameof(playerController));
+            throw new ArgumentNullException(nameof(playerController));
         }
 
         if (gameManager == null)
         {
-            throw new ArgumentNullException(
-                nameof(gameManager));
+            throw new ArgumentNullException(nameof(gameManager));
         }
 
-        if (_stageFlowManager == null)
-        {
-            throw new InvalidOperationException(
-                "EnemySpawner에 StageFlowManager가 연결되지 않았습니다.");
-        }
-
-        // 현재 스테이지 정보를 패턴에 전달할 실행 컨텍스트를 만든다.
+        // 순차 생성 코루틴은 이 스포너에서 관리한다.
         _spawnContext = new EnemySpawnContext(
             playerController,
-            gameManager);
+            gameManager,
+            RunPatternSequence);
 
-        // Inspector에 등록된 패턴 에셋들로 범용 선택기를 만든다.
-        // 목록이 비었거나 중복된 패턴이 있으면 선택기 생성 시 예외가 발생한다.
-        _patternSelector = new EnemySpawnPatternSelector(
-            _patterns);
-
-        // 새로운 스테이지 실행이므로 공통 패턴 타이머를 초기화한다.
-        _timer = 0f;
+        _patternSelector = new EnemySpawnPatternSelector(_patterns);
 
         _isInitialized = true;
 
-        // 초기화 시점이 일반 전투 구간이라면 바로 패턴 생성을 허용한다.
-        _isSpawning =
-            _stageFlowManager.CurrentPhase == StagePhase.Section1 ||
-            _stageFlowManager.CurrentPhase == StagePhase.Section2;
+        // 초기화 시점의 전투 구간과 보스 상태를 적용한다.
+        RefreshSpawningState();
     }
 
     private void Update()
     {
-        // 초기화 전이거나 보스 관련 구간이면 일반 적을 생성하지 않는다.
-        if (!_isInitialized || !_isSpawning)
+        if (!_isInitialized)
         {
             return;
         }
 
-        // 일반 전투 중에만 패턴별 남은 쿨다운을 감소시킨다.
-        _patternSelector.UpdateCooldowns(
-            Time.deltaTime);
+        // 보스의 사망은 사망 애니메이션 완료 이벤트보다 먼저 발생한다.
+        // 생성 직전에도 상태를 확인하여 사망 연출 중 생성을 막는다.
+        RefreshSpawningState();
 
-        // 다음 패턴을 실행하기 위한 공통 시간을 누적한다.
+        if (!_isSpawning || Time.deltaTime <= 0f)
+        {
+            return;
+        }
+
+        // 생성이 허용된 동안에만 패턴별 쿨다운을 감소시킨다.
+        _patternSelector.UpdateCooldowns(Time.deltaTime);
         _timer += Time.deltaTime;
 
-        if (_timer < _patternCoolTime)
+        // 전투 구간에 맞는 공통 생성 간격을 사용한다.
+        float interval = IsBossBattle
+            ? _bossPatternCoolTime
+            : _patternCoolTime;
+
+        if (_timer < interval)
         {
             return;
         }
 
-        // 모든 패턴이 개별 쿨다운 중이면
-        // 공통 타이머를 유지하고 다음 프레임에 다시 선택을 시도한다.
+        // 모든 패턴이 쿨다운 중이면 선택 가능한 시점까지 기다린다.
         if (!_patternSelector.TrySelect(
             out EnemySpawnPatternRuntimeState selectedState))
         {
             return;
         }
 
-        // 선택된 패턴이 자신에게 설정된 적과 대형을 생성한다.
-        selectedState.Pattern.Execute(
-            _spawnContext);
-
-        // 패턴 실행이 정상적으로 끝난 뒤 개별 쿨다운을 시작한다.
+        selectedState.Pattern.Execute(_spawnContext);
         selectedState.StartCooldown();
 
-        // 다음 패턴 실행 간격을 처음부터 측정한다.
         _timer = 0f;
     }
 
-    private void OnEnable()
-    {
-        // 스테이지 전투 구간 변경을 감지한다.
-        if (_stageFlowManager != null)
-        {
-            _stageFlowManager.PhaseChanged +=
-                HandlePhaseChanged;
-        }
-    }
-
-    private void OnDisable()
-    {
-        // 비활성화되거나 씬이 종료될 때 이벤트 구독을 해제한다.
-        if (_stageFlowManager != null)
-        {
-            _stageFlowManager.PhaseChanged -=
-                HandlePhaseChanged;
-        }
-    }
-
     /// <summary>
-    /// 스테이지 구간에 따라 일반 적 생성을 시작하거나 중단한다.
+    /// 현재 구간과 보스 상태로 생성 허용 여부를 판단한다.
     /// </summary>
-    private void HandlePhaseChanged(
-        StagePhase phase)
+    private bool CanSpawn()
     {
-        switch (phase)
+        if (!_isInitialized || !isActiveAndEnabled)
         {
-            case StagePhase.Section1:
-            case StagePhase.Section2:
-                StartSpawning();
-                break;
+            return false;
+        }
 
-            default:
-                StopSpawning();
-                break;
+        StagePhase phase = _stageFlowManager.CurrentPhase;
+
+        if (phase == StagePhase.Section1 ||
+            phase == StagePhase.Section2)
+        {
+            return true;
+        }
+
+        if (!IsBossBattle)
+        {
+            return false;
+        }
+
+        // 보스가 실제로 존재하고 살아 있으며 특수패턴 중이 아니어야 한다.
+        return _boundBoss != null &&
+               _boundBoss.isActiveAndEnabled &&
+               !_boundBoss.IsDead &&
+               !_boundBoss.IsSpecialPatternRunning;
+    }
+
+    /// <summary>
+    /// 허용 상태가 바뀔 때만 생성 타이머를 변경한다.
+    /// </summary>
+    private void RefreshSpawningState()
+    {
+        bool canSpawn = CanSpawn();
+
+        if (canSpawn == _isSpawning)
+        {
+            return;
+        }
+
+        if (canSpawn)
+        {
+            StartSpawning();
+        }
+        else
+        {
+            StopSpawning();
         }
     }
 
     /// <summary>
-    /// 새로운 일반 전투 구간의 적 생성을 시작한다.
+    /// 새로운 스테이지 구간에서는 쿨다운과 생성 예약을 초기화한다.
+    /// </summary>
+    private void HandlePhaseChanged(StagePhase phase)
+    {
+        StopSpawning();
+
+        if (!_isInitialized)
+        {
+            return;
+        }
+
+        _patternSelector.ResetCooldowns();
+        RefreshSpawningState();
+    }
+
+    /// <summary>
+    /// 새 보스의 특수패턴 상태 이벤트를 연결한다.
+    /// </summary>
+    private void HandleBossSpawned(BossEnemy boss)
+    {
+        UnbindBoss();
+        _boundBoss = boss;
+
+        if (_boundBoss != null)
+        {
+            _boundBoss.SpecialPatternStateChanged +=
+                HandleSpecialPatternStateChanged;
+        }
+
+        RefreshSpawningState();
+    }
+
+    /// <summary>
+    /// 특수패턴 시작 시 즉시 중단하고 종료 시 생성 간격을 다시 측정한다.
+    /// </summary>
+    private void HandleSpecialPatternStateChanged(bool isRunning)
+    {
+        // 전달된 값만으로 재개하지 않고 현재 구간과 사망 여부도 확인한다.
+        RefreshSpawningState();
+    }
+
+    /// <summary>
+    /// 이전 보스의 이벤트 연결을 해제한다.
+    /// </summary>
+    private void UnbindBoss()
+    {
+        if (_boundBoss != null)
+        {
+            _boundBoss.SpecialPatternStateChanged -=
+                HandleSpecialPatternStateChanged;
+        }
+
+        _boundBoss = null;
+    }
+
+    /// <summary>
+    /// 현재 구간의 생성 간격을 처음부터 측정한다.
+    /// 특수패턴 종료 시 개별 패턴 쿨다운은 보존한다.
     /// </summary>
     public void StartSpawning()
     {
-        // 새로운 전투 구간에서는 공통 생성 시간을 초기화한다.
-        _timer = 0f;
-
-        // 중간보스 이후 Section2가 시작될 때
-        // 이전 전투 구간에서 남은 패턴 쿨다운을 초기화한다.
-        if (_patternSelector != null)
+        if (!CanSpawn() || _isSpawning)
         {
-            _patternSelector.ResetCooldowns();
+            return;
         }
 
+        _timer = 0f;
         _isSpawning = true;
     }
 
     /// <summary>
-    /// 보스 경고와 보스 전투 중 일반 적 생성을 중단한다.
+    /// 생성 예약을 취소한다. 이미 생성된 적은 유지한다.
     /// </summary>
     public void StopSpawning()
     {
         _timer = 0f;
         _isSpawning = false;
+        StopAllCoroutines();
+    }
+
+    /// <summary>
+    /// 현재 생성 가능한 경우에만 순차 생성 작업을 시작한다.
+    /// </summary>
+    private void RunPatternSequence(IEnumerator sequence)
+    {
+        if (!_isSpawning || !CanSpawn())
+        {
+            return;
+        }
+
+        StartCoroutine(sequence);
     }
 }

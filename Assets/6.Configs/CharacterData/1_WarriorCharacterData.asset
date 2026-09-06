@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: warrior
   _name: Warrior
-  _icon: {fileID: -2279906556192051760, guid: ae30658ea3332654d833b84732795ba0, type: 3}
+  _icon: {fileID: 21300000, guid: 609365fb3128cfe4198583b7b2b9f143, type: 3}
   _characterPrefab: {fileID: 2428776216360149604, guid: 6d969288588f042429e14718bc64d8b9, type: 3}
   _baseHp: 100
   _baseMoveSpeed: 13

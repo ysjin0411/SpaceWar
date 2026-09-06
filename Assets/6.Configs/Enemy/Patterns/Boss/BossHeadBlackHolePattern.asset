@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0760241bf367657438f14b4869ca46fc, type: 3}
+  m_Name: BossHeadBlackHolePattern
+  m_EditorClassIdentifier: 
+  _pauseRandomMovement: 1
+  _systemMessage: "Warning: \uBCF4\uC2A4\uAC00 \uAC15\uB825\uD55C \uBE14\uB799\uD640\uC744
+    \uC0DD\uC131\uC911\uC785\uB2C8\uB2E4!"
+  _moveToSpawnDuration: 0.6
+  _blackHolePrefab: {fileID: 5597254653187957715, guid: 619e142de6f34be4183fc5711ae1ee6e, type: 3}
+  _usePlayerRelativeTarget: 1
+  _playerTargetOffset: {x: 0.8, y: 0}
+  _worldTargetPosition: {x: -2, y: 0}
+  _settings:
+    TravelDuration: 1
+    FlightScaleRatio: 0.01
+    ExpandDuration: 0.5
+    ActiveDuration: 5
+    PullSpeed: 2.5
+    DamageInterval: 0.5
+    Damage: 10
+    RotationSpeed: 270
+    FadeDuration: 0.5

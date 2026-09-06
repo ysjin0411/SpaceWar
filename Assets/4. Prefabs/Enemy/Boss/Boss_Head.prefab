@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3766248222689466274}
   - component: {fileID: 5749066858517489700}
   - component: {fileID: 7177751443503475103}
-  - component: {fileID: 261352376430753549}
+  - component: {fileID: 4946798264728334600}
   m_Layer: 8
   m_Name: Renderer
   m_TagString: Untagged
@@ -72,7 +72,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: d13dbfd7e1be08f4895957cb655d9b22, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -156,7 +156,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &261352376430753549
+--- !u!114 &4946798264728334600
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -165,9 +165,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5750769060912991443}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11f93a0b005be95419f26bcc01c975db, type: 3}
+  m_Script: {fileID: 11500000, guid: 2ff8460f61add584b97e9c5b71cff55e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _flashStrength: 0.55
+  _flashDuration: 0.08
 --- !u!1 &6958316962597483750
 GameObject:
   m_ObjectHideFlags: 0
@@ -217,10 +219,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bossName: Boss_Head
+  _bossIcon: {fileID: 21300000, guid: 463669100b05b044c8ffffb691d2c7a8, type: 3}
+  _firePoint: {fileID: 8735207689797437126}
   _maxHp: 100
   _crashDamage: 0
   _currentHp: 100
   _isDead: 0
+  _isControllable: 0
+  _moveSpeed: 2
+  _movementHalfRange: {x: 2, y: 3}
+  _arrivalDistance: 0.1
+  _normalPatternFirstDelay: 2
+  _normalPatternInterval: 2
+  _previousPatternWeightMultiplier: 0.1
+  _timedPatternEntries:
+  - _pattern: {fileID: 11400000, guid: 78f7af7718e744d4fbb537b663305b1c, type: 2}
+    _weight: 10
+  - _pattern: {fileID: 11400000, guid: 2c88e89dc62ddb7408ee1a3d56d0bdc3, type: 2}
+    _weight: 10
+  _healthSpecialPatternEntries:
+  - _healthPercent: 90
+    _pattern: {fileID: 11400000, guid: 4bac8dca52e82854cb02f785c34a33b4, type: 2}
+  - _healthPercent: 80
+    _pattern: {fileID: 11400000, guid: 6cd747d5da82eee45baa2a87f037ee72, type: 2}
+  - _healthPercent: 70
+    _pattern: {fileID: 11400000, guid: 5bb0701b05ed80f46bf1e6523006abae, type: 2}
 --- !u!50 &486255449174284901
 Rigidbody2D:
   serializedVersion: 5

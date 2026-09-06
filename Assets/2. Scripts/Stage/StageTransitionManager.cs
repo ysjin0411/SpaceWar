@@ -266,6 +266,9 @@ public class StageTransitionManager : MonoBehaviour
         {
             _backgroundScroller.StopScrolling();
 
+            // 새 배경을 보여주기 전에 이전 구간의 적과 공격을 정리한다.
+            ClearPreviousSectionEnemies();
+
             _backgroundScroller.ChangeBackground(
                 _section2BackgroundSprite);
 
@@ -301,5 +304,58 @@ public class StageTransitionManager : MonoBehaviour
         });
 
         _playerMoveTween = transitionSequence;
+    }
+
+    /// <summary>
+    /// 배경 교체 순간 이전 구간의 일반 적과 적 공격을 제거한다.
+    /// 처치가 아니므로 피해·사망·보상 처리를 호출하지 않는다.
+    /// </summary>
+    private void ClearPreviousSectionEnemies()
+    {
+        // 먼저 적을 중단시켜 더 이상 공격하지 못하게 한다.
+        RemoveSectionObjects<Enemy>();
+
+        // 이미 발사된 일반 적·보스의 총알을 제거한다.
+        RemoveSectionObjects<EnemyBullet>();
+
+        // 남아 있는 보스 레이저와 레이저 경고도 정리한다.
+        RemoveSectionObjects<BossLaserBeam>();
+        RemoveSectionObjects<BossLaserWarning>();
+
+        // 이전 맵의 블랙홀과 플레이어에게 적용한 흡인도 정리한다.
+        RemoveSectionObjects<BossBlackHole>();
+    }
+
+    /// <summary>
+    /// 현재 스테이지 씬에 속한 지정 종류의 오브젝트를 제거한다.
+    /// 맵 교체 시 한 번만 검색하며 비활성 오브젝트도 포함한다.
+    /// </summary>
+    private void RemoveSectionObjects<T>() where T : Component
+    {
+        // 제거 순서는 중요하지 않으므로 정렬 비용을 생략한다.
+        T[] targets = UnityEngine.Object.FindObjectsByType<T>(
+            FindObjectsInactive.Include,
+            FindObjectsSortMode.None);
+
+        foreach (T target in targets)
+        {
+            if (target == null)
+            {
+                continue;
+            }
+
+            // 다른 씬의 오브젝트는 정리 대상에서 제외한다.
+            if (target.gameObject.scene != gameObject.scene)
+            {
+                continue;
+            }
+
+            // Destroy는 프레임 끝에 처리되므로 먼저 비활성화한다.
+            // 같은 프레임의 추가 공격·충돌·표시를 즉시 중단한다.
+            target.gameObject.SetActive(false);
+
+            // 처치 이벤트를 거치지 않고 오브젝트만 제거한다.
+            Destroy(target.gameObject);
+        }
     }
 }

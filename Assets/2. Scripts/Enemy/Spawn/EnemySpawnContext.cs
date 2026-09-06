@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using System.Collections;
 
 /// <summary>
 /// 적 패턴 실행에 필요한 현재 스테이지 정보를 전달하고
@@ -13,25 +14,35 @@ public sealed class EnemySpawnContext
     // 적 보상 처리 등에 사용하는 현재 스테이지 GameManager
     public GameManager GameManager { get; }
 
+    // 순차 생성 작업을 스포너에 전달하는 함수다.
+    readonly Action<IEnumerator> _runSequence;
+
     /// <summary>
-    /// EnemySpawner가 현재 스테이지의 런타임 참조를 전달한다.
+    /// 스테이지 참조와 순차 생성 실행 함수를 전달받는다.
     /// </summary>
-    public EnemySpawnContext(PlayerController playerController, GameManager gameManager)
+    public EnemySpawnContext(
+        PlayerController playerController,
+        GameManager gameManager,
+        Action<IEnumerator> runSequence)
     {
         if (playerController == null)
         {
-            throw new ArgumentNullException(
-                nameof(playerController));
+            throw new ArgumentNullException(nameof(playerController));
         }
 
         if (gameManager == null)
         {
-            throw new ArgumentNullException(
-                nameof(gameManager));
+            throw new ArgumentNullException(nameof(gameManager));
+        }
+
+        if (runSequence == null)
+        {
+            throw new ArgumentNullException(nameof(runSequence));
         }
 
         PlayerController = playerController;
         GameManager = gameManager;
+        _runSequence = runSequence;
     }
 
     /// <summary>
@@ -53,5 +64,20 @@ public sealed class EnemySpawnContext
         spawnedEnemy.Init(PlayerController, GameManager);
 
         return spawnedEnemy;
+    }
+
+
+
+    /// <summary>
+    /// 패턴이 만든 생성 순서를 스포너에서 실행한다.
+    /// </summary>
+    public void RunSequence(IEnumerator sequence)
+    {
+        if (sequence == null)
+        {
+            throw new ArgumentNullException(nameof(sequence));
+        }
+
+        _runSequence(sequence);
     }
 }

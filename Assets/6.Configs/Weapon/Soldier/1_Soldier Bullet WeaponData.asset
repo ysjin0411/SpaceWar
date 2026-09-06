@@ -18,9 +18,13 @@ MonoBehaviour:
   _fireMode: 0
   _icon: {fileID: 21300000, guid: fbb1d6579247c3d4299254b726829415, type: 3}
   _projectilePrefab: {fileID: 7794189853625743750, guid: 2d881fa82784d894ea1a6dc6c2743bb5, type: 3}
-  _playerSpriteLibrary: {fileID: 0}
+  _playerSpriteLibrary: {fileID: 7108339969198208228, guid: 4d52b8326e59c6d46aed91038b4df258, type: 3}
   _baseDamage: 10
   _baseCooltime: 0.5
+  _maximumChargeCount: 0
+  _chargeRecoveryTime: 5
+  _chargeRecoveryUpgradeValue: 0.5
+  _minimumChargeRecoveryTime: 1
   _price: 0
   _requiredCharacterLevel: 1
   _isInitiallyOwned: 1

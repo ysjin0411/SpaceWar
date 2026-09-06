@@ -15,6 +15,12 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
     // 각 보스 프리팹의 인스펙터에서 설정한다.
     [SerializeField] string _bossName;
 
+    // 스테이지 선택 화면 등에 표시할 보스 초상화.
+    [SerializeField] Sprite _bossIcon;
+
+    // [추가] 각 보스의 투사체와 레이저가 시작되는 위치다.
+    [SerializeField] Transform _firePoint;
+
     [Header("보스 체력 설정")]
     [Tooltip("보스의 최대 체력")]
     [Min(1)][SerializeField] int _maxHp = 100;
@@ -23,6 +29,9 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
     [Tooltip("보스와 플레이어가 충돌했을 때 주는 피해")]
     [Min(0)]
     [SerializeField] int _crashDamage;
+
+    // 현재 실제로 특수패턴을 실행 중인지 나타낸다.
+    public bool IsSpecialPatternRunning { get; private set; }
 
     // 현재 패턴이 전달한 접촉 피해량이다.
     int _patternCrashDamage;
@@ -39,6 +48,10 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
 
     // 사망 완료 처리가 중복 실행되는 것을 방지한다.
     bool _isDefeatCompleted;
+
+
+    // true는 특수패턴 시작, false는 종료 또는 취소를 의미한다.
+    public event Action<bool> SpecialPatternStateChanged;
 
     [Header("보스 런타임 데이터")]
     [Tooltip("현재 보스 체력")]
@@ -123,6 +136,12 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
     // 외부 UI에서 보스 이름을 읽을 수 있도록 제공한다.
     public string BossName => _bossName;
 
+    // 보스를 실제로 생성하지 않고도 프리팹에서 아이콘을 읽을 수 있다.
+    public Sprite BossIcon => _bossIcon;
+
+    // 모든 보스 패턴이 공통으로 사용하는 발사 위치다.
+    public Transform FirePoint => _firePoint;
+
     // 패턴에서 보스의 원래 스폰 위치를 사용할 수 있게 제공한다.
     public Vector2 MovementCenter =>
         _randomMover.MovementCenter;
@@ -136,6 +155,13 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
         {
             throw new InvalidOperationException(
                 $"{name} 보스 프리팹에 Boss Name이 설정되지 않았습니다.");
+        }
+
+        // [추가] 모든 보스가 자신의 발사 위치를 연결했는지 검사한다.
+        if (_firePoint == null)
+        {
+            throw new InvalidOperationException(
+                $"{name}: FirePoint를 연결하세요.");
         }
 
         // 보스가 생성되면 최대 체력으로 초기화한다.
@@ -554,5 +580,24 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
     {
     }
 
+    /// <summary>
+    /// 패턴 실행기가 실제 특수패턴 시작·종료 시 호출한다.
+    /// 스포너 등 외부 시스템은 이 이벤트로 동작을 변경한다.
+    /// </summary>
+    public void SetSpecialPatternRunning(bool isRunning)
+    {
+        // 같은 상태를 중복 통보하지 않는다.
+        if (IsSpecialPatternRunning == isRunning)
+        {
+            return;
+        }
+
+        IsSpecialPatternRunning = isRunning;
+
+        if (SpecialPatternStateChanged != null)
+        {
+            SpecialPatternStateChanged.Invoke(isRunning);
+        }
+    }
 
 }

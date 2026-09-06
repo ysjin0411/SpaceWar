@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e4ec852e771c414a8a355a1abc29769, type: 3}
+  m_Name: BossHeadLaserSweepPattern
+  m_EditorClassIdentifier: 
+  _pauseRandomMovement: 1
+  _systemMessage: "\uACE0\uCD9C\uB825 \uB808\uC774\uC800 \uAC10\uC9C0!"
+  _attackPosition: {x: 9, y: 4}
+  _moveDuration: 0.8
+  _aimPoint: {x: 9, y: -4}
+  _sweepAngle: -70
+  _sweepDuration: 1.2
+  _visualAngleOffset: 180
+  _laserPrefab: {fileID: 9194843137220612075, guid: 890fce0ffae65c949b92a3ce3ff558d6, type: 3}
+  _damage: 70
+  _warningPrefab: {fileID: 502168068402317170, guid: 64237d13f6f41594d99100637a947a97, type: 3}
+  _warningBlinkDuration: 0.5
+  _warningBlinkCount: 3
+  _returnDuration: 0.35

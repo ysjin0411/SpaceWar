@@ -230,7 +230,9 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void OpenUpgrade()
     {
-        if (_isUpgradeOpen)
+        // 다른 시스템이 게임을 정지한 동안에는 증강창을 열지 않는다.
+        // 게이지는 유지되므로 게임 재개 후 Update에서 다시 시도한다.
+        if (_isUpgradeOpen || Time.timeScale <= 0f)
         {
             return;
         }

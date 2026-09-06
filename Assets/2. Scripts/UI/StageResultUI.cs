@@ -3,6 +3,8 @@ using TMPro;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 /// <summary>
 /// 스테이지 클리어 결과를 화면에 표시하고 게임을 정지한다.
@@ -40,7 +42,7 @@ public class StageResultUI : MonoBehaviour
     Tween _resultWindowTween;
 
     // 버튼이 여러 번 눌려 씬 이동이 중복 실행되는 것을 방지한다.
-    bool _isReturningToStageSelect;
+    bool _isChangingScene;
 
     // 이번 스테이지에서 획득한 경험치를 표시한다.
     [SerializeField] TMP_Text _experienceValueText;
@@ -51,11 +53,39 @@ public class StageResultUI : MonoBehaviour
     // 이번 스테이지의 클리어 시간을 표시한다.
     [SerializeField] TMP_Text _clearTimeValueText;
 
+    // 성공·실패에 맞춰 문구를 바꿀 결과창 상단 텍스트
+    [SerializeField] TMP_Text _resultTitleText;
+
+    // 실패 시 숨길 Clear Time 설명 텍스트
+    [SerializeField] TMP_Text _clearTimeLabelText;
+
+    // 실패했을 때만 표시할 Restart 버튼 오브젝트
+    [SerializeField] GameObject _restartButton;
+
+    // 결과창에서 첫 방향키 입력으로 선택할 StageSelect 버튼
+    [SerializeField] Button _stageSelectButton;
+
     // 결과창이 중복으로 열리는 것을 방지한다.
     bool _isResultShown;
 
     private void Awake()
     {
+        // 키보드로 처음 선택할 버튼이 연결되어 있어야 한다.
+        if (_stageSelectButton == null)
+        {
+            throw new InvalidOperationException(
+                $"{name}에 StageSelect Button이 연결되지 않았습니다.");
+        }
+
+        // 성공·실패에 따라 변경할 UI 연결을 확인한다.
+        if (_resultTitleText == null ||
+            _clearTimeLabelText == null ||
+            _restartButton == null)
+        {
+            throw new InvalidOperationException(
+                $"{name}의 결과 제목, 시간 라벨, Restart 버튼 연결을 확인해주세요.");
+        }
+
         if (_stageFlowManager == null)
         {
             throw new InvalidOperationException(
@@ -97,7 +127,7 @@ public class StageResultUI : MonoBehaviour
         _isResultShown = false;
 
         // 아직 StageSelect로 이동 중인 상태가 아니다.
-        _isReturningToStageSelect = false;
+        _isChangingScene = false;
     }
 
     private void OnEnable()
@@ -116,114 +146,186 @@ public class StageResultUI : MonoBehaviour
     }
 
     /// <summary>
-    /// 스테이지가 Cleared 상태가 되면 결과창을 표시한다.
+    /// 결과창에서 선택된 버튼이 없으면 첫 방향키 입력으로
+    /// StageSelect 버튼을 선택한다.
+    /// 이후 이동과 확정은 EventSystem에 맡긴다.
     /// </summary>
-    private void HandlePhaseChanged(StagePhase phase)
+    private void LateUpdate()
     {
-        if (phase != StagePhase.Cleared ||
-            _isResultShown)
+        // 결과창이 열려 있고 씬 이동을 시작하지 않은 상태에서만 처리한다.
+        if (!_isResultShown ||
+            _isChangingScene ||
+            !_resultPanel.activeInHierarchy ||
+            EventSystem.current == null)
         {
             return;
         }
 
-        ShowResult();
+        GameObject selected =
+            EventSystem.current.currentSelectedGameObject;
+
+        // 결과창 내부의 유효한 버튼이 이미 선택되어 있으면 유지한다.
+        // 따라서 매번 StageSelect 버튼으로 선택이 되돌아가지 않는다.
+        if (selected != null &&
+            selected.transform.IsChildOf(_resultPanel.transform))
+        {
+            Button selectedButton = selected.GetComponent<Button>();
+
+            if (selectedButton != null &&
+                selectedButton.IsActive() &&
+                selectedButton.IsInteractable())
+            {
+                return;
+            }
+        }
+
+        // 위·아래·왼쪽·오른쪽 중 하나를 처음 누르면 기본 버튼을 선택한다.
+        bool arrowPressed =
+            Input.GetKeyDown(KeyCode.UpArrow) ||
+            Input.GetKeyDown(KeyCode.DownArrow) ||
+            Input.GetKeyDown(KeyCode.LeftArrow) ||
+            Input.GetKeyDown(KeyCode.RightArrow);
+
+        if (!arrowPressed)
+        {
+            return;
+        }
+
+        // 클릭할 수 있는 상태의 버튼만 선택한다.
+        if (!_stageSelectButton.IsActive() ||
+            !_stageSelectButton.IsInteractable())
+        {
+            return;
+        }
+
+        // EventSystem의 방향키 처리가 끝난 뒤 기본 선택을 설정한다.
+        // 첫 입력에는 이 버튼을 선택하고, 다음 입력부터 Navigation을 따른다.
+        _stageSelectButton.Select();
     }
 
     /// <summary>
-    /// 획득량과 클리어 시간을 표시하고 게임을 일시정지한다.
+    /// 클리어 또는 실패가 확정되면 결과창을 한 번 표시한다.
     /// </summary>
-    private void ShowResult()
+    private void HandlePhaseChanged(StagePhase phase)
+    {
+        if (_isResultShown)
+        {
+            return;
+        }
+
+        if (phase != StagePhase.Cleared &&
+            phase != StagePhase.Failed)
+        {
+            return;
+        }
+
+        ShowResult(phase == StagePhase.Cleared);
+    }
+
+    /// <summary>
+    /// 결과 종류에 맞는 문구와 획득량을 표시한다.
+    /// 클리어 기록은 성공했을 때만 저장한다.
+    /// </summary>
+    private void ShowResult(bool isCleared)
     {
         _isResultShown = true;
 
-        // 세이브 시스템이 준비되지 않았다면 기록을 저장할 수 없으므로 오류를 발생시킨다.
-        if (SaveManager.Instance == null)
+        // 결과창이 열린 동안 전투를 정지한다.
+        Time.timeScale = 0f;
+
+        float clearTime = _stageFlowManager.StageElapsedTime;
+
+        // 실패한 판의 시간은 클리어 기록에 저장하지 않는다.
+        if (isCleared)
         {
-            throw new InvalidOperationException(
-                "SaveManager가 존재하지 않습니다.");
+            if (SaveManager.Instance == null ||
+                GameSessionManager.Instance == null ||
+                AchievementManager.Instance == null)
+            {
+                throw new InvalidOperationException(
+                    "클리어 기록 저장에 필요한 매니저가 없습니다.");
+            }
+
+            int selectedStageIndex =
+                GameSessionManager.Instance.SelectedStageIndex;
+
+            if (selectedStageIndex < 0)
+            {
+                throw new InvalidOperationException(
+                    "선택된 스테이지 인덱스가 없습니다.");
+            }
+
+            // 기존 최단 클리어 기록 저장을 유지한다.
+            SaveManager.Instance.TryUpdateBestClearTime(
+                selectedStageIndex,
+                clearTime);
+
+            // 갱신된 클리어 기록에 따른 업적을 검사한다.
+            AchievementManager.Instance.EvaluateAllAchievements();
         }
 
-        // 현재 플레이 중인 스테이지 번호를 가져오기 위해 세션 매니저를 확인한다.
-        if (GameSessionManager.Instance == null)
-        {
-            throw new InvalidOperationException(
-                "GameSessionManager가 존재하지 않습니다.");
-        }
+        // 같은 결과창에서 제목만 변경한다.
+        _resultTitleText.text =
+            isCleared ? "Stage Clear" : "Stage Failed";
 
-        // StageSelect에서 선택했던 현재 스테이지 인덱스를 가져온다.
-        int selectedStageIndex =
-            GameSessionManager.Instance.SelectedStageIndex;
-
-        // 선택된 스테이지가 없는 상태라면 잘못된 게임 진입 흐름이다.
-        if (selectedStageIndex < 0)
-        {
-            throw new InvalidOperationException(
-                "선택된 스테이지 인덱스가 없습니다.");
-        }
-
-        // 결과 표시와 기록 저장에서 동일한 클리어 타임을 사용한다.
-        float clearTime =
-            _stageFlowManager.StageElapsedTime;
-
-        // 기존 기록보다 짧거나 첫 클리어인 경우에만 최단 기록을 저장한다.
-        SaveManager.Instance.TryUpdateBestClearTime(
-            selectedStageIndex,
-            clearTime);
-
-        // 새로 저장된 최단 기록을 기준으로
-        // 스테이지 클리어 시간 업적을 즉시 검사한다.
-        if (AchievementManager.Instance == null)
-        {
-            throw new InvalidOperationException(
-                "AchievementManager가 존재하지 않습니다.");
-        }
-
-        AchievementManager.Instance.EvaluateAllAchievements();
-
-        // 이번 스테이지에서 획득한 경험치와 골드를 표시한다.
+        // 실제로 지급된 이번 판의 획득량만 표시한다.
+        // 여기서 경험치나 골드를 다시 지급하지 않는다.
         _experienceValueText.text =
             _gameManager.StageEarnedExperience.ToString("N0");
 
         _goldValueText.text =
             _gameManager.StageEarnedGold.ToString("N0");
 
-        // 위에서 저장에 사용한 것과 동일한 클리어 타임을 화면 표시용 초로 변환한다.
-        int totalSeconds =
-            Mathf.FloorToInt(clearTime);
+        // 실패한 판에서는 클리어 시간 항목을 숨긴다.
+        _clearTimeLabelText.gameObject.SetActive(isCleared);
+        _clearTimeValueText.gameObject.SetActive(isCleared);
 
-        int minutes = totalSeconds / 60;
-        int seconds = totalSeconds % 60;
+        if (isCleared)
+        {
+            int totalSeconds = Mathf.FloorToInt(clearTime);
+            int minutes = totalSeconds / 60;
+            int seconds = totalSeconds % 60;
 
-        _clearTimeValueText.text =
-            $"{minutes:00}:{seconds:00}";
+            _clearTimeValueText.text =
+                $"{minutes:00}:{seconds:00}";
+        }
 
-        // 이전에 재생 중이던 결과창 애니메이션이 있다면 종료한다.
-        _resultWindowTween?.Kill();
+        // Restart는 실패 결과에서만 표시한다.
+        _restartButton.SetActive(!isCleared);
 
-        // 화면이 켜지기 전에 결과창을 위쪽 시작 위치로 옮긴다.
-        // ResultPanel 전체가 아니라 ResultWindow만 이동하므로 어두운 배경은 고정된다.
+        // 이전 결과창 연출이 남아 있다면 정리한다.
+        if (_resultWindowTween != null)
+        {
+            _resultWindowTween.Kill();
+            _resultWindowTween = null;
+        }
+
+        // 기존처럼 화면 위에서 결과창이 내려오게 한다.
         _resultWindow.anchoredPosition =
             _resultWindowRestPosition +
             Vector2.up * _dropStartOffsetY;
 
-        // 어두운 배경과 위쪽에 배치된 결과창을 활성화한다.
         _resultPanel.SetActive(true);
 
-        // 결과 화면이 열린 동안 실제 게임 진행을 정지한다.
-        Time.timeScale = 0f;
+        // 같은 Canvas의 일반 HUD보다 앞에 표시한다.
+        _resultPanel.transform.SetAsLastSibling();
 
-        // 결과창을 위쪽에서 원래 위치까지 떨어뜨린다.
+        // 이전에 선택했던 HUD 버튼의 선택을 해제한다.
+        if (UnityEngine.EventSystems.EventSystem.current != null)
+        {
+            UnityEngine.EventSystems.EventSystem.current
+                .SetSelectedGameObject(null);
+        }
+
         _resultWindowTween = _resultWindow
             .DOAnchorPos(
                 _resultWindowRestPosition,
                 _dropDuration)
-            // 도착 지점에서 약간 튕기며 착지하는 느낌을 만든다.
             .SetEase(Ease.OutBounce)
-            // Time.timeScale이 0이어도 UI 애니메이션이 재생되도록 한다.
+            // 게임이 정지해도 결과창 연출은 진행한다.
             .SetUpdate(true)
             .OnComplete(() =>
             {
-                // 종료된 Tween 참조를 정리한다.
                 _resultWindowTween = null;
             });
     }
@@ -235,15 +337,18 @@ public class StageResultUI : MonoBehaviour
     public void BackToStageSelect()
     {
         // 빠른 연속 클릭으로 씬 이동이 중복 실행되지 않도록 한다.
-        if (_isReturningToStageSelect)
+        if (_isChangingScene)
         {
             return;
         }
 
-        _isReturningToStageSelect = true;
+        _isChangingScene = true;
 
-        // 씬을 이동하기 전에 진행 중인 결과창 애니메이션을 종료한다.
-        _resultWindowTween?.Kill();
+        // 남아 있는 결과창 연출을 정리한다.
+        if (_resultWindowTween != null)
+        {
+            _resultWindowTween.Kill();
+        }
         _resultWindowTween = null;
 
         // 다음 씬까지 정지 상태가 이어지지 않도록 게임 시간을 복구한다.
@@ -260,10 +365,42 @@ public class StageResultUI : MonoBehaviour
         SceneManager.LoadScene("StageSelect");
     }
 
+    /// <summary>
+    /// 캐릭터와 스테이지 선택을 유지한 채 현재 판을 다시 시작한다.
+    /// </summary>
+    public void RestartStage()
+    {
+        // 결과가 표시되지 않았거나 이미 이동 중이면 무시한다.
+        if (!_isResultShown || _isChangingScene)
+        {
+            return;
+        }
+
+        _isChangingScene = true;
+
+        // 현재 결과창 연출을 정리한다.
+        if (_resultWindowTween != null)
+        {
+            _resultWindowTween.Kill();
+            _resultWindowTween = null;
+        }
+
+        // 다음 판이 정지 상태로 시작하지 않게 한다.
+        Time.timeScale = 1f;
+
+        // ResetSelection은 호출하지 않는다.
+        // 현재 선택한 캐릭터와 스테이지 정보가 재시작에 필요하다.
+        string scenePath = gameObject.scene.path;
+        SceneManager.LoadScene(scenePath);
+    }
+
     private void OnDestroy()
     {
-        // 씬이 종료될 때 살아 있는 Tween이 남지 않도록 정리한다.
-        _resultWindowTween?.Kill();
+        // 남아 있는 결과창 연출을 정리한다.
+        if (_resultWindowTween != null)
+        {
+            _resultWindowTween.Kill();
+        }
         _resultWindowTween = null;
     }
 }

@@ -1,16 +1,11 @@
 using UnityEngine;
 
-public class Slash : MonoBehaviour
+// 공격력, 수명, 적 명중 처리는 부모 Projectile을 사용한다.
+public class Slash : Projectile
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    // Weapon에서 전달받은 방향으로 일정한 속도로 이동한다.
+    protected override void MoveProjectile()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Body.linearVelocity = Direction * MoveSpeed;
     }
 }

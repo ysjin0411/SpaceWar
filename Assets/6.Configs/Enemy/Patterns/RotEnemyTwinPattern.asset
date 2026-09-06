@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b795bfd362c344a4b811225f184fe747, type: 3}
+  m_Name: RotEnemyTwinPattern
+  m_EditorClassIdentifier: 
+  _patternId: rot_twin
+  _weight: 10
+  _cooldown: 12
+  _enemyPrefab: {fileID: 3758209791310439026, guid: f3139fc20c4e7f641985a77a1d94f28f, type: 3}
+  _spawnInterval: 0.2
+  _upperCount: 5
+  _upperStart: {x: 1, y: 6}
+  _upperOffset: {x: 0.5, y: 0}
+  _upperEndY: 0.5
+  _lowerCount: 5
+  _lowerStart: {x: 1, y: -6}
+  _lowerOffset: {x: 0.5, y: 0}
+  _lowerEndY: -0.5
+  _settings:
+    EnterSpeed: 7
+    RetreatSpeed: 2
+    StayCenter: {x: 6, y: 0}
+    StayRadius: 2
+    WanderStep: 0.5
+    WanderSpeed: 0.8
+    WanderSmoothTime: 0.25
+    AttackDuration: 8
+    ExitSpeed: 4
+    ExitX: 11
+    AimPoint: {x: -6, y: 0}
+    SectorAngle: 60
+    SectorRadius: 5
+    BulletPrefab: {fileID: 1395107858575537321, guid: ddb96700977591f40b3eaba27a097cb7, type: 3}
+    BulletsPerShot: 5
+    ShotInterval: 0.6
+    BulletSpeed: 3
+    BulletDamage: 10

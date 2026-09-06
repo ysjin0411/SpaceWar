@@ -103,6 +103,9 @@ public class SystemDialogueUI : MonoBehaviour
 
         _dialogueSequence = DOTween.Sequence();
 
+        // 정신 혼란으로 게임이 멈춰 있어도 시스템 알림은 재생한다.
+        _dialogueSequence.SetUpdate(true);
+
         // 투명 상태에서 나타났다가 다시 사라지는 동작을
         // 설정된 점멸 횟수만큼 반복한다.
         _dialogueSequence.Append(

@@ -40,6 +40,11 @@ public class BossEncounterManager : MonoBehaviour
     // 외부에서 현재 보스를 확인할 때 사용한다.
     public BossEnemy CurrentBoss => _currentBoss;
 
+    // 에디터가 이 씬에 등록된 보스 배정을 읽을 때 사용한다.
+    // 실제 전투의 생성 방식은 기존 그대로 유지한다.
+    public BossEnemy MidBossPrefab => _midBossPrefab;
+    public BossEnemy FinalBossPrefab => _finalBossPrefab;
+
     // 새 보스가 생성되었을 때 생성된 보스를 UI에 전달한다.
     public event Action<BossEnemy> BossSpawned;
 

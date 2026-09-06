@@ -28,9 +28,6 @@ public class Weapon : MonoBehaviour
     // 무기가 바뀔 때 이 컴포넌트의 Sprite Library Asset을 교체한다.
     [SerializeField] SpriteLibrary _spriteLibrary;
 
-    [Header("테스트용 장착 무기")]
-    [Tooltip("세이브 연결 전 테스트할 때만 사용한다.")]
-    [SerializeField] WeaponData[] _testEquippedWeaponDatas;
 
     [Header("장착 무기 런타임 데이터")]
     [SerializeField] List<WeaponRuntimeState> _equippedWeapons = new();
@@ -42,6 +39,39 @@ public class Weapon : MonoBehaviour
     [Header("캐릭터 프리팹 내부 참조")]
     [Tooltip("투사체가 생성될 캐릭터 프리팹 내부 위치")]
     [SerializeField] Transform _firePoint;
+
+    // Soldier가 Grenade를 선택했을 때 표시할 포물선 조준선이다.
+    // Grenade가 없는 캐릭터에서는 비워둘 수 있다.
+    [SerializeField] GrenadeAimGuide _grenadeAimGuide;
+
+    // 워리어 Renderer 아래의 자이언트 소드 공격 판정.
+    // 솔져에서는 비워둔다.
+    [SerializeField] SpriteMeleeAttack _giantSword;
+
+    // 해머 공격 판정 오브젝트.
+    [SerializeField] SpriteMeleeAttack _hammer;
+
+    // 워리어 Renderer 아래 ShieldGuard에 붙인 실드 컴포넌트.
+    // 솔져에서는 비워둔다.
+    [SerializeField] Shield _shield;
+
+    // 워리어가 Slash 공격에 사용하는 Attack4 클립.
+    // 원본 재생 시간을 가져와 현재 공격 간격에 맞게 속도를 계산한다.
+    [SerializeField] AnimationClip _slashAttackClip;
+
+    // Slash의 한 번 휘두르기가 진행 중인지 기록한다.
+    bool _isSlashAttacking;
+
+    // Attack 상태의 속도 파라미터.
+    static readonly int AttackSpeedHash =
+        Animator.StringToHash("AttackSpeed");
+
+    // 워리어 기본 레이어의 공격·대기 상태.
+    static readonly int SlashAttackStateHash =
+        Animator.StringToHash("Base Layer.Attack");
+
+    static readonly int SlashIdleStateHash =
+        Animator.StringToHash("Base Layer.Idle");
 
     // StageManager가 런타임에 전달하는 Stage UI
     WeaponUI _weaponUI;
@@ -107,17 +137,6 @@ public class Weapon : MonoBehaviour
             throw new InvalidOperationException($"{name}의 Weapon에 FirePoint가 연결되지 않았습니다.");
         }
 
-        // 세이브 시스템 연결 전 테스트 데이터가 있다면 사용한다.
-        if (_testEquippedWeaponDatas != null && _testEquippedWeaponDatas.Length > 0)
-        {
-            InitializeWeapons(_testEquippedWeaponDatas);
-        }
-        else
-        {
-            // 테스트 무기가 없다면 빈 무기 상태로 시작한다.
-            _equippedWeapons.Clear();
-            _currentSlotIndex = -1;
-        }
     }
 
     /// <summary>
@@ -208,30 +227,94 @@ public class Weapon : MonoBehaviour
 
     private void Update()
     {
-        // 증강, Pause, 사망 등 인게임 시간이 멈춘 동안에는
-        // 공격과 TAB 무기 선택 입력을 처리하지 않는다.
+        // 일시정지 중에는 입력과 쿨타임을 진행하지 않는다.
+        // 진행 중인 검 공격의 Animator 파라미터는 유지한다.
         if (Time.timeScale <= 0f)
         {
-            // 정지 직전에 공격 중이었다면 Animator의 공격 상태도 해제한다.
-            _animator.SetBool(
-                AttackHash,
-                false);
-
             return;
         }
 
+        // 현재 선택 여부와 관계없이 장착 슬롯에 들어 있는
+        // 모든 충전형 무기의 회복 시간을 진행한다.
+        UpdateEquippedWeaponCharges(
+            Time.deltaTime);
+
+        // 현재 무기 아이콘과 Tab 장착 아이콘에
+        // Grenade 충전 진행도와 보유량을 표시한다.
+        UpdateWeaponChargeUI();
+
         _timer += Time.deltaTime;
 
-        // Z키를 누르고 있고 현재 무기가 있을 때 공격 상태가 된다.
-        bool isAttackHeld = Input.GetKey(KeyCode.Z) && CurrentWeapon != null;
+        // 현재 선택된 무기를 한 번만 가져와
+        // 이번 프레임의 입력 처리에 사용한다.
+        WeaponRuntimeState currentWeapon =
+            CurrentWeapon;
 
-        // 누르는 순간 Attack으로 전환되고 키를 떼는 프레임에 false가 되어 Idle로 돌아간다.
-        _animator.SetBool(AttackHash, isAttackHeld);
+        // 실제 Z 유지 입력을 읽는다.
+        bool isHeld = Input.GetKey(KeyCode.Z);
 
-        // Z키를 누르는 동안 기존 쿨타임에 따라 반복 발사한다.
-        if (isAttackHeld)
+        // 실드는 일반 발사와 별도로 자세를 제어한다.
+        bool isShield =
+            currentWeapon != null &&
+            currentWeapon.Data.Type == WeaponType.Shield;
+
+        // 검과 해머도 각 공격 컴포넌트가 애니메이션을 제어한다.
+        bool isSpriteMelee =
+            currentWeapon != null &&
+            (currentWeapon.Data.Type == WeaponType.GiantSword ||
+             currentWeapon.Data.Type == WeaponType.Hammer);
+
+        // Slash는 실제 발사 시점에 애니메이션을 시작한다.
+        bool isSlash =
+            currentWeapon != null &&
+            currentWeapon.Data.Type == WeaponType.Slash;
+
+
+        bool isAttackHeld =
+            isHeld &&
+            currentWeapon != null &&
+            currentWeapon.HasAvailableCharge;
+
+        if (isShield)
         {
-            Fire();
+            // 연결 누락은 바로 확인할 수 있도록 오류로 알린다.
+            if (_shield == null || !_shield.isActiveAndEnabled)
+            {
+                throw new InvalidOperationException(
+                    $"{name}: 활성화된 ShieldGuard의 Shield를 연결해야 합니다.");
+            }
+
+            // 선택된 실드의 체력 데이터와 입력을 전달한다.
+            _shield.Tick(
+                currentWeapon,
+                isHeld,
+                Time.deltaTime);
+        }
+        else
+        {
+            // 검·해머·Slash는 각 공격 시작과 종료가 애니메이션을 제어한다.
+            if (!isSpriteMelee && !isSlash)
+            {
+                _animator.SetBool(AttackHash, isAttackHeld);
+            }
+
+            if (currentWeapon != null)
+            {
+                if (currentWeapon.Data.Type == WeaponType.Grenade)
+                {
+                    // 수류탄은 누른 순간 한 번만 던진다.
+                    if (Input.GetKeyDown(KeyCode.Z) &&
+                        currentWeapon.HasAvailableCharge)
+                    {
+                        Fire();
+                    }
+                }
+                else if (isAttackHeld)
+                {
+                    // 나머지 공격 무기는 기존 발사 처리를 사용한다.
+                    Fire();
+                }
+            }
         }
 
         // Tab 입력 시 무기 선택 패널을 연다.
@@ -258,6 +341,56 @@ public class Weapon : MonoBehaviour
         {
             SelectWeaponSlot(2);
         }
+    }
+
+
+    /// <summary>
+    /// 현재 장착된 모든 무기의 충전 시간을 갱신한다.
+    /// 현재 선택한 슬롯뿐 아니라 장착된 세 슬롯 전체를 검사한다.
+    /// </summary>
+    private void UpdateEquippedWeaponCharges(
+        float deltaTime)
+    {
+        for (int slotIndex = 0;
+             slotIndex < _equippedWeapons.Count;
+             slotIndex++)
+        {
+            WeaponRuntimeState weapon =
+                _equippedWeapons[slotIndex];
+
+            // 비어 있는 장착 슬롯은 건너뛴다.
+            if (weapon == null)
+            {
+                continue;
+            }
+
+            // 일반 무기에서는 내부 검사를 통해 바로 반환하고,
+            // Grenade 같은 충전형 무기만 시간이 진행된다.
+            weapon.UpdateChargeRecovery(
+                deltaTime);
+
+            // 실드는 자연회복을 진행한다.
+            // 현재 선택한 무기가 아니어도 장착 슬롯에 있으면 회복한다.
+            weapon.UpdateShieldRecovery(
+                deltaTime);
+        }
+    }
+
+    /// <summary>
+    /// 현재 무기와 장착된 세 무기의 충전 상태를
+    /// Stage WeaponUI에 전달한다.
+    /// </summary>
+    private void UpdateWeaponChargeUI()
+    {
+        // StageManager가 아직 UI를 연결하지 않았다면 건너뛴다.
+        if (_weaponUI == null)
+        {
+            return;
+        }
+
+        _weaponUI.UpdateChargeDisplays(
+            CurrentWeapon,
+            _equippedWeapons);
     }
 
     /// <summary>
@@ -311,6 +444,27 @@ public class Weapon : MonoBehaviour
     /// </summary>
     private void ApplyCurrentWeaponSpriteLibrary()
     {
+        // 다른 무기 외형으로 변경하기 전에 Slash 공격을 종료한다.
+        CancelSlashAnimation();
+
+        // 무기 외형이 바뀌기 전에 진행 중인 검 공격을 종료한다.
+        if (_giantSword != null)
+        {
+            _giantSword.CancelAttack();
+        }
+
+        // 해머 공격도 종료해서 이전 무기의 판정이 남지 않게 한다.
+        if (_hammer != null)
+        {
+            _hammer.CancelAttack();
+        }
+
+        // 외형이 바뀌기 전에 실드 자세와 AttackSpeed를 복구한다.
+        if (_shield != null)
+        {
+            _shield.CancelGuard();
+        }
+
         WeaponRuntimeState currentWeapon = CurrentWeapon;
 
         // 현재 선택된 무기가 없다면 외형을 적용할 수 없다.
@@ -351,6 +505,52 @@ public class Weapon : MonoBehaviour
 
         // 라이브러리가 같든 다르든 항상 Idle 첫 프레임부터 재생한다.
         _animator.Play("Idle", 0, 0f);
+
+        // 현재 무기가 Grenade인지 확인하여
+        // 포물선 조준선을 표시하거나 숨긴다.
+        UpdateGrenadeAimGuide(
+            currentWeapon);
+    }
+
+    /// <summary>
+    /// 현재 무기가 Grenade라면 포물선 조준선을 표시하고,
+    /// 다른 무기라면 기존 조준선을 숨긴다.
+    /// </summary>
+    private void UpdateGrenadeAimGuide(
+        WeaponRuntimeState currentWeapon)
+    {
+        if (currentWeapon.Data.Type != WeaponType.Grenade)
+        {
+            // Warrior처럼 GrenadeAimGuide가 없는 캐릭터도 허용한다.
+            if (_grenadeAimGuide != null)
+            {
+                _grenadeAimGuide.Hide();
+            }
+
+            return;
+        }
+
+        if (_grenadeAimGuide == null)
+        {
+            throw new InvalidOperationException(
+                $"{name}의 Weapon에 Grenade Aim Guide가 연결되지 않았습니다.");
+        }
+
+        GameObject projectilePrefab =
+            currentWeapon.Data.ProjectilePrefab;
+
+        if (projectilePrefab == null ||
+            !projectilePrefab.TryGetComponent(
+                out Grenade grenadePrefab))
+        {
+            throw new MissingComponentException(
+                $"무기 '{currentWeapon.Data.WeaponName}'의 프리팹에 Grenade 컴포넌트가 없습니다.");
+        }
+
+        // Grenade 프리팹의 실제 속도, 중력, 신관 시간으로
+        // 조준선 계산을 시작한다.
+        _grenadeAimGuide.Show(
+            grenadePrefab);
     }
 
     /// <summary>
@@ -363,17 +563,84 @@ public class Weapon : MonoBehaviour
         // 현재 선택된 슬롯의 런타임 무기를 가져온다.
         WeaponRuntimeState weapon = CurrentWeapon;
 
-        // 현재 선택할 수 있는 무기가 없다면 발사하지 않는다.
-        if (weapon == null)
+        // 실드는 Tick으로 제어하므로 공격 프리팹을 생성하지 않는다.
+        if (weapon == null ||
+            weapon.Data.Type == WeaponType.Shield)
         {
             return;
         }
 
-        // 현재 무기의 쿨타임이 지나지 않았다면 발사하지 않는다.
-        if (_timer < weapon.CurrentCooltime)
+        // Slash는 시작한 휘두르기가 끝나기 전에 다음 발을 생성하지 않는다.
+        if (weapon.Data.Type == WeaponType.Slash)
         {
+            if (_isSlashAttacking)
+            {
+                return;
+            }
+
+            // 프리팹을 생성하기 전에 애니메이션 연결을 검사한다.
+            if (_slashAttackClip == null || _slashAttackClip.length <= 0f)
+            {
+                throw new InvalidOperationException(
+                    $"{name}: Slash Attack Clip에 Attack4를 연결해야 합니다.");
+            }
+        }
+
+        // 충전형 무기는 일반 공격 쿨타임 대신
+        // 현재 사용할 수 있는 충전량이 있는지 검사한다.
+        if (weapon.Data.UsesCharges)
+        {
+            if (!weapon.HasAvailableCharge)
+            {
+                return;
+            }
+        }
+        else
+        {
+            // Bullet, Missile, Sniper 등의 일반 무기는
+            // 기존 공격 쿨타임이 지나야 발사할 수 있다.
+            if (_timer < weapon.CurrentCooltime)
+            {
+                return;
+            }
+        }
+
+        // 스프라이트 기반 근접 공격은 캐릭터의 자식 판정을 사용한다.
+        if (weapon.Data.Type == WeaponType.GiantSword ||
+            weapon.Data.Type == WeaponType.Hammer)
+        {
+            // 현재 무기에 맞는 공격 판정 오브젝트를 선택한다.
+            SpriteMeleeAttack meleeAttack =
+                weapon.Data.Type == WeaponType.GiantSword
+                    ? _giantSword
+                    : _hammer;
+
+            // 연결 누락이나 오브젝트 비활성화를 확인한다.
+            if (meleeAttack == null ||
+                !meleeAttack.isActiveAndEnabled)
+            {
+                throw new InvalidOperationException(
+                    $"{name}: {weapon.Data.WeaponName}의 " +
+                    "활성화된 근접 공격 오브젝트를 연결해야 합니다.");
+            }
+
+            // 진행 중인 휘두르기를 중복 시작하지 않는다.
+            if (meleeAttack.IsAttacking)
+            {
+                return;
+            }
+
+            // 현재 무기의 증강된 공격력과 쿨타임을 전달한다.
+            meleeAttack.BeginAttack(
+                weapon.CurrentDamage,
+                weapon.CurrentCooltime);
+
+            _timer = 0f;
             return;
         }
+
+        // 현재 무기에 공격 프리팹이 연결되어 있는지 확인한다.
+        // 이 아래 기존 프리팹 생성 코드는 그대로 유지한다.
 
         // 현재 무기에 공격 프리팹이 연결되어 있는지 확인한다.
         if (weapon.Data.ProjectilePrefab == null)
@@ -388,32 +655,37 @@ public class Weapon : MonoBehaviour
             _firePoint.position,
             _firePoint.rotation);
 
-        // WeaponData에 설정된 발사 방식에 맞는 초기화를 실행한다.
-        switch (weapon.Data.FireMode)
+        // 프리팹을 생성하는 무기 중 Lazer는 펄스 빔으로 초기화한다.
+        if (weapon.Data.Type == WeaponType.Lazer)
         {
-            case WeaponFireMode.Projectile:
+            InitializePulseBeamAttack(
+                attackObject,
+                weapon);
+        }
+        else
+        {
+            // 나머지 이동형 공격은 Projectile로 초기화한다.
+            // 자이언트 소드와 해머는 이 위치에 오기 전에 처리된다.
+            InitializeProjectileAttack(
+                attackObject,
+                weapon);
+        }
 
-                // 총알과 미사일처럼 이동하는 투사체를 초기화한다.
-                InitializeProjectileAttack(
-                    attackObject,
-                    weapon);
-                break;
+        // 프리팹 생성과 초기화가 정상적으로 끝난 다음
+        // 충전형 무기의 보유량을 한 개 소비한다.
+        if (weapon.Data.UsesCharges &&
+            !weapon.TryConsumeCharge())
+        {
+            // 발사 직전에 충전량이 사라진 예외 상황에서는
+            // 이미 생성한 공격 오브젝트도 제거한다.
+            Destroy(attackObject);
+            return;
+        }
 
-            case WeaponFireMode.PulseBeam:
-
-                // 일정 시간 나타났다 사라지는 펄스 레이저를 초기화한다.
-                InitializePulseBeamAttack(
-                    attackObject,
-                    weapon);
-                break;
-
-            default:
-
-                // 알 수 없는 발사 방식의 프리팹을 제거한다.
-                Destroy(attackObject);
-
-                throw new InvalidOperationException(
-                    $"무기 '{weapon.Data.WeaponName}'의 발사 방식이 올바르지 않습니다.");
+        // 생성과 초기화가 성공한 Slash 한 발에 휘두르기 한 번을 대응시킨다.
+        if (weapon.Data.Type == WeaponType.Slash)
+        {
+            BeginSlashAnimation(weapon.CurrentCooltime);
         }
 
         // 공격이 정상적으로 실행됐으므로 쿨타임을 처음부터 측정한다.
@@ -439,50 +711,65 @@ public class Weapon : MonoBehaviour
                 "공격 프리팹에 Projectile을 상속한 컴포넌트가 없습니다.");
         }
 
-        // 현재 공격력과 FirePoint가 바라보는 방향을 전달한다.
+        // 기본 투사체는 기존처럼 FirePoint의 오른쪽으로 발사한다.
+        Vector2 fireDirection =
+            _firePoint.right;
+
+        if (weapon.Data.Type == WeaponType.Grenade)
+        {
+            if (_grenadeAimGuide == null)
+            {
+                Destroy(attackObject);
+
+                throw new InvalidOperationException(
+                    $"{name}의 Weapon에 Grenade Aim Guide가 연결되지 않았습니다.");
+            }
+
+            // Z키를 누른 바로 그 순간 조준선이 가리키던
+            // 포물선 최초 방향을 Grenade에 전달한다.
+            fireDirection =
+                _grenadeAimGuide.CurrentDirection;
+        }
+
         projectile.Initialize(
             weapon.CurrentDamage,
-            _firePoint.right);
+            fireDirection);
     }
 
-    /// <summary>
-    /// 생성한 공격 오브젝트를 펄스 레이저로 초기화한다.
-    /// 레이저는 이동하지 않고 FirePoint에서 가장 가까운 적까지 그려진다.
-    /// </summary>
+    // 생성된 레이저에 현재 공격력과 발사 위치를 전달한다.
     private void InitializePulseBeamAttack(
         GameObject attackObject,
         WeaponRuntimeState weapon)
     {
-        // 생성한 프리팹에서 PulseLaserBeam 컴포넌트를 찾는다.
-        if (!attackObject.TryGetComponent(
-            out PulseLaserBeam pulseLaserBeam))
+        // 이름을 변경한 Lazer 컴포넌트를 가져온다.
+        if (!attackObject.TryGetComponent(out Lazer lazer))
         {
-            // 잘못 생성된 공격 오브젝트를 제거한다.
+            // 잘못된 공격 오브젝트가 남지 않도록 제거한다.
             Destroy(attackObject);
 
             throw new MissingComponentException(
-                $"무기 '{weapon.Data.WeaponName}'은 PulseBeam 방식이지만 " +
-                "공격 프리팹에 PulseLaserBeam 컴포넌트가 없습니다.");
+                $"무기 '{weapon.Data.WeaponName}'의 공격 프리팹에 " +
+                "Lazer 컴포넌트가 없습니다.");
         }
 
-        // 현재 공격력과 레이저가 시작될 FirePoint를 전달한다.
-        pulseLaserBeam.Initialize(
+        // 현재 증강이 반영된 공격력과 FirePoint를 전달한다.
+        lazer.Initialize(
             weapon.CurrentDamage,
             _firePoint);
     }
 
-    /// <summary>
-    /// 지정한 슬롯 무기의 공격력을 증가시킨다.
-    /// </summary>
+    // 선택한 슬롯에 공격력 증강 효과를 전달한다.
     public void AddDamage(int slotIndex, int value)
     {
         WeaponRuntimeState weapon = GetWeaponAtSlot(slotIndex);
 
-        if (weapon == null || value <= 0)
+        if (weapon == null)
         {
             return;
         }
 
+        // 일반 무기의 공격력 증가와 실드의 체력 회복은
+        // WeaponRuntimeState에서 무기 종류에 따라 처리한다.
         weapon.AddDamage(value);
     }
 
@@ -542,6 +829,10 @@ public class Weapon : MonoBehaviour
         Sprite currentIcon = weapon != null ? weapon.Data.Icon : null;
 
         _weaponUI.UpdateCurrentWeapon(currentIcon);
+
+        // Stage 시작 및 무기 교체 직후에도
+        // 기다리지 않고 충전 상태를 바로 표시한다.
+        UpdateWeaponChargeUI();
     }
 
     /// <summary>
@@ -555,6 +846,84 @@ public class Weapon : MonoBehaviour
         if (_weaponSlotPanel != null)
         {
             _weaponSlotPanel.SetActive(false);
+        }
+    }
+
+    // 현재 공격 간격 안에 Attack 클립을 한 번 재생한다.
+    private void BeginSlashAnimation(float attackInterval)
+    {
+        _isSlashAttacking = true;
+
+        // 예: 원본 1초 / 공격 간격 0.2초 = 재생 속도 5배.
+        // 증강으로 간격이 줄면 다음 공격부터 재생 속도도 증가한다.
+        float duration = Mathf.Max(0.01f, attackInterval);
+        float animationSpeed = _slashAttackClip.length / duration;
+
+        _animator.SetFloat(AttackSpeedHash, animationSpeed);
+        _animator.SetBool(AttackHash, true);
+        _animator.Play(SlashAttackStateHash, 0, 0f);
+    }
+
+    private void LateUpdate()
+    {
+        // 일시정지 중에는 현재 공격 상태를 유지한다.
+        if (!_isSlashAttacking || Time.timeScale <= 0f)
+        {
+            return;
+        }
+
+        AnimatorStateInfo state = _animator.GetCurrentAnimatorStateInfo(0);
+
+        // 다른 코드에서 상태가 변경됐다면 진행 중 표시도 정리한다.
+        if (state.fullPathHash != SlashAttackStateHash)
+        {
+            CancelSlashAnimation();
+            return;
+        }
+
+        // normalizedTime 1은 클립 한 번의 재생이 끝났다는 뜻이다.
+        if (state.normalizedTime >= 1f)
+        {
+            CancelSlashAnimation();
+        }
+    }
+
+    // 공격 완료, 무기 변경, 비활성화 시 Slash 애니메이션을 정리한다.
+    private void CancelSlashAnimation()
+    {
+        // Slash가 제어 중일 때만 Animator를 변경한다.
+        if (!_isSlashAttacking)
+        {
+            return;
+        }
+
+        _isSlashAttacking = false;
+
+        _animator.SetFloat(AttackSpeedHash, 1f);
+        _animator.SetBool(AttackHash, false);
+        _animator.Play(SlashIdleStateHash, 0, 0f);
+    }
+
+    private void OnDisable()
+    {
+        // 무기 처리가 중단되면 Slash의 속도와 공격 상태를 복구한다.
+        CancelSlashAnimation();
+
+        // 캐릭터의 무기 처리가 중단되면 진행 중인 공격을 정리한다.
+        if (_giantSword != null)
+        {
+            _giantSword.CancelAttack();
+        }
+
+        if (_hammer != null)
+        {
+            _hammer.CancelAttack();
+        }
+
+        // 실드 유지 상태도 함께 종료한다.
+        if (_shield != null)
+        {
+            _shield.CancelGuard();
         }
     }
 }

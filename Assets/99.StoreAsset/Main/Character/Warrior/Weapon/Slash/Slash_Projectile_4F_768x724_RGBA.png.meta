@@ -147,187 +147,24 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Slash_Projectile_4F_768x724_RGBA_0
-      rect:
-        serializedVersion: 2
-        x: 260
-        y: 249
-        width: 361
-        height: 351
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 42cc12fdc2239ddd0800000000000000
-      internalID: -2460880553077781468
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Slash_Projectile_4F_768x724_RGBA_1
-      rect:
-        serializedVersion: 2
-        x: 574
-        y: 263
-        width: 7
-        height: 13
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7a6ac97144d7fae70800000000000000
-      internalID: 9128652701110675111
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Slash_Projectile_4F_768x724_RGBA_2
-      rect:
-        serializedVersion: 2
-        x: 578
-        y: 254
-        width: 17
-        height: 20
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 8ffe9941d7a1be120800000000000000
-      internalID: 2444076347297492984
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Slash_Projectile_4F_768x724_RGBA_3
-      rect:
-        serializedVersion: 2
-        x: 680
-        y: 105
-        width: 709
-        height: 493
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3de1da49cbcf45410800000000000000
-      internalID: 1465073665680678611
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Slash_Projectile_4F_768x724_RGBA_4
-      rect:
-        serializedVersion: 2
-        x: 1322
-        y: 217
-        width: 27
-        height: 27
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f101c65bb1fdb6b70800000000000000
-      internalID: 8893447199274045471
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Slash_Projectile_4F_768x724_RGBA_5
-      rect:
-        serializedVersion: 2
-        x: 1328
-        y: 471
-        width: 27
-        height: 47
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2b8f593e834a181f0800000000000000
-      internalID: -1044373074329864014
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Slash_Projectile_4F_768x724_RGBA_6
-      rect:
-        serializedVersion: 2
-        x: 1340
-        y: 241
-        width: 117
-        height: 181
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b57e1b25621701170800000000000000
-      internalID: 8147136135323314011
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Slash_Projectile_4F_768x724_RGBA_7
-      rect:
-        serializedVersion: 2
-        x: 1342
-        y: 409
-        width: 61
-        height: 77
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7eed4b0a6be9b74b0800000000000000
-      internalID: -5441581217529667865
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Slash_Projectile_4F_768x724_RGBA_8
+      name: Slash_Projectile_Base
       rect:
         serializedVersion: 2
         x: 1680
@@ -335,7 +172,7 @@ TextureImporter:
         width: 579
         height: 457
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -348,209 +185,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: Slash_Projectile_4F_768x724_RGBA_9
-      rect:
-        serializedVersion: 2
-        x: 2167
-        y: 477
-        width: 8
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: db97da57624c22c70800000000000000
-      internalID: 8944927479373330877
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Slash_Projectile_4F_768x724_RGBA_10
-      rect:
-        serializedVersion: 2
-        x: 2328
-        y: 131
-        width: 539
-        height: 451
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a59ffaffd5de4ccd0800000000000000
-      internalID: -2538643301952652966
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Slash_Projectile_4F_768x724_RGBA_11
-      rect:
-        serializedVersion: 2
-        x: 2488
-        y: 153
-        width: 7
-        height: 14
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 22cd16f0ebba7e900800000000000000
-      internalID: 713727898751720482
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Slash_Projectile_4F_768x724_RGBA_12
-      rect:
-        serializedVersion: 2
-        x: 2502
-        y: 336
-        width: 9
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2d814077d29a38d50800000000000000
-      internalID: 6738415480211773650
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Slash_Projectile_4F_768x724_RGBA_13
-      rect:
-        serializedVersion: 2
-        x: 2872
-        y: 161
-        width: 161
-        height: 422
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 45649055fe8a8d600800000000000000
-      internalID: 493329905074390612
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Slash_Projectile_4F_768x724_RGBA_14
-      rect:
-        serializedVersion: 2
-        x: 2902
-        y: 437
-        width: 13
-        height: 18
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 0f2635ee7e710bbf0800000000000000
-      internalID: -310722089385237776
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Slash_Projectile_4F_768x724_RGBA_15
-      rect:
-        serializedVersion: 2
-        x: 2912
-        y: 443
-        width: 7
-        height: 11
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1f824ea48b5ce9060800000000000000
-      internalID: 6962219469282486513
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Slash_Projectile_4F_768x724_RGBA_16
-      rect:
-        serializedVersion: 2
-        x: 2914
-        y: 367
-        width: 19
-        height: 13
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: be55a412167f7bbc0800000000000000
-      internalID: -3767270566729722389
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Slash_Projectile_4F_768x724_RGBA_17
-      rect:
-        serializedVersion: 2
-        x: 592
-        y: 127
-        width: 15
-        height: 13
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: dde1195ecccca1a10800000000000000
-      internalID: 1881040974777491165
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 54ae566f7a6e8f54eb945613ddc69459
     internalID: 0
     vertices: []
     indices: 
@@ -576,8 +215,9 @@ TextureImporter:
       Slash_Projectile_4F_768x724_RGBA_5: -1044373074329864014
       Slash_Projectile_4F_768x724_RGBA_6: 8147136135323314011
       Slash_Projectile_4F_768x724_RGBA_7: -5441581217529667865
-      Slash_Projectile_4F_768x724_RGBA_8: -3045193025102504070
+      Slash_Projectile_4F_768x724_RGBA_8: -1094794266
       Slash_Projectile_4F_768x724_RGBA_9: 8944927479373330877
+      Slash_Projectile_Base: -3045193025102504070
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

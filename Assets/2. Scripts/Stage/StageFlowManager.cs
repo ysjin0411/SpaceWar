@@ -18,7 +18,8 @@ public enum StagePhase
     Section2,          // 스테이지 1-2 일반 전투
     FinalBossWarning,  // 최종보스 출현 경고
     FinalBossBattle,   // 최종보스 전투
-    Cleared            // 스테이지 클리어
+    Cleared,            // 스테이지 클리어
+    Failed             // 플레이어 사망으로 스테이지 실패
 }
 
 /// <summary>
@@ -202,24 +203,39 @@ public class StageFlowManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 현재 스테이지 진행 상태를 변경한다.
+    /// 진행 상태를 변경하고 연결된 시스템에 알린다.
+    /// 종료된 스테이지는 다른 상태로 다시 넘어가지 않는다.
     /// </summary>
     public void ChangePhase(StagePhase nextPhase)
     {
-        // 동일한 상태로 중복 변경하지 않는다.
+        // 같은 상태의 중복 실행을 막는다.
         if (_currentPhase == nextPhase)
         {
             return;
         }
 
-        // 새로운 진행 상태를 저장한다.
-        _currentPhase = nextPhase;
+        // 클리어 또는 실패가 확정되면 이후 보스·연출 알림을 무시한다.
+        if (_currentPhase == StagePhase.Cleared ||
+            _currentPhase == StagePhase.Failed)
+        {
+            return;
+        }
 
-        // 새 구간이 시작됐으므로 구간 시간을 초기화한다.
+        _currentPhase = nextPhase;
         _phaseElapsedTime = 0f;
 
-        // 변경된 진행 상태를 구독 중인 시스템에 전달한다.
-        PhaseChanged?.Invoke(_currentPhase);
+        // 결과창이 시간을 읽기 전에 타이머부터 정지한다.
+        if (_currentPhase == StagePhase.Cleared ||
+            _currentPhase == StagePhase.Failed)
+        {
+            _isTimerRunning = false;
+        }
+
+        // 스포너와 결과창 등에 상태 변경을 전달한다.
+        if (PhaseChanged != null)
+        {
+            PhaseChanged.Invoke(_currentPhase);
+        }
 
         Debug.Log($"스테이지 진행 상태 변경: {_currentPhase}");
     }
@@ -323,26 +339,35 @@ public class StageFlowManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 최종보스를 처치했을 때 전체 시간 측정을 종료한다.
+    /// 최종보스 처치로 스테이지를 완료한다.
     /// </summary>
     public void CompleteStage()
     {
-        // 이미 클리어된 상태라면 중복 처리하지 않는다.
-        if (_currentPhase == StagePhase.Cleared)
+        // 이미 종료된 판은 다시 처리하지 않는다.
+        if (_currentPhase == StagePhase.Cleared ||
+            _currentPhase == StagePhase.Failed)
         {
             return;
         }
 
-        // 현재 진행 상태를 클리어로 변경한다.
         ChangePhase(StagePhase.Cleared);
-
-        // 클리어 시간이 더 증가하지 않도록 타이머를 멈춘다.
-        _isTimerRunning = false;
-
-        // 최종 시간을 화면에 한 번 더 반영한다.
         UpdateTimerText();
+    }
 
-        Debug.Log($"스테이지 클리어 시간: {_stageElapsedTime:F2}초");
+    /// <summary>
+    /// 플레이어 사망으로 스테이지를 실패 처리한다.
+    /// </summary>
+    public void FailStage()
+    {
+        // 클리어와 실패 중 먼저 확정된 결과를 유지한다.
+        if (_currentPhase == StagePhase.Cleared ||
+            _currentPhase == StagePhase.Failed)
+        {
+            return;
+        }
+
+        ChangePhase(StagePhase.Failed);
+        UpdateTimerText();
     }
 
     /// <summary>

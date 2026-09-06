@@ -1,0 +1,384 @@
+fileFormatVersion: 2
+guid: b450b0cc20be99245a3fbf6939369222
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4769163609852966550
+    second: BossHead_Laser_4Frames_0
+  - first:
+      213: -1264144701065855302
+    second: BossHead_Laser_4Frames_1
+  - first:
+      213: -7891157334732996524
+    second: BossHead_Laser_4Frames_2
+  - first:
+      213: 190077777033953322
+    second: BossHead_Laser_4Frames_3
+  - first:
+      213: 8778991801175709556
+    second: BossHead_Laser_4Frames_4
+  - first:
+      213: -1964978727927154879
+    second: BossHead_Laser_4Frames_5
+  - first:
+      213: 4478750794854292365
+    second: BossHead_Laser_4Frames_6
+  - first:
+      213: -5630221854234533980
+    second: BossHead_Laser_4Frames_7
+  - first:
+      213: 8049745570325159320
+    second: BossHead_Laser_4Frames_8
+  - first:
+      213: 5545803301599458115
+    second: BossHead_Laser_4Frames_9
+  - first:
+      213: -8473821679269842398
+    second: BossHead_Laser_4Frames_10
+  - first:
+      213: 4242769612008666338
+    second: BossHead_Laser_4Frames_11
+  - first:
+      213: -4859069055501427160
+    second: BossHead_Laser_4Frames_12
+  - first:
+      213: -4717711596617715623
+    second: BossHead_Laser_4Frames_13
+  - first:
+      213: 8588351733630598169
+    second: BossHead_Laser_4Frames_14
+  - first:
+      213: -5751502399412581625
+    second: BossHead_Laser_4Frames_15
+  - first:
+      213: 8899790158785012171
+    second: BossHead_Laser_4Frames_16
+  - first:
+      213: 4453397238247236
+    second: BossHead_Laser_4Frames_17
+  - first:
+      213: -4082416061097494889
+    second: BossHead_Laser_4Frames_18
+  - first:
+      213: -7905615186988857330
+    second: BossHead_Laser_4Frames_19
+  - first:
+      213: -266987890602770545
+    second: BossHead_Laser_4Frames_20
+  - first:
+      213: 3906412688958417672
+    second: BossHead_Laser_4Frames_21
+  - first:
+      213: 4767421489972663129
+    second: BossHead_Laser_4Frames_22
+  - first:
+      213: 3032373919017245477
+    second: BossHead_Laser_4Frames_23
+  - first:
+      213: -7773638109845101193
+    second: BossHead_Laser_4Frames_24
+  - first:
+      213: 7827513344293106686
+    second: BossHead_Laser_4Frames_25
+  - first:
+      213: 7914766300487383093
+    second: BossHead_Laser_4Frames_26
+  - first:
+      213: 3691751058578823313
+    second: BossHead_Laser_4Frames_27
+  - first:
+      213: 2194746233937916859
+    second: BossHead_Laser_4Frames_28
+  - first:
+      213: -2703181778420733488
+    second: BossHead_Laser_4Frames_29
+  - first:
+      213: 4318793815167040000
+    second: BossHead_Laser_4Frames_30
+  - first:
+      213: -1291837077810835875
+    second: BossHead_Laser_4Frames_31
+  - first:
+      213: 7718980516180975264
+    second: BossHead_Laser_4Frames_32
+  - first:
+      213: 2114495080941073371
+    second: BossHead_Laser_4Frames_33
+  - first:
+      213: 3167783965981376386
+    second: BossHead_Laser_4Frames_34
+  - first:
+      213: 211444443591949676
+    second: BossHead_Laser_4Frames_35
+  - first:
+      213: 2372800996771592310
+    second: BossHead_Laser_4Frames_36
+  - first:
+      213: -250522960272470279
+    second: BossHead_Laser_4Frames_37
+  - first:
+      213: 6897297267677506013
+    second: BossHead_Laser_4Frames_38
+  - first:
+      213: -1896556158602650009
+    second: BossHead_Laser_4Frames_39
+  - first:
+      213: 3872010911219297009
+    second: BossHead_Laser_4Frames_40
+  - first:
+      213: -6029590423314908027
+    second: BossHead_Laser_4Frames_41
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: BossHead_Laser_4Frames_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 770
+        width: 1536
+        height: 224
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6967109f8097f2240800000000000000
+      internalID: 4769163609852966550
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossHead_Laser_4Frames_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 518
+        width: 1536
+        height: 224
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: abef644971bd47ee0800000000000000
+      internalID: -1264144701065855302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossHead_Laser_4Frames_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 266
+        width: 1536
+        height: 224
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 19853cd270cbb3330800000000000000
+      internalID: 3691751058578823313
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossHead_Laser_4Frames_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 17
+        width: 1536
+        height: 224
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb3fefd421e457e10800000000000000
+      internalID: 2194746233937916859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 6613f0252ec38f14e8cec759a6ecfcf9
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      BossHead_Laser_4Frames_0: 4769163609852966550
+      BossHead_Laser_4Frames_1: -1264144701065855302
+      BossHead_Laser_4Frames_10: -8473821679269842398
+      BossHead_Laser_4Frames_11: 4242769612008666338
+      BossHead_Laser_4Frames_12: -4859069055501427160
+      BossHead_Laser_4Frames_13: -4717711596617715623
+      BossHead_Laser_4Frames_14: 8588351733630598169
+      BossHead_Laser_4Frames_15: -5751502399412581625
+      BossHead_Laser_4Frames_16: 8899790158785012171
+      BossHead_Laser_4Frames_17: 4453397238247236
+      BossHead_Laser_4Frames_18: -4082416061097494889
+      BossHead_Laser_4Frames_19: -7905615186988857330
+      BossHead_Laser_4Frames_2: 3691751058578823313
+      BossHead_Laser_4Frames_20: -266987890602770545
+      BossHead_Laser_4Frames_21: 3906412688958417672
+      BossHead_Laser_4Frames_22: 4767421489972663129
+      BossHead_Laser_4Frames_23: 3032373919017245477
+      BossHead_Laser_4Frames_24: -7773638109845101193
+      BossHead_Laser_4Frames_25: 7827513344293106686
+      BossHead_Laser_4Frames_26: 7914766300487383093
+      BossHead_Laser_4Frames_29: -2703181778420733488
+      BossHead_Laser_4Frames_3: 2194746233937916859
+      BossHead_Laser_4Frames_30: 4318793815167040000
+      BossHead_Laser_4Frames_31: -1291837077810835875
+      BossHead_Laser_4Frames_32: 7718980516180975264
+      BossHead_Laser_4Frames_33: 2114495080941073371
+      BossHead_Laser_4Frames_34: 3167783965981376386
+      BossHead_Laser_4Frames_35: 211444443591949676
+      BossHead_Laser_4Frames_36: 2372800996771592310
+      BossHead_Laser_4Frames_37: -250522960272470279
+      BossHead_Laser_4Frames_38: 6897297267677506013
+      BossHead_Laser_4Frames_39: -1896556158602650009
+      BossHead_Laser_4Frames_4: 8778991801175709556
+      BossHead_Laser_4Frames_40: 3872010911219297009
+      BossHead_Laser_4Frames_41: -6029590423314908027
+      BossHead_Laser_4Frames_5: -1964978727927154879
+      BossHead_Laser_4Frames_6: 4478750794854292365
+      BossHead_Laser_4Frames_7: -5630221854234533980
+      BossHead_Laser_4Frames_8: 8049745570325159320
+      BossHead_Laser_4Frames_9: 5545803301599458115
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

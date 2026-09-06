@@ -7,16 +7,9 @@ using UnityEngine.UI;
 public class TitleManager : MonoBehaviour
 {
     [Header("버튼")]
-    [SerializeField] Button _playButton;
-	[SerializeField] Button _skillButton;
-    [SerializeField] Button _achievementButton;
-    [SerializeField] Button _settingButton;
 
-    [Header("셀렉이펙트")]
-    [SerializeField] Image _playSelectEffect;
-	[SerializeField] Image _skillSelectEffect;
-    [SerializeField] Image _achievementSelectEffect;
-    [SerializeField] Image _settingSelectEffect;
+    // 아무 UI도 선택하지 않은 상태에서 방향키를 누르면 선택할 버튼.
+    [SerializeField] Button _playButton;
 
     [Header("업적 보상 알림")]
 
@@ -26,7 +19,6 @@ public class TitleManager : MonoBehaviour
 
     private void Start()
     {
-		MainMenuBaseState();
 
         if (AchievementManager.Instance == null)
         {
@@ -43,20 +35,23 @@ public class TitleManager : MonoBehaviour
         RefreshAchievementRewardAlert();
     }
 
-	private void LateUpdate()
-	{
-		// 현재 선택된 UI가 없을 때만 방향키 입력을 검사한다.
-		if (EventSystem.current.currentSelectedGameObject == null)
-		{
-			if (IsAnyArrowKeyDown())	// 방향키 입력받아오면 bool값이 켜짐.
-			{
-				// 아무키 입력시 맨위 버튼인 play활성화
-				SelectPlay();
-			}
-		}
+    private void LateUpdate()
+    {
+        // 선택 연출은 각 버튼의 UIButtonSelectionEffect가 처리한다.
+        if (EventSystem.current == null)
+        {
+            return;
+        }
 
-		UpdateSelectEffects();
-	}
+        // 아직 선택한 UI가 없을 때 방향키로 플레이 버튼을 선택한다.
+        if (EventSystem.current.currentSelectedGameObject == null &&
+            IsAnyArrowKeyDown() &&
+            _playButton.IsActive() &&
+            _playButton.IsInteractable())
+        {
+            SelectPlay();
+        }
+    }
 
     private void OnDestroy()
     {
@@ -80,20 +75,6 @@ public class TitleManager : MonoBehaviour
 			|| Input.GetKeyDown(KeyCode.RightArrow);
 	}
 
-	/// <summary>
-	/// 셀렉이펙트 관리
-	/// </summary>
-	private void UpdateSelectEffects()
-	{
-		// selectedObject에 현재 선택중인 게임오브젝트를 저장
-		GameObject selectedObject = EventSystem.current.currentSelectedGameObject;
-
-		// 해당 이펙트는 현재선택중인 오브젝트일때 SetActive
-		_playSelectEffect.gameObject.SetActive(selectedObject == _playButton.gameObject);
-		_skillSelectEffect.gameObject.SetActive(selectedObject == _skillButton.gameObject);
-        _achievementSelectEffect.gameObject.SetActive(selectedObject == _achievementButton.gameObject);
-		_settingSelectEffect.gameObject.SetActive(selectedObject == _settingButton.gameObject);
-	}
 
 	/// <summary>
 	/// 플레이버튼 선택중
@@ -103,13 +84,6 @@ public class TitleManager : MonoBehaviour
 		_playButton.Select();
 	}
 
-	private void MainMenuBaseState()
-    {
-        _playSelectEffect.gameObject.SetActive(false);
-		_skillSelectEffect.gameObject.SetActive(false);
-        _achievementSelectEffect.gameObject.SetActive(false);
-		_settingSelectEffect.gameObject.SetActive(false);
-	}
 
 	public void LoadStageSelect()
 	{

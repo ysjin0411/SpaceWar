@@ -32,6 +32,9 @@ public class StageManager : MonoBehaviour
     [SerializeField] StageTransitionManager _stageTransitionManager;      // 플레이어 입장과 구간 이동 연출을 담당하는 매니저
     [SerializeField] BossEncounterManager _bossEncounterManager;          // 스테이지 페이즈에 맞춰 보스를 생성할 BossEncounterManager
 
+    // 플레이어 사망을 스테이지 실패 상태로 전달할 매니저
+    [SerializeField] StageFlowManager _stageFlowManager;
+
     // 이번 Stage에 생성된 캐릭터의 원본 데이터
     CharacterData _selectedCharacterData;
 
@@ -68,6 +71,13 @@ public class StageManager : MonoBehaviour
 
     private void Awake()
     {
+        // 사망 후 실패 상태로 전환할 연결이 반드시 필요하다.
+        if (_stageFlowManager == null)
+        {
+            throw new InvalidOperationException(
+                "StageManager에 StageFlowManager가 연결되지 않았습니다.");
+        }
+
         // 게임매니저 가져오기
         _gameManager = GetComponent<GameManager>();
 
@@ -166,6 +176,9 @@ public class StageManager : MonoBehaviour
 
         // CharacterData의 체력과 이동속도를 적용한다.
         _spawnedPlayerController.Initialize(_selectedCharacterData, _hpUI);
+
+        // 생성한 플레이어가 사망하면 스테이지 실패를 처리한다.
+        _spawnedPlayerController.Died += HandlePlayerDied;
 
         // HP UI가 새로 생성한 PlayerController를 바라보게 한다.
         _hpUI.Initialize(_spawnedPlayerController);
@@ -358,5 +371,24 @@ public class StageManager : MonoBehaviour
 
         // 입장과 구간 전환 연출에서 사용할 플레이어를 전달한다.
         _stageTransitionManager.Initialize(_spawnedPlayerController);
+    }
+
+    /// <summary>
+    /// 플레이어 사망을 스테이지 진행 시스템에 전달한다.
+    /// </summary>
+    private void HandlePlayerDied()
+    {
+        _stageFlowManager.FailStage();
+    }
+
+    /// <summary>
+    /// 씬을 나갈 때 생성한 플레이어의 이벤트 연결을 정리한다.
+    /// </summary>
+    private void OnDestroy()
+    {
+        if (_spawnedPlayerController != null)
+        {
+            _spawnedPlayerController.Died -= HandlePlayerDied;
+        }
     }
 }

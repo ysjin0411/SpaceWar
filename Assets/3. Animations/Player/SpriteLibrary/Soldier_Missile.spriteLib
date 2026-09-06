@@ -12,7 +12,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5e6fedc2472449cead18ef23b5cb30d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Library: []
-  m_PrimaryLibraryGUID: 
-  m_ModificationHash: 0
+  m_Library:
+  - m_Name: Idle3
+    m_Hash: 17981889
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: Robot_idle 1
+      m_Hash: 990451449
+      m_Sprite: {fileID: 21300000, guid: a0d04bc828fd4084cb8c7a08091f1aae, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 31c61d12ed0870e46b2452b3e6ba3bad, type: 3}
+    - m_Name: Robot_idle 2
+      m_Hash: 570443587
+      m_Sprite: {fileID: 21300000, guid: 8469d33fea3aa6c4387815d172e7bc77, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 4238e6ad6789eea48aeb0a5d5a669abd, type: 3}
+    - m_Name: Robot_idle 3
+      m_Hash: 352810965
+      m_Sprite: {fileID: 21300000, guid: 455eebe95dcf50a40bd238252b463401, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 22f2bec579563e94cbb8772a2ed9929b, type: 3}
+    m_FromMain: 1
+    m_EntryOverrideCount: 3
+  - m_Name: Attack3
+    m_Hash: 321101326
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: Robot_shoot 1
+      m_Hash: 601591850
+      m_Sprite: {fileID: 21300000, guid: e765223c7ed079a4a99f9da343b4d548, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: fcd3bce9e5413e24f8e5499439ec009e, type: 3}
+    - m_Name: Robot_shoot 2
+      m_Hash: 986890640
+      m_Sprite: {fileID: 21300000, guid: 33455829c28e8d74180ba2cfd75c5cb2, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 52b96c9b8ffdf284d84b810dacb66c57, type: 3}
+    - m_Name: Robot_shoot 3
+      m_Hash: 232124678
+      m_Sprite: {fileID: 21300000, guid: fd0c43b46b5131f40bd99c7803af621a, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 3d7fac6bf1adc5146977950ffb830136, type: 3}
+    m_FromMain: 1
+    m_EntryOverrideCount: 3
+  m_PrimaryLibraryGUID: 4d52b8326e59c6d46aed91038b4df258
+  m_ModificationHash: 639242264046140857
   m_Version: 1

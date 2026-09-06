@@ -44,7 +44,8 @@ GameObject:
   - component: {fileID: 3781501794125578494}
   - component: {fileID: 4896179352009070078}
   - component: {fileID: 5597192801054440021}
-  - component: {fileID: 1154100811777705408}
+  - component: {fileID: 6464678480298588756}
+  - component: {fileID: 9148137082052576366}
   m_Layer: 8
   m_Name: Renderer
   m_TagString: Untagged
@@ -90,7 +91,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: d13dbfd7e1be08f4895957cb655d9b22, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -111,7 +112,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: 8defa1ab2abadf44e8c7d4110b782fcf, type: 3}
+  m_Sprite: {fileID: 7533080575381215678, guid: e210bf8af825f8249ab40c0fb34da7e1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -148,10 +149,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed8b1ae4e4e52b34ea557c1c11e076fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_CategoryHash: 0.009161512
-  m_labelHash: 0.0000000050322657
+  m_CategoryHash: 9.932601e-39
+  m_labelHash: 6.4874295e-12
   m_SpriteKey: 0
-  m_SpriteHash: 527333348
+  m_SpriteHash: 186685583
 --- !u!95 &5597192801054440021
 Animator:
   serializedVersion: 7
@@ -174,7 +175,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1154100811777705408
+--- !u!114 &6464678480298588756
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -183,9 +184,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 3231992446269752863}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11f93a0b005be95419f26bcc01c975db, type: 3}
+  m_Script: {fileID: 11500000, guid: 82b728995b5819d46958413f0f874f4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &9148137082052576366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3231992446269752863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ff8460f61add584b97e9c5b71cff55e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _flashStrength: 0.55
+  _flashDuration: 0.08
 --- !u!1 &9200333248802534134
 GameObject:
   m_ObjectHideFlags: 0
@@ -247,6 +262,7 @@ MonoBehaviour:
   _enemyBulletPrefab: {fileID: 950170354894911369, guid: ddb96700977591f40b3eaba27a097cb7, type: 3}
   _firePoint: {fileID: 5398899518243365422}
   _isFired: 0
+  _animator: {fileID: 5597192801054440021}
 --- !u!50 &636532698536025731
 Rigidbody2D:
   serializedVersion: 5
