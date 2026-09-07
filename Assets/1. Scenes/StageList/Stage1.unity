@@ -1747,15 +1747,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b5152a732800bc4b8a2036f221c46e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _patterns:
-  - {fileID: 11400000, guid: ee1bf6173f9f3cc4db8eb4e01155dd63, type: 2}
-  - {fileID: 11400000, guid: 666772ab2c13e1c48b91c087b885cf6a, type: 2}
-  - {fileID: 11400000, guid: cd040b3afbdce024d899c6202f6330ec, type: 2}
-  - {fileID: 11400000, guid: 11f0b539323198746b66813e25983d1a, type: 2}
+  _patternGroups:
+  - _groupName: Group1
+    _patterns:
+    - {fileID: 11400000, guid: ee1bf6173f9f3cc4db8eb4e01155dd63, type: 2}
+    - {fileID: 11400000, guid: 666772ab2c13e1c48b91c087b885cf6a, type: 2}
+    _patternCoolTime: 5
+    _bossPatternCoolTime: 8
+  - _groupName: Group2
+    _patterns:
+    - {fileID: 11400000, guid: 11f0b539323198746b66813e25983d1a, type: 2}
+    - {fileID: 11400000, guid: cd040b3afbdce024d899c6202f6330ec, type: 2}
+    _patternCoolTime: 3.5
+    _bossPatternCoolTime: 7
   _stageFlowManager: {fileID: 938821203}
   _bossEncounterManager: {fileID: 892676528}
-  _patternCoolTime: 3
-  _bossPatternCoolTime: 6
 --- !u!4 &314812581
 Transform:
   m_ObjectHideFlags: 0

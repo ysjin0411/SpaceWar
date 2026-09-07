@@ -9,10 +9,14 @@ using UnityEngine;
 /// </summary>
 public class EnemySpawner : MonoBehaviour
 {
-    // 현재 스테이지에서 사용할 일반 적 패턴 목록이다.
+    // Inspector에서 묶음 개수와 묶음별 패턴 목록을 설정한다.
     [SerializeField]
-    List<EnemySpawnPattern> _patterns =
-        new List<EnemySpawnPattern>();
+    List<EnemySpawnGroup> _patternGroups =
+        new List<EnemySpawnGroup>();
+
+    // 각 묶음의 독립적인 타이머와 선택기를 보관한다.
+    readonly List<EnemySpawnGroupRuntimeState> _groupStates =
+        new List<EnemySpawnGroupRuntimeState>();
 
     // 현재 스테이지 전투 구간을 확인한다.
     [SerializeField] StageFlowManager _stageFlowManager;
@@ -20,16 +24,6 @@ public class EnemySpawner : MonoBehaviour
     // 생성된 보스와 특수패턴 이벤트를 연결한다.
     [SerializeField] BossEncounterManager _bossEncounterManager;
 
-    // 일반 전투 구간에서 패턴을 선택하는 간격이다.
-    [Min(0.1f)]
-    [SerializeField] float _patternCoolTime = 3f;
-
-    // 보스 전투 구간에서 패턴을 선택하는 별도의 간격이다.
-    [Min(0.1f)]
-    [SerializeField] float _bossPatternCoolTime = 6f;
-
-    // 다음 패턴 선택까지 누적된 시간이다.
-    float _timer;
 
     // 플레이어와 패턴 선택기의 초기화가 끝났는지 확인한다.
     bool _isInitialized;
@@ -42,9 +36,6 @@ public class EnemySpawner : MonoBehaviour
 
     // 패턴에 전달할 생성 정보다.
     EnemySpawnContext _spawnContext;
-
-    // 기존 가중치 선택과 패턴별 쿨다운을 담당한다.
-    EnemySpawnPatternSelector _patternSelector;
 
     // 현재 구간이 중간보스 또는 최종보스 전투인지 확인한다.
     bool IsBossBattle =>
@@ -105,7 +96,32 @@ public class EnemySpawner : MonoBehaviour
             gameManager,
             RunPatternSequence);
 
-        _patternSelector = new EnemySpawnPatternSelector(_patterns);
+        // 초기화가 다시 호출될 경우 기존 묶음 실행 상태를 정리한다.
+        _groupStates.Clear();
+
+        if (_patternGroups == null || _patternGroups.Count == 0)
+        {
+            throw new InvalidOperationException(
+                $"{name}: 소환 묶음을 하나 이상 등록하세요.");
+        }
+
+        // 묶음마다 별도의 실행 상태와 패턴 선택기를 생성한다.
+        for (int i = 0; i < _patternGroups.Count; i++)
+        {
+            EnemySpawnGroup group = _patternGroups[i];
+
+            // 비어 있는 묶음은 설정 오류로 알려준다.
+            if (group == null ||
+                group.Patterns == null ||
+                group.Patterns.Count == 0)
+            {
+                throw new InvalidOperationException(
+                    $"{name}: {i + 1}번 묶음에 패턴을 등록하세요.");
+            }
+
+            _groupStates.Add(
+                new EnemySpawnGroupRuntimeState(group));
+        }
 
         _isInitialized = true;
 
@@ -113,6 +129,7 @@ public class EnemySpawner : MonoBehaviour
         RefreshSpawningState();
     }
 
+    // 소환 가능한 동안 모든 묶음의 타이머를 각각 갱신한다.
     private void Update()
     {
         if (!_isInitialized)
@@ -120,40 +137,30 @@ public class EnemySpawner : MonoBehaviour
             return;
         }
 
-        // 보스의 사망은 사망 애니메이션 완료 이벤트보다 먼저 발생한다.
-        // 생성 직전에도 상태를 확인하여 사망 연출 중 생성을 막는다.
+        // 현재 스테이지와 보스 상태를 확인해 소환 여부를 갱신한다.
         RefreshSpawningState();
 
-        if (!_isSpawning || Time.deltaTime <= 0f)
+        float deltaTime = Time.deltaTime;
+
+        if (!_isSpawning || deltaTime <= 0f)
         {
             return;
         }
 
-        // 생성이 허용된 동안에만 패턴별 쿨다운을 감소시킨다.
-        _patternSelector.UpdateCooldowns(Time.deltaTime);
-        _timer += Time.deltaTime;
-
-        // 전투 구간에 맞는 공통 생성 간격을 사용한다.
-        float interval = IsBossBattle
-            ? _bossPatternCoolTime
-            : _patternCoolTime;
-
-        if (_timer < interval)
+        for (int i = 0; i < _groupStates.Count; i++)
         {
-            return;
+            // 앞 묶음 실행 중 소환 불가 상태가 되었다면 이후 묶음은 실행하지 않는다.
+            if (!_isSpawning || !CanSpawn())
+            {
+                break;
+            }
+
+            // 각 묶음은 자기 소환 간격과 자기 패턴 목록만 사용한다.
+            _groupStates[i].Tick(
+                deltaTime,
+                IsBossBattle,
+                _spawnContext);
         }
-
-        // 모든 패턴이 쿨다운 중이면 선택 가능한 시점까지 기다린다.
-        if (!_patternSelector.TrySelect(
-            out EnemySpawnPatternRuntimeState selectedState))
-        {
-            return;
-        }
-
-        selectedState.Pattern.Execute(_spawnContext);
-        selectedState.StartCooldown();
-
-        _timer = 0f;
     }
 
     /// <summary>
@@ -208,9 +215,7 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 새로운 스테이지 구간에서는 쿨다운과 생성 예약을 초기화한다.
-    /// </summary>
+    // 스테이지 단계가 바뀌면 모든 묶음과 패턴의 대기 상태를 초기화한다.
     private void HandlePhaseChanged(StagePhase phase)
     {
         StopSpawning();
@@ -220,7 +225,11 @@ public class EnemySpawner : MonoBehaviour
             return;
         }
 
-        _patternSelector.ResetCooldowns();
+        for (int i = 0; i < _groupStates.Count; i++)
+        {
+            _groupStates[i].ResetAll();
+        }
+
         RefreshSpawningState();
     }
 
@@ -264,10 +273,7 @@ public class EnemySpawner : MonoBehaviour
         _boundBoss = null;
     }
 
-    /// <summary>
-    /// 현재 구간의 생성 간격을 처음부터 측정한다.
-    /// 특수패턴 종료 시 개별 패턴 쿨다운은 보존한다.
-    /// </summary>
+    // 소환을 재개하면 각 묶음은 자기 소환 간격만큼 기다린다.
     public void StartSpawning()
     {
         if (!CanSpawn() || _isSpawning)
@@ -275,17 +281,15 @@ public class EnemySpawner : MonoBehaviour
             return;
         }
 
-        _timer = 0f;
+        ResetGroupTimers();
         _isSpawning = true;
     }
 
-    /// <summary>
-    /// 생성 예약을 취소한다. 이미 생성된 적은 유지한다.
-    /// </summary>
+    // 소환을 중단하고 진행 중인 소환 코루틴도 종료한다.
     public void StopSpawning()
     {
-        _timer = 0f;
         _isSpawning = false;
+        ResetGroupTimers();
         StopAllCoroutines();
     }
 
@@ -300,5 +304,14 @@ public class EnemySpawner : MonoBehaviour
         }
 
         StartCoroutine(sequence);
+    }
+
+    // 모든 묶음의 소환 타이머를 초기화한다.
+    private void ResetGroupTimers()
+    {
+        for (int i = 0; i < _groupStates.Count; i++)
+        {
+            _groupStates[i].ResetTimer();
+        }
     }
 }
