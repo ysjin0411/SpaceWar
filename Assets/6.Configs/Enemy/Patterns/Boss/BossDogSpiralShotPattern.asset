@@ -22,4 +22,4 @@ MonoBehaviour:
   _shootDuration: 2.5
   _rotationSpeed: 180
   _fireInterval: 0.03
-  _bulletsPerShot: 4
+  _bulletsPerShot: 10
