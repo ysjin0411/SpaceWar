@@ -30,6 +30,8 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
     [Min(0)]
     [SerializeField] int _crashDamage;
 
+    [Header("처치시 나오는 아이템")]
+
     // 현재 실제로 특수패턴을 실행 중인지 나타낸다.
     public bool IsSpecialPatternRunning { get; private set; }
 
@@ -82,6 +84,9 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
     [SerializeField]
     List<TimedBossPatternEntry> _timedPatternEntries =
     new List<TimedBossPatternEntry>(); // 시간 조건으로 실행할 일반 패턴 설정 목록
+
+    [Header("드랍 관리")]
+    [SerializeField] List<DropGroup> _dropGroups = new List<DropGroup>();
 
     Rigidbody2D _rigidbody;          // 보스 이동에 사용하는 Rigidbody2D
     BossRandomMover _randomMover;    // 공통 랜덤 이동을 처리하는 런타임 객체

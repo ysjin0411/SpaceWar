@@ -237,6 +237,13 @@ MonoBehaviour:
     _weight: 10
   - _pattern: {fileID: 11400000, guid: 78f7af7718e744d4fbb537b663305b1c, type: 2}
     _weight: 10
+  _dropGroups:
+  - _groupName: Money
+    _moneyPrefabs:
+    - {fileID: 523677333196082315, guid: 02f86527c15f5bc4cad8b61a57339f3d, type: 3}
+    - {fileID: 523677333196082315, guid: 02f86527c15f5bc4cad8b61a57339f3d, type: 3}
+  - _groupName: Upgrade
+    _moneyPrefabs: []
   _healthSpecialPatternEntries:
   - _healthPercent: 90
     _pattern: {fileID: 11400000, guid: 909094ff4d83fcb458950b82ddc7479f, type: 2}
