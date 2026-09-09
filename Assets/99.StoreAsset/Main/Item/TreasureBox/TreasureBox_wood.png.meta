@@ -1,0 +1,296 @@
+fileFormatVersion: 2
+guid: abb817e13fc61704287db584f65b2eab
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8850986121414297963
+    second: "ChatGPT Image 2026\uB144 9\uC6D4 9\uC77C \uC624\uD6C4 02_23_14 (1)_0"
+  - first:
+      213: -8751842328847999281
+    second: "ChatGPT Image 2026\uB144 9\uC6D4 9\uC77C \uC624\uD6C4 02_23_14 (1)_1"
+  - first:
+      213: 4417320239979074246
+    second: "ChatGPT Image 2026\uB144 9\uC6D4 9\uC77C \uC624\uD6C4 02_23_14 (1)_2"
+  - first:
+      213: 8668475730619405006
+    second: "ChatGPT Image 2026\uB144 9\uC6D4 9\uC77C \uC624\uD6C4 02_23_14 (1)_3"
+  - first:
+      213: 8636707722463680391
+    second: "ChatGPT Image 2026\uB144 9\uC6D4 9\uC77C \uC624\uD6C4 02_23_14 (1)_4"
+  - first:
+      213: -789371895546030150
+    second: "ChatGPT Image 2026\uB144 9\uC6D4 9\uC77C \uC624\uD6C4 02_23_14 (1)_5"
+  - first:
+      213: -307682598746799680
+    second: "ChatGPT Image 2026\uB144 9\uC6D4 9\uC77C \uC624\uD6C4 02_23_14 (1)_6"
+  - first:
+      213: 49752593571241244
+    second: "ChatGPT Image 2026\uB144 9\uC6D4 9\uC77C \uC624\uD6C4 02_23_14 (1)_7"
+  - first:
+      213: -3473625399449727686
+    second: "ChatGPT Image 2026\uB144 9\uC6D4 9\uC77C \uC624\uD6C4 02_23_14 (1)_8"
+  - first:
+      213: -7431577968747813212
+    second: "ChatGPT Image 2026\uB144 9\uC6D4 9\uC77C \uC624\uD6C4 02_23_14 (1)_9"
+  - first:
+      213: -6271676087808768629
+    second: "ChatGPT Image 2026\uB144 9\uC6D4 9\uC77C \uC624\uD6C4 02_23_14 (1)_10"
+  - first:
+      213: 3515338259154686360
+    second: "ChatGPT Image 2026\uB144 9\uC6D4 9\uC77C \uC624\uD6C4 02_23_14 (1)_11"
+  - first:
+      213: -3435392859851705168
+    second: "ChatGPT Image 2026\uB144 9\uC6D4 9\uC77C \uC624\uD6C4 02_23_14 (1)_12"
+  - first:
+      213: 8105712526400664917
+    second: "ChatGPT Image 2026\uB144 9\uC6D4 9\uC77C \uC624\uD6C4 02_23_14 (1)_13"
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: TreasureBox_wood
+      rect:
+        serializedVersion: 2
+        x: 463
+        y: 495
+        width: 533
+        height: 374
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b69cfce9bf405da70800000000000000
+      internalID: 8850986121414297963
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BoxEffectWood_3
+      rect:
+        serializedVersion: 2
+        x: 744
+        y: 87
+        width: 288
+        height: 303
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 78712521aefbbd770800000000000000
+      internalID: 8636707722463680391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BoxEffectWood_1
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 170
+        width: 114
+        height: 105
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c1c02e7e44eabbf0800000000000000
+      internalID: -307682598746799680
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BoxEffectWood_2
+      rect:
+        serializedVersion: 2
+        x: 429
+        y: 144
+        width: 197
+        height: 164
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1dd77268b1c0b000800000000000000
+      internalID: 49752593571241244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BoxEffectWood_4
+      rect:
+        serializedVersion: 2
+        x: 1150
+        y: 142
+        width: 175
+        height: 166
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4a6ea2c263bbdd890800000000000000
+      internalID: -7431577968747813212
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 4b843c985fc1ea749838124996701310
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      BoxEffectWood_1: -307682598746799680
+      BoxEffectWood_2: 49752593571241244
+      BoxEffectWood_3: 8636707722463680391
+      BoxEffectWood_4: -7431577968747813212
+      "ChatGPT Image 2026\uB144 9\uC6D4 9\uC77C \uC624\uD6C4 02_23_14 (1)_1": -8751842328847999281
+      "ChatGPT Image 2026\uB144 9\uC6D4 9\uC77C \uC624\uD6C4 02_23_14 (1)_10": -6271676087808768629
+      "ChatGPT Image 2026\uB144 9\uC6D4 9\uC77C \uC624\uD6C4 02_23_14 (1)_11": 3515338259154686360
+      "ChatGPT Image 2026\uB144 9\uC6D4 9\uC77C \uC624\uD6C4 02_23_14 (1)_12": -3435392859851705168
+      "ChatGPT Image 2026\uB144 9\uC6D4 9\uC77C \uC624\uD6C4 02_23_14 (1)_13": 8105712526400664917
+      "ChatGPT Image 2026\uB144 9\uC6D4 9\uC77C \uC624\uD6C4 02_23_14 (1)_2": 4417320239979074246
+      "ChatGPT Image 2026\uB144 9\uC6D4 9\uC77C \uC624\uD6C4 02_23_14 (1)_3": 8668475730619405006
+      "ChatGPT Image 2026\uB144 9\uC6D4 9\uC77C \uC624\uD6C4 02_23_14 (1)_5": -789371895546030150
+      "ChatGPT Image 2026\uB144 9\uC6D4 9\uC77C \uC624\uD6C4 02_23_14 (1)_8": -3473625399449727686
+      TreasureBox_wood: 8850986121414297963
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
