@@ -161,8 +161,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 5
-  _maxHp: 1000
-  _currentHp: 1000
+  _maxHp: 150
+  _currentHp: 150
   _hpUI: {fileID: 0}
 --- !u!114 &1418651684376496739
 MonoBehaviour:

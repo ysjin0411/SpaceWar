@@ -138,8 +138,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 5
-  _maxHp: 1000
-  _currentHp: 1000
+  _maxHp: 100
+  _currentHp: 100
   _hpUI: {fileID: 0}
 --- !u!114 &1418651684376496739
 MonoBehaviour:
@@ -155,11 +155,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _animator: {fileID: 5694316929414888429}
   _spriteLibrary: {fileID: 3614063537549607022}
-  _testEquippedWeaponDatas: []
   _equippedWeapons: []
   _currentSlotIndex: 0
   _firePoint: {fileID: 5470202707007144418}
   _grenadeAimGuide: {fileID: 6291431893613890337}
+  _giantSword: {fileID: 0}
+  _hammer: {fileID: 0}
+  _shield: {fileID: 0}
+  _slashAttackClip: {fileID: 0}
 --- !u!70 &6233448519816325409
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

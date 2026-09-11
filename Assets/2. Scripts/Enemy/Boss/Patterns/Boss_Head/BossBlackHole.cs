@@ -23,13 +23,13 @@ public struct BossBlackHoleSettings
 
 
     // 플레이어에게 더할 중심 방향의 이동 속도다.
-    [Min(0f)] public float PullSpeed;
+    [SerializeField][Min(0f)] public float PullSpeed;
 
     // 같은 블랙홀이 피해를 주는 최소 시간 간격이다.
     [Min(0.01f)] public float DamageInterval;
 
     // 피해 간격마다 적용할 피해량이다.
-    [Min(1)] public int Damage;
+    [SerializeField][Min(1)] public int Damage;
 
     // 유지·소멸 중 초당 회전 각도다. 음수는 시계 방향이다.
     public float RotationSpeed;

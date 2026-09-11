@@ -1,14 +1,55 @@
 ﻿질문ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+1. equipmentmanageview, equipmentslotview, EquippedWeaponSlotView 이 세개를 합치면 안되나?
 
 
 공부해야할거같은 스크립트ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
 
 질문내용1)ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+SaveManager.UnequipWeapon() 함수는 존재하지만, 현재 장비 화면 스크립트에는 드래그로 화면 밖에 놓았을 때 이 함수를 호출하는 경로가 없어.
+이 함수 필요없을거같은데?
 
+수정내용2)ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+② EquipmentManageView는 책임이 많이 모여 있다
+현재 파일은 주석과 공백을 포함해 1,060줄이야. 줄 수 자체보다 다음 일이 함께 들어 있다는 점이 중요해.
+- 캐릭터·골드 표시
+- 중앙 목록 생성과 갱신
+- 상세 패널 표시
+- 툴팁 표시와 위치 계산
+- 드래그 아이콘 표시와 위치 계산
+- 드롭 출발지 판별
+- 슬롯 이벤트 연결
+앞으로 툴팁과 상세 패널, 드래그 표현이 각각 자주 바뀐다면 그 부분을 분리할 이유가 생겨.
+이건 객체를 너무 많이 만든 문제보다는 전체 View에 표시 책임이 많이 모인 상태에 가까워.
 
 수정할것ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+[EquipmentModel 생성자와 기본 보유 처리 (line 50)](C:/YSJ/SubPF/Assets/2. Scripts/1.EquipmentManage/EquipmentModel.cs:50)를 보면, 
+생성자에서 InitializeOwnedWeapons()를 호출해.이 함수는 캐릭터의 AvailableWeapons를 살펴보고:
+- 기본 보유 무기인지 확인한다.빠진 기본 보유 무기 ID를 추가한다.
+> 이제 확인할 필요없겠지. 그냥 보유무기니까.
 
+수정할내용들ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+③ Model의 생성자가 저장까지 할 수 있다
+new EquipmentModel(...) 안에서 기본 보유 목록을 보정하고 저장할 수 있어.
+지금 동작은 이해 가능하지만, “객체를 만드는 작업”과 “저장 기록을 변경하는 작업”이 함께 묶여 있어. 나중에 초기화 순서를 정리한다면, 이 보정 처리를 명시적인 단계로 드러내는 방향을 검토할 만해.
+④ 규칙을 거치는 진입점이 중요하다
+2단계에서 지적한 부분이 실제 장착 흐름에서도 확인돼.
+- Model은 보유 상태와 중복 장착을 확인한다.
+- SaveManager의 EquipWeapon()은 ID와 슬롯을 받아 기록한다.
+따라서 다른 화면이 SaveManager를 직접 호출하면 Model의 장착 규칙이 자동으로 적용되지는 않아.
+현재 화면의 정상 경로에서는 Model을 거치고 있어. 향후 기능을 늘릴 때 사용자 장착 요청이 어느 경로를 반드시 통과해야 하는지 정하는 것이 핵심이야.
+⑤ Presenter의 이벤트 연결에는 수명 관리 여지가 있다
+[Presenter 생성자 (line 21)](C:/YSJ/SubPF/Assets/2. Scripts/1.EquipmentManage/EquipmentPresenter.cs:21)는 이벤트마다 -= 후 +=를 해.
+그런데 새 Presenter를 만들어 같은 View에 붙일 경우, 새 객체의 -=는 이전 Presenter 객체의 핸들러까지 제거해 주지 않아. 대상 객체가 서로 다르기 때문이야.
+현재처럼 화면 진입 시 한 번 만들고 View와 함께 수명을 마치는 사용만으로 메모리 누수가 발생한다고 단정할 수는 없어. 다만 재연결·재초기화를 지원하려면 기존 구독을 해제하는 명확한 종료 처리가 필요해.
+⑥ 현재 사용되지 않는 우회 함수가 있다
+EquipmentPresenter.CanDragWeapon()은 존재하지만, 프로젝트 스크립트에서 호출하는 곳은 찾지 못했어.
+현재 드래그 시작 제한은 중앙 슬롯이 전달받은 ItemState로 처리하고, 실제 장착 시 Model이 다시 검사해.
+따라서 설명할 때 “드래그 가능 여부를 매번 Presenter에 물어본다”고 하면 현재 코드와 달라. 향후 정리할 때 사용되지 않는 함수인지, 의도한 연결을 빠뜨린 것인지 구분하면 돼.
+⑦ 인터페이스가 없다는 이유로 MVP가 잘못된 것은 아니다
+현재 Presenter는 구체적인 EquipmentManageView에 의존하고, Model도 구체적인 SaveManager에 의존해.
+그래서 완전히 독립된 테스트나 다른 구현으로 교체하기에는 제약이 있어. 하지만 지금 기능을 설명하기 위해 인터페이스를 추가로 여러 개 만드는 것부터 시작할 필요는 없어.
+실제 교체 요구나 테스트 필요가 생겼을 때, 그 경계에 맞춰 추상화를 도입하는 편이 근거가 분명해.
 
 
 
@@ -24,3 +65,366 @@
 시간오래걸려도 되니까 정밀하게 분석해줘.
 
 3단계 본문ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+3-1. 출격 본부 안에 있는 ‘장비 지급 창구’로 들어가자
+2단계에서 사용한 비유를 그대로 이어갈게.
+- CharacterData, WeaponData는 카탈로그.
+- 캐릭터 저장 데이터는 개인 기록부.
+- GameSessionManager는 누구의 업무를 처리할지 적힌 신청서.
+장비 화면은 이 서류를 받아서 구매와 장착을 처리하는 창구야.
+여기에는 여섯 스크립트가 참여해.
+스크립트	출격 본부 비유	실제 역할
+EquipmentManager	창구를 열고 담당자를 배치하는 관리자	선택한 캐릭터를 조회하고 Model·Presenter·View 연결
+EquipmentModel	지급 규정 담당자	구매 가능 여부, 보유 여부, 장착·교환 규칙 판단
+EquipmentPresenter	업무 진행 담당자	사용자 요청을 Model에 전달하고 결과에 따라 화면 갱신
+EquipmentManageView	창구 전체의 표시판과 입력 장치	캐릭터·골드·상세 정보 표시, 슬롯 이벤트 취합, 드래그 연출
+EquipmentSlotView	중앙 무기 진열 카드 한 장	무기 하나의 표시, 선택·마우스·드래그 입력 감지
+EquippedWeaponSlotView	왼쪽 장착 칸 하나	현재 장착 무기 보관, 드래그·드롭 입력 감지
+
+
+여기서 이름이 비슷한 두 슬롯을 구분해야 해.
+EquipmentSlotView는 중앙의 ‘이 캐릭터에게 제공되는 무기 목록’이고, EquippedWeaponSlotView는 왼쪽의 ‘출격할 때 가져갈 무기 3칸’이야.
+중앙에는 아직 사지 않은 무기도 나올 수 있어. 중앙 목록에 보인다는 사실은 보유했다는 뜻이 아니야.
+전체 연결은 이렇게 볼 수 있어.
+```mermaid
+flowchart TD
+    Session["GameSessionManager<br/>선택한 캐릭터 ID"]
+    DB["CharacterDatabase<br/>캐릭터 카탈로그 조회"]
+    Save["SaveManager<br/>개인 기록 조회·변경·파일 저장"]
+    Manager["EquipmentManager<br/>화면 초기 구성"]
+    Model["EquipmentModel<br/>구매·장착 규칙"]
+    Presenter["EquipmentPresenter<br/>요청 처리와 화면 갱신"]
+    View["EquipmentManageView<br/>장비 화면 전체"]
+    List["EquipmentSlotView<br/>중앙 무기 카드"]
+    Equipped["EquippedWeaponSlotView<br/>왼쪽 장착 칸"]
+
+    Session --> Manager
+    DB --> Manager
+    Save --> Manager
+    Manager -->|"생성"| Model
+    Manager -->|"생성하고 초기화"| Presenter
+    Presenter -->|"판단·변경 요청"| Model
+    Model -->|"기록 변경 요청"| Save
+    View -->|"사용자 요청 이벤트"| Presenter
+    Presenter -->|"표시 함수 호출"| View
+    List -->|"선택·드래그 이벤트"| View
+    Equipped -->|"드래그·드롭 이벤트"| View
+    View -->|"내용과 표시 상태 설정"| List
+    View -->|"내용과 표시 상태 설정"| Equipped
+```
+
+
+
+화살표가 양방향으로 보이는 부분은 역할이 다른 두 흐름이야.
+사용자가 무언가 하면 이벤트가 올라가고, 처리 결과를 표시할 때는 함수 호출이 내려와.
+3-2. 장비 화면에 들어오면 누가 먼저 움직일까?
+관련 코드: [EquipmentManager.cs (line 90)](C:/YSJ/SubPF/Assets/2. Scripts/1.EquipmentManage/EquipmentManager.cs:90)
+시작점은 EquipmentManager.Start()야.
+그 안에서 InitializeSelectedCharacter()를 실행해.
+순서는 다음과 같아.
+1. 세션, 저장 관리자, 캐릭터 데이터베이스, View가 있는지 확인한다.
+2. 세션에서 선택한 캐릭터 ID를 읽는다.
+3. ID로 CharacterData를 찾는다.
+4. 같은 ID로 캐릭터 저장 기록을 가져온다.
+5. 두 데이터와 SaveManager를 전달해서 EquipmentModel을 만든다.
+6. Model과 View를 전달해서 EquipmentPresenter를 만든다.
+7. Presenter의 Initialize()로 화면을 준비한다.
+비유하면 이런 상황이야.
+“오늘 장비를 변경할 사람은 Soldier네.
+Soldier의 카탈로그와 개인 기록부를 가져와.
+규정 담당자에게 서류를 주고, 진행 담당자를 표시판과 연결해.”
+
+여기서 EquipmentManager는 구매 가능 여부를 직접 계산하지 않아. 필요한 객체를 준비하고 연결하는 역할이 중심이야.
+또한 Model과 Presenter는 일반 C# 클래스이고, Manager와 세 종류의 View는 MonoBehaviour야.
+따라서 Model과 Presenter에는 Unity가 자동으로 호출해 주는 Start()가 없어. Manager가 new로 생성하고, 필요한 초기화 함수를 직접 호출하는 구조야.
+Model을 만드는 순간에도 일이 하나 일어난다
+[EquipmentModel 생성자와 기본 보유 처리 (line 50)](C:/YSJ/SubPF/Assets/2. Scripts/1.EquipmentManage/EquipmentModel.cs:50)를 보면, 생성자에서 InitializeOwnedWeapons()를 호출해.
+이 함수는 캐릭터의 AvailableWeapons를 살펴보고:
+- 기본 보유 무기인지 확인한다.
+- 개인 기록에 이미 있는지 확인한다.
+- 빠진 기본 보유 무기 ID를 추가한다.
+- 변경이 있었다면 파일에 저장한다.
+2단계와 연결하면, 기본 보유 목록을 보충하는 처리야. 여기서 빈 장착 슬롯을 기본 무기로 채우지는 않아.
+즉, 현재 Model은 생성할 때 참조만 받아 두는 것이 아니라 저장 데이터를 보정하고 파일을 쓰는 일까지 할 수 있어. 생성자의 동작을 이해할 때 기억할 부분이야.
+3-3. Presenter는 처음에 화면을 어떻게 채울까?
+관련 코드: [EquipmentPresenter.Initialize (line 77)](C:/YSJ/SubPF/Assets/2. Scripts/1.EquipmentManage/EquipmentPresenter.cs:77)
+Presenter는 Model에서 정보를 가져와 View에 순서대로 전달해.
+순서	처리	화면에서의 의미
+1	상세 패널·툴팁 숨김	아직 무기를 선택하지 않은 상태로 시작
+2	캐릭터 정보 표시	이름, 아이콘, 저장된 레벨 표시
+3	골드 표시	현재 보유 골드 표시
+4	장착 무기 갱신	저장된 장착 ID로 왼쪽 3칸 채움
+5	중앙 슬롯 생성	AvailableWeapons 개수만큼 카드 생성
+6	중앙 슬롯 내용 갱신	무기 정보와 구매 상태 전달
+7	슬롯·구매 버튼 이벤트 연결	이후 사용자 조작을 받을 준비
+
+
+왼쪽 장착 칸을 채울 때는 저장 데이터에 들어 있는 문자열 ID를 그대로 이미지로 표시할 수 없겠지?
+그래서 Model의 GetEquippedWeaponAt()이 다음 변환을 해.
+저장된 무기 ID → 해당 캐릭터의 AvailableWeapons에서 검색 → WeaponData 반환 → 아이콘과 이름 표시
+
+저장 ID가 비어 있으면 빈 칸으로 표시하고, ID는 있는데 해당 캐릭터의 무기 목록에서 찾지 못하면 예외를 발생시켜.
+중앙 카드를 생성하는 Instantiate()도 전투 무기를 생성하는 것은 아니야. 이때 만드는 것은 EquipmentSlotView가 붙은 UI 프리팹이야.
+이 화면에서 하는 일은 출격 장비를 기록하는 것이고, 실제 공격에 사용할 무기 객체와 전투 상태는 이후 전투 초기화에서 다뤄.
+3-4. Model은 무기의 상태를 네 가지로 판정한다
+관련 코드: [EquipmentModel.GetItemState (line 162)](C:/YSJ/SubPF/Assets/2. Scripts/1.EquipmentManage/EquipmentModel.cs:162)
+중앙 무기 카드마다 다음 중 하나의 상태가 붙어.
+상태	판단 조건	의미
+Locked	요구 레벨보다 현재 레벨이 낮음	레벨 조건 미달
+Owned	레벨 조건을 통과했고 이미 보유함	보유 무기
+Purchasable	미보유이며 골드가 충분함	구매 가능
+NotEnoughGold	미보유이며 골드가 부족함	골드 부족
+
+
+중요한 것은 검사 순서야.
+```mermaid
+flowchart TD
+    A["무기 상태 확인"] --> B{"요구 레벨 미달?"}
+    B -->|"예"| L["Locked"]
+    B -->|"아니오"| C{"이미 보유?"}
+    C -->|"예"| O["Owned"]
+    C -->|"아니오"| D{"골드 충분?"}
+    D -->|"예"| P["Purchasable"]
+    D -->|"아니오"| N["NotEnoughGold"]
+```
+
+
+
+보유 확인보다 레벨 확인이 먼저라서, 저장 데이터를 수동으로 변경해 **“고레벨 무기를 보유했지만 현재 레벨은 낮은 상태”**를 만들면 Owned가 아니라 Locked로 판정돼.
+평소 레벨이 내려가지 않는 정상 진행에서는 드러나지 않을 수 있지만, 현재 규칙은 정확히 이 순서야.
+이 상태를 받은 View는:
+- 잠금 표시를 바꾸고,
+- 보유 표시와 가격 영역을 바꾸고,
+- 구매 버튼을 활성화하거나 비활성화해.
+중앙 슬롯은 Owned 상태일 때만 드래그를 시작해.
+단, Owned는 현재 장착 중이라는 뜻이 아니야.
+보유 여부는 ownedWeaponIds, 장착 여부는 equippedWeaponIds로 구분해. 장착한 무기도, 창고에 보관만 한 무기도 보유 상태는 모두 Owned야.
+3-5. 무기를 ‘선택’하는 것부터 따라가 보자
+관련 코드: [마우스 진입 처리 (line 679)](C:/YSJ/SubPF/Assets/2. Scripts/1.EquipmentManage/EquipmentManageView.cs:679), [선택 결과 처리 (line 252)](C:/YSJ/SubPF/Assets/2. Scripts/1.EquipmentManage/EquipmentPresenter.cs:252)
+이 화면에서는 중앙 무기 카드에 마우스를 올리는 동작이 선택으로 연결돼.
+흐름은 다음과 같아.
+1. EquipmentSlotView.OnPointerEnter()가 마우스 진입을 감지한다.
+2. 슬롯이 PointerEntered 이벤트를 보낸다.
+3. 전체 View가 해당 카드를 EventSystem의 선택 대상으로 지정한다.
+4. 카드의 OnSelect()가 실행되어 Selected 이벤트를 보낸다.
+5. 전체 View가 카드들의 선택 표시를 정리한다.
+6. 전체 View가 WeaponSelected 이벤트로 무기 데이터를 알린다.
+7. Presenter가 _selectedWeaponData에 기억한다.
+8. Model에서 상태를 확인한 뒤, 오른쪽 상세 패널을 갱신한다.
+비유하면:
+“이 무기를 좀 볼게요.”
+진행 담당자가 보고 있는 무기를 기억하고 설명서를 펼쳐 준다.
+
+이때 구매나 장착 기록은 바뀌지 않아. Presenter가 기억하는 “지금 보고 있는 무기”만 바뀌는 거야.
+이 기억이 나중에 구매 버튼에서 사용돼. 구매 버튼의 이벤트에는 무기 데이터가 실리지 않으므로, Presenter가 _selectedWeaponData를 보고 구매 대상을 알아내.
+마우스를 카드에서 빼면 툴팁은 숨겨지지만, 이 처리에서 선택을 해제하지는 않아. 그래서 오른쪽 상세 정보는 남아 있을 수 있어.
+또한 현재 툴팁 위치는 카드 중심에 보정값을 더한 위치야. 커서를 계속 따라다니는 드래그 아이콘과는 위치 계산의 기준이 달라.
+키보드 입력에서는 Manager가 방향키 입력을 감지했을 때 TrySelectFirstWeaponSlot()을 호출해. 이 함수는 현재 아무 UI도 선택되지 않았을 때만 첫 번째 중앙 카드를 선택해. 방향키를 누를 때마다 무조건 첫 카드로 돌아가는 구조는 아니야.
+3-6. Grenade를 구매하면 정확히 무슨 일이 일어날까?
+현재 [Grenade 데이터](C:/YSJ/SubPF/Assets/6.Configs/Weapon/Soldier/4_Soldier Grenade WeaponData.asset)는 요구 레벨 5, 가격 500, 기본 미보유로 설정되어 있어.
+설명을 위해 다음 상황을 가정하자.
+Soldier 레벨 5, 골드 800, Grenade 미보유.
+Grenade를 선택한 뒤 구매 버튼을 누른다.
+
+처리 순서는 이래.
+```mermaid
+sequenceDiagram
+    participant U as 사용자
+    participant V as View
+    participant P as Presenter
+    participant M as Model
+    participant S as SaveManager
+
+    U->>V: 구매 버튼 클릭
+    V->>P: PurchaseRequested 이벤트
+    P->>M: 선택한 Grenade 구매 요청
+    M->>M: 현재 구매 조건 재확인
+    M->>S: TryPurchaseWeapon
+    S->>S: 골드 차감·보유 ID 추가
+    S->>S: JSON 파일 저장
+    S-->>M: 성공
+    M-->>P: 성공
+    P->>V: 골드 300 표시
+    P->>V: 중앙 무기 전체 상태 갱신
+    P->>V: Grenade 상세 정보 갱신
+```
+
+
+
+실제 함수 연결은 다음과 같아.
+담당	함수	하는 일
+View	HandlePurchaseButtonClicked()	구매 요청 이벤트 발생
+Presenter	HandlePurchaseRequested()	기억한 선택 무기로 구매 시도
+Presenter	TryPurchaseWeapon()	Model에 요청하고 성공 후 화면 갱신
+Model	TryPurchase()	현재 상태가 Purchasable인지 재검사
+SaveManager	TryPurchaseWeapon()	중복 보유·골드 확인 후 기록 변경과 파일 저장
+
+
+저장 처리 근거: [SaveManager.TryPurchaseWeapon (line 254)](C:/YSJ/SubPF/Assets/2. Scripts/_SaveData/SaveManager.cs:254)
+여기서 세 가지를 짚자.
+첫째, 버튼이 활성화되어 있어도 Model이 다시 검사한다.
+화면에 표시된 상태와 실제 요청 시점의 상태가 항상 같다고 가정하지 않는 거야. 사용자에게 구매 가능 여부를 보여 주는 일과, 실제 변경을 허용하는 일은 각각 필요해.
+둘째, 구매 후 중앙 무기 전체를 갱신하는 데 이유가 있다.
+Grenade만 보유 상태로 바뀌는 게 아니야. 골드가 800에서 300으로 줄면, 다른 무기의 상태도 구매 가능에서 골드 부족으로 바뀔 수 있어.
+그래서 RefreshWeaponSlots()가 전체 무기 상태를 다시 계산해.
+셋째, 구매는 장착과 별개다.
+구매 성공으로 바뀌는 것은:
+- 전체 골드
+- Soldier의 보유 무기 목록
+이때 장착 배열은 바뀌지 않아. Grenade를 실제 출격 장비로 사용하려면 장착 동작을 따로 해야 해.
+또한 SaveManager는 구매 후 GoldChanged 이벤트를 발생시키지만, 현재 장비 Presenter는 그 이벤트를 구독해서 갱신하는 구조가 아니야. 자신의 구매 요청이 성공하면 직접 ShowGold() 등을 호출해 화면을 갱신해.
+3-7. 중앙 무기를 왼쪽 칸으로 드래그하면 무엇이 움직일까?
+관련 코드: [중앙 슬롯 드래그 시작 (line 192)](C:/YSJ/SubPF/Assets/2. Scripts/1.EquipmentManage/EquipmentSlotView.cs:192), [드래그 연출 (line 567)](C:/YSJ/SubPF/Assets/2. Scripts/1.EquipmentManage/EquipmentManageView.cs:567)
+방금 구매한 Grenade를 왼쪽 두 번째 칸에 놓는다고 하자.
+이 동작은 드래그 연출과 장착 처리로 나누어 이해하면 쉬워.
+① 드래그 시작: 보유한 카드인지 확인
+중앙 슬롯의 OnBeginDrag()에서 상태가 Owned인지 확인해.
+통과하면 슬롯이 자신의 _isDragging을 켜고 DragStarted 이벤트를 발생시켜.
+② 드래그 중: 별도의 UI 아이콘을 움직임
+전체 View는 다음 작업을 해.
+- 툴팁을 숨긴다.
+- 드래그 전용 Image에 Grenade 아이콘을 넣는다.
+- 드래그 아이콘을 표시한다.
+- 마우스 위치를 Canvas 내부 좌표로 변환해서 아이콘을 옮긴다.
+- 왼쪽 장착 칸들의 안내 효과를 켠다.
+중앙 카드나 실제 무기를 통째로 옮기는 방식이 아니야. 커서를 따라가는 별도의 이미지가 이동하는 거야.
+장비 창구 비유로는, 아직 기록부를 고치지 않고 무기 그림이 있는 이동용 표찰을 들고 있는 상태라고 보면 돼.
+따라서 이 시점에는 장착 기록이 그대로야.
+③ 왼쪽 칸에 놓음: 출발지가 어디인지 확인
+왼쪽 칸의 OnDrop()이 드롭을 감지해서 전체 View에 전달해.
+전체 View의 [HandleEquippedWeaponDropReceived (line 430)](C:/YSJ/SubPF/Assets/2. Scripts/1.EquipmentManage/EquipmentManageView.cs:430)는 eventData.pointerDrag에서 출발 슬롯을 찾고, 종류를 확인해.
+- 중앙 카드에서 왔다면 → 무기 장착 요청
+- 왼쪽 장착 칸에서 왔다면 → 슬롯 교환 요청
+지금은 중앙 Grenade 카드에서 왔으므로 WeaponEquipRequested를 발생시켜.
+④ Model이 장착을 허용해야 기록 변경
+[EquipmentModel.TryEquipWeapon (line 289)](C:/YSJ/SubPF/Assets/2. Scripts/1.EquipmentManage/EquipmentModel.cs:289)은:
+1. 대상 슬롯 번호가 유효한지 확인한다.
+2. 무기가 Owned 상태인지 확인한다.
+3. 어느 장착 칸에도 같은 무기가 없는지 확인한다.
+4. 통과하면 SaveManager.EquipWeapon()을 호출한다.
+그 다음 SaveManager가 대상 칸의 ID를 바꾸고 파일에 저장해. Presenter는 성공 결과를 받아 왼쪽 장착 칸들을 다시 표시해.
+예를 들어 장착 상태가 다음과 같았다면:
+칸	장착 전	Grenade를 두 번째 칸에 장착한 후
+1	Bullet	Bullet
+2	Lazer	Grenade
+3	Missile	Missile
+
+
+Lazer는 장착에서 빠지지만 보유 목록에는 그대로 남아 있어. 무기를 소비하거나 판매한 것이 아니니까.
+화면의 1·2·3번 칸은 코드에서 인덱스 0·1·2로 처리돼.
+3-8. 왼쪽 칸끼리 옮기는 것은 다른 작업이다
+관련 코드: [장착 슬롯 교환 규칙 (line 356)](C:/YSJ/SubPF/Assets/2. Scripts/1.EquipmentManage/EquipmentModel.cs:356), [저장된 ID 교환 (line 342)](C:/YSJ/SubPF/Assets/2. Scripts/_SaveData/SaveManager.cs:342)
+왼쪽 1번 칸의 Bullet을 왼쪽 2번 칸으로 옮긴다고 하자.
+이때는 새로운 무기를 장착하는 요청이 아니라 두 칸의 내용을 교환하는 요청이 발생해.
+칸	교환 전	교환 후
+1	Bullet	Grenade
+2	Grenade	Bullet
+3	Missile	Missile
+
+
+SaveManager가 실제로 바꾸는 것은 두 칸의 무기 ID 문자열이야.
+대상 칸이 비어 있다면, 두 칸의 내용을 바꾸는 같은 처리로 이동이 성립해.
+[Bullet, 빈 칸, Missile]
+→ 1번에서 2번으로 드래그
+→ [빈 칸, Bullet, Missile]
+
+반면 다음 동작은 현재 코드에서 허용되지 않아.
+Bullet이 이미 왼쪽 1번에 장착되어 있다.
+중앙 목록의 Bullet 카드를 왼쪽 2번에 놓는다.
+
+중앙에서 출발했으므로 TryEquipWeapon()으로 들어가고, 이 함수는 어느 칸이든 같은 무기가 이미 있으면 거절해.
+따라서 사용자의 목적이 “Bullet 위치 이동”이어도 출발 위치에 따라 결과가 달라져.
+조작	현재 처리
+중앙의 미장착 보유 무기 → 왼쪽 칸	대상 칸에 장착
+중앙의 이미 장착된 무기 → 다른 왼쪽 칸	중복 검사로 거절
+왼쪽 무기 → 다른 왼쪽 칸	두 칸 교환
+왼쪽 무기 → 빈 왼쪽 칸	빈 칸과 교환하여 이동
+왼쪽 무기 → 원래 칸	변경 없음
+유효한 장착 칸 밖에 놓기	장착 변경 없이 드래그 연출 종료
+
+
+마지막 동작은 장착 해제와도 구분해야 해.
+SaveManager.UnequipWeapon() 함수는 존재하지만, 현재 장비 화면 스크립트에는 드래그로 화면 밖에 놓았을 때 이 함수를 호출하는 경로가 없어.
+그리고 드래그 시작 시 켜지는 안내 효과는 모든 장착 칸에 일괄 표시돼. 그 효과가 켜졌다는 사실만으로 Model의 장착 검사를 통과한다는 뜻은 아니야.
+3-9. 여기까지가 왜 MVP일까?
+MVP라는 이름을 외우기 전에, 구매 규칙 하나를 바꾸는 상황을 생각해 보자.
+“레벨이 낮으면 무기를 구매할 수 없다.”
+
+이 판단은 Model에 있어.
+“구매에 성공하면 골드와 다른 무기들의 구매 상태도 갱신한다.”
+
+이 진행 순서는 Presenter에 있어.
+“구매 불가일 때 버튼을 비활성화하고 요구 레벨 문구를 표시한다.”
+
+이 표현은 View에 있어.
+구분	답하는 질문	네 코드의 예
+Model	이 행동을 허용할 수 있는가?	레벨·보유·골드·중복 장착 검사
+Presenter	요청 뒤 어떤 처리를 이어갈까?	구매 요청 후 성공 시 여러 화면 영역 갱신
+View	어떻게 보여 주고 입력을 받을까?	이미지, 텍스트, 선택 표시, 드래그 좌표
+
+
+여기서 Model을 저장 데이터 자체와 혼동하면 안 돼.
+이 프로젝트의 EquipmentModel은 개인 기록부를 보면서 장비 규칙을 처리하는 객체야. 실제 개인 기록은 _loadout이 참조하는 CharacterLoadoutSaveData에 있어.
+2단계에서 배운 “같은 객체를 참조한다”는 내용이 여기서 연결돼.
+SaveManager가 장착 배열을 바꾸면, Model이 참조하는 개인 기록에서도 그 변경을 볼 수 있다.
+
+별도의 복사본을 매번 동기화하는 방식이 아니야. Presenter는 성공 후 Model에서 다시 읽어서 View에 전달해.
+이벤트는 왜 사용할까?
+View는 “구매 요청이 발생했다”고 알리고, Presenter가 그 이벤트를 구독해 처리해.
+창구 비유로 표현하면:
+표시판은 구매 버튼이 눌렸다는 신호를 보낸다.
+진행 담당자가 그 신호를 받아 규정 담당자에게 확인한다.
+
+View가 SaveManager를 직접 찾아 골드를 차감하지 않아도 되는 구조야.
+다만 이벤트를 사용했다고 자동으로 비동기 처리나 별도 스레드가 되는 것은 아니야. 현재 구매 흐름은 이벤트를 호출하면 구독한 함수가 이어서 실행되고, 저장 호출까지 마친 후 돌아오는 방식이야.
+3-10. 객체지향이 과한가? 현재 구조에서의 판단
+이 장비 화면의 MVP 분리 자체는 과하다고 보지 않아. 구매·장착 규칙, 화면 표현, 드래그 입력처럼 실제로 서로 다른 책임이 있어.
+다만 각 경계가 완전히 정리되어 있는 것은 아니야.
+① 두 슬롯 클래스를 나눈 것은 타당하다
+중앙 카드는 잠금 상태와 선택 표시가 필요하고, 왼쪽 칸은 드롭을 받아야 해. 역할이 다르므로 클래스가 둘이라는 이유만으로 과설계는 아니야.
+드래그 코드 일부가 비슷하다고 곧바로 공통 부모 클래스를 만들 필요도 없어. 앞으로도 함께 바뀌는 동작인지 보고 판단하는 게 좋아.
+② EquipmentManageView는 책임이 많이 모여 있다
+현재 파일은 주석과 공백을 포함해 1,060줄이야. 줄 수 자체보다 다음 일이 함께 들어 있다는 점이 중요해.
+- 캐릭터·골드 표시
+- 중앙 목록 생성과 갱신
+- 상세 패널 표시
+- 툴팁 표시와 위치 계산
+- 드래그 아이콘 표시와 위치 계산
+- 드롭 출발지 판별
+- 슬롯 이벤트 연결
+앞으로 툴팁과 상세 패널, 드래그 표현이 각각 자주 바뀐다면 그 부분을 분리할 이유가 생겨.
+이건 객체를 너무 많이 만든 문제보다는 전체 View에 표시 책임이 많이 모인 상태에 가까워.
+③ Model의 생성자가 저장까지 할 수 있다
+new EquipmentModel(...) 안에서 기본 보유 목록을 보정하고 저장할 수 있어.
+지금 동작은 이해 가능하지만, “객체를 만드는 작업”과 “저장 기록을 변경하는 작업”이 함께 묶여 있어. 나중에 초기화 순서를 정리한다면, 이 보정 처리를 명시적인 단계로 드러내는 방향을 검토할 만해.
+④ 규칙을 거치는 진입점이 중요하다
+2단계에서 지적한 부분이 실제 장착 흐름에서도 확인돼.
+- Model은 보유 상태와 중복 장착을 확인한다.
+- SaveManager의 EquipWeapon()은 ID와 슬롯을 받아 기록한다.
+따라서 다른 화면이 SaveManager를 직접 호출하면 Model의 장착 규칙이 자동으로 적용되지는 않아.
+현재 화면의 정상 경로에서는 Model을 거치고 있어. 향후 기능을 늘릴 때 사용자 장착 요청이 어느 경로를 반드시 통과해야 하는지 정하는 것이 핵심이야.
+⑤ Presenter의 이벤트 연결에는 수명 관리 여지가 있다
+[Presenter 생성자 (line 21)](C:/YSJ/SubPF/Assets/2. Scripts/1.EquipmentManage/EquipmentPresenter.cs:21)는 이벤트마다 -= 후 +=를 해.
+그런데 새 Presenter를 만들어 같은 View에 붙일 경우, 새 객체의 -=는 이전 Presenter 객체의 핸들러까지 제거해 주지 않아. 대상 객체가 서로 다르기 때문이야.
+현재처럼 화면 진입 시 한 번 만들고 View와 함께 수명을 마치는 사용만으로 메모리 누수가 발생한다고 단정할 수는 없어. 다만 재연결·재초기화를 지원하려면 기존 구독을 해제하는 명확한 종료 처리가 필요해.
+⑥ 현재 사용되지 않는 우회 함수가 있다
+EquipmentPresenter.CanDragWeapon()은 존재하지만, 프로젝트 스크립트에서 호출하는 곳은 찾지 못했어.
+현재 드래그 시작 제한은 중앙 슬롯이 전달받은 ItemState로 처리하고, 실제 장착 시 Model이 다시 검사해.
+따라서 설명할 때 “드래그 가능 여부를 매번 Presenter에 물어본다”고 하면 현재 코드와 달라. 향후 정리할 때 사용되지 않는 함수인지, 의도한 연결을 빠뜨린 것인지 구분하면 돼.
+⑦ 인터페이스가 없다는 이유로 MVP가 잘못된 것은 아니다
+현재 Presenter는 구체적인 EquipmentManageView에 의존하고, Model도 구체적인 SaveManager에 의존해.
+그래서 완전히 독립된 테스트나 다른 구현으로 교체하기에는 제약이 있어. 하지만 지금 기능을 설명하기 위해 인터페이스를 추가로 여러 개 만드는 것부터 시작할 필요는 없어.
+실제 교체 요구나 테스트 필요가 생겼을 때, 그 경계에 맞춰 추상화를 도입하는 편이 근거가 분명해.
+3-11. 네가 이 화면을 설명할 때 구분해야 할 다섯 동작
+동작	바뀌는 것	파일 저장
+무기 선택	선택 표시, 상세 정보, Presenter의 선택 대상	없음
+무기 구매	골드와 보유 무기 ID 목록	성공 시 저장
+중앙 무기 장착	대상 장착 칸의 무기 ID	성공 시 저장
+장착 칸끼리 교환	두 장착 칸의 무기 ID	성공 시 저장
+드래그만 하다가 취소	드래그 아이콘과 안내 표시	장착 저장 없음
+
+
+면접에서 이 부분을 설명한다면 다음 정도로 이야기할 수 있어.
+장비 화면은 MVP로 역할을 분리했습니다. View가 선택·구매·드래그 입력을 이벤트로 전달하면 Presenter가 Model에 처리를 요청합니다. Model은 구매 조건과 장착 중복을 검사하고 SaveManager를 통해 기록을 변경합니다. 성공 후 Presenter가 관련 UI를 갱신합니다. 중앙 목록에서의 장착과 기존 장착 슬롯 간 교환은 별도 요청으로 구분했습니다.
+
+그 설명에 **“구매하면 보유 목록이 바뀌고, 장착하면 장착 배열이 바뀐다”**까지 덧붙일 수 있으면, 패턴 이름뿐 아니라 실제 데이터 흐름을 이해하고 있는 거야.
+다음 4단계는 스테이지 흐름이야. 여기서 작성한 장착 기록과 세션의 선택 정보가 전투 씬으로 넘어가서, 실제 플레이어 생성과 전투 시작으로 연결되는 과정을 이어서 보면 돼.
