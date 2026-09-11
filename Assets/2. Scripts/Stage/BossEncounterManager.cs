@@ -25,6 +25,28 @@ public class BossEncounterManager : MonoBehaviour
     [Tooltip("최종보스를 생성할 위치")]
     [SerializeField] Transform _finalBossSpawnPoint;
 
+    // 낙하 연출 컴포넌트가 붙어 있는 공통 TreasureBox 프리팹이다.
+    // 등급별 외형 프리팹이 아니라 공통 본체를 연결한다.
+    [SerializeField]
+    TreasureBoxEntrance _treasureBoxPrefab;
+
+    // 씬에 배치한 상자 착지 지점이다.
+    [SerializeField]
+    Transform _treasureBoxPoint;
+
+    // 중간보스 처치 시 상자가 등장할 확률이다.
+    // 0은 등장하지 않음, 1은 반드시 등장함을 의미한다.
+    [SerializeField, Range(0f, 1f)]
+    float _midBossTreasureChance = 1f;
+
+    // 최종보스 처치 시 상자가 등장할 확률이다.
+    [SerializeField, Range(0f, 1f)]
+    float _finalBossTreasureChance = 1f;
+
+    // 현재 생성된 공통 상자 본체다.
+    // 이후 보상 지급과 진행 재개를 연결할 때 사용한다.
+    TreasureBox _currentTreasureBox;
+
     // StageManager가 생성한 현재 플레이어
     PlayerController _playerController;
 
@@ -79,6 +101,13 @@ public class BossEncounterManager : MonoBehaviour
             throw new InvalidOperationException(
                 $"{name}의 BossEncounterManager에 Final Boss Spawn Point가 연결되지 않았습니다.");
         }
+
+        // 상자 생성에 필요한 참조가 빠졌다면 시작할 때 바로 알린다.
+        if (_treasureBoxPrefab == null || _treasureBoxPoint == null)
+        {
+            throw new InvalidOperationException(
+                $"{name}: Treasure Box Prefab과 Treasure Box Point를 연결하세요.");
+        }
     }
 
     private void OnEnable()
@@ -132,7 +161,6 @@ public class BossEncounterManager : MonoBehaviour
                 SpawnBoss(
                     _midBossPrefab,
                     _midBossSpawnPoint);
-
                 break;
 
             case StagePhase.FinalBossBattle:
@@ -140,7 +168,12 @@ public class BossEncounterManager : MonoBehaviour
                 SpawnBoss(
                     _finalBossPrefab,
                     _finalBossSpawnPoint);
+                break;
 
+            // 상자 진행 중 플레이어가 죽거나 스테이지가 종료되면 상자를 제거한다.
+            case StagePhase.Failed:
+            case StagePhase.Cleared:
+                ClearTreasureBox();
                 break;
         }
     }
@@ -188,25 +221,97 @@ public class BossEncounterManager : MonoBehaviour
         Debug.Log($"보스를 생성했습니다: {_currentBoss.name}");
     }
 
-    /// <summary>
-    /// 현재 보스가 처치됐을 때 호출된다.
-    /// 보스 참조를 정리하고 StageFlowManager에 처치 사실을 전달한다.
-    /// </summary>
+    // 보스 사망 애니메이션이 끝났을 때 호출된다.
+    // 상자가 나오면 다음 단계로 넘어가지 않고 보스 전투 상태를 유지한다.
     private void HandleBossDefeated(BossEnemy defeatedBoss)
     {
-        // 예상하지 않은 다른 보스가 이벤트를 보냈다면 처리하지 않는다.
-        if (defeatedBoss != _currentBoss)
+        // 현재 관리 중인 보스의 유효한 사망 알림만 처리한다.
+        if (defeatedBoss == null || defeatedBoss != _currentBoss)
         {
             return;
         }
 
-        // 같은 이벤트가 다시 전달되지 않도록 구독을 해제한다.
+        // 구독 해제와 참조 초기화로 같은 보스의 중복 처리를 막는다.
         defeatedBoss.Defeated -= HandleBossDefeated;
-
-        // 현재 보스가 사라졌다는 것을 기록한다.
         _currentBoss = null;
 
-        // 현재 페이즈에 맞는 다음 스테이지 흐름으로 넘어간다.
+        StagePhase phase = _stageFlowManager.CurrentPhase;
+
+        // 플레이어 사망 등으로 이미 전투가 끝났다면 상자를 생성하지 않는다.
+        if (phase != StagePhase.MidBossBattle &&
+            phase != StagePhase.FinalBossBattle)
+        {
+            return;
+        }
+
+        // 처치한 보스 구간에 맞는 등장 확률을 선택한다.
+        float chance = phase == StagePhase.MidBossBattle
+            ? _midBossTreasureChance
+            : _finalBossTreasureChance;
+
+        // 상자가 등장했다면 보상 처리가 끝날 때까지 진행을 보류한다.
+        if (TrySpawnTreasureBox(chance))
+        {
+            return;
+        }
+
+        // 상자가 나오지 않았다면 기존 흐름으로 즉시 진행한다.
         _stageFlowManager.NotifyBossDefeated();
+    }
+
+    // 등장 확률을 판정하고 성공하면 상자를 생성한다.
+    // 반환값이 true이면 상자 처리가 진행 중이므로 상태 전환을 보류한다.
+    private bool TrySpawnTreasureBox(float chance)
+    {
+        // 이미 처리 중인 상자가 있다면 추가 생성하지 않는다.
+        if (_currentTreasureBox != null)
+        {
+            return true;
+        }
+
+        // 0%는 반드시 실패하고, 100%는 반드시 성공하도록 처리한다.
+        if (chance <= 0f ||
+            (chance < 1f && UnityEngine.Random.value >= chance))
+        {
+            return false;
+        }
+
+        Vector3 landingPosition = _treasureBoxPoint.position;
+
+        // 등급별 외형이 아닌 공통 상자 본체를 생성한다.
+        TreasureBoxEntrance entrance = Instantiate(
+            _treasureBoxPrefab,
+            landingPosition,
+            Quaternion.identity);
+
+        _currentTreasureBox = entrance.GetComponent<TreasureBox>();
+
+        // 설정 오류로 연출 시작에 실패하면 생성한 본체를 정리한다.
+        try
+        {
+            // 내부에서 최종 등급을 한 번 추첨하고 낙하를 시작한다.
+            // 두 번의 반동이 끝나면 자동으로 피격이 허용된다.
+            entrance.Play(landingPosition);
+        }
+        catch
+        {
+            Destroy(entrance.gameObject);
+            _currentTreasureBox = null;
+            throw;
+        }
+
+        return true;
+    }
+
+    // 스테이지 종료 시 남아 있는 상자와 연결된 낙하 연출을 정리한다.
+    private void ClearTreasureBox()
+    {
+        if (_currentTreasureBox == null)
+        {
+            return;
+        }
+
+        Destroy(_currentTreasureBox.gameObject);
+        _currentTreasureBox = null;
     }
 }

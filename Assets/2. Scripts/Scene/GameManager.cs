@@ -205,24 +205,24 @@ public class GameManager : MonoBehaviour
             _maxGaugeBar);
     }
 
-    /// <summary>
-    /// 지정된 위치에 골드 보상 UI를 생성한다.
-    /// </summary>
+    // 골드 생성 요청과 묶음 전체의 획득 완료 함수를 GoldUI에 전달한다.
     public void SpawnGold(
         Gold goldPrefab,
         Vector3 worldPosition,
-        int dropCount)
+        int dropCount,
+        Action onAllCollected = null)
     {
         if (_goldUI == null)
         {
             throw new InvalidOperationException(
-                $"{name}의 GoldUI가 연결되지 않았습니다.");
+                $"{name}에 GoldUI가 연결되지 않았습니다.");
         }
 
         _goldUI.SpawnGold(
             goldPrefab,
             worldPosition,
-            dropCount);
+            dropCount,
+            onAllCollected);
     }
 
     /// <summary>

@@ -23,17 +23,23 @@ public class Gold : MonoBehaviour
     [Min(0.1f)]
     [SerializeField] float _collectSpeed = 1000f;
 
-    RectTransform _goldTarget;
+    RectTransform _goldTarget;// 생성 위치와 획득 목적지를 설정하고 연출을 시작한다.
+                              // 완료 함수는 선택 사항이므로 기존 호출 코드도 그대로 사용할 수 있다.
     GoldUI _goldUI;
 
-    /// <summary>
-    /// 생성된 골드를 원 바깥쪽으로 퍼뜨린 뒤
-    /// 골드 UI 목적지로 이동시킨다.
-    /// </summary>
+    // 이 골드의 실제 지급이 끝났을 때 호출할 함수다.
+    Action _onCollected;
+
+    // 같은 골드를 중복 지급하지 않도록 확인한다.
+    bool _isCollected;
+
+    // 생성 위치와 획득 목적지를 설정하고 연출을 시작한다.
+    // 완료 함수는 선택 사항이므로 기존 호출 코드도 그대로 사용할 수 있다.
     public void Initialize(
         Vector3 spreadPosition,
         RectTransform goldTarget,
-        GoldUI goldUI)
+        GoldUI goldUI,
+        Action onCollected = null)
     {
         if (goldTarget == null)
         {
@@ -47,6 +53,8 @@ public class Gold : MonoBehaviour
 
         _goldTarget = goldTarget;
         _goldUI = goldUI;
+        _onCollected = onCollected;
+        _isCollected = false;
 
         PlayCollectAnimation(spreadPosition);
     }
@@ -112,10 +120,26 @@ public class Gold : MonoBehaviour
         sequence.OnComplete(CollectAndDestroy);
     }
 
+    // 금액을 실제로 지급한 뒤 획득 완료를 알린다.
     private void CollectAndDestroy()
     {
+        if (_isCollected)
+        {
+            return;
+        }
+
+        // 중복 호출로 같은 금액을 다시 지급하지 않게 한다.
+        _isCollected = true;
+
+        // 저장 데이터와 스테이지 획득량에 금액을 반영한다.
         _goldUI.CollectGold(_goldAmount);
 
+        // 완료 함수의 참조를 먼저 비워 중복 알림을 막는다.
+        Action completed = _onCollected;
+        _onCollected = null;
+
+        // 연출을 마친 골드를 제거하고 완료를 알린다.
         Destroy(gameObject);
+        completed?.Invoke();
     }
 }

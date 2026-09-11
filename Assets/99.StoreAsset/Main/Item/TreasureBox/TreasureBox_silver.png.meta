@@ -146,7 +146,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: TreasureBox_metal
+      name: TreasureBox_silver
       rect:
         serializedVersion: 2
         x: 463
@@ -280,7 +280,7 @@ TextureImporter:
       "ChatGPT Image 2026\uB144 9\uC6D4 9\uC77C \uC624\uD6C4 02_23_14 (2)_4": -5226288418825135196
       "ChatGPT Image 2026\uB144 9\uC6D4 9\uC77C \uC624\uD6C4 02_23_14 (2)_5": -7855272284237537516
       "ChatGPT Image 2026\uB144 9\uC6D4 9\uC77C \uC624\uD6C4 02_23_14 (2)_6": 5566683898729757269
-      TreasureBox_metal: -503605135666478036
+      TreasureBox_silver: -503605135666478036
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

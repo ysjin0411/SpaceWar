@@ -76,15 +76,17 @@ public class GoldUI : MonoBehaviour
     /// 몬스터가 죽은 위치에 골드를 개수만큼 생성하고
     /// 360도를 균등하게 나눠 원형으로 퍼뜨린다.
     /// </summary>
-    public void SpawnGold(Gold goldPrefab,Vector3 worldPosition,int dropCount)
+    public void SpawnGold(Gold goldPrefab,Vector3 worldPosition,int dropCount, Action onAllCollected = null)
     {
         if (goldPrefab == null)
         {
             throw new ArgumentNullException(nameof(goldPrefab));
         }
 
+        // 생성할 골드가 없다면 기다릴 획득 연출도 없다.
         if (dropCount <= 0)
         {
+            onAllCollected?.Invoke();
             return;
         }
 
@@ -108,6 +110,27 @@ public class GoldUI : MonoBehaviour
 
         // 매번 똑같은 모양으로 퍼지지 않도록 시작 각도를 무작위로 정한다.
         float startAngle = UnityEngine.Random.Range(0f, 360f);
+
+        // 이번 SpawnGold 호출에서 생성하는 골드만 추적한다.
+        // 다른 몬스터가 떨어뜨린 골드의 획득에는 영향을 받지 않는다.
+        int remainingCount = dropCount;
+
+        // 골드 한 개가 실제로 지급될 때마다 남은 개수를 줄인다.
+        Action handleOneCollected = () =>
+        {
+            if (remainingCount <= 0)
+            {
+                return;
+            }
+
+            remainingCount--;
+
+            // 마지막 골드까지 지급된 시점에 한 번만 완료를 알린다.
+            if (remainingCount == 0)
+            {
+                onAllCollected?.Invoke();
+            }
+        };
 
         // 드롭 개수만큼 골드를 생성한다.
         for (int index = 0; index < dropCount; index++)
@@ -137,11 +160,12 @@ public class GoldUI : MonoBehaviour
             // 모든 골드는 적이 죽은 위치에서 시작한다.
             spawnedGold.transform.position = screenPosition;
 
-            // 각 골드마다 서로 다른 원형 목적지를 전달한다.
+            // 각 골드가 지급을 마치면 이번 묶음의 남은 개수를 줄인다.
             spawnedGold.Initialize(
                 spreadPosition,
                 _goldTarget,
-                this);
+                this,
+                handleOneCollected);
         }
     }
 

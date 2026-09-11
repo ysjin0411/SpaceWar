@@ -4765,6 +4765,10 @@ MonoBehaviour:
   _finalBossPrefab: {fileID: 4304024611186011532, guid: fc2cd4a67a1c1ad4bb2204c18c33aa66, type: 3}
   _midBossSpawnPoint: {fileID: 2022784328}
   _finalBossSpawnPoint: {fileID: 2022784328}
+  _treasureBoxPrefab: {fileID: 1036794761559985040, guid: b8fb520897cba0049a9309965817f442, type: 3}
+  _treasureBoxPoint: {fileID: 1548130412}
+  _midBossTreasureChance: 1
+  _finalBossTreasureChance: 1
 --- !u!4 &892676529
 Transform:
   m_ObjectHideFlags: 0
@@ -6842,6 +6846,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1518761950}
   m_CullTransparentMesh: 1
+--- !u!1 &1548130411
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1548130412}
+  m_Layer: 0
+  m_Name: TreasureBoxPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1548130412
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1548130411}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1559575436
 GameObject:
   m_ObjectHideFlags: 0
@@ -9590,3 +9625,4 @@ SceneRoots:
   - {fileID: 997056222}
   - {fileID: 1644372883}
   - {fileID: 66536159}
+  - {fileID: 1548130412}
