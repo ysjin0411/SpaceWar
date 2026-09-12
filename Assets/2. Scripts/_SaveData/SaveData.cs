@@ -31,15 +31,25 @@ public class AchievementSaveData
 [System.Serializable]
 public class PlayerSaveData
 {
+    // 이 세이브의 소유자인 사용자 ID.
+    public string userId = string.Empty;
+
+    // 솔져·워리어 레벨과 별개인 사용자 레벨.
+    public int userLevel = 1;
+
+    // 사용자 레벨 상승에 사용할 누적 전 단계의 현재 경험치.
+    public int userExp = 0;
+
+    // 사용자가 보유한 골드.
     public int gold = 0;
 
-    // 캐릭터별 성장 및 장비 데이터
+    // 캐릭터별 성장과 장비 정보.
     public List<CharacterLoadoutSaveData> characterLoadouts = new();
 
-    // 스테이지별 최단 클리어 기록
+    // 스테이지별 최고 클리어 기록.
     public List<StageClearSaveData> stageClearRecords = new();
 
-    // 플레이어의 업적 달성 여부와 보상 수령 여부를 저장한다.
+    // 업적 달성과 보상 수령 기록.
     public List<AchievementSaveData> achievementRecords = new();
 }
 

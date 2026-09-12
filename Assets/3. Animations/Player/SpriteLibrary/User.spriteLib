@@ -1,0 +1,96 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &1
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5e6fedc2472449cead18ef23b5cb30d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Library:
+  - m_Name: Idle
+    m_Hash: 1008081451
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: Hero_Idle_01
+      m_Hash: 720205950
+      m_Sprite: {fileID: 21300000, guid: 2804d96f5a7055bb80f07ff18079013d, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 2804d96f5a7055bb80f07ff18079013d, type: 3}
+    - m_Name: Hero_Idle_02
+      m_Hash: 870590916
+      m_Sprite: {fileID: 21300000, guid: c4bd7c7fd46a526ea891e23b74bf168d, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: c4bd7c7fd46a526ea891e23b74bf168d, type: 3}
+    - m_Name: Hero_Idle_03
+      m_Hash: 81992018
+      m_Sprite: {fileID: 21300000, guid: 5c2677ddd3995b46972273b9f610613b, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 5c2677ddd3995b46972273b9f610613b, type: 3}
+    - m_Name: Hero_Idle_04
+      m_Hash: 445091057
+      m_Sprite: {fileID: 21300000, guid: 396023f1a7855894b770cbe716bd7382, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 396023f1a7855894b770cbe716bd7382, type: 3}
+    m_FromMain: 0
+    m_EntryOverrideCount: 4
+  - m_Name: Move
+    m_Hash: 252483654
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: Hero_Move_01
+      m_Hash: 506798989
+      m_Sprite: {fileID: 21300000, guid: 4c39a768ee185eceb9417c036664d8a6, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 4c39a768ee185eceb9417c036664d8a6, type: 3}
+    - m_Name: Hero_Move_02
+      m_Hash: 121401911
+      m_Sprite: {fileID: 21300000, guid: 965b6b8179e358d594b011c0cfac4c28, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 965b6b8179e358d594b011c0cfac4c28, type: 3}
+    - m_Name: Hero_Move_03
+      m_Hash: 809190049
+      m_Sprite: {fileID: 21300000, guid: 8a7b2eb1e30f59f88c71cdedd7b22997, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 8a7b2eb1e30f59f88c71cdedd7b22997, type: 3}
+    - m_Name: Hero_Move_04
+      m_Hash: 778032898
+      m_Sprite: {fileID: 21300000, guid: 23195d6a8646528198b601e8dac2bdf0, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 23195d6a8646528198b601e8dac2bdf0, type: 3}
+    m_FromMain: 0
+    m_EntryOverrideCount: 4
+  - m_Name: Jump
+    m_Hash: 125937960
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: Hero_Jump_01
+      m_Hash: 153632192
+      m_Sprite: {fileID: 21300000, guid: 0a30ce5ca2135b04bfb01911bda5303c, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 0a30ce5ca2135b04bfb01911bda5303c, type: 3}
+    - m_Name: Hero_Jump_02
+      m_Hash: 270625914
+      m_Sprite: {fileID: 21300000, guid: 7046735049855f1eaca27459b5e344e1, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 7046735049855f1eaca27459b5e344e1, type: 3}
+    - m_Name: Hero_Jump_03
+      m_Hash: 656825580
+      m_Sprite: {fileID: 21300000, guid: bd84a4fd00cf540c99ccd0b1495f32d1, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: bd84a4fd00cf540c99ccd0b1495f32d1, type: 3}
+    - m_Name: Hero_Jump_04
+      m_Hash: 960678223
+      m_Sprite: {fileID: 21300000, guid: 6bf0a1541fd15689870114f5f57b0268, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 6bf0a1541fd15689870114f5f57b0268, type: 3}
+    m_FromMain: 0
+    m_EntryOverrideCount: 4
+  m_PrimaryLibraryGUID: 
+  m_ModificationHash: 639248623537135991
+  m_Version: 1

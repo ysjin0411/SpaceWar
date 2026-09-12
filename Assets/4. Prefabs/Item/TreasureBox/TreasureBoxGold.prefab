@@ -29,7 +29,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4540139231363021514}
   m_Father: {fileID: 2060992472963455733}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5211993203412340455
@@ -87,6 +88,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &774318545884931217
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4540139231363021514}
+  m_Layer: 0
+  m_Name: RewardPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4540139231363021514
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774318545884931217}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.33, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 73987295418862170}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2421084991225181825
 GameObject:
   m_ObjectHideFlags: 0
@@ -183,6 +215,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6253657266437997678}
+  - component: {fileID: 325058499149400342}
   m_Layer: 0
   m_Name: TreasureBoxGold
   m_TagString: Untagged
@@ -206,6 +239,28 @@ Transform:
   - {fileID: 2060992472963455733}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &325058499149400342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5108893281206339808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1892a6c103915a64eb052488c409e5ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _centerEffect: {fileID: 1565607667554549136}
+  _rotationSpeed: 60
+  _sparkles:
+  - {fileID: 6104635337830099285}
+  - {fileID: 8280188229478708902}
+  - {fileID: 9166246452251675022}
+  _sparkleCycleSeconds: 1.5
+  _boxRenderer: {fileID: 5211993203412340455}
+  _openedSprite: {fileID: -2335660227815863962, guid: 0059b08819411e74ebe14fe14d9b2e2e, type: 3}
+  _rewardPoint: {fileID: 4540139231363021514}
 --- !u!1 &6735630433707182982
 GameObject:
   m_ObjectHideFlags: 0

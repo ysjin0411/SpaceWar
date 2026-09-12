@@ -21,5 +21,5 @@ MonoBehaviour:
   _timeLimit: 8
   _lifeCount: 3
   _failureDamage: 50
-  _shakeDuration: 0.3
-  _shakeStrength: 0.12
+  _shakeDuration: 0.4
+  _shakeStrength: 0.5

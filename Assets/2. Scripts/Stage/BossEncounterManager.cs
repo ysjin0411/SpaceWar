@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-
+using System.Collections;      
 /// <summary>
 /// 스테이지 페이즈에 맞춰 중간보스와 최종보스를 생성한다.
 /// 생성한 보스에게 현재 플레이어와 GameManager를 전달한다.
@@ -46,6 +46,18 @@ public class BossEncounterManager : MonoBehaviour
     // 현재 생성된 공통 상자 본체다.
     // 이후 보상 지급과 진행 재개를 연결할 때 사용한다.
     TreasureBox _currentTreasureBox;
+
+    // 상자의 모든 보상을 획득한 뒤 다음 진행까지 기다리는 시간이다.
+    [SerializeField, Min(0f)]
+    float _treasureRewardWaitSeconds = 2f;
+
+    // 보상 획득 후 대기가 끝나면 상자가 서서히 사라지는 시간이다.
+    [SerializeField, Min(0.01f)]
+    float _treasureExitDuration = 0.5f;
+
+    // 실패하거나 상자를 정리할 때 대기를 취소하기 위해 보관한다.
+    Coroutine _treasureRewardWaitCoroutine;
+
 
     // StageManager가 생성한 현재 플레이어
     PlayerController _playerController;
@@ -286,6 +298,9 @@ public class BossEncounterManager : MonoBehaviour
 
         _currentTreasureBox = entrance.GetComponent<TreasureBox>();
 
+        // 최종 등급에서 개봉되면 해당 등급의 보상을 지급한다.
+        _currentTreasureBox.Opened += HandleTreasureBoxOpened;
+
         // 설정 오류로 연출 시작에 실패하면 생성한 본체를 정리한다.
         try
         {
@@ -295,23 +310,173 @@ public class BossEncounterManager : MonoBehaviour
         }
         catch
         {
-            Destroy(entrance.gameObject);
-            _currentTreasureBox = null;
+            // 등장 실패 시 개봉 이벤트 연결과 생성된 상자를 함께 정리한다.
+            ClearTreasureBox();
             throw;
         }
 
         return true;
     }
 
-    // 스테이지 종료 시 남아 있는 상자와 연결된 낙하 연출을 정리한다.
+    // 상자와 연결된 개봉 이벤트 및 다음 진행 대기를 정리한다.
     private void ClearTreasureBox()
+    {
+        // 대기 중 실패했다면 예약된 다음 진행도 취소한다.
+        if (_treasureRewardWaitCoroutine != null)
+        {
+            StopCoroutine(_treasureRewardWaitCoroutine);
+            _treasureRewardWaitCoroutine = null;
+        }
+
+        if (_currentTreasureBox == null)
+        {
+            return;
+        }
+
+        // 상자를 제거하기 전에 개봉 이벤트 연결을 해제한다.
+        _currentTreasureBox.Opened -= HandleTreasureBoxOpened;
+
+        Destroy(_currentTreasureBox.gameObject);
+        _currentTreasureBox = null;
+    }
+
+    // 최종 등급의 보상 목록을 읽고 각 항목의 Count만큼 골드를 생성한다.
+    private void HandleTreasureBoxOpened(TreasureBoxGradeData gradeData)
     {
         if (_currentTreasureBox == null)
         {
             return;
         }
 
-        Destroy(_currentTreasureBox.gameObject);
-        _currentTreasureBox = null;
+        // 보상 일부만 지급한 뒤 설정 오류가 발생하지 않도록 먼저 전부 검사한다.
+        foreach (TreasureBoxRewardEntry reward in gradeData.Rewards)
+        {
+            if (reward == null ||
+                reward.RewardPrefab == null ||
+                reward.Count < 1)
+            {
+                throw new InvalidOperationException(
+                    $"{gradeData.name}: 보상 프리팹과 Count를 확인하세요.");
+            }
+
+            // 현재 지급 경로는 Gold 컴포넌트가 있는 골드 프리팹을 지원한다.
+            if (!reward.RewardPrefab.TryGetComponent<Gold>(out _))
+            {
+                throw new InvalidOperationException(
+                    $"{gradeData.name}: {reward.RewardPrefab.name}에 Gold가 없습니다.");
+            }
+        }
+
+        // 이 보상을 발생시킨 상자를 기억해 이전 상자의 완료 알림을 구분한다.
+        TreasureBox openedBox = _currentTreasureBox;
+
+        // 같은 상자의 보상을 다시 지급하지 않도록 개봉 이벤트를 해제한다.
+        openedBox.Opened -= HandleTreasureBoxOpened;
+
+        // 현재 등급의 열린 상자 내부를 골드 출발 위치로 사용한다.
+        Vector3 rewardPosition = openedBox.RewardPosition;
+
+        // 각 리스트 항목은 자기 Count 전체를 획득했을 때 한 번 완료된다.
+        int remainingRewardGroups = gradeData.Rewards.Count;
+
+        // 보상이 없는 등급은 기다릴 획득 연출도 없다.
+        if (remainingRewardGroups == 0)
+        {
+            HandleTreasureRewardsCollected(openedBox);
+            return;
+        }
+
+        foreach (TreasureBoxRewardEntry reward in gradeData.Rewards)
+        {
+            Gold goldPrefab = reward.RewardPrefab.GetComponent<Gold>();
+
+            // 기존 골드 생성 경로를 사용해 퍼짐, UI 이동, 금액 반영을 처리한다.
+            _gameManager.SpawnGold(
+                goldPrefab,
+                rewardPosition,
+                reward.Count,
+                () =>
+                {
+                    // 관리자가 파괴되거나 해당 상자가 정리됐다면 진행하지 않는다.
+                    if (this == null ||
+                        openedBox == null ||
+                        _currentTreasureBox != openedBox)
+                    {
+                        return;
+                    }
+
+                    // 현재 항목의 골드가 전부 획득되었으므로 남은 항목 수를 줄인다.
+                    remainingRewardGroups--;
+
+                    // 목록의 모든 항목을 획득한 뒤에만 다음 처리를 시작한다.
+                    if (remainingRewardGroups == 0)
+                    {
+                        HandleTreasureRewardsCollected(openedBox);
+                    }
+                });
+        }
+    }
+
+    // 모든 보상이 실제 금액에 반영된 뒤 대기를 시작한다.
+    private void HandleTreasureRewardsCollected(TreasureBox openedBox)
+    {
+        if (openedBox == null ||
+            _currentTreasureBox != openedBox ||
+            _treasureRewardWaitCoroutine != null)
+        {
+            return;
+        }
+
+        // 이미 실패하거나 클리어했다면 다음 진행을 예약하지 않는다.
+        StagePhase phase = _stageFlowManager.CurrentPhase;
+
+        if (phase != StagePhase.MidBossBattle &&
+            phase != StagePhase.FinalBossBattle)
+        {
+            return;
+        }
+
+        _treasureRewardWaitCoroutine =
+            StartCoroutine(WaitAfterTreasureRewards(openedBox, phase));
+    }
+
+    // 보상 획득 후 대기하고, 상자의 퇴장까지 끝낸 뒤 다음 단계로 진행한다.
+    private IEnumerator WaitAfterTreasureRewards(
+        TreasureBox openedBox,
+        StagePhase rewardPhase)
+    {
+        // 마지막 골드를 획득한 시점부터 설정한 시간만큼 기다린다.
+        yield return new WaitForSeconds(_treasureRewardWaitSeconds);
+
+        // 기다리는 동안 실패하거나 상자가 정리됐다면 종료한다.
+        if (openedBox == null ||
+            _currentTreasureBox != openedBox ||
+            _stageFlowManager.CurrentPhase != rewardPhase)
+        {
+            _treasureRewardWaitCoroutine = null;
+            yield break;
+        }
+
+        // 상자와 효과가 완전히 사라질 때까지 기다린다.
+        // 이 동안에도 보스 전투 상태를 유지해 결과창이 먼저 뜨지 않게 한다.
+        yield return openedBox.PlayExit(_treasureExitDuration);
+
+        // 퇴장 중에도 실패나 상자 정리가 발생할 수 있으므로 다시 확인한다.
+        if (openedBox == null ||
+            _currentTreasureBox != openedBox ||
+            _stageFlowManager.CurrentPhase != rewardPhase)
+        {
+            _treasureRewardWaitCoroutine = null;
+            yield break;
+        }
+
+        // 정리 함수가 현재 코루틴을 중단하지 않도록 참조를 먼저 비운다.
+        _treasureRewardWaitCoroutine = null;
+
+        // 화면에서 완전히 사라진 상자 오브젝트를 제거한다.
+        ClearTreasureBox();
+
+        // 중간보스는 이동 연출, 최종보스는 클리어와 결과창으로 이어진다.
+        _stageFlowManager.NotifyBossDefeated();
     }
 }

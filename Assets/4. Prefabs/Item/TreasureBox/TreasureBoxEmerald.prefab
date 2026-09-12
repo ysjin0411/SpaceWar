@@ -116,7 +116,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
-  m_Children: []
+  m_Children:
+  - {fileID: 5505475416956954963}
   m_Father: {fileID: 812807430203916449}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &154952751950902247
@@ -357,6 +358,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8434522366163830619}
+  - component: {fileID: 8654170745834775137}
   m_Layer: 0
   m_Name: TreasureBoxEmerald
   m_TagString: Untagged
@@ -380,6 +382,28 @@ Transform:
   - {fileID: 812807430203916449}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8654170745834775137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4584679597030267710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1892a6c103915a64eb052488c409e5ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _centerEffect: {fileID: 7032453206742470964}
+  _rotationSpeed: 60
+  _sparkles:
+  - {fileID: 7044757026343611719}
+  - {fileID: 2114758812069447692}
+  - {fileID: 1996092666688160588}
+  _sparkleCycleSeconds: 1.5
+  _boxRenderer: {fileID: 154952751950902247}
+  _openedSprite: {fileID: -1028792756072492441, guid: 881d013441d433f44a58e51ac81b6fbd, type: 3}
+  _rewardPoint: {fileID: 5505475416956954963}
 --- !u!1 &5925014563951964552
 GameObject:
   m_ObjectHideFlags: 0
@@ -415,6 +439,37 @@ Transform:
   - {fileID: 8193606507720412433}
   - {fileID: 7551127650771213610}
   m_Father: {fileID: 8434522366163830619}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7860612084234622707
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5505475416956954963}
+  m_Layer: 0
+  m_Name: RewardPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5505475416956954963
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7860612084234622707}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.63, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5059337724511373695}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9213523007647630099
 GameObject:

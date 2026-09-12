@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &91207911175371774
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2497672314141990103}
+  m_Layer: 0
+  m_Name: RewardPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2497672314141990103
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 91207911175371774}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.33, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 764439411445958166}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1048512418937412748
 GameObject:
   m_ObjectHideFlags: 0
@@ -270,6 +301,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6818644755815374432}
+  - component: {fileID: 2295485243114330870}
   m_Layer: 0
   m_Name: TreasureBoxSilver
   m_TagString: Untagged
@@ -293,6 +325,28 @@ Transform:
   - {fileID: 6792931284121408821}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2295485243114330870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6466708313072759290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1892a6c103915a64eb052488c409e5ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _centerEffect: {fileID: 3984075981256209502}
+  _rotationSpeed: 60
+  _sparkles:
+  - {fileID: 5506191334017970981}
+  - {fileID: 7864933027620303701}
+  - {fileID: 6579902182448059654}
+  _sparkleCycleSeconds: 1.5
+  _boxRenderer: {fileID: 7611402494285851069}
+  _openedSprite: {fileID: -2420711148277793330, guid: 0732d40a6cf9e23448b34ad6223acddf, type: 3}
+  _rewardPoint: {fileID: 2497672314141990103}
 --- !u!1 &7022899772134784475
 GameObject:
   m_ObjectHideFlags: 0
@@ -445,7 +499,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2497672314141990103}
   m_Father: {fileID: 6792931284121408821}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7611402494285851069

@@ -11,30 +11,6 @@ public class TitleManager : MonoBehaviour
     // 아무 UI도 선택하지 않은 상태에서 방향키를 누르면 선택할 버튼.
     [SerializeField] Button _playButton;
 
-    [Header("업적 보상 알림")]
-
-    // 받을 수 있는 업적 보상이 있을 때 점멸할 테두리다.
-    [SerializeField] UIAttentionPulse _achievementRewardAlert;
-
-
-    private void Start()
-    {
-
-        if (AchievementManager.Instance == null)
-        {
-            throw new InvalidOperationException(
-                "AchievementManager가 존재하지 않습니다.");
-        }
-
-        // 업적 달성이나 보상 수령으로 상태가 바뀌면
-        // 메인 메뉴의 업적 알림도 즉시 갱신한다.
-        AchievementManager.Instance.AchievementStateChanged +=
-            HandleAchievementStateChanged;
-
-        // 메인 메뉴에 처음 진입한 시점의 저장 데이터를 확인한다.
-        RefreshAchievementRewardAlert();
-    }
-
     private void LateUpdate()
     {
         // 선택 연출은 각 버튼의 UIButtonSelectionEffect가 처리한다.
@@ -50,16 +26,6 @@ public class TitleManager : MonoBehaviour
             _playButton.IsInteractable())
         {
             SelectPlay();
-        }
-    }
-
-    private void OnDestroy()
-    {
-        // 씬이 종료될 때 이벤트 연결을 해제한다.
-        if (AchievementManager.Instance != null)
-        {
-            AchievementManager.Instance.AchievementStateChanged -=
-                HandleAchievementStateChanged;
         }
     }
 
@@ -85,12 +51,27 @@ public class TitleManager : MonoBehaviour
 	}
 
 
-	public void LoadStageSelect()
-	{
-		SceneManager.LoadScene("StageSelect");
-	}
+    // 로그인한 사용자가 플레이를 누르면 마을로 이동한다.
+    public void LoadTown()
+    {
+        // UI 외부에서 호출되더라도 로그인 전에는 이동하지 않는다.
+        if (!SaveManager.Instance.IsLoggedIn)
+        {
+            return;
+        }
 
-	public void LoadPlayCharacterSelect()
+        // 마을 씬을 아직 준비하지 않았다면 이동하지 않고 이유를 표시한다.
+        if (!Application.CanStreamedLevelBeLoaded("Town"))
+        {
+            Debug.LogError(
+                "Town 씬을 만들고 빌드 씬 목록에 등록해주세요.");
+            return;
+        }
+
+        SceneManager.LoadScene("Town");
+    }
+
+    public void LoadPlayCharacterSelect()
 	{
 		SceneManager.LoadScene("CharacterSelect_play");
     }
@@ -116,25 +97,4 @@ public class TitleManager : MonoBehaviour
 	{
 		SceneManager.LoadScene("Setting");
 	}
-
-    /// <summary>
-    /// 받을 수 있는 업적 보상이 하나라도 있는지 확인하여
-    /// 메인 메뉴 업적 버튼의 점멸 상태를 갱신한다.
-    /// </summary>
-    private void RefreshAchievementRewardAlert()
-    {
-        bool hasClaimableAchievement =
-            AchievementManager.Instance.HasClaimableAchievement();
-
-        _achievementRewardAlert.SetAttention(
-            hasClaimableAchievement);
-    }
-
-    /// <summary>
-    /// 업적 상태가 변경되었을 때 호출된다.
-    /// </summary>
-    private void HandleAchievementStateChanged()
-    {
-        RefreshAchievementRewardAlert();
-    }
 }

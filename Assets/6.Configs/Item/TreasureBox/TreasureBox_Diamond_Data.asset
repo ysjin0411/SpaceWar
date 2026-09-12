@@ -17,5 +17,5 @@ MonoBehaviour:
   _requiredDamage: 200
   _selectionWeight: 1
   _rewards:
-  - _rewardPrefab: {fileID: 0}
-    _count: 0
+  - _rewardPrefab: {fileID: 523677333196082315, guid: 02f86527c15f5bc4cad8b61a57339f3d, type: 3}
+    _count: 10

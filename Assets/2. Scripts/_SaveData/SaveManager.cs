@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using System.Text.RegularExpressions;
 
 /// <summary>
 /// ÇÃ·¹ÀÌ¾îÀÇ ¼¼ÀÌºê µ¥ÀÌÅÍ¸¦ ¸Ş¸ğ¸®¿¡¼­ °ü¸®ÇÑ´Ù.
@@ -27,8 +28,11 @@ public class SaveManager : MonoBehaviour
     // ´Ù¸¥ ¾À¿¡¼­µµ SaveManager¿¡ Á¢±ÙÇÏ±â À§ÇÑ ÇöÀç ÀÎ½ºÅÏ½º
     public static SaveManager Instance { get; private set; }
 
-    // ·ÎÄÃ¿¡ »ı¼ºÇÒ ¼¼ÀÌºê ÆÄÀÏ ÀÌ¸§
-    const string SaveFileName = "player_save.json";
+    // »ç¿ëÀÚº° JSON ÆÄÀÏÀ» ¸ğ¾Æ µÑ Æú´õ ÀÌ¸§.
+    const string ProfileFolderName = "Profiles";
+
+    // ÇöÀç ¼¼ÀÌºê°¡ ·Î±×ÀÎÀ¸·Î ¼±ÅÃµÈ »óÅÂÀÎÁö ³ªÅ¸³½´Ù.
+    public bool IsLoggedIn { get; private set; }
 
     // Soldier ÀúÀå µ¥ÀÌÅÍ¸¦ Ã£À» ¶§ »ç¿ëÇÏ´Â °íÁ¤ Ä³¸¯ÅÍ ID
     const string SoldierCharacterId = "soldier";
@@ -36,8 +40,14 @@ public class SaveManager : MonoBehaviour
     // Warrior ÀúÀå µ¥ÀÌÅÍ¸¦ Ã£À» ¶§ »ç¿ëÇÏ´Â °íÁ¤ Ä³¸¯ÅÍ ID
     const string WarriorCharacterId = "warrior";
 
-    // ½ÇÇà Áß »ç¿ëÇÒ ¼¼ÀÌºê ÆÄÀÏÀÇ ÀüÃ¼ °æ·Î
-    string _savePath;
+    // ·Î±×ÀÎÇÑ »ç¿ëÀÚÀÇ ÀúÀå ÆÄÀÏ °æ·Î. ·Î±×ÀÎ Àü¿¡´Â ºñ¾î ÀÖ´Ù.
+    string _savePath = string.Empty;
+
+    // ·Î±×ÀÎ ¿Ï·á È­¸é¿¡ Ç¥½ÃÇÒ »ç¿ëÀÚ ID.
+    public string CurrentUserId => _playerSaveData.userId;
+
+    // ·Î±×ÀÎ ¿Ï·á È­¸éÀÇ ·¹º§ ¾ÆÀÌÄÜ¿¡ Ç¥½ÃÇÒ »ç¿ëÀÚ ·¹º§.
+    public int CurrentUserLevel => _playerSaveData.userLevel;
 
     [Header("ÇöÀç ÇÃ·¹ÀÌ¾î ¼¼ÀÌºê µ¥ÀÌÅÍ")]
     [SerializeField] PlayerSaveData _playerSaveData = new();
@@ -58,23 +68,21 @@ public class SaveManager : MonoBehaviour
 
     private void Awake()
     {
-        _savePath = $"{Application.persistentDataPath}/GameSaveData.json";
-
-        // ÀÌ¹Ì SaveManager°¡ ÀÖ´Âµ¥ ¶Ç »ı¼ºµÆ´Ù¸é »õ·Î »ı¼ºµÈ Áßº¹ SaveManager¸¸ Á¦°ÅÇÑ´Ù.
+        // ±âÁ¸ ¸Å´ÏÀú°¡ ÀÖÀ¸¸é »õ·Î »ı±ä Áßº¹ ¿ÀºêÁ§Æ®¸¦ Á¦°ÅÇÑ´Ù.
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
             return;
         }
 
-        // ÇöÀç SaveManager¸¦ Àü¿ª Á¢±Ù ÀÎ½ºÅÏ½º·Î µî·ÏÇÑ´Ù.
         Instance = this;
 
-        // ¿î¿µÃ¼Á¦¿¡¼­ ÀÌ °ÔÀÓÀÇ ÀúÀå µ¥ÀÌÅÍ¿¡ ÀûÇÕÇÑ Æú´õ¿Í ÀúÀå ÆÄÀÏ ÀÌ¸§À» ÇÕÃÄ ÀüÃ¼ °æ·Î¸¦ ¸¸µç´Ù.
-        _savePath = Path.Combine(Application.persistentDataPath, SaveFileName);
+        // ½ÃÀÛÇÒ ¶§´Â ¾î¶² »ç¿ëÀÚÀÇ ÆÄÀÏµµ ¼±ÅÃÇÏÁö ¾Ê´Â´Ù.
+        _savePath = string.Empty;
+        IsLoggedIn = false;
 
-        // °ÔÀÓÀÌ ½ÃÀÛµÉ ¶§ ·ÎÄÃ ÀúÀå µ¥ÀÌÅÍ¸¦ ºÒ·¯¿Â´Ù.
-        LoadFromFile();
+        // Inspector¿¡ ³²Àº °ªÀÌ ·Î±×ÀÎ Àü µ¥ÀÌÅÍ·Î »ç¿ëµÇÁö ¾Ê°Ô ÃÊ±âÈ­ÇÑ´Ù.
+        _playerSaveData = new PlayerSaveData();
     }
 
     private void Update()
@@ -94,79 +102,238 @@ public class SaveManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// ÇöÀç ¸Ş¸ğ¸®¿¡ ÀÖ´Â ÇÃ·¹ÀÌ¾î µ¥ÀÌÅÍ¸¦ JSON ¹®ÀÚ¿­·Î º¯È¯ÇØ ·ÎÄÃ ÆÄÀÏ¿¡ ÀúÀåÇÑ´Ù.
-    /// </summary>
-    public void SaveToFile()
+    // ÀÔ·ÂÇÑ ID¸¦ Á¤¸®ÇÏ°í ÆÄÀÏ¸íÀ¸·Î »ç¿ë °¡´ÉÇÑÁö °Ë»çÇÑ´Ù.
+    public bool TryValidateUserId(
+        string input,
+        out string userId,
+        out string message)
     {
-        // json(¹®ÀÚ¿­) = _playerSaveData¸¦ JSONÀ¸·Î º¯È¯ÇÑ °á°ú
-        string json = JsonUtility.ToJson(_playerSaveData, true);
+        userId = string.Empty;
+        message = string.Empty;
 
-        // ¸¸µé¾îÁø JSON ¹®ÀÚ¿­À» ·ÎÄÃ ÆÄÀÏ¿¡ ±â·ÏÇÑ´Ù. °°Àº ÀÌ¸§ÀÇ ÆÄÀÏÀÌ ÀÖÀ¸¸é ÃÖ½Å ³»¿ëÀ¸·Î µ¤¾î¾´´Ù.
-        // _savePath¿¡  json¹®ÀÚ¿­À» ±â·Ï
-        File.WriteAllText(_savePath, json);
-    }
-
-    /// <summary>
-    /// ·ÎÄÃ JSON ÆÄÀÏÀ» ÀĞ¾î ÇÃ·¹ÀÌ¾î ¼¼ÀÌºê µ¥ÀÌÅÍ·Î º¹¿øÇÑ´Ù. 
-    /// Ã¹ ½ÇÇàÀÌ¶ó ÆÄÀÏÀÌ ¾ø´Ù¸é »õ·Î¿î ºó ¼¼ÀÌºê ÆÄÀÏÀ» ¸¸µç´Ù.
-    /// </summary>
-    private void LoadFromFile()
-    {
-        // ¾ÆÁ÷ ¼¼ÀÌºê ÆÄÀÏÀÌ ¾ø´Â Ã¹ ½ÇÇàÀÎÁö È®ÀÎÇÑ´Ù.
-        if (!File.Exists(_savePath))
+        if (string.IsNullOrWhiteSpace(input))
         {
-            // »õ·Î¿î ºó ÇÃ·¹ÀÌ¾î µ¥ÀÌÅÍ¸¦ ¸¸µç´Ù.
-            _playerSaveData = new PlayerSaveData();
-
-            // Ã¹ ½ÇÇà¿ë ºó ¼¼ÀÌºê ÆÄÀÏÀ» ½ÇÁ¦ ·ÎÄÃ¿¡ »ı¼ºÇÑ´Ù.
-            SaveToFile();
-
-            // »õ µ¥ÀÌÅÍ¸¦ ¸¸µé¾úÀ¸¹Ç·Î ´õ ÀĞÀ» ÆÄÀÏÀÌ ¾ø´Ù.
-            return;
+            message = "ID¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.";
+            return false;
         }
 
-        // ±âÁ¸ ·ÎÄÃ ¼¼ÀÌºê ÆÄÀÏÀÇ JSON ¹®ÀÚ¿­À» ÀĞ´Â´Ù.
-        // _savePath¿¡ ÀÖ´Â ÀúÀåµ¥ÀÌÅÍ json¹®ÀÚ¿­À» ÀĞ¾î¼­ json¿¡ ¹Ş¾Æ¿À±â.
-        string json = File.ReadAllText(_savePath);
+        // ½Ç¼ö·Î ÀÔ·ÂÇÑ ¾ÕµÚ °ø¹éÀ» Á¦°ÅÇÑ´Ù.
+        userId = input.Trim();
 
-        // ÆÄÀÏÀÌ Á¸ÀçÇÏÁö¸¸ ³»¿ëÀÌ ºñ¾î ÀÖÀ¸¸é Á¤»óÀûÀÎ ¼¼ÀÌºê ÆÄÀÏÀÌ ¾Æ´Ï¹Ç·Î ¿À·ù¸¦ ¹ß»ı½ÃÅ²´Ù.
+        // °æ·Î ¹®ÀÚ³ª È®ÀåÀÚ ¹®ÀÚ°¡ µé¾î°¡Áö ¾Êµµ·Ï Çã¿ë ¹®ÀÚ¸¦ Á¦ÇÑÇÑ´Ù.
+        if (!Regex.IsMatch(userId, @"\A[A-Za-z0-9°¡-ÆR_]{1,20}\z"))
+        {
+            message = "ID´Â ¿µ¹®, ¼ıÀÚ, ÇÑ±Û, ¹ØÁÙ·Î 1~20ÀÚ ÀÔ·ÂÇØÁÖ¼¼¿ä.";
+            return false;
+        }
+
+        // Windows¿¡¼­ ÀÏ¹İ ÆÄÀÏ¸íÀ¸·Î »ç¿ëÇÒ ¼ö ¾ø´Â ÀÌ¸§À» Â÷´ÜÇÑ´Ù.
+        if (Regex.IsMatch(
+            userId,
+            @"\A(CON|PRN|AUX|NUL|COM[1-9]|LPT[1-9])\z",
+            RegexOptions.IgnoreCase | RegexOptions.CultureInvariant))
+        {
+            message = "ÀÌ ID´Â »ç¿ëÇÒ ¼ö ¾ø½À´Ï´Ù. ´Ù¸¥ ID¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.";
+            return false;
+        }
+
+        return true;
+    }
+
+    // °ËÁõÀ» Åë°úÇÑ ID·Î »ç¿ëÀÚ ÆÄÀÏ °æ·Î¸¦ ¸¸µç´Ù.
+    private string GetProfilePath(string input, out string userId)
+    {
+        if (!TryValidateUserId(input, out userId, out string message))
+        {
+            throw new ArgumentException(message, nameof(input));
+        }
+
+        return Path.Combine(
+            Application.persistentDataPath,
+            ProfileFolderName,
+            userId + ".json");
+    }
+
+    // ÇöÀç ·Î±×ÀÎ Áß¿¡´Â ´Ù¸¥ »ç¿ëÀÚ µ¥ÀÌÅÍ·Î ±³Ã¼ÇÏÁö ¸øÇÏ°Ô ÇÑ´Ù.
+    private void EnsureLoggedOut()
+    {
+        if (IsLoggedIn)
+        {
+            throw new InvalidOperationException(
+                "ÀÌ¹Ì ·Î±×ÀÎµÇ¾î ÀÖ½À´Ï´Ù.");
+        }
+    }
+
+    // ±âÁ¸ ÆÄÀÏÀ» ºÒ·¯¿Â´Ù.
+    // ÆÄÀÏÀÌ ¾øÀ» ¶§¸¸ false¸¦ ¹İÈ¯ÇÏ°í, ¼Õ»óÀÌ³ª Á¢±Ù ¿À·ù´Â ¿¹¿Ü·Î Àü´ŞÇÑ´Ù.
+    public bool TryLoadUser(string input)
+    {
+        EnsureLoggedOut();
+
+        string path = GetProfilePath(input, out string userId);
+        string json;
+
+        try
+        {
+            json = File.ReadAllText(path);
+        }
+        catch (FileNotFoundException)
+        {
+            // ÇØ´ç IDÀÇ ÆÄÀÏÀÌ ¾øÀ¸¹Ç·Î »ı¼º ¿©ºÎ¸¦ ¹°¾îº¼ ¼ö ÀÖ´Ù.
+            return false;
+        }
+        catch (DirectoryNotFoundException)
+        {
+            // ¾ÆÁ÷ »ç¿ëÀÚ ÀúÀå Æú´õ°¡ ¾ø´Â Ã¹ ½ÇÇà »óÅÂ´Ù.
+            return false;
+        }
+
         if (string.IsNullOrWhiteSpace(json))
         {
-            throw new InvalidDataException($"¼¼ÀÌºê ÆÄÀÏÀÌ ºñ¾î ÀÖ½À´Ï´Ù. °æ·Î: {_savePath}");
+            throw new InvalidDataException(
+                "¼¼ÀÌºê ÆÄÀÏÀÌ ºñ¾î ÀÖ½À´Ï´Ù.");
         }
 
-        // JSON ¹®ÀÚ¿­À» PlayerSaveData °´Ã¼·Î º¯È¯ÇÑ´Ù.
-        // PlayerSaveData·Î »ç¿ëÇÒ ¼ö ÀÖ°Ô json¿¡¼­ ÀĞ¾î¿Â µ¥ÀÌÅÍ¸¦ loadedData¿¡ ÀúÀå.
-        PlayerSaveData loadedData = JsonUtility.FromJson<PlayerSaveData>(json);
+        // ÀĞÀº ÆÄÀÏÀ» ¸ÕÀú º°µµ °´Ã¼·Î º¯È¯ÇÑ´Ù.
+        PlayerSaveData loadedData =
+            JsonUtility.FromJson<PlayerSaveData>(json);
 
-        // º¯È¯ °á°ú°¡ ¾ø´Ù¸é ¼Õ»óµÇ¾ú°Å³ª Çü½ÄÀÌ Àß¸øµÈ ÆÄÀÏÀÌ´Ù.
-        if (loadedData == null)
+        if (loadedData == null ||
+            string.IsNullOrWhiteSpace(loadedData.userId) ||
+            loadedData.userLevel < 1 ||
+            loadedData.userExp < 0 ||
+            loadedData.characterLoadouts == null)
         {
-            throw new InvalidDataException($"¼¼ÀÌºê ÆÄÀÏÀ» ºÒ·¯¿Ã ¼ö ¾ø½À´Ï´Ù. °æ·Î: {_savePath}");
+            throw new InvalidDataException(
+                "¼¼ÀÌºê µ¥ÀÌÅÍÀÇ Çü½ÄÀÌ ¿Ã¹Ù¸£Áö ¾Ê½À´Ï´Ù.");
         }
 
-        // Ä³¸¯ÅÍ ÀåÂø Á¤º¸ ¸®½ºÆ®°¡ ¾ø´Ù¸é ÇöÀç ¼¼ÀÌºê µ¥ÀÌÅÍ ±¸Á¶¿Í ¸ÂÁö ¾Ê´Â ÆÄÀÏÀÌ´Ù.
-        if (loadedData.characterLoadouts == null)
+        // ÆÄÀÏ ÀÌ¸§°ú ³»ºÎ »ç¿ëÀÚ Á¤º¸°¡ °°Àº »ç¿ëÀÚ¸¦ °¡¸®Å°´ÂÁö °Ë»çÇÑ´Ù.
+        if (!string.Equals(
+            loadedData.userId,
+            userId,
+            StringComparison.OrdinalIgnoreCase))
         {
-            throw new InvalidDataException($"¼¼ÀÌºê ÆÄÀÏ¿¡ Ä³¸¯ÅÍ ÀåÂø Á¤º¸°¡ ¾ø½À´Ï´Ù. °æ·Î: {_savePath}");
+            throw new InvalidDataException(
+                "ÆÄÀÏ ÀÌ¸§°ú ¼¼ÀÌºêÀÇ »ç¿ëÀÚ ID°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.");
         }
 
-        // ÀÌÀü ¹öÀüÀÇ ¼¼ÀÌºê ÆÄÀÏ¿¡´Â ½ºÅ×ÀÌÁö ±â·Ï ¸ñ·ÏÀÌ ¾øÀ» ¼ö ÀÖ´Ù.
-        // nullÀÌ¸é ºó ¸ñ·ÏÀ» ¸¸µé¾î ±âÁ¸ ¼¼ÀÌºê ÆÄÀÏÀ» °è¼Ó »ç¿ëÇÒ ¼ö ÀÖ°Ô ÇÑ´Ù.
+        // ±âÁ¸ ÀúÀå ÄÚµåÀÇ µ¥ÀÌÅÍ º¸Á¤ ±â´ÉÀ» À¯ÁöÇÑ´Ù.
         NormalizeStageClearRecords(loadedData);
-
-        // ÀÌÀü ¹öÀü ¼¼ÀÌºê¿¡µµ ¾÷Àû ¸ñ·ÏÀ» »ç¿ëÇÒ ¼ö ÀÖµµ·Ï º¸Á¤ÇÑ´Ù.
         NormalizeAchievementRecords(loadedData);
 
-        // PlayerSaveDataÀÚ·áÇü loadedData¸¦ _playerSaveData¿¡ ÀúÀå.
-        _playerSaveData = loadedData;
+        foreach (CharacterLoadoutSaveData loadout
+                 in loadedData.characterLoadouts)
+        {
+            if (loadout == null ||
+                string.IsNullOrWhiteSpace(loadout.characterId))
+            {
+                throw new InvalidDataException(
+                    "Ä³¸¯ÅÍ ÀúÀå Á¤º¸°¡ ¿Ã¹Ù¸£Áö ¾Ê½À´Ï´Ù.");
+            }
 
-        // ½ÇÁ¦ ÀúÀå À§Ä¡¸¦ Unity Console¿¡¼­ È®ÀÎÇÒ ¼ö ÀÖ°Ô Ç¥½ÃÇÑ´Ù.
-        Debug.Log($"¼¼ÀÌºê µ¥ÀÌÅÍ¸¦ ºÒ·¯¿Ô½À´Ï´Ù: {_savePath}");
+            NormalizeLoadout(loadout);
+        }
+
+        // ¸ğµç ÀĞ±â¿Í °Ë»ç°¡ ¼º°øÇÑ µÚ ÇöÀç »ç¿ëÀÚ·Î Àû¿ëÇÑ´Ù.
+        ActivateUser(path, loadedData);
+
+        return true;
     }
 
-    
+    // »ı¼º È®ÀÎ Ã¢¿¡¼­ ¿¹¸¦ ¼±ÅÃÇßÀ» ¶§¸¸ È£ÃâÇÑ´Ù.
+    public void CreateUser(string input)
+    {
+        EnsureLoggedOut();
+
+        string path = GetProfilePath(input, out string userId);
+
+        // ´Ù¸¥ »ç¿ëÀÚÀÇ ¸Ş¸ğ¸® µ¥ÀÌÅÍ¸¦ º¹»çÇÏÁö ¾Ê°í »õ °´Ã¼¸¦ ¸¸µç´Ù.
+        PlayerSaveData newData = new PlayerSaveData
+        {
+            userId = userId,
+            userLevel = 1,
+            userExp = 0
+        };
+
+        // ÀÌ¹Ì °°Àº ÀÌ¸§ÀÇ ÆÄÀÏÀÌ »ı°å´Ù¸é µ¤¾î¾²Áö ¾Ê°í ½ÇÆĞÇÑ´Ù.
+        WriteDataFile(path, newData, true);
+
+        // ½ÇÁ¦ ÆÄÀÏ »ı¼ºÀÌ ¼º°øÇÑ °æ¿ì¿¡¸¸ ·Î±×ÀÎ »óÅÂ·Î ¹Ù²Û´Ù.
+        ActivateUser(path, newData);
+    }
+
+    // °ËÁõÇÏ°Å³ª »ı¼ºÇÑ µ¥ÀÌÅÍ¸¦ ÇöÀç ·Î±×ÀÎ »ç¿ëÀÚ·Î ÁöÁ¤ÇÑ´Ù.
+    private void ActivateUser(string path, PlayerSaveData data)
+    {
+        _savePath = path;
+        _playerSaveData = data;
+        IsLoggedIn = true;
+    }
+
+    // ±âÁ¸ Àåºñ¡¤°ñµå¡¤¾÷Àû ÄÚµå°¡ È£ÃâÇÏ´Â ÀúÀå ¸Ş¼­µå´Ù.
+    public void SaveToFile()
+    {
+        if (!IsLoggedIn)
+        {
+            throw new InvalidOperationException(
+                "·Î±×ÀÎÇÑ »ç¿ëÀÚ°¡ ¾ø¾î ÀúÀåÇÒ ¼ö ¾ø½À´Ï´Ù.");
+        }
+
+        // ÇöÀç ¼±ÅÃÇÑ »ç¿ëÀÚÀÇ ÆÄÀÏ¿¡¸¸ ÀúÀåÇÑ´Ù.
+        WriteDataFile(_savePath, _playerSaveData, false);
+    }
+
+    // JSONÀ» º°µµ ÆÄÀÏ¿¡ ¿Ï¼ºÇÑ µÚ ÃÖÁ¾ °æ·Î¿¡ ¹İ¿µÇÑ´Ù.
+    // ¾²´Â µµÁß ½ÇÆĞÇßÀ» ¶§ ±âÁ¸ Á¤»ó ÆÄÀÏÀÌ Àß¸®´Â °ÍÀ» ¹æÁöÇÑ´Ù.
+    private void WriteDataFile(
+        string path,
+        PlayerSaveData data,
+        bool createNew)
+    {
+        // Ã¹ »ç¿ëÀÚ »ı¼º ½Ã ÀúÀå Æú´õ¸¦ ¸¸µç´Ù.
+        string directory = Path.Combine(
+            Application.persistentDataPath,
+            ProfileFolderName);
+
+        Directory.CreateDirectory(directory);
+
+        // ÀÛ¾÷¸¶´Ù ´Ù¸¥ ÀÓ½Ã ÆÄÀÏÀ» »ç¿ëÇÑ´Ù.
+        string temporaryPath =
+            path + "." + Guid.NewGuid().ToString("N") + ".tmp";
+
+        try
+        {
+            string json = JsonUtility.ToJson(data, true);
+            File.WriteAllText(temporaryPath, json);
+
+            if (createNew)
+            {
+                // ´ë»ó ÆÄÀÏÀÌ ÀÌ¹Ì ÀÖÀ¸¸é ½ÇÆĞÇÏ¸ç ±âÁ¸ ÆÄÀÏÀ» º¸Á¸ÇÑ´Ù.
+                File.Move(temporaryPath, path);
+            }
+            else if (File.Exists(path))
+            {
+                // ¿Ï¼ºµÈ ³»¿ëÀ¸·Î ±âÁ¸ ÆÄÀÏÀ» ±³Ã¼ÇÑ´Ù.
+                File.Replace(temporaryPath, path, null);
+            }
+            else
+            {
+                // ·Î±×ÀÎ ÀÌÈÄ ÆÄÀÏÀÌ »ç¶óÁø °æ¿ì ÇöÀç µ¥ÀÌÅÍ·Î ´Ù½Ã ÀúÀåÇÑ´Ù.
+                File.Move(temporaryPath, path);
+            }
+        }
+        finally
+        {
+            // ÃÖÁ¾ °æ·Î¿¡ ¹İ¿µµÇÁö ¸øÇÑ ÀÛ¾÷ ÆÄÀÏ¸¸ Á¤¸®ÇÑ´Ù.
+            if (File.Exists(temporaryPath))
+            {
+                File.Delete(temporaryPath);
+            }
+        }
+    }
+
+
 
     /// <summary>
     /// Ä³¸¯ÅÍ ID¿¡ ÇØ´çÇÏ´Â ÀåÂø Á¤º¸¸¦ Ã£¾Æ ¹İÈ¯ÇÑ´Ù. ¾ÆÁ÷ ÀåÂø Á¤º¸°¡ ¾ø´Ù¸é »õ·Î ¸¸µé¾î¼­ ¹İÈ¯ÇÑ´Ù.

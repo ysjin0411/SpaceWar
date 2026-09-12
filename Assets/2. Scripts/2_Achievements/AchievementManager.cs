@@ -65,10 +65,6 @@ public class AchievementManager : MonoBehaviour
             throw new InvalidOperationException(
                 "SaveManager가 없습니다. Bootstrap 씬 설정을 확인해주세요.");
         }
-
-        // 이전 플레이에서 이미 조건을 만족한 업적도
-        // 게임 시작 시 놓치지 않도록 전체 조건을 검사한다.
-        EvaluateAllAchievements();
     }
 
     /// <summary>
@@ -77,6 +73,12 @@ public class AchievementManager : MonoBehaviour
     /// </summary>
     public void EvaluateAllAchievements()
     {
+        // 사용자 데이터가 선택되기 전에는 업적 기록을 만들거나 평가하지 않는다.
+        if (!SaveManager.Instance.IsLoggedIn)
+        {
+            return;
+        }
+
         // 이번 검사에서 새롭게 달성된 업적이 있는지 기록한다.
         bool hasNewlyCompletedAchievement = false;
 

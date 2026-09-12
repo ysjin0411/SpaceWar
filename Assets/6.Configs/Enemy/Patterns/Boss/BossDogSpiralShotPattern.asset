@@ -21,5 +21,5 @@ MonoBehaviour:
   _bulletDamage: 5
   _shootDuration: 2.5
   _rotationSpeed: 180
-  _fireInterval: 0.03
-  _bulletsPerShot: 10
+  _fireInterval: 0.05
+  _bulletsPerShot: 4

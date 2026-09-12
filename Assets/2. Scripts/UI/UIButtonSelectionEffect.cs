@@ -2,6 +2,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using System.Collections;
 
 [RequireComponent(typeof(Button))]
 public class UIButtonSelectionEffect :
@@ -37,6 +38,9 @@ public class UIButtonSelectionEffect :
     private Tween _scaleTween;
     private Tween _colorTween;
 
+    // 눌림 효과 중에는 선택 효과가 크기를 덮어쓰지 못하게 한다.
+    private bool _isPressing;
+
     private void Awake()
     {
         _button = GetComponent<Button>();
@@ -65,6 +69,12 @@ public class UIButtonSelectionEffect :
 
     private void Update()
     {
+        // 눌림 효과가 끝날 때까지 선택 효과 갱신을 보류한다.
+        if (_isPressing)
+        {
+            return;
+        }
+
         // Navigation이 None이면 마우스로만 사용하는 버튼이다.
         bool pointerOnly =
             _button.navigation.mode == Navigation.Mode.None;
@@ -125,6 +135,40 @@ public class UIButtonSelectionEffect :
         _isPointerInside = false;
     }
 
+    // 버튼이 작아졌다 돌아오는 효과를 재생한다.
+    // 마우스 클릭과 입력란 Enter에서 같은 효과를 사용한다.
+    public IEnumerator PlayPressEffect()
+    {
+        if (_isPressing)
+        {
+            yield break;
+        }
+
+        _isPressing = true;
+
+        // 진행 중인 선택 효과와 충돌하지 않도록 중단한다.
+        StopTweens();
+
+        // 버튼을 잠깐 눌린 크기로 줄인다.
+        _scaleTween = transform
+            .DOScale(_originalScale * 0.9f, 0.08f)
+            .SetUpdate(true);
+
+        yield return _scaleTween.WaitForCompletion();
+
+        // 버튼을 원래 크기로 되돌린다.
+        _scaleTween = transform
+            .DOScale(_originalScale, 0.08f)
+            .SetUpdate(true);
+
+        yield return _scaleTween.WaitForCompletion();
+
+        _isPressing = false;
+
+        // 현재 선택 상태에 맞는 크기와 밝기로 복구한다.
+        ApplyAppearance(_selected, true);
+    }
+
     private void ApplyAppearance(bool selected, bool immediately)
     {
         StopTweens();
@@ -180,6 +224,9 @@ public class UIButtonSelectionEffect :
 
     private void OnDisable()
     {
+        // 효과 도중 버튼이 꺼져도 눌림 상태가 남지 않게 한다.
+        _isPressing = false;
+
         // 비활성화 중에 연출이 남지 않도록 정리한다.
         StopTweens();
         transform.localScale = _originalScale;
