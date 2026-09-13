@@ -7,6 +7,10 @@ public class TownPlayerController : MonoBehaviour
     // 자식 Visual의 SpriteRenderer. 이동 방향에 따라 그림을 뒤집는다.
     [SerializeField] private SpriteRenderer _visual;
 
+    // Visual에 있는 Animator.
+    // 이동 속도와 접지 상태를 애니메이션에 전달한다.
+    [SerializeField] private Animator _animator;
+
     // 착지할 수 있는 레이어. TownGround와 TownPlatform을 함께 지정한다.
     [SerializeField] private LayerMask _groundLayers;
 
@@ -40,6 +44,11 @@ public class TownPlayerController : MonoBehaviour
     private ContactFilter2D _groundFilter;
     private readonly RaycastHit2D[] _groundHits = new RaycastHit2D[16];
 
+    // 실제 물리 접촉을 저장한다.
+    // 배열을 재사용해서 바닥 검사마다 새 배열을 만들지 않는다.
+    private readonly ContactPoint2D[] _groundContacts =
+        new ContactPoint2D[16];
+
     // 현재 발밑의 바닥과 아래점프로 통과 중인 발판.
     private Collider2D _groundCollider;
     private Collider2D _ignoredPlatform;
@@ -61,24 +70,28 @@ public class TownPlayerController : MonoBehaviour
     // 이후 NPC 대화창에서 조작을 잠글 때 사용한다.
     private bool _canControl = true;
 
-    // 필요한 컴포넌트와 원래 중력값, 바닥 검사 조건을 준비한다.
+    // 이동에 필요한 컴포넌트와 애니메이션 연결을 확인한다.
     private void Awake()
     {
         _body = GetComponent<Rigidbody2D>();
         _bodyCollider = GetComponent<CapsuleCollider2D>();
 
-        // 착지 중에는 중력을 끄므로 공중에서 사용할 값을 보관한다.
+        // 공중에서 사용할 원래 중력값을 보관한다.
         _defaultGravityScale = _body.gravityScale;
 
-        if (_visual == null)
+        if (_visual == null ||
+            _animator == null ||
+            _animator.runtimeAnimatorController == null)
         {
             Debug.LogError(
-                "TownPlayerController의 Visual을 연결해주세요.", this);
+                "TownPlayerController의 Visual, Animator, Animator Controller를 연결해주세요.",
+                this);
 
             enabled = false;
             return;
         }
 
+        // 지정한 지형 레이어만 바닥 검사에 포함한다.
         _groundFilter = new ContactFilter2D();
         _groundFilter.SetLayerMask(_groundLayers);
         _groundFilter.useTriggers = false;
@@ -178,16 +191,35 @@ public class TownPlayerController : MonoBehaviour
         // 입력 한 번을 여러 물리 프레임에서 중복 처리하지 않는다.
         _jumpRequested = false;
         _dropRequested = false;
+
+        // 이동과 점프 계산 결과를 애니메이션에 반영한다.
+        UpdateAnimation();
     }
 
-    // 캐릭터 아래의 바닥과 그 바닥의 경사 방향을 찾는다.
+    // 이동 계산이 끝난 상태를 Animator에 전달한다.
+    private void UpdateAnimation()
+    {
+        // 좌우 방향과 관계없이 속도의 크기만 전달한다.
+        // 대화 등으로 조작이 잠기면 이동 애니메이션을 멈춘다.
+        float moveSpeed = _canControl
+            ? Mathf.Abs(_body.linearVelocity.x)
+            : 0f;
+
+        _animator.SetFloat("MoveSpeed", moveSpeed);
+
+        // 점프와 아래점프를 시작하면 groundCollider가 비워지므로
+        // 같은 물리 프레임에 공중 상태를 전달할 수 있다.
+        _animator.SetBool("IsGrounded", _groundCollider != null);
+    }
+
+    // 실제로 발을 받치는 접촉을 먼저 찾는다.
+    // 접촉이 없다면 바로 아래의 가까운 바닥을 검사한다.
     private void FindGround()
     {
         _groundCollider = null;
         _groundNormal = Vector2.up;
 
-        // 실제 점프로 상승하는 동안에는 가까운 바닥에 다시 붙지 않는다.
-        // 계단을 걸어 올라갈 때는 이 상태가 아니므로 검사를 계속한다.
+        // 점프 상승 중에는 가까운 바닥에 다시 붙지 않는다.
         if (_isJumpAscending)
         {
             if (_body.linearVelocity.y > 0f)
@@ -195,8 +227,67 @@ public class TownPlayerController : MonoBehaviour
                 return;
             }
 
-            // 점프 정점에 도달하거나 천장에 막혔다면 착지 검사를 재개한다.
             _isJumpAscending = false;
+        }
+
+        float minimumNormalY =
+            Mathf.Cos(_maxSlopeAngle * Mathf.Deg2Rad);
+
+        Bounds bounds = _bodyCollider.bounds;
+
+        // 캡슐 아래쪽의 둥근 부분에서 발생한 접촉까지만
+        // 발밑의 접촉으로 인정한다.
+        float maximumGroundPointY =
+            bounds.min.y + bounds.extents.x + _groundCheckDistance;
+
+        int contactCount = _bodyCollider.GetContacts(
+            _groundFilter, _groundContacts);
+
+        float bestNormalY = -1f;
+
+        for (int i = 0; i < contactCount; i++)
+        {
+            ContactPoint2D contact = _groundContacts[i];
+
+            // Effector 등에 의해 실제 충돌이 꺼진 접촉은 제외한다.
+            if (!contact.enabled)
+            {
+                continue;
+            }
+
+            // 접촉한 두 콜라이더 중 캐릭터가 아닌 쪽을 찾는다.
+            Collider2D ground = contact.collider;
+
+            if (ground == _bodyCollider)
+            {
+                ground = contact.otherCollider;
+            }
+
+            if (ground == null || ground == _ignoredPlatform)
+            {
+                continue;
+            }
+
+            // 벽, 천장, 몸 위쪽에서 발생한 접촉은 바닥이 아니다.
+            if (contact.normal.y < minimumNormalY ||
+                contact.point.y > maximumGroundPointY)
+            {
+                continue;
+            }
+
+            // 여러 면이 동시에 받치고 있다면 더 평평한 면을 선택한다.
+            if (contact.normal.y > bestNormalY)
+            {
+                bestNormalY = contact.normal.y;
+                _groundCollider = ground;
+                _groundNormal = contact.normal;
+            }
+        }
+
+        // 실제로 발을 받치는 바닥을 찾았다면 Cast로 덮어쓰지 않는다.
+        if (_groundCollider != null)
+        {
+            return;
         }
 
         int hitCount = _bodyCollider.Cast(
@@ -207,36 +298,38 @@ public class TownPlayerController : MonoBehaviour
 
         float nearestDistance = float.PositiveInfinity;
 
-        // 바닥의 법선 Y값이 이 값 이상이면 허용된 경사각 안에 있다.
-        float minimumNormalY =
-            Mathf.Cos(_maxSlopeAngle * Mathf.Deg2Rad);
-
-        Bounds bounds = _bodyCollider.bounds;
-
-        // 현재 세로형 캡슐의 아래쪽 둥근 부분까지 바닥 접촉으로 허용한다.
-        // 경사면에서는 발끝보다 조금 높은 옆부분이 먼저 닿기 때문이다.
-        float maximumGroundPointY =
-            bounds.min.y + bounds.extents.x + _groundCheckDistance;
-
         for (int i = 0; i < hitCount; i++)
         {
             RaycastHit2D hit = _groundHits[i];
 
-            // 아래점프로 통과 중인 발판은 바닥으로 선택하지 않는다.
             if (hit.collider == null ||
                 hit.collider == _ignoredPlatform)
             {
                 continue;
             }
 
-            // 너무 가파른 벽과 몸통 높이에서 만난 표면은 제외한다.
+            // 시작부터 겹치거나 거리가 0인 결과는
+            // 실제 접촉 검사에서만 판단한다.
+            if (hit.distance <= 0f)
+            {
+                continue;
+            }
+
             if (hit.normal.y < minimumNormalY ||
                 hit.point.y > maximumGroundPointY)
             {
                 continue;
             }
 
-            // 가장 가까운 바닥의 콜라이더와 법선을 함께 저장한다.
+            // 몸과 겹친 계단을 가까운 바닥으로 오인하지 않는다.
+            ColliderDistance2D separation =
+                _bodyCollider.Distance(hit.collider);
+
+            if (!separation.isValid || separation.isOverlapped)
+            {
+                continue;
+            }
+
             if (hit.distance < nearestDistance)
             {
                 nearestDistance = hit.distance;
@@ -319,6 +412,9 @@ public class TownPlayerController : MonoBehaviour
 
         _ignoredPlatform = null;
     }
+
+    // 다른 기능에서 현재 플레이어가 조작 가능한 상태인지 확인한다.
+    public bool CanControl => _canControl;
 
     // 대화창 등에서 입력을 잠가도 중력은 계속 적용되게 한다.
     public void SetControlEnabled(bool canControl)

@@ -1,36 +1,54 @@
 using UnityEngine;
 
-// 플레이어 주변 NPC 중 가장 가까운 하나를 상호작용 대상으로 선택한다.
-[RequireComponent(typeof(CapsuleCollider2D))]
+// 가까운 NPC를 선택하고 상호작용 키로 대화를 시작한다.
+[RequireComponent(
+    typeof(CapsuleCollider2D), typeof(TownPlayerController))]
 public class TownPlayerInteractor : MonoBehaviour
 {
-    // 현재 공간에서 상호작용할 NPC들을 Inspector에서 연결한다.
+    // 현재 공간에서 상호작용할 NPC들.
     [SerializeField] private TownNpc[] _npcs = new TownNpc[0];
 
-    // 플레이어의 실제 발 위치를 구하는 데 사용한다.
-    private CapsuleCollider2D _bodyCollider;
+    // 대화 진행을 담당하는 Presenter.
+    [SerializeField] private NpcDialoguePresenter _dialogueUI;
 
-    // 현재 안내를 표시하고 있는 NPC.
+    // Inspector에서 변경할 수 있는 상호작용 키.
+    [SerializeField] private KeyCode _interactionKey = KeyCode.E;
+
+    // 플레이어의 발 위치와 조작 가능 상태를 확인한다.
+    private CapsuleCollider2D _bodyCollider;
+    private TownPlayerController _playerController;
+
+    // 현재 안내를 표시하는 NPC.
     private TownNpc _currentNpc;
 
-    // 플레이어 콜라이더를 준비한다.
+    // 필요한 컴포넌트와 연결을 준비한다.
     private void Awake()
     {
         _bodyCollider = GetComponent<CapsuleCollider2D>();
+        _playerController = GetComponent<TownPlayerController>();
+
+        if (_dialogueUI == null)
+        {
+            Debug.LogError(
+                "TownPlayerInteractor의 Dialogue UI를 연결해주세요.", this);
+
+            enabled = false;
+        }
     }
 
-    // 이동이 반영된 위치를 기준으로 가까운 NPC를 선택한다.
+    // 현재 위치로 대상을 갱신한 뒤 상호작용 입력을 처리한다.
     private void LateUpdate()
     {
-        if (Time.timeScale == 0f)
+        // 대화하거나 조작이 잠긴 동안에는 다른 NPC를 선택하지 않는다.
+        if (Time.timeScale == 0f ||
+            _dialogueUI.IsOpen ||
+            !_playerController.CanControl)
         {
             ChangeTarget(null);
             return;
         }
 
         Bounds bounds = _bodyCollider.bounds;
-
-        // 캐릭터 중심이 아닌 발 위치를 NPC의 바닥 위치와 비교한다.
         Vector2 feetPosition =
             new Vector2(bounds.center.x, bounds.min.y);
 
@@ -60,9 +78,18 @@ public class TownPlayerInteractor : MonoBehaviour
         }
 
         ChangeTarget(nearestNpc);
+
+        // 같은 상호작용 키를 대화 시작과 대사 넘기기에 사용한다.
+        if (_currentNpc != null &&
+            Input.GetKeyDown(_interactionKey) &&
+            _dialogueUI.TryOpen(
+                _currentNpc, _playerController, _interactionKey))
+        {
+            ChangeTarget(null);
+        }
     }
 
-    // 대상이 바뀔 때만 기존 안내를 끄고 새 안내를 켠다.
+    // 대상이 바뀌면 새 NPC의 안내 문구를 설정하고 표시한다.
     private void ChangeTarget(TownNpc nextNpc)
     {
         if (_currentNpc == nextNpc)
@@ -79,13 +106,20 @@ public class TownPlayerInteractor : MonoBehaviour
 
         if (_currentNpc != null)
         {
+            // 안내를 켜기 전에 실제 입력 키로 문구를 바꾼다.
+            _currentNpc.SetInteractionKey(_interactionKey);
             _currentNpc.SetHintVisible(true);
         }
     }
 
-    // 플레이어가 꺼지거나 공간을 떠나면 안내를 정리한다.
+    // 플레이어가 꺼지면 안내와 진행 중인 대화를 정리한다.
     private void OnDisable()
     {
         ChangeTarget(null);
+
+        if (_dialogueUI != null)
+        {
+            _dialogueUI.Close();
+        }
     }
 }

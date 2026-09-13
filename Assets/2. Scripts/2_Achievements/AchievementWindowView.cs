@@ -55,6 +55,9 @@ public class AchievementWindowView : MonoBehaviour
     // 현재 실행 중인 업적창 연출이다.
     Sequence _windowTween;
 
+    // 업적 창이 완전히 닫히거나 비활성화되었음을 알린다.
+    public event Action Closed;
+
     private void Awake()
     {
         // 업적창의 필수 UI 연결을 확인한다.
@@ -274,17 +277,25 @@ public class AchievementWindowView : MonoBehaviour
         }
     }
 
+    // 업적 창이 꺼지면 구독과 연출을 정리하고 닫힘을 알린다.
     private void OnDisable()
     {
-        // 업적창이 닫힌 뒤에는 골드 변경 이벤트 호출을 받지 않는다.
         if (SaveManager.Instance != null)
         {
-            SaveManager.Instance.GoldChanged -=
-                UpdateCurrentGoldText;
+            SaveManager.Instance.GoldChanged -= UpdateCurrentGoldText;
         }
 
-        // 비활성화될 때 남아 있는 Tween을 정리한다.
-        _windowTween?.Kill();
-        _windowTween = null;
+        // 진행 중인 연출이 비활성화 이후에 실행되지 않게 한다.
+        if (_windowTween != null)
+        {
+            _windowTween.Kill();
+            _windowTween = null;
+        }
+
+        // 닫기 연출이 끝나 실제 창이 꺼진 시점에 전달된다.
+        if (Closed != null)
+        {
+            Closed.Invoke();
+        }
     }
 }

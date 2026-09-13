@@ -49,6 +49,9 @@ public class PlayerSaveData
     // 스테이지별 최고 클리어 기록.
     public List<StageClearSaveData> stageClearRecords = new();
 
+    // 사용자가 수락한 퀘스트의 진행 기록.
+    public List<QuestSaveData> questRecords = new();
+
     // 업적 달성과 보상 수령 기록.
     public List<AchievementSaveData> achievementRecords = new();
 }
