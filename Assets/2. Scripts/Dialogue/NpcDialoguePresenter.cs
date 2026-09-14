@@ -25,8 +25,8 @@ public class NpcDialoguePresenter : MonoBehaviour
     private TownNpc _currentNpc;
     private TownPlayerController _lockedPlayer;
 
-    // 현재 일반 화면에서 선택할 수 있는 퀘스트 목록.
-    private readonly List<QuestData> _availableQuests =
+    // 현재 NPC에게 선택해서 대화할 수 있는 퀘스트 목록.
+    private readonly List<QuestData> _dialogueQuests =
         new List<QuestData>();
 
     // 선택한 퀘스트. 없으면 일반 대화를 표시 중이다.
@@ -56,12 +56,14 @@ public class NpcDialoguePresenter : MonoBehaviour
     // 아직 현재 문장을 전부 표시하지 않았는지 확인한다.
     private bool IsTyping => _visibleCharacters < _characterCount;
 
-    // 소개 대화의 마지막 줄이 끝났을 때만 수락·거절을 허용한다.
+    // 시작 가능한 퀘스트의 소개 대화를 끝까지 읽었을 때만 수락·거절을 허용한다.
     private bool CanDecideQuest =>
         IsOpen &&
         !_isDecisionResponse &&
         _selectedQuest != null &&
+        QuestService.GetState(_selectedQuest) == QuestState.Available &&
         _data != null &&
+        _data == _selectedQuest.OfferDialogue &&
         !IsTyping &&
         _lineIndex == _data.LineCount - 1;
 
@@ -324,73 +326,60 @@ public class NpcDialoguePresenter : MonoBehaviour
         RefreshActionButton();
     }
 
-    // 일반 화면에서 표시할 퀘스트 목록을 현재 User 레벨로 구성한다.
+    // 시작 가능·진행 중·완료 상태에 맞는 퀘스트 버튼을 표시한다.
     private void RefreshQuestList()
     {
-        _availableQuests.Clear();
+        _dialogueQuests.Clear();
 
         SaveManager saveManager = SaveManager.Instance;
 
-        // 로그인하지 않았다면 사용자 레벨을 확정할 수 없으므로 숨긴다.
         if (saveManager == null || !saveManager.IsLoggedIn)
         {
-            _questListView.ShowQuests(_availableQuests);
+            _questListView.ShowQuests(_dialogueQuests);
             return;
         }
 
-        for (int i = 0; i < _currentNpc.Quests.Count; i++)
+        foreach (QuestData quest in _currentNpc.Quests)
         {
-            QuestData quest = _currentNpc.Quests[i];
-
-            // 레벨뿐 아니라 이미 수락했는지도 함께 검사한다.
-            if (quest == null ||
-                QuestService.GetState(quest) != QuestState.Available ||
-                _availableQuests.Contains(quest))
+            if (quest == null || _dialogueQuests.Contains(quest))
             {
                 continue;
             }
 
-            // 눌러도 재생할 대사가 없는 항목은 표시하지 않는다.
-            if (quest.OfferDialogue == null ||
-                !quest.OfferDialogue.TryGetLine(0, out DialogueLine firstLine))
+            // 현재 상태에서 실제로 표시할 대화가 있는 퀘스트만 넣는다.
+            if (TryGetQuestDialogue(quest, out _, out _))
             {
-                continue;
+                _dialogueQuests.Add(quest);
             }
-
-            _availableQuests.Add(quest);
         }
 
-        _questListView.ShowQuests(_availableQuests);
+        _questListView.ShowQuests(_dialogueQuests);
     }
 
-    // 일반 대화에서 선택한 퀘스트의 소개 대화로 전환한다.
+    // 클릭 시점의 최신 퀘스트 상태를 확인해서 해당 대화를 시작한다.
     private void HandleQuestSelected(QuestData quest)
     {
-        if (!IsOpen || _selectedQuest != null ||
-            quest == null || !_availableQuests.Contains(quest))
+        if (!IsOpen || _isDecisionResponse ||
+            _selectedQuest != null ||
+            quest == null || !_dialogueQuests.Contains(quest))
         {
             return;
         }
 
-        // 목록 표시 후 상태가 바뀌었을 수 있으므로 다시 검사한다.
-        if (QuestService.GetState(quest) != QuestState.Available)
+        if (!TryGetQuestDialogue(
+                quest,
+                out DialogueData dialogue,
+                out DialogueLine firstLine))
         {
             RefreshQuestList();
             return;
         }
 
-        DialogueData offer = quest.OfferDialogue;
-
-        if (offer == null || !offer.TryGetLine(0, out DialogueLine firstLine))
-        {
-            return;
-        }
-
         _selectedQuest = quest;
-        _data = offer;
+        _data = dialogue;
         _lineIndex = 0;
 
-        // 퀘스트를 고른 입력으로 첫 문장까지 넘기지 않게 한다.
+        // 퀘스트 버튼을 누른 입력으로 첫 줄까지 넘기지 않는다.
         _lastAdvanceFrame = Time.frameCount;
 
         _questListView.ShowQuestDialogue();
@@ -438,12 +427,6 @@ public class NpcDialoguePresenter : MonoBehaviour
     // Config의 문자열을 기존 대화창에서 한 줄 대사로 재생한다.
     private void BeginDecisionResponse(string message)
     {
-        // 멘트를 입력하지 않은 퀘스트는 기존처럼 바로 일반 대화로 돌아간다.
-        if (string.IsNullOrWhiteSpace(message))
-        {
-            ReturnToDefault();
-            return;
-        }
 
         _isDecisionResponse = true;
 
@@ -463,7 +446,7 @@ public class NpcDialoguePresenter : MonoBehaviour
     // 수락 상태를 변경하지 않고 일반 대화와 퀘스트 목록으로 돌아간다.
     private void ReturnToDefault()
     {
-        if (!IsOpen || _selectedQuest == null)
+        if (!IsOpen || _selectedQuest == null || _isDecisionResponse)
         {
             return;
         }
@@ -488,9 +471,11 @@ public class NpcDialoguePresenter : MonoBehaviour
         RefreshQuestList();
     }
 
-    // 타이핑 중에는 문장을 완성하고, 응답 대사가 끝나면 일반 대화로 돌아간다.
+    // 타이핑 중에는 문장을 완성하고, 일반 대화에서는 다음 줄로 진행한다.
+    // 수락·거절 응답이 완성되면 현재 메시지를 유지한다.
     private void Advance()
     {
+        // 대화가 닫혀 있거나 같은 프레임에 이미 처리한 입력이면 무시한다.
         if (!IsOpen || Time.frameCount == _lastAdvanceFrame)
         {
             return;
@@ -498,23 +483,23 @@ public class NpcDialoguePresenter : MonoBehaviour
 
         _lastAdvanceFrame = Time.frameCount;
 
+        // 출력 중인 문장은 클릭 한 번으로 모두 표시한다.
         if (IsTyping)
         {
-            // 첫 입력은 현재 문장을 즉시 완성하는 데 사용한다.
             _visibleCharacters = _characterCount;
             _characterProgress = _characterCount;
             _view.SetVisibleCharacterCount(_characterCount);
             return;
         }
 
+        // 수락·거절 메시지 뒤에는 다른 대화로 진행하지 않는다.
+        // 대화 종료는 기존 닫기 처리에서 담당한다.
         if (_isDecisionResponse)
         {
-            // 응답 문장을 다 읽은 다음 입력에서 일반 대화로 복귀한다.
-            ReturnToDefault();
             return;
         }
 
-        // 일반 대화나 퀘스트 소개는 기존 줄 배열을 계속 재생한다.
+        // 일반 대화와 퀘스트 소개 대화만 다음 줄로 진행한다.
         if (_data != null &&
             _data.TryGetLine(_lineIndex + 1, out DialogueLine nextLine))
         {
@@ -557,7 +542,7 @@ public class NpcDialoguePresenter : MonoBehaviour
         }
 
         // 대화가 끝났으므로 목록과 선택 상태를 정리한다.
-        _availableQuests.Clear();
+        _dialogueQuests.Clear();
         _selectedQuest = null;
         _isDecisionResponse = false; // 추가할 줄.
 
@@ -565,5 +550,54 @@ public class NpcDialoguePresenter : MonoBehaviour
         _data = null;
         _currentNpc = null;
         _lockedPlayer = null;
+    }
+
+    // 현재 퀘스트 상태에 맞는 대화와 첫 번째 줄을 가져온다.
+    private bool TryGetQuestDialogue(
+        QuestData quest,
+        out DialogueData dialogue,
+        out DialogueLine firstLine)
+    {
+        dialogue = null;
+        firstLine = default;
+
+        if (quest == null)
+        {
+            return false;
+        }
+
+        // 저장된 상태에 따라 사용할 Config를 선택한다.
+        switch (QuestService.GetState(quest))
+        {
+            case QuestState.Available:
+                dialogue = quest.OfferDialogue;
+                break;
+
+            case QuestState.InProgress:
+                dialogue = quest.InProgressDialogue;
+                break;
+
+            case QuestState.ReadyToTurnIn:
+            case QuestState.RewardClaimed:
+                dialogue = quest.CompletionDialogue;
+                break;
+
+            default:
+                // 잠긴 퀘스트는 대화 목록에 표시하지 않는다.
+                return false;
+        }
+
+        // 누락된 Config를 다른 대화로 대체하지 않고 설정 오류를 알린다.
+        if (dialogue == null ||
+            !dialogue.TryGetLine(0, out firstLine))
+        {
+            Debug.LogWarning(
+                $"퀘스트 '{quest.QuestName}'의 현재 상태에 해당하는 Dialogue와 Lines를 확인해주세요.",
+                quest);
+
+            return false;
+        }
+
+        return true;
     }
 }

@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c420b9c456cfa094a9e96f54c4f32a05, type: 3}
   m_Name: 4_Warrior Hammer WeaponData
   m_EditorClassIdentifier: 
+  _equipmentPreviewScale: 2.5
+  _equipmentPreviewOffset: {x: 0, y: 0}
   _id: warrior_hammer
   _name: Hammer
   _type: 8

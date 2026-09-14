@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 /// <summary>
 /// EquipmentManage 씬에서 선택한 캐릭터의 장비 정보를 관리한다.
@@ -30,6 +29,12 @@ public class EquipmentManager : MonoBehaviour
 
     // Model과 View를 연결하고 화면 흐름을 제어하는 Presenter
     EquipmentPresenter _presenter;
+
+    // 다른 캐릭터의 장비를 관리하기 위해 캐릭터 선택 화면으로 돌아간다.
+    public event Action CharacterSelectionRequested;
+
+    // 화면을 전환하는 동안 뒤로 가기 중복 요청을 막는다.
+    private bool _isLeaving;
 
     /// <summary>
     /// 현재 장비를 편집하고 있는 캐릭터의 원본 데이터.
@@ -156,30 +161,29 @@ public class EquipmentManager : MonoBehaviour
             $"{_selectedCharacterData.CharacterName}");
     }
 
-    /// <summary>
-    /// 현재 장비 관리를 종료하고
-    /// 장비를 관리할 캐릭터 선택 화면으로 돌아간다.
-    /// </summary>
+    // Town을 유지한 상태로 창 안의 화면만 캐릭터 선택으로 바꾼다.
     public void BackToCharacterSelect()
     {
-        // 캐릭터 선택 흐름을 다시 시작하려면 세션 매니저가 필요하다.
-        GameSessionManager session =
-            GameSessionManager.Instance;
-
-        // Bootstrap을 거치지 않았다면 화면 흐름을 복원할 수 없다.
-        if (session == null)
+        if (_isLeaving)
         {
-            throw new InvalidOperationException(
-                "GameSessionManager가 존재하지 않습니다.");
+            return;
         }
 
-        // 장비 관리용 캐릭터를 다시 선택하는 흐름으로 초기화한다.
-        // 이 과정에서 이전에 선택했던 캐릭터 ID도 초기화된다.
+        GameSessionManager session = GameSessionManager.Instance;
+
+        if (session == null || CharacterSelectionRequested == null)
+        {
+            Debug.LogError(
+                "세션 매니저와 캐릭터 선택 복귀 이벤트를 확인해주세요.",
+                this);
+            return;
+        }
+
+        // 구매·장착 저장 데이터는 유지하고, 새로 선택할 캐릭터 정보만 초기화한다.
         session.BeginCharacterSelection(
             CharacterSelectPurpose.LoadoutEdit);
 
-        // 장비 관리용 캐릭터 선택 화면으로 돌아간다.
-        SceneManager.LoadScene(
-            "CharacterSelect_equip");
+        _isLeaving = true;
+        CharacterSelectionRequested.Invoke();
     }
 }

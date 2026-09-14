@@ -4,6 +4,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System.Linq;
+using UnityEngine.U2D.Animation;
 
 /// <summary>
 /// EquipmentManage 화면의 UI 표시만 담당한다.
@@ -121,6 +123,13 @@ public class EquipmentManageView : MonoBehaviour
     [SerializeField]
     GameObject _detailOwnedObject; // 이미 보유 중인 무기임을 표시하는 영역
 
+    // 상점 씬에서 배치한 이미지의 원래 크기와 위치.
+    private Vector3 _previewBaseScale;
+    private Vector2 _previewBasePosition;
+
+    // 무기를 바꿀 때 보정값이 누적되지 않도록 기준을 한 번만 저장한다.
+    private bool _previewLayoutCaptured;
+
     // 현재 중앙 무기 슬롯에서 무기를 드래그하고 있는지 기록한다.
     bool _isWeaponDragging;
 
@@ -137,6 +146,124 @@ public class EquipmentManageView : MonoBehaviour
 
     // 오른쪽 가격 버튼이 눌렸을 때 Presenter에 전달하는 이벤트
     public event Action PurchaseRequested;
+
+    // 상점 캐릭터 미리보기의 초당 Idle 재생 프레임 수.
+    [SerializeField, Min(0.1f)] private float _previewIdleFps = 10f;
+
+    // 현재 첫 번째 장착 무기에 해당하는 캐릭터 애니메이션.
+    private Sprite[] _previewFrames = new Sprite[0];
+
+    // 현재 재생 프레임과 다음 프레임까지 누적된 시간.
+    private int _previewFrameIndex;
+    private float _previewFrameTime;
+
+    // 첫 번째 장착 무기에 맞춰 캐릭터 미리보기를 갱신한다.
+    public void ShowCharacterPreview(
+        CharacterData character,
+        WeaponData firstWeapon)
+    {
+        // 첫 표시 때 Inspector에서 배치한 상태를 기준으로 저장한다.
+        RectTransform previewRect = _characterIcon.rectTransform;
+
+        if (!_previewLayoutCaptured)
+        {
+            _previewBaseScale = previewRect.localScale;
+            _previewBasePosition = previewRect.anchoredPosition;
+            _previewLayoutCaptured = true;
+        }
+
+        // 무기가 없으면 기본 배치를 사용한다.
+        float scale = 1f;
+        Vector2 offset = Vector2.zero;
+
+        if (firstWeapon != null)
+        {
+            scale = firstWeapon.EquipmentPreviewScale;
+            offset = firstWeapon.EquipmentPreviewOffset;
+        }
+
+        // 무기 교체마다 원래 배치에서 다시 계산한다.
+        previewRect.localScale = _previewBaseScale * scale;
+        previewRect.anchoredPosition = _previewBasePosition + offset;
+
+        _previewFrames = new Sprite[0];
+        _previewFrameIndex = 0;
+        _previewFrameTime = 0f;
+
+        // 첫 슬롯이 비어 있으면 캐릭터의 기본 이미지를 표시한다.
+        _characterIcon.sprite = character.Icon;
+        _characterIcon.preserveAspect = true;
+        _characterIcon.enabled = character.Icon != null;
+
+        if (firstWeapon == null)
+        {
+            return;
+        }
+
+        SpriteLibraryAsset library = firstWeapon.PlayerSpriteLibrary;
+        string category = character.PreviewIdleCategory;
+
+        if (library == null || string.IsNullOrWhiteSpace(category))
+        {
+            throw new InvalidOperationException(
+                $"{character.CharacterName}의 미리보기 Library와 Idle 카테고리를 확인해주세요.");
+        }
+
+        // 캐릭터 선택 화면과 같은 순서로 Idle 프레임을 가져온다.
+        string[] labels = library.GetCategoryLabelNames(category)
+            .OrderBy(label => label, StringComparer.Ordinal)
+            .ToArray();
+
+        if (labels.Length == 0)
+        {
+            throw new InvalidOperationException(
+                $"{library.name}에 {category} 프레임이 없습니다.");
+        }
+
+        Sprite[] frames = new Sprite[labels.Length];
+
+        for (int i = 0; i < labels.Length; i++)
+        {
+            frames[i] = library.GetSprite(category, labels[i]);
+
+            if (frames[i] == null)
+            {
+                throw new InvalidOperationException(
+                    $"{library.name}의 {category}/{labels[i]} 이미지가 없습니다.");
+            }
+        }
+
+        _previewFrames = frames;
+        _characterIcon.sprite = frames[0];
+        _characterIcon.enabled = true;
+    }
+
+    // 상점 창에 표시된 캐릭터의 Idle 애니메이션을 재생한다.
+    private void Update()
+    {
+        if (_previewFrames.Length == 0 ||
+            !_characterIcon.isActiveAndEnabled)
+        {
+            return;
+        }
+
+        float interval = 1f / Mathf.Max(0.1f, _previewIdleFps);
+        _previewFrameTime += Time.unscaledDeltaTime;
+
+        if (_previewFrameTime < interval)
+        {
+            return;
+        }
+
+        // 프레임이 지연되어도 재생 속도가 느려지지 않도록 처리한다.
+        int steps = Mathf.FloorToInt(_previewFrameTime / interval);
+        _previewFrameTime %= interval;
+
+        _previewFrameIndex =
+            (_previewFrameIndex + steps) % _previewFrames.Length;
+
+        _characterIcon.sprite = _previewFrames[_previewFrameIndex];
+    }
 
     /// <summary>
     /// 왼쪽 캐릭터 이미지, 이름, 레벨을 표시한다.

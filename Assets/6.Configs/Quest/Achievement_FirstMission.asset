@@ -25,3 +25,9 @@ MonoBehaviour:
   _offerDialogue: {fileID: 11400000, guid: 40be69231d26475448fef9ae426780fe, type: 2}
   _inProgressDialogue: {fileID: 11400000, guid: 7c7b9118340658e4e92a357ad474eb51, type: 2}
   _completionDialogue: {fileID: 11400000, guid: 5db399a7770b9be4dbf17a032b1fd9f2, type: 2}
+  _objective:
+    _type: 4
+    _character: {fileID: 0}
+    _requiredLevel: 1
+    _stageIndex: 0
+    _weapon: {fileID: 0}

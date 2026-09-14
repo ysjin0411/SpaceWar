@@ -2095,10 +2095,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: STAGE SELECT
+  m_text: "\uB9C8\uC744\uB85C \uB3CC\uC544\uAC00\uAE30"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: ce09b988b18c43e4b8e33e54f0da6b73, type: 2}
+  m_sharedMaterial: {fileID: 1350282831172619633, guid: ce09b988b18c43e4b8e33e54f0da6b73, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4770,6 +4770,7 @@ MonoBehaviour:
   _midBossTreasureChance: 1
   _finalBossTreasureChance: 1
   _treasureRewardWaitSeconds: 2
+  _treasureExitDuration: 0.5
 --- !u!4 &892676529
 Transform:
   m_ObjectHideFlags: 0
@@ -5418,7 +5419,7 @@ GameObject:
   - component: {fileID: 1121036967}
   - component: {fileID: 1121036970}
   m_Layer: 5
-  m_Name: BackToStageSelectButton
+  m_Name: BackToTownButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5490,7 +5491,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 692799878}
         m_TargetAssemblyTypeName: StageResultUI, Assembly-CSharp
-        m_MethodName: BackToStageSelect
+        m_MethodName: BackToTown
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6437,7 +6438,7 @@ GameObject:
   - component: {fileID: 1446255384}
   - component: {fileID: 1446255383}
   m_Layer: 0
-  m_Name: BackToStageSelectButton
+  m_Name: BackToTownButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6509,7 +6510,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 938821204}
         m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
-        m_MethodName: BackToStageSelect
+        m_MethodName: BackToTown
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7716,7 +7717,7 @@ GameObject:
   - component: {fileID: 1847464140}
   - component: {fileID: 1847464139}
   m_Layer: 0
-  m_Name: BackToStageSelectText
+  m_Name: BackToTownText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7761,7 +7762,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC2A4\uD14C\uC774\uC9C0 \uC120\uD0DD"
+  m_text: "\uB9C8\uC744\uB85C \uAC00\uAE30"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ce09b988b18c43e4b8e33e54f0da6b73, type: 2}
   m_sharedMaterial: {fileID: 1350282831172619633, guid: ce09b988b18c43e4b8e33e54f0da6b73, type: 2}
@@ -8256,10 +8257,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: RESTART
+  m_text: "\uB2E4\uC2DC\uD558\uAE30"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: ce09b988b18c43e4b8e33e54f0da6b73, type: 2}
+  m_sharedMaterial: {fileID: 1350282831172619633, guid: ce09b988b18c43e4b8e33e54f0da6b73, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

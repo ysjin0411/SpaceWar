@@ -39,9 +39,6 @@ public class LoginController : MonoBehaviour
     // 로그인한 사용자 ID를 표시할 텍스트.
     [SerializeField] TMP_Text _playerIdText;
 
-    // 잘못된 입력이나 파일 처리 오류를 표시할 텍스트.
-    [SerializeField] TMP_Text _loginMessageText;
-
     // 처리 중 중복 요청과 씬 이동을 막는 상태.
     bool _isProcessing;
 
@@ -60,8 +57,7 @@ public class LoginController : MonoBehaviour
             _levelIcon == null ||
             _levelText == null ||
             _loginCompletedText == null ||
-            _playerIdText == null ||
-            _loginMessageText == null)
+            _playerIdText == null)
         {
             throw new MissingReferenceException(
                 "LoginController의 UI 참조를 모두 연결해주세요.");
@@ -78,8 +74,6 @@ public class LoginController : MonoBehaviour
         _idInputField.lineType = TMP_InputField.LineType.SingleLine;
         _idInputField.characterLimit = 20;
         _playerIdText.richText = false;
-        _loginMessageText.richText = false;
-        _loginMessageText.text = string.Empty;
 
         // 입력란에서 Enter와 로그인 버튼 클릭을 연결한다.
         _idInputField.onSubmit.AddListener(HandleInputSubmitted);
@@ -120,7 +114,6 @@ public class LoginController : MonoBehaviour
         // 버튼 효과 중이나 확인 창에서 입력값이 바뀌는 것을 방지한다.
         string input = _idInputField.text;
 
-        _loginMessageText.text = string.Empty;
         SetProcessing(true);
 
         StartCoroutine(LoginAfterButtonEffect(input));
@@ -209,26 +202,35 @@ public class LoginController : MonoBehaviour
         CompleteLogin();
     }
 
-    // 파일 읽기·생성이 성공한 뒤 로그인 완료 화면으로 전환한다.
+    // 로그인 성공 화면을 표시하고, 후속 처리 오류는 안내창으로 알린다.
     private void CompleteLogin()
     {
         SetProcessing(false);
         RefreshLoginUI();
 
-        // 선택된 사용자의 데이터로 업적을 평가한다.
-        // 이 과정의 저장 실패를 로그인 실패로 오인하지 않도록 따로 처리한다.
         try
         {
+            // 로그인한 사용자의 데이터로 업적 조건을 검사한다.
             AchievementManager.Instance.EvaluateAllAchievements();
         }
         catch (Exception exception) when (IsFileOperationError(exception))
         {
             Debug.LogException(exception);
-            _loginMessageText.text =
-                "로그인은 완료됐지만 업적 기록 처리에 실패했습니다.";
+
+            // 로그인 성공 상태는 유지하고 업적 처리 오류만 안내한다.
+            _confirmationDialog.ShowNotice(
+                "로그인은 완료됐지만 업적 기록 처리에 실패했습니다.",
+                SelectPlayAfterNotice);
+
+            return;
         }
 
-        // 사용했던 Enter가 플레이까지 실행하지 않도록 해제 후 선택한다.
+        StartCoroutine(SelectPlayAfterRelease());
+    }
+
+    // 안내 확인 후 플레이 버튼으로 선택을 옮긴다.
+    private void SelectPlayAfterNotice()
+    {
         StartCoroutine(SelectPlayAfterRelease());
     }
 
@@ -264,12 +266,30 @@ public class LoginController : MonoBehaviour
         _settingButton.interactable = !processing;
     }
 
-    // 오류나 생성 취소 후 입력 화면으로 돌아간다.
+    // 안내가 있으면 확인을 받은 뒤 입력창으로 돌아간다.
     private void ReturnToInput(string message)
     {
         _requestedUserId = string.Empty;
-        _loginMessageText.text = message;
 
+        if (!string.IsNullOrWhiteSpace(message))
+        {
+            // 안내를 읽는 동안 로그인과 설정 이동을 계속 막는다.
+            SetProcessing(true);
+
+            _confirmationDialog.ShowNotice(
+                message,
+                ResumeInput);
+
+            return;
+        }
+
+        // 세이브 생성에서 아니오를 누른 경우에는 안내 없이 복귀한다.
+        ResumeInput();
+    }
+
+    // 안내창이 닫힌 뒤 로그인 입력을 다시 허용한다.
+    private void ResumeInput()
+    {
         SetProcessing(false);
         StartCoroutine(FocusInputAfterRelease());
     }

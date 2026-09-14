@@ -47,6 +47,10 @@ public class QuestData : ScriptableObject
     // 목표 달성 후 NPC와 대화할 때 사용하는 대화 데이터.
     [SerializeField] private DialogueData _completionDialogue;
 
+    // 이 퀘스트를 달성하기 위해 충족해야 하는 목표 조건.
+    [SerializeField]
+    private QuestObjectiveData _objective = new QuestObjectiveData();
+
     // 외부에서 공통 정보와 대화 데이터를 읽는다.
     public string Id => _id;
     public string QuestName => _questName;
@@ -56,6 +60,8 @@ public class QuestData : ScriptableObject
     public DialogueData OfferDialogue => _offerDialogue;
     public DialogueData InProgressDialogue => _inProgressDialogue;
     public DialogueData CompletionDialogue => _completionDialogue;
+    // 퀘스트 서비스가 검사할 목표 설정을 제공한다.
+    public QuestObjectiveData Objective => _objective;
 
     // 플레이어의 현재 상태에 맞는 상세 설명을 반환한다.
     public string GetDescription(QuestState state)

@@ -27,3 +27,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 780cb3af0b31d0d4882fa2de71c992ff, type: 2}
   - {fileID: 11400000, guid: 495e77db1a5dc924db230d77cdb137dc, type: 2}
   - {fileID: 11400000, guid: bd6cb4298a1f067409a909e2603ce956, type: 2}
+  _previewIdleCategory: Idle4

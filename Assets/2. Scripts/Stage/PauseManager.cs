@@ -200,7 +200,7 @@ public class PauseManager : MonoBehaviour
     /// 현재 전투를 종료하고 StageSelect 씬으로 돌아간다.
     /// BackToStageSelectButton의 OnClick에 연결한다.
     /// </summary>
-    public void BackToStageSelect()
+    public void BackToTown()
     {
         // 다음 씬에서도 시간이 멈춰 있지 않도록 정상화한다.
         Time.timeScale = 1f;
@@ -211,7 +211,7 @@ public class PauseManager : MonoBehaviour
             GameSessionManager.Instance.ResetSelection();
         }
 
-        // 스테이지 선택 화면으로 돌아간다.
-        SceneManager.LoadScene("StageSelect");
+        // 전투를 종료하고 NPC 서비스를 이용하는 Town으로 돌아간다.
+        SceneManager.LoadScene("Town");
     }
 }

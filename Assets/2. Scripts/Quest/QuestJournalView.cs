@@ -50,6 +50,15 @@ public class QuestJournalView : MonoBehaviour
     private Color _unselectedTabColor =
         new Color(0.5f, 0.5f, 0.5f, 1f);
 
+    // 상태 표시 오른쪽에 배치할 퀘스트 포기 버튼.
+    [SerializeField] private Button _abandonButton;
+
+    // 포기 처리나 저장에 실패했을 때 안내할 텍스트.
+    [SerializeField] private TMP_Text _abandonErrorText;
+
+    // 포기 버튼 클릭을 Presenter에 전달한다.
+    public event Action AbandonRequested;
+
     // 퀘스트와 생성한 슬롯을 연결해 선택 색상을 변경한다.
     private readonly Dictionary<QuestData, QuestSlotView> _rows =
         new Dictionary<QuestData, QuestSlotView>();
@@ -84,7 +93,9 @@ public class QuestJournalView : MonoBehaviour
             _nameText == null ||
             _stateText == null ||
             _descriptionText == null ||
-            _npcImage == null)
+            _npcImage == null ||
+            _abandonButton == null || 
+            _abandonErrorText == null)
         {
             Debug.LogError(
                 "QuestJournalView의 Inspector 연결을 확인해주세요.", this);
@@ -96,6 +107,9 @@ public class QuestJournalView : MonoBehaviour
         _imageScale = _npcImage.rectTransform.localScale;
         _npcImage.preserveAspect = true;
         _npcImage.raycastTarget = false;
+
+        // 포기 버튼의 입력을 한 번만 등록한다.
+        _abandonButton.onClick.AddListener(RequestAbandon);
 
         HideDetails();
         _root.SetActive(false);
@@ -171,6 +185,10 @@ public class QuestJournalView : MonoBehaviour
     // 오른쪽 상세 패널만 접는다.
     public void HideDetails()
     {
+        // 상세 패널을 닫으면 포기 버튼과 이전 오류도 초기화한다.
+        SetAbandonAvailable(false);
+        ShowAbandonError(string.Empty);
+
         ClearSelectionInside(_informationPanel.transform);
 
         _portraitSource = null;
@@ -282,5 +300,49 @@ public class QuestJournalView : MonoBehaviour
 
         button.targetGraphic.color =
             selected ? _selectedTabColor : _unselectedTabColor;
+    }
+
+    // Presenter가 판단한 포기 가능 여부를 버튼에 반영한다.
+    public void SetAbandonAvailable(bool available)
+    {
+        if (!available)
+        {
+            // 숨길 버튼에 키보드 선택이 남지 않도록 정리한다.
+            ClearSelectionInside(_abandonButton.transform);
+        }
+
+        _abandonButton.interactable = available;
+        _abandonButton.gameObject.SetActive(available);
+    }
+
+    // 포기 처리 결과에 대한 오류를 상세 패널 안에 표시한다.
+    public void ShowAbandonError(string message)
+    {
+        _abandonErrorText.text = message;
+    }
+
+    // 실제로 사용할 수 있는 포기 버튼의 클릭만 전달한다.
+    private void RequestAbandon()
+    {
+        if (!IsVisible ||
+            !_abandonButton.gameObject.activeInHierarchy ||
+            !_abandonButton.IsInteractable())
+        {
+            return;
+        }
+
+        if (AbandonRequested != null)
+        {
+            AbandonRequested.Invoke();
+        }
+    }
+
+    // View가 등록한 버튼 이벤트를 해제한다.
+    private void OnDestroy()
+    {
+        if (_abandonButton != null)
+        {
+            _abandonButton.onClick.RemoveListener(RequestAbandon);
+        }
     }
 }

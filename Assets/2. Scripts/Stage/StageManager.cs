@@ -231,58 +231,7 @@ public class StageManager : MonoBehaviour
                 $"캐릭터 '{_selectedCharacterData.Id}'의 장착 무기 슬롯이 없습니다.");
         }
 
-        // 캐릭터 데이터에 설정된 기본 장착 무기 3개를 가져온다.
-        WeaponData[] initialEquippedWeapons =
-            _selectedCharacterData.InitialEquippedWeapons;
-
-        // 기본 장착 무기 배열 자체가 존재하는지 확인한다.
-        if (initialEquippedWeapons == null)
-        {
-            throw new InvalidOperationException(
-                $"캐릭터 '{_selectedCharacterData.CharacterName}'의 기본 장착 무기 배열이 없습니다.");
-        }
-
-        // 기본 장착 무기 개수와 실제 세이브 슬롯 개수가 같은지 확인한다.
-        if (initialEquippedWeapons.Length !=
-            loadout.equippedWeaponIds.Length)
-        {
-            throw new InvalidOperationException(
-                $"캐릭터 '{_selectedCharacterData.CharacterName}'의 기본 장착 무기 개수와 슬롯 개수가 다릅니다.");
-        }
-
-        // 0번부터 2번까지 모든 무기 슬롯을 확인한다.
-        for (int slotIndex = 0;
-             slotIndex < loadout.equippedWeaponIds.Length;
-             slotIndex++)
-        {
-            // 현재 슬롯에 저장된 무기 ID를 가져온다.
-            string savedWeaponId =
-                loadout.equippedWeaponIds[slotIndex];
-
-            // 이미 저장된 무기가 있다면 유저가 장착한 무기를 유지한다.
-            if (!string.IsNullOrWhiteSpace(savedWeaponId))
-            {
-                continue;
-            }
-
-            // 현재 슬롯에 대응하는 기본 장착 무기를 가져온다.
-            WeaponData initialWeapon =
-                initialEquippedWeapons[slotIndex];
-
-            // 기본 장착 무기가 비어 있다면 캐릭터 데이터 설정 오류다.
-            if (initialWeapon == null)
-            {
-                throw new InvalidOperationException(
-                    $"캐릭터 '{_selectedCharacterData.CharacterName}'의 " +
-                    $"{slotIndex}번 기본 장착 무기가 비어 있습니다.");
-            }
-
-            // 비어 있는 현재 슬롯에 대응하는 기본 무기를 장착하고 JSON에 저장한다.
-            SaveManager.Instance.EquipWeapon(
-                _selectedCharacterData.Id,
-                slotIndex,
-                initialWeapon.Id);
-        }
+        
 
         // 세이브 데이터에는 무기 ID 문자열만 저장되어 있다.
         // Weapon 컴포넌트는 WeaponData를 사용하므로 같은 슬롯 개수의 배열을 새로 만든다.

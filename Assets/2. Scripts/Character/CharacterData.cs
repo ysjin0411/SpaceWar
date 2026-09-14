@@ -30,6 +30,12 @@ public class CharacterData : ScriptableObject
     [Header("기본 장착 무기")]
     [SerializeField] WeaponData[] _initialEquippedWeapons = new WeaponData[3];  // 기본 베이스 무기 3종.
 
+    // 장착 무기의 Sprite Library에서 미리보기에 사용할 Idle 카테고리.
+    [SerializeField] private string _previewIdleCategory;
+
+    // 캐릭터 선택과 상점이 같은 Idle 카테고리를 사용한다.
+    public string PreviewIdleCategory => _previewIdleCategory;
+
     public string Id => _id;
     public string CharacterName => _name;
     public Sprite Icon => _icon;

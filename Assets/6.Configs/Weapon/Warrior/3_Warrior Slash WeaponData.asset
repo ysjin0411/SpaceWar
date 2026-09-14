@@ -12,12 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c420b9c456cfa094a9e96f54c4f32a05, type: 3}
   m_Name: 3_Warrior Slash WeaponData
   m_EditorClassIdentifier: 
+  _equipmentPreviewScale: 1.5
+  _equipmentPreviewOffset: {x: 0, y: 0}
   _id: warrior_slash
   _name: Slash
   _type: 7
   _icon: {fileID: -3045193025102504070, guid: f9c2ef65a63e94c49a5fa9ef36090440, type: 3}
   _projectilePrefab: {fileID: 8053201812717553051, guid: a0136871e6a03024ab1120ee5db02527, type: 3}
   _playerSpriteLibrary: {fileID: 7108339969198208228, guid: 10e677c3da0e5e442ad7657c0f8efaa8, type: 3}
+  _characterSelectPreviewScale: 1
+  _characterSelectPreviewOffset: {x: 0, y: 0}
   _baseDamage: 10
   _baseCooltime: 0.3
   _maximumChargeCount: 0

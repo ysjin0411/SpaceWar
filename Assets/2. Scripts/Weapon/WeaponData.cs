@@ -11,6 +11,20 @@ using UnityEngine.U2D.Animation;
 [CreateAssetMenu(fileName = "WeaponData",menuName = "GameData/WeaponData")]
 public class WeaponData : ScriptableObject
 {
+    [Header("상점 캐릭터 미리보기")]
+
+    // 상점에서 이 무기를 장착한 캐릭터 이미지의 표시 배율.
+    [SerializeField, Min(0.01f)]
+    private float _equipmentPreviewScale = 1f;
+
+    // 상점 미리보기 이미지의 기준 위치에서 이동할 거리.
+    [SerializeField]
+    private Vector2 _equipmentPreviewOffset = Vector2.zero;
+
+    // 상점 화면에서 읽을 크기와 위치 보정값.
+    public float EquipmentPreviewScale => _equipmentPreviewScale;
+    public Vector2 EquipmentPreviewOffset => _equipmentPreviewOffset;
+
     [Header("기본 정보")]
 
     [Tooltip("세이브 데이터에서 무기를 구분할 고유 ID")]

@@ -52,6 +52,21 @@ public class SaveManager : MonoBehaviour
     [Header("현재 플레이어 세이브 데이터")]
     [SerializeField] PlayerSaveData _playerSaveData = new();
 
+    // 저장 시 진행 중인 퀘스트의 목표를 검사할 전체 퀘스트 목록.
+    [SerializeField] private QuestDatabase _questDatabase;
+
+    // User 레벨별 필요 경험치 설정.
+    [SerializeField] private UserLevelData _userLevelData;
+
+    // 신규 캐릭터에게 지급하고 장착할 무기 정보를 가져온다.
+    [SerializeField] private CharacterDatabase _characterDatabase;
+
+    // 현재 User 레벨에서 모은 경험치.
+    public int CurrentUserExp => _playerSaveData.userExp;
+
+    // 로그인 또는 저장 완료 후 User 표시 정보를 갱신하도록 알린다.
+    public event Action UserStatusChanged;
+
     /// <summary>
     /// 현재 총 골드가 변경됐을 때 변경된 골드량을 전달한다.
     /// </summary>
@@ -235,6 +250,18 @@ public class SaveManager : MonoBehaviour
             NormalizeLoadout(loadout);
         }
 
+        // 기존 세이브의 진행 중 퀘스트도 현재 목표 설정으로 다시 검사한다.
+        // 로그인만으로 업적창 열기 조건을 달성시키지는 않는다.
+        List<QuestSaveData> changedRecords =
+            QuestService.FindSatisfiedQuests(
+                _questDatabase, loadedData, false);
+
+        if (changedRecords.Count > 0)
+        {
+            // 갱신과 저장이 성공한 뒤 기존 ActivateUser가 사용자를 활성화한다.
+            WriteWithQuestProgress(path, loadedData, changedRecords);
+        }
+
         // 모든 읽기와 검사가 성공한 뒤 현재 사용자로 적용한다.
         ActivateUser(path, loadedData);
 
@@ -256,6 +283,31 @@ public class SaveManager : MonoBehaviour
             userExp = 0
         };
 
+        // 신규 사용자 파일을 저장하기 전에 모든 캐릭터의 시작 장비를 준비한다.
+        if (_characterDatabase == null)
+        {
+            throw new InvalidOperationException(
+                "SaveManager의 Character Database를 연결해주세요.");
+        }
+
+        HashSet<string> characterIds = new HashSet<string>();
+
+        for (int i = 0; i < _characterDatabase.Count; i++)
+        {
+            CharacterData character = _characterDatabase.GetCharacterDataAt(i);
+
+            // 같은 캐릭터 기록이 중복 생성되지 않도록 설정을 검사한다.
+            if (character == null ||
+                string.IsNullOrWhiteSpace(character.Id) ||
+                !characterIds.Add(character.Id))
+            {
+                throw new InvalidOperationException(
+                    "CharacterDatabase의 캐릭터와 중복 ID를 확인해주세요.");
+            }
+
+            newData.characterLoadouts.Add(CreateInitialLoadout(character));
+        }
+
         // 이미 같은 이름의 파일이 생겼다면 덮어쓰지 않고 실패한다.
         WriteDataFile(path, newData, true);
 
@@ -269,10 +321,24 @@ public class SaveManager : MonoBehaviour
         _savePath = path;
         _playerSaveData = data;
         IsLoggedIn = true;
+        // 로그인한 User의 정보를 화면에 반영한다.
+        NotifyUserStatusChanged();
     }
 
-    // 기존 장비·골드·업적 코드가 호출하는 저장 메서드다.
+    // 일반 저장에서는 레벨·무기 소유·스테이지 클리어 조건을 검사한다.
     public void SaveToFile()
+    {
+        SaveWithQuestProgress(false);
+    }
+
+    // NPC를 통해 업적창이 실제로 열렸을 때 호출한다.
+    public void RecordAchievementWindowOpened()
+    {
+        SaveWithQuestProgress(true);
+    }
+
+    // 플레이어 데이터와 새롭게 달성한 퀘스트 상태를 함께 저장한다.
+    private void SaveWithQuestProgress(bool achievementWindowOpened)
     {
         if (!IsLoggedIn)
         {
@@ -280,8 +346,48 @@ public class SaveManager : MonoBehaviour
                 "로그인한 사용자가 없어 저장할 수 없습니다.");
         }
 
-        // 현재 선택한 사용자의 파일에만 저장한다.
-        WriteDataFile(_savePath, _playerSaveData, false);
+        List<QuestSaveData> changedRecords =
+            QuestService.FindSatisfiedQuests(
+                _questDatabase,
+                _playerSaveData,
+                achievementWindowOpened);
+
+        WriteWithQuestProgress(_savePath, _playerSaveData, changedRecords);
+
+        // 저장 성공 후에만 퀘스트 화면을 갱신한다.
+        QuestService.NotifyProgressChanges(changedRecords);
+
+        // 저장된 User 레벨과 경험치를 화면에 반영한다.
+        NotifyUserStatusChanged();
+    }
+
+    // 목표 달성을 반영해서 저장하고, 저장 실패 시 퀘스트 상태를 복구한다.
+    private void WriteWithQuestProgress(
+        string path,
+        PlayerSaveData saveData,
+        List<QuestSaveData> changedRecords)
+    {
+        foreach (QuestSaveData record in changedRecords)
+        {
+            record.state = QuestState.ReadyToTurnIn;
+        }
+
+        try
+        {
+            // 기존 임시 파일 작성·교체 방식으로 저장한다.
+            WriteDataFile(path, saveData, false);
+        }
+        catch
+        {
+            // 검사 대상은 모두 InProgress였으므로 원래 상태로 되돌린다.
+            foreach (QuestSaveData record in changedRecords)
+            {
+                record.state = QuestState.InProgress;
+            }
+
+            // 기존 호출자가 저장 실패를 처리하도록 전달한다.
+            throw;
+        }
     }
 
     // JSON을 별도 파일에 완성한 뒤 최종 경로에 반영한다.
@@ -364,24 +470,33 @@ public class SaveManager : MonoBehaviour
             }
         }
 
-        // 해당 캐릭터의 저장 데이터가 없으므로 새로 생성한다.
-        CharacterLoadoutSaveData newLoadout = new CharacterLoadoutSaveData();
+        // 저장 기록이 없는 캐릭터만 시작 장비와 함께 새로 생성한다.
+        if (_characterDatabase == null)
+        {
+            throw new InvalidOperationException(
+                "SaveManager의 Character Database를 연결해주세요.");
+        }
 
-        // 새 저장 데이터가 어떤 캐릭터의 데이터인지 기록한다.
-        newLoadout.characterId = characterId;
+        CharacterData character =
+            _characterDatabase.GetCharacterData(characterId);
 
-        // 새 데이터도 배열과 보유 목록이 정상인지 보정한다.
-        NormalizeLoadout(newLoadout);
+        CharacterLoadoutSaveData newLoadout =
+            CreateInitialLoadout(character);
 
-        // 플레이어의 캐릭터별 장비 목록에 추가한다.
         _playerSaveData.characterLoadouts.Add(newLoadout);
 
-        // 새 캐릭터의 장착 정보가 만들어졌으므로 게임을 종료해도 유지되도록 로컬 파일에 저장한다.
-        SaveToFile();
+        try
+        {
+            // 시작 장비 지급 상태를 저장한다.
+            SaveToFile();
+        }
+        catch
+        {
+            // 저장에 실패하면 메모리에도 생성 기록을 남기지 않는다.
+            _playerSaveData.characterLoadouts.Remove(newLoadout);
+            throw;
+        }
 
-
-
-        // 생성한 장착 정보를 호출한 곳에 반환한다.
         return newLoadout;
     }
 
@@ -1247,6 +1362,237 @@ public class SaveManager : MonoBehaviour
             saveData.achievementRecords =
                 new List<AchievementSaveData>();
         }
+    }
+
+    // 현재 User 레벨에서 필요한 경험치를 가져온다.
+    public bool TryGetCurrentUserRequiredExp(out int requiredExp)
+    {
+        requiredExp = 0;
+
+        if (!IsLoggedIn || _userLevelData == null)
+        {
+            return false;
+        }
+
+        return _userLevelData.TryGetRequiredExp(
+            CurrentUserLevel, out requiredExp);
+    }
+
+    // 화면 갱신 오류가 로그인이나 저장 성공을 뒤집지 않도록 개별 통지한다.
+    private void NotifyUserStatusChanged()
+    {
+        Action handlers = UserStatusChanged;
+
+        if (handlers == null)
+        {
+            return;
+        }
+
+        foreach (Action handler in handlers.GetInvocationList())
+        {
+            try
+            {
+                handler.Invoke();
+            }
+            catch (Exception exception)
+            {
+                Debug.LogException(exception, this);
+            }
+        }
+    }
+
+    // User 경험치를 50 추가한다.
+    [ContextMenu("User 테스트/경험치 50 추가")]
+    private void AddUserExpForTest()
+    {
+        ChangeUserProgressForTest(50, 0);
+    }
+
+    // 현재 레벨의 User 경험치를 50 감소시킨다.
+    [ContextMenu("User 테스트/경험치 50 감소")]
+    private void SubtractUserExpForTest()
+    {
+        ChangeUserProgressForTest(-50, 0);
+    }
+
+    // User 레벨을 1 올리고 경험치를 초기화한다.
+    [ContextMenu("User 테스트/레벨 1 증가")]
+    private void IncreaseUserLevelForTest()
+    {
+        ChangeUserProgressForTest(0, 1);
+    }
+
+    // User 레벨을 1 내리고 경험치를 초기화한다.
+    [ContextMenu("User 테스트/레벨 1 감소")]
+    private void DecreaseUserLevelForTest()
+    {
+        ChangeUserProgressForTest(0, -1);
+    }
+
+    // 네 테스트 메뉴의 계산·검증·저장을 공통으로 처리한다.
+    private void ChangeUserProgressForTest(int expChange, int levelChange)
+    {
+        // 실행 중인 실제 저장 관리자에서만 테스트한다.
+        if (!CanRunTestContextMenu())
+        {
+            return;
+        }
+
+        if (Instance != this || !IsLoggedIn)
+        {
+            Debug.LogWarning(
+                "로그인 후 현재 사용 중인 SaveManager에서 실행해주세요.",
+                this);
+            return;
+        }
+
+        if (_userLevelData == null)
+        {
+            Debug.LogWarning("UserLevelData를 연결해주세요.", this);
+            return;
+        }
+
+        // 계산이 끝나기 전에는 실제 저장 데이터를 변경하지 않는다.
+        int nextLevel = _playerSaveData.userLevel;
+        long nextExp = _playerSaveData.userExp;
+
+        if (levelChange != 0)
+        {
+            // 레벨 1에서 감소를 누르면 기존 경험치도 그대로 유지한다.
+            if (levelChange < 0 && nextLevel <= 1)
+            {
+                return;
+            }
+
+            if (levelChange > 0 && nextLevel == int.MaxValue)
+            {
+                Debug.LogWarning("더 이상 레벨을 증가시킬 수 없습니다.", this);
+                return;
+            }
+
+            nextLevel += levelChange;
+
+            // 레벨을 직접 변경하는 테스트는 해당 레벨의 0%부터 시작한다.
+            nextExp = 0;
+        }
+        else
+        {
+            // 덧셈 중 정수 범위를 넘지 않도록 long으로 계산한다.
+            nextExp = Math.Max(0L, nextExp + expChange);
+        }
+
+        while (true)
+        {
+            // 계산 중 도달하는 각 레벨의 필요 경험치를 확인한다.
+            if (!_userLevelData.TryGetRequiredExp(
+                    nextLevel, out int requiredExp))
+            {
+                Debug.LogWarning(
+                    $"User {nextLevel}레벨의 필요 경험치가 없습니다. " +
+                    "UserLevelData를 설정해주세요. 변경은 취소했습니다.",
+                    this);
+                return;
+            }
+
+            if (nextExp < requiredExp)
+            {
+                break;
+            }
+
+            if (nextLevel == int.MaxValue)
+            {
+                Debug.LogWarning("더 이상 레벨업할 수 없습니다.", this);
+                return;
+            }
+
+            // 필요한 경험치만 소비하고 남은 경험치는 다음 레벨로 넘긴다.
+            nextExp -= requiredExp;
+            nextLevel++;
+        }
+
+        // 실제 변경이 없으면 파일을 다시 저장하지 않는다.
+        if (nextLevel == _playerSaveData.userLevel &&
+            nextExp == _playerSaveData.userExp)
+        {
+            return;
+        }
+
+        // 저장 실패 시 복구할 이전 값을 보관한다.
+        int previousLevel = _playerSaveData.userLevel;
+        int previousExp = _playerSaveData.userExp;
+
+        _playerSaveData.userLevel = nextLevel;
+        _playerSaveData.userExp = (int)nextExp;
+
+        try
+        {
+            // 기존 저장 흐름에서 퀘스트 검사와 User UI 갱신도 처리한다.
+            SaveToFile();
+        }
+        catch (Exception exception)
+        {
+            // 저장에 실패하면 메모리 값도 변경 전으로 되돌린다.
+            _playerSaveData.userLevel = previousLevel;
+            _playerSaveData.userExp = previousExp;
+
+            Debug.LogException(exception, this);
+            return;
+        }
+
+        Debug.Log(
+            $"User 테스트 완료: 레벨 {nextLevel}, 경험치 {nextExp}",
+            this);
+    }
+
+    // 새 캐릭터의 보유·장착 데이터를 만든다.
+    // 기존 캐릭터의 장착 상태를 초기화할 때는 사용하지 않는다.
+    private CharacterLoadoutSaveData CreateInitialLoadout(
+        CharacterData character)
+    {
+        if (character == null || string.IsNullOrWhiteSpace(character.Id))
+        {
+            throw new InvalidOperationException(
+                "초기 장비를 지급할 CharacterData와 ID를 확인해주세요.");
+        }
+
+        WeaponData[] weapons = character.InitialEquippedWeapons;
+
+        // 시작 장비는 정확히 3종을 지정한다.
+        if (weapons == null || weapons.Length != 3)
+        {
+            throw new InvalidOperationException(
+                $"{character.CharacterName}의 Initial Equipped Weapons를 3개 지정해주세요.");
+        }
+
+        CharacterLoadoutSaveData loadout = new CharacterLoadoutSaveData
+        {
+            characterId = character.Id
+        };
+
+        HashSet<string> weaponIds = new HashSet<string>();
+
+        for (int i = 0; i < weapons.Length; i++)
+        {
+            WeaponData weapon = weapons[i];
+
+            // 잘못된 설정이나 같은 무기의 중복 지급을 막는다.
+            if (weapon == null ||
+                string.IsNullOrWhiteSpace(weapon.Id) ||
+                !weaponIds.Add(weapon.Id))
+            {
+                throw new InvalidOperationException(
+                    $"{character.CharacterName}의 시작 무기 {i + 1}번을 확인해주세요. " +
+                    "서로 다른 무기 3종이 필요합니다.");
+            }
+
+            // 지급한 무기를 Owned 상태로 기록한다.
+            loadout.ownedWeaponIds.Add(weapon.Id);
+
+            // 지급과 동시에 같은 순서의 슬롯에 장착한다.
+            loadout.equippedWeaponIds[i] = weapon.Id;
+        }
+
+        return loadout;
     }
 
 }

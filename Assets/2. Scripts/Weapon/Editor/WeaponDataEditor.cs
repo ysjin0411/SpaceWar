@@ -26,6 +26,9 @@ public class WeaponDataEditor : Editor
         // 무기 종류에 관계없이 캐릭터 선택 화면의 외형을 조절한다.
         DrawProperty("_characterSelectPreviewScale");
         DrawProperty("_characterSelectPreviewOffset");
+        // 상점 미리보기 보정값도 무기 Inspector에 표시한다.
+        DrawProperty("_equipmentPreviewScale");
+        DrawProperty("_equipmentPreviewOffset");
 
         SerializedProperty typeProperty =
             serializedObject.FindProperty("_type");

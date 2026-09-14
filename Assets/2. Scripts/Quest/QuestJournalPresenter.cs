@@ -17,6 +17,9 @@ public class QuestJournalPresenter : MonoBehaviour
     // 각 NPC의 Quests 목록에서 선택한 퀘스트의 제공자를 찾는다.
     [SerializeField] private TownNpc[] _questNpcs = new TownNpc[0];
 
+    // 퀘스트 포기 여부를 묻는 확인창.
+    [SerializeField] private ConfirmationDialogUI _confirmationDialog;
+
     // 현재 탭에 표시할 퀘스트들.
     private readonly List<QuestData> _visibleQuests = new List<QuestData>();
 
@@ -34,7 +37,7 @@ public class QuestJournalPresenter : MonoBehaviour
     // 필수 연결을 확인한다.
     private void Awake()
     {
-        if (_view == null || _database == null || _player == null)
+        if (_view == null || _database == null || _player == null || _confirmationDialog == null)
         {
             Debug.LogError(
                 "QuestJournalPresenter의 Inspector 연결을 확인해주세요.",
@@ -50,6 +53,8 @@ public class QuestJournalPresenter : MonoBehaviour
         if (_view != null)
         {
             _view.QuestSelected += SelectQuest;
+            // 포기 버튼 입력을 구독한다.
+            _view.AbandonRequested += HandleAbandonRequested;
         }
 
         QuestService.QuestChanged += HandleQuestChanged;
@@ -70,6 +75,12 @@ public class QuestJournalPresenter : MonoBehaviour
             saveManager == null || !saveManager.IsLoggedIn)
         {
             Close();
+            return;
+        }
+
+        // 확인창 응답을 기다리는 동안 뒤쪽 퀘스트창의 Esc 입력을 막는다.
+        if (_confirmationDialog.IsOpen)
+        {
             return;
         }
 
@@ -240,6 +251,13 @@ public class QuestJournalPresenter : MonoBehaviour
         string description = quest.GetDescription(state);
 
         _view.ShowDetails(quest, stateText, description, npcVisual);
+
+        // 새로 선택한 퀘스트에는 이전 오류를 표시하지 않는다.
+        _view.ShowAbandonError(string.Empty);
+
+        // 실제 상태가 진행 중일 때만 포기를 허용한다.
+        // 같은 진행 중 탭에 포함되는 '목표 달성' 상태는 제외한다.
+        _view.SetAbandonAvailable(state == QuestState.InProgress);
     }
 
     // 저장 상태 변경이 발생하면 열린 창을 갱신한다.
@@ -261,6 +279,12 @@ public class QuestJournalPresenter : MonoBehaviour
 
         _isOpen = false;
 
+        // 퀘스트창이 닫히면 남아 있는 확인 요청도 취소한다.
+        if (_confirmationDialog != null)
+        {
+            _confirmationDialog.Cancel();
+        }
+
         if (_view != null && _view.IsReady)
         {
             _view.Hide();
@@ -280,6 +304,8 @@ public class QuestJournalPresenter : MonoBehaviour
         if (_view != null)
         {
             _view.QuestSelected -= SelectQuest;
+            // 포기 버튼 입력 구독을 해제한다.
+            _view.AbandonRequested -= HandleAbandonRequested;
         }
 
         QuestService.QuestChanged -= HandleQuestChanged;
@@ -326,5 +352,47 @@ public class QuestJournalPresenter : MonoBehaviour
         _view.HideDetails();
     }
 
+    // 선택한 퀘스트를 포기할지 기존 예/아니오 확인창으로 묻는다.
+    private void HandleAbandonRequested()
+    {
+        if (!_isOpen || _selectedQuest == null ||
+            _confirmationDialog.IsOpen)
+        {
+            return;
+        }
 
+        // 확인창을 연 뒤 선택 상태가 바뀌어도 원래 퀘스트를 대상으로 한다.
+        QuestData quest = _selectedQuest;
+
+        if (QuestService.GetState(quest) != QuestState.InProgress)
+        {
+            RefreshList();
+            return;
+        }
+
+        _view.ShowAbandonError(string.Empty);
+
+        _confirmationDialog.Show(
+            $"'{quest.QuestName}' 퀘스트를 정말 포기하시겠습니까?\n" +
+            "현재 진행 기록이 초기화되며 다시 수락할 수 있습니다.",
+            accepted =>
+            {
+                // 아니오를 선택하거나 퀘스트창이 닫혔다면 변경하지 않는다.
+                if (!accepted || !_isOpen)
+                {
+                    return;
+                }
+
+                // 예를 눌렀을 때 상태를 다시 검사하고 저장까지 처리한다.
+                if (!QuestService.TryAbandon(quest, out string error))
+                {
+                    _view.ShowAbandonError(error);
+                    return;
+                }
+
+                // 포기한 퀘스트를 시작 가능 탭에서 바로 확인한다.
+                ShowAvailable();
+                SelectQuest(quest);
+            });
+    }
 }

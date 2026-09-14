@@ -324,6 +324,11 @@ public class EquipmentPresenter
                 slotIndex,
                 equippedWeapon);
         }
+
+        // 최초 진입, 무기 장착, 슬롯 교환 후 캐릭터 외형도 함께 갱신한다.
+        _view.ShowCharacterPreview(
+            _model.CharacterData,
+            _model.GetEquippedWeaponAt(0));
     }
 
 

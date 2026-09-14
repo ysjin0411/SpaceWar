@@ -2977,7 +2977,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 25, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 180, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1014602226
@@ -4773,6 +4773,7 @@ GameObject:
   - component: {fileID: 1676919447}
   - component: {fileID: 1676919446}
   - component: {fileID: 1676919448}
+  - component: {fileID: 1676919449}
   m_Layer: 0
   m_Name: EquipmentManager
   m_TagString: Untagged
@@ -4861,6 +4862,23 @@ MonoBehaviour:
   _detailPriceText: {fileID: 1027691719}
   _detailQualificationText: {fileID: 1578446318}
   _detailOwnedObject: {fileID: 2018642392}
+  _previewIdleFps: 10
+--- !u!114 &1676919449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1676919445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bb9fcd682e3a7e49835fbfd360604d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _screenCanvas: {fileID: 653430474}
+  _sceneCamera: {fileID: 628461627}
+  _sceneEventSystem: {fileID: 1904692540}
+  _referenceSize: {x: 1920, y: 1080}
 --- !u!1 &1682323985
 GameObject:
   m_ObjectHideFlags: 0

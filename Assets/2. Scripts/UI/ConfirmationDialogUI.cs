@@ -22,6 +22,12 @@ public class ConfirmationDialogUI : MonoBehaviour
     [SerializeField] Button _yesButton;
     [SerializeField] Button _noButton;
 
+    // 안내 모드에서만 표시하는 하단 중앙 확인 버튼.
+    [SerializeField] private Button _confirmButton;
+
+    // 현재 창이 확인 버튼 하나만 사용하는 안내 모드인지 나타낸다.
+    private bool _isNotice;
+
     // 창을 열기 전 배경의 조작 가능 상태.
     bool _previousInteractable;
 
@@ -47,7 +53,8 @@ public class ConfirmationDialogUI : MonoBehaviour
             _backgroundGroup == null ||
             _messageText == null ||
             _yesButton == null ||
-            _noButton == null)
+            _noButton == null ||
+            _confirmButton == null)
         {
             throw new MissingReferenceException(
                 "ConfirmationDialogUI의 UI 참조를 모두 연결해주세요.");
@@ -62,10 +69,15 @@ public class ConfirmationDialogUI : MonoBehaviour
         // 버튼 클릭은 이 컴포넌트에서 한 번만 연결한다.
         _yesButton.onClick.AddListener(HandleYes);
         _noButton.onClick.AddListener(HandleNo);
+        // 안내 창의 확인 버튼도 코드에서 클릭을 연결한다.
+        _confirmButton.onClick.AddListener(HandleConfirm);
     }
 
-    // 메시지와 응답 처리 함수를 받아 확인 창을 연다.
-    public void Show(string message, Action<bool> onAnswered)
+    // 두 모드가 배경 잠금과 창 표시 처리를 공유한다.
+    private void Open(
+        string message,
+        Action<bool> onAnswered,
+        bool isNotice)
     {
         if (IsOpen)
         {
@@ -101,9 +113,17 @@ public class ConfirmationDialogUI : MonoBehaviour
         IsOpen = true;
         _canRespond = false;
 
-        // 로그인에 사용한 Enter가 확인 버튼까지 누르지 않도록 잠근다.
+        // 창을 열 때마다 모드에 맞는 버튼만 표시한다.
+        _isNotice = isNotice;
+
+        _yesButton.gameObject.SetActive(!isNotice);
+        _noButton.gameObject.SetActive(!isNotice);
+        _confirmButton.gameObject.SetActive(isNotice);
+
+        // 창을 연 입력이 곧바로 응답 버튼까지 누르지 못하도록 잠근다.
         _yesButton.interactable = false;
         _noButton.interactable = false;
+        _confirmButton.interactable = false;
 
         // 다른 화면보다 앞에 알림창을 표시한다.
         _panel.transform.SetAsLastSibling();
@@ -112,7 +132,7 @@ public class ConfirmationDialogUI : MonoBehaviour
         StartCoroutine(EnableResponseAfterRelease());
     }
 
-    // 창을 연 프레임이 지나고 Enter가 해제된 뒤 응답을 허용한다.
+    // 창을 연 Enter 입력이 끝난 뒤 현재 모드의 버튼만 활성화한다.
     private IEnumerator EnableResponseAfterRelease()
     {
         yield return null;
@@ -124,13 +144,22 @@ public class ConfirmationDialogUI : MonoBehaviour
         }
 
         _canRespond = true;
-        _yesButton.interactable = true;
-        _noButton.interactable = true;
 
-        // 기본 선택은 아니오로 두어 의도치 않은 생성을 방지한다.
+        _yesButton.interactable = !_isNotice;
+        _noButton.interactable = !_isNotice;
+        _confirmButton.interactable = _isNotice;
+
         if (EventSystem.current != null)
         {
-            _noButton.Select();
+            // 안내는 확인을, 선택이 필요한 창은 아니오를 기본 선택한다.
+            if (_isNotice)
+            {
+                _confirmButton.Select();
+            }
+            else
+            {
+                _noButton.Select();
+            }
         }
     }
 
@@ -198,6 +227,12 @@ public class ConfirmationDialogUI : MonoBehaviour
 
     private void OnDestroy()
     {
+        // 확인 버튼에 등록한 이벤트를 해제한다.
+        if (_confirmButton != null)
+        {
+            _confirmButton.onClick.RemoveListener(HandleConfirm);
+        }
+
         // 등록했던 버튼 이벤트를 해제한다.
         if (_yesButton != null)
         {
@@ -208,5 +243,44 @@ public class ConfirmationDialogUI : MonoBehaviour
         {
             _noButton.onClick.RemoveListener(HandleNo);
         }
+    }
+
+    // 요청한 화면이 닫혔을 때 결과 콜백을 실행하지 않고 확인창을 정리한다.
+    public void Cancel()
+    {
+        if (IsOpen)
+        {
+            CloseWindow();
+        }
+    }
+
+    // 기존 세이브 생성·퀘스트 포기에서 사용하는 예/아니오 확인창.
+    public void Show(string message, Action<bool> onAnswered)
+    {
+        Open(message, onAnswered, false);
+    }
+
+    // 오류나 설명을 확인 버튼 하나로 보여주는 안내창.
+    public void ShowNotice(string message, Action onConfirmed)
+    {
+        if (onConfirmed == null)
+        {
+            throw new ArgumentNullException(nameof(onConfirmed));
+        }
+
+        // 안내창의 확인 결과를 매개변수 없는 완료 콜백으로 전달한다.
+        Open(message, accepted => onConfirmed.Invoke(), true);
+    }
+
+    // 안내창을 닫고 안내 확인 후 처리를 실행한다.
+    private void HandleConfirm()
+    {
+        if (!_isNotice)
+        {
+            return;
+        }
+
+        // 기존 Answer가 먼저 창과 배경 상태를 복구한 뒤 콜백을 실행한다.
+        Answer(true);
     }
 }

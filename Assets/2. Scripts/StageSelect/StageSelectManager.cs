@@ -80,6 +80,9 @@ public class StageSelectManager : MonoBehaviour
     private Tween _ringRotationTween;
     private Tween _ringPulseTween;
 
+    // 창 안에서 사용 중일 때 캐릭터 선택 화면으로 이동하도록 요청한다.
+    public event Action CharacterSelectionRequested;
+
     private void Start()
     {
         // 필요한 연결이 빠졌다면 시작 시점에 알려준다.
@@ -362,22 +365,16 @@ public class StageSelectManager : MonoBehaviour
         GameSessionManager.Instance.BeginCharacterSelection(
             CharacterSelectPurpose.Battle);
 
-        SceneManager.LoadScene("CharacterSelect_play");
-    }
-
-    public void BackToMainMenu()
-    {
-        if (_isLeaving)
+        // 창에 연결되어 있으면 전체 씬 이동 대신 창 내부 전환을 요청한다.
+        if (CharacterSelectionRequested != null)
         {
+            CharacterSelectionRequested.Invoke();
             return;
         }
 
-        // 선택 정보를 초기화하고 기존 메인 메뉴로 돌아간다.
-        _isLeaving = true;
-        GameSessionManager.Instance.ResetSelection();
-
-        SceneManager.LoadScene("1.MainMenu");
+        SceneManager.LoadScene("CharacterSelect");
     }
+
 
     private string FormatBestClearTime(float bestClearTime)
     {

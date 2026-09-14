@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c420b9c456cfa094a9e96f54c4f32a05, type: 3}
   m_Name: 2_Warrior Shield WeaponData
   m_EditorClassIdentifier: 
+  _equipmentPreviewScale: 2.5
+  _equipmentPreviewOffset: {x: 0, y: 0}
   _id: warrior_shield
   _name: Shield
   _type: 6

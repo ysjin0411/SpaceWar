@@ -332,9 +332,9 @@ public class StageResultUI : MonoBehaviour
 
     /// <summary>
     /// 결과창에서 StageSelect 씬으로 돌아간다.
-    /// BackToStageSelectButton의 OnClick에 연결한다.
+    /// BackToTownButton의 OnClick에 연결한다.
     /// </summary>
-    public void BackToStageSelect()
+    public void BackToTown()
     {
         // 빠른 연속 클릭으로 씬 이동이 중복 실행되지 않도록 한다.
         if (_isChangingScene)
@@ -361,8 +361,8 @@ public class StageResultUI : MonoBehaviour
             GameSessionManager.Instance.ResetSelection();
         }
 
-        // 스테이지 선택 화면으로 돌아간다.
-        SceneManager.LoadScene("StageSelect");
+        // 전투를 종료하고 NPC 서비스를 이용하는 Town으로 돌아간다.
+        SceneManager.LoadScene("Town");
     }
 
     /// <summary>
