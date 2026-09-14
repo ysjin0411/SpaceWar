@@ -1,7 +1,8 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
-// 퀘스트의 고정 정보와 상태별 대화를 저장한다.
-// 플레이어의 수락 여부와 진행도는 별도 저장 데이터에서 관리한다.
+// 퀘스트의 공통 정보와 상태별 표시 문구를 저장한다.
+// 플레이어의 현재 진행 상태는 QuestService와 저장 데이터에서 관리한다.
 [CreateAssetMenu(
     fileName = "QuestData",
     menuName = "GameSettings/Quest")]
@@ -10,34 +11,70 @@ public class QuestData : ScriptableObject
     // 저장 데이터에서 퀘스트를 구분하는 고유 ID.
     [SerializeField] private string _id;
 
-    // 대화창의 퀘스트 텍스트 버튼과 퀘스트창에 표시할 이름.
+    // 슬롯과 상세 패널에서 공통으로 사용하는 제목.
     [SerializeField] private string _questName;
 
-    // 퀘스트창에서 표시할 설명.
+    // 시작가능 상태에서 상세 패널에 표시할 설명.
+    // 기존 _description에 입력한 내용을 이어받는다.
+    [FormerlySerializedAs("_description")]
     [SerializeField, TextArea(3, 8)]
-    private string _description;
+    private string _availableDescription;
 
-    // 퀘스트를 시작하는 데 필요한 User 레벨.
-    // 솔져나 워리어의 캐릭터 레벨과는 관계없다.
+    // 수락 후 진행중 상태에서 표시할 설명.
+    [SerializeField, TextArea(3, 8)]
+    private string _inProgressDescription;
+
+    // 보상까지 수령하여 완료된 상태에서 표시할 설명.
+    [SerializeField, TextArea(3, 8)]
+    private string _completedDescription;
+
+    // 수락과 저장이 성공한 뒤 NPC가 말할 한 줄 대사.
+    [SerializeField] private string _acceptResponse;
+
+    // 거절 버튼을 누른 뒤 NPC가 말할 한 줄 대사.
+    [SerializeField] private string _declineResponse;
+
+    // 퀘스트를 수락하는 데 필요한 User 레벨.
     [SerializeField, Min(1)]
     private int _requiredUserLevel = 1;
 
-    // 시작 가능한 퀘스트 이름을 눌렀을 때 재생할 설명.
-    // 마지막 대사 출력이 끝나면 수락·거절을 표시한다.
+    // 수락하기 전에 보여주는 퀘스트 소개 대화.
     [SerializeField] private DialogueData _offerDialogue;
 
-    // 퀘스트를 수락했지만 목표를 아직 달성하지 못했을 때의 대화.
+    // 진행중에 NPC와 대화할 때 사용하는 대화 데이터.
     [SerializeField] private DialogueData _inProgressDialogue;
 
-    // 목표를 달성했지만 보상을 아직 받지 않았을 때의 대화.
+    // 목표 달성 후 NPC와 대화할 때 사용하는 대화 데이터.
     [SerializeField] private DialogueData _completionDialogue;
 
-    // 외부에서는 설정 내용을 읽기만 한다.
+    // 외부에서 공통 정보와 대화 데이터를 읽는다.
     public string Id => _id;
     public string QuestName => _questName;
-    public string Description => _description;
     public int RequiredUserLevel => _requiredUserLevel;
+    public string AcceptResponse => _acceptResponse;
+    public string DeclineResponse => _declineResponse;
     public DialogueData OfferDialogue => _offerDialogue;
     public DialogueData InProgressDialogue => _inProgressDialogue;
     public DialogueData CompletionDialogue => _completionDialogue;
+
+    // 플레이어의 현재 상태에 맞는 상세 설명을 반환한다.
+    public string GetDescription(QuestState state)
+    {
+        switch (state)
+        {
+            case QuestState.Available:
+                return _availableDescription;
+
+            case QuestState.InProgress:
+            case QuestState.ReadyToTurnIn:
+                // 보상 미수령 상태는 기존처럼 진행중 목록에 포함한다.
+                return _inProgressDescription;
+
+            case QuestState.RewardClaimed:
+                return _completedDescription;
+
+            default:
+                return string.Empty;
+        }
+    }
 }

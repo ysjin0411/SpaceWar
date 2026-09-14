@@ -13,6 +13,10 @@ public class QuestJournalPresenter : MonoBehaviour
     // 창을 여는 동안 조작을 잠글 플레이어.
     [SerializeField] private TownPlayerController _player;
 
+    // 퀘스트를 제공하는 마을 NPC들.
+    // 각 NPC의 Quests 목록에서 선택한 퀘스트의 제공자를 찾는다.
+    [SerializeField] private TownNpc[] _questNpcs = new TownNpc[0];
+
     // 현재 탭에 표시할 퀘스트들.
     private readonly List<QuestData> _visibleQuests = new List<QuestData>();
 
@@ -121,7 +125,7 @@ public class QuestJournalPresenter : MonoBehaviour
         ChangeTab(QuestState.RewardClaimed);
     }
 
-    // 탭을 바꾸면 해당 목록의 첫 항목을 선택한다.
+    // 목록을 전환하면서 현재 탭의 선택 표시를 갱신한다.
     private void ChangeTab(QuestState tab)
     {
         if (!_isOpen)
@@ -131,6 +135,10 @@ public class QuestJournalPresenter : MonoBehaviour
 
         _tab = tab;
         _selectedQuest = null;
+
+        // 상세 패널을 클릭해도 현재 탭의 강조가 유지된다.
+        _view.SetSelectedTab(_tab);
+
         RefreshList();
     }
 
@@ -166,28 +174,25 @@ public class QuestJournalPresenter : MonoBehaviour
             }
         }
 
+        // 현재 탭에 맞는 슬롯을 다시 생성한다.
         _view.RenderList(_visibleQuests);
 
-        if (_visibleQuests.Count == 0)
+        // 사용자가 선택한 퀘스트가 현재 목록에도 있을 때만 복원한다.
+        if (_selectedQuest != null &&
+            _visibleQuests.Contains(_selectedQuest))
         {
+            SelectQuest(_selectedQuest);
+        }
+        else
+        {
+            // 첫 항목을 자동 선택하지 않고 클릭을 기다린다.
             _selectedQuest = null;
-            _view.ShowDetails(
-                string.Empty, string.Empty,
-                "이 목록에 해당하는 퀘스트가 없습니다.");
-
-            return;
+            _view.SetSelectedQuest(null);
+            _view.HideDetails();
         }
-
-        // 상태 갱신 후에도 기존 선택이 남아 있으면 유지한다.
-        if (_selectedQuest == null || !_visibleQuests.Contains(_selectedQuest))
-        {
-            _selectedQuest = _visibleQuests[0];
-        }
-
-        SelectQuest(_selectedQuest);
     }
 
-    // 선택한 퀘스트의 이름, 상태, 설명을 표시한다.
+    // 선택한 퀘스트의 실제 진행 상태에 맞춰 상세 정보를 표시한다.
     private void SelectQuest(QuestData quest)
     {
         if (!_isOpen || quest == null || !_visibleQuests.Contains(quest))
@@ -197,20 +202,23 @@ public class QuestJournalPresenter : MonoBehaviour
 
         _selectedQuest = quest;
 
+        // 현재 플레이어의 진행 상태를 한 번 조회한다.
+        QuestState state = QuestService.GetState(quest);
+
         string stateText;
 
-        switch (QuestService.GetState(quest))
+        switch (state)
         {
             case QuestState.Available:
-                stateText = $"시작 가능 · 필요 User 레벨 {quest.RequiredUserLevel}";
+                stateText = "시작가능";
                 break;
 
             case QuestState.InProgress:
-                stateText = "진행 중";
+                stateText = "진행중";
                 break;
 
             case QuestState.ReadyToTurnIn:
-                stateText = "목표 달성 · 보상 수령 가능";
+                stateText = "목표 달성";
                 break;
 
             case QuestState.RewardClaimed:
@@ -218,11 +226,20 @@ public class QuestJournalPresenter : MonoBehaviour
                 break;
 
             default:
-                stateText = "시작 불가";
+                stateText = "수락 불가";
                 break;
         }
 
-        _view.ShowDetails(quest.QuestName, stateText, quest.Description);
+        // 선택한 슬롯 하나만 파란색으로 표시한다.
+        _view.SetSelectedQuest(quest);
+
+        // 해당 퀘스트를 제공하는 NPC의 현재 애니메이션 대상을 찾는다.
+        SpriteRenderer npcVisual = FindQuestNpcVisual(quest);
+
+        // 실제 상태에 맞는 설명을 Config에서 가져온다.
+        string description = quest.GetDescription(state);
+
+        _view.ShowDetails(quest, stateText, description, npcVisual);
     }
 
     // 저장 상태 변경이 발생하면 열린 창을 갱신한다.
@@ -268,4 +285,46 @@ public class QuestJournalPresenter : MonoBehaviour
         QuestService.QuestChanged -= HandleQuestChanged;
         Close();
     }
+
+    // 선택한 퀘스트를 담당하는 NPC의 애니메이션 표시 대상을 찾는다.
+    private SpriteRenderer FindQuestNpcVisual(QuestData quest)
+    {
+        foreach (TownNpc npc in _questNpcs)
+        {
+            if (npc == null)
+            {
+                continue;
+            }
+
+            foreach (QuestData npcQuest in npc.Quests)
+            {
+                if (npcQuest == quest)
+                {
+                    return npc.DialogueVisual;
+                }
+            }
+        }
+
+        // NPC 연결이 없어도 제목과 설명은 표시하고 초상화만 비운다.
+        Debug.LogWarning(
+            $"퀘스트 '{quest.QuestName}'의 NPC 연결을 확인해주세요.", this);
+
+        return null;
+    }
+
+    // 오른쪽 접기 버튼에서 호출한다.
+    public void CollapseDetails()
+    {
+        if (!_isOpen)
+        {
+            return;
+        }
+
+        // 이후 목록이 갱신되어도 접은 상세 패널을 자동으로 열지 않는다.
+        _selectedQuest = null;
+        _view.SetSelectedQuest(null);
+        _view.HideDetails();
+    }
+
+
 }

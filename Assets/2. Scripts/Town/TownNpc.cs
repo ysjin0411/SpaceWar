@@ -94,7 +94,7 @@ public class TownNpc : MonoBehaviour
     // 플레이어가 실제 사용하는 상호작용 키를 안내에 반영한다.
     public void SetInteractionKey(KeyCode key)
     {
-        _interactionHintText.text = $"[{key}] 대화";
+        _interactionHintText.text = $"[{key}]";
     }
 
     // 안내 오브젝트의 활성 상태를 변경한다.

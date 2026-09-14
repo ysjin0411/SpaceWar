@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8608d2041af280c49a6fc6e7799eee21, type: 3}
   m_Name: Stage_Default
   m_EditorClassIdentifier: 
-  _id: Achievement_Default
+  _id: Stage_Default
   _requiredFlags: []
   _hidingFlags: []
   _priority: 0

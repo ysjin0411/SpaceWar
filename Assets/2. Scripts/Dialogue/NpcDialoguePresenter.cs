@@ -47,15 +47,19 @@ public class NpcDialoguePresenter : MonoBehaviour
     // 닫은 프레임에 같은 입력으로 다시 열리는 것을 막는다.
     private int _lastCloseFrame = -1;
 
+    // 수락·거절 직후의 한 줄 응답 대사를 표시 중인지 구분한다.
+    private bool _isDecisionResponse;
+
     // 외부에서 대화 진행 여부를 확인한다.
     public bool IsOpen { get; private set; }
 
     // 아직 현재 문장을 전부 표시하지 않았는지 확인한다.
     private bool IsTyping => _visibleCharacters < _characterCount;
 
-    // 선택한 퀘스트의 마지막 문장을 모두 표시했을 때만 결정할 수 있다.
+    // 소개 대화의 마지막 줄이 끝났을 때만 수락·거절을 허용한다.
     private bool CanDecideQuest =>
         IsOpen &&
+        !_isDecisionResponse &&
         _selectedQuest != null &&
         _data != null &&
         !IsTyping &&
@@ -96,7 +100,8 @@ public class NpcDialoguePresenter : MonoBehaviour
         if (_decisionView != null)
         {
             _decisionView.AcceptRequested += HandleAcceptQuest;
-            _decisionView.DeclineRequested += ReturnToDefault;
+            // 거절 멘트를 표시하는 메서드로 연결한다.
+            _decisionView.DeclineRequested += HandleDeclineQuest;
         }
     }
 
@@ -121,7 +126,8 @@ public class NpcDialoguePresenter : MonoBehaviour
         if (_decisionView != null)
         {
             _decisionView.AcceptRequested -= HandleAcceptQuest;
-            _decisionView.DeclineRequested -= ReturnToDefault;
+            // 등록한 동일한 메서드를 해제한다.
+            _decisionView.DeclineRequested -= HandleDeclineQuest;
         }
 
         Close();
@@ -209,11 +215,17 @@ public class NpcDialoguePresenter : MonoBehaviour
             return false;
         }
 
+        // 이번에 시작할 대화와 NPC, 플레이어를 저장한다.
         _data = data;
         _currentNpc = npc;
         _lockedPlayer = player;
         _interactionKey = interactionKey;
+
+        // 새 대화는 퀘스트 선택과 응답 표시가 없는 상태로 시작한다.
         _selectedQuest = null;
+        _isDecisionResponse = false; // 추가할 줄.
+
+        // 첫 번째 대사부터 시작하고 같은 프레임의 중복 입력을 막는다.
         _lineIndex = 0;
         _lastAdvanceFrame = Time.frameCount;
 
@@ -385,7 +397,7 @@ public class NpcDialoguePresenter : MonoBehaviour
         BeginLine(firstLine);
     }
 
-    // 마지막 설명까지 읽은 퀘스트를 수락한다.
+    // 수락과 저장이 성공하면 해당 퀘스트의 수락 멘트를 표시한다.
     private void HandleAcceptQuest()
     {
         if (!CanDecideQuest ||
@@ -394,16 +406,58 @@ public class NpcDialoguePresenter : MonoBehaviour
             return;
         }
 
-        if (!QuestService.TryAccept(_selectedQuest, out string error))
+        // 같은 프레임에 발생한 중복 입력을 막는다.
+        _lastAdvanceFrame = Time.frameCount;
+
+        QuestData quest = _selectedQuest;
+
+        if (!QuestService.TryAccept(quest, out string error))
         {
-            // 실패하면 설명과 버튼을 유지해서 다시 시도할 수 있게 한다.
+            // 저장 실패 시에는 응답 대사로 넘어가지 않고 재시도를 허용한다.
             _decisionView.ShowError(error);
             return;
         }
 
-        // 저장 후 일반 화면으로 돌아가 목록을 다시 계산한다.
-        // 수락한 퀘스트는 Available이 아니므로 목록에서 제외된다.
-        ReturnToDefault();
+        BeginDecisionResponse(quest.AcceptResponse);
+    }
+
+    // 거절은 진행 상태를 변경하지 않고 거절 멘트만 표시한다.
+    private void HandleDeclineQuest()
+    {
+        if (!CanDecideQuest ||
+            Time.frameCount == _lastAdvanceFrame)
+        {
+            return;
+        }
+
+        _lastAdvanceFrame = Time.frameCount;
+
+        BeginDecisionResponse(_selectedQuest.DeclineResponse);
+    }
+
+    // Config의 문자열을 기존 대화창에서 한 줄 대사로 재생한다.
+    private void BeginDecisionResponse(string message)
+    {
+        // 멘트를 입력하지 않은 퀘스트는 기존처럼 바로 일반 대화로 돌아간다.
+        if (string.IsNullOrWhiteSpace(message))
+        {
+            ReturnToDefault();
+            return;
+        }
+
+        _isDecisionResponse = true;
+
+        // 이번 대사는 DialogueData의 줄 배열을 사용하지 않는다.
+        _data = null;
+        _lineIndex = 0;
+        _lastAdvanceFrame = Time.frameCount;
+
+        // 응답 중에는 목록과 뒤로가기 버튼을 숨긴다.
+        _questListView.ResetView();
+
+        // 선택 퀘스트는 유지하므로 NPC 기능 버튼도 숨겨진 상태를 유지한다.
+        // 기존 타이핑 기능과 NPC 애니메이션을 그대로 사용한다.
+        BeginLine(new DialogueLine(message));
     }
 
     // 수락 상태를 변경하지 않고 일반 대화와 퀘스트 목록으로 돌아간다.
@@ -422,6 +476,9 @@ public class NpcDialoguePresenter : MonoBehaviour
             return;
         }
 
+        // 일반 대화로 복귀했으므로 수락·거절 응답 모드를 끝낸다.
+        _isDecisionResponse = false;
+
         _selectedQuest = null;
         _data = data;
         _lineIndex = 0;
@@ -431,7 +488,7 @@ public class NpcDialoguePresenter : MonoBehaviour
         RefreshQuestList();
     }
 
-    // 출력 중이면 문장 완성, 출력이 끝났으면 다음 문장으로 이동한다.
+    // 타이핑 중에는 문장을 완성하고, 응답 대사가 끝나면 일반 대화로 돌아간다.
     private void Advance()
     {
         if (!IsOpen || Time.frameCount == _lastAdvanceFrame)
@@ -443,22 +500,27 @@ public class NpcDialoguePresenter : MonoBehaviour
 
         if (IsTyping)
         {
+            // 첫 입력은 현재 문장을 즉시 완성하는 데 사용한다.
             _visibleCharacters = _characterCount;
             _characterProgress = _characterCount;
             _view.SetVisibleCharacterCount(_characterCount);
-
-            // 이번 입력은 문장 완성에만 사용한다.
             return;
         }
 
-        if (_data.TryGetLine(_lineIndex + 1, out DialogueLine nextLine))
+        if (_isDecisionResponse)
+        {
+            // 응답 문장을 다 읽은 다음 입력에서 일반 대화로 복귀한다.
+            ReturnToDefault();
+            return;
+        }
+
+        // 일반 대화나 퀘스트 소개는 기존 줄 배열을 계속 재생한다.
+        if (_data != null &&
+            _data.TryGetLine(_lineIndex + 1, out DialogueLine nextLine))
         {
             _lineIndex++;
             BeginLine(nextLine);
         }
-
-        // 마지막 문장이면 내용을 유지한다.
-        // 이용하기·퀘스트 선택 항목은 다음 단계에서 연결한다.
     }
 
     // 대화와 퀘스트 목록을 정리하고 플레이어 조작을 복원한다.
@@ -494,8 +556,12 @@ public class NpcDialoguePresenter : MonoBehaviour
             _lockedPlayer.SetControlEnabled(true);
         }
 
+        // 대화가 끝났으므로 목록과 선택 상태를 정리한다.
         _availableQuests.Clear();
         _selectedQuest = null;
+        _isDecisionResponse = false; // 추가할 줄.
+
+        // 이전 대화에서 사용한 참조를 해제한다.
         _data = null;
         _currentNpc = null;
         _lockedPlayer = null;

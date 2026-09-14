@@ -1,0 +1,264 @@
+fileFormatVersion: 2
+guid: 3bc80f48089d4774baca5190d16b01df
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7695839168835398677
+    second: Quest_Close_0
+  - first:
+      213: -8805148166508038999
+    second: Quest_Close_1
+  - first:
+      213: -453775946181776641
+    second: Quest_Close_2
+  - first:
+      213: 1893548637725803588
+    second: Quest_Close_3
+  - first:
+      213: 6642509229938692758
+    second: Quest_Close_4
+  - first:
+      213: 6542071650793517931
+    second: Quest_Close_5
+  - first:
+      213: 1720783441689353645
+    second: Quest_Close_6
+  - first:
+      213: 8466160750654310646
+    second: Quest_Close_7
+  - first:
+      213: 1214272287919006253
+    second: Quest_Close_8
+  - first:
+      213: -6786886903817754610
+    second: Quest_Close_9
+  - first:
+      213: -3042409600807345132
+    second: Quest_Close_10
+  - first:
+      213: -6537717624676794052
+    second: Quest_Close_11
+  - first:
+      213: 7797810404416996059
+    second: Quest_Close_12
+  - first:
+      213: -3848165858118908469
+    second: Quest_Close_13
+  - first:
+      213: -3927881777337947167
+    second: Quest_Close_14
+  - first:
+      213: 1143232938540011888
+    second: Quest_Close_15
+  - first:
+      213: -1632431989233733288
+    second: Quest_Close_16
+  - first:
+      213: -3419316012020227278
+    second: Quest_Close_17
+  - first:
+      213: -447719691379111781
+    second: Quest_Close_18
+  - first:
+      213: 3059275509878884119
+    second: Quest_Close_19
+  - first:
+      213: 9184817729222184085
+    second: Quest_Close_20
+  - first:
+      213: 2220525473626525237
+    second: Quest_Close_21
+  - first:
+      213: 4376266065890894207
+    second: Quest_Close_22
+  - first:
+      213: -883898941098599625
+    second: Quest_Close_23
+  - first:
+      213: 2139640184313271462
+    second: Quest_Close_24
+  - first:
+      213: 6902596474840563258
+    second: Quest_Close_25
+  - first:
+      213: 8730554470537274329
+    second: Quest_Close_26
+  - first:
+      213: -6521368401222925319
+    second: Quest_Close_27
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 208, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Quest_Close_0
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 228
+        width: 839
+        height: 816
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 51ca8f223fc1dca60800000000000000
+      internalID: 7695839168835398677
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 1537655665
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Quest_Close_0: 7695839168835398677
+      Quest_Close_1: -8805148166508038999
+      Quest_Close_10: -3042409600807345132
+      Quest_Close_11: -6537717624676794052
+      Quest_Close_12: 7797810404416996059
+      Quest_Close_13: -3848165858118908469
+      Quest_Close_14: -3927881777337947167
+      Quest_Close_15: 1143232938540011888
+      Quest_Close_16: -1632431989233733288
+      Quest_Close_17: -3419316012020227278
+      Quest_Close_18: -447719691379111781
+      Quest_Close_19: 3059275509878884119
+      Quest_Close_2: -453775946181776641
+      Quest_Close_20: 9184817729222184085
+      Quest_Close_21: 2220525473626525237
+      Quest_Close_22: 4376266065890894207
+      Quest_Close_23: -883898941098599625
+      Quest_Close_24: 2139640184313271462
+      Quest_Close_25: 6902596474840563258
+      Quest_Close_26: 8730554470537274329
+      Quest_Close_27: -6521368401222925319
+      Quest_Close_3: 1893548637725803588
+      Quest_Close_4: 6642509229938692758
+      Quest_Close_5: 6542071650793517931
+      Quest_Close_6: 1720783441689353645
+      Quest_Close_7: 8466160750654310646
+      Quest_Close_8: 1214272287919006253
+      Quest_Close_9: -6786886903817754610
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

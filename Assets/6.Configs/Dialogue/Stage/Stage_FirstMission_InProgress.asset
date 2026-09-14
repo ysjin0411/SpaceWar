@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8608d2041af280c49a6fc6e7799eee21, type: 3}
+  m_Name: Stage_FirstMission_InProgress
+  m_EditorClassIdentifier: 
+  _id: stage_first_mission_in_progress
+  _requiredFlags: []
+  _hidingFlags: []
+  _priority: 0
+  _content: "\uC548\uB155?\nStage 1 \uC740 \uD074\uB9AC\uC5B4\uD558\uACE0 \uC628\uAC70\uC57C?\n\uBB50\uC57C?
+    \uC544\uC9C1 \uC548\uD588\uC796\uC544.\n\uC5BC\uB978 \uC11C\uB458\uB7EC\uC918."
+  _lines:
+  - _text: "\uC548\uB155?"
+  - _text: "Stage 1 \uC740 \uD074\uB9AC\uC5B4\uD558\uACE0 \uC628\uAC70\uC57C?"
+  - _text: "\uBB50\uC57C? \uC544\uC9C1 \uC548\uD588\uC796\uC544."
+  - _text: "\uC5BC\uB978 \uC11C\uB458\uB7EC\uC918."
