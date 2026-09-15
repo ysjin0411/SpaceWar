@@ -20,7 +20,7 @@ public class CharacterSelectScreen : MonoBehaviour
         // 선택 여부에 따른 밝기를 이 안의 Graphic에 적용한다.
         public RectTransform cardVisual;
 
-        // 선택한 슬롯 뒤에서 회전하는 링.
+        // 선택한 슬롯과 다른 캐릭터 프레임보다 앞에서 회전하는 링.
         public Image selectionRing;
 
         // 첫 번째 장착 무기의 Idle을 표시할 이미지.
@@ -76,6 +76,10 @@ public class CharacterSelectScreen : MonoBehaviour
     // 선택 링이 한 바퀴 회전하는 시간.
     [SerializeField, Min(0.01f)] float _ringRotationDuration = 8f;
 
+    // 출격용 캐릭터 선택에서 이전 화면으로 돌아가는 버튼.
+    // 상점용 캐릭터 선택에서는 창의 X 버튼을 사용하므로 숨긴다.
+    [SerializeField] private Button _backButton;
+
     // 현재 선택된 슬롯 번호와 씬 이동 상태.
     private int _selectedIndex = -1;
     private bool _isLeaving;
@@ -105,6 +109,21 @@ public class CharacterSelectScreen : MonoBehaviour
             throw new InvalidOperationException(
                 "캐릭터 선택 화면의 데이터베이스 또는 매니저가 없습니다.");
         }
+
+        // Back 버튼이 Inspector에 연결되어 있는지 확인한다.
+        if (_backButton == null)
+        {
+            throw new MissingReferenceException(
+                "CharacterSelectScreen의 Back Button을 연결해주세요.");
+        }
+
+        // 이전 스테이지 선택 화면이 있는 출격 경로에서만 Back 버튼을 표시한다.
+        bool showBackButton =
+            GameSessionManager.Instance.CurrentCharacterSelectPurpose ==
+            CharacterSelectPurpose.Battle;
+
+        // 버튼 이미지와 자식 글자를 함께 숨기고 입력도 받지 않게 한다.
+        _backButton.gameObject.SetActive(showBackButton);
 
         if (_slots == null ||
             _slots.Length == 0 ||
@@ -362,9 +381,18 @@ public class CharacterSelectScreen : MonoBehaviour
             ApplySelection(_slots[_selectedIndex], false);
         }
 
+        // 선택한 슬롯 번호와 슬롯 정보를 저장한다.
         _selectedIndex = index;
         CharacterSlot selectedSlot = _slots[index];
 
+        // 선택한 슬롯을 형제 중 마지막에 그려서 다른 슬롯보다 앞에 표시한다.
+        // 슬롯 위치와 _slots 배열의 순서는 바뀌지 않는다.
+        selectedSlot.button.transform.SetAsLastSibling();
+
+        // 선택한 슬롯 안에서도 링을 마지막에 그려서 자기 프레임보다 앞에 표시한다.
+        selectedSlot.selectionRing.rectTransform.SetAsLastSibling();
+
+        // 기존 선택 확대, 밝기 변경, 링 활성화 효과를 적용한다.
         ApplySelection(selectedSlot, true);
 
         // 마우스로 선택한 결과도 키보드 포커스에 반영한다.

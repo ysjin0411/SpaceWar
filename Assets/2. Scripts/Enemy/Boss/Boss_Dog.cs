@@ -29,10 +29,13 @@ public class Boss_Dog : BossEnemy
         HealthChanged += HandleHealthChanged;
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
-        // 비활성화될 때 이벤트 구독을 해제한다.
+        // 기존 체력 이벤트 구독을 해제한다.
         HealthChanged -= HandleHealthChanged;
+
+        // 부모에서 복귀 충돌 상태를 정리한다.
+        base.OnDisable();
     }
 
     protected override void OnBossInitialized()

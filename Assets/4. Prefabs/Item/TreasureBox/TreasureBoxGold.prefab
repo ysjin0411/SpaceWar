@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 73987295418862170}
   - component: {fileID: 5211993203412340455}
+  - component: {fileID: 2889983298081994886}
   m_Layer: 0
   m_Name: Box
   m_TagString: Untagged
@@ -56,7 +57,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: d13dbfd7e1be08f4895957cb655d9b22, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -88,6 +89,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2889983298081994886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 593276619815754395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ff8460f61add584b97e9c5b71cff55e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _flashStrength: 0.55
+  _flashDuration: 0.08
 --- !u!1 &774318545884931217
 GameObject:
   m_ObjectHideFlags: 0

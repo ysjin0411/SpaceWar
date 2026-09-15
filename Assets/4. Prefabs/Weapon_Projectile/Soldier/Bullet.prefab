@@ -50,6 +50,7 @@ MonoBehaviour:
   _moveSpeed: 10
   _lifeTime: 5
   _damage: 10
+  _hitEffectPrefab: {fileID: 8670412759217664541, guid: 652c1659a108fb54a89b772baaa03240, type: 3}
 --- !u!70 &7589900605009393605
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

@@ -213,8 +213,10 @@ public sealed class BossHeadLaserSweepPattern : BossPattern
                 yield break;
             }
 
-            // 레이저가 완전히 사라진 뒤 빠르게 복귀한다.
-            // 복귀 중 외형 회전도 원래 상태로 돌아간다.
+            // 레이저 공격 종료 후 복귀하는 동안 몸체 충돌을 무시한다.
+            boss.BeginReturnCollisionIgnore();
+
+            // 스폰 위치와 원래 회전으로 복귀한다.
             yield return MoveAndRotate(
                 context, returnPosition,
                 originalRotation, _returnDuration);

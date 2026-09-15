@@ -30,7 +30,10 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
     [Min(0)]
     [SerializeField] int _crashDamage;
 
-    [Header("처치시 나오는 아이템")]
+    [Header("처치시 나오는 보상")]
+    // 이 보스를 처치했을 때 사용자 계정에 지급할 경험치.
+    // 각 보스 프리팹의 Inspector에서 설정한다.
+    [SerializeField, Min(0)] private int _userExpReward;
 
     // 현재 실제로 특수패턴을 실행 중인지 나타낸다.
     public bool IsSpecialPatternRunning { get; private set; }
@@ -50,6 +53,18 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
 
     // 사망 완료 처리가 중복 실행되는 것을 방지한다.
     bool _isDefeatCompleted;
+
+    // 보스 루트에 있는 몸체 콜라이더다.
+    private Collider2D _bossBodyCollider;
+
+    // 현재 플레이어 루트에 있는 몸체 콜라이더다.
+    private Collider2D _playerBodyCollider;
+
+    // 복귀 때문에 몸체 충돌을 무시하고 있는지 기록한다.
+    private bool _isReturnCollisionIgnored;
+
+    // 복귀 전에 사용하던 두 콜라이더의 충돌 무시 설정을 보관한다.
+    private bool _ignoreCollisionBeforeReturn;
 
 
     // true는 특수패턴 시작, false는 종료 또는 취소를 의미한다.
@@ -387,6 +402,20 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
         TargetPlayer = playerController;
         GameManager = gameManager;
 
+        // 자식의 무기 콜라이더를 제외하고 루트의 몸체만 가져온다.
+        _bossBodyCollider = GetComponent<Collider2D>();
+        _playerBodyCollider = TargetPlayer.GetComponent<Collider2D>();
+
+        // 몸체가 누락된 프리팹은 초기화 단계에서 확인한다.
+        if (_bossBodyCollider == null || _playerBodyCollider == null)
+        {
+            throw new InvalidOperationException(
+                $"{name}: 보스와 플레이어 루트에 몸체 Collider2D가 필요합니다.");
+        }
+
+        // 전투 시작 전에 모든 드롭 항목의 연결을 검사한다.
+        ValidateDropGroups();
+
         // 현재 보스의 패턴 실행에 필요한 참조를 하나의 Context로 구성한다.
         _patternContext = new BossPatternContext(
             this,
@@ -476,6 +505,9 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
 
         _isDead = true;
 
+        // 보스 사망이 확정되는 즉시 User 경험치를 한 번 지급한다.
+        GameManager.AddUserExperience(_userExpReward);
+
         // 실행 중인 패턴과 대기 중인 모든 패턴을 취소한다.
         _patternRunner?.StopAll();
 
@@ -498,56 +530,36 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
         _animator.SetTrigger(DieTriggerHash);
     }
 
-    /// <summary>
-    /// 사망 애니메이션의 마지막 프레임에서 호출된다.
-    /// 이 시점에 보스 처치 이벤트를 보내고 보스 오브젝트를 삭제한다.
-    /// </summary>
+    // 사망 애니메이션이 끝나면 드롭을 한 번만 생성한다.
     public void CompleteDefeat()
     {
-        // 아직 사망 상태가 아니라면 잘못 호출된 것이므로 처리하지 않는다.
-        if (!_isDead)
-        {
-            return;
-        }
-
-        // Animation Event가 중복 호출돼도 한 번만 처리한다.
-        if (_isDefeatCompleted)
+        // 사망 전 호출이나 중복 Animation Event를 무시한다.
+        if (!_isDead || _isDefeatCompleted)
         {
             return;
         }
 
         _isDefeatCompleted = true;
 
-        // BossEncounterManager에 사망 연출까지 끝났다고 알린다.
-        Defeated?.Invoke(this);
-
-        // 사망 연출이 모두 끝났으므로 보스 오브젝트를 삭제한다.
-        Destroy(gameObject);
+        // 설정된 드롭을 생성하고 필요한 획득 처리가 끝날 때까지 기다린다.
+        SpawnDefeatDrops();
     }
 
-    /// <summary>
-    /// 보스와 플레이어가 몸으로 충돌했을 때 피해를 준다.
-    /// 일반 적과 달리 보스 자신은 충돌 후 제거되지 않는다.
-    /// </summary>
+    // 플레이어 몸체와 접촉했을 때만 몸박 피해를 준다.
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
-        if (_isDead)
+        // 무기 등 다른 콜라이더의 접촉은 몸박으로 처리하지 않는다.
+        if (_isDead || collision != _playerBodyCollider)
         {
             return;
         }
 
-        PlayerController player =
-            collision.GetComponentInParent<PlayerController>();
+        // 현재 패턴에 맞는 몸박 피해량을 선택한다.
+        int damage = _isUsingPatternCrashDamage
+            ? _patternCrashDamage
+            : _crashDamage;
 
-        if (player == null)
-        {
-            return;
-        }
-
-        // 패턴 피해 사용 여부에 따라 실제 접촉 피해량을 선택한다.
-        int damage = _isUsingPatternCrashDamage ? _patternCrashDamage : _crashDamage;
-
-        player.TakeHit(damage);
+        TargetPlayer.TakeHit(damage);
     }
 
     /// <summary>
@@ -603,6 +615,179 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
         {
             SpecialPatternStateChanged.Invoke(isRunning);
         }
+    }
+
+    // 보스가 죽은 뒤 설정 오류가 발견되지 않도록 생성 시 미리 검사한다.
+    private void ValidateDropGroups()
+    {
+        if (_dropGroups == null)
+        {
+            throw new InvalidOperationException(
+                $"{name}: Drop Groups 목록을 확인해주세요.");
+        }
+
+        foreach (DropGroup group in _dropGroups)
+        {
+            if (group == null || group.Entries == null)
+            {
+                throw new InvalidOperationException(
+                    $"{name}: 비어 있는 Drop Group 설정이 있습니다.");
+            }
+
+            foreach (DropPrefabEntry entry in group.Entries)
+            {
+                // 항목이 존재한다면 프리팹과 양수 개수가 모두 필요하다.
+                if (entry == null ||
+                    entry.Prefab == null ||
+                    entry.Count < 1)
+                {
+                    throw new InvalidOperationException(
+                        $"{name}: {group.GroupName}의 Prefab과 Count를 확인해주세요.");
+                }
+            }
+        }
+    }
+
+
+    // 골드는 기존 UI 생성 경로를 사용하고,
+    // 그 외 프리팹은 보스의 월드 위치에 설정한 개수만큼 생성한다.
+    private void SpawnDefeatDrops()
+    {
+        Vector3 dropPosition = transform.position;
+
+        // 획득 완료를 기다릴 골드 항목들을 먼저 모은다.
+        List<DropPrefabEntry> goldEntries =
+            new List<DropPrefabEntry>();
+
+        foreach (DropGroup group in _dropGroups)
+        {
+            foreach (DropPrefabEntry entry in group.Entries)
+            {
+                // 그룹 이름 대신 실제 Gold 컴포넌트로 종류를 판정한다.
+                if (entry.Prefab.TryGetComponent<Gold>(out _))
+                {
+                    goldEntries.Add(entry);
+                    continue;
+                }
+
+                // 골드 외 프리팹은 월드에 생성한다.
+                // 생성 이후 동작은 해당 프리팹의 컴포넌트가 담당한다.
+                for (int i = 0; i < entry.Count; i++)
+                {
+                    Instantiate(
+                        entry.Prefab,
+                        dropPosition,
+                        entry.Prefab.transform.rotation);
+                }
+            }
+        }
+
+        // 골드가 없다면 생성 작업만 마친 뒤 즉시 다음 단계로 진행한다.
+        if (goldEntries.Count == 0)
+        {
+            FinishDefeat();
+            return;
+        }
+
+        // 각 항목은 자기 Count 전체의 획득이 끝났을 때 한 번 완료된다.
+        int remainingGoldGroups = goldEntries.Count;
+
+        foreach (DropPrefabEntry entry in goldEntries)
+        {
+            Gold goldPrefab = entry.Prefab.GetComponent<Gold>();
+
+            // 생성 위치, 원형 퍼짐, UI 이동, 저장까지 기존 경로에 맡긴다.
+            GameManager.SpawnGold(
+                goldPrefab,
+                dropPosition,
+                entry.Count,
+                () =>
+                {
+                    // 씬 전환 등으로 보스가 제거되었다면 완료 처리를 생략한다.
+                    if (this == null || remainingGoldGroups <= 0)
+                    {
+                        return;
+                    }
+
+                    remainingGoldGroups--;
+
+                    // 모든 드롭 골드가 실제로 지급된 뒤 처치 완료를 알린다.
+                    if (remainingGoldGroups == 0)
+                    {
+                        FinishDefeat();
+                    }
+                });
+        }
+    }
+
+    // 드롭 처리가 끝나면 기존 보스 처치 이후 흐름으로 돌아간다.
+    private void FinishDefeat()
+    {
+        // 기존 관리자가 별도의 보물상자 등장과 스테이지 진행을 처리한다.
+        if (Defeated != null)
+        {
+            Defeated.Invoke(this);
+        }
+
+        // 모든 드롭 처리가 끝난 보스를 제거한다.
+        Destroy(gameObject);
+    }
+
+    // 패턴 후 복귀를 시작할 때 두 몸체 사이의 충돌을 무시한다.
+    public void BeginReturnCollisionIgnore()
+    {
+        // 중복 호출로 기존 설정을 덮어쓰지 않는다.
+        if (_isReturnCollisionIgnored)
+        {
+            return;
+        }
+
+        // 복귀가 끝나면 원래 설정으로 되돌릴 수 있도록 저장한다.
+        _ignoreCollisionBeforeReturn = Physics2D.GetIgnoreCollision(
+            _bossBodyCollider, _playerBodyCollider);
+
+        _isReturnCollisionIgnored = true;
+
+        // 이 두 몸체 사이의 충돌과 트리거만 무시한다.
+        Physics2D.IgnoreCollision(
+            _bossBodyCollider, _playerBodyCollider, true);
+    }
+
+    // 복귀 완료 또는 패턴 중단 시 원래 충돌 설정을 복원한다.
+    public void RestoreReturnCollision()
+    {
+        // 복귀 중이 아니거나 이미 복원했다면 처리하지 않는다.
+        if (!_isReturnCollisionIgnored)
+        {
+            return;
+        }
+
+        _isReturnCollisionIgnored = false;
+
+        // 대상이 제거되었다면 복원할 콜라이더가 없다.
+        if (_bossBodyCollider == null || _playerBodyCollider == null)
+        {
+            return;
+        }
+
+        // 비활성화된 콜라이더는 Unity가 충돌 무시 설정을 해제한다.
+        if (!_bossBodyCollider.isActiveAndEnabled ||
+            !_playerBodyCollider.isActiveAndEnabled)
+        {
+            return;
+        }
+
+        // 복귀 전에 사용하던 설정으로 되돌린다.
+        Physics2D.IgnoreCollision(
+            _bossBodyCollider,
+            _playerBodyCollider,
+            _ignoreCollisionBeforeReturn);
+    }
+
+    // 보스가 비활성화될 때 복귀 상태를 정리한다.
+    protected virtual void OnDisable()
+    {
+        RestoreReturnCollision();
     }
 
 }

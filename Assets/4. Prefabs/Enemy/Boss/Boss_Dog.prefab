@@ -221,9 +221,10 @@ MonoBehaviour:
   _bossName: Boss_Dog
   _bossIcon: {fileID: 21300000, guid: c96e8a42965e3074db422775811f82f3, type: 3}
   _firePoint: {fileID: 8735207689797437126}
-  _maxHp: 100
+  _maxHp: 300
   _crashDamage: 10
-  _currentHp: 100
+  _userExpReward: 10
+  _currentHp: 400
   _isDead: 0
   _isControllable: 0
   _moveSpeed: 2
@@ -239,15 +240,15 @@ MonoBehaviour:
     _weight: 10
   _dropGroups:
   - _groupName: Money
-    _moneyPrefabs:
-    - {fileID: 523677333196082315, guid: 02f86527c15f5bc4cad8b61a57339f3d, type: 3}
-    - {fileID: 523677333196082315, guid: 02f86527c15f5bc4cad8b61a57339f3d, type: 3}
+    _entries:
+    - _prefab: {fileID: 523677333196082315, guid: 02f86527c15f5bc4cad8b61a57339f3d, type: 3}
+      _count: 20
   - _groupName: Upgrade
-    _moneyPrefabs: []
+    _entries: []
   _healthSpecialPatternEntries:
-  - _healthPercent: 90
+  - _healthPercent: 70
     _pattern: {fileID: 11400000, guid: 909094ff4d83fcb458950b82ddc7479f, type: 2}
-  - _healthPercent: 80
+  - _healthPercent: 40
     _pattern: {fileID: 11400000, guid: 36ad2c337abc4ff458cf9b30a782e2d0, type: 2}
 --- !u!50 &486255449174284901
 Rigidbody2D:

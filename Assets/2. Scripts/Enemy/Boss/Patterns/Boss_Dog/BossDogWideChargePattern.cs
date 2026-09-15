@@ -316,12 +316,17 @@ public sealed class BossDogWideChargePattern : BossPattern
         }
 
 
-        // 돌진이 끝나면 거대화 상태를 유지한 채
-        // 최초 BossSpawner 위치로 빠르게 복귀한다.
+        // 실제 돌진이 끝나고 스폰 위치로 복귀할 때부터 몸체 충돌을 무시한다.
+        context.Boss.BeginReturnCollisionIgnore();
+
+        // 거대화 상태로 스폰 위치까지 복귀한다.
         yield return MoveToPosition(
             context.Rigidbody,
             context.Boss.MovementCenter,
             _returnToSpawnDuration);
+
+        // 마지막 이동 목표가 물리에 반영될 때까지 기다린다.
+        yield return new WaitForFixedUpdate();
 
         if (context.Boss.IsDead)
         {

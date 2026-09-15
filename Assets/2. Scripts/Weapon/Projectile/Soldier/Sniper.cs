@@ -177,8 +177,12 @@ public class Sniper : Projectile
              index < _castResults.Count;
              index++)
         {
+            // 경로 검사에서 얻은 실제 명중 위치를 함께 전달한다.
+            RaycastHit2D hit = _castResults[index];
+
             TryHitCollider(
-                _castResults[index].collider);
+                hit.collider,
+                HitEffectUtility.GetCastPoint(_projectileCollider, hit));
         }
 
         // 적을 맞혀도 속도를 유지하며 계속 전진한다.
@@ -186,21 +190,20 @@ public class Sniper : Projectile
             Direction * MoveSpeed;
     }
 
-    /// <summary>
-    /// 실제 겹침으로 발생한 충돌도 같은 타격 처리로 연결한다.
-    /// </summary>
-    protected override void OnTriggerEnter2D(
-        Collider2D collision)
+    protected override void OnTriggerEnter2D(Collider2D collision)
     {
-        TryHitCollider(collision);
+        // 실제 겹침으로 감지한 경우 상대 표면의 위치를 사용한다.
+        TryHitCollider(
+            collision,
+            HitEffectUtility.GetSurfacePoint(
+                _projectileCollider, collision));
     }
 
-    /// <summary>
-    /// 적 레이어와 생존 여부를 확인한 뒤 피해 처리를 요청한다.
-    /// </summary>
-    private void TryHitCollider(Collider2D collision)
+    private void TryHitCollider(
+    Collider2D collision,
+    Vector2 hitPoint)
     {
-        // 설정한 적 레이어에 포함되지 않으면 무시한다.
+        // 설정한 공격 대상 레이어만 처리한다.
         int layerBit = 1 << collision.gameObject.layer;
 
         if ((_enemyLayerMask.value & layerBit) == 0)
@@ -208,7 +211,6 @@ public class Sniper : Projectile
             return;
         }
 
-        // 일반 적과 보스의 공통 피해 인터페이스를 찾는다.
         IDamageable target =
             collision.GetComponentInParent<IDamageable>();
 
@@ -217,6 +219,10 @@ public class Sniper : Projectile
             return;
         }
 
+        // 부모의 공통 히트 이펙트 생성에 사용할 위치다.
+        HitPoint = hitPoint;
+
+        // 기존 중복 타격 방지를 거쳐 피해와 이펙트를 한 번 적용한다.
         HandleTargetHit(target);
     }
 

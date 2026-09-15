@@ -29,6 +29,9 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     [Tooltip("이 적을 처치했을 때 현재 캐릭터가 획득할 경험치")]
     [Min(0)]
     [SerializeField] int _expReward;
+    // 이 몬스터를 처치했을 때 사용자 계정에 지급할 경험치.
+    // 각 몬스터 프리팹의 Inspector에서 설정한다.
+    [SerializeField, Min(0)] private int _userExpReward;
 
     [Header("증강 게이지 보상 설정")]
     [Tooltip("이 적을 처치했을 때 증가할 증강 게이지")]
@@ -41,6 +44,24 @@ public abstract class Enemy : MonoBehaviour, IDamageable
 
     [Tooltip("현재 적이 사망 처리됐는지 확인")]
     [SerializeField] bool _isDead;
+
+    // 잡몹이 죽었을 때 한 번 재생할 사망 이펙트다.
+    [SerializeField] private SpriteOneShotEffect _deathEffectPrefab;
+
+    // 적 루트와 다른 위치에서 터뜨리고 싶을 때 사용할 로컬 위치다.
+    [SerializeField] private Vector3 _deathEffectOffset;
+
+    // 적이 제거돼도 끝까지 재생되는 독립 사망 이펙트를 생성한다.
+    private void SpawnDeathEffect()
+    {
+        Vector3 worldPosition =
+            transform.TransformPoint(_deathEffectOffset);
+
+        Instantiate(
+            _deathEffectPrefab,
+            worldPosition,
+            Quaternion.identity);
+    }
 
     public event Action<int> Damaged;
 
@@ -154,11 +175,17 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         // 이후 추가 충돌이나 피해를 처리하지 않도록 사망 상태로 변경한다.
         _isDead = true;
 
+        // 처치 보상 처리와 별개로 사망 위치에 연출을 남긴다.
+        SpawnDeathEffect();
+
         // 이 적에게 설정된 수치만큼 증강 게이지를 지급한다.
         GameManager?.BonusGauge(_upgradeGaugeReward);
 
         // 현재 캐릭터에게 이 적의 처치 경험치를 지급한다.
         GameManager?.AddExperience(_expReward);
+
+        // 이 몬스터의 User 경험치를 즉시 지급하고 이번 판 집계에 반영한다.
+        GameManager.AddUserExperience(_userExpReward);
 
         // 설정된 개수만큼 골드를 생성한다.
         DropGold();
@@ -237,7 +264,8 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         // 플레이어에게 몸박 피해를 적용한다.
         player.TakeHit(_crashDamage);
 
-        // 몸박으로 사라지는 경우 골드와 처치 보상 없이 제거한다.
+        // 몸박으로 제거될 때도 연출은 재생하되 처치 보상은 지급하지 않는다.
+        SpawnDeathEffect();
         Destroy(gameObject);
     }
 

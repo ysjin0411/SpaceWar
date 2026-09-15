@@ -36,6 +36,13 @@ public class GameManager : MonoBehaviour
     // 이번 스테이지에서 실제로 획득한 골드 총합
     [SerializeField] int _stageEarnedGold;
 
+    // 이번 스테이지에서 실제로 지급한 User 경험치의 총합.
+    // 누적 합계는 넉넉한 정수 범위로 관리한다.
+    [SerializeField] private long _stageEarnedUserExperience;
+
+    // 결과창에서 이번 판의 User 경험치 획득량을 읽는다.
+    public long StageEarnedUserExperience => _stageEarnedUserExperience;
+
     // 결과창에서 읽을 수 있도록 획득량을 읽기 전용으로 공개한다.
     public int StageEarnedExperience => _stageEarnedExperience;
     public int StageEarnedGold => _stageEarnedGold;
@@ -105,6 +112,9 @@ public class GameManager : MonoBehaviour
         // 새로운 스테이지가 시작됐으므로 이번 판의 획득량을 초기화한다.
         _stageEarnedExperience = 0;
         _stageEarnedGold = 0;
+        // 새 스테이지 또는 재시작 시 이번 판의 집계만 초기화한다.
+        // 저장된 User 경험치는 유지한다.
+        _stageEarnedUserExperience = 0;
 
         // 새로운 스테이지에서는 빈 게이지부터 시작한다.
         _timeCharge = 0f;
@@ -282,5 +292,39 @@ public class GameManager : MonoBehaviour
         {
             _goldUI.GoldCollected -= HandleGoldCollected;
         }
+    }
+
+    // 몬스터 처치로 얻은 User 경험치를 지급하고 결과창용으로 집계한다.
+    public void AddUserExperience(int amount)
+    {
+        // 보상이 0인 몬스터는 지급과 저장을 생략한다.
+        if (amount <= 0)
+        {
+            return;
+        }
+
+        if (SaveManager.Instance == null)
+        {
+            Debug.LogError(
+                "User 경험치 지급에 필요한 SaveManager가 없습니다.",
+                this);
+            return;
+        }
+
+        try
+        {
+            // User 레벨업과 파일 저장까지 완료한다.
+            SaveManager.Instance.AddUserExperience(amount);
+        }
+        catch (Exception exception)
+        {
+            // 지급 오류는 기록하되 몬스터의 나머지 사망 처리는 계속 진행한다.
+            // 실패한 보상은 결과창 획득량에 포함하지 않는다.
+            Debug.LogException(exception, this);
+            return;
+        }
+
+        // 실제 저장에 성공한 보상만 누적한다.
+        _stageEarnedUserExperience += amount;
     }
 }

@@ -72,7 +72,7 @@ public class LoginController : MonoBehaviour
 
         // 입력과 화면 출력에 사용할 기본 설정.
         _idInputField.lineType = TMP_InputField.LineType.SingleLine;
-        _idInputField.characterLimit = 20;
+        _idInputField.characterLimit = 10;
         _playerIdText.richText = false;
 
         // 입력란에서 Enter와 로그인 버튼 클릭을 연결한다.

@@ -65,6 +65,9 @@ public class StageResultUI : MonoBehaviour
     // 결과창에서 첫 방향키 입력으로 선택할 StageSelect 버튼
     [SerializeField] Button _stageSelectButton;
 
+    // 이번 스테이지에서 획득한 User 경험치를 표시한다.
+    [SerializeField] private TMP_Text _userExperienceValueText;
+
     // 결과창이 중복으로 열리는 것을 방지한다.
     bool _isResultShown;
 
@@ -104,8 +107,10 @@ public class StageResultUI : MonoBehaviour
                 $"{name}의 ResultPanel이 연결되지 않았습니다.");
         }
 
+        // 결과창에서 사용하는 모든 수치 텍스트의 연결을 확인한다.
         if (_experienceValueText == null ||
             _goldValueText == null ||
+            _userExperienceValueText == null ||
             _clearTimeValueText == null)
         {
             throw new InvalidOperationException(
@@ -275,6 +280,11 @@ public class StageResultUI : MonoBehaviour
 
         _goldValueText.text =
             _gameManager.StageEarnedGold.ToString("N0");
+
+        // 이미 지급된 User 경험치를 +숫자 형식으로 표시한다.
+        // 결과창에서는 경험치를 다시 지급하지 않는다.
+        _userExperienceValueText.text =
+            $"+{_gameManager.StageEarnedUserExperience:N0}";
 
         // 실패한 판에서는 클리어 시간 항목을 숨긴다.
         _clearTimeLabelText.gameObject.SetActive(isCleared);

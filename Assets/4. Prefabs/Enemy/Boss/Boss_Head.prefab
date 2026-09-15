@@ -221,9 +221,10 @@ MonoBehaviour:
   _bossName: Boss_Head
   _bossIcon: {fileID: 21300000, guid: 463669100b05b044c8ffffb691d2c7a8, type: 3}
   _firePoint: {fileID: 8735207689797437126}
-  _maxHp: 100
-  _crashDamage: 0
-  _currentHp: 100
+  _maxHp: 500
+  _crashDamage: 10
+  _userExpReward: 10
+  _currentHp: 600
   _isDead: 0
   _isControllable: 0
   _moveSpeed: 2
@@ -237,12 +238,17 @@ MonoBehaviour:
     _weight: 10
   - _pattern: {fileID: 11400000, guid: 2c88e89dc62ddb7408ee1a3d56d0bdc3, type: 2}
     _weight: 10
+  _dropGroups:
+  - _groupName: Money
+    _entries:
+    - _prefab: {fileID: 523677333196082315, guid: 02f86527c15f5bc4cad8b61a57339f3d, type: 3}
+      _count: 20
   _healthSpecialPatternEntries:
-  - _healthPercent: 90
+  - _healthPercent: 75
     _pattern: {fileID: 11400000, guid: 4bac8dca52e82854cb02f785c34a33b4, type: 2}
-  - _healthPercent: 80
+  - _healthPercent: 50
     _pattern: {fileID: 11400000, guid: 6cd747d5da82eee45baa2a87f037ee72, type: 2}
-  - _healthPercent: 70
+  - _healthPercent: 30
     _pattern: {fileID: 11400000, guid: 5bb0701b05ed80f46bf1e6523006abae, type: 2}
 --- !u!50 &486255449174284901
 Rigidbody2D:

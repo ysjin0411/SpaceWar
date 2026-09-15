@@ -21,6 +21,20 @@ public abstract class Projectile : MonoBehaviour
     [Tooltip("Weapon에서 전달받은 현재 공격력")]
     [SerializeField] int _damage;
 
+    // 직접 명중할 때 생성할 이펙트다.
+    // Bullet, Slash, Sniper 프리팹에 공통 HitEffect를 연결한다.
+    // 자체 폭발을 사용하는 Missile, Grenade는 비워 둔다.
+    [SerializeField] private SpriteOneShotEffect _hitEffectPrefab;
+
+    // 명중 위치 계산에 사용할 투사체 콜라이더다.
+    protected Collider2D HitCollider { get; private set; }
+
+    // 이번 명중의 월드 위치다.
+    protected Vector2 HitPoint { get; set; }
+
+    // 제거 예약 후 같은 프레임에 중복 명중하는 것을 방지한다.
+    private bool _isHitConsumed;
+
     // 자식 클래스가 현재 Rigidbody2D를 사용할 수 있게 제공한다.
     protected Rigidbody2D Body { get; private set; }
 
@@ -49,6 +63,9 @@ public abstract class Projectile : MonoBehaviour
             throw new InvalidOperationException(
                 $"{name}의 Collider2D는 Is Trigger가 체크되어야 합니다.");
         }
+
+        // 자식 투사체도 같은 콜라이더를 이용해 명중 위치를 계산한다.
+        HitCollider = GetComponent<Collider2D>();
     }
 
     /// <summary>
@@ -113,12 +130,18 @@ public abstract class Projectile : MonoBehaviour
     {
     }
 
-    /// <summary>
-    /// 피해를 받을 수 있는 대상에게 현재 공격력을 적용한다.
-    /// Enemy와 BossEnemy를 모두 처리할 수 있다.
-    /// </summary>
     protected virtual void HandleTargetHit(IDamageable target)
     {
+        // 대상이 죽어도 이펙트가 남도록 독립 오브젝트로 먼저 생성한다.
+        if (_hitEffectPrefab != null)
+        {
+            Instantiate(
+                _hitEffectPrefab,
+                HitPoint,
+                Quaternion.identity);
+        }
+
+        // 기존 공격력을 적용한다.
         target.TakeHit(_damage);
     }
 
@@ -130,26 +153,34 @@ public abstract class Projectile : MonoBehaviour
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
-        // 충돌한 오브젝트 또는 부모에서 피해를 받을 대상을 찾는다.
+        // 아직 초기화되지 않았거나 이미 소비된 투사체는 처리하지 않는다.
+        if (!_isInitialized || _isHitConsumed)
+        {
+            return;
+        }
+
+        // 공격 가능한 대상을 공통 인터페이스로 찾는다.
         IDamageable target =
             collision.GetComponentInParent<IDamageable>();
 
-        // Enemy와 BossEnemy가 아니라면 처리하지 않는다.
-        if (target == null)
+        if (target == null || target.IsDead)
         {
             return;
         }
 
-        // 이미 사망 처리된 대상은 다시 공격하지 않는다.
-        if (target.IsDead)
+        // 피해 처리로 대상이 제거되기 전에 맞은 위치를 저장한다.
+        HitPoint = HitEffectUtility.GetSurfacePoint(
+            HitCollider, collision);
+
+        if (DestroyAfterHit)
         {
-            return;
+            // Destroy가 실행되기 전에도 추가 명중을 막는다.
+            _isHitConsumed = true;
         }
 
-        // 투사체 종류에 맞는 타격 효과를 실행한다.
+        // 자식 투사체에 맞는 타격 처리를 실행한다.
         HandleTargetHit(target);
 
-        // 명중 후 제거되는 투사체라면 현재 오브젝트를 제거한다.
         if (DestroyAfterHit)
         {
             Destroy(gameObject);

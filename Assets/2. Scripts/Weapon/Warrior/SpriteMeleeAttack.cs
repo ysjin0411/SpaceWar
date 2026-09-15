@@ -21,6 +21,14 @@ public class SpriteMeleeAttack : MonoBehaviour
     // 검 공격으로 피해를 줄 적 콜라이더의 레이어.
     [SerializeField] LayerMask _enemyLayerMask;
 
+    // 검과 망치가 명중했을 때 사용할 공통 히트 이펙트다.
+    [SerializeField] private SpriteOneShotEffect _hitEffectPrefab;
+
+    // 공격 콜라이더를 끄기 전에 계산한 명중 위치를 저장한다.
+    // _overlapResults와 같은 인덱스를 사용한다.
+    private readonly List<Vector2> _hitPoints =
+        new List<Vector2>();
+
     // 현재 휘두르기의 공격력. 공격 시작 시 런타임 무기에서 받는다.
     int _damage;
 
@@ -210,14 +218,14 @@ public class SpriteMeleeAttack : MonoBehaviour
         }
     }
 
-    // 지정한 공격 그림의 검날과 겹친 적을 검색한다.
     private void CheckDamage(Sprite sprite)
     {
         _overlapResults.Clear();
+        _hitPoints.Clear();
 
         try
         {
-            // 기존 함수가 스케일과 반전을 반영해 윤곽을 적용한다.
+            // 현재 공격 프레임의 윤곽을 적용한다.
             ApplySpriteShape(sprite);
 
             if (!_hitCollider.enabled)
@@ -225,17 +233,25 @@ public class SpriteMeleeAttack : MonoBehaviour
                 return;
             }
 
-            // 이번 프레임의 이동과 스케일 변경을 물리 검색에 반영한다.
+            // 현재 위치와 윤곽 변경을 물리 검색에 반영한다.
             Physics2D.SyncTransforms();
 
             _hitCollider.Overlap(
                 _contactFilter,
                 _overlapResults);
+
+            // 공격 콜라이더가 켜져 있을 때 상대 표면의 위치를 저장한다.
+            for (int i = 0; i < _overlapResults.Count; i++)
+            {
+                _hitPoints.Add(
+                    HitEffectUtility.GetSurfacePoint(
+                        _hitCollider,
+                        _overlapResults[i]));
+            }
         }
         finally
         {
-            // 검색 직후 콜라이더를 끈다.
-            // 적이 검날을 플레이어의 몸으로 인식하는 것을 방지한다.
+            // 기존처럼 검색이 끝나면 공격 판정을 끈다.
             _hitCollider.enabled = false;
         }
 
@@ -248,7 +264,6 @@ public class SpriteMeleeAttack : MonoBehaviour
                 continue;
             }
 
-            // 여러 피격 콜라이더가 있어도 같은 적으로 묶어 처리한다.
             IDamageable target =
                 hitCollider.GetComponentInParent<IDamageable>();
 
@@ -257,15 +272,24 @@ public class SpriteMeleeAttack : MonoBehaviour
                 continue;
             }
 
-            // 이번 휘두르기에 처음 맞은 대상에게만 피해를 준다.
-            if (_hitTargets.Add(target))
+            // 같은 휘두르기에서 같은 대상은 한 번만 처리한다.
+            if (!_hitTargets.Add(target))
             {
-                target.TakeHit(_damage);
+                continue;
+            }
 
-                if (!_isAttackActive)
-                {
-                    return;
-                }
+            // 대상이 사라져도 재생되도록 독립 이펙트를 먼저 생성한다.
+            Instantiate(
+                _hitEffectPrefab,
+                _hitPoints[i],
+                Quaternion.identity);
+
+            target.TakeHit(_damage);
+
+            // 피해 처리 도중 공격이 취소됐다면 종료한다.
+            if (!_isAttackActive)
+            {
+                return;
             }
         }
     }

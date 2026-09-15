@@ -578,24 +578,30 @@ public class NpcDialoguePresenter : MonoBehaviour
             return false;
         }
 
-        // 저장된 상태에 따라 사용할 Config를 선택한다.
+        // 퀘스트 상태에 따라 NPC에서 보여줄 대화를 결정한다.
         switch (QuestService.GetState(quest))
         {
             case QuestState.Available:
+                // 수락 가능한 퀘스트는 제안 대화를 표시한다.
                 dialogue = quest.OfferDialogue;
                 break;
 
             case QuestState.InProgress:
+                // 진행 중인 퀘스트는 진행 대화를 표시한다.
                 dialogue = quest.InProgressDialogue;
                 break;
 
             case QuestState.ReadyToTurnIn:
-            case QuestState.RewardClaimed:
+                // 목표를 달성했지만 보상을 받기 전에는 완료 대화를 표시한다.
                 dialogue = quest.CompletionDialogue;
                 break;
 
+            case QuestState.RewardClaimed:
+                // 보상을 받은 퀘스트는 NPC 목록과 대화 선택에서 제외한다.
+                return false;
+
             default:
-                // 잠긴 퀘스트는 대화 목록에 표시하지 않는다.
+                // 잠긴 퀘스트 등 대화할 수 없는 상태는 제외한다.
                 return false;
         }
 

@@ -35,6 +35,14 @@ public class StageManager : MonoBehaviour
     // 플레이어 사망을 스테이지 실패 상태로 전달할 매니저
     [SerializeField] StageFlowManager _stageFlowManager;
 
+    // 편집 중 꺼뒀더라도 실행 시 활성화할 보스 체력바 프레임.
+    // 보스 등장 전에는 가로 크기를 0으로 두어 숨긴다.
+    [SerializeField] private RectTransform _bossHpFrame;
+
+    // 편집 중 꺼뒀더라도 실행 시 활성화할 시스템 알림 프레임.
+    // 평소에는 CanvasGroup의 Alpha를 0으로 두어 숨긴다.
+    [SerializeField] private CanvasGroup _systemDialogueFrame;
+
     // 이번 Stage에 생성된 캐릭터의 원본 데이터
     CharacterData _selectedCharacterData;
 
@@ -103,8 +111,14 @@ public class StageManager : MonoBehaviour
 
     private void Start()
     {
-        SpawnSelectedCharacter();   // 캐릭터 셀렉한거 스폰
-        InitializeStageSystems();   // 스테이지 시스템 이니셜라이즈
+        // 캐릭터 생성과 전투 시스템 초기화 전에 필수 UI를 준비한다.
+        PrepareStageUI();
+
+        // 선택한 캐릭터를 생성한다.
+        SpawnSelectedCharacter();
+
+        // 생성된 캐릭터를 스테이지의 각 시스템에 연결한다.
+        InitializeStageSystems();
     }
 
     /// <summary>
@@ -339,5 +353,31 @@ public class StageManager : MonoBehaviour
         {
             _spawnedPlayerController.Died -= HandlePlayerDied;
         }
+    }
+
+    // 편집 중의 활성화 상태와 관계없이 필수 UI를 실행 가능한 상태로 준비한다.
+    private void PrepareStageUI()
+    {
+        // 이름으로 검색하지 않고 Inspector에 연결한 오브젝트를 사용한다.
+        if (_bossHpFrame == null || _systemDialogueFrame == null)
+        {
+            throw new MissingReferenceException(
+                "StageManager의 Boss Hp Frame과 System Dialogue Frame을 연결해주세요.");
+        }
+
+        // 보스 등장 전 체력바가 보이지 않도록 가로 크기만 접는다.
+        // 세로와 깊이의 기존 크기는 유지한다.
+        Vector3 scale = _bossHpFrame.localScale;
+        scale.x = 0f;
+        _bossHpFrame.localScale = scale;
+
+        // 프레임과 자식 UI가 초기화될 수 있도록 활성화한다.
+        _bossHpFrame.gameObject.SetActive(true);
+
+        // 시스템 알림은 활성화하되 메시지가 오기 전까지 투명하게 유지한다.
+        _systemDialogueFrame.alpha = 0f;
+
+        // SystemDialogueUI의 초기화와 보스 이벤트 구독이 실행되도록 한다.
+        _systemDialogueFrame.gameObject.SetActive(true);
     }
 }

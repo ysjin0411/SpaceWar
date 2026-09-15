@@ -22,7 +22,7 @@ MonoBehaviour:
   _playerSpriteLibrary: {fileID: 7108339969198208228, guid: 10e677c3da0e5e442ad7657c0f8efaa8, type: 3}
   _characterSelectPreviewScale: 1
   _characterSelectPreviewOffset: {x: 0, y: 0}
-  _baseDamage: 10
+  _baseDamage: 500
   _baseCooltime: 0.3
   _maximumChargeCount: 0
   _chargeRecoveryTime: 5

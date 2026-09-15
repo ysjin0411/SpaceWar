@@ -212,17 +212,26 @@ public class SmallEnemy : Enemy
 
             for (int i = 0; i < _contactHits.Count; i++)
             {
+                // 이동 경로에서 만난 대상의 충돌 정보를 가져온다.
                 RaycastHit2D hit = _contactHits[i];
 
-                // 접촉하는 순간의 자폭병 루트 위치를 계산한다.
+                // 자폭병이 상대에게 닿았을 때 멈출 위치다.
                 Vector3 contactPosition =
                     startPosition +
                     (Vector3)(direction * hit.distance);
 
+                // 상대 표면에서 실제로 맞은 위치다.
+                // 작은 히트 이펙트를 여기에 생성한다.
+                Vector2 hitPoint =
+                    HitEffectUtility.GetCastPoint(_bodyCollider, hit);
+
+                // 충돌 대상, 자폭병의 위치, 이펙트의 위치를 전달한다.
                 if (TryExplodeOnContact(
                     hit.collider,
-                    contactPosition))
+                    contactPosition,
+                    hitPoint))
                 {
+                    // 폭발했다면 이동 처리를 종료한다.
                     return false;
                 }
             }
@@ -233,10 +242,11 @@ public class SmallEnemy : Enemy
         return true;
     }
 
-    // 접촉 대상에 따라 실드 폭발 또는 일반 폭발을 실행한다.
+    // 루트의 이동 위치와 이펙트를 생성할 접촉 위치를 따로 받는다.
     private bool TryExplodeOnContact(
         Collider2D target,
-        Vector3 contactPosition)
+        Vector3 contactPosition,
+        Vector2 hitPoint)
     {
         if (_hasExploded || IsDead || target == null)
         {
@@ -245,8 +255,8 @@ public class SmallEnemy : Enemy
 
         if (target.TryGetComponent(out Shield shield))
         {
-            // 접었거나 체력이 없는 실드는 자폭병을 막지 못한다.
-            if (!shield.TryBlockDamage(_explosionDamage))
+            // 실드 표면에 방어 이펙트를 생성하도록 접촉 위치를 전달한다.
+            if (!shield.TryBlockDamage(_explosionDamage, hitPoint))
             {
                 return false;
             }
@@ -558,4 +568,20 @@ public class SmallEnemy : Enemy
         Gizmos.DrawSphere(transform.position, _explosionRadius);
     }
 
+    // 이미 겹친 상태에서 자폭병이 실드나 몸에 접촉한 경우다.
+    private bool TryExplodeOnContact(
+        Collider2D target,
+        Vector3 contactPosition)
+    {
+        if (_hasExploded || IsDead || target == null)
+        {
+            return false;
+        }
+
+        Vector2 hitPoint = HitEffectUtility.GetSurfacePoint(
+            _bodyCollider, target);
+
+        return TryExplodeOnContact(
+            target, contactPosition, hitPoint);
+    }
 }

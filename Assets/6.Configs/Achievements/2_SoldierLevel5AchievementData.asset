@@ -16,7 +16,7 @@ MonoBehaviour:
   _achievementName: "\uC219\uB828\uB41C \uC194\uC838"
   _description: "\uC194\uC838 \uCE90\uB9AD\uD130 \uB808\uBCA8\uC744 5 \uC774\uC0C1
     \uB2EC\uC131\uD558\uC138\uC694."
-  _icon: {fileID: 21300000, guid: 40c6b12207a2f7b4d89cebd87c303801, type: 3}
+  _icon: {fileID: 1988379810222012904, guid: 2857bf1925b9120468c2c75e0109ec5e, type: 3}
   _conditionType: 1
   _targetStageIndex: 0
   _targetClearTimeSeconds: 10

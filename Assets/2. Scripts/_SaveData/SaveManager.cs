@@ -135,10 +135,11 @@ public class SaveManager : MonoBehaviour
         // ½Ç¼ö·Î ÀÔ·ÂÇÑ ¾ÕµÚ °ø¹éÀ» Á¦°ÅÇÑ´Ù.
         userId = input.Trim();
 
-        // °æ·Î ¹®ÀÚ³ª È®ÀåÀÚ ¹®ÀÚ°¡ µé¾î°¡Áö ¾Êµµ·Ï Çã¿ë ¹®ÀÚ¸¦ Á¦ÇÑÇÑ´Ù.
-        if (!Regex.IsMatch(userId, @"\A[A-Za-z0-9°¡-ÆR_]{1,20}\z"))
+        // ¿µ¹® ¼Ò¹®ÀÚ, ¼ıÀÚ, ÇÑ±Û ¿Ï¼ºÇü, ¹ØÁÙ¸¸ 1~10ÀÚ Çã¿ëÇÑ´Ù.
+        // ´ë¹®ÀÚ°¡ Æ÷ÇÔµÇ¸é ÀÚµ¿ º¯È¯ÇÏÁö ¾Ê°í ¿äÃ»À» °ÅºÎÇÑ´Ù.
+        if (!Regex.IsMatch(userId, @"\A[a-z0-9°¡-ÆR_]{1,10}\z"))
         {
-            message = "ID´Â ¿µ¹®, ¼ıÀÚ, ÇÑ±Û, ¹ØÁÙ·Î 1~20ÀÚ ÀÔ·ÂÇØÁÖ¼¼¿ä.";
+            message = "ID´Â ¿µ¹® ¼Ò¹®ÀÚ, ¼ıÀÚ, ÇÑ±Û, ¹ØÁÙ·Î 1~10ÀÚ ÀÔ·ÂÇØÁÖ¼¼¿ä.";
             return false;
         }
 
@@ -227,7 +228,7 @@ public class SaveManager : MonoBehaviour
         if (!string.Equals(
             loadedData.userId,
             userId,
-            StringComparison.OrdinalIgnoreCase))
+            StringComparison.Ordinal))
         {
             throw new InvalidDataException(
                 "ÆÄÀÏ ÀÌ¸§°ú ¼¼ÀÌºêÀÇ »ç¿ëÀÚ ID°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.");
@@ -1755,6 +1756,82 @@ public class SaveManager : MonoBehaviour
             new List<QuestSaveData> { record });
 
         return true;
+    }
+
+    // User °æÇèÄ¡¸¦ Áö±ŞÇÏ°í ·¹º§¾÷ °á°ú¸¦ Áï½Ã ÀúÀåÇÑ´Ù.
+    public void AddUserExperience(int amount)
+    {
+        // Áö±Ş·®ÀÌ ¾ø´Â °æ¿ì ¾Æ¹«°Íµµ º¯°æÇÏÁö ¾Ê´Â´Ù.
+        if (amount <= 0)
+        {
+            return;
+        }
+
+        // ½ÇÁ¦ ·Î±×ÀÎÇÑ ÀúÀå °ü¸®ÀÚ¿¡¼­¸¸ º¸»óÀ» Áö±ŞÇÑ´Ù.
+        if (Instance != this || !IsLoggedIn)
+        {
+            throw new InvalidOperationException(
+                "·Î±×ÀÎÇÑ »ç¿ëÀÚ¿¡°Ô¸¸ User °æÇèÄ¡¸¦ Áö±ŞÇÒ ¼ö ÀÖ½À´Ï´Ù.");
+        }
+
+        if (_userLevelData == null)
+        {
+            throw new InvalidOperationException(
+                "SaveManagerÀÇ User Level Data¸¦ ¿¬°áÇØÁÖ¼¼¿ä.");
+        }
+
+        // °è»êÀÌ ³¡³ª±â Àü¿¡´Â ½ÇÁ¦ ÀúÀå µ¥ÀÌÅÍ¸¦ º¯°æÇÏÁö ¾Ê´Â´Ù.
+        int nextLevel = _playerSaveData.userLevel;
+        long nextExp = (long)_playerSaveData.userExp + amount;
+
+        // ÇÑ ¹øÀÇ º¸»óÀ¸·Î ¿©·¯ ·¹º§À» ¿Ã¸± ¼ö ÀÖµµ·Ï ¹İº¹ °è»êÇÑ´Ù.
+        while (true)
+        {
+            // ±âÁ¸ Äù½ºÆ® º¸»ó°ú µ¿ÀÏÇÏ°Ô ÇÊ¿äÇÑ ·¹º§ µ¥ÀÌÅÍ°¡ ÀÖ¾î¾ß ÇÑ´Ù.
+            if (!_userLevelData.TryGetRequiredExp(
+                    nextLevel, out int requiredExp) ||
+                requiredExp <= 0)
+            {
+                throw new InvalidOperationException(
+                    $"User {nextLevel}·¹º§ÀÇ ÇÊ¿ä °æÇèÄ¡¸¦ ¼³Á¤ÇØÁÖ¼¼¿ä.");
+            }
+
+            // ·¹º§¾÷¿¡ ºÎÁ·ÇÑ °æÇèÄ¡´Â ÇöÀç ·¹º§¿¡ ³²±ä´Ù.
+            if (nextExp < requiredExp)
+            {
+                break;
+            }
+
+            if (nextLevel == int.MaxValue)
+            {
+                throw new InvalidOperationException(
+                    "´õ ÀÌ»ó User ·¹º§À» ¿Ã¸± ¼ö ¾ø½À´Ï´Ù.");
+            }
+
+            // ÇÊ¿äÇÑ °æÇèÄ¡¸¦ ¼ÒºñÇÏ°í ´ÙÀ½ ·¹º§·Î ³Ñ±ä´Ù.
+            nextExp -= requiredExp;
+            nextLevel++;
+        }
+
+        // ÀúÀå ½ÇÆĞ ½Ã µÇµ¹¸± ÀÌÀü °ªÀ» º¸°üÇÑ´Ù.
+        int previousLevel = _playerSaveData.userLevel;
+        int previousExp = _playerSaveData.userExp;
+
+        _playerSaveData.userLevel = nextLevel;
+        _playerSaveData.userExp = (int)nextExp;
+
+        try
+        {
+            // ±âÁ¸ ÀúÀå Èå¸§À» ÅëÇØ ÆÄÀÏ ÀúÀå°ú User UI °»½ÅÀ» Ã³¸®ÇÑ´Ù.
+            SaveToFile();
+        }
+        catch
+        {
+            // ÆÄÀÏ ÀúÀå¿¡ ½ÇÆĞÇÏ¸é ¸Ş¸ğ¸®ÀÇ º¸»óµµ Ãë¼ÒÇÑ´Ù.
+            _playerSaveData.userLevel = previousLevel;
+            _playerSaveData.userExp = previousExp;
+            throw;
+        }
     }
 
 }

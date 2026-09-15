@@ -219,18 +219,28 @@ public sealed class BossPatternRunner
         TryStartNextPattern();
     }
 
-    /// <summary>
-    /// 패턴의 정리 코드를 실행한다.
-    /// 중복 정리를 막기 위해 참조를 먼저 비운다.
-    /// </summary>
+    // 패턴 종료 또는 취소 시 실행 상태와 복귀 충돌을 정리한다.
     private void DisposePatternExecution()
     {
+        // 중복 정리를 방지하도록 참조를 먼저 비운다.
         IEnumerator execution = _patternExecution;
         _patternExecution = null;
 
-        if (execution is IDisposable disposable)
+        try
         {
-            disposable.Dispose();
+            // 패턴 내부의 finally 등 종료 처리를 실행한다.
+            if (execution is IDisposable disposable)
+            {
+                disposable.Dispose();
+            }
+        }
+        finally
+        {
+            // 정상 종료, 사망으로 인한 취소 모두 충돌 설정을 복원한다.
+            if (_context.Boss != null)
+            {
+                _context.Boss.RestoreReturnCollision();
+            }
         }
     }
 }

@@ -108,6 +108,7 @@ MonoBehaviour:
   _enemyLayerMask:
     serializedVersion: 2
     m_Bits: 256
+  _hitEffectPrefab: {fileID: 8670412759217664541, guid: 652c1659a108fb54a89b772baaa03240, type: 3}
 --- !u!1 &2428776216360149604
 GameObject:
   m_ObjectHideFlags: 0
@@ -329,7 +330,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 20
   m_Sprite: {fileID: 21300000, guid: 473d3a7f1da6973449ad04345097420c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -456,6 +457,7 @@ MonoBehaviour:
   _spriteRenderer: {fileID: 3701499836436583151}
   _guardSprite: {fileID: 21300000, guid: ad3c4768b56cefd46bde6c57d0520d1a, type: 3}
   _guardCollider: {fileID: 5399611090237788206}
+  _hitEffectPrefab: {fileID: 8670412759217664541, guid: 652c1659a108fb54a89b772baaa03240, type: 3}
 --- !u!60 &5399611090237788206
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -616,6 +618,7 @@ MonoBehaviour:
   _enemyLayerMask:
     serializedVersion: 2
     m_Bits: 256
+  _hitEffectPrefab: {fileID: 8670412759217664541, guid: 652c1659a108fb54a89b772baaa03240, type: 3}
 --- !u!1 &7976534497634678632
 GameObject:
   m_ObjectHideFlags: 0

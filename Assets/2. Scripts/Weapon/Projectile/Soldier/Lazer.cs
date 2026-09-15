@@ -46,6 +46,9 @@ public class Lazer : MonoBehaviour
     [Min(0.01f)]
     [SerializeField] float _disappearDuration = 0.05f;
 
+    // 레이저가 명중한 위치에 생성할 공통 히트 이펙트다.
+    [SerializeField] private SpriteOneShotEffect _hitEffectPrefab;
+
     // 현재 레이저를 발사한 캐릭터의 FirePoint
     Transform _firePoint;
 
@@ -203,6 +206,13 @@ public class Lazer : MonoBehaviour
             return;
         }
 
+        // 이번 펄스에서 실제로 피해를 주는 위치에 한 번 생성한다.
+        Instantiate(
+            _hitEffectPrefab,
+            hit.point,
+            Quaternion.identity);
+
+        // 기존 피해를 적용한다.
         target.TakeHit(_damage);
     }
 

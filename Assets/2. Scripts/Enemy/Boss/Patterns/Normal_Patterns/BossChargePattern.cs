@@ -132,6 +132,9 @@ public sealed class BossChargePattern : BossPattern
                 _recoveryDuration);
         }
 
+        // 공격과 후딜레이가 끝나고 복귀를 시작하므로 몸체 충돌을 무시한다.
+        context.Boss.BeginReturnCollisionIgnore();
+
         // 현재 위치에서 보스의 원래 스폰 위치로 향하는 차이를 계산한다.
         Vector2 returnOffset =
             context.Boss.MovementCenter -
@@ -156,13 +159,14 @@ public sealed class BossChargePattern : BossPattern
         context.Rigidbody.MovePosition(
             context.Boss.MovementCenter);
 
-        // 패턴 시작 전 외형 회전 상태로 되돌린다.
-        context.VisualTransform.localRotation =
-            originalLocalRotation;
+        // 마지막 이동 목표를 스폰 위치로 지정한다.
+        context.Rigidbody.MovePosition(context.Boss.MovementCenter);
 
-        // 패턴 시작 전 외형 회전 상태로 되돌린다.
-        context.VisualTransform.localRotation =
-            originalLocalRotation;
+        // 마지막 이동이 물리에 반영된 후 패턴을 끝내고 충돌을 복원한다.
+        yield return new WaitForFixedUpdate();
+
+        // 외형 회전을 원래 상태로 복원한다.
+        context.VisualTransform.localRotation = originalLocalRotation;
     }
 
     /// <summary>

@@ -130,7 +130,13 @@ public class EnemyBullet : MonoBehaviour
 
             for (int i = 0; i < _castHits.Count; i++)
             {
-                if (TryHitTarget(_castHits[i].collider))
+                // 아직 총알이 도착하지 않은 위치이므로 경로 검사 좌표를 사용한다.
+                RaycastHit2D hit = _castHits[i];
+
+                Vector2 hitPoint = HitEffectUtility.GetCastPoint(
+                    _bulletCollider, hit);
+
+                if (TryHitTarget(hit.collider, hitPoint))
                 {
                     return;
                 }
@@ -179,8 +185,8 @@ public class EnemyBullet : MonoBehaviour
         return false;
     }
 
-    // 검사된 대상에 피해를 한 번 적용한다.
-    private bool TryHitTarget(Collider2D target)
+    // 이미 계산된 충돌 위치를 받아 피해 또는 방어를 처리한다.
+    private bool TryHitTarget(Collider2D target, Vector2 hitPoint)
     {
         if (_consumed || target == null)
         {
@@ -190,7 +196,8 @@ public class EnemyBullet : MonoBehaviour
         // 실드 콜라이더를 플레이어 몸으로 해석하지 않는다.
         if (target.TryGetComponent(out Shield shield))
         {
-            if (!shield.TryBlockDamage(_damage))
+            // 실드가 실제로 막은 위치를 전달한다.
+            if (!shield.TryBlockDamage(_damage, hitPoint))
             {
                 return false;
             }
@@ -225,5 +232,19 @@ public class EnemyBullet : MonoBehaviour
         _consumed = true;
         _bulletCollider.enabled = false;
         Destroy(gameObject);
+    }
+
+    // 이미 겹친 대상은 현재 두 콜라이더로 명중 위치를 계산한다.
+    private bool TryHitTarget(Collider2D target)
+    {
+        if (_consumed || target == null)
+        {
+            return false;
+        }
+
+        Vector2 hitPoint = HitEffectUtility.GetSurfacePoint(
+            _bulletCollider, target);
+
+        return TryHitTarget(target, hitPoint);
     }
 }

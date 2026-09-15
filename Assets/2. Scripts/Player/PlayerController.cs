@@ -20,6 +20,9 @@ public class PlayerController : MonoBehaviour, IDamageable
     [Header("UI")]
     [SerializeField] HPUI _hpUI;
 
+    // 피격 후 깜빡임이 끝날 때까지 추가 피해를 막는다.
+    private bool _isHitInvulnerable;
+
     Vector2 _moveDirection;         // Update에서 입력받고 FixedUpdate에서 사용할 이동 방향
 
     bool _canControl = true;        // 이동 가능 여부
@@ -82,6 +85,9 @@ public class PlayerController : MonoBehaviour, IDamageable
         {
             throw new ArgumentNullException(nameof(characterData));
         }
+
+        // 캐릭터 초기화 시 이전 피격 무적 상태를 초기화한다.
+        _isHitInvulnerable = false;
 
         // 캐릭터 원본 데이터에서 기본 능력치를 가져온다.
         _maxHp = characterData.BaseHp;
@@ -187,44 +193,52 @@ public class PlayerController : MonoBehaviour, IDamageable
         }
     }
 
-    /// <summary>
-    /// 적 또는 적 투사체로부터 피해를 받는다.
-    /// 조작이 잠긴 입장·구간 전환 연출 중에는 피해를 무시한다.
-    /// </summary>
+    // 피해를 적용하고, 살아 있다면 깜빡임 동안 추가 피해를 막는다.
     public void TakeHit(int damage)
     {
-        // 연출 중이거나 이미 사망했다면 피해를 처리하지 않는다.
-        // 체력 차감과 피격 이벤트 모두 이 지점에서 차단한다.
-        if (!_canControl || IsDead)
+        // 조작이 제한되었거나 사망했거나 피격 무적 중이면 피해를 무시한다.
+        if (!_canControl || IsDead || _isHitInvulnerable)
         {
             return;
         }
 
-        // 0 이하의 피해는 처리하지 않는다.
+        // 유효한 피해만 처리한다.
         if (damage <= 0)
         {
             return;
         }
 
-        // 현재 체력이 음수가 되지 않도록 제한한다.
+        // 체력이 음수가 되지 않도록 제한한다.
         _currentHp = Mathf.Max(0, _currentHp - damage);
 
-        // 살아남은 피격에만 피격 애니메이션 이벤트를 발생시킨다.
         if (_currentHp > 0)
         {
-            Damaged?.Invoke(damage);
+            // 이벤트보다 먼저 무적을 켜서 같은 프레임의 연속 피격도 막는다.
+            _isHitInvulnerable = true;
+
+            // 깜빡임 애니메이션을 재생하도록 알린다.
+            if (Damaged != null)
+            {
+                Damaged.Invoke(damage);
+            }
         }
 
-        // 변경된 체력을 UI에 반영한다.
+        // 변경된 체력을 화면에 반영한다.
         UpdateHpUI();
 
-        Debug.Log($"입은 데미지: {damage}");
+        Debug.Log($"받은 데미지: {damage}");
 
-        // 체력이 소진되면 사망 처리한다.
+        // 치명적인 피해라면 기존 사망 처리를 실행한다.
         if (_currentHp <= 0)
         {
             Die();
         }
+    }
+
+    // 깜빡임 상태가 끝나면 다시 피해를 받을 수 있게 한다.
+    public void EndHitInvulnerability()
+    {
+        _isHitInvulnerable = false;
     }
 
     /// <summary>

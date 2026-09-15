@@ -21,6 +21,9 @@ public class Shield : MonoBehaviour
     // ShieldGuard에 붙인 방어 영역 콜라이더.
     [SerializeField] PolygonCollider2D _guardCollider;
 
+    // 공격을 막은 위치에 생성할 공통 히트 이펙트다.
+    [SerializeField] private SpriteOneShotEffect _hitEffectPrefab;
+
     // 스프라이트에 저장된 원본 윤곽.
     readonly List<Vector2> _sourceShape = new();
 
@@ -165,8 +168,8 @@ public class Shield : MonoBehaviour
         _guardCollider.enabled = true;
     }
 
-    // 공격을 실제로 막았을 때만 true를 반환한다.
-    public bool TryBlockDamage(float damage)
+    // 실제 방어에 성공하면 전달받은 충돌 위치에 이펙트를 생성한다.
+    public bool TryBlockDamage(float damage, Vector2 hitPoint)
     {
         if (!IsGuarding || !_guardCollider.enabled)
         {
@@ -178,8 +181,13 @@ public class Shield : MonoBehaviour
             return false;
         }
 
-        // 체력이 소진되는 순간 바로 방어를 종료한다.
-        // 다음 프레임의 자연회복보다 먼저 재입력 제한을 설정한다.
+        // 마지막 실드 체력을 사용해서 막은 공격에도 연출을 재생한다.
+        Instantiate(
+            _hitEffectPrefab,
+            hitPoint,
+            Quaternion.identity);
+
+        // 실드 체력이 소진되면 기존처럼 방어를 종료한다.
         if (!_weapon.HasShieldHealth)
         {
             _requiresRelease = true;
