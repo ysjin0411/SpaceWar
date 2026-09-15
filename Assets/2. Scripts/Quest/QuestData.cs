@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Serialization;
+using System.Collections.Generic;
 
 // 퀘스트의 공통 정보와 상태별 표시 문구를 저장한다.
 // 플레이어의 현재 진행 상태는 QuestService와 저장 데이터에서 관리한다.
@@ -50,6 +51,14 @@ public class QuestData : ScriptableObject
     // 이 퀘스트를 달성하기 위해 충족해야 하는 목표 조건.
     [SerializeField]
     private QuestObjectiveData _objective = new QuestObjectiveData();
+
+    // 이 퀘스트에서 지급할 보상 목록.
+    // 비어 있으면 보상 없이 수령 완료 상태로 전환한다.
+    [SerializeField]
+    private List<QuestRewardData> _rewards = new List<QuestRewardData>();
+
+    // 보상 지급 코드가 목록을 읽을 수 있도록 제공한다.
+    public IReadOnlyList<QuestRewardData> Rewards => _rewards;
 
     // 외부에서 공통 정보와 대화 데이터를 읽는다.
     public string Id => _id;

@@ -321,4 +321,18 @@ public static class QuestService
             }
         }
     }
+
+    // UI에서 요청한 보상 수령을 저장 관리자에 전달한다.
+    public static bool TryClaimReward(QuestData quest, out string error)
+    {
+        SaveManager saveManager = SaveManager.Instance;
+
+        if (saveManager == null || !saveManager.IsLoggedIn)
+        {
+            error = "로그인한 사용자 정보가 없습니다.";
+            return false;
+        }
+
+        return saveManager.TryClaimQuestReward(quest, out error);
+    }
 }

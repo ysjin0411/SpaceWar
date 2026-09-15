@@ -17,9 +17,6 @@ public class NpcQuestListView : MonoBehaviour
     // 텍스트 색 전환이 설정된 퀘스트 이름 버튼 프리팹.
     [SerializeField] private Button _questButtonPrefab;
 
-    // 퀘스트 설명에서 일반 대화 화면으로 돌아가는 버튼.
-    [SerializeField] private Button _backButton;
-
     // 이 View가 생성한 버튼만 관리한다.
     private readonly List<Button> _createdButtons = new List<Button>();
 
@@ -28,7 +25,6 @@ public class NpcQuestListView : MonoBehaviour
 
     // 선택 판단은 Presenter에 전달한다.
     public event Action<QuestData> QuestSelected;
-    public event Action BackRequested;
 
     // 연결을 확인하고 버튼 이벤트를 등록한다.
     private void Awake()
@@ -36,7 +32,6 @@ public class NpcQuestListView : MonoBehaviour
         if (_questChoicesRoot == null ||
             _questContent == null ||
             _questButtonPrefab == null ||
-            _backButton == null ||
             _questButtonPrefab.GetComponentInChildren<TMP_Text>(true) == null)
         {
             Debug.LogError(
@@ -47,7 +42,6 @@ public class NpcQuestListView : MonoBehaviour
             return;
         }
 
-        _backButton.onClick.AddListener(RequestBack);
         ResetView();
         IsReady = true;
     }
@@ -76,18 +70,15 @@ public class NpcQuestListView : MonoBehaviour
         _questChoicesRoot.SetActive(_createdButtons.Count > 0);
     }
 
-    // 퀘스트 설명 중에는 목록을 숨기고 복귀 버튼을 표시한다.
+    // 퀘스트 대화가 시작되면 퀘스트 선택 목록을 숨긴다.
+    // 일반 대화로 돌아가려면 대화창을 닫고 다시 말을 건다.
     public void ShowQuestDialogue()
     {
+        // 숨길 목록에 남아 있는 키보드 선택을 해제한다.
         ClearSelection();
 
+        // 대화 중에는 다른 퀘스트를 선택하지 못하게 한다.
         _questChoicesRoot.SetActive(false);
-        _backButton.gameObject.SetActive(true);
-
-        if (EventSystem.current != null)
-        {
-            _backButton.Select();
-        }
     }
 
     // 생성한 버튼과 UI 표시 상태를 정리한다.
@@ -109,14 +100,14 @@ public class NpcQuestListView : MonoBehaviour
 
         _createdButtons.Clear();
         _questChoicesRoot.SetActive(false);
-        _backButton.gameObject.SetActive(false);
     }
 
-    // 숨겨질 목록이나 복귀 버튼에 키보드 선택이 남지 않게 한다.
+    // 숨길 퀘스트 목록 안에 키보드 선택이 남지 않도록 해제한다.
     private void ClearSelection()
     {
         EventSystem eventSystem = EventSystem.current;
 
+        // EventSystem이 없으면 선택 해제를 생략한다.
         if (eventSystem == null)
         {
             return;
@@ -124,9 +115,9 @@ public class NpcQuestListView : MonoBehaviour
 
         GameObject selected = eventSystem.currentSelectedGameObject;
 
+        // 현재 선택한 오브젝트가 퀘스트 목록 안에 있을 때만 해제한다.
         if (selected != null &&
-            (selected.transform.IsChildOf(_questChoicesRoot.transform) ||
-             selected == _backButton.gameObject))
+            selected.transform.IsChildOf(_questChoicesRoot.transform))
         {
             eventSystem.SetSelectedGameObject(null);
         }
@@ -138,24 +129,6 @@ public class NpcQuestListView : MonoBehaviour
         if (QuestSelected != null)
         {
             QuestSelected.Invoke(quest);
-        }
-    }
-
-    // 목록 복귀 요청을 전달한다.
-    private void RequestBack()
-    {
-        if (BackRequested != null)
-        {
-            BackRequested.Invoke();
-        }
-    }
-
-    // 직접 등록한 이벤트를 해제한다.
-    private void OnDestroy()
-    {
-        if (_backButton != null)
-        {
-            _backButton.onClick.RemoveListener(RequestBack);
         }
     }
 }

@@ -252,6 +252,13 @@ public class QuestJournalPresenter : MonoBehaviour
 
         _view.ShowDetails(quest, stateText, description, npcVisual);
 
+        // 진행 중 탭에 속하는 두 상태에서 받을 보상을 표시한다.
+        bool showRewards =
+            state == QuestState.InProgress ||
+            state == QuestState.ReadyToTurnIn;
+
+        _view.SetRewards(quest, showRewards);
+
         // 새로 선택한 퀘스트에는 이전 오류를 표시하지 않는다.
         _view.ShowAbandonError(string.Empty);
 

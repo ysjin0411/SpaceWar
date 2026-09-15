@@ -20,6 +20,9 @@ public class NpcDialoguePresenter : MonoBehaviour
     [SerializeField, Min(1f)]
     private float _charactersPerSecond = 40f;
 
+    // NPC 대화창에서 받을 보상을 표시하는 목록.
+    [SerializeField] private QuestRewardListView _rewardView;
+
     // 현재 사용하는 대화 데이터와 대상.
     private DialogueData _data;
     private TownNpc _currentNpc;
@@ -72,13 +75,20 @@ public class NpcDialoguePresenter : MonoBehaviour
     {
         if (_view == null ||
             _questListView == null ||
-            _decisionView == null)
+            _decisionView == null ||
+            // 대화창 보상 목록의 연결도 검사한다.
+            _rewardView == null ||
+            !_rewardView.IsConfigured)
         {
             Debug.LogError(
                 "NpcDialoguePresenter의 View 연결을 모두 확인해주세요.", this);
 
             enabled = false;
+            return;
         }
+
+        // 첫 대화를 시작하기 전에는 보상 영역을 숨긴다.
+        _rewardView.Hide();
     }
 
     // 화면에서 발생한 입력을 구독한다.
@@ -95,7 +105,6 @@ public class NpcDialoguePresenter : MonoBehaviour
         if (_questListView != null)
         {
             _questListView.QuestSelected += HandleQuestSelected;
-            _questListView.BackRequested += ReturnToDefault;
         }
 
         // 수락은 저장 처리로, 거절은 일반 화면 복귀로 연결한다.
@@ -121,7 +130,6 @@ public class NpcDialoguePresenter : MonoBehaviour
         if (_questListView != null)
         {
             _questListView.QuestSelected -= HandleQuestSelected;
-            _questListView.BackRequested -= ReturnToDefault;
         }
 
         // 등록한 선택 이벤트를 해제한다.
@@ -177,6 +185,8 @@ public class NpcDialoguePresenter : MonoBehaviour
 
         // 마지막 문장의 타이핑이 끝난 시점에 표시한다.
         _decisionView.SetVisible(CanDecideQuest);
+        // 타이핑 완료와 퀘스트 상태에 맞춰 보상 표시를 갱신한다.
+        RefreshRewardView();
     }
 
     // 일반 대화를 열고 현재 레벨에 맞는 퀘스트 목록을 표시한다.
@@ -315,6 +325,9 @@ public class NpcDialoguePresenter : MonoBehaviour
     // 새 대사를 시작하고 현재 대화 종류에 맞춰 버튼을 갱신한다.
     private void BeginLine(DialogueLine line)
     {
+        // 새 대사나 수락·거절·수령 응답으로 바뀌면 즉시 숨긴다.
+        _rewardView.Hide();
+
         // 퀘스트 수락·거절은 마지막 줄을 모두 출력한 뒤 표시한다.
         _decisionView.SetVisible(false);
 
@@ -443,34 +456,6 @@ public class NpcDialoguePresenter : MonoBehaviour
         BeginLine(new DialogueLine(message));
     }
 
-    // 수락 상태를 변경하지 않고 일반 대화와 퀘스트 목록으로 돌아간다.
-    private void ReturnToDefault()
-    {
-        if (!IsOpen || _selectedQuest == null || _isDecisionResponse)
-        {
-            return;
-        }
-
-        DialogueData data = _currentNpc.DefaultDialogue;
-
-        if (data == null || !data.TryGetLine(0, out DialogueLine firstLine))
-        {
-            Close();
-            return;
-        }
-
-        // 일반 대화로 복귀했으므로 수락·거절 응답 모드를 끝낸다.
-        _isDecisionResponse = false;
-
-        _selectedQuest = null;
-        _data = data;
-        _lineIndex = 0;
-        _lastAdvanceFrame = Time.frameCount;
-
-        BeginLine(firstLine);
-        RefreshQuestList();
-    }
-
     // 타이핑 중에는 문장을 완성하고, 일반 대화에서는 다음 줄로 진행한다.
     // 수락·거절 응답이 완성되면 현재 메시지를 유지한다.
     private void Advance()
@@ -499,18 +484,45 @@ public class NpcDialoguePresenter : MonoBehaviour
             return;
         }
 
-        // 일반 대화와 퀘스트 소개 대화만 다음 줄로 진행한다.
+        // 다음 대사가 있으면 해당 줄을 표시하고 이번 입력 처리를 끝낸다.
         if (_data != null &&
             _data.TryGetLine(_lineIndex + 1, out DialogueLine nextLine))
         {
             _lineIndex++;
             BeginLine(nextLine);
+            return;
         }
+
+        // 수령 가능한 퀘스트의 완료 대사를 끝까지 읽은 경우만 처리한다.
+        if (_selectedQuest == null ||
+            QuestService.GetState(_selectedQuest) != QuestState.ReadyToTurnIn ||
+            _data == null ||
+            _data != _selectedQuest.CompletionDialogue ||
+            _lineIndex != _data.LineCount - 1)
+        {
+            return;
+        }
+
+        // 실패하면 현재 대화에서 오류를 표시하고 다시 진행해 재시도할 수 있다.
+        if (!QuestService.TryClaimReward(_selectedQuest, out string error))
+        {
+            BeginLine(new DialogueLine(error));
+            return;
+        }
+
+        // 성공 응답 중에는 추가 진행 입력을 막는 기존 기능을 재사용한다.
+        BeginDecisionResponse("퀘스트 보상을 받았습니다.");
     }
 
     // 대화와 퀘스트 목록을 정리하고 플레이어 조작을 복원한다.
     public void Close()
     {
+        // 이미 닫힌 상태에서도 남아 있는 보상 표시를 정리한다.
+        if (_rewardView != null)
+        {
+            _rewardView.Hide();
+        }
+
         if (!IsOpen)
         {
             return;
@@ -599,5 +611,42 @@ public class NpcDialoguePresenter : MonoBehaviour
         }
 
         return true;
+    }
+
+    // 현재 대화가 보상을 보여줄 시점인지 검사한다.
+    private void RefreshRewardView()
+    {
+        // 일반 대화, 응답 메시지, 타이핑 중에는 숨긴다.
+        if (!IsOpen ||
+            _isDecisionResponse ||
+            _selectedQuest == null ||
+            _data == null ||
+            IsTyping ||
+            _lineIndex != _data.LineCount - 1)
+        {
+            _rewardView.Hide();
+            return;
+        }
+
+        QuestState state = QuestService.GetState(_selectedQuest);
+
+        // 수락 전에는 Offer의 마지막 대사에서 표시한다.
+        bool isOffer =
+            state == QuestState.Available &&
+            _data == _selectedQuest.OfferDialogue;
+
+        // 수령 전에는 Completion의 마지막 대사에서 표시한다.
+        bool isCompletion =
+            state == QuestState.ReadyToTurnIn &&
+            _data == _selectedQuest.CompletionDialogue;
+
+        if (isOffer || isCompletion)
+        {
+            _rewardView.Show(_selectedQuest);
+        }
+        else
+        {
+            _rewardView.Hide();
+        }
     }
 }

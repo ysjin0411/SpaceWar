@@ -56,6 +56,9 @@ public class QuestJournalView : MonoBehaviour
     // 포기 처리나 저장에 실패했을 때 안내할 텍스트.
     [SerializeField] private TMP_Text _abandonErrorText;
 
+    // 퀘스트 정보창 하단의 보상 목록.
+    [SerializeField] private QuestRewardListView _rewardView;
+
     // 포기 버튼 클릭을 Presenter에 전달한다.
     public event Action AbandonRequested;
 
@@ -95,7 +98,10 @@ public class QuestJournalView : MonoBehaviour
             _descriptionText == null ||
             _npcImage == null ||
             _abandonButton == null || 
-            _abandonErrorText == null)
+            _abandonErrorText == null ||
+            // 보상 목록의 필수 연결도 검사한다.
+            _rewardView == null ||
+            !_rewardView.IsConfigured)
         {
             Debug.LogError(
                 "QuestJournalView의 Inspector 연결을 확인해주세요.", this);
@@ -185,6 +191,12 @@ public class QuestJournalView : MonoBehaviour
     // 오른쪽 상세 패널만 접는다.
     public void HideDetails()
     {
+        // 상세 정보가 닫힐 때 이전 보상 표시도 숨긴다.
+        if (_rewardView != null)
+        {
+            _rewardView.Hide();
+        }
+
         // 상세 패널을 닫으면 포기 버튼과 이전 오류도 초기화한다.
         SetAbandonAvailable(false);
         ShowAbandonError(string.Empty);
@@ -343,6 +355,19 @@ public class QuestJournalView : MonoBehaviour
         if (_abandonButton != null)
         {
             _abandonButton.onClick.RemoveListener(RequestAbandon);
+        }
+    }
+
+    // Presenter가 결정한 표시 여부를 보상 목록에 반영한다.
+    public void SetRewards(QuestData quest, bool visible)
+    {
+        if (visible)
+        {
+            _rewardView.Show(quest);
+        }
+        else
+        {
+            _rewardView.Hide();
         }
     }
 }

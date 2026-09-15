@@ -1595,4 +1595,166 @@ public class SaveManager : MonoBehaviour
         return loadout;
     }
 
+    // 퀘스트 보상 전체와 수령 완료 상태를 한 번에 저장한다.
+    public bool TryClaimQuestReward(QuestData quest, out string error)
+    {
+        error = string.Empty;
+
+        // 목표를 달성했고 아직 보상을 받지 않은 경우만 허용한다.
+        if (Instance != this || !IsLoggedIn ||
+            QuestService.GetState(quest) != QuestState.ReadyToTurnIn)
+        {
+            error = "지금은 보상을 받을 수 없는 퀘스트입니다.";
+            return false;
+        }
+
+        // 실제 저장할 퀘스트 기록을 찾는다.
+        QuestSaveData record = _playerSaveData.questRecords?.Find(
+            item => item != null && item.questId == quest.Id);
+
+        if (record == null)
+        {
+            error = "퀘스트 진행 기록을 찾을 수 없습니다.";
+            return false;
+        }
+
+        // 여러 항목을 더할 때 int 범위를 넘지 않도록 long으로 계산한다.
+        long goldReward = 0;
+        long expReward = 0;
+
+        if (quest.Rewards != null)
+        {
+            foreach (QuestRewardData reward in quest.Rewards)
+            {
+                // 잘못된 항목은 일부만 지급하지 않고 전체 지급을 중단한다.
+                if (reward == null || reward.Amount <= 0)
+                {
+                    error = "퀘스트 보상 설정을 확인해주세요.";
+                    return false;
+                }
+
+                // 같은 종류가 여러 번 들어 있어도 합산해서 지급한다.
+                switch (reward.Type)
+                {
+                    case QuestRewardType.UserExp:
+                        expReward += reward.Amount;
+                        break;
+
+                    case QuestRewardType.Gold:
+                        goldReward += reward.Amount;
+                        break;
+
+                    default:
+                        error = "아직 지원하지 않는 보상 종류입니다.";
+                        return false;
+                }
+            }
+        }
+
+        // 저장 데이터를 변경하기 전에 최종 골드를 계산한다.
+        long nextGold = (long)_playerSaveData.gold + goldReward;
+
+        if (nextGold > int.MaxValue)
+        {
+            error = "보유 가능한 골드 범위를 초과합니다.";
+            return false;
+        }
+
+        // 경험치 보상으로 여러 레벨을 오를 수 있도록 계산한다.
+        int nextLevel = _playerSaveData.userLevel;
+        long nextExp = (long)_playerSaveData.userExp + expReward;
+
+        if (expReward > 0)
+        {
+            while (true)
+            {
+                // 현재 프로젝트의 경험치 테스트와 같은 정책:
+                // 필요한 레벨 데이터가 없으면 지급을 중단한다.
+                if (_userLevelData == null ||
+                    !_userLevelData.TryGetRequiredExp(
+                        nextLevel, out int requiredExp) ||
+                    requiredExp <= 0)
+                {
+                    error = "해당 유저 레벨의 필요 경험치를 설정해주세요.";
+                    return false;
+                }
+
+                // 다음 레벨에 도달하지 않았다면 남은 경험치를 유지한다.
+                if (nextExp < requiredExp)
+                {
+                    break;
+                }
+
+                if (nextLevel == int.MaxValue)
+                {
+                    error = "더 이상 유저 레벨을 올릴 수 없습니다.";
+                    return false;
+                }
+
+                // 레벨업에 사용한 경험치를 빼고 다음 레벨을 계산한다.
+                nextExp -= requiredExp;
+                nextLevel++;
+            }
+        }
+
+        // 저장 실패 시 되돌릴 값을 보관한다.
+        int previousGold = _playerSaveData.gold;
+        int previousLevel = _playerSaveData.userLevel;
+        int previousExp = _playerSaveData.userExp;
+        QuestState previousState = record.state;
+
+        // 보상과 수령 완료 상태를 같은 저장에 포함한다.
+        _playerSaveData.gold = (int)nextGold;
+        _playerSaveData.userLevel = nextLevel;
+        _playerSaveData.userExp = (int)nextExp;
+        record.state = QuestState.RewardClaimed;
+
+        try
+        {
+            // 기존 저장 경로를 사용한다.
+            // 유저 상태 UI 갱신과 다른 퀘스트의 목표 검사도 수행된다.
+            SaveToFile();
+        }
+        catch (Exception exception)
+        {
+            // 저장에 실패하면 모든 변경을 되돌려 재시도를 허용한다.
+            _playerSaveData.gold = previousGold;
+            _playerSaveData.userLevel = previousLevel;
+            _playerSaveData.userExp = previousExp;
+            record.state = previousState;
+
+            Debug.LogException(exception, this);
+            error = "보상을 저장하지 못했습니다. 다시 시도해주세요.";
+            return false;
+        }
+
+        // 이미 저장된 결과를 알리는 단계이므로,
+        // UI 오류가 보상 지급 실패로 처리되지 않도록 개별 보호한다.
+        if (previousGold != _playerSaveData.gold)
+        {
+            Action<int> handlers = GoldChanged;
+
+            if (handlers != null)
+            {
+                foreach (Action<int> handler in handlers.GetInvocationList())
+                {
+                    try
+                    {
+                        handler.Invoke(_playerSaveData.gold);
+                    }
+                    catch (Exception exception)
+                    {
+                        Debug.LogException(exception, this);
+                    }
+                }
+            }
+        }
+
+        // 기존 알림 메서드를 재사용해 퀘스트 목록도 갱신한다.
+        QuestService.NotifyProgressChanges(
+            new List<QuestSaveData> { record });
+
+        return true;
+    }
+
 }
