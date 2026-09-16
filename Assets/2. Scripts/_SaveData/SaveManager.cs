@@ -1834,4 +1834,104 @@ public class SaveManager : MonoBehaviour
         }
     }
 
+    // 현재 퀘스트 상태와 보유 수량으로 드랍 허용 여부를 계산한다.
+    public bool CanDropItem(Item item)
+    {
+        if (!IsLoggedIn ||
+            item == null ||
+            string.IsNullOrWhiteSpace(item.Id))
+        {
+            return false;
+        }
+
+        // 일반 아이템은 퀘스트 조건으로 제한하지 않는다.
+        if (item.Type != ItemType.Quest)
+        {
+            return true;
+        }
+
+        // 퀘스트 아이템은 아직 필요한 경우에만 허용한다.
+        return QuestService.IsItemNeeded(
+            _questDatabase,
+            _playerSaveData,
+            item.Id);
+    }
+
+    // 아이템 수량을 추가하고 퀘스트 진행 상태와 함께 저장한다.
+    public bool TryAddItem(Item item, int amount, out string error)
+    {
+        error = string.Empty;
+
+        if (!IsLoggedIn ||
+            item == null ||
+            string.IsNullOrWhiteSpace(item.Id) ||
+            amount <= 0)
+        {
+            error = "아이템 획득 정보가 올바르지 않습니다.";
+            return false;
+        }
+
+        // 이전 저장 파일에는 인벤토리 목록이 없을 수 있다.
+        bool createdList = _playerSaveData.inventoryItems == null;
+
+        if (createdList)
+        {
+            _playerSaveData.inventoryItems =
+                new List<InventoryItemSaveData>();
+        }
+
+        List<InventoryItemSaveData> entries =
+            _playerSaveData.inventoryItems;
+
+        InventoryItemSaveData entry = entries.Find(
+            saved => saved != null && saved.itemId == item.Id);
+
+        bool createdEntry = entry == null;
+
+        // 처음 획득한 아이템이면 저장 항목을 만든다.
+        if (createdEntry)
+        {
+            entry = new InventoryItemSaveData
+            {
+                itemId = item.Id,
+                count = 0
+            };
+
+            entries.Add(entry);
+        }
+
+        // 저장 실패 시 복원할 기존 수량이다.
+        int previousCount = entry.count;
+
+        try
+        {
+            // 정수 범위를 초과하면 잘못된 수량을 저장하지 않는다.
+            entry.count = checked(previousCount + amount);
+
+            // 아이템 수량과 목표를 달성한 퀘스트 상태를 함께 저장한다.
+            SaveToFile();
+        }
+        catch (Exception exception)
+        {
+            // 저장 실패 시 인벤토리도 이전 상태로 복원한다.
+            entry.count = previousCount;
+
+            if (createdEntry)
+            {
+                entries.Remove(entry);
+            }
+
+            if (createdList)
+            {
+                _playerSaveData.inventoryItems = null;
+            }
+
+            Debug.LogException(exception, this);
+            error = "아이템 획득을 저장하지 못했습니다.";
+            return false;
+        }
+
+        return true;
+    }
+
 }

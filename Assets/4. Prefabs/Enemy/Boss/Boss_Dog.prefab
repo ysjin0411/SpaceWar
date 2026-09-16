@@ -243,8 +243,10 @@ MonoBehaviour:
     _entries:
     - _prefab: {fileID: 523677333196082315, guid: 02f86527c15f5bc4cad8b61a57339f3d, type: 3}
       _count: 20
-  - _groupName: Upgrade
-    _entries: []
+  - _groupName: Quest
+    _entries:
+    - _prefab: {fileID: 1741529324464940269, guid: 1056bdc6af0943f4e9c5f854691450f8, type: 3}
+      _count: 1
   _healthSpecialPatternEntries:
   - _healthPercent: 70
     _pattern: {fileID: 11400000, guid: 909094ff4d83fcb458950b82ddc7479f, type: 2}

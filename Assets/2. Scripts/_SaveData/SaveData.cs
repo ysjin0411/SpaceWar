@@ -10,6 +10,17 @@ public class CharacterLoadoutSaveData
     public string[] equippedWeaponIds = new string[3];            // 캐릭터 장착 무기 ID(최대 3개)
 }
 
+// 인벤토리에 보유한 아이템 한 종류의 저장 정보다.
+[System.Serializable]
+public class InventoryItemSaveData
+{
+    // 프리팹의 Item.Id와 연결되는 고유 ID다.
+    public string itemId;
+
+    // 현재 보유한 개수다.
+    public int count;
+}
+
 /// <summary>
 /// 플레이어마다 달라지는 업적 진행 상태를 저장한다.
 /// 업적의 이름과 보상 정보는 AchievementData에서 관리한다.
@@ -54,6 +65,29 @@ public class PlayerSaveData
 
     // 업적 달성과 보상 수령 기록.
     public List<AchievementSaveData> achievementRecords = new();
+
+    // 아이템 ID별 보유 수량을 저장한다.
+    public List<InventoryItemSaveData> inventoryItems = new();
+
+    // 지정한 아이템의 현재 보유 수량을 조회한다.
+    public int GetItemCount(string itemId)
+    {
+        // 이전 저장 파일에 인벤토리 데이터가 없으면 0개로 취급한다.
+        if (inventoryItems == null || string.IsNullOrWhiteSpace(itemId))
+        {
+            return 0;
+        }
+
+        foreach (InventoryItemSaveData entry in inventoryItems)
+        {
+            if (entry != null && entry.itemId == itemId)
+            {
+                return entry.count;
+            }
+        }
+
+        return 0;
+    }
 }
 
 /// <summary>

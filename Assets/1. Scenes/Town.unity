@@ -10865,6 +10865,7 @@ MonoBehaviour:
   _defaultDialogue: {fileID: 11400000, guid: b590b4064558cee478b3660d2a01fa54, type: 2}
   _quests:
   - {fileID: 11400000, guid: abbebfa10ee113146a4b78e8c0d01048, type: 2}
+  - {fileID: 11400000, guid: 2a4b706aee2adbd4cbec6838f1dcf9b4, type: 2}
   _dialogueVisual: {fileID: 659010708}
   _horizontalRange: 1.8
   _verticalRange: 0.7

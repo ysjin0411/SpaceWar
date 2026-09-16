@@ -289,6 +289,11 @@ public static class QuestService
                 // NPC를 통해 업적창을 연 처리에서만 true를 전달한다.
                 return achievementWindowOpened;
 
+            case QuestObjectiveType.ItemOwned:
+                // 현재 인벤토리 수량이 목표 이상이면 달성한 것이다.
+                return saveData.GetItemCount(objective.Item.Id)
+                       >= objective.RequiredCount;
+
             default:
                 return false;
         }
@@ -334,5 +339,59 @@ public static class QuestService
         }
 
         return saveManager.TryClaimQuestReward(quest, out error);
+    }
+
+    // 이 아이템을 아직 필요로 하는 진행 중 퀘스트가 있는지 검사한다.
+    public static bool IsItemNeeded(
+        QuestDatabase database,
+        PlayerSaveData saveData,
+        string itemId)
+    {
+        // 조회에 필요한 데이터가 없으면 드랍을 허용하지 않는다.
+        if (database == null ||
+            saveData == null ||
+            saveData.questRecords == null ||
+            string.IsNullOrWhiteSpace(itemId))
+        {
+            return false;
+        }
+
+        foreach (QuestData quest in database.Quests)
+        {
+            if (quest == null)
+            {
+                continue;
+            }
+
+            QuestObjectiveData objective = quest.Objective;
+
+            // 같은 아이템을 요구하는 유효한 수집 퀘스트만 검사한다.
+            if (objective == null ||
+                !objective.IsConfigured ||
+                objective.Type != QuestObjectiveType.ItemOwned ||
+                objective.Item.Id != itemId)
+            {
+                continue;
+            }
+
+            // 이미 목표 수량을 가지고 있으면 이 퀘스트에는 필요하지 않다.
+            if (saveData.GetItemCount(itemId) >= objective.RequiredCount)
+            {
+                continue;
+            }
+
+            foreach (QuestSaveData record in saveData.questRecords)
+            {
+                // 수락했고 아직 진행 중인 경우에만 필요하다고 판단한다.
+                if (record != null &&
+                    record.questId == quest.Id &&
+                    record.state == QuestState.InProgress)
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 }

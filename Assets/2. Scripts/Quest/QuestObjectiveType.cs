@@ -13,6 +13,9 @@ public enum QuestObjectiveType
     // 지정한 캐릭터가 대상 무기를 소유했는지 검사한다.
     WeaponOwned = 3,
 
-    // 퀘스트 수락 후 NPC를 통해 업적창을 열었는지 검사한다.
-    OpenAchievementWindow = 4
+    // 퀘스트 수락 후 업적 창을 열었는지 검사한다.
+    OpenAchievementWindow = 4,
+
+    // 지정한 아이템을 필요한 수량 이상 보유했는지 검사한다.
+    ItemOwned = 5
 }

@@ -670,10 +670,42 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
                     continue;
                 }
 
-                // 골드 외 프리팹은 월드에 생성한다.
-                // 생성 이후 동작은 해당 프리팹의 컴포넌트가 담당한다.
+                // 프리팹 루트에서 인벤토리 아이템 정보를 읽는다.
+                Item item = entry.Prefab.GetComponent<Item>();
+
+                // Quest 그룹은 퀘스트 아이템 프리팹만 등록하도록 검사한다.
+                if (group.GroupName == "Quest" &&
+                    (item == null || item.Type != ItemType.Quest))
+                {
+                    Debug.LogError(
+                        $"{name}: Quest 그룹에는 ItemType.Quest인 Item이 필요합니다.",
+                        this);
+
+                    continue;
+                }
+
                 for (int i = 0; i < entry.Count; i++)
                 {
+                    if (item != null)
+                    {
+                        SaveManager saveManager = SaveManager.Instance;
+
+                        // 매 개체 생성 직전에 최신 수량과 퀘스트 상태를 검사한다.
+                        if (saveManager == null || !saveManager.CanDropItem(item))
+                        {
+                            break;
+                        }
+
+                        // 프리팹 한 개에 해당하는 아이템 1개를 즉시 획득·저장한다.
+                        if (!saveManager.TryAddItem(item, 1, out string error))
+                        {
+                            Debug.LogError(error, this);
+                            break;
+                        }
+                    }
+
+                    // 저장된 획득 결과를 보여줄 프리팹을 생성한다.
+                    // Item이 없는 기존 비골드 프리팹도 원래처럼 생성한다.
                     Instantiate(
                         entry.Prefab,
                         dropPosition,

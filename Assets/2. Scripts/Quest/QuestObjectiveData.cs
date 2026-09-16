@@ -26,6 +26,16 @@ public class QuestObjectiveData
     [SerializeField]
     private WeaponData _weapon;
 
+    // 수집 대상 아이템 프리팹의 Item 컴포넌트다.
+    [SerializeField] private Item _item;
+
+    // 목표 달성에 필요한 보유 수량이다.
+    [SerializeField, Min(1)] private int _requiredCount = 1;
+
+    // 외부에서 수집 대상과 필요 수량을 조회한다.
+    public Item Item => _item;
+    public int RequiredCount => _requiredCount;
+
     // 외부에서는 목표 설정을 읽기만 한다.
     public QuestObjectiveType Type => _type;
     public CharacterData Character => _character;
@@ -57,6 +67,12 @@ public class QuestObjectiveData
                 case QuestObjectiveType.OpenAchievementWindow:
                     // 업적창 열기는 추가 대상 설정이 필요 없다.
                     return true;
+
+                case QuestObjectiveType.ItemOwned:
+                    // 대상 아이템과 고유 ID, 필요 수량이 설정되어야 한다.
+                    return _item != null &&
+                           !string.IsNullOrWhiteSpace(_item.Id) &&
+                           _requiredCount >= 1;
 
                 default:
                     // 목표 미설정 상태를 달성 가능한 조건으로 취급하지 않는다.
