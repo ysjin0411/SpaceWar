@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f65ef82e55d18e46806b964143e061c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _goldAmount: 10
+  _amount: 10
   _spreadDuration: 0.25
   _spreadWaitDuration: 0.15
   _collectSpeed: 4000
@@ -60,7 +60,6 @@ GameObject:
   - component: {fileID: 2786780658707588674}
   - component: {fileID: 8478142809221727174}
   - component: {fileID: 94405154781958497}
-  - component: {fileID: 5003421327026994664}
   m_Layer: 5
   m_Name: Renderer
   m_TagString: Untagged
@@ -125,19 +124,3 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5003421327026994664
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4654752801505458766}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f65ef82e55d18e46806b964143e061c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _goldAmount: 10
-  _spreadDuration: 0.25
-  _spreadWaitDuration: 0.1
-  _collectSpeed: 1000

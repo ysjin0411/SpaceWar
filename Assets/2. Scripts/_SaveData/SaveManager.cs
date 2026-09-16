@@ -1698,34 +1698,72 @@ public class SaveManager : MonoBehaviour
             }
         }
 
-        // 저장 실패 시 되돌릴 값을 보관한다.
+        // 보상 지급 전에 실제 제출 수량을 검사하고,
+        // 차감 후의 인벤토리를 준비한다.
+        List<InventoryItemSaveData> nextInventory;
+
+        if (!InventoryService.TryBuildQuestTurnInSlots(
+                _playerSaveData,
+                quest,
+                out nextInventory,
+                out error))
+        {
+            return false;
+        }
+
+        // 저장 실패 시 보상과 인벤토리를 모두 되돌릴 값을 보관한다.
         int previousGold = _playerSaveData.gold;
         int previousLevel = _playerSaveData.userLevel;
         int previousExp = _playerSaveData.userExp;
         QuestState previousState = record.state;
 
-        // 보상과 수령 완료 상태를 같은 저장에 포함한다.
-        _playerSaveData.gold = (int)nextGold;
-        _playerSaveData.userLevel = nextLevel;
-        _playerSaveData.userExp = (int)nextExp;
-        record.state = QuestState.RewardClaimed;
+        List<InventoryItemSaveData> previousInventory =
+            _playerSaveData.inventoryItems;
+
+        // 이번 제출로 보상 수령 대기에서 진행 중으로 돌아갈 퀘스트들.
+        List<QuestSaveData> reopenedRecords =
+            new List<QuestSaveData>();
 
         try
         {
-            // 기존 저장 경로를 사용한다.
-            // 유저 상태 UI 갱신과 다른 퀘스트의 목표 검사도 수행된다.
+            // 아이템 제출, 보상 지급, 수령 완료 상태를 함께 반영한다.
+            _playerSaveData.inventoryItems = nextInventory;
+            _playerSaveData.gold = (int)nextGold;
+            _playerSaveData.userLevel = nextLevel;
+            _playerSaveData.userExp = (int)nextExp;
+            record.state = QuestState.RewardClaimed;
+
+            // 다른 퀘스트가 같은 아이템을 요구하고 있었다면
+            // 차감 후에도 제출 가능한 수량이 남아 있는지 확인한다.
+            reopenedRecords =
+                QuestService.FindUnfulfilledTurnInQuests(
+                    _questDatabase, _playerSaveData);
+
+            foreach (QuestSaveData reopened in reopenedRecords)
+            {
+                reopened.state = QuestState.InProgress;
+            }
+
+            // 제출 내역과 보상을 같은 저장 작업으로 확정한다.
+            // 기존 인벤토리 UI의 저장 알림도 이 경로로 전달된다.
             SaveToFile();
         }
         catch (Exception exception)
         {
-            // 저장에 실패하면 모든 변경을 되돌려 재시도를 허용한다.
+            // 실패하면 제출 아이템과 보상을 모두 원래 상태로 복구한다.
+            _playerSaveData.inventoryItems = previousInventory;
             _playerSaveData.gold = previousGold;
             _playerSaveData.userLevel = previousLevel;
             _playerSaveData.userExp = previousExp;
             record.state = previousState;
 
+            foreach (QuestSaveData reopened in reopenedRecords)
+            {
+                reopened.state = QuestState.ReadyToTurnIn;
+            }
+
             Debug.LogException(exception, this);
-            error = "보상을 저장하지 못했습니다. 다시 시도해주세요.";
+            error = "아이템 제출과 보상을 저장하지 못했습니다. 다시 시도해주세요.";
             return false;
         }
 
@@ -1751,9 +1789,14 @@ public class SaveManager : MonoBehaviour
             }
         }
 
-        // 기존 알림 메서드를 재사용해 퀘스트 목록도 갱신한다.
-        QuestService.NotifyProgressChanges(
-            new List<QuestSaveData> { record });
+        // 보상 수령이 끝난 퀘스트와,
+        // 다시 진행 중이 된 퀘스트의 화면을 함께 갱신한다.
+        List<QuestSaveData> changedRecords =
+            new List<QuestSaveData>(reopenedRecords);
+
+        changedRecords.Add(record);
+
+        QuestService.NotifyProgressChanges(changedRecords);
 
         return true;
     }
@@ -1857,81 +1900,104 @@ public class SaveManager : MonoBehaviour
             item.Id);
     }
 
-    // 아이템 수량을 추가하고 퀘스트 진행 상태와 함께 저장한다.
+    // 기존 보스 드롭의 호출 방식은 유지하고,
+    // 실제 획득과 18칸 공간 검사는 인벤토리 서비스에 맡긴다.
     public bool TryAddItem(Item item, int amount, out string error)
     {
+        return InventoryService.TryAddItem(
+            this, item, amount, out error);
+    }
+
+    // 드롭 아이템 한 개를 지급하고, 이번 획득의 퀘스트 진행도를 반환한다.
+    // 문구를 즉시 만들어두므로 연출 대기 중 다음 아이템을 얻어도
+    // 먼저 획득한 아이템의 1/2 표시가 2/2로 바뀌지 않는다.
+    public bool TryAddDropItem(
+        Item item,
+        out List<string> progressMessages,
+        out string error)
+    {
+        progressMessages = new List<string>();
         error = string.Empty;
 
-        if (!IsLoggedIn ||
-            item == null ||
-            string.IsNullOrWhiteSpace(item.Id) ||
-            amount <= 0)
+        if (!IsLoggedIn || item == null)
         {
-            error = "아이템 획득 정보가 올바르지 않습니다.";
+            error = "아이템을 지급할 사용자 또는 아이템이 없습니다.";
             return false;
         }
 
-        // 이전 저장 파일에는 인벤토리 목록이 없을 수 있다.
-        bool createdList = _playerSaveData.inventoryItems == null;
+        int previousCount = _playerSaveData.GetItemCount(item.Id);
 
-        if (createdList)
+        // 지급 전에 진행 중이었고, 해당 아이템이 부족했던 퀘스트만 기억한다.
+        List<QuestData> affectedQuests = new List<QuestData>();
+
+        if (_questDatabase != null)
         {
-            _playerSaveData.inventoryItems =
-                new List<InventoryItemSaveData>();
-        }
-
-        List<InventoryItemSaveData> entries =
-            _playerSaveData.inventoryItems;
-
-        InventoryItemSaveData entry = entries.Find(
-            saved => saved != null && saved.itemId == item.Id);
-
-        bool createdEntry = entry == null;
-
-        // 처음 획득한 아이템이면 저장 항목을 만든다.
-        if (createdEntry)
-        {
-            entry = new InventoryItemSaveData
+            foreach (QuestData quest in _questDatabase.Quests)
             {
-                itemId = item.Id,
-                count = 0
-            };
+                if (quest == null ||
+                    QuestService.GetState(quest) != QuestState.InProgress)
+                {
+                    continue;
+                }
 
-            entries.Add(entry);
-        }
+                QuestObjectiveData objective = quest.Objective;
 
-        // 저장 실패 시 복원할 기존 수량이다.
-        int previousCount = entry.count;
+                if (objective == null ||
+                    objective.Type != QuestObjectiveType.ItemOwned ||
+                    !objective.IsConfigured)
+                {
+                    continue;
+                }
 
-        try
-        {
-            // 정수 범위를 초과하면 잘못된 수량을 저장하지 않는다.
-            entry.count = checked(previousCount + amount);
-
-            // 아이템 수량과 목표를 달성한 퀘스트 상태를 함께 저장한다.
-            SaveToFile();
-        }
-        catch (Exception exception)
-        {
-            // 저장 실패 시 인벤토리도 이전 상태로 복원한다.
-            entry.count = previousCount;
-
-            if (createdEntry)
-            {
-                entries.Remove(entry);
+                foreach (QuestItemRequirement requirement
+                         in objective.RequiredItems)
+                {
+                    if (requirement.Item.Id == item.Id &&
+                        previousCount < requirement.RequiredCount)
+                    {
+                        affectedQuests.Add(quest);
+                        break;
+                    }
+                }
             }
+        }
 
-            if (createdList)
-            {
-                _playerSaveData.inventoryItems = null;
-            }
-
-            Debug.LogException(exception, this);
-            error = "아이템 획득을 저장하지 못했습니다.";
+        // 기존 인벤토리 추가 경로에서 수량과 퀘스트 상태를 저장한다.
+        if (!TryAddItem(item, 1, out error))
+        {
             return false;
+        }
+
+        int currentCount = _playerSaveData.GetItemCount(item.Id);
+
+        foreach (QuestData quest in affectedQuests)
+        {
+            foreach (QuestItemRequirement requirement
+                     in quest.Objective.RequiredItems)
+            {
+                if (requirement.Item.Id != item.Id)
+                {
+                    continue;
+                }
+
+                // UI에는 목표 수량을 넘어서 표시하지 않는다.
+                int displayedCount = Mathf.Min(
+                    currentCount, requirement.RequiredCount);
+
+                // 모든 목표가 충족되어 보상 수령 대기가 된 경우에만 완료를 붙인다.
+                bool completed =
+                    QuestService.GetState(quest) == QuestState.ReadyToTurnIn;
+
+                string suffix = completed ? " 완료" : string.Empty;
+
+                progressMessages.Add(
+                    $"[{quest.QuestName}] - [{item.DisplayName}] " +
+                    $"{displayedCount}/{requirement.RequiredCount}{suffix}");
+
+                break;
+            }
         }
 
         return true;
     }
-
 }

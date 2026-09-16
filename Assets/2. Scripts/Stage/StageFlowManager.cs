@@ -2,6 +2,8 @@ using System;
 using TMPro;
 using UnityEngine;
 using DG.Tweening;
+using System.Collections;
+using System.Collections.Generic;
 
 /// <summary>
 /// 현재 스테이지의 진행 상태.
@@ -69,6 +71,14 @@ public class StageFlowManager : MonoBehaviour
 
     [Tooltip("현재 스테이지 타이머가 작동 중인지 확인")]
     [SerializeField] bool _isTimerRunning;
+
+    // 퀘스트 진행도 문구가 나타나고 사라지는 시간.
+    [SerializeField, Min(0.01f)]
+    private float _questNoticeFadeDuration = 0.2f;
+
+    // 퀘스트 진행도 문구를 선명하게 유지하는 시간.
+    [SerializeField, Min(0f)]
+    private float _questNoticeHoldDuration = 1.5f;
 
 
 
@@ -439,6 +449,60 @@ public class StageFlowManager : MonoBehaviour
                 _stageIntroText.gameObject.SetActive(false);
                 _stageIntroTween = null;
             });
+    }
+
+    // 기존 STAGE 안내 위치에 퀘스트 진행도를 순서대로 표시한다.
+    // GameManager의 아이템 연출 대기열에서만 호출한다.
+    public IEnumerator ShowQuestProgress(
+        IReadOnlyList<string> messages)
+    {
+        if (messages.Count == 0)
+        {
+            yield break;
+        }
+
+        // 스테이지 입장 문구가 재생 중이면 먼저 끝날 때까지 기다린다.
+        while (_stageIntroTween != null)
+        {
+            yield return null;
+        }
+
+        foreach (string message in messages)
+        {
+            _stageIntroText.text = message;
+            _stageIntroText.gameObject.SetActive(true);
+
+            // 안내 문구는 마우스 입력을 막지 않는다.
+            _stageIntroText.raycastTarget = false;
+            _stageIntroCanvasGroup.interactable = false;
+            _stageIntroCanvasGroup.blocksRaycasts = false;
+            _stageIntroCanvasGroup.alpha = 0f;
+
+            Sequence sequence = DOTween.Sequence();
+            sequence.SetUpdate(true);
+            sequence.SetRecyclable(false);
+            sequence.SetLink(gameObject);
+
+            // 나타남 → 유지 → 사라짐 순서로 표시한다.
+            sequence.Append(
+                _stageIntroCanvasGroup.DOFade(
+                    1f, _questNoticeFadeDuration));
+
+            sequence.AppendInterval(_questNoticeHoldDuration);
+
+            sequence.Append(
+                _stageIntroCanvasGroup.DOFade(
+                    0f, _questNoticeFadeDuration));
+
+            // 기존 OnDestroy에서 함께 정리할 수 있게 보관한다.
+            _stageIntroTween = sequence;
+
+            yield return sequence.WaitForCompletion();
+
+            _stageIntroTween = null;
+            _stageIntroCanvasGroup.alpha = 0f;
+            _stageIntroText.gameObject.SetActive(false);
+        }
     }
 
     private void OnDestroy()

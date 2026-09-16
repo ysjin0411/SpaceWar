@@ -21,7 +21,8 @@ public sealed class DropPrefabEntry
 [Serializable]
 public sealed class DropGroup
 {
-    // 설정을 구분하기 위한 이름이다. 드롭 종류 판정에는 사용하지 않는다.
+    // 드롭 항목을 분류하는 이름이다.
+    // 정확히 "Quest"인 그룹은 퀘스트 아이템 전용으로 사용한다.
     [SerializeField] private string _groupName;
 
     // 이 그룹에서 생성할 프리팹과 개수 목록이다.

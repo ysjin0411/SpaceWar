@@ -3,19 +3,10 @@ using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
 
-public class GoldUI : MonoBehaviour
+public class GoldUI : MoneyUI
 {
-    [Header("골드 UI 연결")]
-    [Tooltip("골드가 최종적으로 이동할 CurrentGoldImage")]
-    [SerializeField] RectTransform _goldTarget;
-
-    [Tooltip("생성되는 골드를 자식으로 넣을 Canvas")]
-    [SerializeField] RectTransform _goldContainer;
-
-    [Header("골드 퍼짐 설정")]
-    [Tooltip("적이 죽은 위치에서 골드가 퍼지는 반지름")]
-    [Min(0f)]
-    [SerializeField] float _spreadRadius = 80f;
+    // 이 UI가 처리하는 재화 종류다.
+    public override MoneyType Type => MoneyType.Gold;
 
     [Header("골드 수량 표시")]
     [Tooltip("JSON에 저장된 현재 총 골드를 표시할 텍스트")]
@@ -46,8 +37,10 @@ public class GoldUI : MonoBehaviour
     /// </summary>
     private void Start()
     {
+        ValidateConfiguration();
+
         // 연출에 필요한 프리팹과 기준 아이콘 연결을 시작 시 검사한다.
-        if (_goldGainPopupPrefab == null || _goldTarget == null)
+        if (_goldGainPopupPrefab == null || Target == null)
         {
             throw new InvalidOperationException(
                 $"{name}: Gold Gain Popup Prefab과 Gold Target을 연결하세요.");
@@ -96,13 +89,13 @@ public class GoldUI : MonoBehaviour
         // 매번 새로운 텍스트를 생성하므로 기존 숫자와 합쳐지지 않는다.
         GoldGainPopup popup = Instantiate(
             _goldGainPopupPrefab,
-            _goldTarget,
+            Target,
             false);
 
         // 아이콘의 위쪽 끝보다 조금 높은 곳에서 시작한다.
         Vector2 startPosition = new Vector2(
             0f,
-            _goldTarget.rect.height * 0.5f + _popupOffsetY);
+            Target.rect.height * 0.5f + _popupOffsetY);
 
         popup.Play(amount, startPosition);
 
@@ -134,104 +127,8 @@ public class GoldUI : MonoBehaviour
         SaveManager.Instance.GoldChanged -= UpdateGoldText;
     }
 
-    /// <summary>
-    /// 몬스터가 죽은 위치에 골드를 개수만큼 생성하고
-    /// 360도를 균등하게 나눠 원형으로 퍼뜨린다.
-    /// </summary>
-    public void SpawnGold(Gold goldPrefab,Vector3 worldPosition,int dropCount, Action onAllCollected = null)
-    {
-        if (goldPrefab == null)
-        {
-            throw new ArgumentNullException(nameof(goldPrefab));
-        }
-
-        // 생성할 골드가 없다면 기다릴 획득 연출도 없다.
-        if (dropCount <= 0)
-        {
-            onAllCollected?.Invoke();
-            return;
-        }
-
-        if (_goldTarget == null || _goldContainer == null)
-        {
-            throw new InvalidOperationException(
-                $"{name}의 GoldUI 참조가 연결되지 않았습니다.");
-        }
-
-        if (Camera.main == null)
-        {
-            throw new InvalidOperationException(
-                "MainCamera 태그가 설정된 카메라가 없습니다.");
-        }
-
-        // 적이 죽은 월드 위치를 UI 화면 좌표로 변환한다.
-        Vector2 screenPosition =
-            RectTransformUtility.WorldToScreenPoint(
-                Camera.main,
-                worldPosition);
-
-        // 매번 똑같은 모양으로 퍼지지 않도록 시작 각도를 무작위로 정한다.
-        float startAngle = UnityEngine.Random.Range(0f, 360f);
-
-        // 이번 SpawnGold 호출에서 생성하는 골드만 추적한다.
-        // 다른 몬스터가 떨어뜨린 골드의 획득에는 영향을 받지 않는다.
-        int remainingCount = dropCount;
-
-        // 골드 한 개가 실제로 지급될 때마다 남은 개수를 줄인다.
-        Action handleOneCollected = () =>
-        {
-            if (remainingCount <= 0)
-            {
-                return;
-            }
-
-            remainingCount--;
-
-            // 마지막 골드까지 지급된 시점에 한 번만 완료를 알린다.
-            if (remainingCount == 0)
-            {
-                onAllCollected?.Invoke();
-            }
-        };
-
-        // 드롭 개수만큼 골드를 생성한다.
-        for (int index = 0; index < dropCount; index++)
-        {
-            // 360도를 드롭 개수로 균등하게 나눈다.
-            float angle =
-                startAngle +
-                360f * index / dropCount;
-
-            // 각도를 방향 벡터로 변환한다.
-            float angleRadians = angle * Mathf.Deg2Rad;
-
-            Vector2 spreadDirection = new Vector2(
-                Mathf.Cos(angleRadians),
-                Mathf.Sin(angleRadians));
-
-            // 시작 위치에서 원의 바깥쪽에 있는 목적지를 계산한다.
-            Vector3 spreadPosition =
-                (Vector3)screenPosition +
-                (Vector3)(spreadDirection * _spreadRadius);
-
-            // Canvas 안에 골드 UI를 생성한다.
-            Gold spawnedGold = Instantiate(
-                goldPrefab,
-                _goldContainer);
-
-            // 모든 골드는 적이 죽은 위치에서 시작한다.
-            spawnedGold.transform.position = screenPosition;
-
-            // 각 골드가 지급을 마치면 이번 묶음의 남은 개수를 줄인다.
-            spawnedGold.Initialize(
-                spreadPosition,
-                _goldTarget,
-                this,
-                handleOneCollected);
-        }
-    }
-
-    public void CollectGold(int amount)
+    // 골드 저장, 획득 팝업, 기존 GoldCollected 이벤트를 처리한다.
+    public override void CollectMoney(int amount)
     {
         // 유효한 획득량만 처리한다.
         if (amount <= 0)

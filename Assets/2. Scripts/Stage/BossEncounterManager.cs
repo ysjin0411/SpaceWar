@@ -359,12 +359,15 @@ public class BossEncounterManager : MonoBehaviour
                     $"{gradeData.name}: 보상 프리팹과 Count를 확인하세요.");
             }
 
-            // 현재 지급 경로는 Gold 컴포넌트가 있는 골드 프리팹을 지원한다.
-            if (!reward.RewardPrefab.TryGetComponent<Gold>(out _))
+            // 보물상자 보상이 Money 계열 프리팹인지 검사한다.
+            if (!reward.RewardPrefab.TryGetComponent<Money>(out Money money))
             {
                 throw new InvalidOperationException(
-                    $"{gradeData.name}: {reward.RewardPrefab.name}에 Gold가 없습니다.");
+                    $"{gradeData.name}: {reward.RewardPrefab.name}에 Money 계열 컴포넌트가 없습니다.");
             }
+
+            // 생성 전에 해당 재화의 목적지 UI까지 확인한다.
+            _gameManager.GetMoneyUI(money.Type).ValidateConfiguration();
         }
 
         // 이 보상을 발생시킨 상자를 기억해 이전 상자의 완료 알림을 구분한다.
@@ -388,11 +391,12 @@ public class BossEncounterManager : MonoBehaviour
 
         foreach (TreasureBoxRewardEntry reward in gradeData.Rewards)
         {
-            Gold goldPrefab = reward.RewardPrefab.GetComponent<Gold>();
+            // 골드뿐 아니라 모든 Money 자식 프리팹을 받는다.
+            Money moneyPrefab = reward.RewardPrefab.GetComponent<Money>();
 
             // 기존 골드 생성 경로를 사용해 퍼짐, UI 이동, 금액 반영을 처리한다.
-            _gameManager.SpawnGold(
-                goldPrefab,
+            _gameManager.SpawnMoney(
+                moneyPrefab,
                 rewardPosition,
                 reward.Count,
                 () =>

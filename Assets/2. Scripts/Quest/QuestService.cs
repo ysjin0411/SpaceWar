@@ -290,9 +290,22 @@ public static class QuestService
                 return achievementWindowOpened;
 
             case QuestObjectiveType.ItemOwned:
-                // 현재 인벤토리 수량이 목표 이상이면 달성한 것이다.
-                return saveData.GetItemCount(objective.Item.Id)
-                       >= objective.RequiredCount;
+                {
+                    // 수집 목록의 모든 아이템이 필요 수량 이상이어야 한다.
+                    foreach (QuestItemRequirement requirement in objective.RequiredItems)
+                    {
+                        int ownedCount = saveData.GetItemCount(requirement.Item.Id);
+
+                        // 한 종류라도 부족하면 퀘스트는 계속 진행 중이다.
+                        if (ownedCount < requirement.RequiredCount)
+                        {
+                            return false;
+                        }
+                    }
+
+                    // 모든 아이템의 수량을 충족했다.
+                    return true;
+                }
 
             default:
                 return false;
@@ -341,13 +354,12 @@ public static class QuestService
         return saveManager.TryClaimQuestReward(quest, out error);
     }
 
-    // 이 아이템을 아직 필요로 하는 진행 중 퀘스트가 있는지 검사한다.
+    // 해당 아이템이 진행 중인 퀘스트에서 아직 필요한지 검사한다.
     public static bool IsItemNeeded(
         QuestDatabase database,
         PlayerSaveData saveData,
         string itemId)
     {
-        // 조회에 필요한 데이터가 없으면 드랍을 허용하지 않는다.
         if (database == null ||
             saveData == null ||
             saveData.questRecords == null ||
@@ -356,42 +368,108 @@ public static class QuestService
             return false;
         }
 
-        foreach (QuestData quest in database.Quests)
+        // 검사할 아이템의 현재 보유 수량이다.
+        int ownedCount = saveData.GetItemCount(itemId);
+
+        foreach (QuestSaveData record in saveData.questRecords)
         {
-            if (quest == null)
+            // 수락한 뒤 목표를 진행 중인 퀘스트만 드롭을 허용한다.
+            // 보상 대기와 보상 수령 완료 상태는 제외한다.
+            if (record == null || record.state != QuestState.InProgress)
             {
                 continue;
             }
 
-            QuestObjectiveData objective = quest.Objective;
-
-            // 같은 아이템을 요구하는 유효한 수집 퀘스트만 검사한다.
-            if (objective == null ||
-                !objective.IsConfigured ||
-                objective.Type != QuestObjectiveType.ItemOwned ||
-                objective.Item.Id != itemId)
+            foreach (QuestData quest in database.Quests)
             {
-                continue;
-            }
-
-            // 이미 목표 수량을 가지고 있으면 이 퀘스트에는 필요하지 않다.
-            if (saveData.GetItemCount(itemId) >= objective.RequiredCount)
-            {
-                continue;
-            }
-
-            foreach (QuestSaveData record in saveData.questRecords)
-            {
-                // 수락했고 아직 진행 중인 경우에만 필요하다고 판단한다.
-                if (record != null &&
-                    record.questId == quest.Id &&
-                    record.state == QuestState.InProgress)
+                if (quest == null || quest.Id != record.questId)
                 {
-                    return true;
+                    continue;
                 }
+
+                QuestObjectiveData objective = quest.Objective;
+
+                // 유효한 아이템 수집 목표에서만 필요 여부를 확인한다.
+                if (objective != null &&
+                    objective.Type == QuestObjectiveType.ItemOwned &&
+                    objective.IsConfigured)
+                {
+                    foreach (QuestItemRequirement requirement
+                             in objective.RequiredItems)
+                    {
+                        // 지금 검사하는 드롭 아이템과 같은 ID인지 확인한다.
+                        if (requirement.Item.Id != itemId)
+                        {
+                            continue;
+                        }
+
+                        // 진행 중인 퀘스트 하나라도 더 필요하면 드롭한다.
+                        if (ownedCount < requirement.RequiredCount)
+                        {
+                            return true;
+                        }
+                    }
+                }
+
+                // 현재 저장 기록에 대응하는 퀘스트 검사를 끝냈다.
+                break;
             }
         }
 
+        // 진행 중인 퀘스트에서 요구하지 않거나 이미 충분히 보유했다.
         return false;
+    }
+
+    // 보상 수령 대기 중인 수집 퀘스트 가운데,
+    // 현재 인벤토리로는 제출 조건을 충족하지 못하는 퀘스트를 찾는다.
+    // 여기서는 상태를 직접 변경하지 않는다.
+    public static List<QuestSaveData> FindUnfulfilledTurnInQuests(
+        QuestDatabase database,
+        PlayerSaveData saveData)
+    {
+        if (database == null || saveData == null)
+        {
+            throw new InvalidOperationException(
+                "퀘스트 상태를 확인할 데이터가 없습니다.");
+        }
+
+        List<QuestSaveData> result = new List<QuestSaveData>();
+
+        if (saveData.questRecords == null)
+        {
+            return result;
+        }
+
+        foreach (QuestSaveData record in saveData.questRecords)
+        {
+            // 보상까지 받은 퀘스트는 다시 진행 중으로 돌리지 않는다.
+            if (record == null ||
+                record.state != QuestState.ReadyToTurnIn)
+            {
+                continue;
+            }
+
+            foreach (QuestData quest in database.Quests)
+            {
+                if (quest == null || quest.Id != record.questId)
+                {
+                    continue;
+                }
+
+                QuestObjectiveData objective = quest.Objective;
+
+                // 아이템 제출로 영향을 받는 수집 퀘스트만 검사한다.
+                if (objective != null &&
+                    objective.Type == QuestObjectiveType.ItemOwned &&
+                    !IsObjectiveSatisfied(objective, saveData, false))
+                {
+                    result.Add(record);
+                }
+
+                break;
+            }
+        }
+
+        return result;
     }
 }

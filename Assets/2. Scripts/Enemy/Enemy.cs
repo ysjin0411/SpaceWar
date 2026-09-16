@@ -17,14 +17,6 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     [Min(0)]
     [SerializeField] int _crashDamage;
 
-    [Header("골드 보상 설정")]
-    [Tooltip("적이 투사체 공격으로 죽었을 때 생성할 골드 프리팹")]
-    [SerializeField] Gold _goldPrefab;
-
-    [Tooltip("적이 죽었을 때 생성할 골드 개수")]
-    [Min(0)]
-    [SerializeField] int _goldDropCount;
-
     [Header("경험치 보상 설정")]
     [Tooltip("이 적을 처치했을 때 현재 캐릭터가 획득할 경험치")]
     [Min(0)]
@@ -50,6 +42,10 @@ public abstract class Enemy : MonoBehaviour, IDamageable
 
     // 적 루트와 다른 위치에서 터뜨리고 싶을 때 사용할 로컬 위치다.
     [SerializeField] private Vector3 _deathEffectOffset;
+
+    // 같은 오브젝트에 붙은 드롭 모듈이다.
+    // 없는 적은 프리팹 드롭 보상을 생성하지 않는다.
+    private Drop _drop;
 
     // 적이 제거돼도 끝까지 재생되는 독립 사망 이펙트를 생성한다.
     private void SpawnDeathEffect()
@@ -118,6 +114,14 @@ public abstract class Enemy : MonoBehaviour, IDamageable
 
         // 현재 스테이지의 GameManager를 저장한다.
         GameManager = gameManager;
+
+        // 드롭 모듈이 있는 적만 보상 설정을 초기화한다.
+        _drop = GetComponent<Drop>();
+
+        if (_drop != null)
+        {
+            _drop.Initialize(gameManager);
+        }
     }
 
     /// <summary>
@@ -187,8 +191,12 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         // 이 몬스터의 User 경험치를 즉시 지급하고 이번 판 집계에 반영한다.
         GameManager.AddUserExperience(_userExpReward);
 
-        // 설정된 개수만큼 골드를 생성한다.
-        DropGold();
+        // 설정된 모든 드롭을 실행한다.
+        // 재화는 UI 아래에 생성되므로 적이 제거돼도 회수가 계속된다.
+        if (_drop != null)
+        {
+            _drop.Execute();
+        }
 
         // 자식 클래스의 추가 사망 효과를 실행한다.
         OnDied();
@@ -197,28 +205,6 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         Destroy(gameObject);
     }
 
-    /// <summary>
-    /// 설정된 개수만큼 현재 위치에 골드를 생성한다.
-    /// </summary>
-    private void DropGold()
-    {
-        // 드롭 개수가 없다면 골드를 생성하지 않는다.
-        if (_goldDropCount <= 0)
-        {
-            return;
-        }
-
-        // 골드를 드롭해야 하는데 프리팹이 없다면 설정 오류다.
-        if (_goldPrefab == null)
-        {
-            throw new InvalidOperationException(
-                $"{name}의 Enemy에 Gold Prefab이 연결되지 않았습니다.");
-        }
-
-        // 전체 드롭 개수를 한 번에 전달하여
-        // GoldUI가 원형 배치를 계산할 수 있게 한다.
-        GameManager.SpawnGold(_goldPrefab,transform.position,_goldDropCount);
-    }
 
     /// <summary>
     /// 피해를 받은 직후 자식 클래스가 추가 효과를 처리할 수 있다.

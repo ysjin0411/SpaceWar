@@ -1,40 +1,32 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
-// QuestData의 Inspector 안에서 설정할 퀘스트 목표 데이터.
+// 퀘스트의 목표 종류와 목표 달성에 필요한 설정이다.
 [Serializable]
 public class QuestObjectiveData
 {
-    // 이 퀘스트의 목표 종류.
+    // 이 퀘스트에서 검사할 목표 종류다.
     [SerializeField]
     private QuestObjectiveType _type = QuestObjectiveType.None;
 
-    // 레벨 달성 또는 무기 소유를 검사할 캐릭터.
+    // 레벨 또는 무기 보유 여부를 검사할 캐릭터다.
+    [SerializeField] private CharacterData _character;
+
+    // 캐릭터 레벨 목표의 필요 레벨이다.
+    [SerializeField, Min(1)] private int _requiredLevel = 1;
+
+    // 클리어해야 하는 스테이지 번호다. Stage 1은 0이다.
+    [SerializeField, Min(0)] private int _stageIndex;
+
+    // 무기 보유 목표에서 검사할 무기다.
+    [SerializeField] private WeaponData _weapon;
+
+    // 아이템 수집 목표에서 요구하는 모든 아이템과 수량이다.
+    // 목록의 모든 조건을 만족해야 목표를 달성한다.
     [SerializeField]
-    private CharacterData _character;
-
-    // CharacterLevel 조건에서 요구하는 캐릭터 레벨.
-    [SerializeField, Min(1)]
-    private int _requiredLevel = 1;
-
-    // StageClear 조건에서 검사할 스테이지 번호.
-    // 기존 저장 데이터와 동일하게 Stage 1은 0, Stage 2는 1이다.
-    [SerializeField, Min(0)]
-    private int _stageIndex;
-
-    // WeaponOwned 조건에서 소유 여부를 검사할 무기.
-    [SerializeField]
-    private WeaponData _weapon;
-
-    // 수집 대상 아이템 프리팹의 Item 컴포넌트다.
-    [SerializeField] private Item _item;
-
-    // 목표 달성에 필요한 보유 수량이다.
-    [SerializeField, Min(1)] private int _requiredCount = 1;
-
-    // 외부에서 수집 대상과 필요 수량을 조회한다.
-    public Item Item => _item;
-    public int RequiredCount => _requiredCount;
+    private List<QuestItemRequirement> _requiredItems =
+        new List<QuestItemRequirement>();
 
     // 외부에서는 목표 설정을 읽기만 한다.
     public QuestObjectiveType Type => _type;
@@ -42,8 +34,10 @@ public class QuestObjectiveData
     public int RequiredLevel => _requiredLevel;
     public int StageIndex => _stageIndex;
     public WeaponData Weapon => _weapon;
+    public IReadOnlyList<QuestItemRequirement> RequiredItems =>
+        _requiredItems;
 
-    // 선택한 목표 종류에 필요한 설정이 들어 있는지 확인한다.
+    // 선택한 목표에 필요한 설정이 모두 있는지 검사한다.
     public bool IsConfigured
     {
         get
@@ -65,19 +59,44 @@ public class QuestObjectiveData
                            !string.IsNullOrWhiteSpace(_weapon.Id);
 
                 case QuestObjectiveType.OpenAchievementWindow:
-                    // 업적창 열기는 추가 대상 설정이 필요 없다.
                     return true;
 
                 case QuestObjectiveType.ItemOwned:
-                    // 대상 아이템과 고유 ID, 필요 수량이 설정되어야 한다.
-                    return _item != null &&
-                           !string.IsNullOrWhiteSpace(_item.Id) &&
-                           _requiredCount >= 1;
+                    return AreRequiredItemsConfigured();
 
                 default:
-                    // 목표 미설정 상태를 달성 가능한 조건으로 취급하지 않는다.
                     return false;
             }
         }
+    }
+
+    // 수집 목록의 누락과 같은 아이템의 중복 등록을 검사한다.
+    private bool AreRequiredItemsConfigured()
+    {
+        if (_requiredItems == null || _requiredItems.Count == 0)
+        {
+            return false;
+        }
+
+        for (int i = 0; i < _requiredItems.Count; i++)
+        {
+            QuestItemRequirement requirement = _requiredItems[i];
+
+            if (requirement == null || !requirement.IsConfigured)
+            {
+                return false;
+            }
+
+            // 같은 아이템은 한 항목으로 등록하고 필요 수량을 지정한다.
+            for (int j = 0; j < i; j++)
+            {
+                if (_requiredItems[j].Item.Id == requirement.Item.Id)
+                {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 }

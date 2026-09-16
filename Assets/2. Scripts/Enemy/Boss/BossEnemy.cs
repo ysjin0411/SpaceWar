@@ -35,6 +35,9 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
     // 각 보스 프리팹의 Inspector에서 설정한다.
     [SerializeField, Min(0)] private int _userExpReward;
 
+    // 보스에 붙은 드롭 모듈이다.
+    private Drop _drop;
+
     // 현재 실제로 특수패턴을 실행 중인지 나타낸다.
     public bool IsSpecialPatternRunning { get; private set; }
 
@@ -99,9 +102,6 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
     [SerializeField]
     List<TimedBossPatternEntry> _timedPatternEntries =
     new List<TimedBossPatternEntry>(); // 시간 조건으로 실행할 일반 패턴 설정 목록
-
-    [Header("드랍 관리")]
-    [SerializeField] List<DropGroup> _dropGroups = new List<DropGroup>();
 
     Rigidbody2D _rigidbody;          // 보스 이동에 사용하는 Rigidbody2D
     BossRandomMover _randomMover;    // 공통 랜덤 이동을 처리하는 런타임 객체
@@ -413,8 +413,13 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
                 $"{name}: 보스와 플레이어 루트에 몸체 Collider2D가 필요합니다.");
         }
 
-        // 전투 시작 전에 모든 드롭 항목의 연결을 검사한다.
-        ValidateDropGroups();
+        // 보상 설정은 보스가 아닌 Drop 컴포넌트가 관리한다.
+        _drop = GetComponent<Drop>();
+
+        if (_drop != null)
+        {
+            _drop.Initialize(gameManager);
+        }
 
         // 현재 보스의 패턴 실행에 필요한 참조를 하나의 Context로 구성한다.
         _patternContext = new BossPatternContext(
@@ -530,10 +535,9 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
         _animator.SetTrigger(DieTriggerHash);
     }
 
-    // 사망 애니메이션이 끝나면 드롭을 한 번만 생성한다.
+    // 사망 애니메이션 종료 후 드롭을 실행한다.
     public void CompleteDefeat()
     {
-        // 사망 전 호출이나 중복 Animation Event를 무시한다.
         if (!_isDead || _isDefeatCompleted)
         {
             return;
@@ -541,8 +545,26 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
 
         _isDefeatCompleted = true;
 
-        // 설정된 드롭을 생성하고 필요한 획득 처리가 끝날 때까지 기다린다.
-        SpawnDefeatDrops();
+        // 드롭 모듈이 없는 보스는 바로 처치 완료를 알린다.
+        if (_drop == null)
+        {
+            FinishDefeat();
+            return;
+        }
+
+        // 재화가 모두 실제로 회수된 뒤 처치 완료를 알린다.
+        _drop.Execute(HandleDropsCompleted);
+    }
+
+    // 씬 전환 등으로 이미 제거된 보스에는 완료 처리를 하지 않는다.
+    private void HandleDropsCompleted()
+    {
+        if (this == null)
+        {
+            return;
+        }
+
+        FinishDefeat();
     }
 
     // 플레이어 몸체와 접촉했을 때만 몸박 피해를 준다.
@@ -614,141 +636,6 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
         if (SpecialPatternStateChanged != null)
         {
             SpecialPatternStateChanged.Invoke(isRunning);
-        }
-    }
-
-    // 보스가 죽은 뒤 설정 오류가 발견되지 않도록 생성 시 미리 검사한다.
-    private void ValidateDropGroups()
-    {
-        if (_dropGroups == null)
-        {
-            throw new InvalidOperationException(
-                $"{name}: Drop Groups 목록을 확인해주세요.");
-        }
-
-        foreach (DropGroup group in _dropGroups)
-        {
-            if (group == null || group.Entries == null)
-            {
-                throw new InvalidOperationException(
-                    $"{name}: 비어 있는 Drop Group 설정이 있습니다.");
-            }
-
-            foreach (DropPrefabEntry entry in group.Entries)
-            {
-                // 항목이 존재한다면 프리팹과 양수 개수가 모두 필요하다.
-                if (entry == null ||
-                    entry.Prefab == null ||
-                    entry.Count < 1)
-                {
-                    throw new InvalidOperationException(
-                        $"{name}: {group.GroupName}의 Prefab과 Count를 확인해주세요.");
-                }
-            }
-        }
-    }
-
-
-    // 골드는 기존 UI 생성 경로를 사용하고,
-    // 그 외 프리팹은 보스의 월드 위치에 설정한 개수만큼 생성한다.
-    private void SpawnDefeatDrops()
-    {
-        Vector3 dropPosition = transform.position;
-
-        // 획득 완료를 기다릴 골드 항목들을 먼저 모은다.
-        List<DropPrefabEntry> goldEntries =
-            new List<DropPrefabEntry>();
-
-        foreach (DropGroup group in _dropGroups)
-        {
-            foreach (DropPrefabEntry entry in group.Entries)
-            {
-                // 그룹 이름 대신 실제 Gold 컴포넌트로 종류를 판정한다.
-                if (entry.Prefab.TryGetComponent<Gold>(out _))
-                {
-                    goldEntries.Add(entry);
-                    continue;
-                }
-
-                // 프리팹 루트에서 인벤토리 아이템 정보를 읽는다.
-                Item item = entry.Prefab.GetComponent<Item>();
-
-                // Quest 그룹은 퀘스트 아이템 프리팹만 등록하도록 검사한다.
-                if (group.GroupName == "Quest" &&
-                    (item == null || item.Type != ItemType.Quest))
-                {
-                    Debug.LogError(
-                        $"{name}: Quest 그룹에는 ItemType.Quest인 Item이 필요합니다.",
-                        this);
-
-                    continue;
-                }
-
-                for (int i = 0; i < entry.Count; i++)
-                {
-                    if (item != null)
-                    {
-                        SaveManager saveManager = SaveManager.Instance;
-
-                        // 매 개체 생성 직전에 최신 수량과 퀘스트 상태를 검사한다.
-                        if (saveManager == null || !saveManager.CanDropItem(item))
-                        {
-                            break;
-                        }
-
-                        // 프리팹 한 개에 해당하는 아이템 1개를 즉시 획득·저장한다.
-                        if (!saveManager.TryAddItem(item, 1, out string error))
-                        {
-                            Debug.LogError(error, this);
-                            break;
-                        }
-                    }
-
-                    // 저장된 획득 결과를 보여줄 프리팹을 생성한다.
-                    // Item이 없는 기존 비골드 프리팹도 원래처럼 생성한다.
-                    Instantiate(
-                        entry.Prefab,
-                        dropPosition,
-                        entry.Prefab.transform.rotation);
-                }
-            }
-        }
-
-        // 골드가 없다면 생성 작업만 마친 뒤 즉시 다음 단계로 진행한다.
-        if (goldEntries.Count == 0)
-        {
-            FinishDefeat();
-            return;
-        }
-
-        // 각 항목은 자기 Count 전체의 획득이 끝났을 때 한 번 완료된다.
-        int remainingGoldGroups = goldEntries.Count;
-
-        foreach (DropPrefabEntry entry in goldEntries)
-        {
-            Gold goldPrefab = entry.Prefab.GetComponent<Gold>();
-
-            // 생성 위치, 원형 퍼짐, UI 이동, 저장까지 기존 경로에 맡긴다.
-            GameManager.SpawnGold(
-                goldPrefab,
-                dropPosition,
-                entry.Count,
-                () =>
-                {
-                    // 씬 전환 등으로 보스가 제거되었다면 완료 처리를 생략한다.
-                    if (this == null || remainingGoldGroups <= 0)
-                    {
-                        return;
-                    }
-
-                    remainingGoldGroups--;
-
-                    // 모든 드롭 골드가 실제로 지급된 뒤 처치 완료를 알린다.
-                    if (remainingGoldGroups == 0)
-                    {
-                        FinishDefeat();
-                    }
-                });
         }
     }
 

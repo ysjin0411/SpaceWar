@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5313640281587214573
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4008790366048633040}
+  m_Layer: 8
+  m_Name: ItemDropPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4008790366048633040
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5313640281587214573}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.75, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 752563982060792401}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5750769060912991443
 GameObject:
   m_ObjectHideFlags: 0
@@ -179,6 +210,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 752563982060792401}
+  - component: {fileID: 362521651163870308}
   - component: {fileID: 7667251967294688097}
   - component: {fileID: 486255449174284901}
   - component: {fileID: 4757110715007747093}
@@ -204,8 +236,31 @@ Transform:
   m_Children:
   - {fileID: 1320381252059303155}
   - {fileID: 8735207689797437126}
+  - {fileID: 4008790366048633040}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &362521651163870308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6958316962597483750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c218d44f287f324fb9a95e4e857a0e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dropGroups:
+  - _groupName: Money
+    _entries:
+    - _prefab: {fileID: 523677333196082315, guid: 02f86527c15f5bc4cad8b61a57339f3d, type: 3}
+      _count: 10
+  - _groupName: Quest
+    _entries:
+    - _prefab: {fileID: 1741529324464940269, guid: 1056bdc6af0943f4e9c5f854691450f8, type: 3}
+      _count: 1
+  _itemDropPoint: {fileID: 4008790366048633040}
 --- !u!114 &7667251967294688097
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,15 +293,6 @@ MonoBehaviour:
     _weight: 10
   - _pattern: {fileID: 11400000, guid: 78f7af7718e744d4fbb537b663305b1c, type: 2}
     _weight: 10
-  _dropGroups:
-  - _groupName: Money
-    _entries:
-    - _prefab: {fileID: 523677333196082315, guid: 02f86527c15f5bc4cad8b61a57339f3d, type: 3}
-      _count: 20
-  - _groupName: Quest
-    _entries:
-    - _prefab: {fileID: 1741529324464940269, guid: 1056bdc6af0943f4e9c5f854691450f8, type: 3}
-      _count: 1
   _healthSpecialPatternEntries:
   - _healthPercent: 70
     _pattern: {fileID: 11400000, guid: 909094ff4d83fcb458950b82ddc7479f, type: 2}

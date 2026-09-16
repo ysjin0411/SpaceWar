@@ -1,5 +1,7 @@
 using System;
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 /// <summary>
 /// 스테이지의 증강 게이지와 증강 시작·종료 흐름을 관리한다.
@@ -8,10 +10,6 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [Header("스테이지 UI")]
-
-    // 몬스터가 떨어뜨린 골드를 화면에 표시하는 UI
-    [SerializeField] private GoldUI _goldUI;
-
     // 증강 게이지 화면 표시와 연출을 담당하는 UI
     [SerializeField] private GaugeUIManager _gaugeUIManager;
 
@@ -39,6 +37,30 @@ public class GameManager : MonoBehaviour
     // 이번 스테이지에서 실제로 지급한 User 경험치의 총합.
     // 누적 합계는 넉넉한 정수 범위로 관리한다.
     [SerializeField] private long _stageEarnedUserExperience;
+
+    // 재화 종류별 수집 UI 목록이다.
+    // 같은 MoneyType을 처리하는 UI는 하나만 등록한다.
+    [SerializeField] private MoneyUI[] _moneyUIs = new MoneyUI[0];
+
+    // 월드의 보스 위치를 화면 좌표로 변환할 게임 카메라.
+    [SerializeField] private Camera _itemWorldCamera;
+
+    // 화면 전체를 덮는 Overlay Canvas 아래의 아이템 연출 영역.
+    [SerializeField] private RectTransform _itemEffectRoot;
+
+    // 기존 STAGE 안내 위치에 퀘스트 진행도를 표시할 담당자.
+    [SerializeField] private StageFlowManager _itemNoticeFlow;
+
+    // 여러 아이템을 얻었을 때 연출이 겹치지 않도록 순서대로 보관한다.
+    private readonly Queue<IEnumerator> _itemEffectQueue =
+        new Queue<IEnumerator>();
+
+    // 연출 대기열이 중복으로 실행되는 것을 막는다.
+    private bool _isPlayingItemEffects;
+
+    // Money UIs에서 찾은 골드 UI를 보관한다.
+    // 골드 획득 이벤트를 구독하고, 종료 시 같은 대상에서 해제한다.
+    private GoldUI _goldUI;
 
     // 결과창에서 이번 판의 User 경험치 획득량을 읽는다.
     public long StageEarnedUserExperience => _stageEarnedUserExperience;
@@ -97,13 +119,20 @@ public class GameManager : MonoBehaviour
                 $"{name}의 자연 게이지 충전속도는 0 이상이어야 합니다.");
         }
 
-        if (_goldUI == null)
+        // Inspector에서 등록한 Money UIs 목록에서 골드용 UI를 찾는다.
+        MoneyUI moneyUI = GetMoneyUI(MoneyType.Gold);
+
+        // 골드 획득 이벤트를 제공하는 GoldUI인지 확인한다.
+        if (!(moneyUI is GoldUI goldUI))
         {
             throw new InvalidOperationException(
-                $"{name}의 GoldUI가 연결되지 않았습니다.");
+                $"{name}: Gold 종류의 Money UI에는 GoldUI를 등록해주세요.");
         }
 
-        // 골드가 실제로 UI에 도착해 지급됐을 때 획득량을 누적한다.
+        // 이벤트 구독과 해제에 사용할 대상을 기억한다.
+        _goldUI = goldUI;
+
+        // 실제 골드 지급이 끝났을 때 스테이지 획득량을 집계한다.
         _goldUI.GoldCollected += HandleGoldCollected;
     }
 
@@ -215,23 +244,22 @@ public class GameManager : MonoBehaviour
             _maxGaugeBar);
     }
 
-    // 골드 생성 요청과 묶음 전체의 획득 완료 함수를 GoldUI에 전달한다.
-    public void SpawnGold(
-        Gold goldPrefab,
+    // 재화 종류에 맞는 UI로 생성 요청을 전달한다.
+    public void SpawnMoney(
+        Money prefab,
         Vector3 worldPosition,
-        int dropCount,
+        int count,
         Action onAllCollected = null)
     {
-        if (_goldUI == null)
+        if (prefab == null)
         {
-            throw new InvalidOperationException(
-                $"{name}에 GoldUI가 연결되지 않았습니다.");
+            throw new ArgumentNullException(nameof(prefab));
         }
 
-        _goldUI.SpawnGold(
-            goldPrefab,
+        GetMoneyUI(prefab.Type).SpawnMoney(
+            prefab,
             worldPosition,
-            dropCount,
+            count,
             onAllCollected);
     }
 
@@ -326,5 +354,125 @@ public class GameManager : MonoBehaviour
 
         // 실제 저장에 성공한 보상만 누적한다.
         _stageEarnedUserExperience += amount;
+    }
+
+    // 프리팹의 재화 종류에 맞는 UI를 찾는다.
+    public MoneyUI GetMoneyUI(MoneyType type)
+    {
+        MoneyUI result = null;
+
+        foreach (MoneyUI moneyUI in _moneyUIs)
+        {
+            if (moneyUI == null)
+            {
+                throw new InvalidOperationException(
+                    "Money UIs에 비어 있는 항목이 있습니다.");
+            }
+
+            if (moneyUI.Type != type)
+            {
+                continue;
+            }
+
+            if (result != null)
+            {
+                throw new InvalidOperationException(
+                    $"{type}의 MoneyUI가 중복 등록됐습니다.");
+            }
+
+            result = moneyUI;
+        }
+
+        if (result == null)
+        {
+            throw new InvalidOperationException(
+                $"{type}의 MoneyUI가 등록되지 않았습니다.");
+        }
+
+        return result;
+    }
+
+    // 드롭 초기화 단계에서 아이템 연출 연결을 검사한다.
+    public void ValidateItemEffectConfiguration()
+    {
+        if (_itemWorldCamera == null ||
+            _itemEffectRoot == null ||
+            _itemNoticeFlow == null)
+        {
+            throw new InvalidOperationException(
+                $"{name}: 아이템 연출 카메라, 영역, StageFlowManager를 연결해주세요.");
+        }
+
+        Canvas canvas = _itemEffectRoot.GetComponentInParent<Canvas>();
+
+        if (canvas == null ||
+            canvas.rootCanvas.renderMode != RenderMode.ScreenSpaceOverlay)
+        {
+            throw new InvalidOperationException(
+                "Item Effect Root는 Overlay Canvas 아래에 배치해주세요.");
+        }
+    }
+
+    // 이미 지급된 아이템의 연출과 진행도 표시를 예약한다.
+    public void EnqueueItemEffect(
+        Item prefab,
+        Vector3 worldPosition,
+        List<string> progressMessages,
+        Action onCompleted)
+    {
+        // 처치 순간의 화면 위치를 기억한다.
+        // 대기 중 보스가 제거되더라도 Transform을 다시 참조하지 않는다.
+        Vector3 screenPosition =
+            _itemWorldCamera.WorldToScreenPoint(worldPosition);
+
+        _itemEffectQueue.Enqueue(
+            PlayItemEffect(
+                prefab,
+                new Vector2(screenPosition.x, screenPosition.y),
+                progressMessages,
+                onCompleted));
+
+        if (_isPlayingItemEffects)
+        {
+            return;
+        }
+
+        _isPlayingItemEffects = true;
+        StartCoroutine(ProcessItemEffects());
+    }
+
+    // 대기 중인 아이템을 하나씩 표시한다.
+    private IEnumerator ProcessItemEffects()
+    {
+        while (_itemEffectQueue.Count > 0)
+        {
+            yield return _itemEffectQueue.Dequeue();
+        }
+
+        _isPlayingItemEffects = false;
+    }
+
+    // 아이템 연출 후 해당 획득의 진행도를 표시하고 완료를 알린다.
+    private IEnumerator PlayItemEffect(
+        Item prefab,
+        Vector2 startScreenPosition,
+        List<string> progressMessages,
+        Action onCompleted)
+    {
+        // 생성한 인스턴스에서 Item의 연출을 실행한다.
+        Item instance = Instantiate(prefab, _itemEffectRoot, false);
+
+        yield return instance.PlayCollectEffect(
+            _itemEffectRoot, startScreenPosition);
+
+        Destroy(instance.gameObject);
+
+        // 아이콘이 사라진 다음 진행도 문구를 표시한다.
+        yield return _itemNoticeFlow.ShowQuestProgress(progressMessages);
+
+        if (onCompleted != null)
+        {
+            onCompleted.Invoke();
+        }
     }
 }
