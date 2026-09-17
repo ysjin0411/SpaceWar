@@ -53,6 +53,9 @@ public class PlayerController : MonoBehaviour, IDamageable
     // 캐릭터가 사망했을 때 스테이지 시스템에 알린다.
     public event Action Died;
 
+    // 이동 연출 등으로 조작 가능 상태가 바뀌면 무기에도 알린다.
+    public event Action<bool> ControlStateChanged;
+
 
 
     private void Awake()
@@ -175,60 +178,75 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     // 이 아래에는 기존 SetControlEnabled 메서드가 이어진다.
 
-    /// <summary>
-    /// 플레이어의 직접 이동 조작 가능 여부를 변경한다.
-    /// 입장·퇴장 연출에서는 false, 전투 시작 시에는 true를 전달한다.
-    /// </summary>
     public void SetControlEnabled(bool canControl)
     {
+        // 플레이어의 조작 허용 상태를 변경한다.
         _canControl = canControl;
 
-        // 이전 프레임의 입력 방향이 연출 종료 후 다시 적용되지 않게 초기화한다.
+        // 잠금 이전의 이동 입력이 남지 않도록 초기화한다.
         _moveDirection = Vector2.zero;
 
-        // 조작을 잠글 때 현재 이동 속도도 즉시 제거한다.
         if (!_canControl)
         {
+            // 연출 중에는 플레이어 입력으로 움직이지 않는다.
             _rigidbody.linearVelocity = Vector2.zero;
+        }
+
+        // 무기가 진행 중인 공격을 즉시 중단할 수 있도록 알린다.
+        if (ControlStateChanged != null)
+        {
+            ControlStateChanged.Invoke(_canControl);
         }
     }
 
-    // 피해를 적용하고, 살아 있다면 깜빡임 동안 추가 피해를 막는다.
+    // 일반 공격의 피해를 처리한다.
+    // 피격 애니메이션 중에는 추가 일반 피해를 받지 않는다.
     public void TakeHit(int damage)
     {
-        // 조작이 제한되었거나 사망했거나 피격 무적 중이면 피해를 무시한다.
-        if (!_canControl || IsDead || _isHitInvulnerable)
+        if (!_canControl || IsDead || _isHitInvulnerable || damage <= 0)
         {
             return;
         }
 
-        // 유효한 피해만 처리한다.
-        if (damage <= 0)
+        ApplyDamage(damage, true);
+    }
+
+    // 투사체에 접촉한 시간에 따라 발생하는 지속 피해를 처리한다.
+    // 일반 피격 무적 시간의 영향을 받지 않으며,
+    // 이동 연출 중이거나 이미 사망했다면 피해를 받지 않는다.
+    public void TakeContinuousDamage(int damage)
+    {
+        if (!_canControl || IsDead || damage <= 0)
         {
             return;
         }
 
+        ApplyDamage(damage, false);
+    }
+
+    // 일반 피해와 지속 피해의 체력 감소, UI 갱신, 사망 처리를 공유한다.
+    private void ApplyDamage(int damage, bool playHitReaction)
+    {
         // 체력이 음수가 되지 않도록 제한한다.
         _currentHp = Mathf.Max(0, _currentHp - damage);
 
-        if (_currentHp > 0)
+        // 일반 피해를 받고 살아남았을 때만 피격 애니메이션을 요청한다.
+        // 지속 피해마다 애니메이션을 다시 시작하지 않도록 구분한다.
+        if (_currentHp > 0 && playHitReaction)
         {
-            // 이벤트보다 먼저 무적을 켜서 같은 프레임의 연속 피격도 막는다.
+            // 이벤트 처리 중 다른 공격이 들어와도 중복 피격을 막는다.
             _isHitInvulnerable = true;
 
-            // 깜빡임 애니메이션을 재생하도록 알린다.
             if (Damaged != null)
             {
                 Damaged.Invoke(damage);
             }
         }
 
-        // 변경된 체력을 화면에 반영한다.
+        // 두 종류의 피해 모두 기존 체력 UI에 반영한다.
         UpdateHpUI();
 
-        Debug.Log($"받은 데미지: {damage}");
-
-        // 치명적인 피해라면 기존 사망 처리를 실행한다.
+        // 지속 피해로 체력이 소진되어도 기존 사망 처리를 실행한다.
         if (_currentHp <= 0)
         {
             Die();

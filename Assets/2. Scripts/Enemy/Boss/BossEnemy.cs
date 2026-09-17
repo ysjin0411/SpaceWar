@@ -51,17 +51,26 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
     static readonly int DieTriggerHash =
         Animator.StringToHash("Die");
 
-    // 자식 Renderer에 있는 보스 Animator
-    Animator _animator;
+    // 보스 본체의 Animator를 지정한다.
+    // 크루저는 EntityRoot 아래 Renderer의 Animator를 연결한다.
+    [SerializeField] private Animator _animator;
 
     // 사망 완료 처리가 중복 실행되는 것을 방지한다.
     bool _isDefeatCompleted;
 
-    // 보스 루트에 있는 몸체 콜라이더다.
-    private Collider2D _bossBodyCollider;
+    // 보스 본체의 피격과 접촉에 사용하는 콜라이더를 지정한다.
+    // 크루저는 EntityRoot의 Collider2D를 연결한다.
+    [SerializeField] private Collider2D _bossBodyCollider;
 
     // 현재 플레이어 루트에 있는 몸체 콜라이더다.
     private Collider2D _playerBodyCollider;
+
+    // 보스별 페이즈 처리에서 본체 콜라이더를 제어할 수 있게 한다.
+    protected Collider2D BodyCollider => _bossBodyCollider;
+
+    // 기본 보스는 피해를 받을 수 있다.
+    // 크루저는 이 조건을 재정의해 1페이즈의 본체 피해를 막는다.
+    protected virtual bool CanReceiveDamage => true;
 
     // 복귀 때문에 몸체 충돌을 무시하고 있는지 기록한다.
     private bool _isReturnCollisionIgnored;
@@ -166,6 +175,9 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
     public Vector2 MovementCenter =>
         _randomMover.MovementCenter;
 
+    // 입장을 마치고 Initialize가 호출되었는지 외부에 알려준다.
+    public bool HasBattleStarted => _isInitialized;
+
 
 
     protected virtual void Awake()
@@ -193,13 +205,18 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
         // 아직 사망 애니메이션 완료 처리를 하지 않은 상태다.
         _isDefeatCompleted = false;
 
-        // 보스 자식 Renderer에서 Animator를 찾는다.
-        _animator = GetComponentInChildren<Animator>();
-
+        // 여러 자식 중 임의의 Animator가 선택되지 않도록 직접 연결을 요구한다.
         if (_animator == null)
         {
-            throw new MissingComponentException(
-                $"{name}의 자식에서 Animator를 찾을 수 없습니다.");
+            throw new InvalidOperationException(
+                $"{name}: 본체 Animator를 연결하세요.");
+        }
+
+        // 최상단뿐 아니라 자식에 있는 본체 콜라이더도 사용할 수 있다.
+        if (_bossBodyCollider == null)
+        {
+            throw new InvalidOperationException(
+                $"{name}: 본체 Collider2D를 연결하세요.");
         }
 
         // 보스 이동에 사용할 Rigidbody2D를 가져온다.
@@ -402,8 +419,6 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
         TargetPlayer = playerController;
         GameManager = gameManager;
 
-        // 자식의 무기 콜라이더를 제외하고 루트의 몸체만 가져온다.
-        _bossBodyCollider = GetComponent<Collider2D>();
         _playerBodyCollider = TargetPlayer.GetComponent<Collider2D>();
 
         // 몸체가 누락된 프리팹은 초기화 단계에서 확인한다.
@@ -465,8 +480,8 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
     /// </summary>
     public void TakeHit(int damage)
     {
-        // 사망한 보스는 추가 피해를 받지 않는다.
-        if (_isDead)
+        // 입장 중이거나 사망했거나 현재 페이즈가 무적이면 피해를 받지 않는다.
+        if (!_isInitialized || _isDead || !CanReceiveDamage)
         {
             return;
         }
@@ -709,4 +724,15 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
         RestoreReturnCollision();
     }
 
+    // 자식 보스가 페이즈를 전환할 때 기존 패턴 실행과 대기열을 정리한다.
+    protected void StopPatternsForPhaseChange()
+    {
+        if (_patternRunner == null)
+        {
+            return;
+        }
+
+        // 기존 실행기의 중단 처리를 사용하므로 패턴의 finally도 실행된다.
+        _patternRunner.StopAll();
+    }
 }

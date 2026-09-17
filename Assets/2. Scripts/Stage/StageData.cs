@@ -34,6 +34,12 @@ public class StageData : ScriptableObject
     [SerializeField, HideInInspector] BossEnemy _midBossPrefab;
     [SerializeField, HideInInspector] BossEnemy _finalBossPrefab;
 
+    // 잠긴 스테이지는 지도에서 선택할 수 있지만 입장할 수 없다.
+    [SerializeField] bool _isLocked;
+
+    // 선택 화면과 에디터에서 잠금 여부를 확인한다.
+    public bool IsLocked => _isLocked;
+
     public int StageIndex => _stageIndex;
     public string StageName => _stageName;
     public Sprite StageIcon => _stageIcon;

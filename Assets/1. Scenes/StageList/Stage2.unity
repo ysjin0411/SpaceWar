@@ -335,7 +335,7 @@ MonoBehaviour:
   _exitStartDelay: 0.5
   _exitDuration: 2
   _backgroundScroller: {fileID: 242165591}
-  _section2BackgroundSprite: {fileID: 21300000, guid: e62ad9993f54bf241a9cd09be0ffeca7, type: 3}
+  _section2BackgroundSprite: {fileID: 21300000, guid: 28961ced9219d0b428a0c5c610f12e01, type: 3}
   _entranceStartPoint: {fileID: 1651658653}
   _battlePoint: {fileID: 346741452}
   _entranceDuration: 2
@@ -3619,7 +3619,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6e263ed733ac5ff4d87de7ca2d11025e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6b5d445c21383fa408c40c52b2424625, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -3639,8 +3639,8 @@ Transform:
   m_GameObject: {fileID: 640199226}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -3, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 0.3}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 242165590}
@@ -3663,7 +3663,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &660052077
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4916,7 +4916,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _stageFlowManager: {fileID: 938821203}
   _midBossPrefab: {fileID: 7667251967294688097, guid: c71b4f42b6f3c704bb88e0f499a940e0, type: 3}
-  _finalBossPrefab: {fileID: 4304024611186011532, guid: fc2cd4a67a1c1ad4bb2204c18c33aa66, type: 3}
+  _finalBossPrefab: {fileID: 8790472829186395643, guid: 7ee450cb08ab104468c3c24720064aa7, type: 3}
   _midBossSpawnPoint: {fileID: 2022784328}
   _finalBossSpawnPoint: {fileID: 2022784328}
   _treasureBoxPrefab: {fileID: 1036794761559985040, guid: b8fb520897cba0049a9309965817f442, type: 3}
@@ -4925,6 +4925,9 @@ MonoBehaviour:
   _finalBossTreasureChance: 1
   _treasureRewardWaitSeconds: 2
   _treasureExitDuration: 0.5
+  _midBossEntrancePoint: {fileID: 1567953428}
+  _finalBossEntrancePoint: {fileID: 2063422564}
+  _bossEntranceDuration: 2
 --- !u!4 &892676529
 Transform:
   m_ObjectHideFlags: 0
@@ -5074,8 +5077,8 @@ MonoBehaviour:
   _stageIntroCanvasGroup: {fileID: 623040792}
   _stageIntroFadeDuration: 0.3
   _stageIntroBlinkCount: 3
-  _section1Duration: 60
-  _section2Duration: 60
+  _section1Duration: 2
+  _section2Duration: 2
   _currentPhase: 0
   _stageElapsedTime: 0
   _phaseElapsedTime: 0
@@ -7439,6 +7442,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1559575436}
   m_CullTransparentMesh: 1
+--- !u!1 &1567953427
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1567953428}
+  m_Layer: 0
+  m_Name: MidBossEntrancePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1567953428
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1567953427}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 16.43, y: 1.83, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1637437463
 GameObject:
   m_ObjectHideFlags: 0
@@ -9704,6 +9738,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2039294171}
   m_CullTransparentMesh: 1
+--- !u!1 &2063422563
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2063422564}
+  m_Layer: 0
+  m_Name: FinalBossEntrancePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2063422564
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2063422563}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 34, y: -4.29, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2066918995
 GameObject:
   m_ObjectHideFlags: 0
@@ -9963,9 +10028,9 @@ Transform:
   m_GameObject: {fileID: 2095253224}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -3, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 0.3}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 242165590}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10013,7 +10078,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6e263ed733ac5ff4d87de7ca2d11025e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6b5d445c21383fa408c40c52b2424625, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -10252,3 +10317,5 @@ SceneRoots:
   - {fileID: 997056222}
   - {fileID: 1528121865}
   - {fileID: 1644372883}
+  - {fileID: 1567953428}
+  - {fileID: 2063422564}

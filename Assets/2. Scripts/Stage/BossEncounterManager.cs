@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
-using System.Collections;      
+using System.Collections;
+using DG.Tweening;
 /// <summary>
 /// 스테이지 페이즈에 맞춰 중간보스와 최종보스를 생성한다.
 /// 생성한 보스에게 현재 플레이어와 GameManager를 전달한다.
@@ -54,6 +55,18 @@ public class BossEncounterManager : MonoBehaviour
     // 보상 획득 후 대기가 끝나면 상자가 서서히 사라지는 시간이다.
     [SerializeField, Min(0.01f)]
     float _treasureExitDuration = 0.5f;
+
+    // 중간보스가 처음 생성되는 화면 밖 위치다.
+    [SerializeField] private Transform _midBossEntrancePoint;
+
+    // 최종보스가 처음 생성되는 화면 밖 위치다.
+    [SerializeField] private Transform _finalBossEntrancePoint;
+
+    // 화면 밖에서 기존 전투 위치까지 이동하는 시간이다.
+    [SerializeField, Min(0.1f)] private float _bossEntranceDuration = 2f;
+
+    // 입장 중 실패하거나 씬을 나가면 이동 연출을 취소한다.
+    private Tween _bossEntranceTween;
 
     // 실패하거나 상자를 정리할 때 대기를 취소하기 위해 보관한다.
     Coroutine _treasureRewardWaitCoroutine;
@@ -120,6 +133,19 @@ public class BossEncounterManager : MonoBehaviour
             throw new InvalidOperationException(
                 $"{name}: Treasure Box Prefab과 Treasure Box Point를 연결하세요.");
         }
+
+        // 기존 SpawnPoint는 도착 위치이고, EntrancePoint는 화면 밖 시작 위치다.
+        if (_midBossEntrancePoint == null || _finalBossEntrancePoint == null)
+        {
+            throw new InvalidOperationException(
+                $"{name}: 중간보스와 최종보스의 Entrance Point를 연결하세요.");
+        }
+
+        if (_bossEntranceDuration <= 0f)
+        {
+            throw new InvalidOperationException(
+                $"{name}: 보스 입장 시간은 0보다 커야 합니다.");
+        }
     }
 
     private void OnEnable()
@@ -136,6 +162,9 @@ public class BossEncounterManager : MonoBehaviour
         {
             _stageFlowManager.PhaseChanged -= HandlePhaseChanged;
         }
+
+        // 씬을 나가거나 관리자가 비활성화되면 입장 연출을 취소한다.
+        CancelBossEntrance();
     }
 
     /// <summary>
@@ -169,68 +198,115 @@ public class BossEncounterManager : MonoBehaviour
         switch (phase)
         {
             case StagePhase.MidBossBattle:
-
+                // 화면 밖 시작 위치에서 기존 중간보스 위치까지 입장한다.
                 SpawnBoss(
                     _midBossPrefab,
-                    _midBossSpawnPoint);
+                    _midBossSpawnPoint,
+                    _midBossEntrancePoint);
                 break;
 
             case StagePhase.FinalBossBattle:
-
+                // 화면 밖 시작 위치에서 기존 최종보스 위치까지 입장한다.
                 SpawnBoss(
                     _finalBossPrefab,
-                    _finalBossSpawnPoint);
+                    _finalBossSpawnPoint,
+                    _finalBossEntrancePoint);
                 break;
 
             // 상자 진행 중 플레이어가 죽거나 스테이지가 종료되면 상자를 제거한다.
             case StagePhase.Failed:
             case StagePhase.Cleared:
+                // 실패 또는 종료 시 입장 중인 보스가 뒤늦게 전투를 시작하지 않게 한다.
+                CancelBossEntrance();
+
+                // 기존 보물상자 정리도 유지한다.
                 ClearTreasureBox();
                 break;
         }
     }
 
-    /// <summary>
-    /// 전달받은 보스 프리팹을 지정된 위치에 생성하고 초기화한다.
-    /// </summary>
     private void SpawnBoss(
-        BossEnemy bossPrefab,
-        Transform spawnPoint)
+    BossEnemy bossPrefab,
+    Transform battlePoint,
+    Transform entrancePoint)
     {
         if (!_isInitialized)
         {
             throw new InvalidOperationException(
-                "BossEncounterManager가 StageManager로부터 초기화되지 않았습니다.");
+                "BossEncounterManager가 초기화되지 않았습니다.");
         }
 
-        // 살아 있는 보스가 있는데 다른 보스를 중복 생성하지 않는다.
+        // 입장 중인 보스도 현재 보스로 취급하여 중복 생성을 막는다.
         if (_currentBoss != null && !_currentBoss.IsDead)
         {
-            Debug.LogWarning(
-                $"이미 전투 중인 보스가 있습니다: {_currentBoss.name}");
-
             return;
         }
 
-        // BossEnemy 컴포넌트를 통해 프리팹 전체를 생성한다.
-        _currentBoss = Instantiate(
+        // 기존 SpawnPoint의 위치를 도착 위치로 보관한다.
+        Vector3 destination = battlePoint.position;
+
+        // 어느 전투 단계에서 시작한 입장인지 기록한다.
+        StagePhase entrancePhase = _stageFlowManager.CurrentPhase;
+
+        // 보스는 화면 밖에서 생성한다.
+        BossEnemy enteringBoss = Instantiate(
             bossPrefab,
-            spawnPoint.position,
-            spawnPoint.rotation);
+            entrancePoint.position,
+            battlePoint.rotation);
 
-        // 생성된 보스가 처치됐을 때 알림을 받는다.
-        _currentBoss.Defeated += HandleBossDefeated;
+        _currentBoss = enteringBoss;
 
-        // 보스 UI가 HealthChanged 이벤트를 먼저 구독할 수 있도록
-        // 보스 초기화 전에 생성된 보스를 전달한다.
-        BossSpawned?.Invoke(_currentBoss);
+        Rigidbody2D body = enteringBoss.GetComponent<Rigidbody2D>();
 
-        // 보스 패턴에서 사용할 플레이어와 GameManager를 전달한다.
-        _currentBoss.Initialize(
-            _playerController,
-            _gameManager);
+        // 입장 중에는 자식 타워를 포함한 물리 충돌을 비활성화한다.
+        // Collider의 개별 enabled 상태는 변경하지 않는다.
+        body.simulated = false;
 
-        Debug.Log($"보스를 생성했습니다: {_currentBoss.name}");
+        // Initialize를 아직 호출하지 않았으므로
+        // 보스 이동과 패턴, 크루저 타워의 공격 시간은 시작되지 않는다.
+        _bossEntranceTween = enteringBoss.transform
+            .DOMove(destination, _bossEntranceDuration)
+            .SetEase(Ease.OutSine)
+            .SetLink(enteringBoss.gameObject)
+            .OnComplete(() =>
+            {
+                // 입장 도중 전투가 끝났거나 플레이어가 죽었다면 시작하지 않는다.
+                if (!isActiveAndEnabled ||
+                    enteringBoss == null ||
+                    _currentBoss != enteringBoss ||
+                    _stageFlowManager.CurrentPhase != entrancePhase ||
+                    _playerController.IsDead)
+                {
+                    CancelBossEntrance();
+                    return;
+                }
+
+                _bossEntranceTween = null;
+
+                // Rigidbody 위치도 도착 위치로 맞춘다.
+                // 이후 일반 이동의 기준점이 이 위치가 된다.
+                body.position = new Vector2(
+                    destination.x,
+                    destination.y);
+
+                // 실제 전투를 시작할 보스의 처치 이벤트를 구독한다.
+                enteringBoss.Defeated += HandleBossDefeated;
+
+                // 체력 초기 알림을 받을 수 있도록 UI를 먼저 연결한다.
+                if (BossSpawned != null)
+                {
+                    BossSpawned.Invoke(enteringBoss);
+                }
+
+                // 도착 후에만 이동과 패턴, 타워별 공격 시간을 시작한다.
+                enteringBoss.Initialize(
+                    _playerController,
+                    _gameManager);
+
+                // 각 Collider의 기존 활성 상태를 유지하며 물리 참여를 재개한다.
+                // 크루저의 1페이즈 본체 Collider는 계속 꺼져 있다.
+                body.simulated = true;
+            });
     }
 
     // 보스 사망 애니메이션이 끝났을 때 호출된다.
@@ -482,5 +558,30 @@ public class BossEncounterManager : MonoBehaviour
 
         // 중간보스는 이동 연출, 최종보스는 클리어와 결과창으로 이어진다.
         _stageFlowManager.NotifyBossDefeated();
+    }
+
+    private void CancelBossEntrance()
+    {
+        // 이미 입장을 끝내 전투 중이라면 이 함수에서 제거하지 않는다.
+        if (_bossEntranceTween == null)
+        {
+            return;
+        }
+
+        // 완료 콜백을 실행하지 않고 입장 이동을 취소한다.
+        _bossEntranceTween.Kill();
+        _bossEntranceTween = null;
+
+        if (_currentBoss == null || _currentBoss.HasBattleStarted)
+        {
+            return;
+        }
+
+        // 입장 중이던 보스는 처치 보상 없이 정리한다.
+        BossEnemy cancelledBoss = _currentBoss;
+        _currentBoss = null;
+
+        cancelledBoss.gameObject.SetActive(false);
+        Destroy(cancelledBoss.gameObject);
     }
 }

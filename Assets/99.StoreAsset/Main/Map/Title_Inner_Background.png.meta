@@ -1,0 +1,296 @@
+fileFormatVersion: 2
+guid: 2c6bbf6c76e72034f83cfa2b01bda890
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1306686044127946930
+    second: Title_Inner_Background_0
+  - first:
+      213: -8813264930450527445
+    second: Title_Inner_Background_1
+  - first:
+      213: 8424971502228698440
+    second: Title_Inner_Background_2
+  - first:
+      213: -5798947202534786070
+    second: Title_Inner_Background_3
+  - first:
+      213: 7363006042236367355
+    second: Title_Inner_Background_4
+  - first:
+      213: -7769723942236647496
+    second: Title_Inner_Background_5
+  - first:
+      213: -9146222591456385027
+    second: Title_Inner_Background_6
+  - first:
+      213: -6283585974681140622
+    second: Title_Inner_Background_7
+  - first:
+      213: 1293888764879700501
+    second: Title_Inner_Background_8
+  - first:
+      213: 8126802749252346004
+    second: Title_Inner_Background_9
+  - first:
+      213: -6405634213281830768
+    second: Title_Inner_Background_10
+  - first:
+      213: 879073110086568284
+    second: Title_Inner_Background_11
+  - first:
+      213: 8532307673691728223
+    second: Title_Inner_Background_12
+  - first:
+      213: -1348323904079373479
+    second: Title_Inner_Background_13
+  - first:
+      213: 2758569228820006089
+    second: Title_Inner_Background_14
+  - first:
+      213: -3672678010891216225
+    second: Title_Inner_Background_15
+  - first:
+      213: -3296399745114912507
+    second: Title_Inner_Background_16
+  - first:
+      213: 7417976565741485815
+    second: Title_Inner_Background_17
+  - first:
+      213: 8414272574433587272
+    second: Title_Inner_Background_18
+  - first:
+      213: -8733163095715713593
+    second: Title_Inner_Background_19
+  - first:
+      213: 8165511988394216845
+    second: Title_Inner_Background_20
+  - first:
+      213: 4121839202474210639
+    second: Title_Inner_Background_21
+  - first:
+      213: 3961360232971336602
+    second: Title_Inner_Background_22
+  - first:
+      213: 1964167671599470961
+    second: Title_Inner_Background_23
+  - first:
+      213: -1750212736705082484
+    second: Title_Inner_Background_24
+  - first:
+      213: -1559305269383320366
+    second: Title_Inner_Background_25
+  - first:
+      213: 2428932079229093049
+    second: Title_Inner_Background_26
+  - first:
+      213: 3213473253995230276
+    second: Title_Inner_Background_27
+  - first:
+      213: -7460509884810110578
+    second: Title_Inner_Background_28
+  - first:
+      213: 4392469720720326160
+    second: Title_Inner_Background_29
+  - first:
+      213: -9104813991141634230
+    second: Title_Inner_Background_30
+  - first:
+      213: 2564722439279585876
+    second: Title_Inner_Background_31
+  - first:
+      213: -7055482139358060596
+    second: Title_Inner_Background_32
+  - first:
+      213: -8150097507306433668
+    second: Title_Inner_Background_33
+  - first:
+      213: 2864263484186386197
+    second: Title_Inner_Background_34
+  - first:
+      213: 7332423031811488160
+    second: Title_Inner_Background_35
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Title_Inner_Background_30
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 220
+        width: 2172
+        height: 321
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 722, y: 122, z: 752, w: 95}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a4f0ff71ae335a180800000000000000
+      internalID: -9104813991141634230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 137f760c290b22344afc340aac581eee
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Title_Inner_Background_0: 1306686044127946930
+      Title_Inner_Background_1: -8813264930450527445
+      Title_Inner_Background_10: -6405634213281830768
+      Title_Inner_Background_11: 879073110086568284
+      Title_Inner_Background_12: 8532307673691728223
+      Title_Inner_Background_13: -1348323904079373479
+      Title_Inner_Background_14: 2758569228820006089
+      Title_Inner_Background_15: -3672678010891216225
+      Title_Inner_Background_16: -3296399745114912507
+      Title_Inner_Background_17: 7417976565741485815
+      Title_Inner_Background_18: 8414272574433587272
+      Title_Inner_Background_19: -8733163095715713593
+      Title_Inner_Background_2: 8424971502228698440
+      Title_Inner_Background_20: 8165511988394216845
+      Title_Inner_Background_21: 4121839202474210639
+      Title_Inner_Background_22: 3961360232971336602
+      Title_Inner_Background_23: 1964167671599470961
+      Title_Inner_Background_24: -1750212736705082484
+      Title_Inner_Background_25: -1559305269383320366
+      Title_Inner_Background_26: 2428932079229093049
+      Title_Inner_Background_27: 3213473253995230276
+      Title_Inner_Background_28: -7460509884810110578
+      Title_Inner_Background_29: 4392469720720326160
+      Title_Inner_Background_3: -5798947202534786070
+      Title_Inner_Background_30: -9104813991141634230
+      Title_Inner_Background_31: 2564722439279585876
+      Title_Inner_Background_32: -7055482139358060596
+      Title_Inner_Background_33: -8150097507306433668
+      Title_Inner_Background_34: 2864263484186386197
+      Title_Inner_Background_35: 7332423031811488160
+      Title_Inner_Background_4: 7363006042236367355
+      Title_Inner_Background_5: -7769723942236647496
+      Title_Inner_Background_6: -9146222591456385027
+      Title_Inner_Background_7: -6283585974681140622
+      Title_Inner_Background_8: 1293888764879700501
+      Title_Inner_Background_9: 8126802749252346004
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

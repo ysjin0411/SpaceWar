@@ -3,11 +3,15 @@ using System.Collections.Generic;
 
 public enum SmallEnemyState
 {
-    Entering,       // 화면 밖에서 진입 지점까지 이동
-    Spreading,      // 각자 지정된 그물 대형 위치로 전개
-    Aiming,         // 잠시 멈추며 플레이어 위치를 조준
-    Charging,       // 조준 순간의 방향으로 직선 돌진
-    Exploding       // 범위 피해를 주고 제거
+    Entering,      // 기존 일반 소환의 직선 진입.
+    Spreading,     // 기존 대형 위치로 이동.
+    Aiming,        // 플레이어를 조준.
+    Charging,      // 조준한 방향으로 돌진.
+    Exploding,     // 자폭.
+
+    // 크루저의 구멍에서 곡선으로 출격.
+    // 기존 상태의 번호를 유지하기 위해 마지막에 추가한다.
+    CurvedEntering
 }
 
 public enum SmallEnemyMoveType
@@ -82,6 +86,22 @@ public class SmallEnemy : Enemy
     // 검사 결과 목록을 재사용해 매 프레임 메모리 생성을 줄인다.
     readonly List<Collider2D> _contactOverlaps = new();
     readonly List<RaycastHit2D> _contactHits = new();
+
+    // 소환 순간의 위치. 곡선의 시작점으로 사용한다.
+    private Vector2 _curveStart;
+
+    // 구멍에서 솟아오르는 방향과 높이를 결정하는 첫 번째 제어점.
+    private Vector2 _curveControl1;
+
+    // 플레이어 쪽으로 휘어지는 모양을 결정하는 두 번째 제어점.
+    private Vector2 _curveControl2;
+
+    // 곡선 이동을 마치고 조준을 시작할 위치.
+    private Vector2 _curveEnd;
+
+    // 이 적 한 마리가 곡선을 따라 이동하는 시간.
+    // 패턴 전체의 소환 시간과는 별개다.
+    private float _curveDuration;
 
     protected override void Awake()
     {
@@ -331,6 +351,11 @@ public class SmallEnemy : Enemy
 
             case SmallEnemyState.Exploding:
                 Explode();
+                break;
+
+            case SmallEnemyState.CurvedEntering:
+                // 크루저에서 소환된 적의 곡선 이동을 갱신한다.
+                UpdateCurvedEntering();
                 break;
         }
     }
@@ -583,5 +608,70 @@ public class SmallEnemy : Enemy
 
         return TryExplodeOnContact(
             target, contactPosition, hitPoint);
+    }
+
+    // 크루저 패턴이 적을 생성하고 기본 Init()을 호출한 뒤 사용한다.
+    // 제어점과 도착점은 모두 월드 좌표다.
+    public void InitializeCurvedSuicidePattern(
+        Vector2 control1,
+        Vector2 control2,
+        Vector2 endPosition,
+        float duration)
+    {
+        if (!(duration > 0f) || float.IsInfinity(duration))
+        {
+            throw new System.ArgumentOutOfRangeException(
+                nameof(duration),
+                "곡선 이동 시간은 유효한 양수여야 합니다.");
+        }
+
+        // 기존 자폭 방식과 플레이어·실드 접촉 검사를 사용한다.
+        _moveType = SmallEnemyMoveType.Suicide;
+
+        // 출격 순간의 경로를 저장한다.
+        // 출격한 뒤에는 크루저가 움직여도 이 경로를 따라간다.
+        _curveStart = transform.position;
+        _curveControl1 = control1;
+        _curveControl2 = control2;
+        _curveEnd = endPosition;
+        _curveDuration = duration;
+
+        // 기존 상태 타이머를 초기화하고 곡선 출격을 시작한다.
+        _stateTimer = 0f;
+        _currentState = SmallEnemyState.CurvedEntering;
+        _isPatternInitialized = true;
+    }
+
+    // 구멍에서 곡선으로 출격한 뒤 기존 조준 상태로 전환한다.
+    private void UpdateCurvedEntering()
+    {
+        _stateTimer += Time.deltaTime;
+
+        // 이동 진행도를 0~1로 계산한다.
+        float t = Mathf.Clamp01(_stateTimer / _curveDuration);
+        float remaining = 1f - t;
+
+        // 시작점, 제어점 두 개, 도착점으로 베지어 곡선 위치를 계산한다.
+        Vector2 nextPosition =
+            remaining * remaining * remaining * _curveStart +
+            3f * remaining * remaining * t * _curveControl1 +
+            3f * remaining * t * t * _curveControl2 +
+            t * t * t * _curveEnd;
+
+        // 기존 이동 경로의 충돌 검사를 그대로 사용한다.
+        // 출격 중 플레이어나 실드에 접촉하면 기존 자폭 처리가 실행된다.
+        if (!MoveWithContactCheck(nextPosition))
+        {
+            return;
+        }
+
+        if (t < 1f)
+        {
+            return;
+        }
+
+        // 곡선 끝에서는 기존 조준 시간을 새로 계산한다.
+        _stateTimer = 0f;
+        _currentState = SmallEnemyState.Aiming;
     }
 }

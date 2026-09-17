@@ -40,6 +40,9 @@ public class StageSelectManager : MonoBehaviour
     // StageInfoPanel에 붙어 있는 CanvasGroup.
     [SerializeField] CanvasGroup _infoPanel;
 
+    // StageInfoPanel 바로 아래에 있는 잠금 이미지 오브젝트.
+    [SerializeField] GameObject _lockedImage;
+
     // 선택한 스테이지 이름과 최단 클리어 기록.
     [SerializeField] TMP_Text _stageNameText;
     [SerializeField] TMP_Text _clearTimeText;
@@ -198,12 +201,13 @@ public class StageSelectManager : MonoBehaviour
         HideSelectedRing();
         _selectedNodeIndex = nodeIndex;
 
-        RefreshStageInformation(node.Data);
+        // 잠금 상태에 맞춰 정보 패널과 입장 버튼을 갱신한다.
+        RefreshPanelContents(node.Data);
+
+        // 잠금 여부와 관계없이 지도 이동과 선택 표시는 유지한다.
         MoveMapToNode(node);
         ShowSelectedRing(node.SelectionRing);
         ShowInformationPanel();
-
-        _enterButton.interactable = true;
     }
 
     private void MoveMapToNode(StageNode node)
@@ -359,6 +363,12 @@ public class StageSelectManager : MonoBehaviour
 
         StageData data = _stageNodes[_selectedNodeIndex].Data;
 
+        // 버튼 이벤트 등에서 직접 호출되어도 잠긴 스테이지에는 입장하지 않는다.
+        if (data == null || data.IsLocked)
+        {
+            return;
+        }
+
         // 기존 캐릭터 선택 진입 흐름을 유지한다.
         _isLeaving = true;
         GameSessionManager.Instance.SelectStage(data.StageIndex);
@@ -411,7 +421,8 @@ public class StageSelectManager : MonoBehaviour
             _midBossIcon == null ||
             _finalBossNameText == null ||
             _finalBossIcon == null ||
-            _enterButton == null)
+            _enterButton == null ||
+            _lockedImage == null)
         {
             throw new InvalidOperationException(
                 "StageSelectManager의 지도 또는 정보 패널 연결이 빠졌습니다.");
@@ -445,14 +456,27 @@ public class StageSelectManager : MonoBehaviour
 
             StageData data = node.Data;
 
-            if (data.StageIcon == null ||
-                data.MidBossPrefab == null ||
+            // 잠긴 스테이지도 지도에는 표시하므로 스테이지 아이콘은 필요하다.
+            if (data.StageIcon == null)
+            {
+                throw new InvalidOperationException(
+                    $"{data.name}: Stage Icon을 연결해주세요.");
+            }
+
+            // 잠긴 스테이지에는 보스 정보가 없어도 된다.
+            if (data.IsLocked)
+            {
+                continue;
+            }
+
+            // 입장 가능한 스테이지만 보스와 보스 아이콘을 검사한다.
+            if (data.MidBossPrefab == null ||
                 data.FinalBossPrefab == null ||
                 data.MidBossPrefab.BossIcon == null ||
                 data.FinalBossPrefab.BossIcon == null)
             {
                 throw new InvalidOperationException(
-                    $"{data.name}의 스테이지 아이콘 또는 보스 정보를 확인해주세요.");
+                    $"{data.name}: 보스 프리팹과 Boss Icon을 확인해주세요.");
             }
         }
     }
@@ -479,5 +503,30 @@ public class StageSelectManager : MonoBehaviour
         {
             _ringPulseTween.Kill();
         }
+    }
+
+    // 잠긴 스테이지에서는 LockedImage만 표시한다.
+    // 일반 스테이지에서는 나머지 정보 오브젝트를 표시한다.
+    private void RefreshPanelContents(StageData data)
+    {
+        bool isLocked = data.IsLocked;
+
+        // 현재 씬 구조처럼 StageInfoPanel의 직계 자식들을 전환한다.
+        foreach (Transform child in _infoPanel.transform)
+        {
+            bool isLockedImage = child.gameObject == _lockedImage;
+
+            child.gameObject.SetActive(
+                isLockedImage ? isLocked : !isLocked);
+        }
+
+        // 잠긴 스테이지는 보스 정보가 없으므로 읽지 않는다.
+        if (!isLocked)
+        {
+            RefreshStageInformation(data);
+        }
+
+        // 버튼과 기존 Enter 키 처리 모두 입장을 막는다.
+        _enterButton.interactable = !isLocked;
     }
 }

@@ -1617,15 +1617,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.15440714, g: 0.14173195, b: 0.6132076, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: -9104813991141634230, guid: 2c6bbf6c76e72034f83cfa2b01bda890, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1633,7 +1633,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 9
 --- !u!222 &1295851374
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2214,8 +2214,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4291493632
-  m_fontColor: {r: 0, g: 1, b: 0.79230404, a: 1}
+    rgba: 4286627511
+  m_fontColor: {r: 0.71937394, g: 0.745283, b: 0.50271446, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2232,8 +2232,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 120
-  m_fontSizeBase: 120
+  m_fontSize: 70
+  m_fontSizeBase: 70
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3934,6 +3934,7 @@ MonoBehaviour:
     stageClearRecords: []
     questRecords: []
     achievementRecords: []
+    inventoryItems: []
   _questDatabase: {fileID: 11400000, guid: 1008eeb19cfa4524fb88254720c517e8, type: 2}
   _userLevelData: {fileID: 11400000, guid: c64ef73425de05f468684fb61ecc64ca, type: 2}
   _characterDatabase: {fileID: 11400000, guid: 1c59cb6bc6bb27747806424f4a35c446, type: 2}

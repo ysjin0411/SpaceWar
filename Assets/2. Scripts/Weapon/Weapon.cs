@@ -83,6 +83,13 @@ public class Weapon : MonoBehaviour
     // 마지막 발사 이후 흐른 시간
     float _timer;
 
+    // 같은 플레이어 오브젝트의 조작 가능 상태를 확인한다.
+    private PlayerController _playerController;
+
+    // 조작이 허용되고 살아 있을 때만 무기를 사용할 수 있다.
+    private bool CanUseWeapon =>
+        _playerController.CanControl && !_playerController.IsDead;
+
     // 캐릭터 프리팹에 처음부터 연결되어 있던 기본 Sprite Library다.
     // 전용 라이브러리가 없는 무기로 돌아왔을 때 복구하기 위해 저장한다.
     SpriteLibraryAsset _defaultSpriteLibraryAsset;
@@ -111,6 +118,15 @@ public class Weapon : MonoBehaviour
 
     private void Awake()
     {
+        // 현재 프로젝트는 플레이어와 Weapon이 같은 오브젝트에 붙어 있다.
+        _playerController = GetComponent<PlayerController>();
+
+        if (_playerController == null)
+        {
+            throw new MissingComponentException(
+                $"{name}: Weapon과 같은 오브젝트에 PlayerController가 필요합니다.");
+        }
+
         // Animator 연결 누락을 개발 단계에서 바로 확인한다.
         if (_animator == null)
         {
@@ -244,6 +260,13 @@ public class Weapon : MonoBehaviour
         UpdateWeaponChargeUI();
 
         _timer += Time.deltaTime;
+
+        // 쿨타임과 충전 회복은 유지하되,
+        // 이동 연출이나 사망 중에는 공격·무기 변경 입력을 받지 않는다.
+        if (!CanUseWeapon)
+        {
+            return;
+        }
 
         // 현재 선택된 무기를 한 번만 가져와
         // 이번 프레임의 입력 처리에 사용한다.
@@ -560,6 +583,12 @@ public class Weapon : MonoBehaviour
     /// </summary>
     public void Fire()
     {
+        // 다른 코드에서 Fire를 직접 호출해도 잠금 중에는 발사하지 않는다.
+        if (!isActiveAndEnabled || !CanUseWeapon)
+        {
+            return;
+        }
+
         // 현재 선택된 슬롯의 런타임 무기를 가져온다.
         WeaponRuntimeState weapon = CurrentWeapon;
 
@@ -906,10 +935,45 @@ public class Weapon : MonoBehaviour
 
     private void OnDisable()
     {
-        // 무기 처리가 중단되면 Slash의 속도와 공격 상태를 복구한다.
+        // 재활성화할 때 이벤트가 중복으로 연결되지 않도록 해제한다.
+        if (_playerController != null)
+        {
+            _playerController.ControlStateChanged -= HandleControlStateChanged;
+        }
+
+        // 비활성화할 때도 진행 중인 공격과 방어를 정리한다.
+        CancelCurrentAttack();
+    }
+
+    private void OnEnable()
+    {
+        // 이동 연출이 시작되는 순간 공격을 중단한다.
+        _playerController.ControlStateChanged += HandleControlStateChanged;
+
+        // 조작이 이미 잠겨 있는 상태에서 활성화된 경우도 반영한다.
+        HandleControlStateChanged(_playerController.CanControl);
+    }
+
+    private void HandleControlStateChanged(bool canControl)
+    {
+        if (canControl)
+        {
+            return;
+        }
+
+        // 진행 중인 공격과 방어 자세를 정리한다.
+        CancelCurrentAttack();
+
+        // 연출 중 무기 선택 패널도 닫는다.
+        CloseWeaponSlotPanel();
+    }
+
+    private void CancelCurrentAttack()
+    {
+        // Slash의 공격 중 상태와 애니메이션 속도를 정리한다.
         CancelSlashAnimation();
 
-        // 캐릭터의 무기 처리가 중단되면 진행 중인 공격을 정리한다.
+        // 검과 망치의 활성 공격 판정을 즉시 중단한다.
         if (_giantSword != null)
         {
             _giantSword.CancelAttack();
@@ -920,10 +984,13 @@ public class Weapon : MonoBehaviour
             _hammer.CancelAttack();
         }
 
-        // 실드 유지 상태도 함께 종료한다.
+        // 방어 중이었다면 방어 자세와 판정도 중단한다.
         if (_shield != null)
         {
             _shield.CancelGuard();
         }
+
+        // 일반 사격의 공격 애니메이션 요청도 해제한다.
+        _animator.SetBool(AttackHash, false);
     }
 }

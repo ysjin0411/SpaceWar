@@ -6,6 +6,9 @@ public class Tower : MonoBehaviour, IDamageable
     // 타워마다 Inspector에서 서로 다른 최대 체력을 설정한다.
     [SerializeField, Min(1)] private int _maxHp = 100;
 
+    // 자신이 속한 보스의 전투 시작 여부를 확인한다.
+    private BossEnemy _boss;
+
     // 현재 체력을 보관한다.
     private int _currentHp;
 
@@ -39,6 +42,15 @@ public class Tower : MonoBehaviour, IDamageable
 
     private void Awake()
     {
+        // 타워가 속한 최상단 보스를 찾는다.
+        _boss = GetComponentInParent<BossEnemy>();
+
+        if (_boss == null)
+        {
+            throw new InvalidOperationException(
+                $"{name}: 부모에 BossEnemy가 필요합니다.");
+        }
+
         InitializeHealth();
     }
 
@@ -58,19 +70,18 @@ public class Tower : MonoBehaviour, IDamageable
     {
         InitializeHealth();
 
-        if (!isActiveAndEnabled || IsDead || damage <= 0)
+        // 보스가 입장 중이면 타워도 피해를 받지 않는다.
+        if (!isActiveAndEnabled ||
+            !_boss.HasBattleStarted ||
+            IsDead ||
+            damage <= 0)
+        {
             return;
+        }
 
         // 남은 체력보다 큰 피해가 들어와도 0 아래로 내려가지 않는다.
         int appliedDamage = Mathf.Min(damage, _currentHp);
         _currentHp -= appliedDamage;
-
-        if (IsDead)
-        {
-            // TowerRoot에 있는 피격 콜라이더를 꺼서 추가 충돌을 막는다.
-            foreach (Collider2D hitCollider in GetComponents<Collider2D>())
-                hitCollider.enabled = false;
-        }
 
         // 마지막 타격도 합산 체력에 반영한다.
         HealthChanged?.Invoke();

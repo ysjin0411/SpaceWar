@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 066f6cbb8b5aac342976d84ddeb5e935, type: 3}
+  m_Name: Cruiser_SmallEnemySummonPattern
+  m_EditorClassIdentifier: 
+  _pauseRandomMovement: 1
+  _systemMessage: "\uACBD\uACE0! \uD06C\uB8E8\uC800\uC5D0\uC11C \uC790\uD3ED \uAE30\uCCB4\uB4E4\uC774
+    \uC3DF\uC544\uC9D1\uB2C8\uB2E4!"
+  _enemyPrefab: {fileID: 4397181719619663448, guid: 9bcd155378cfa09489db9d20126fc741, type: 3}
+  _summonDuration: 3.5
+  _holeA:
+    TotalCount: 5
+    Control1Offset: {x: 0, y: 2}
+    Control2Offset: {x: -2, y: 3}
+    EndOffset: {x: -4, y: 1}
+    EndSpread: {x: 0, y: 1.5}
+    CurveDuration: 1.2
+  _holeB:
+    TotalCount: 8
+    Control1Offset: {x: 0, y: 2}
+    Control2Offset: {x: -2, y: 3}
+    EndOffset: {x: -4, y: 1}
+    EndSpread: {x: 0, y: 1.5}
+    CurveDuration: 1.2
+  _holeC:
+    TotalCount: 10
+    Control1Offset: {x: 0, y: 2}
+    Control2Offset: {x: -2, y: 3}
+    EndOffset: {x: -4, y: 1}
+    EndSpread: {x: 0, y: 1.5}
+    CurveDuration: 1.2

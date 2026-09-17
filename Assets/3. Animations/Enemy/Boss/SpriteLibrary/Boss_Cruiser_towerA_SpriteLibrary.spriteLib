@@ -17,8 +17,8 @@ MonoBehaviour:
     m_Hash: 1008081451
     m_CategoryList: []
     m_OverrideEntries:
-    - m_Name: Boss_Cruiser_Tower_A_Base
-      m_Hash: 423021614
+    - m_Name: Base
+      m_Hash: 545673567
       m_Sprite: {fileID: 21300000, guid: 607a9eea6c3be31419f50bff5b83e8bf, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 21300000, guid: 607a9eea6c3be31419f50bff5b83e8bf, type: 3}
@@ -28,23 +28,23 @@ MonoBehaviour:
     m_Hash: 7088141
     m_CategoryList: []
     m_OverrideEntries:
-    - m_Name: Boss_Cruiser_Tower_A_Attack_01
-      m_Hash: 133829936
+    - m_Name: 01
+      m_Hash: 255927350
       m_Sprite: {fileID: 21300000, guid: ef77d04f7537a97468702b6ff4e45edd, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 21300000, guid: ef77d04f7537a97468702b6ff4e45edd, type: 3}
-    - m_Name: Boss_Cruiser_Tower_A_Attack_02
-      m_Hash: 519259274
+    - m_Name: 02
+      m_Hash: 373847436
       m_Sprite: {fileID: 21300000, guid: b0934dfe0a94865418889c0eb80f99f2, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 21300000, guid: b0934dfe0a94865418889c0eb80f99f2, type: 3}
-    - m_Name: Boss_Cruiser_Tower_A_Attack_03
-      m_Hash: 703886364
+    - m_Name: 03
+      m_Hash: 558843162
       m_Sprite: {fileID: 21300000, guid: cfee7fefbe20bb54388e055447cbbdf7, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 21300000, guid: cfee7fefbe20bb54388e055447cbbdf7, type: 3}
-    - m_Name: Boss_Cruiser_Tower_A_Attack_04
-      m_Hash: 932241855
+    - m_Name: 04
+      m_Hash: 1059836089
       m_Sprite: {fileID: 21300000, guid: 555112342660a4c42aaa897c73c1c98d, type: 3}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 21300000, guid: 555112342660a4c42aaa897c73c1c98d, type: 3}
@@ -62,5 +62,5 @@ MonoBehaviour:
     m_FromMain: 0
     m_EntryOverrideCount: 1
   m_PrimaryLibraryGUID: 
-  m_ModificationHash: 639252491150639936
+  m_ModificationHash: 639252655199091626
   m_Version: 1

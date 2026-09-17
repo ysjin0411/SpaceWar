@@ -34,6 +34,10 @@ public class StageDataEditor : Editor
         EditorGUILayout.PropertyField(
             serializedObject.FindProperty("_stageIcon"));
 
+        // Inspector에서 스테이지 잠금 여부를 설정한다.
+        EditorGUILayout.PropertyField(
+            serializedObject.FindProperty("_isLocked"));
+
         EditorGUILayout.PropertyField(
             serializedObject.FindProperty("_sourceScene"));
 
@@ -106,7 +110,8 @@ public class StageDataEditor : Editor
 
         foreach (StageData data in FindAllStageData())
         {
-            if (data.SourceScene == null)
+            // 잠긴 스테이지는 씬 저장 시에도 보스 정보를 추출하지 않는다.
+            if (data.IsLocked || data.SourceScene == null)
             {
                 continue;
             }
@@ -162,6 +167,14 @@ public class StageDataEditor : Editor
     // 다른 씬을 열어 작업 중이어도 원본 씬을 검사할 수 있다.
     private static void RefreshFromSavedScene(StageData data)
     {
+        // 잠긴 스테이지는 플레이할 씬과 보스 정보가 필요 없다.
+        // 빌드 전 데이터 검사에서도 동일하게 제외한다.
+        if (data.IsLocked)
+        {
+            StoreBosses(data, null, null);
+            return;
+        }
+
         if (data.SourceScene == null)
         {
             StoreBosses(data, null, null);

@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _pauseRandomMovement: 1
   _startPosition: {x: 1, y: 3}
-  _positioningSpeed: 10
+  _positioningSpeed: 8
   _endPosition: {x: 1, y: -3}
-  _shootMoveSpeed: 2
+  _shootMoveSpeed: 2.5
   _bulletPrefab: {fileID: 1395107858575537321, guid: ddb96700977591f40b3eaba27a097cb7, type: 3}
   _fireInterval: 0.2
   _bulletSpeed: 5
