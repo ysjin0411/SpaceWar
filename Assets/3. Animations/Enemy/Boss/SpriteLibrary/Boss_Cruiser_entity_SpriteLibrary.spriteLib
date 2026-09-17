@@ -1,0 +1,106 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &1
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5e6fedc2472449cead18ef23b5cb30d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Library:
+  - m_Name: Idle
+    m_Hash: 1008081451
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: Doghead_boss1
+      m_Hash: 402718877
+      m_Sprite: {fileID: 21300000, guid: c96e8a42965e3074db422775811f82f3, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 0edd542abf732a1428d1a9e94267334e, type: 3}
+    - m_Name: Doghead_boss2
+      m_Hash: 17322279
+      m_Sprite: {fileID: 21300000, guid: 234033b7a2f42f840b120d9b9d3e74d6, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: b329c1c4e40cfe2428e850d81d073c5d, type: 3}
+    - m_Name: Doghead_boss3
+      m_Hash: 906977713
+      m_Sprite: {fileID: 21300000, guid: 0591e4594c60380419d815b85afff645, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 32a35c067c909b0478befc634c36d56e, type: 3}
+    - m_Name: Doghead_boss4
+      m_Hash: 678163474
+      m_Sprite: {fileID: 21300000, guid: 6197367c2eb842648872e2765a11eea0, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 7fc62f59b41640e42bc1c0973c8dc893, type: 3}
+    m_FromMain: 1
+    m_EntryOverrideCount: 4
+  - m_Name: Attack
+    m_Hash: 7088141
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: Boss_Cruiser_Body_Attack_01
+      m_Hash: 236060255
+      m_Sprite: {fileID: 21300000, guid: 38b12a02da0900e42bdeeee2132a02d5, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 38b12a02da0900e42bdeeee2132a02d5, type: 3}
+    - m_Name: Boss_Cruiser_Body_Attack_02
+      m_Hash: 387493861
+      m_Sprite: {fileID: 21300000, guid: 973ff9894a1f90c4dac330f971412cad, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 973ff9894a1f90c4dac330f971412cad, type: 3}
+    - m_Name: Boss_Cruiser_Body_Attack_03
+      m_Hash: 538943347
+      m_Sprite: {fileID: 21300000, guid: 455f2277b9f38dc458e4fa2678d7c1bd, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 455f2277b9f38dc458e4fa2678d7c1bd, type: 3}
+    - m_Name: Boss_Cruiser_Body_Attack_04
+      m_Hash: 1048251088
+      m_Sprite: {fileID: 21300000, guid: d23f35b701e870a4296439f9f3373fdc, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: d23f35b701e870a4296439f9f3373fdc, type: 3}
+    m_FromMain: 1
+    m_EntryOverrideCount: 4
+  - m_Name: Die
+    m_Hash: 20298039
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: DogheadBoss_Death_01_101x46_0
+      m_Hash: 764876554
+      m_Sprite: {fileID: -1756659314249247648, guid: 92d09b964c3723248a33171f9efed876, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 3896c2a2de15c7d4bba70f5c7a46bfb2, type: 3}
+    - m_Name: DogheadBoss_Death_02_101x46_0
+      m_Hash: 111193097
+      m_Sprite: {fileID: 7604722112217556492, guid: 9d6cb1d55dc9f92418492cb7c91596b3, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: a588710714accb144b9b291bb0a5e014, type: 3}
+    - m_Name: DogheadBoss_Death_03_101x46_0
+      m_Hash: 694339383
+      m_Sprite: {fileID: -150672672863661063, guid: db608ddf4d7173d46a55706d7ba2d26c, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: f73f5552f71cd1842a8f2c04c3b051dc, type: 3}
+    - m_Name: DogheadBoss_Death_04_101x46_0
+      m_Hash: 197057614
+      m_Sprite: {fileID: -7979495084206352890, guid: ff756fded1ff90946a449c81f0b328ea, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 120e0b3b93be36b4b99b653b96d20db8, type: 3}
+    - m_Name: DogheadBoss_Death_05_101x46_0
+      m_Hash: 612153200
+      m_Sprite: {fileID: -7236882371209948545, guid: f02a73a204443dc478a9e3b80e38d382, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 6161692ecdcc9154cbe0198bf2f92166, type: 3}
+    - m_Name: DogheadBoss_Death_06_101x46_6
+      m_Hash: 640198982
+      m_Sprite: {fileID: 5848577492753489224, guid: bc6249f8f6c08d240bd00763ae638d37, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 11d2fb541b40d0641a3de0c0adfb84e3, type: 3}
+    m_FromMain: 1
+    m_EntryOverrideCount: 6
+  m_PrimaryLibraryGUID: dc95bcfc5e2babc4b8548adc9583eb0f
+  m_ModificationHash: 639252482646171177
+  m_Version: 1

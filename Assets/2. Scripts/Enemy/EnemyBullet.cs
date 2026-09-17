@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(CircleCollider2D), typeof(Rigidbody2D))]
+[RequireComponent(typeof(BoxCollider2D), typeof(Rigidbody2D))]
 public class EnemyBullet : MonoBehaviour
 {
     // 초당 이동 거리.
@@ -14,7 +14,10 @@ public class EnemyBullet : MonoBehaviour
     [SerializeField] int _damage;
 
     // 총알의 실제 크기를 이용해 이동 경로를 검사한다.
-    CircleCollider2D _bulletCollider;
+    BoxCollider2D _bulletCollider;
+
+    // 총알의 앞쪽 위치를 표시하는 자식 Foward 오브젝트.
+    [SerializeField] Transform _foward;
 
     // 플레이어 몸과 실드만 검사하는 필터.
     ContactFilter2D _hitFilter;
@@ -31,7 +34,7 @@ public class EnemyBullet : MonoBehaviour
 
     private void Awake()
     {
-        _bulletCollider = GetComponent<CircleCollider2D>();
+        _bulletCollider = GetComponent<BoxCollider2D>();
         _bulletCollider.isTrigger = true;
 
         // 이동은 아래 코드에서 직접 관리한다.
@@ -71,6 +74,9 @@ public class EnemyBullet : MonoBehaviour
         _speed = speed;
         _damage = damage;
         _hasExplicitDirection = true;
+
+        // 확정된 이동 방향을 향하도록 총알을 회전시킨다.
+        RotateToDirection();
     }
 
     private void Start()
@@ -92,6 +98,9 @@ public class EnemyBullet : MonoBehaviour
         _dir = (
             _playerController.transform.position -
             transform.position).normalized;
+
+        // 확정된 이동 방향을 향하도록 총알을 회전시킨다.
+        RotateToDirection();
     }
 
     private void Update()
@@ -246,5 +255,38 @@ public class EnemyBullet : MonoBehaviour
             _bulletCollider, target);
 
         return TryHitTarget(target, hitPoint);
+    }
+
+    // Foward가 가리키는 앞쪽을 실제 이동 방향에 맞춘다.
+    private void RotateToDirection()
+    {
+        // 이동 방향이 없으면 현재 회전을 유지한다.
+        if (_dir.sqrMagnitude < 0.0001f)
+        {
+            return;
+        }
+
+        // 앞쪽 기준이 연결되지 않았다면 설정 오류를 알린다.
+        if (_foward == null)
+        {
+            throw new MissingReferenceException(
+                $"{name}: 자식 Foward를 연결하세요.");
+        }
+
+        // 총알 중심에서 Foward까지의 월드 방향이 현재 앞쪽이다.
+        Vector2 currentForward = _foward.position - transform.position;
+
+        // Foward가 중심과 겹치면 앞쪽 방향을 계산할 수 없다.
+        if (currentForward.sqrMagnitude < 0.0001f)
+        {
+            throw new System.InvalidOperationException(
+                $"{name}: Foward를 총알 중심에서 앞쪽으로 이동하세요.");
+        }
+
+        // 현재 앞쪽에서 이동 방향까지 필요한 회전각을 구한다.
+        float angle = Vector2.SignedAngle(currentForward, _dir);
+
+        // 루트를 회전해 스프라이트와 박스 콜라이더를 함께 정렬한다.
+        transform.Rotate(0f, 0f, angle, Space.World);
     }
 }

@@ -1,0 +1,416 @@
+fileFormatVersion: 2
+guid: 6161692ecdcc9154cbe0198bf2f92166
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 5284494036053593785
+    second: Boss_Cruiser_Body_Die_05_0
+  - first:
+      213: 2647659780629565107
+    second: Boss_Cruiser_Body_Die_05_1
+  - first:
+      213: 7305772449784330055
+    second: Boss_Cruiser_Body_Die_05_2
+  - first:
+      213: -5549277220882732114
+    second: Boss_Cruiser_Body_Die_05_3
+  - first:
+      213: 1128904803706680430
+    second: Boss_Cruiser_Body_Die_05_4
+  - first:
+      213: -9193003763833628645
+    second: Boss_Cruiser_Body_Die_05_5
+  - first:
+      213: 2596909936665171294
+    second: Boss_Cruiser_Body_Die_05_6
+  - first:
+      213: -9194387207747372571
+    second: Boss_Cruiser_Body_Die_05_7
+  - first:
+      213: -7021546511053910053
+    second: Boss_Cruiser_Body_Die_05_8
+  - first:
+      213: 8744665873456913372
+    second: Boss_Cruiser_Body_Die_05_9
+  - first:
+      213: -3977800608245317267
+    second: Boss_Cruiser_Body_Die_05_10
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Boss_Cruiser_Body_Die_05_0
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 49
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9be05acc35b465940800000000000000
+      internalID: 5284494036053593785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss_Cruiser_Body_Die_05_1
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 55
+        width: 19
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3be8386ea806eb420800000000000000
+      internalID: 2647659780629565107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss_Cruiser_Body_Die_05_2
+      rect:
+        serializedVersion: 2
+        x: 164
+        y: 44
+        width: 13
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 747fa3fd551536560800000000000000
+      internalID: 7305772449784330055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss_Cruiser_Body_Die_05_3
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 51
+        width: 18
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eab2e19d4c10df2b0800000000000000
+      internalID: -5549277220882732114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss_Cruiser_Body_Die_05_4
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 36
+        width: 16
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e643b2210fcaaaf00800000000000000
+      internalID: 1128904803706680430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss_Cruiser_Body_Die_05_5
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 38
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b181edd88c3eb6080800000000000000
+      internalID: -9193003763833628645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss_Cruiser_Body_Die_05_6
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 26
+        width: 19
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e551c9014d31a0420800000000000000
+      internalID: 2596909936665171294
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss_Cruiser_Body_Die_05_7
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 34
+        width: 25
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e972da6c89f66080800000000000000
+      internalID: -9194387207747372571
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss_Cruiser_Body_Die_05_8
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 27
+        width: 17
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bdf8fb266a47e8e90800000000000000
+      internalID: -7021546511053910053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss_Cruiser_Body_Die_05_9
+      rect:
+        serializedVersion: 2
+        x: 189
+        y: 27
+        width: 21
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cdb51ead74b4b5970800000000000000
+      internalID: 8744665873456913372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss_Cruiser_Body_Die_05_10
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 30
+        width: 17
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d61843e0c630cc8c0800000000000000
+      internalID: -3977800608245317267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Boss_Cruiser_Body_Die_05_0: 5284494036053593785
+      Boss_Cruiser_Body_Die_05_1: 2647659780629565107
+      Boss_Cruiser_Body_Die_05_10: -3977800608245317267
+      Boss_Cruiser_Body_Die_05_2: 7305772449784330055
+      Boss_Cruiser_Body_Die_05_3: -5549277220882732114
+      Boss_Cruiser_Body_Die_05_4: 1128904803706680430
+      Boss_Cruiser_Body_Die_05_5: -9193003763833628645
+      Boss_Cruiser_Body_Die_05_6: 2596909936665171294
+      Boss_Cruiser_Body_Die_05_7: -9194387207747372571
+      Boss_Cruiser_Body_Die_05_8: -7021546511053910053
+      Boss_Cruiser_Body_Die_05_9: 8744665873456913372
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

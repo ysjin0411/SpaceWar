@@ -1,0 +1,45 @@
+{
+  "ppu": 100,
+  "body": {
+    "size": [
+      256,
+      128
+    ],
+    "pivot": [
+      0.5,
+      0.5
+    ]
+  },
+  "towers": {
+    "size": [
+      64,
+      80
+    ],
+    "pivot": [
+      0.5,
+      0.05
+    ],
+    "anchorTopLeftPixels": [
+      32,
+      76
+    ],
+    "sorting": "behind_body",
+    "placements": {
+      "Tower_A": [
+        -0.16,
+        0.17,
+        0
+      ],
+      "Tower_B": [
+        0.21,
+        0.15,
+        0
+      ],
+      "Tower_C": [
+        0.55,
+        0.12,
+        0
+      ]
+    }
+  }
+}

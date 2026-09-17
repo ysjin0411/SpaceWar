@@ -56,6 +56,19 @@ public class BossHpUI : MonoBehaviour
     [Min(0.01f)]
     [SerializeField] float _hpFillDuration = 0.25f;
 
+    // 타워들의 합산 체력을 표시할 파란색 Fill 이미지다.
+    // 실드 UI가 없는 씬에서는 비워둘 수 있다.
+    [SerializeField] private Image _bossShieldFillImage;
+
+    // 현재 보스의 실드 데이터 컴포넌트다.
+    private BossTowerShield _boundShield;
+
+    // 빨간 체력 바와 독립적으로 실행할 실드 Tween이다.
+    private Tween _shieldTween;
+
+    // 최초 실드 값은 애니메이션 없이 즉시 표시한다.
+    private bool _hasReceivedInitialShield;
+
     // 현재 UI에 연결되어 있는 보스다.
     BossEnemy _boundBoss;
 
@@ -110,6 +123,20 @@ public class BossHpUI : MonoBehaviour
         {
             throw new InvalidOperationException(
                 "Boss_HpBar의 Image Type은 Filled여야 합니다.");
+        }
+
+        // 실드 이미지가 연결되어 있을 때만 설정을 검사한다.
+        if (_bossShieldFillImage != null)
+        {
+            if (_bossShieldFillImage.type != Image.Type.Filled)
+            {
+                throw new InvalidOperationException(
+                    "Boss_ShieldBar의 Image Type은 Filled여야 합니다.");
+            }
+
+            // 보스가 등장하기 전에는 실드 바를 숨긴다.
+            _bossShieldFillImage.fillAmount = 0f;
+            _bossShieldFillImage.gameObject.SetActive(false);
         }
 
         // 스테이지 시작 시 진행도 바는 펼쳐진 상태로 둔다.
@@ -168,6 +195,9 @@ public class BossHpUI : MonoBehaviour
 
         // 생성된 보스 프리팹에 설정된 표시 이름을 UI에 출력한다.
         _bossNameText.text = spawnedBoss.BossName;
+
+        // 체력 UI를 펼치기 전에 실드 유무와 최초 값을 반영한다.
+        BindShield(spawnedBoss);
 
         PlayBossOpen();
     }
@@ -301,19 +331,35 @@ public class BossHpUI : MonoBehaviour
         _uiSequence.SetUpdate(true);
     }
 
-    /// <summary>
-    /// 현재 연결된 보스의 이벤트 구독을 해제한다.
-    /// </summary>
+    // 이전 보스의 체력 및 실드 이벤트 연결을 모두 해제한다.
     private void UnbindBoss()
     {
-        if (_boundBoss == null)
+        if (_boundBoss != null)
         {
-            return;
+            _boundBoss.HealthChanged -= HandleHealthChanged;
+            _boundBoss.Defeated -= HandleBossDefeated;
         }
 
-        _boundBoss.HealthChanged -= HandleHealthChanged;
-        _boundBoss.Defeated -= HandleBossDefeated;
+        if (_boundShield != null)
+            _boundShield.ShieldChanged -= HandleShieldChanged;
+
         _boundBoss = null;
+        _boundShield = null;
+
+        // 이전 보스의 Tween이 다음 보스 UI를 변경하지 못하게 한다.
+        _hpTween?.Kill();
+        _hpTween = null;
+
+        _shieldTween?.Kill();
+        _shieldTween = null;
+
+        _hasReceivedInitialShield = false;
+
+        if (_bossShieldFillImage != null)
+        {
+            _bossShieldFillImage.fillAmount = 0f;
+            _bossShieldFillImage.gameObject.SetActive(false);
+        }
     }
 
     /// <summary>
@@ -326,5 +372,63 @@ public class BossHpUI : MonoBehaviour
         Vector3 scale = target.localScale;
         scale.x = scaleX;
         target.localScale = scale;
+    }
+
+    // 실드 컴포넌트가 있는 보스만 파란 체력 바에 연결한다.
+    private void BindShield(BossEnemy boss)
+    {
+        // 실드 이미지가 없는 씬은 기존 체력 UI만 사용한다.
+        if (_bossShieldFillImage == null)
+            return;
+
+        // 보스의 종류 이름 대신 실드 컴포넌트의 존재로 판단한다.
+        if (!boss.TryGetComponent(out BossTowerShield shield) ||
+            !shield.isActiveAndEnabled)
+        {
+            _bossShieldFillImage.fillAmount = 0f;
+            _bossShieldFillImage.gameObject.SetActive(false);
+            return;
+        }
+
+        _boundShield = shield;
+        _hasReceivedInitialShield = false;
+
+        // 이후 체력 변화는 이벤트로 전달받는다.
+        _boundShield.ShieldChanged += HandleShieldChanged;
+
+        _bossShieldFillImage.gameObject.SetActive(true);
+
+        // 생성 시점의 이벤트를 놓쳤어도 현재 값을 직접 읽어 표시한다.
+        HandleShieldChanged(
+            _boundShield.CurrentShield,
+            _boundShield.MaxShield);
+    }
+
+    // 합산 체력을 파란색 바의 fillAmount에 반영한다.
+    private void HandleShieldChanged(int currentShield, int maxShield)
+    {
+        if (_bossShieldFillImage == null)
+            return;
+
+        float targetFill = maxShield > 0
+            ? Mathf.Clamp01((float)currentShield / maxShield)
+            : 0f;
+
+        // 연속 피해가 들어오면 현재 표시 위치에서 다시 감소시킨다.
+        _shieldTween?.Kill();
+        _shieldTween = null;
+
+        if (!_hasReceivedInitialShield)
+        {
+            _hasReceivedInitialShield = true;
+            _bossShieldFillImage.fillAmount = targetFill;
+            return;
+        }
+
+        // 기존 빨간 체력 바와 같은 시간과 방식으로 감소한다.
+        _shieldTween = _bossShieldFillImage
+            .DOFillAmount(targetFill, _hpFillDuration)
+            .SetEase(Ease.OutQuad)
+            .SetUpdate(true);
     }
 }
