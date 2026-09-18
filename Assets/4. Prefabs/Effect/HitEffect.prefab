@@ -107,3 +107,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: af68af1f8e5c4164e979d2cded51fbb4, type: 3}
   - {fileID: 21300000, guid: 9d58b015dfd4bc34bbecb9b9bc948ee2, type: 3}
   _framesPerSecond: 20
+  _startScaleMultiplier: 1
+  _endScaleMultiplier: 5
+  _scaleDuration: 0.05
+  _scaleEase: 6

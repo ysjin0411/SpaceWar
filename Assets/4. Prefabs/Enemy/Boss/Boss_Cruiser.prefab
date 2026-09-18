@@ -965,7 +965,9 @@ MonoBehaviour:
   _normalPatternFirstDelay: 2
   _normalPatternInterval: 2
   _previousPatternWeightMultiplier: 0.1
-  _timedPatternEntries: []
+  _timedPatternEntries:
+  - _pattern: {fileID: 11400000, guid: 0edb24d3bbaa6bc4199b7e77fd8ffed4, type: 2}
+    _weight: 0
   _towerShield: {fileID: 1680823157461556225}
   _towerAttacks:
   - {fileID: 9102130370089527094}

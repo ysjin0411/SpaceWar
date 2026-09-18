@@ -16,5 +16,6 @@ MonoBehaviour:
   _stageName: Stage 2
   _stageIcon: {fileID: 21300000, guid: d9b296a535876a44196e4d9767e8135f, type: 3}
   _sourceScene: {fileID: 102900000, guid: 4d6059eb40cbba246a48894a1495eba8, type: 3}
-  _midBossPrefab: {fileID: 7667251967294688097, guid: c71b4f42b6f3c704bb88e0f499a940e0, type: 3}
-  _finalBossPrefab: {fileID: 8790472829186395643, guid: 7ee450cb08ab104468c3c24720064aa7, type: 3}
+  _midBossPrefab: {fileID: 8790472829186395643, guid: 7ee450cb08ab104468c3c24720064aa7, type: 3}
+  _finalBossPrefab: {fileID: 7667251967294688097, guid: c71b4f42b6f3c704bb88e0f499a940e0, type: 3}
+  _isLocked: 0

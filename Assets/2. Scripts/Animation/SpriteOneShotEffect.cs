@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using DG.Tweening;
 
 [RequireComponent(typeof(SpriteRenderer))]
 public class SpriteOneShotEffect : MonoBehaviour
@@ -8,19 +9,49 @@ public class SpriteOneShotEffect : MonoBehaviour
     [SerializeField] private Sprite[] _frames;
 
     // 1초 동안 재생할 스프라이트 개수다.
-    [SerializeField, Min(1f)] private float _framesPerSecond = 20f;
+    [SerializeField, Min(1f)]
+    private float _framesPerSecond = 20f;
+
+    // 프리팹의 원래 크기를 기준으로 한 시작 배율이다.
+    // 1이면 원래 크기, 0.5면 절반 크기에서 시작한다.
+    [SerializeField, Min(0f)]
+    private float _startScaleMultiplier = 1f;
+
+    // 프리팹의 원래 크기를 기준으로 한 최종 배율이다.
+    // 2이면 원래 크기의 두 배까지 커진다.
+    [SerializeField, Min(0f)]
+    private float _endScaleMultiplier = 2f;
+
+    // 시작 크기에서 최종 크기까지 변하는 데 걸리는 시간이다.
+    [SerializeField, Min(0.01f)]
+    private float _scaleDuration = 0.15f;
+
+    // 크기가 변하는 속도 곡선이다.
+    // OutQuad는 처음에 빠르게 커지고 끝에서 부드럽게 느려진다.
+    [SerializeField]
+    private Ease _scaleEase = Ease.OutQuad;
 
     // 현재 프레임을 표시할 렌더러다.
     private SpriteRenderer _spriteRenderer;
 
-    // 재생 시작 후 흐른 시간이다.
+    // 처음 설정된 로컬 스케일을 배율 계산의 기준으로 보관한다.
+    private Vector3 _originalScale;
+
+    // 현재 실행 중인 스케일 트윈만 따로 관리한다.
+    private Tween _scaleTween;
+
+    // 프레임 재생 시작 후 흐른 시간이다.
     private float _elapsed;
 
     private void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
 
-        // 잘못된 프리팹 설정을 확인한다.
+        // 재활성화할 때 확대된 크기가 다시 곱해지지 않도록
+        // 처음 크기를 한 번만 저장한다.
+        _originalScale = transform.localScale;
+
+        // 프레임에 접근하기 전에 필수 설정을 확인한다.
         if (_frames == null || _frames.Length == 0 ||
             _framesPerSecond <= 0f)
         {
@@ -28,6 +59,7 @@ public class SpriteOneShotEffect : MonoBehaviour
                 $"{name}: Frames와 Frames Per Second를 설정하세요.");
         }
 
+        // 재생 중 빈 이미지가 나오지 않도록 모든 프레임을 확인한다.
         for (int i = 0; i < _frames.Length; i++)
         {
             if (_frames[i] == null)
@@ -43,13 +75,55 @@ public class SpriteOneShotEffect : MonoBehaviour
         // 생성되거나 다시 활성화되면 첫 프레임부터 재생한다.
         _elapsed = 0f;
         _spriteRenderer.sprite = _frames[0];
+
+        // 프레임 재생과 동시에 크기 변화도 시작한다.
+        SetSpriteScale();
+    }
+
+    private void SetSpriteScale()
+    {
+        // 이전 스케일 연출이 남아 있다면 종료한다.
+        _scaleTween?.Kill();
+        _scaleTween = null;
+
+        // 항상 원래 크기에 시작 배율을 곱해 초기화한다.
+        transform.localScale =
+            _originalScale * _startScaleMultiplier;
+
+        // 시작과 끝이 같으면 고정 크기로 표시하고 트윈은 만들지 않는다.
+        if (Mathf.Approximately(
+            _startScaleMultiplier,
+            _endScaleMultiplier))
+        {
+            return;
+        }
+
+        // 전체 프레임이 재생되는 시간을 계산한다.
+        float playbackDuration =
+            _frames.Length / _framesPerSecond;
+
+        // 이펙트가 사라진 뒤까지 확대가 이어지지 않도록
+        // 스케일 연출 시간을 전체 재생 시간 이내로 제한한다.
+        float duration = Mathf.Min(
+            Mathf.Max(0.01f, _scaleDuration),
+            playbackDuration);
+
+        // 이미지 원본을 수정하지 않고 표시 오브젝트의 크기를 변경한다.
+        _scaleTween = transform
+            .DOScale(
+                _originalScale * _endScaleMultiplier,
+                duration)
+            .SetEase(_scaleEase)
+            .SetUpdate(UpdateType.Normal, false)
+            .OnKill(() => _scaleTween = null);
     }
 
     private void Update()
     {
-        // 게임이 일시정지되면 이펙트 재생도 멈춘다.
+        // 게임 시간에 맞춰 진행하므로 일시정지하면 재생도 멈춘다.
         _elapsed += Time.deltaTime;
 
+        // 현재 시간에 해당하는 프레임 번호를 구한다.
         int frameIndex = Mathf.FloorToInt(
             _elapsed * _framesPerSecond);
 
@@ -60,6 +134,17 @@ public class SpriteOneShotEffect : MonoBehaviour
             return;
         }
 
+        // 스케일은 유지하면서 표시할 스프라이트만 교체한다.
         _spriteRenderer.sprite = _frames[frameIndex];
+    }
+
+    private void OnDisable()
+    {
+        // 비활성화되거나 제거될 때 남은 스케일 연출을 종료한다.
+        _scaleTween?.Kill();
+        _scaleTween = null;
+
+        // 다시 사용할 경우를 위해 원래 크기로 복원한다.
+        transform.localScale = _originalScale;
     }
 }

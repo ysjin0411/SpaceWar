@@ -69,6 +69,12 @@ public class Boss_Cruiser : BossEnemy
         _isBattleInitialized &&
         _currentPhase == CruiserPhase.Entity;
 
+    // 크루저는 전투 초기화가 끝나고 본체가 싸우는 2페이즈부터
+    // 일반 패턴 타이머를 진행한다.
+    protected override bool CanUseNormalPatterns =>
+        _isBattleInitialized &&
+        _currentPhase == CruiserPhase.Entity;
+
     protected override void Awake()
     {
         // 공통 보스 체력과 이동, Animator 참조를 준비한다.

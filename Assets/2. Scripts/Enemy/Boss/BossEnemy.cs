@@ -178,6 +178,10 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
     // 입장을 마치고 Initialize가 호출되었는지 외부에 알려준다.
     public bool HasBattleStarted => _isInitialized;
 
+    // 기본 보스는 일반 패턴을 사용할 수 있다.
+    // 페이즈 제한이 필요한 보스는 이 조건을 재정의한다.
+    protected virtual bool CanUseNormalPatterns => true;
+
 
 
     protected virtual void Awake()
@@ -234,21 +238,20 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
 
     private void Update()
     {
-        // BossEncounterManager의 초기화 전에는 패턴 시간을 갱신하지 않는다.
-        if (!_isInitialized)
+        // 전투 초기화 전이나 사망 후에는 패턴 시간을 갱신하지 않는다.
+        if (!_isInitialized || _isDead)
         {
             return;
         }
 
-        // 사망한 보스는 새로운 패턴을 요청하지 않는다.
-        if (_isDead)
+        // 일반 패턴을 사용할 수 없는 단계에서는 타이머도 멈춘다.
+        if (!CanUseNormalPatterns)
         {
             return;
         }
 
-        // 일반 패턴들의 남은 시간을 갱신한다.
-        _timedPatternController.Tick(
-            Time.deltaTime);
+        // 허용된 단계에서만 다음 일반 패턴까지의 시간을 계산한다.
+        _timedPatternController.Tick(Time.deltaTime);
     }
 
     private void FixedUpdate()

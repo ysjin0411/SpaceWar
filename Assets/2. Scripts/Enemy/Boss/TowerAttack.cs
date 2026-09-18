@@ -193,13 +193,17 @@ public abstract class TowerAttack : MonoBehaviour
             return;
         }
 
+        // Polygon 콜라이더의 path갯수는 스프라이트의 피직스쉐이프갯수다.
         _hitCollider.pathCount = sprite.GetPhysicsShapeCount();
 
         for (int pathIndex = 0;
              pathIndex < _hitCollider.pathCount;
              pathIndex++)
         {
+            // 반복사용을 위한 벡터2값 초기화
             _shapePoints.Clear();
+
+            // 스프라이트.
             sprite.GetPhysicsShape(pathIndex, _shapePoints);
 
             for (int i = 0; i < _shapePoints.Count; i++)
