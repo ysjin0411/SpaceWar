@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d780cfe1968a0f143b2f199702cdea72, type: 3}
+  m_Name: BossAlienMissilePattern
+  m_EditorClassIdentifier: 
+  _pauseRandomMovement: 1
+  _config: {fileID: 11400000, guid: 6356b1bf96dff354bb14303cef96de22, type: 2}
+  _animationTimeout: 3

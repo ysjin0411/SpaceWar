@@ -1,0 +1,117 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &1
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5e6fedc2472449cead18ef23b5cb30d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Library:
+  - m_Name: Idle
+    m_Hash: 1008081451
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: Idle_01
+      m_Hash: 651714721
+      m_Sprite: {fileID: 21300000, guid: 5970a27ef467fdb4cabcc31db3083651, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 5970a27ef467fdb4cabcc31db3083651, type: 3}
+    - m_Name: Idle_02
+      m_Hash: 1070674203
+      m_Sprite: {fileID: 21300000, guid: 23666f7867892494684c041529b32343, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 23666f7867892494684c041529b32343, type: 3}
+    - m_Name: Idle_03
+      m_Hash: 148242829
+      m_Sprite: {fileID: 21300000, guid: 5c39b18988763624b9d465342a39535d, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 5c39b18988763624b9d465342a39535d, type: 3}
+    - m_Name: Idle_04
+      m_Hash: 380802094
+      m_Sprite: {fileID: 21300000, guid: 7ca0a1f594bb91f4a9a80468008d71b4, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 7ca0a1f594bb91f4a9a80468008d71b4, type: 3}
+    m_FromMain: 0
+    m_EntryOverrideCount: 4
+  - m_Name: Grab
+    m_Hash: 799562036
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: Grab_01
+      m_Hash: 103745138
+      m_Sprite: {fileID: 21300000, guid: e9842fac5900ba840b49d72af37c2454, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: e9842fac5900ba840b49d72af37c2454, type: 3}
+    - m_Name: Grab_02
+      m_Hash: 522606536
+      m_Sprite: {fileID: 21300000, guid: fe33693983fa6db428526cbfd0d72481, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: fe33693983fa6db428526cbfd0d72481, type: 3}
+    - m_Name: Grab_03
+      m_Hash: 673277790
+      m_Sprite: {fileID: 21300000, guid: f34f75a8a35c05c4d9ed679a85c29633, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: f34f75a8a35c05c4d9ed679a85c29633, type: 3}
+    - m_Name: Grab_04
+      m_Hash: 910553853
+      m_Sprite: {fileID: 21300000, guid: a1b00d9c9ab213b4da12bc768916a599, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: a1b00d9c9ab213b4da12bc768916a599, type: 3}
+    - m_Name: Grab_05
+      m_Hash: 21152363
+      m_Sprite: {fileID: 21300000, guid: e1810979409d7b543b1e5090817d4424, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: e1810979409d7b543b1e5090817d4424, type: 3}
+    - m_Name: Grab_06
+      m_Hash: 407606225
+      m_Sprite: {fileID: 21300000, guid: 4701a195b50bd91459e7f201c608285f, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 4701a195b50bd91459e7f201c608285f, type: 3}
+    m_FromMain: 0
+    m_EntryOverrideCount: 6
+  - m_Name: Missile
+    m_Hash: 589644267
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: Hatch_Open_01
+      m_Hash: 514414575
+      m_Sprite: {fileID: 21300000, guid: 827131c369da5bc42a70572c14ea23e2, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 827131c369da5bc42a70572c14ea23e2, type: 3}
+    - m_Name: Hatch_Open_02
+      m_Hash: 127927893
+      m_Sprite: {fileID: 21300000, guid: 79830768c04094e49ab91b2ba161e2c0, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 79830768c04094e49ab91b2ba161e2c0, type: 3}
+    - m_Name: Hatch_Open_03
+      m_Hash: 816264899
+      m_Sprite: {fileID: 21300000, guid: 750725c02534b144b97dff2ddb3759ec, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 750725c02534b144b97dff2ddb3759ec, type: 3}
+    - m_Name: Hatch_Open_04
+      m_Hash: 784573280
+      m_Sprite: {fileID: 21300000, guid: ab6ccd0bc3be53f4b8db87faea2684ca, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: ab6ccd0bc3be53f4b8db87faea2684ca, type: 3}
+    m_FromMain: 0
+    m_EntryOverrideCount: 4
+  - m_Name: GetOut
+    m_Hash: 687253226
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: Hatch_Open
+      m_Hash: 207181180
+      m_Sprite: {fileID: 21300000, guid: 3ecddf3ae2e17854a9ba198c9c6800de, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 3ecddf3ae2e17854a9ba198c9c6800de, type: 3}
+    m_FromMain: 0
+    m_EntryOverrideCount: 1
+  m_PrimaryLibraryGUID: 
+  m_ModificationHash: 639254223154026532
+  m_Version: 1

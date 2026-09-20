@@ -1,0 +1,572 @@
+fileFormatVersion: 2
+guid: 8789f60b134b4b845ad4baa27675f506
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3841477593375738692
+    second: Alien_MissileBlast_04_0
+  - first:
+      213: -5335106836070597275
+    second: Alien_MissileBlast_04_1
+  - first:
+      213: -2586552539662069698
+    second: Alien_MissileBlast_04_2
+  - first:
+      213: -4973859826134458395
+    second: Alien_MissileBlast_04_3
+  - first:
+      213: 2680242305781304079
+    second: Alien_MissileBlast_04_4
+  - first:
+      213: -7862322995033287077
+    second: Alien_MissileBlast_04_5
+  - first:
+      213: 5111663863752537700
+    second: Alien_MissileBlast_04_6
+  - first:
+      213: 5128096340278089728
+    second: Alien_MissileBlast_04_7
+  - first:
+      213: -3081560048982020483
+    second: Alien_MissileBlast_04_8
+  - first:
+      213: 5667481180546898648
+    second: Alien_MissileBlast_04_9
+  - first:
+      213: -196842152214083258
+    second: Alien_MissileBlast_04_10
+  - first:
+      213: 8716983038496352717
+    second: Alien_MissileBlast_04_11
+  - first:
+      213: 1092979475366606225
+    second: Alien_MissileBlast_04_12
+  - first:
+      213: -915254874719045340
+    second: Alien_MissileBlast_04_13
+  - first:
+      213: -2768078110412888337
+    second: Alien_MissileBlast_04_14
+  - first:
+      213: 1739046416500468772
+    second: Alien_MissileBlast_04_15
+  - first:
+      213: -6673917727016087921
+    second: Alien_MissileBlast_04_16
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 600
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Alien_MissileBlast_04_0
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 1165
+        height: 1234
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 44b88c5a48baf4530800000000000000
+      internalID: 3841477593375738692
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alien_MissileBlast_04_1
+      rect:
+        serializedVersion: 2
+        x: 639
+        y: 1142
+        width: 33
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 56df0456994e5f5b0800000000000000
+      internalID: -5335106836070597275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alien_MissileBlast_04_2
+      rect:
+        serializedVersion: 2
+        x: 703
+        y: 1137
+        width: 40
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e30de885b28ba1cd0800000000000000
+      internalID: -2586552539662069698
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alien_MissileBlast_04_3
+      rect:
+        serializedVersion: 2
+        x: 868
+        y: 786
+        width: 160
+        height: 151
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ef5bac37dc49fab0800000000000000
+      internalID: -4973859826134458395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alien_MissileBlast_04_4
+      rect:
+        serializedVersion: 2
+        x: 961
+        y: 928
+        width: 85
+        height: 81
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f0b81143d22223520800000000000000
+      internalID: 2680242305781304079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alien_MissileBlast_04_5
+      rect:
+        serializedVersion: 2
+        x: 681
+        y: 54
+        width: 407
+        height: 302
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b56d7a374ea63e290800000000000000
+      internalID: -7862322995033287077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alien_MissileBlast_04_6
+      rect:
+        serializedVersion: 2
+        x: 900
+        y: 310
+        width: 307
+        height: 586
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 466bb2a833740f640800000000000000
+      internalID: 5111663863752537700
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alien_MissileBlast_04_7
+      rect:
+        serializedVersion: 2
+        x: 1165
+        y: 296
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0089140a378aa2740800000000000000
+      internalID: 5128096340278089728
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alien_MissileBlast_04_8
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 256
+        width: 17
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d7e246656791c35d0800000000000000
+      internalID: -3081560048982020483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alien_MissileBlast_04_9
+      rect:
+        serializedVersion: 2
+        x: 430
+        y: 92
+        width: 280
+        height: 184
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8da95b92b10f6ae40800000000000000
+      internalID: 5667481180546898648
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alien_MissileBlast_04_10
+      rect:
+        serializedVersion: 2
+        x: 295
+        y: 208
+        width: 30
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 649c4700b1da44df0800000000000000
+      internalID: -196842152214083258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alien_MissileBlast_04_11
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 121
+        width: 89
+        height: 114
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc92ea293e1f8f870800000000000000
+      internalID: 8716983038496352717
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alien_MissileBlast_04_12
+      rect:
+        serializedVersion: 2
+        x: 346
+        y: 158
+        width: 23
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 195f400ca0b0b2f00800000000000000
+      internalID: 1092979475366606225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alien_MissileBlast_04_13
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 69
+        width: 16
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4293d696a8c5c43f0800000000000000
+      internalID: -915254874719045340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alien_MissileBlast_04_14
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 78
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe62e4edf9fc599d0800000000000000
+      internalID: -2768078110412888337
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alien_MissileBlast_04_15
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 63
+        width: 13
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42c2d6f7085522810800000000000000
+      internalID: 1739046416500468772
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alien_MissileBlast_04_16
+      rect:
+        serializedVersion: 2
+        x: 924
+        y: 39
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f8e060def2b7163a0800000000000000
+      internalID: -6673917727016087921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Alien_MissileBlast_04_0: 3841477593375738692
+      Alien_MissileBlast_04_1: -5335106836070597275
+      Alien_MissileBlast_04_10: -196842152214083258
+      Alien_MissileBlast_04_11: 8716983038496352717
+      Alien_MissileBlast_04_12: 1092979475366606225
+      Alien_MissileBlast_04_13: -915254874719045340
+      Alien_MissileBlast_04_14: -2768078110412888337
+      Alien_MissileBlast_04_15: 1739046416500468772
+      Alien_MissileBlast_04_16: -6673917727016087921
+      Alien_MissileBlast_04_2: -2586552539662069698
+      Alien_MissileBlast_04_3: -4973859826134458395
+      Alien_MissileBlast_04_4: 2680242305781304079
+      Alien_MissileBlast_04_5: -7862322995033287077
+      Alien_MissileBlast_04_6: 5111663863752537700
+      Alien_MissileBlast_04_7: 5128096340278089728
+      Alien_MissileBlast_04_8: -3081560048982020483
+      Alien_MissileBlast_04_9: 5667481180546898648
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

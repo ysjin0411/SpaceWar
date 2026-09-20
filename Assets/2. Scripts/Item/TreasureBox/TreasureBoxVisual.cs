@@ -102,6 +102,9 @@ public class TreasureBoxVisual : MonoBehaviour
 
     private void OnEnable()
     {
+        // 다시 활성화되면 퇴장 상태를 해제하고 반복 연출을 재개한다.
+        _isFadingOut = false;
+
         // 새 외형이 등장하거나 다시 활성화되면 연출을 처음부터 시작한다.
         _cycleTime = 0f;
         _centerEffect.localRotation = _initialCenterRotation;
@@ -111,6 +114,12 @@ public class TreasureBoxVisual : MonoBehaviour
 
     private void Update()
     {
+        // 퇴장 중에는 FadeOut만 투명도를 변경하도록 반복 연출을 멈춘다.
+        if (_isFadingOut)
+        {
+            return;
+        }
+
         // 프레임 속도와 관계없이 초당 설정한 각도만큼 회전한다.
         // Time.deltaTime을 사용하므로 일시정지하면 효과도 멈춘다.
         _centerEffect.Rotate(

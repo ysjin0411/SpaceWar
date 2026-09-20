@@ -24,6 +24,12 @@ public sealed class BossPatternRunner
     IEnumerator _patternExecution;
     bool _isRunning; // 현재 패턴이 실행 중인지 확인하는 값
 
+    // 균열 공명처럼 다른 대기 특수패턴보다 먼저 실행할 패턴이다.
+    // 이미 실행 중인 패턴을 중단하지는 않는다.
+    private readonly Queue<BossPattern> _prioritySpecialWaitingPatterns =
+        new Queue<BossPattern>();
+
+
     public bool IsRunning => _isRunning;
 
     public BossPattern CurrentPattern =>
@@ -56,16 +62,14 @@ public sealed class BossPatternRunner
             _normalWaitingPatterns);
     }
 
-    /// <summary>
-    /// 체력 조건을 만족한 특수 패턴의 실행을 요청한다.
-    /// 현재 패턴이 끝난 후 일반 대기 패턴보다 먼저 실행된다.
-    /// </summary>
-    public void RequestSpecial(
-        BossPattern pattern)
+    // 우선순위가 없으면 기존 체력 특수패턴 대기열을 사용한다.
+    public void RequestSpecial(BossPattern pattern, bool prioritize = false)
     {
         Request(
             pattern,
-            _specialWaitingPatterns);
+            prioritize
+                ? _prioritySpecialWaitingPatterns
+                : _specialWaitingPatterns);
     }
 
     /// <summary>
@@ -101,6 +105,8 @@ public sealed class BossPatternRunner
         // 일반 패턴과 특수 패턴 대기열을 모두 비운다.
         _normalWaitingPatterns.Clear();
         _specialWaitingPatterns.Clear();
+        // 중단과 사망 시 우선 특수패턴 예약도 제거한다.
+        _prioritySpecialWaitingPatterns.Clear();
 
         if (_runningCoroutine != null)
         {
@@ -145,13 +151,21 @@ public sealed class BossPatternRunner
         {
             _normalWaitingPatterns.Clear();
             _specialWaitingPatterns.Clear();
+            // 중단과 사망 시 우선 특수패턴 예약도 제거한다.
+            _prioritySpecialWaitingPatterns.Clear();
             return;
         }
 
         // 이번에 선택한 패턴이 특수패턴 대기열에서 나왔는지 기록한다.
         bool isSpecialPattern;
 
-        if (_specialWaitingPatterns.Count > 0)
+        // 실행 중인 패턴이 끝났을 때 우선 특수패턴부터 선택한다.
+        if (_prioritySpecialWaitingPatterns.Count > 0)
+        {
+            _currentPattern = _prioritySpecialWaitingPatterns.Dequeue();
+            isSpecialPattern = true;
+        }
+        else if (_specialWaitingPatterns.Count > 0)
         {
             _currentPattern = _specialWaitingPatterns.Dequeue();
             isSpecialPattern = true;

@@ -1,0 +1,242 @@
+[
+  {
+    "name": "Idle_Modular_01.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "bounds_alpha16": [
+      512,
+      155,
+      1196,
+      1149
+    ],
+    "transparent_percent": 73.22
+  },
+  {
+    "name": "Idle_Modular_02.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "bounds_alpha16": [
+      512,
+      155,
+      1197,
+      1151
+    ],
+    "transparent_percent": 72.94
+  },
+  {
+    "name": "Idle_Modular_03.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "bounds_alpha16": [
+      513,
+      156,
+      1197,
+      1151
+    ],
+    "transparent_percent": 73.04
+  },
+  {
+    "name": "Idle_Modular_04.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "bounds_alpha16": [
+      512,
+      155,
+      1197,
+      1151
+    ],
+    "transparent_percent": 73.15
+  },
+  {
+    "name": "Hatch_Open_01.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "bounds_alpha16": [
+      512,
+      156,
+      1197,
+      1149
+    ],
+    "transparent_percent": 73.19
+  },
+  {
+    "name": "Hatch_Open_02.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "bounds_alpha16": [
+      512,
+      155,
+      1197,
+      1149
+    ],
+    "transparent_percent": 73.28
+  },
+  {
+    "name": "Hatch_Open_03.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "bounds_alpha16": [
+      512,
+      156,
+      1197,
+      1149
+    ],
+    "transparent_percent": 73.03
+  },
+  {
+    "name": "Hatch_Open_04.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "bounds_alpha16": [
+      513,
+      155,
+      1198,
+      1150
+    ],
+    "transparent_percent": 73.18
+  },
+  {
+    "name": "Missile_Body.png",
+    "size": [
+      1774,
+      887
+    ],
+    "mode": "RGBA",
+    "bounds_alpha16": [
+      370,
+      261,
+      1379,
+      622
+    ],
+    "transparent_percent": 85.19
+  },
+  {
+    "name": "Missile_Exhaust_01.png",
+    "size": [
+      1774,
+      887
+    ],
+    "mode": "RGBA",
+    "bounds_alpha16": [
+      443,
+      310,
+      1318,
+      578
+    ],
+    "transparent_percent": 92.35
+  },
+  {
+    "name": "Missile_Exhaust_02.png",
+    "size": [
+      1774,
+      887
+    ],
+    "mode": "RGBA",
+    "bounds_alpha16": [
+      445,
+      319,
+      1437,
+      596
+    ],
+    "transparent_percent": 88.83
+  },
+  {
+    "name": "Missile_LaunchFlash.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "bounds_alpha16": [
+      360,
+      371,
+      878,
+      869
+    ],
+    "transparent_percent": 93.57
+  },
+  {
+    "name": "Missile_Explosion_01.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "bounds_alpha16": [
+      476,
+      464,
+      786,
+      788
+    ],
+    "transparent_percent": 96.18
+  },
+  {
+    "name": "Missile_Explosion_02.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "bounds_alpha16": [
+      203,
+      139,
+      1074,
+      1032
+    ],
+    "transparent_percent": 76.24
+  },
+  {
+    "name": "Missile_Explosion_03.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "bounds_alpha16": [
+      42,
+      56,
+      1206,
+      1185
+    ],
+    "transparent_percent": 56.78
+  },
+  {
+    "name": "Missile_Explosion_04.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "bounds_alpha16": [
+      144,
+      88,
+      1174,
+      1123
+    ],
+    "transparent_percent": 76.77
+  }
+]

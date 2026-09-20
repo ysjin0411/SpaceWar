@@ -1,0 +1,1248 @@
+fileFormatVersion: 2
+guid: 7d9fd2b20b7a33a41815a37ce4919a26
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -5426775555515837789
+    second: Missile_Explosion_04_0
+  - first:
+      213: 4462613354644112507
+    second: Missile_Explosion_04_1
+  - first:
+      213: 2147573502436838099
+    second: Missile_Explosion_04_2
+  - first:
+      213: 3804225210662619918
+    second: Missile_Explosion_04_3
+  - first:
+      213: 5452303691894788920
+    second: Missile_Explosion_04_4
+  - first:
+      213: 160491948346087933
+    second: Missile_Explosion_04_5
+  - first:
+      213: -4444548288361171702
+    second: Missile_Explosion_04_6
+  - first:
+      213: 3448972274066834350
+    second: Missile_Explosion_04_7
+  - first:
+      213: -7722269326826270276
+    second: Missile_Explosion_04_8
+  - first:
+      213: 668256654069166208
+    second: Missile_Explosion_04_9
+  - first:
+      213: 5581144773252211975
+    second: Missile_Explosion_04_10
+  - first:
+      213: 4185315799841441954
+    second: Missile_Explosion_04_11
+  - first:
+      213: -7141755636579894234
+    second: Missile_Explosion_04_12
+  - first:
+      213: 4036508307493001175
+    second: Missile_Explosion_04_13
+  - first:
+      213: 5325742111368939098
+    second: Missile_Explosion_04_14
+  - first:
+      213: 1552707482584413661
+    second: Missile_Explosion_04_15
+  - first:
+      213: -5619604451234593983
+    second: Missile_Explosion_04_16
+  - first:
+      213: -2156647119923579076
+    second: Missile_Explosion_04_17
+  - first:
+      213: -1012543102398025648
+    second: Missile_Explosion_04_18
+  - first:
+      213: -2707328983675585416
+    second: Missile_Explosion_04_19
+  - first:
+      213: -7107622017136269678
+    second: Missile_Explosion_04_20
+  - first:
+      213: -4862948287052434455
+    second: Missile_Explosion_04_21
+  - first:
+      213: 8622183305372063954
+    second: Missile_Explosion_04_22
+  - first:
+      213: -376348745790732976
+    second: Missile_Explosion_04_23
+  - first:
+      213: -5085627455770180808
+    second: Missile_Explosion_04_24
+  - first:
+      213: -1541320791779791662
+    second: Missile_Explosion_04_25
+  - first:
+      213: -5148168433620400512
+    second: Missile_Explosion_04_26
+  - first:
+      213: 5090526839022736660
+    second: Missile_Explosion_04_27
+  - first:
+      213: -572536201502202756
+    second: Missile_Explosion_04_28
+  - first:
+      213: 5590093990343769788
+    second: Missile_Explosion_04_29
+  - first:
+      213: 6212305271178950361
+    second: Missile_Explosion_04_30
+  - first:
+      213: 2561638386342792364
+    second: Missile_Explosion_04_31
+  - first:
+      213: -1031734264404790017
+    second: Missile_Explosion_04_32
+  - first:
+      213: 7001207659155531545
+    second: Missile_Explosion_04_33
+  - first:
+      213: -2354604889603557875
+    second: Missile_Explosion_04_34
+  - first:
+      213: 5423840694111024554
+    second: Missile_Explosion_04_35
+  - first:
+      213: -3428675540506649800
+    second: Missile_Explosion_04_36
+  - first:
+      213: 8225863228752204272
+    second: Missile_Explosion_04_37
+  - first:
+      213: 3773937592015976085
+    second: Missile_Explosion_04_38
+  - first:
+      213: -8646527904248080224
+    second: Missile_Explosion_04_39
+  - first:
+      213: -2273383726455678177
+    second: Missile_Explosion_04_40
+  - first:
+      213: 7494895514656997985
+    second: Missile_Explosion_04_41
+  - first:
+      213: 8963190922355794400
+    second: Missile_Explosion_04_42
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 600
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Missile_Explosion_04_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 682
+        width: 710
+        height: 558
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a294b1726830b4b0800000000000000
+      internalID: -5426775555515837789
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_Explosion_04_1
+      rect:
+        serializedVersion: 2
+        x: 346
+        y: 1157
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b740a7db3336eed30800000000000000
+      internalID: 4462613354644112507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_Explosion_04_2
+      rect:
+        serializedVersion: 2
+        x: 723
+        y: 765
+        width: 512
+        height: 465
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3da0acdd8b6bdcd10800000000000000
+      internalID: 2147573502436838099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_Explosion_04_3
+      rect:
+        serializedVersion: 2
+        x: 747
+        y: 1162
+        width: 10
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e0b81276ca25bc430800000000000000
+      internalID: 3804225210662619918
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_Explosion_04_4
+      rect:
+        serializedVersion: 2
+        x: 709
+        y: 1072
+        width: 20
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83390faf1597aab40800000000000000
+      internalID: 5452303691894788920
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_Explosion_04_5
+      rect:
+        serializedVersion: 2
+        x: 729
+        y: 1078
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df99a72a39e2a3200800000000000000
+      internalID: 160491948346087933
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_Explosion_04_6
+      rect:
+        serializedVersion: 2
+        x: 732
+        y: 1076
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a05792541eac152c0800000000000000
+      internalID: -4444548288361171702
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_Explosion_04_7
+      rect:
+        serializedVersion: 2
+        x: 834
+        y: 1056
+        width: 37
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea3cce382063ddf20800000000000000
+      internalID: 3448972274066834350
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_Explosion_04_8
+      rect:
+        serializedVersion: 2
+        x: 739
+        y: 1060
+        width: 16
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cb110aa26fcf4d490800000000000000
+      internalID: -7722269326826270276
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_Explosion_04_9
+      rect:
+        serializedVersion: 2
+        x: 273
+        y: 962
+        width: 52
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0807594e2ef164900800000000000000
+      internalID: 668256654069166208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_Explosion_04_10
+      rect:
+        serializedVersion: 2
+        x: 689
+        y: 980
+        width: 66
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 705e9b1e995347d40800000000000000
+      internalID: 5581144773252211975
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_Explosion_04_11
+      rect:
+        serializedVersion: 2
+        x: 753
+        y: 946
+        width: 34
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a801629b8a351a30800000000000000
+      internalID: 4185315799841441954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_Explosion_04_12
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 497
+        width: 510
+        height: 411
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62cf201561363ec90800000000000000
+      internalID: -7141755636579894234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_Explosion_04_13
+      rect:
+        serializedVersion: 2
+        x: 313
+        y: 825
+        width: 82
+        height: 142
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d798095bee840830800000000000000
+      internalID: 4036508307493001175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_Explosion_04_14
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 744
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a560c79bb36d8e940800000000000000
+      internalID: 5325742111368939098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_Explosion_04_15
+      rect:
+        serializedVersion: 2
+        x: 496
+        y: 728
+        width: 20
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd5f8839a335c8510800000000000000
+      internalID: 1552707482584413661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_Explosion_04_16
+      rect:
+        serializedVersion: 2
+        x: 571
+        y: 0
+        width: 656
+        height: 748
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14345f986872302b0800000000000000
+      internalID: -5619604451234593983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_Explosion_04_17
+      rect:
+        serializedVersion: 2
+        x: 506
+        y: 724
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c37f51feedc0212e0800000000000000
+      internalID: -2156647119923579076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_Explosion_04_18
+      rect:
+        serializedVersion: 2
+        x: 298
+        y: 527
+        width: 81
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0503bcdb969b2f1f0800000000000000
+      internalID: -1012543102398025648
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_Explosion_04_19
+      rect:
+        serializedVersion: 2
+        x: 446
+        y: 521
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 87cb5e522a2ad6ad0800000000000000
+      internalID: -2707328983675585416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_Explosion_04_20
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 467
+        width: 37
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 296e8d6ee67ac5d90800000000000000
+      internalID: -7107622017136269678
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_Explosion_04_21
+      rect:
+        serializedVersion: 2
+        x: 468
+        y: 513
+        width: 7
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e335254c46538cb0800000000000000
+      internalID: -4862948287052434455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_Explosion_04_22
+      rect:
+        serializedVersion: 2
+        x: 474
+        y: 508
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d85101b80628a770800000000000000
+      internalID: 8622183305372063954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_Explosion_04_23
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 439
+        width: 47
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 055ca774fc0f6caf0800000000000000
+      internalID: -376348745790732976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_Explosion_04_24
+      rect:
+        serializedVersion: 2
+        x: 253
+        y: 448
+        width: 39
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83348d616c83c69b0800000000000000
+      internalID: -5085627455770180808
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_Explosion_04_25
+      rect:
+        serializedVersion: 2
+        x: 402
+        y: 481
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2dcaa09f7e02c9ae0800000000000000
+      internalID: -1541320791779791662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_Explosion_04_26
+      rect:
+        serializedVersion: 2
+        x: 458
+        y: 467
+        width: 27
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0864d26f5180e88b0800000000000000
+      internalID: -5148168433620400512
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_Explosion_04_27
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 0
+        width: 522
+        height: 468
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 415da87703f25a640800000000000000
+      internalID: 5090526839022736660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_Explosion_04_28
+      rect:
+        serializedVersion: 2
+        x: 472
+        y: 465
+        width: 8
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c74e860bb51fd08f0800000000000000
+      internalID: -572536201502202756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_Explosion_04_29
+      rect:
+        serializedVersion: 2
+        x: 478
+        y: 461
+        width: 19
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cbe7c7bddd0049d40800000000000000
+      internalID: 5590093990343769788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_Explosion_04_30
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 431
+        width: 25
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d678ecdaba863650800000000000000
+      internalID: 6212305271178950361
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_Explosion_04_31
+      rect:
+        serializedVersion: 2
+        x: 528
+        y: 439
+        width: 28
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cac87fc4a84cc8320800000000000000
+      internalID: 2561638386342792364
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_Explosion_04_32
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 272
+        width: 88
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff4bd83272b8ea1f0800000000000000
+      internalID: -1031734264404790017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_Explosion_04_33
+      rect:
+        serializedVersion: 2
+        x: 526
+        y: 351
+        width: 76
+        height: 75
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 917a5b2a549492160800000000000000
+      internalID: 7001207659155531545
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_Explosion_04_34
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 213
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d0638c00453c25fd0800000000000000
+      internalID: -2354604889603557875
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_Explosion_04_35
+      rect:
+        serializedVersion: 2
+        x: 627
+        y: 204
+        width: 54
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa5bbc2ef5a554b40800000000000000
+      internalID: 5423840694111024554
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_Explosion_04_36
+      rect:
+        serializedVersion: 2
+        x: 657
+        y: 194
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83bd70603c5ea60d0800000000000000
+      internalID: -3428675540506649800
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_Explosion_04_37
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 106
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f119b82603282270800000000000000
+      internalID: 8225863228752204272
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_Explosion_04_38
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 71
+        width: 28
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 596fa98ae38bf5430800000000000000
+      internalID: 3773937592015976085
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_Explosion_04_39
+      rect:
+        serializedVersion: 2
+        x: 948
+        y: 87
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0a85aceaeac510880800000000000000
+      internalID: -8646527904248080224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_Explosion_04_40
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 63
+        width: 19
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f1b9472bb815370e0800000000000000
+      internalID: -2273383726455678177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_Explosion_04_41
+      rect:
+        serializedVersion: 2
+        x: 619
+        y: 64
+        width: 7
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1628ccbc2c7330860800000000000000
+      internalID: 7494895514656997985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_Explosion_04_42
+      rect:
+        serializedVersion: 2
+        x: 899
+        y: 53
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e1e505a7a6a36c70800000000000000
+      internalID: 8963190922355794400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Missile_Explosion_04_0: -5426775555515837789
+      Missile_Explosion_04_1: 4462613354644112507
+      Missile_Explosion_04_10: 5581144773252211975
+      Missile_Explosion_04_11: 4185315799841441954
+      Missile_Explosion_04_12: -7141755636579894234
+      Missile_Explosion_04_13: 4036508307493001175
+      Missile_Explosion_04_14: 5325742111368939098
+      Missile_Explosion_04_15: 1552707482584413661
+      Missile_Explosion_04_16: -5619604451234593983
+      Missile_Explosion_04_17: -2156647119923579076
+      Missile_Explosion_04_18: -1012543102398025648
+      Missile_Explosion_04_19: -2707328983675585416
+      Missile_Explosion_04_2: 2147573502436838099
+      Missile_Explosion_04_20: -7107622017136269678
+      Missile_Explosion_04_21: -4862948287052434455
+      Missile_Explosion_04_22: 8622183305372063954
+      Missile_Explosion_04_23: -376348745790732976
+      Missile_Explosion_04_24: -5085627455770180808
+      Missile_Explosion_04_25: -1541320791779791662
+      Missile_Explosion_04_26: -5148168433620400512
+      Missile_Explosion_04_27: 5090526839022736660
+      Missile_Explosion_04_28: -572536201502202756
+      Missile_Explosion_04_29: 5590093990343769788
+      Missile_Explosion_04_3: 3804225210662619918
+      Missile_Explosion_04_30: 6212305271178950361
+      Missile_Explosion_04_31: 2561638386342792364
+      Missile_Explosion_04_32: -1031734264404790017
+      Missile_Explosion_04_33: 7001207659155531545
+      Missile_Explosion_04_34: -2354604889603557875
+      Missile_Explosion_04_35: 5423840694111024554
+      Missile_Explosion_04_36: -3428675540506649800
+      Missile_Explosion_04_37: 8225863228752204272
+      Missile_Explosion_04_38: 3773937592015976085
+      Missile_Explosion_04_39: -8646527904248080224
+      Missile_Explosion_04_4: 5452303691894788920
+      Missile_Explosion_04_40: -2273383726455678177
+      Missile_Explosion_04_41: 7494895514656997985
+      Missile_Explosion_04_42: 8963190922355794400
+      Missile_Explosion_04_5: 160491948346087933
+      Missile_Explosion_04_6: -4444548288361171702
+      Missile_Explosion_04_7: 3448972274066834350
+      Missile_Explosion_04_8: -7722269326826270276
+      Missile_Explosion_04_9: 668256654069166208
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

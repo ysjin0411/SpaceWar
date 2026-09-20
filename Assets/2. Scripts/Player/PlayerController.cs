@@ -20,6 +20,12 @@ public class PlayerController : MonoBehaviour, IDamageable
     [Header("UI")]
     [SerializeField] HPUI _hpUI;
 
+    // 잡기·던지기처럼 외부 코드가 플레이어 위치를 관리하는 동안 유지한다.
+    private bool _hasForcedMovement;
+
+    // 이동 권한을 얻은 객체만 위치 변경과 해제를 할 수 있다.
+    private MonoBehaviour _forcedMovementOwner;
+
     // 피격 후 깜빡임이 끝날 때까지 추가 피해를 막는다.
     private bool _isHitInvulnerable;
 
@@ -43,7 +49,10 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     public int MaxHp => _maxHp;
     public int CurrentHp => _currentHp;
-    public bool CanControl => _canControl;
+
+    // 기본 조작 허용 상태와 강제 이동 상태를 함께 반영한다.
+    public bool CanControl =>
+        _canControl && !_hasForcedMovement && !IsDead;
     public bool IsDead => _currentHp <= 0;    
     public Transform TargetTransform => transform;  // 캐릭터의 위치 전달
 
@@ -105,8 +114,16 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     private void Update()
     {
-        // 입장이나 구간 전환 연출 중에는 플레이어 입력을 받지 않는다.
-        if (!_canControl)
+        // 이동을 맡은 객체가 사라지거나 비활성화되면 잠금을 정리한다.
+        if (_hasForcedMovement &&
+            (_forcedMovementOwner == null ||
+             !_forcedMovementOwner.isActiveAndEnabled))
+        {
+            ReleaseForcedMovement();
+        }
+
+        // 강제 이동 중에는 새 이동 입력을 받지 않는다.
+        if (!CanControl)
         {
             _moveDirection = Vector2.zero;
             return;
@@ -122,8 +139,8 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     private void FixedUpdate()
     {
-        // 이동 연출과 사망 중에는 입력과 외부 이동을 모두 적용하지 않는다.
-        if (!_canControl || IsDead)
+        // 강제 이동 중에는 일반 이동과 화면 경계 보정을 적용하지 않는다.
+        if (!CanControl)
         {
             _rigidbody.linearVelocity = Vector2.zero;
             return;
@@ -176,34 +193,34 @@ public class PlayerController : MonoBehaviour, IDamageable
         }
     }
 
-    // 이 아래에는 기존 SetControlEnabled 메서드가 이어진다.
-
+    // 입장·구간 전환 등 기존 시스템의 조작 허용 상태를 변경한다.
     public void SetControlEnabled(bool canControl)
     {
-        // 플레이어의 조작 허용 상태를 변경한다.
         _canControl = canControl;
+        NotifyControlState();
+    }
 
-        // 잠금 이전의 이동 입력이 남지 않도록 초기화한다.
+    // 최종 조작 가능 상태를 무기에도 전달한다.
+    private void NotifyControlState()
+    {
         _moveDirection = Vector2.zero;
 
-        if (!_canControl)
+        if (!CanControl)
         {
-            // 연출 중에는 플레이어 입력으로 움직이지 않는다.
             _rigidbody.linearVelocity = Vector2.zero;
         }
 
-        // 무기가 진행 중인 공격을 즉시 중단할 수 있도록 알린다.
         if (ControlStateChanged != null)
         {
-            ControlStateChanged.Invoke(_canControl);
+            ControlStateChanged.Invoke(CanControl);
         }
     }
 
-    // 일반 공격의 피해를 처리한다.
-    // 피격 애니메이션 중에는 추가 일반 피해를 받지 않는다.
+    // 일반 총알·몸박 등의 피해를 처리한다.
+    // 잡기·던지기·반사 이동 중에는 CanControl이 false이므로 차단한다.
     public void TakeHit(int damage)
     {
-        if (!_canControl || IsDead || _isHitInvulnerable || damage <= 0)
+        if (!CanControl || _isHitInvulnerable || damage <= 0)
         {
             return;
         }
@@ -211,12 +228,11 @@ public class PlayerController : MonoBehaviour, IDamageable
         ApplyDamage(damage, true);
     }
 
-    // 투사체에 접촉한 시간에 따라 발생하는 지속 피해를 처리한다.
-    // 일반 피격 무적 시간의 영향을 받지 않으며,
-    // 이동 연출 중이거나 이미 사망했다면 피해를 받지 않는다.
+    // 지속 피해도 조작이 복구되기 전까지 차단한다.
+    // 조작 가능 상태에서는 기존처럼 일반 피격 무적을 무시한다.
     public void TakeContinuousDamage(int damage)
     {
-        if (!_canControl || IsDead || damage <= 0)
+        if (!CanControl || damage <= 0)
         {
             return;
         }
@@ -280,6 +296,9 @@ public class PlayerController : MonoBehaviour, IDamageable
         // 입력과 현재 이동 속도를 함께 초기화한다.
         SetControlEnabled(false);
 
+        // 사망 후에는 잡기·던지기의 이동 권한도 남기지 않는다.
+        ReleaseForcedMovement();
+
         // 사망 후에는 흡인 등 외부 이동 효과도 유지하지 않는다.
         _externalVelocities.Clear();
 
@@ -320,5 +339,122 @@ public class PlayerController : MonoBehaviour, IDamageable
 
         // 변경된 현재체력과 최대체력을 즉시 화면에 반영한다.
         UpdateHpUI();
+    }
+
+    // 잡기에 성공한 객체가 플레이어의 이동 권한을 요청한다.
+    public bool TryBeginForcedMovement(MonoBehaviour owner)
+    {
+        if (owner == null)
+        {
+            throw new ArgumentNullException(nameof(owner));
+        }
+
+        // 다른 연출·잡기·사망 상태에서는 새 이동 권한을 주지 않는다.
+        if (!isActiveAndEnabled ||
+            !owner.isActiveAndEnabled ||
+            !CanControl)
+        {
+            return false;
+        }
+
+        _forcedMovementOwner = owner;
+        _hasForcedMovement = true;
+
+        // 이동 입력과 진행 중인 무기 공격을 중단한다.
+        NotifyControlState();
+        return true;
+    }
+
+    // 권한을 가진 객체만 잡기·던지기의 월드 위치를 전달할 수 있다.
+    public bool TrySetForcedPosition(MonoBehaviour owner, Vector2 position)
+    {
+        if (!_hasForcedMovement ||
+            owner == null ||
+            owner != _forcedMovementOwner ||
+            !owner.isActiveAndEnabled ||
+            !isActiveAndEnabled ||
+            !_canControl ||
+            IsDead)
+        {
+            return false;
+        }
+
+        _rigidbody.linearVelocity = Vector2.zero;
+        _rigidbody.position = position;
+
+        // 같은 프레임의 표시 위치도 맞추고 기존 Z 좌표는 유지한다.
+        transform.position = new Vector3(
+            position.x, position.y, transform.position.z);
+
+        return true;
+    }
+
+    // 정상 종료나 패턴 취소 시 권한을 가진 객체가 호출한다.
+    public void EndForcedMovement(MonoBehaviour owner)
+    {
+        if (!_hasForcedMovement ||
+            owner == null ||
+            owner != _forcedMovementOwner)
+        {
+            return;
+        }
+
+        ReleaseForcedMovement();
+    }
+
+    // 소유자 제거·사망·비활성화에서도 공통으로 사용하는 정리다.
+    private void ReleaseForcedMovement()
+    {
+        if (!_hasForcedMovement)
+        {
+            return;
+        }
+
+        _hasForcedMovement = false;
+        _forcedMovementOwner = null;
+        _rigidbody.linearVelocity = Vector2.zero;
+
+        // 벽 충돌의 피격 무적이 남아 있어도 조작 복구 시에는 해제한다.
+        // 이후 새로 받는 일반 공격은 기존 피격 무적 규칙을 따른다.
+        _isHitInvulnerable = false;
+
+        // 손이 화면 밖에 있는 순간 취소돼도 플레이어는 이동 영역으로 복귀한다.
+        Vector2 position = _rigidbody.position;
+        position.x = Mathf.Clamp(position.x, MinX, MaxX);
+        position.y = Mathf.Clamp(position.y, MinY, MaxY);
+
+        _rigidbody.position = position;
+        transform.position = new Vector3(
+            position.x, position.y, transform.position.z);
+
+        // 기본 조작 허용 상태는 변경하지 않는다.
+        NotifyControlState();
+    }
+
+    // 플레이어가 비활성화되면 남은 이동 권한을 정리한다.
+    private void OnDisable()
+    {
+        ReleaseForcedMovement();
+    }
+
+    // 강제 이동을 관리하는 객체가 해당 패턴의 피해를 적용한다.
+    // 외부 피해 차단과 기존 피격 무적을 무시하지만,
+    // 이동 권한이 없거나 플레이어가 사망한 경우에는 적용하지 않는다.
+    public void ApplyForcedMovementDamage(MonoBehaviour owner, int damage)
+    {
+        if (!isActiveAndEnabled ||
+            !_hasForcedMovement ||
+            owner == null ||
+            owner != _forcedMovementOwner ||
+            !owner.isActiveAndEnabled ||
+            !_canControl ||
+            IsDead ||
+            damage <= 0)
+        {
+            return;
+        }
+
+        // 기존 체력 감소·피격 연출·UI 갱신·사망 처리를 사용한다.
+        ApplyDamage(damage, true);
     }
 }

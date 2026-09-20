@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9fbc92fbf9967c44af5a9649de047bf, type: 3}
+  m_Name: BossAlienMissileConfig
+  m_EditorClassIdentifier: 
+  _missilePrefab: {fileID: 5929463071728701819, guid: 1a0314fd02c81cd4190e079df66efc5e, type: 3}
+  _explosionPrefab: {fileID: 2553917452007040124, guid: 62ae944e5652c7d46aacadf557605bb4, type: 3}
+  _damage: 10
+  _explosionRadius: 1
+  _flightDuration: 1.5
+  _sockets:
+  - _firstDelay: 0
+    _interval: 0.3
+    _shotCount: 3
+    _startControlOffset: {x: -1, y: 2}
+    _endControlOffset: {x: 3, y: 2}
+  - _firstDelay: 0.1
+    _interval: 0.3
+    _shotCount: 3
+    _startControlOffset: {x: 1, y: 3}
+    _endControlOffset: {x: 4, y: 3}
+  - _firstDelay: 0.2
+    _interval: 0.3
+    _shotCount: 3
+    _startControlOffset: {x: -1, y: -2}
+    _endControlOffset: {x: 3, y: -2}
+  - _firstDelay: 0.3
+    _interval: 0.3
+    _shotCount: 3
+    _startControlOffset: {x: 1, y: -3}
+    _endControlOffset: {x: 4, y: -3}

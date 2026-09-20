@@ -182,6 +182,10 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
     // 페이즈 제한이 필요한 보스는 이 조건을 재정의한다.
     protected virtual bool CanUseNormalPatterns => true;
 
+    // 현재 체력을 파란 ShieldHpbar에 표시할지 UI에 알려준다.
+    // 일반 보스는 기존 빨간 체력 바를 사용한다.
+    public virtual bool UsesShieldHealthBar => false;
+
 
 
     protected virtual void Awake()
@@ -318,20 +322,19 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
         _patternRunner.RequestNormal(pattern);
     }
 
-    /// <summary>
-    /// 체력 조건으로 발동하는 특수 패턴을 요청한다.
-    /// 현재 패턴 종료 후 일반 대기 패턴보다 먼저 실행된다.
-    /// </summary>
+    // 자식 보스가 특수패턴을 요청하는 공통 진입점이다.
+    // 기존 호출은 기본값 false를 사용하므로 동작이 유지된다.
     protected void RequestSpecialPattern(
-        BossPattern pattern)
+        BossPattern pattern,
+        bool prioritize = false)
     {
         if (!_isInitialized)
         {
             throw new InvalidOperationException(
-                $"{name}은 초기화 전이라 특수 패턴을 요청할 수 없습니다.");
+                $"{name}은 초기화 전이라 특수패턴을 요청할 수 없습니다.");
         }
 
-        _patternRunner.RequestSpecial(pattern);
+        _patternRunner.RequestSpecial(pattern, prioritize);
     }
 
     /// <summary>
@@ -490,6 +493,15 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
         }
 
         // 0 이하의 피해는 처리하지 않는다.
+        if (damage <= 0)
+        {
+            return;
+        }
+
+        // 체력을 차감하기 전에 보스별 피해 감소를 적용한다.
+        damage = CalculateIncomingDamage(damage);
+
+        // 피해 감소율이 100%라면 피격 연출과 체력 변경도 생략한다.
         if (damage <= 0)
         {
             return;
@@ -737,5 +749,12 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
 
         // 기존 실행기의 중단 처리를 사용하므로 패턴의 finally도 실행된다.
         _patternRunner.StopAll();
+    }
+
+    // 보스별 방어 효과를 적용할 확장 지점이다.
+    // 별도로 재정의하지 않은 보스는 원래 피해를 그대로 받는다.
+    protected virtual int CalculateIncomingDamage(int damage)
+    {
+        return damage;
     }
 }

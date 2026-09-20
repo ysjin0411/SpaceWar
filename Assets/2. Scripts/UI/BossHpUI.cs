@@ -196,28 +196,50 @@ public class BossHpUI : MonoBehaviour
         // 생성된 보스 프리팹에 설정된 표시 이름을 UI에 출력한다.
         _bossNameText.text = spawnedBoss.BossName;
 
-        // 체력 UI를 펼치기 전에 실드 유무와 최초 값을 반영한다.
+        // 기존 타워 실드의 연결을 처리한다.
         BindShield(spawnedBoss);
+
+        // UI를 펼치기 전에 사용할 바와 현재 체력을 즉시 반영한다.
+        HandleHealthChanged(spawnedBoss.CurrentHp, spawnedBoss.MaxHp);
 
         PlayBossOpen();
     }
 
-    /// <summary>
-    /// 보스의 현재 체력을 fillAmount에 반영한다.
-    /// </summary>
-    private void HandleHealthChanged(
-        int currentHp,
-        int maxHp)
+    // 보스가 지정한 체력 바에 현재 체력을 표시한다.
+    private void HandleHealthChanged(int currentHp, int maxHp)
     {
-        if (maxHp <= 0)
+        if (_boundBoss == null || maxHp <= 0)
         {
             return;
         }
 
+        if (_boundBoss.UsesShieldHealthBar)
+        {
+            // 로봇 체력을 표시할 파란 바가 반드시 필요하다.
+            if (_bossShieldFillImage == null)
+            {
+                throw new InvalidOperationException(
+                    $"{name}: Boss Shield Fill Image를 연결하세요.");
+            }
+
+            // 빨간 Fill만 숨긴다. 공통 프레임과 이름은 유지한다.
+            _bossHpFillImage.enabled = false;
+            _hpTween?.Kill();
+            _hpTween = null;
+
+            // 균열 유무와 관계없이 로봇 체력을 파란 바에 표시한다.
+            _bossShieldFillImage.gameObject.SetActive(true);
+            HandleShieldChanged(currentHp, maxHp);
+            return;
+        }
+
+        // 일반 보스는 기존 빨간 체력 바를 사용한다.
+        _bossHpFillImage.enabled = true;
+
         float targetFillAmount = Mathf.Clamp01(
             (float)currentHp / maxHp);
 
-        // 보스 생성 직후에는 최대 체력을 즉시 표시한다.
+        // 최초 값은 감소 연출 없이 즉시 표시한다.
         if (!_hasReceivedInitialHealth)
         {
             _hasReceivedInitialHealth = true;
@@ -225,14 +247,11 @@ public class BossHpUI : MonoBehaviour
             return;
         }
 
-        // 연속으로 피해를 받으면 이전 연출을 중지하고
-        // 현재 표시 위치에서 새로운 체력까지 다시 감소시킨다.
+        // 연속 피격 시 현재 표시량에서 새로운 체력까지 감소시킨다.
         _hpTween?.Kill();
 
         _hpTween = _bossHpFillImage
-            .DOFillAmount(
-                targetFillAmount,
-                _hpFillDuration)
+            .DOFillAmount(targetFillAmount, _hpFillDuration)
             .SetEase(Ease.OutQuad)
             .SetUpdate(true);
     }
