@@ -127,6 +127,25 @@ public sealed class BossAlienResonancePattern : BossPattern
 
         try
         {
+            // 그랩이 끝났어도 시스템 경고가 남아 있으면 종료될 때까지 기다린다.
+            // 경고가 먼저 끝났다면 대기 없이 다음 단계로 진행한다.
+            while (boss.IsResonanceWarningPending)
+            {
+                // 대기 중 사망하거나 비활성화되면 패턴을 종료한다.
+                if (!CanContinue())
+                {
+                    yield break;
+                }
+
+                yield return null;
+            }
+
+            // 경고 종료 직후에도 전투를 계속할 수 있는지 확인한다.
+            if (!CanContinue())
+            {
+                yield break;
+            }
+
             // 1. 균열 생성 순서대로 경로를 예고하고 충격파를 발사한다.
             foreach (BossAlienCrackController.Crack source in sources)
             {

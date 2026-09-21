@@ -63,6 +63,12 @@ public sealed class Boss_Alien : BossEnemy
     private string _resonanceWarningMessage =
         "경고! 균열 공명 감지. 충격파 발생에 대비하십시오.";
 
+    // 균열 공명 경고가 아직 표시 중인지 기억한다.
+    private bool _isResonanceWarningPending;
+
+    // 공명 패턴이 경고 종료를 기다릴 때 확인한다.
+    public bool IsResonanceWarningPending => _isResonanceWarningPending;
+
     // 각 항목을 이미 요청했는지 기록한다.
     // 동일한 패턴을 여러 기준에 넣어도 항목마다 한 번씩 요청한다.
     private bool[] _hasRequestedHealthPatterns = Array.Empty<bool>();
@@ -221,6 +227,9 @@ public sealed class Boss_Alien : BossEnemy
 
     protected override void OnDisable()
     {
+        // 비활성화된 보스가 다이어로그 완료 이벤트를 받지 않도록 정리한다.
+        ClearResonanceWarningWait();
+
         // 비활성화된 보스가 균열 이벤트를 계속 받지 않도록 정리한다.
         if (_crackController != null)
         {
@@ -307,11 +316,17 @@ public sealed class Boss_Alien : BossEnemy
         return _missileSockets[socketIndex].position;
     }
 
-    // 균열 하나 이상이면 실드를 켜고, 마지막 균열이 사라지면 끈다.
+    // 균열 개수에 따라 실드를 갱신하고, 균열이 없어지면 경고 대기도 해제한다.
     private void HandleCrackCountChanged(int count)
     {
         _shieldVisual.SetActive(
             isActiveAndEnabled && !IsDead && count > 0);
+
+        // 패턴 종료나 사망으로 균열이 제거된 경우도 함께 처리한다.
+        if (count == 0)
+        {
+            ClearResonanceWarningWait();
+        }
     }
 
     // 균열 수와 관계없이 설정된 감소율을 한 번만 적용한다.
@@ -432,7 +447,7 @@ public sealed class Boss_Alien : BossEnemy
         }
     }
 
-    // 균열 3개를 확보한 순간 경고를 표시하고 공명을 예약한다.
+    // 균열 3개가 완성되면 즉시 경고를 표시하고 공명을 예약한다.
     private void HandleMaxCracksReached()
     {
         if (!CanRunArmPattern ||
@@ -441,10 +456,22 @@ public sealed class Boss_Alien : BossEnemy
             return;
         }
 
-        // 기존 시스템 다이어로그 UI에 경고 표시를 요청한다.
+        // 이전 구독을 정리하고, 표시 요청 전에 완료 신호를 받을 준비를 한다.
+        ClearResonanceWarningWait();
+        _isResonanceWarningPending = true;
+        SystemDialogueCompleted += ClearResonanceWarningWait;
+
+        // 기존 시스템 다이어로그 UI에 경고를 표시한다.
         RequestSystemDialogue(_resonanceWarningMessage);
 
-        // 현재 그랩이 끝난 뒤 균열 공명을 우선 실행한다.
+        // 현재 그랩이 끝난 뒤 공명을 우선 실행한다.
         RequestSpecialPattern(_resonancePattern, prioritize: true);
+    }
+
+    // 경고가 끝났거나 공명이 취소되면 대기 상태와 이벤트 구독을 정리한다.
+    private void ClearResonanceWarningWait()
+    {
+        SystemDialogueCompleted -= ClearResonanceWarningWait;
+        _isResonanceWarningPending = false;
     }
 }
