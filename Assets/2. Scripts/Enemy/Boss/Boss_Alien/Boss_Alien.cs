@@ -1,10 +1,28 @@
 using System;
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 // 외계인 보스의 참조와 팔의 기본 상태를 관리한다.
 public sealed class Boss_Alien : BossEnemy
 {
+    // 에일리언의 각 상태에 실제 페이즈 번호를 지정한다.
+    public enum AlienPhase
+    {
+        Robot = 1, // 로봇 상태의 1페이즈.
+        Alien = 2  // 본체가 등장하는 2페이즈.
+    }
+
+    // 처음에는 로봇 상태로 전투를 시작한다.
+    private AlienPhase _currentPhase = AlienPhase.Robot;
+
+    // 로봇 파괴부터 본체 등장 완료까지 전환 상태를 유지한다.
+    private bool _isPhaseTransitioning;
+
+    // 전환 연출 중에는 보스에게 들어오는 피해를 차단한다.
+    protected override bool CanReceiveDamage =>
+        base.CanReceiveDamage && !_isPhaseTransitioning;
+
     // 팔과 손의 시각적 연결을 담당한다.
     [SerializeField] private BossAlienArmRig _armRig;
 
@@ -42,6 +60,22 @@ public sealed class Boss_Alien : BossEnemy
 
     // 켜고 끌 실드 외형이다. 자식 ShieldVisual을 연결한다.
     [SerializeField] private GameObject _shieldVisual;
+
+    // 본체 등장 연출을 재생할 BodyVisual의 Animator다.
+    [SerializeField] private Animator _phaseTransitionAnimator;
+
+    // 전환 스프라이트에 팔이 포함되어 있으므로 숨길 기존 GrabArm이다.
+    [SerializeField] private GameObject _robotArmRoot;
+
+    // 본체 페이즈의 최대 체력이다. 100은 임시 기본값이다.
+    [SerializeField, Min(1)] private int _phaseTwoMaxHp = 100;
+
+    // 비활성화나 플레이어 사망 시 중단할 전환 코루틴이다.
+    private Coroutine _phaseTransitionRoutine;
+
+    // Animator의 Base Layer에 만든 전환 상태를 가리킨다.
+    private static readonly int PhaseTransitionState =
+        Animator.StringToHash("Base Layer.Alien_PhaseTransition");
 
     [Header("체력 특수 패턴")]
 
@@ -95,8 +129,11 @@ public sealed class Boss_Alien : BossEnemy
     public Vector3 RestHandPosition =>
         transform.TransformPoint(_restHandLocalPosition);
 
-    // 살아 있는 플레이어와 전투 중일 때만 팔 패턴을 허용한다.
+    // 로봇 페이즈에서 살아 있는 플레이어와 전투 중일 때만
+    // 기존 팔 공격과 로봇 특수패턴을 허용한다.
     public bool CanRunArmPattern =>
+        _currentPhase == AlienPhase.Robot &&
+        !_isPhaseTransitioning &&
         _isArmReady &&
         isActiveAndEnabled &&
         HasBattleStarted &&
@@ -114,9 +151,16 @@ public sealed class Boss_Alien : BossEnemy
     public Vector3 HoldHandPosition => _handHoldPoint.position;
     public Vector3 ThrowWindupHandPosition => _handThrowWindupPoint.position;
 
-    // 현재 구현된 로봇 1페이즈 체력은 파란 바에 표시한다.
-    // 균열로 발생하는 피해 감소 실드의 활성 여부와는 별개다.
-    public override bool UsesShieldHealthBar => true;
+    // 에일리언은 로봇과 본체로 구성된 2페이즈 보스다.
+    public override int TotalPhaseCount => 2;
+
+    // 현재 상태에 지정된 값을 페이즈 번호로 사용한다.
+    public override int CurrentPhaseNumber => (int)_currentPhase;
+
+    // 로봇 상태의 체력은 파란색 바에 표시한다.
+    // 균열에서 발생하는 피해 감소 실드와는 별개다.
+    public override bool UsesShieldHealthBar =>
+        _currentPhase == AlienPhase.Robot;
 
     protected override void Awake()
     {
@@ -227,6 +271,9 @@ public sealed class Boss_Alien : BossEnemy
 
     protected override void OnDisable()
     {
+        // 전투 중단 시 진행 중인 본체 등장 처리를 취소한다.
+        StopPhaseTransitionRoutine();
+
         // 비활성화된 보스가 다이어로그 완료 이벤트를 받지 않도록 정리한다.
         ClearResonanceWarningWait();
 
@@ -268,6 +315,9 @@ public sealed class Boss_Alien : BossEnemy
 
     private void HandlePlayerDied()
     {
+        // 전투 중단 시 진행 중인 본체 등장 처리를 취소한다.
+        StopPhaseTransitionRoutine();
+
         // 플레이어 사망은 timeScale이 0이어도 즉시 정리한다.
         StopPatternsForPhaseChange();
 
@@ -473,5 +523,156 @@ public sealed class Boss_Alien : BossEnemy
     {
         SystemDialogueCompleted -= ClearResonanceWarningWait;
         _isResonanceWarningPending = false;
+    }
+
+    // 로봇 체력이 소진되면 최종 사망 대신 본체 등장 준비를 시작한다.
+    protected override bool TryBeginNextPhase()
+    {
+        // 이미 전환 중이라면 중복 실행과 최종 사망을 막는다.
+        if (_isPhaseTransitioning)
+        {
+            return true;
+        }
+
+        // 본체 페이즈에서 체력이 소진되면 부모가 최종 사망을 처리한다.
+        if (_currentPhase != AlienPhase.Robot)
+        {
+            return false;
+        }
+
+        // 연출을 시작하기 전에 필요한 참조와 Animator 상태를 확인한다.
+        if (_phaseTransitionAnimator == null ||
+            !_phaseTransitionAnimator.isActiveAndEnabled ||
+            !_phaseTransitionAnimator.HasState(0, PhaseTransitionState) ||
+            _robotArmRoot == null ||
+            _phaseTwoMaxHp <= 0)
+        {
+            throw new InvalidOperationException(
+                $"{name}: 전환 Animator, Alien_PhaseTransition 상태, " +
+                "Robot Arm Root, Phase Two Max Hp를 확인하세요.");
+        }
+
+        // 패턴 정리 중 추가 공격이 들어와도 피해를 받지 않도록
+        // 다른 작업보다 먼저 무적 상태로 전환한다.
+        _isPhaseTransitioning = true;
+
+        // 실행 중인 로봇 패턴과 대기 중인 패턴을 취소한다.
+        StopPatternsForPhaseChange();
+
+        // 공명 경고의 완료 이벤트 구독과 대기 상태를 정리한다.
+        ClearResonanceWarningWait();
+
+        // 로봇 페이즈에서 생성한 균열을 제거한다.
+        if (_crackController != null)
+        {
+            _crackController.ClearAll();
+        }
+
+        // 균열 실드의 시각 효과를 끈다.
+        if (_shieldVisual != null)
+        {
+            _shieldVisual.SetActive(false);
+        }
+
+        // 패턴 종료 과정에서 이동이 재개될 수 있으므로
+        // 모든 패턴을 정리한 뒤 이동을 잠근다.
+        SetControllable(false);
+
+        // 남아 있는 물리 이동 속도를 제거한다.
+        if (TryGetComponent(out Rigidbody2D body))
+        {
+            body.linearVelocity = Vector2.zero;
+        }
+
+        // 잡기 패턴에서 변경된 팔을 기본 상태로 되돌린다.
+        ResetArm();
+
+        // 기존 팔을 숨겨 전환 이미지에 포함된 팔과 겹치지 않게 한다.
+        _robotArmRoot.SetActive(false);
+
+        // 기존 패턴의 정리가 끝난 다음 등장 연출을 시작한다.
+        _phaseTransitionRoutine = StartCoroutine(PlayPhaseTransition());
+
+        return true;
+    }
+
+    // 전환 애니메이션이 실제로 끝난 뒤 본체 페이즈를 시작한다.
+    private IEnumerator PlayPhaseTransition()
+    {
+        // 기존 패턴의 종료 처리 이후 전환 상태를 직접 재생한다.
+        _phaseTransitionAnimator.Play(PhaseTransitionState, 0, 0f);
+
+        // Animator가 새 상태를 평가할 시간을 준다.
+        yield return null;
+
+        while (true)
+        {
+            // 전투가 중단되었다면 무적을 해제하거나 체력을 갱신하지 않는다.
+            if (!isActiveAndEnabled ||
+                IsDead ||
+                TargetPlayer == null ||
+                !TargetPlayer.isActiveAndEnabled ||
+                TargetPlayer.IsDead)
+            {
+                _phaseTransitionRoutine = null;
+                yield break;
+            }
+
+            // Animator가 꺼진 상태를 정상적인 연출 완료로 처리하지 않는다.
+            if (_phaseTransitionAnimator == null ||
+                !_phaseTransitionAnimator.isActiveAndEnabled)
+            {
+                Debug.LogError($"{name}: 전환 중 Animator가 비활성화됐습니다.");
+                _phaseTransitionRoutine = null;
+                yield break;
+            }
+
+            AnimatorStateInfo state =
+                _phaseTransitionAnimator.GetCurrentAnimatorStateInfo(0);
+
+            // 다른 상태가 연출을 덮어썼다면 설정 오류를 알리고 무적을 유지한다.
+            if (state.fullPathHash != PhaseTransitionState)
+            {
+                Debug.LogError($"{name}: 페이즈 전환 애니메이션이 중단됐습니다.");
+                _phaseTransitionRoutine = null;
+                yield break;
+            }
+
+            // 반복하지 않는 전환 클립이 끝났을 때만 다음 단계로 진행한다.
+            if (state.normalizedTime >= 1f)
+            {
+                break;
+            }
+
+            yield return null;
+        }
+
+        // UI가 본체 체력으로 해석하도록 페이즈를 먼저 변경한다.
+        _currentPhase = AlienPhase.Alien;
+
+        // 체력을 채우고 빨간 체력바와 PhaseCount를 함께 갱신한다.
+        ResetHealthForPhase(_phaseTwoMaxHp);
+
+        // 체력과 UI 준비가 끝난 다음에만 피해를 허용한다.
+        _isPhaseTransitioning = false;
+        _phaseTransitionRoutine = null;
+
+        // 본체 공격과 이동은 이후 연결한다.
+        // 현재는 전환 클립의 마지막 착지 자세를 유지한다.
+    }
+
+    // 전투 중단 후 전환 코루틴이 뒤늦게 완료되는 것을 막는다.
+    private void StopPhaseTransitionRoutine()
+    {
+        if (_phaseTransitionRoutine == null)
+        {
+            return;
+        }
+
+        StopCoroutine(_phaseTransitionRoutine);
+        _phaseTransitionRoutine = null;
+
+        // 전투 중단을 정상적인 등장 완료로 취급하지 않는다.
+        // 여기서는 무적을 해제하지 않는다.
     }
 }

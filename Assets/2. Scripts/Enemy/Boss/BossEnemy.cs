@@ -72,6 +72,7 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
     // 크루저는 이 조건을 재정의해 1페이즈의 본체 피해를 막는다.
     protected virtual bool CanReceiveDamage => true;
 
+
     // 복귀 때문에 몸체 충돌을 무시하고 있는지 기록한다.
     private bool _isReturnCollisionIgnored;
 
@@ -185,6 +186,17 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
     // 현재 체력을 파란 ShieldHpbar에 표시할지 UI에 알려준다.
     // 일반 보스는 기존 빨간 체력 바를 사용한다.
     public virtual bool UsesShieldHealthBar => false;
+
+    // 보스의 전체 페이즈 수. 단일 페이즈 보스의 기본값은 1이다.
+    public virtual int TotalPhaseCount => 1;
+
+    // 현재 진행 중인 페이즈 번호. 1부터 시작한다.
+    public virtual int CurrentPhaseNumber => 1;
+
+    // 현재 페이즈 이후에 남아 있는 페이즈 수를 공통 계산한다.
+    // 마지막 페이즈에서는 0이 되어 UI가 PhaseCount를 숨긴다.
+    public int RemainingPhaseCount =>
+        Mathf.Max(0, TotalPhaseCount - CurrentPhaseNumber);
 
 
 
@@ -522,10 +534,42 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
         // 보스별 피격 연출을 실행한다.
         OnBossDamaged(damage);
 
+        // 체력이 소진되면 보스별 다음 페이즈 전환을 먼저 시도한다.
+        // 전환할 페이즈가 없을 때만 최종 사망을 처리한다.
         if (_currentHp <= 0)
         {
+            if (TryBeginNextPhase())
+            {
+                return;
+            }
+
             Die();
         }
+    }
+
+    // 체력 소진 시 다음 페이즈를 시작할 수 있는지 확인한다.
+    // 기본값은 false이므로 기존 보스의 사망 동작은 유지된다.
+    protected virtual bool TryBeginNextPhase()
+    {
+        return false;
+    }
+
+    // 다음 페이즈의 최대 체력과 현재 체력을 함께 설정한다.
+    // 자식 보스는 페이즈 상태를 먼저 변경한 뒤 호출해야 한다.
+    protected void ResetHealthForPhase(int maxHp)
+    {
+        // 잘못된 체력 설정으로 빈 체력바가 만들어지는 것을 막는다.
+        if (maxHp <= 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(maxHp));
+        }
+
+        // 다음 페이즈를 가득 찬 체력으로 시작한다.
+        _maxHp = maxHp;
+        _currentHp = maxHp;
+
+        // 새 페이즈를 기준으로 체력바와 PhaseCount를 갱신한다.
+        HealthChanged?.Invoke(_currentHp, _maxHp);
     }
 
     /// <summary>
@@ -757,4 +801,6 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
     {
         return damage;
     }
+
+
 }

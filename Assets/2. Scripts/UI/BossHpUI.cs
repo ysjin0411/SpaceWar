@@ -34,6 +34,10 @@ public class BossHpUI : MonoBehaviour
     // 중간보스 또는 파이널 보스 이름을 표시한다.
     [SerializeField] TMP_Text _bossNameText;
 
+    // 현재 페이즈 이후 남은 페이즈 수를 표시한다.
+    // 마지막 페이즈에서는 이 TMP 오브젝트를 숨긴다.
+    [SerializeField] private TMP_Text _phaseCountText;
+
     [Header("연출 시간")]
 
     // 스테이지 진행도 바가 가운데로 접히는 시간이다.
@@ -145,6 +149,9 @@ public class BossHpUI : MonoBehaviour
         // 보스 체력 UI는 보스가 생성될 때까지 숨긴다.
         SetScaleX(_bossHpRoot, 0f);
         _bossHpRoot.gameObject.SetActive(false);
+
+        // 보스 연결 또는 체력 상태에 맞춰 남은 페이즈 표시를 갱신한다.
+        RefreshPhaseCount();
     }
 
     private void OnEnable()
@@ -213,6 +220,9 @@ public class BossHpUI : MonoBehaviour
             return;
         }
 
+        // 보스 연결 또는 체력 상태에 맞춰 남은 페이즈 표시를 갱신한다.
+        RefreshPhaseCount();
+
         if (_boundBoss.UsesShieldHealthBar)
         {
             // 로봇 체력을 표시할 파란 바가 반드시 필요하다.
@@ -222,10 +232,16 @@ public class BossHpUI : MonoBehaviour
                     $"{name}: Boss Shield Fill Image를 연결하세요.");
             }
 
-            // 빨간 Fill만 숨긴다. 공통 프레임과 이름은 유지한다.
-            _bossHpFillImage.enabled = false;
+            // 다음 페이즈의 체력을 나타내는 빨간 바를 뒤에 가득 표시한다.
+            // 현재 감소하는 값은 앞쪽 파란 바에만 반영한다.
             _hpTween?.Kill();
             _hpTween = null;
+
+            _bossHpFillImage.enabled = true;
+            _bossHpFillImage.fillAmount = 1f;
+
+            // 빨간 체력을 실제로 사용하기 시작할 때 최초 값을 즉시 반영한다.
+            _hasReceivedInitialHealth = false;
 
             // 균열 유무와 관계없이 로봇 체력을 파란 바에 표시한다.
             _bossShieldFillImage.gameObject.SetActive(true);
@@ -235,6 +251,18 @@ public class BossHpUI : MonoBehaviour
 
         // 일반 보스는 기존 빨간 체력 바를 사용한다.
         _bossHpFillImage.enabled = true;
+
+        // 파란 바를 체력으로 사용하던 보스가 빨간 바 단계로 넘어온 경우다.
+        // 별도의 타워 실드가 있는 보스는 기존 실드 이벤트로 관리한다.
+        if (_boundShield == null && _bossShieldFillImage != null)
+        {
+            _shieldTween?.Kill();
+            _shieldTween = null;
+
+            _bossShieldFillImage.fillAmount = 0f;
+            _bossShieldFillImage.gameObject.SetActive(false);
+            _hasReceivedInitialShield = false;
+        }
 
         float targetFillAmount = Mathf.Clamp01(
             (float)currentHp / maxHp);
@@ -363,6 +391,10 @@ public class BossHpUI : MonoBehaviour
             _boundShield.ShieldChanged -= HandleShieldChanged;
 
         _boundBoss = null;
+
+        // 보스 연결 또는 체력 상태에 맞춰 남은 페이즈 표시를 갱신한다.
+        RefreshPhaseCount();
+
         _boundShield = null;
 
         // 이전 보스의 Tween이 다음 보스 UI를 변경하지 못하게 한다.
@@ -426,6 +458,9 @@ public class BossHpUI : MonoBehaviour
     // 합산 체력을 파란색 바의 fillAmount에 반영한다.
     private void HandleShieldChanged(int currentShield, int maxShield)
     {
+        // 보스 연결 또는 체력 상태에 맞춰 남은 페이즈 표시를 갱신한다.
+        RefreshPhaseCount();
+
         if (_bossShieldFillImage == null)
             return;
 
@@ -449,5 +484,27 @@ public class BossHpUI : MonoBehaviour
             .DOFillAmount(targetFill, _hpFillDuration)
             .SetEase(Ease.OutQuad)
             .SetUpdate(true);
+    }
+
+    // 연결된 보스의 남은 페이즈 수를 TMP에 반영한다.
+    private void RefreshPhaseCount()
+    {
+        // 아직 TMP를 연결하지 않은 씬에서도 기존 UI는 동작한다.
+        if (_phaseCountText == null)
+        {
+            return;
+        }
+
+        int remaining = _boundBoss != null
+            ? _boundBoss.RemainingPhaseCount
+            : 0;
+
+        bool shouldShow = remaining > 0;
+        _phaseCountText.gameObject.SetActive(shouldShow);
+
+        if (shouldShow)
+        {
+            _phaseCountText.text = $"X {remaining}";
+        }
     }
 }

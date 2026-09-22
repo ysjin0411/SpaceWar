@@ -12,9 +12,6 @@ EditorBuildSettings:
     path: Assets/1. Scenes/EquipmentManage.unity
     guid: e22189192abcb3b4795b4f90194cb21a
   - enabled: 1
-    path: Assets/1. Scenes/Setting.unity
-    guid: 2415bc7c8de19ea4f909f8cc83c4ae2f
-  - enabled: 1
     path: Assets/1. Scenes/StageSelect.unity
     guid: 0e97ce5b1fbcd0043b936fa3a48312bc
   - enabled: 1

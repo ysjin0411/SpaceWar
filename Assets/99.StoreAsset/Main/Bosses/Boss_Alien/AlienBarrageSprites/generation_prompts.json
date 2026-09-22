@@ -1,0 +1,34 @@
+{
+  "tool": "Built-in image_gen",
+  "common": "Standalone transparent PNG, crisp sci-fi pixel art, charcoal/silver missile with red and purple lights; yellow-orange-purple radial explosion; no background/text/sprite sheet.",
+  "assets": [
+    [
+      "Missile_01",
+      "one standard slender armored missile with pointed red nose, small purple rectangular energy window and two short rear fins. NO flame. Nose points straight DOWN. Entire missile centered at (512,512), body from y=108 to y=916 (808 px long), width about 290px."
+    ],
+    [
+      "Missile_02",
+      "one reinforced armored missile variant, segmented dark steel body, pointed red nose, paired purple energy slits, angular short rear fins. NO flame. Nose points straight DOWN. Entire missile centered at (512,512), body from y=108 to y=916 (808 px long), width about 290px. Same physical length as standard missile, not a bigger sprite."
+    ],
+    [
+      "Missile_03",
+      "one alien-tech armored missile variant, dark steel casing, red pointed nose, central purple diamond energy panel, swept short rear fins. NO flame. Nose points straight DOWN. Entire missile centered at (512,512), body from y=108 to y=916 (808 px long), width about 290px. Same physical length as standard missile."
+    ],
+    [
+      "Explosion_01",
+      "FRAME 1 of four-stage radial missile explosion: compact ignition flash white-yellow core orange four-to-eight jagged lobes and small purple edges. Center exactly (512,512). Entire visible effect diameter 310px. Lots of transparent padding. No missile."
+    ],
+    [
+      "Explosion_02",
+      "FRAME 2 of four-stage radial missile explosion: expanding round fireball white-yellow core, orange scalloped flame lobes purple outer energy edges, eight short radial sparks. Center exactly (512,512). Entire visible effect diameter 670px. Transparent padding. No missile."
+    ],
+    [
+      "Explosion_03",
+      "FRAME 3 of four-stage radial missile explosion: peak full round fireball white-yellow core orange scalloped flame lobes purple outer energy edges, eight radial sparks. Center exactly (512,512). Entire visible effect diameter 940px, none cut off. Transparent padding. No missile."
+    ],
+    [
+      "Explosion_04",
+      "FRAME 4 of four-stage radial missile explosion: dissipating purple-orange embers in broken round ring, center mostly transparent, a few small golden sparks. Match late stage of round orange fireball edged purple. Center exactly (512,512). Entire visible effect diameter 940px, none cut off. Transparent padding. No missile."
+    ]
+  ]
+}
