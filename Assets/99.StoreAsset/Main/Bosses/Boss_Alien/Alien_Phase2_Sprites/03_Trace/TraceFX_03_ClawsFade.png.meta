@@ -1,0 +1,520 @@
+fileFormatVersion: 2
+guid: db6e2de9a3cb3b247b72f54f29acdfd0
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -4505785487701193014
+    second: TraceFX_03_ClawsFade_0
+  - first:
+      213: -7599096382138329045
+    second: TraceFX_03_ClawsFade_1
+  - first:
+      213: -501002546904791950
+    second: TraceFX_03_ClawsFade_2
+  - first:
+      213: 6635752681582241520
+    second: TraceFX_03_ClawsFade_3
+  - first:
+      213: 1597840475472239028
+    second: TraceFX_03_ClawsFade_4
+  - first:
+      213: 1942778069767581469
+    second: TraceFX_03_ClawsFade_5
+  - first:
+      213: 3029688968496483204
+    second: TraceFX_03_ClawsFade_6
+  - first:
+      213: -1028081611742950424
+    second: TraceFX_03_ClawsFade_7
+  - first:
+      213: 7597928514119377214
+    second: TraceFX_03_ClawsFade_8
+  - first:
+      213: -5452078608052898896
+    second: TraceFX_03_ClawsFade_9
+  - first:
+      213: 2399717367828610990
+    second: TraceFX_03_ClawsFade_10
+  - first:
+      213: 543441879296445468
+    second: TraceFX_03_ClawsFade_11
+  - first:
+      213: -8878142745594975342
+    second: TraceFX_03_ClawsFade_12
+  - first:
+      213: -7778508034096174607
+    second: TraceFX_03_ClawsFade_13
+  - first:
+      213: 1846827815153957253
+    second: TraceFX_03_ClawsFade_14
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: TraceFX_03_ClawsFade_0
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 505
+        width: 1157
+        height: 729
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: acec57bb8fb3871c0800000000000000
+      internalID: -4505785487701193014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TraceFX_03_ClawsFade_1
+      rect:
+        serializedVersion: 2
+        x: 581
+        y: 456
+        width: 97
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b2850b82a169a8690800000000000000
+      internalID: -7599096382138329045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TraceFX_03_ClawsFade_2
+      rect:
+        serializedVersion: 2
+        x: 609
+        y: 519
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2748c2886d41c09f0800000000000000
+      internalID: -501002546904791950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TraceFX_03_ClawsFade_3
+      rect:
+        serializedVersion: 2
+        x: 691
+        y: 513
+        width: 19
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f62e0bf7ede61c50800000000000000
+      internalID: 6635752681582241520
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TraceFX_03_ClawsFade_4
+      rect:
+        serializedVersion: 2
+        x: 723
+        y: 515
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b9934c527bac2610800000000000000
+      internalID: 1597840475472239028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TraceFX_03_ClawsFade_5
+      rect:
+        serializedVersion: 2
+        x: 723
+        y: 497
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d1f6ae57c5226fa10800000000000000
+      internalID: 1942778069767581469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TraceFX_03_ClawsFade_6
+      rect:
+        serializedVersion: 2
+        x: 725
+        y: 515
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 48b072b901e9b0a20800000000000000
+      internalID: 3029688968496483204
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TraceFX_03_ClawsFade_7
+      rect:
+        serializedVersion: 2
+        x: 735
+        y: 525
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8eb43fb98358bb1f0800000000000000
+      internalID: -1028081611742950424
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TraceFX_03_ClawsFade_8
+      rect:
+        serializedVersion: 2
+        x: 731
+        y: 492
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e31a5e06ab3417960800000000000000
+      internalID: 7597928514119377214
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TraceFX_03_ClawsFade_9
+      rect:
+        serializedVersion: 2
+        x: 737
+        y: 473
+        width: 12
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b3308f64635654b0800000000000000
+      internalID: -5452078608052898896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TraceFX_03_ClawsFade_10
+      rect:
+        serializedVersion: 2
+        x: 699
+        y: 473
+        width: 24
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eaf72c65b328d4120800000000000000
+      internalID: 2399717367828610990
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TraceFX_03_ClawsFade_11
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 705
+        height: 468
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1c098b8281ba8700800000000000000
+      internalID: 543441879296445468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TraceFX_03_ClawsFade_12
+      rect:
+        serializedVersion: 2
+        x: 810
+        y: 0
+        width: 308
+        height: 446
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 29ba99716308ac480800000000000000
+      internalID: -8878142745594975342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TraceFX_03_ClawsFade_13
+      rect:
+        serializedVersion: 2
+        x: 1089
+        y: 208
+        width: 26
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f9ec21c7203d0490800000000000000
+      internalID: -7778508034096174607
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TraceFX_03_ClawsFade_14
+      rect:
+        serializedVersion: 2
+        x: 1139
+        y: 25
+        width: 78
+        height: 148
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 589ff8bec1041a910800000000000000
+      internalID: 1846827815153957253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      TraceFX_03_ClawsFade_0: -4505785487701193014
+      TraceFX_03_ClawsFade_1: -7599096382138329045
+      TraceFX_03_ClawsFade_10: 2399717367828610990
+      TraceFX_03_ClawsFade_11: 543441879296445468
+      TraceFX_03_ClawsFade_12: -8878142745594975342
+      TraceFX_03_ClawsFade_13: -7778508034096174607
+      TraceFX_03_ClawsFade_14: 1846827815153957253
+      TraceFX_03_ClawsFade_2: -501002546904791950
+      TraceFX_03_ClawsFade_3: 6635752681582241520
+      TraceFX_03_ClawsFade_4: 1597840475472239028
+      TraceFX_03_ClawsFade_5: 1942778069767581469
+      TraceFX_03_ClawsFade_6: 3029688968496483204
+      TraceFX_03_ClawsFade_7: -1028081611742950424
+      TraceFX_03_ClawsFade_8: 7597928514119377214
+      TraceFX_03_ClawsFade_9: -5452078608052898896
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

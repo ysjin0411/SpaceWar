@@ -1,0 +1,121 @@
+{
+  "tool": "built-in image_gen",
+  "references": [
+    "C:/YSJ/SubPF/Assets/99.StoreAsset/Main/Bosses/Boss_Alien/AlienIdleLeap/Idle/Alien_Idle_01.png",
+    "C:/YSJ/SubPF/Assets/99.StoreAsset/Main/Bosses/Boss_Alien/AlienIdleLeap/Leap/Alien_Leap_01_Crouch.png",
+    "C:/YSJ/SubPF/Assets/99.StoreAsset/Main/Bosses/Boss_Alien/AlienIdleLeap/Leap/Alien_Leap_04_Landing.png"
+  ],
+  "bodyBase": "Use case: stylized-concept. Create ONE individual production 2D game sprite, never a sheet, no text. Reference images are identity/style/scale references for the EXACT same alien boss. Preserve elongated backward swept smooth domed head, plum-magenta purple biomechanical carapace, ribbed glowing violet chest with zigzag sternum, white-violet almond eyes, muscular digitigrade legs and long curved claws, no tail. Match reference crisp highly detailed pixel-art shaded rendering, contours and highlights, camera facing lower-left in three-quarter front view. Maintain same anatomical head and torso size as reference on an EXACT 1254x1254 RGBA canvas, grounded feet baseline near y=1180; keep all anatomy within canvas with transparent margin. TRUE transparent alpha background, no black background, no checkerboard painted in, no floor, no drop shadow, no environment, no labels, no watermark. Pose changes must not redesign character. ",
+  "firstPose": "First combo anticipation, near-side arm drawn back upper-right, far arm guards chest.",
+  "bodyPoses": [
+    [
+      "Combo_02_SlashA",
+      "First strike active contact: near-side arm has swept across chest and extends toward lower-left, long claws spread and reaching left, torso twists into swipe; far arm bent back. Keep same head orientation and feet. No trails."
+    ],
+    [
+      "Combo_03_RecoverA",
+      "Recovery after first horizontal slash: near-side forearm low across abdomen, elbow flexed withdrawing claws, shoulders relax slightly but knees remain braced. No trails."
+    ],
+    [
+      "Combo_04_PrepareB",
+      "Second strike anticipation, opposite arm: far-side arm raised outward toward screen-left with elbow bent ready for reverse claw swipe; near arm retracted by right hip, torso coiled opposite first strike. Feet planted, face lower left. No trails."
+    ],
+    [
+      "Combo_05_SlashB",
+      "Second strike active reverse swipe with opposite far-side arm crossing forward in front of ribs toward lower-left, claw hand prominent and extended, near-side arm held back by right hip, torso counter-rotated. Readable different silhouette from first strike. No trails."
+    ],
+    [
+      "Combo_06_RecoverB",
+      "Recovery after second swipe, both elbows bend inward bringing hands beside ribs, body begins straightening for overhead finisher, shoulders braced, face still lower left. No trails."
+    ],
+    [
+      "Combo_07_PrepareSlam",
+      "Overhead finisher windup: BOTH arms lifted high beside the head, elbows bent, claw hands raised above crown ready to slam toward lower-left. Deep braced knees. Head and torso retain reference size; do not crop hands, lower whole stance enough to keep fingers within frame. No effects."
+    ],
+    [
+      "Combo_08_Slam",
+      "Overhead finisher active contact: both arms driven forcefully diagonally down-forward to lower-left, both claw hands hit in front of feet, torso lunges bent forward and knees compress. Head faces lower-left. Clearly different from neutral leap landing: hands reach forward together. No floor, debris or effects."
+    ],
+    [
+      "Combo_09_RecoverSlam",
+      "Finisher recovery: exhausted forward stoop, knees bent, both claw hands hanging low just above ground and starting to retract, head lowered. Same body size and grounded baseline. No effects."
+    ],
+    [
+      "Trace_01_Observe",
+      "Trail tracking observation: standing braced slightly higher than idle, head lowered and focused to lower-left, both claws open held beside torso as if sensing, eyes glow much brighter white-violet with small localized purple halo. Keep rest of body unchanged; no beams, no ground, no trails."
+    ],
+    [
+      "Trace_02_Invoke",
+      "Trail tracking invocation: low braced stance, near-side claw hand raised beside face as if reading echoes, opposite arm reaches diagonally toward ground in front, eyes intense violet-white glow. No magic circles or extra objects. Same identity and scale."
+    ],
+    [
+      "Trace_03_Release",
+      "Trail tracking release command: torso leaning forward, both clawed hands extend down-forward with fingers spread, knees braced, brilliant white-violet eyes and brighter rib light. Hands suspended, not touching floor. No ground or external effects."
+    ],
+    [
+      "Leap_05_Recover",
+      "Recovery frame between reference landing and idle: torso halfway raised out of landing crouch, both palms just lifted from ground, knees still deeply bent; exact same head/torso/feet scale and left-facing view as reference. No effect or floor."
+    ]
+  ],
+  "fxBase": "Use case: stylized-concept. ONE standalone 2D game VFX sprite, exact 1254x1254 RGBA canvas, genuinely transparent background and transparent unused interior regions, no checkerboard or opaque black. Input boss is ONLY color, material and pixel-rendering reference; DO NOT draw the boss or any character. Match plum-purple biomechanical glossy ridges, bright violet-white emissive accents, crisp detailed pixel-art shading. One centered effect fully within frame, no scene, no labels, no text, no watermark. ",
+  "fxJobs": [
+    [
+      "TraceFX_02_ClawsPeak",
+      "A ground claw eruption at peak attack: THREE large curved chitin talons erupting UPWARDS out of three compact glowing violet fissures. All three talons form ONE grouped attack effect, spaced enough to see each silhouette; middle talon tallest, left and right shorter. No hand or arm. Talons share boss claw material, dark plum with pink edge highlights and slight violet glow. Effect is approx 750 px wide by 700 px high, base footprint centered at x627 y850, tallest tip near y200. Tiny sparse matching chips at bases only, no ground tile or opaque shadow."
+    ],
+    [
+      "TraceFX_00_Warning",
+      "Ground warning decal for recorded player location. Centered top-down perfect circle of thin glowing violet broken organic arcs, diameter 1000 px centered x627 y627. Inside circle three short parallel claw-shaped glowing purple fissure marks, but NO physical claws yet. Interior predominantly fully transparent. Precise readable perimeter. No letters, no runes, no floor, no shadow. This is a flat top-down circular area warning, not ellipse."
+    ],
+    [
+      "LeapFX_00_LandingWarning",
+      "Ground warning decal for predicted leap landing. Centered top-down perfect circular double-ring, outer diameter 1100 px, center x627 y627, violet border with four short pointed organic ticks pointing inward at cardinal directions. Thin clean emissive purple edge, white-violet core, subtle alpha halo. Entire interior otherwise fully transparent. No claw marks, no runes, no floor, no shadow. Flat top-down circular area warning, not ellipse."
+    ]
+  ],
+  "fxFollow": [
+    {
+      "name": "TraceFX_01_ClawsRise",
+      "prompt": "Use case: precise-object-edit. Input is target animation's peak frame. Create its preceding RISING frame. Exact 1254x1254 RGBA transparent canvas. Keep precisely the same three eruption base positions, base footprint and talon design as input. Talons are only one-third emerged vertically, most of each shaft is underground and INVISIBLE; short curved tips above same three violet fissures. Keep ground base at original y~1050, do not vertically recenter, do not rescale whole image to fill empty space. Top 650 px mostly fully transparent. Tiny chips and small violet sparks at bases, no ground or shadow. Match exact original pixel style. Single frame only, no labels.",
+      "refs": [
+        "C:\\Users\\ysjin\\.codex\\generated_images\\01a0c917-f262-70d2-8607-7cd47db8cf48\\exec-7899b66f-ee51-4303-a691-a6f9d9b85436.png"
+      ]
+    },
+    {
+      "name": "TraceFX_03_ClawsFade",
+      "prompt": "Use case: precise-object-edit. Input is target animation peak frame. Create its final RETRACT/DISSOLVE frame on exact same 1254x1254 RGBA true transparent canvas. Preserve exactly the same three eruption base positions and footprint. Tall talons have almost completely retracted underground: only three very short broken plum claw tips near original ground base y~1050 and sparse dim violet motes above their former positions. Upper canvas mostly empty transparent. Fissures dim, few small chips. No floor or opaque backdrop. Do not recenter or enlarge the remaining effect. Same pixel shading. One animation frame only, no text.",
+      "refs": [
+        "C:\\Users\\ysjin\\.codex\\generated_images\\01a0c917-f262-70d2-8607-7cd47db8cf48\\exec-7899b66f-ee51-4303-a691-a6f9d9b85436.png"
+      ]
+    },
+    {
+      "name": "LeapFX_01_Shockwave",
+      "refs": [
+        "C:/YSJ/SubPF/Assets/99.StoreAsset/Main/Bosses/Boss_Alien/AlienIdleLeap/Idle/Alien_Idle_01.png"
+      ],
+      "prompt": "Use case: stylized-concept. One standalone landing shockwave VFX sprite on exact 1254x1254 RGBA transparent canvas. Boss reference is COLOR AND PIXEL SHADING only, do not draw character or chitin objects. A top-down circular expanding blast ring of jagged violet-white energy, bright thin crest with outward-pointing short electric spikes, sparse small purple particles. Outer diameter about 1050 pixels centered at 627,627, at least 70px transparent margin everywhere. Interior completely transparent except a few faint fading energy strands. No solid disk, no floor, no rocks, no shadow, no opaque black, no checkerboard, no text. Crisp pixel art compatible with reference. Single effect usable by scaling and alpha fade during landing impact."
+    }
+  ],
+  "finalCorrections": [
+    {
+      "name": "Combo_02_SlashA",
+      "refs": [
+        "C:\\Users\\ysjin\\.codex\\generated_images\\01a0c917-f262-70d2-8607-7cd47db8cf48\\exec-682775a1-7fbc-4086-97eb-53da5ad2c55a.png"
+      ],
+      "prompt": "Use case: precise-object-edit. Change ONLY ARM POSE in this exact alien sprite to the next attack contact frame, preserving exact head, torso, legs, color, pixel style, anatomical size and 1254x1254 transparent canvas. Critical: the raised arm whose SHOULDER IS AT IMAGE RIGHT (around x800 y370) is the striking arm. Swing that IMAGE-RIGHT SHOULDER arm diagonally ACROSS THE FRONT OF THE CHEST so its elbow is around x630 y650 and its claw hand reaches far toward image LEFT around x220 y680. The upper arm and forearm must visibly form a diagonal across the chest, partly occluding the glowing ribs. The other arm, whose shoulder is image-left, remains bent in a guard near chest. Do not put striking hand on image-right; do not extend the image-left shoulder arm. One sprite, no trails or extra limbs, actual transparent alpha background."
+    },
+    {
+      "name": "Combo_03_RecoverA",
+      "refs": [
+        "C:\\Users\\ysjin\\.codex\\generated_images\\01a0c917-f262-70d2-8607-7cd47db8cf48\\exec-682775a1-7fbc-4086-97eb-53da5ad2c55a.png"
+      ],
+      "prompt": "Use case: precise-object-edit. Create recovery from a cross-body claw swipe using exact same alien design, body scale, head orientation, grounded leg positions, 1254x1254 true transparent canvas. Critical IMAGE-RIGHT shoulder arm is the recovering arm: it crosses diagonally in front of glowing ribs, elbow around x780 y650, forearm angles down-left, claws near x510 y780 over abdomen. Other IMAGE-LEFT shoulder arm stays tightly bent guarding upper chest. Change arms only. Preserve same head, body, highlights, detailed pixel rendering. No effects, no text."
+    },
+    {
+      "name": "LeapFX_00_LandingWarning",
+      "refs": [
+        "C:\\Users\\ysjin\\.codex\\generated_images\\01a0c917-f262-70d2-8607-7cd47db8cf48\\exec-d153a126-5716-433d-9aa5-87a694d57826.png"
+      ],
+      "prompt": "Use case: precise-object-edit. Preserve this exact circular organic purple landing-warning design and true transparent background. On the same EXACT 1254x1254 canvas reduce the whole ring uniformly to fit an outer diameter of 1080 pixels, perfectly centered at 627,627, leaving at least 80 pixels of completely transparent padding on EVERY edge. All four points and ALL glow must be visible and uncut. Keep central hole fully transparent. No other changes, no text."
+    }
+  ]
+}
