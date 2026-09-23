@@ -135,11 +135,12 @@ public sealed class BossAlienMissile : MonoBehaviour
             return;
         }
 
-        // 사망·제거·비활성화로 전투가 끝나면 폭발 없이 제거한다.
-        // 시간이 멈춘 상태에서도 정리되도록 deltaTime 검사보다 먼저 실행한다.
+        // 로봇은 체력이 0이어도 페이즈 전환 중에는 IsDead가 false다.
+        // 발사자의 체력이 소진됐으면 폭발 없이 미사일을 제거한다.
         if (_owner == null ||
             !_owner.isActiveAndEnabled ||
             _owner.IsDead ||
+            _owner.CurrentHp <= 0 ||
             _targetPlayer == null ||
             !_targetPlayer.isActiveAndEnabled ||
             _targetPlayer.IsDead)

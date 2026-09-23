@@ -133,6 +133,12 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
     public event Action<BossEnemy> Defeated;
     public event Action<int> Damaged;
 
+    // 다음 페이즈의 보스 프리팹으로 교체해 달라고 관리자에게 알린다.
+    // 순서대로 현재 보스, 다음 프리팹, 생성할 월드 위치, 회전이다.
+    // 최종 처치를 뜻하는 Defeated와 구분하여 보상 지급을 막는다.
+    public event Action<BossEnemy, BossEnemy, Vector3, Quaternion>
+        PhaseReplacementRequested;
+
     /// <summary>
     /// 보스 패턴이 시스템 알림 메시지 출력을 요청할 때 발생한다.
     /// 문자열에는 화면에 출력할 메시지가 전달된다.
@@ -144,6 +150,9 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
     /// 실행 중인 특수 패턴은 이 이벤트를 기다린 후 다음 행동을 진행한다.
     /// </summary>
     public event Action SystemDialogueCompleted;
+
+    // 진행 중인 시스템 경고를 완료 처리 없이 닫도록 UI에 요청한다.
+    public event Action SystemDialogueCancelRequested;
 
     // 보스별 이동 및 공격 패턴에서 현재 플레이어를 사용한다.
     protected PlayerController TargetPlayer { get; private set; }
@@ -402,6 +411,16 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
         SystemDialogueRequested.Invoke(message);
     }
 
+    // 패턴이 취소되었을 때 표시 중인 시스템 경고도 함께 종료한다.
+    public void CancelSystemDialogue()
+    {
+        // UI가 이미 비활성화되어 구독이 없어졌다면 처리할 일이 없다.
+        if (SystemDialogueCancelRequested != null)
+        {
+            SystemDialogueCancelRequested.Invoke();
+        }
+    }
+
     /// <summary>
     /// SystemDialogueUI의 점멸이 끝났다는 사실을 현재 보스에게 전달한다.
     /// BossEncounterManager가 UI의 완료 이벤트와 이 메서드를 연결한다.
@@ -552,6 +571,49 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
     protected virtual bool TryBeginNextPhase()
     {
         return false;
+    }
+
+    // 자식 보스가 전환 연출을 마친 뒤 호출하는 교체 요청 함수다.
+    // 실제 생성과 현재 보스 참조 변경은 관리자가 담당한다.
+    protected void RequestPhaseReplacement(
+        BossEnemy nextPhasePrefab,
+        Vector3 spawnPosition,
+        Quaternion spawnRotation)
+    {
+        // 전투가 시작되지 않았거나 이미 종료된 보스는 요청하지 않는다.
+        if (!isActiveAndEnabled || !HasBattleStarted || IsDead)
+        {
+            return;
+        }
+
+        // 플레이어가 사망하거나 비활성화됐다면 다음 보스를 생성하지 않는다.
+        if (TargetPlayer == null ||
+            !TargetPlayer.isActiveAndEnabled ||
+            TargetPlayer.IsDead)
+        {
+            return;
+        }
+
+        // 다음 프리팹을 빠뜨린 설정을 명확하게 알린다.
+        if (nextPhasePrefab == null)
+        {
+            throw new InvalidOperationException(
+                $"{name}: 다음 페이즈의 보스 프리팹을 연결하세요.");
+        }
+
+        // 관리자가 연결되지 않은 상태에서 요청이 사라지는 것을 막는다.
+        if (PhaseReplacementRequested == null)
+        {
+            throw new InvalidOperationException(
+                $"{name}: 페이즈 교체 요청을 처리할 관리자가 연결되지 않았습니다.");
+        }
+
+        // 사망 처리 없이 다음 프리팹과 생성 좌표를 전달한다.
+        PhaseReplacementRequested.Invoke(
+            this,
+            nextPhasePrefab,
+            spawnPosition,
+            spawnRotation);
     }
 
     // 다음 페이즈의 최대 체력과 현재 체력을 함께 설정한다.

@@ -133,6 +133,9 @@ public class SystemDialogueUI : MonoBehaviour
         _bossEncounterManager.BossSpawned +=
             HandleBossSpawned;
 
+        // 페이즈 교체 시 이전 메시지를 정리하고 새 보스에 연결한다.
+        _bossEncounterManager.BossReplaced += HandleBossReplaced;
+
         // 메시지 점멸 완료 이벤트를 보스에게 전달한다.
         MessageBlinkCompleted +=
             HandleMessageBlinkCompleted;
@@ -152,6 +155,10 @@ public class SystemDialogueUI : MonoBehaviour
         {
             _bossEncounterManager.BossSpawned -=
                 HandleBossSpawned;
+
+            // 페이즈 교체 알림 구독도 함께 해제한다.
+            _bossEncounterManager.BossReplaced -= 
+                HandleBossReplaced;
         }
 
         // 자체 점멸 완료 이벤트 구독을 해제한다.
@@ -191,9 +198,33 @@ public class SystemDialogueUI : MonoBehaviour
         _boundBoss.SystemDialogueRequested +=
             HandleSystemDialogueRequested;
 
+        // 현재 보스가 요청하는 경고 취소도 전달받는다.
+        _boundBoss.SystemDialogueCancelRequested +=
+            HandleSystemDialogueCancelRequested;
+
         // 보스가 처치되면 이벤트 연결을 해제한다.
         _boundBoss.Defeated +=
             HandleBossDefeated;
+    }
+
+    // 이전 페이즈의 메시지 완료 신호가 새 보스에게 전달되지 않게 한다.
+    private void HandleBossReplaced(BossEnemy replacementBoss)
+    {
+        if (replacementBoss == null)
+            return;
+
+        // 완료 콜백을 실행하지 않고 이전 메시지 연출을 중단한다.
+        _dialogueSequence?.Kill();
+        _dialogueSequence = null;
+
+        // 이전 페이즈의 경고 문구를 화면에서 숨긴다.
+        if (_dialogueCanvasGroup != null)
+        {
+            _dialogueCanvasGroup.alpha = 0f;
+        }
+
+        // 기존 함수를 통해 이전 구독을 해제하고 본체에 연결한다.
+        HandleBossSpawned(replacementBoss);
     }
 
     /// <summary>
@@ -203,6 +234,25 @@ public class SystemDialogueUI : MonoBehaviour
         string message)
     {
         PlayMessage(message);
+    }
+
+    // 패턴 취소 시 점멸을 중단하고 시스템 경고를 즉시 숨긴다.
+    private void HandleSystemDialogueCancelRequested()
+    {
+        if (_dialogueSequence != null)
+        {
+            // 정상 완료 콜백을 실행하지 않고 연출만 종료한다.
+            _dialogueSequence.Kill(false);
+            _dialogueSequence = null;
+        }
+
+        if (_dialogueCanvasGroup != null)
+        {
+            _dialogueCanvasGroup.alpha = 0f;
+        }
+
+        // 취소를 정상 완료로 알리지 않는다.
+        // 중단된 패턴이 경고 완료로 오인하여 공격을 시작하면 안 된다.
     }
 
     /// <summary>
@@ -246,6 +296,10 @@ public class SystemDialogueUI : MonoBehaviour
 
         _boundBoss.SystemDialogueRequested -=
             HandleSystemDialogueRequested;
+
+        // 이전 보스의 취소 요청이 새 보스의 경고에 영향을 주지 않게 한다.
+        _boundBoss.SystemDialogueCancelRequested -=
+            HandleSystemDialogueCancelRequested;
 
         _boundBoss.Defeated -=
             HandleBossDefeated;

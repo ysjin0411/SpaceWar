@@ -59,6 +59,9 @@ public class EnemySpawner : MonoBehaviour
         _stageFlowManager.PhaseChanged += HandlePhaseChanged;
         _bossEncounterManager.BossSpawned += HandleBossSpawned;
 
+        // 본체의 특수패턴 상태를 기준으로 적 생성 여부를 판단하게 한다.
+        _bossEncounterManager.BossReplaced += HandleBossSpawned;
+
         // 스포너가 나중에 활성화되어도 현재 보스에 연결한다.
         HandleBossSpawned(_bossEncounterManager.CurrentBoss);
     }
@@ -68,6 +71,9 @@ public class EnemySpawner : MonoBehaviour
         // 비활성화 시 외부 이벤트와 생성 예약을 정리한다.
         _stageFlowManager.PhaseChanged -= HandlePhaseChanged;
         _bossEncounterManager.BossSpawned -= HandleBossSpawned;
+
+        // 페이즈 교체 이벤트 구독을 해제한다.
+        _bossEncounterManager.BossReplaced -= HandleBossSpawned;
 
         UnbindBoss();
         StopSpawning();

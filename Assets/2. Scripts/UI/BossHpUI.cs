@@ -159,6 +159,9 @@ public class BossHpUI : MonoBehaviour
         // 보스가 생성된 순간을 전달받는다.
         _bossEncounterManager.BossSpawned += HandleBossSpawned;
 
+        // 페이즈 교체 시 체력바를 다시 펼치지 않고 새 보스에 연결한다.
+        _bossEncounterManager.BossReplaced += HandleBossReplaced;
+
         // 중간보스 이후 실제 맵이 교체된 순간을 전달받는다.
         _stageTransitionManager.SectionMapChanged +=
             HandleSectionMapChanged;
@@ -167,6 +170,9 @@ public class BossHpUI : MonoBehaviour
     private void OnDisable()
     {
         _bossEncounterManager.BossSpawned -= HandleBossSpawned;
+
+        // 비활성화된 UI가 페이즈 교체 알림을 받지 않게 한다.
+        _bossEncounterManager.BossReplaced -= HandleBossReplaced;
 
         _stageTransitionManager.SectionMapChanged -=
             HandleSectionMapChanged;
@@ -181,35 +187,55 @@ public class BossHpUI : MonoBehaviour
         _uiSequence = null;
     }
 
-    /// <summary>
-    /// 중간보스 또는 파이널 보스가 생성되었을 때 호출된다.
-    /// </summary>
+    // 최초 등장에서는 보스를 연결하고 체력바 등장 연출을 재생한다.
     private void HandleBossSpawned(BossEnemy spawnedBoss)
     {
         if (spawnedBoss == null)
-        {
             return;
-        }
 
+        BindBoss(spawnedBoss);
+        PlayBossOpen();
+    }
+
+    // 페이즈 교체에서는 체력바를 펼친 상태로 새 보스를 표시한다.
+    private void HandleBossReplaced(BossEnemy replacementBoss)
+    {
+        if (replacementBoss == null)
+            return;
+
+        // 이전 UI 연출이 뒤늦게 체력바를 숨기거나 축소하지 않게 한다.
+        _uiSequence?.Kill();
+        _uiSequence = null;
+
+        BindBoss(replacementBoss);
+
+        // 보스전은 계속 진행 중이므로 진행도 바는 접힌 상태로 유지한다.
+        SetScaleX(_stageProgressRoot, 0f);
+
+        // 체력바 등장 연출 없이 본체의 체력을 즉시 보여준다.
+        _bossHpRoot.gameObject.SetActive(true);
+        SetScaleX(_bossHpRoot, 1f);
+    }
+
+    // 최초 등장과 페이즈 교체에서 공통으로 사용하는 구독 처리다.
+    private void BindBoss(BossEnemy boss)
+    {
+        // 이전 보스의 체력·실드 이벤트와 진행 중인 보간을 정리한다.
         UnbindBoss();
 
-        // 새로 생성된 보스의 체력 이벤트를 구독한다.
-        _boundBoss = spawnedBoss;
+        _boundBoss = boss;
         _boundBoss.HealthChanged += HandleHealthChanged;
         _boundBoss.Defeated += HandleBossDefeated;
 
+        // 새 보스의 첫 체력은 보간하지 않고 즉시 표시한다.
         _hasReceivedInitialHealth = false;
 
-        // 생성된 보스 프리팹에 설정된 표시 이름을 UI에 출력한다.
-        _bossNameText.text = spawnedBoss.BossName;
+        _bossNameText.text = boss.BossName;
+        BindShield(boss);
 
-        // 기존 타워 실드의 연결을 처리한다.
-        BindShield(spawnedBoss);
-
-        // UI를 펼치기 전에 사용할 바와 현재 체력을 즉시 반영한다.
-        HandleHealthChanged(spawnedBoss.CurrentHp, spawnedBoss.MaxHp);
-
-        PlayBossOpen();
+        // 초기화가 끝난 본체도 현재 값을 읽어 바로 표시할 수 있다.
+        // 이 함수 내부에서 PhaseCount도 함께 갱신된다.
+        HandleHealthChanged(boss.CurrentHp, boss.MaxHp);
     }
 
     // 보스가 지정한 체력 바에 현재 체력을 표시한다.

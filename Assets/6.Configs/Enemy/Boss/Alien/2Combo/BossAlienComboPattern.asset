@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18321e0b07c869142a98bb1943ba1e1a, type: 3}
+  m_Name: BossAlienComboPattern
+  m_EditorClassIdentifier: 
+  _pauseRandomMovement: 0
+  _config: {fileID: 11400000, guid: 1c84c6e804436964eadb3b569a09a7f4, type: 2}
+  _warningPrefab: {fileID: 355288101773189565, guid: c5c162121f08dc0409de768f5bf87c34, type: 3}
+  _effectPrefab: {fileID: 7092653807646682612, guid: 4b5b2715a2c59a347981ead37950af1f, type: 3}
+  _strikeEffectSprites:
+  - {fileID: 21300000, guid: ff81ca83895a0424cbbe86712e69e002, type: 3}
+  - {fileID: 21300000, guid: 7ae55fc686780ad43bfedbc61736fe9c, type: 3}
+  - {fileID: 21300000, guid: 024cf5e484b54254d855984e046697f1, type: 3}

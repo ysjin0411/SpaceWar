@@ -74,13 +74,14 @@ public sealed class BossAlienMissilePattern : BossPattern
         bool sequenceStarted = false;
         float sequenceStartTime = 0f;
 
-        // 보스 또는 플레이어가 전투 불가능한 상태면 실행을 중단한다.
+        // 로봇의 체력이 소진되거나 전투가 끝나면 추가 발사를 막는다.
         bool CanContinue()
         {
             return boss != null &&
                 boss.isActiveAndEnabled &&
                 boss.HasBattleStarted &&
                 !boss.IsDead &&
+                boss.CurrentHp > 0 &&
                 context.TargetPlayer != null &&
                 context.TargetPlayer.isActiveAndEnabled &&
                 !context.TargetPlayer.IsDead;

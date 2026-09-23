@@ -138,63 +138,6 @@ MonoBehaviour:
       m_SpriteOverride: {fileID: 21300000, guid: 2668462d765181e46ac78ff0ae438ba7, type: 3}
     m_FromMain: 0
     m_EntryOverrideCount: 4
-  - m_Name: Phase2_Idle
-    m_Hash: 266564369
-    m_CategoryList: []
-    m_OverrideEntries:
-    - m_Name: Alien_Idle_01
-      m_Hash: 1030966319
-      m_Sprite: {fileID: 21300000, guid: 43c6a148954a9e24391f1bc5a72596d4, type: 3}
-      m_FromMain: 0
-      m_SpriteOverride: {fileID: 21300000, guid: 43c6a148954a9e24391f1bc5a72596d4, type: 3}
-    - m_Name: Alien_Idle_02
-      m_Hash: 611982741
-      m_Sprite: {fileID: 21300000, guid: b0f9818c2932ea84a8dec121d31f46f4, type: 3}
-      m_FromMain: 0
-      m_SpriteOverride: {fileID: 21300000, guid: b0f9818c2932ea84a8dec121d31f46f4, type: 3}
-    - m_Name: Alien_Idle_03
-      m_Hash: 326970627
-      m_Sprite: {fileID: 21300000, guid: 6745666b607a517429ee48e28f86428b, type: 3}
-      m_FromMain: 0
-      m_SpriteOverride: {fileID: 21300000, guid: 6745666b607a517429ee48e28f86428b, type: 3}
-    - m_Name: Alien_Idle_04
-      m_Hash: 219789472
-      m_Sprite: {fileID: 21300000, guid: ba20b0e300535354d9df5ac017fb19d9, type: 3}
-      m_FromMain: 0
-      m_SpriteOverride: {fileID: 21300000, guid: ba20b0e300535354d9df5ac017fb19d9, type: 3}
-    m_FromMain: 0
-    m_EntryOverrideCount: 4
-  - m_Name: Phase2_Leap
-    m_Hash: 562852786
-    m_CategoryList: []
-    m_OverrideEntries:
-    - m_Name: Alien_Leap_01_ChargeGlow
-      m_Hash: 312740286
-      m_Sprite: {fileID: 21300000, guid: a520fefbebd686d4aa6e63127adcf288, type: 3}
-      m_FromMain: 0
-      m_SpriteOverride: {fileID: 21300000, guid: a520fefbebd686d4aa6e63127adcf288, type: 3}
-    - m_Name: Alien_Leap_02_LaunchGlow
-      m_Hash: 52197716
-      m_Sprite: {fileID: 21300000, guid: 987f7cf6af713fd448723c73ed817984, type: 3}
-      m_FromMain: 0
-      m_SpriteOverride: {fileID: 21300000, guid: 987f7cf6af713fd448723c73ed817984, type: 3}
-    - m_Name: Alien_Leap_03_AirborneGlow
-      m_Hash: 723472748
-      m_Sprite: {fileID: 21300000, guid: 49c751c9cbf121a43bdcb1c9ad105aa2, type: 3}
-      m_FromMain: 0
-      m_SpriteOverride: {fileID: 21300000, guid: 49c751c9cbf121a43bdcb1c9ad105aa2, type: 3}
-    - m_Name: Alien_Leap_04_ImpactGlow
-      m_Hash: 931455210
-      m_Sprite: {fileID: 21300000, guid: cf5959cef8de3ab47920b75b51930396, type: 3}
-      m_FromMain: 0
-      m_SpriteOverride: {fileID: 21300000, guid: cf5959cef8de3ab47920b75b51930396, type: 3}
-    - m_Name: Alien_Leap_05_RecoverGlow
-      m_Hash: 1016686962
-      m_Sprite: {fileID: 21300000, guid: 1e323bdf812734d459859143ecc61c2e, type: 3}
-      m_FromMain: 0
-      m_SpriteOverride: {fileID: 21300000, guid: 1e323bdf812734d459859143ecc61c2e, type: 3}
-    m_FromMain: 0
-    m_EntryOverrideCount: 5
   m_PrimaryLibraryGUID: 
-  m_ModificationHash: 639257132924587312
+  m_ModificationHash: 639257572257422709
   m_Version: 1

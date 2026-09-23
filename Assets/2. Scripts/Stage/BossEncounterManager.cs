@@ -95,6 +95,10 @@ public class BossEncounterManager : MonoBehaviour
     // 새 보스가 생성되었을 때 생성된 보스를 UI에 전달한다.
     public event Action<BossEnemy> BossSpawned;
 
+    // 같은 보스전에서 페이즈 프리팹이 교체됐을 때 새 보스를 알린다.
+    // UI는 최초 등장 연출을 반복하지 않고 구독 대상만 변경한다.
+    public event Action<BossEnemy> BossReplaced;
+
     private void Awake()
     {
         if (_stageFlowManager == null)
@@ -150,20 +154,32 @@ public class BossEncounterManager : MonoBehaviour
 
     private void OnEnable()
     {
+        // 스테이지의 보스전 시작과 종료를 받는다.
         if (_stageFlowManager != null)
         {
             _stageFlowManager.PhaseChanged += HandlePhaseChanged;
+        }
+
+        // 관리자가 다시 활성화됐다면 전투 중인 보스에 재연결한다.
+        // 아직 입장 중인 보스는 입장 완료 시 연결한다.
+        if (_currentBoss != null && _currentBoss.HasBattleStarted)
+        {
+            BindBossEvents(_currentBoss);
         }
     }
 
     private void OnDisable()
     {
+        // 비활성화된 관리자가 스테이지 변경을 처리하지 않게 한다.
         if (_stageFlowManager != null)
         {
             _stageFlowManager.PhaseChanged -= HandlePhaseChanged;
         }
 
-        // 씬을 나가거나 관리자가 비활성화되면 입장 연출을 취소한다.
+        // 보스가 남아 있어도 비활성화된 관리자로 요청이 오지 않게 한다.
+        UnbindBossEvents(_currentBoss);
+
+        // 진행 중이던 최초 입장 연출을 취소한다.
         CancelBossEntrance();
     }
 
@@ -222,6 +238,136 @@ public class BossEncounterManager : MonoBehaviour
                 // 기존 보물상자 정리도 유지한다.
                 ClearTreasureBox();
                 break;
+        }
+    }
+
+    // 현재 보스의 최종 처치와 페이즈 교체 요청을 함께 구독한다.
+    private void BindBossEvents(BossEnemy boss)
+    {
+        if (boss == null)
+            return;
+
+        // 재연결 시 같은 함수가 중복 구독되지 않도록 먼저 해제한다.
+        UnbindBossEvents(boss);
+
+        boss.Defeated += HandleBossDefeated;
+        boss.PhaseReplacementRequested += HandlePhaseReplacementRequested;
+    }
+
+    // 이전 보스나 비활성화된 관리자의 이벤트 연결을 정리한다.
+    private void UnbindBossEvents(BossEnemy boss)
+    {
+        if (boss == null)
+            return;
+
+        boss.Defeated -= HandleBossDefeated;
+        boss.PhaseReplacementRequested -= HandlePhaseReplacementRequested;
+    }
+
+    // 이전 페이즈의 연출이 끝나면 새 프리팹으로 전투 대상을 교체한다.
+    private void HandlePhaseReplacementRequested(
+        BossEnemy previousBoss,
+        BossEnemy nextPhasePrefab,
+        Vector3 spawnPosition,
+        Quaternion spawnRotation)
+    {
+        // 현재 관리 중인 살아 있는 보스의 요청만 처리한다.
+        // 교체 후 늦게 도착한 이전 보스의 요청은 여기서 제외된다.
+        if (!isActiveAndEnabled ||
+            !_isInitialized ||
+            previousBoss == null ||
+            previousBoss != _currentBoss ||
+            !previousBoss.isActiveAndEnabled ||
+            !previousBoss.HasBattleStarted ||
+            previousBoss.IsDead ||
+            previousBoss.CurrentHp > 0)
+        {
+            return;
+        }
+
+        // 실패하거나 끝난 보스전에서는 다음 페이즈를 생성하지 않는다.
+        StagePhase phase = _stageFlowManager.CurrentPhase;
+
+        if (phase != StagePhase.MidBossBattle &&
+            phase != StagePhase.FinalBossBattle)
+        {
+            return;
+        }
+
+        // 전환 연출 중 플레이어가 사망한 경우도 제외한다.
+        if (_playerController == null ||
+            !_playerController.isActiveAndEnabled ||
+            _playerController.IsDead)
+        {
+            return;
+        }
+
+        // 잘못된 프리팹 참조를 명확하게 알린다.
+        if (nextPhasePrefab == null)
+        {
+            throw new InvalidOperationException(
+                $"{name}: 다음 페이즈 프리팹이 없습니다.");
+        }
+
+        // 최초 입장 이동 없이 지정된 위치에 다음 페이즈를 생성한다.
+        BossEnemy nextBoss = Instantiate(
+            nextPhasePrefab,
+            spawnPosition,
+            spawnRotation);
+
+        Rigidbody2D nextBody = nextBoss.GetComponent<Rigidbody2D>();
+
+        // 물리 충돌은 초기화와 외부 참조 교체가 끝난 뒤 허용한다.
+        // 초기화 실패 시에는 새 오브젝트를 정리하고 이전 보스를 유지한다.
+        try
+        {
+            if (nextBody == null)
+            {
+                throw new MissingComponentException(
+                    $"{nextBoss.name}: Rigidbody2D가 없습니다.");
+            }
+
+            nextBody.simulated = false;
+            nextBody.position = new Vector2(
+                spawnPosition.x,
+                spawnPosition.y);
+
+            nextBoss.Initialize(_playerController, _gameManager);
+        }
+        catch
+        {
+            // 생성된 본체가 불완전한 상태로 씬에 남지 않게 한다.
+            nextBoss.gameObject.SetActive(false);
+            Destroy(nextBoss.gameObject);
+            throw;
+        }
+
+        // 준비된 본체로 관리자 참조와 이벤트 연결을 넘긴다.
+        UnbindBossEvents(previousBoss);
+        _currentBoss = nextBoss;
+        BindBossEvents(nextBoss);
+
+        // 이전 로봇은 최종 사망 함수를 호출하지 않고 제거한다.
+        // 따라서 경험치, 드롭, 보스전 종료 이벤트가 발생하지 않는다.
+        previousBoss.gameObject.SetActive(false);
+        Destroy(previousBoss.gameObject);
+
+        // UI와 다른 시스템이 새 보스로 구독 대상을 변경하게 한다.
+        // 새 보스는 이미 초기화됐으므로 현재 체력을 바로 읽을 수 있다.
+        BossReplaced?.Invoke(nextBoss);
+
+        // 알림 처리 중 전투가 중단됐으면 물리 충돌을 재개하지 않는다.
+        if (isActiveAndEnabled &&
+            _currentBoss == nextBoss &&
+            nextBoss != null &&
+            nextBoss.isActiveAndEnabled &&
+            !nextBoss.IsDead &&
+            _playerController != null &&
+            _playerController.isActiveAndEnabled &&
+            !_playerController.IsDead &&
+            _stageFlowManager.CurrentPhase == phase)
+        {
+            nextBody.simulated = true;
         }
     }
 
@@ -289,8 +435,8 @@ public class BossEncounterManager : MonoBehaviour
                     destination.x,
                     destination.y);
 
-                // 실제 전투를 시작할 보스의 처치 이벤트를 구독한다.
-                enteringBoss.Defeated += HandleBossDefeated;
+                // 최초 보스도 최종 처치와 페이즈 교체 요청을 모두 연결한다.
+                BindBossEvents(enteringBoss);
 
                 // 체력 초기 알림을 받을 수 있도록 UI를 먼저 연결한다.
                 if (BossSpawned != null)
@@ -319,8 +465,8 @@ public class BossEncounterManager : MonoBehaviour
             return;
         }
 
-        // 구독 해제와 참조 초기화로 같은 보스의 중복 처리를 막는다.
-        defeatedBoss.Defeated -= HandleBossDefeated;
+        // 최종 처치가 완료된 보스의 모든 관리자 구독을 해제한다.
+        UnbindBossEvents(defeatedBoss);
         _currentBoss = null;
 
         StagePhase phase = _stageFlowManager.CurrentPhase;
