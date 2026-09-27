@@ -20,21 +20,21 @@ MonoBehaviour:
   _sockets:
   - _firstDelay: 0
     _interval: 0.3
-    _shotCount: 3
+    _shotCount: 2
     _startControlOffset: {x: -1, y: 2}
     _endControlOffset: {x: 3, y: 2}
-  - _firstDelay: 0.1
+  - _firstDelay: 0.15
     _interval: 0.3
-    _shotCount: 3
+    _shotCount: 2
     _startControlOffset: {x: 1, y: 3}
     _endControlOffset: {x: 4, y: 3}
-  - _firstDelay: 0.2
-    _interval: 0.3
-    _shotCount: 3
-    _startControlOffset: {x: -1, y: -2}
-    _endControlOffset: {x: 3, y: -2}
   - _firstDelay: 0.3
     _interval: 0.3
-    _shotCount: 3
+    _shotCount: 2
+    _startControlOffset: {x: -1, y: -2}
+    _endControlOffset: {x: 3, y: -2}
+  - _firstDelay: 0.45
+    _interval: 0.3
+    _shotCount: 2
     _startControlOffset: {x: 1, y: -3}
     _endControlOffset: {x: 4, y: -3}

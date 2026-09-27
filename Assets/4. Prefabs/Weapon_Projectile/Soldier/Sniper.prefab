@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8542869911372476509}
   - component: {fileID: 8848436111628883680}
+  - component: {fileID: 662690001338295298}
   m_Layer: 9
   m_Name: Renderer
   m_TagString: Untagged
@@ -76,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 3379219847543937197, guid: cb743af3ecc655743855d3a812c14ed9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 63851d10ac956c449bae44297f05954b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -87,6 +88,28 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &662690001338295298
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5464441372412440244}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 84a827d28320a1c4082bdb5f69d7a2d1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8053201812717553051
 GameObject:
   m_ObjectHideFlags: 0
@@ -183,7 +206,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.1, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -193,7 +216,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.0001, y: 0.1}
+  m_Size: {x: 0.25, y: 0.1}
   m_EdgeRadius: 0
 --- !u!114 &1052986659426723606
 MonoBehaviour:
@@ -207,12 +230,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb139a7faba77f84c8c2dad13678d795, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 10
+  _moveSpeed: 20
   _lifeTime: 5
   _damage: 0
-  _hitEffectPrefab: {fileID: 8670412759217664541, guid: 652c1659a108fb54a89b772baaa03240, type: 3}
+  _hitEffectPrefab: {fileID: 8670412759217664541, guid: a99265ffa702d9c4c9c7e5cfce441666, type: 3}
   _enemyLayerMask:
     serializedVersion: 2
     m_Bits: 256
   _trailPrefab: {fileID: 4701924691445393948, guid: 3e1174a247a31dd43a56d96c0669fa98, type: 3}
-  _trailSpacing: 0.4
+  _trailSpacing: 0.25

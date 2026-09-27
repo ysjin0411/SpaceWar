@@ -1,0 +1,470 @@
+[
+  {
+    "path": "Effects/GiantSword/Trail_Attack1/GiantSword_Trail_Attack1_01.png",
+    "weapon": "GiantSword",
+    "state": "Trail_Attack1",
+    "frame": 1,
+    "bbox": [
+      1479,
+      900,
+      2171,
+      1643
+    ],
+    "matching_body_frame": "Frames/GiantSword/Attack1/GiantSword_Attack1_01.png"
+  },
+  {
+    "path": "Effects/GiantSword/Trail_Attack1/GiantSword_Trail_Attack1_02.png",
+    "weapon": "GiantSword",
+    "state": "Trail_Attack1",
+    "frame": 2,
+    "bbox": [
+      1392,
+      804,
+      2102,
+      1658
+    ],
+    "matching_body_frame": "Frames/GiantSword/Attack1/GiantSword_Attack1_02.png"
+  },
+  {
+    "path": "Effects/GiantSword/Trail_Attack1/GiantSword_Trail_Attack1_03.png",
+    "weapon": "GiantSword",
+    "state": "Trail_Attack1",
+    "frame": 3,
+    "bbox": [
+      1773,
+      874,
+      2815,
+      1814
+    ],
+    "matching_body_frame": "Frames/GiantSword/Attack1/GiantSword_Attack1_03.png"
+  },
+  {
+    "path": "Effects/GiantSword/Trail_Attack1/GiantSword_Trail_Attack1_04.png",
+    "weapon": "GiantSword",
+    "state": "Trail_Attack1",
+    "frame": 4,
+    "bbox": [
+      1919,
+      1477,
+      2846,
+      1829
+    ],
+    "matching_body_frame": "Frames/GiantSword/Attack1/GiantSword_Attack1_04.png"
+  },
+  {
+    "path": "Effects/GiantSword/Trail_Attack1/GiantSword_Trail_Attack1_05.png",
+    "weapon": "GiantSword",
+    "state": "Trail_Attack1",
+    "frame": 5,
+    "bbox": [
+      1932,
+      1452,
+      2846,
+      1797
+    ],
+    "matching_body_frame": "Frames/GiantSword/Attack1/GiantSword_Attack1_05.png"
+  },
+  {
+    "path": "Effects/GiantSword/Trail_Attack1/GiantSword_Trail_Attack1_06.png",
+    "weapon": "GiantSword",
+    "state": "Trail_Attack1",
+    "frame": 6,
+    "bbox": [
+      1637,
+      776,
+      2691,
+      1809
+    ],
+    "matching_body_frame": "Frames/GiantSword/Attack1/GiantSword_Attack1_06.png"
+  },
+  {
+    "path": "Effects/GiantSword/Trail_Attack2/GiantSword_Trail_Attack2_01.png",
+    "weapon": "GiantSword",
+    "state": "Trail_Attack2",
+    "frame": 1,
+    "bbox": [
+      1784,
+      1766,
+      2697,
+      2140
+    ],
+    "matching_body_frame": "Frames/GiantSword/Attack2/GiantSword_Attack2_01.png"
+  },
+  {
+    "path": "Effects/GiantSword/Trail_Attack2/GiantSword_Trail_Attack2_02.png",
+    "weapon": "GiantSword",
+    "state": "Trail_Attack2",
+    "frame": 2,
+    "bbox": [
+      1925,
+      1787,
+      2850,
+      2258
+    ],
+    "matching_body_frame": "Frames/GiantSword/Attack2/GiantSword_Attack2_02.png"
+  },
+  {
+    "path": "Effects/GiantSword/Trail_Attack2/GiantSword_Trail_Attack2_03.png",
+    "weapon": "GiantSword",
+    "state": "Trail_Attack2",
+    "frame": 3,
+    "bbox": [
+      1640,
+      951,
+      2676,
+      2035
+    ],
+    "matching_body_frame": "Frames/GiantSword/Attack2/GiantSword_Attack2_03.png"
+  },
+  {
+    "path": "Effects/GiantSword/Trail_Attack2/GiantSword_Trail_Attack2_04.png",
+    "weapon": "GiantSword",
+    "state": "Trail_Attack2",
+    "frame": 4,
+    "bbox": [
+      1606,
+      751,
+      2273,
+      1550
+    ],
+    "matching_body_frame": "Frames/GiantSword/Attack2/GiantSword_Attack2_04.png"
+  },
+  {
+    "path": "Effects/GiantSword/Trail_Attack2/GiantSword_Trail_Attack2_05.png",
+    "weapon": "GiantSword",
+    "state": "Trail_Attack2",
+    "frame": 5,
+    "bbox": [
+      1595,
+      800,
+      2263,
+      1605
+    ],
+    "matching_body_frame": "Frames/GiantSword/Attack2/GiantSword_Attack2_05.png"
+  },
+  {
+    "path": "Effects/GiantSword/Trail_Attack2/GiantSword_Trail_Attack2_06.png",
+    "weapon": "GiantSword",
+    "state": "Trail_Attack2",
+    "frame": 6,
+    "bbox": [
+      1546,
+      671,
+      2191,
+      1472
+    ],
+    "matching_body_frame": "Frames/GiantSword/Attack2/GiantSword_Attack2_06.png"
+  },
+  {
+    "path": "Effects/GiantSword/Trail_Attack3/GiantSword_Trail_Attack3_01.png",
+    "weapon": "GiantSword",
+    "state": "Trail_Attack3",
+    "frame": 1,
+    "bbox": [
+      1510,
+      500,
+      1898,
+      1410
+    ],
+    "matching_body_frame": "Frames/GiantSword/Attack3/GiantSword_Attack3_01.png"
+  },
+  {
+    "path": "Effects/GiantSword/Trail_Attack3/GiantSword_Trail_Attack3_02.png",
+    "weapon": "GiantSword",
+    "state": "Trail_Attack3",
+    "frame": 2,
+    "bbox": [
+      1506,
+      454,
+      1895,
+      1365
+    ],
+    "matching_body_frame": "Frames/GiantSword/Attack3/GiantSword_Attack3_02.png"
+  },
+  {
+    "path": "Effects/GiantSword/Trail_Attack3/GiantSword_Trail_Attack3_03.png",
+    "weapon": "GiantSword",
+    "state": "Trail_Attack3",
+    "frame": 3,
+    "bbox": [
+      1487,
+      612,
+      1888,
+      1547
+    ],
+    "matching_body_frame": "Frames/GiantSword/Attack3/GiantSword_Attack3_03.png"
+  },
+  {
+    "path": "Effects/GiantSword/Trail_Attack3/GiantSword_Trail_Attack3_04.png",
+    "weapon": "GiantSword",
+    "state": "Trail_Attack3",
+    "frame": 4,
+    "bbox": [
+      1643,
+      818,
+      2786,
+      1965
+    ],
+    "matching_body_frame": "Frames/GiantSword/Attack3/GiantSword_Attack3_04.png"
+  },
+  {
+    "path": "Effects/GiantSword/Trail_Attack3/GiantSword_Trail_Attack3_05.png",
+    "weapon": "GiantSword",
+    "state": "Trail_Attack3",
+    "frame": 5,
+    "bbox": [
+      1627,
+      829,
+      2719,
+      1876
+    ],
+    "matching_body_frame": "Frames/GiantSword/Attack3/GiantSword_Attack3_05.png"
+  },
+  {
+    "path": "Effects/GiantSword/Trail_Attack3/GiantSword_Trail_Attack3_06.png",
+    "weapon": "GiantSword",
+    "state": "Trail_Attack3",
+    "frame": 6,
+    "bbox": [
+      1580,
+      647,
+      2058,
+      1535
+    ],
+    "matching_body_frame": "Frames/GiantSword/Attack3/GiantSword_Attack3_06.png"
+  },
+  {
+    "path": "Effects/Hammer/Trail_Attack1/Hammer_Trail_Attack1_01.png",
+    "weapon": "Hammer",
+    "state": "Trail_Attack1",
+    "frame": 1,
+    "bbox": [
+      133,
+      546,
+      1020,
+      1513
+    ],
+    "matching_body_frame": "Frames/Hammer/Attack1/Hammer_Attack1_01.png"
+  },
+  {
+    "path": "Effects/Hammer/Trail_Attack1/Hammer_Trail_Attack1_02.png",
+    "weapon": "Hammer",
+    "state": "Trail_Attack1",
+    "frame": 2,
+    "bbox": [
+      72,
+      559,
+      986,
+      1795
+    ],
+    "matching_body_frame": "Frames/Hammer/Attack1/Hammer_Attack1_02.png"
+  },
+  {
+    "path": "Effects/Hammer/Trail_Attack1/Hammer_Trail_Attack1_03.png",
+    "weapon": "Hammer",
+    "state": "Trail_Attack1",
+    "frame": 3,
+    "bbox": [
+      118,
+      811,
+      759,
+      2258
+    ],
+    "matching_body_frame": "Frames/Hammer/Attack1/Hammer_Attack1_03.png"
+  },
+  {
+    "path": "Effects/Hammer/Trail_Attack1/Hammer_Trail_Attack1_04.png",
+    "weapon": "Hammer",
+    "state": "Trail_Attack1",
+    "frame": 4,
+    "bbox": [
+      176,
+      1013,
+      619,
+      2284
+    ],
+    "matching_body_frame": "Frames/Hammer/Attack1/Hammer_Attack1_04.png"
+  },
+  {
+    "path": "Effects/Hammer/Trail_Attack1/Hammer_Trail_Attack1_05.png",
+    "weapon": "Hammer",
+    "state": "Trail_Attack1",
+    "frame": 5,
+    "bbox": [
+      334,
+      340,
+      2902,
+      1739
+    ],
+    "matching_body_frame": "Frames/Hammer/Attack1/Hammer_Attack1_05.png"
+  },
+  {
+    "path": "Effects/Hammer/Trail_Attack1/Hammer_Trail_Attack1_06.png",
+    "weapon": "Hammer",
+    "state": "Trail_Attack1",
+    "frame": 6,
+    "bbox": [
+      2281,
+      835,
+      2868,
+      2137
+    ],
+    "matching_body_frame": "Frames/Hammer/Attack1/Hammer_Attack1_06.png"
+  },
+  {
+    "path": "Effects/Hammer/Trail_Attack2/Hammer_Trail_Attack2_01.png",
+    "weapon": "Hammer",
+    "state": "Trail_Attack2",
+    "frame": 1,
+    "bbox": [
+      142,
+      1617,
+      832,
+      2702
+    ],
+    "matching_body_frame": "Frames/Hammer/Attack2/Hammer_Attack2_01.png"
+  },
+  {
+    "path": "Effects/Hammer/Trail_Attack2/Hammer_Trail_Attack2_02.png",
+    "weapon": "Hammer",
+    "state": "Trail_Attack2",
+    "frame": 2,
+    "bbox": [
+      319,
+      458,
+      2728,
+      2332
+    ],
+    "matching_body_frame": "Frames/Hammer/Attack2/Hammer_Attack2_02.png"
+  },
+  {
+    "path": "Effects/Hammer/Trail_Attack2/Hammer_Trail_Attack2_03.png",
+    "weapon": "Hammer",
+    "state": "Trail_Attack2",
+    "frame": 3,
+    "bbox": [
+      1449,
+      330,
+      2805,
+      1521
+    ],
+    "matching_body_frame": "Frames/Hammer/Attack2/Hammer_Attack2_03.png"
+  },
+  {
+    "path": "Effects/Hammer/Trail_Attack2/Hammer_Trail_Attack2_04.png",
+    "weapon": "Hammer",
+    "state": "Trail_Attack2",
+    "frame": 4,
+    "bbox": [
+      1081,
+      343,
+      2412,
+      967
+    ],
+    "matching_body_frame": "Frames/Hammer/Attack2/Hammer_Attack2_04.png"
+  },
+  {
+    "path": "Effects/Hammer/Trail_Attack2/Hammer_Trail_Attack2_05.png",
+    "weapon": "Hammer",
+    "state": "Trail_Attack2",
+    "frame": 5,
+    "bbox": [
+      307,
+      443,
+      2007,
+      1476
+    ],
+    "matching_body_frame": "Frames/Hammer/Attack2/Hammer_Attack2_05.png"
+  },
+  {
+    "path": "Effects/Hammer/Trail_Attack2/Hammer_Trail_Attack2_06.png",
+    "weapon": "Hammer",
+    "state": "Trail_Attack2",
+    "frame": 6,
+    "bbox": [
+      624,
+      489,
+      2960,
+      2399
+    ],
+    "matching_body_frame": "Frames/Hammer/Attack2/Hammer_Attack2_06.png"
+  },
+  {
+    "path": "Effects/Hammer/Trail_Attack3/Hammer_Trail_Attack3_01.png",
+    "weapon": "Hammer",
+    "state": "Trail_Attack3",
+    "frame": 1,
+    "bbox": [
+      767,
+      433,
+      1900,
+      900
+    ],
+    "matching_body_frame": "Frames/Hammer/Attack3/Hammer_Attack3_01.png"
+  },
+  {
+    "path": "Effects/Hammer/Trail_Attack3/Hammer_Trail_Attack3_02.png",
+    "weapon": "Hammer",
+    "state": "Trail_Attack3",
+    "frame": 2,
+    "bbox": [
+      867,
+      434,
+      2102,
+      886
+    ],
+    "matching_body_frame": "Frames/Hammer/Attack3/Hammer_Attack3_02.png"
+  },
+  {
+    "path": "Effects/Hammer/Trail_Attack3/Hammer_Trail_Attack3_03.png",
+    "weapon": "Hammer",
+    "state": "Trail_Attack3",
+    "frame": 3,
+    "bbox": [
+      969,
+      447,
+      2115,
+      827
+    ],
+    "matching_body_frame": "Frames/Hammer/Attack3/Hammer_Attack3_03.png"
+  },
+  {
+    "path": "Effects/Hammer/Trail_Attack3/Hammer_Trail_Attack3_04.png",
+    "weapon": "Hammer",
+    "state": "Trail_Attack3",
+    "frame": 4,
+    "bbox": [
+      1306,
+      552,
+      2918,
+      2321
+    ],
+    "matching_body_frame": "Frames/Hammer/Attack3/Hammer_Attack3_04.png"
+  },
+  {
+    "path": "Effects/Hammer/Trail_Attack3/Hammer_Trail_Attack3_05.png",
+    "weapon": "Hammer",
+    "state": "Trail_Attack3",
+    "frame": 5,
+    "bbox": [
+      1734,
+      392,
+      2909,
+      2181
+    ],
+    "matching_body_frame": "Frames/Hammer/Attack3/Hammer_Attack3_05.png"
+  },
+  {
+    "path": "Effects/Hammer/Trail_Attack3/Hammer_Trail_Attack3_06.png",
+    "weapon": "Hammer",
+    "state": "Trail_Attack3",
+    "frame": 6,
+    "bbox": [
+      1213,
+      388,
+      2568,
+      1112
+    ],
+    "matching_body_frame": "Frames/Hammer/Attack3/Hammer_Attack3_06.png"
+  }
+]

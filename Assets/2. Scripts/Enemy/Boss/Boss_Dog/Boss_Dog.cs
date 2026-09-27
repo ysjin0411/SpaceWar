@@ -23,12 +23,18 @@ public class Boss_Dog : BossEnemy
     // 초기화가 끝나기 전에는 체력 이벤트를 처리하지 않는다.
     bool _isHealthPatternReady;
 
+    /// <summary>
+    /// 활성화 시 초기 상태와 이벤트 연결을 준비한다.
+    /// </summary>
     private void OnEnable()
     {
         // 체력 변화 이벤트를 구독한다.
         HealthChanged += HandleHealthChanged;
     }
 
+    /// <summary>
+    /// 비활성화 시 이벤트 연결과 실행 상태를 정리한다.
+    /// </summary>
     protected override void OnDisable()
     {
         // 기존 체력 이벤트 구독을 해제한다.
@@ -38,6 +44,9 @@ public class Boss_Dog : BossEnemy
         base.OnDisable();
     }
 
+    /// <summary>
+    /// OnBossInitialized 동작에 필요한 상태와 처리 흐름을 실행한다.
+    /// </summary>
     protected override void OnBossInitialized()
     {
         base.OnBossInitialized();
@@ -84,7 +93,7 @@ public class Boss_Dog : BossEnemy
     /// 아직 요청하지 않은 항목 중 체력 조건을 만족한 패턴을 요청한다.
     /// 체력이 회복됐다 다시 내려가도 이미 요청한 항목은 반복하지 않는다.
     /// </summary>
-    private void HandleHealthChanged(int currentHp, int maxHp)
+    private void HandleHealthChanged(float currentHp, float maxHp)
     {
         // BossEnemy가 초기화 중 먼저 보내는 이벤트는 건너뛴다.
         if (!_isHealthPatternReady)

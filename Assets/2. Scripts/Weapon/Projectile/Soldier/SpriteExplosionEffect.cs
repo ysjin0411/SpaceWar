@@ -49,6 +49,19 @@ public class SpriteExplosionEffect : MonoBehaviour
     // 현재 재생 중인 폭발 연출이다.
     Sequence _effectSequence;
 
+
+    // 프레임 자체의 확대 동작을 사용하며 기존 Tween 확대와 중복하지 않는다.
+    [SerializeField] bool _useFrameAnimation;
+    [SerializeField] Sprite[] _coreFrames;
+    [SerializeField] Sprite[] _shockwaveFrames;
+    [SerializeField] Sprite[] _smokeFrames;
+    [SerializeField] SpriteRenderer _smokeRenderer;
+    // 폭발과 충격파는 24fps, 연기는 18fps로 재생한다.
+    [SerializeField, Min(1f)] float _animationFps = 24f;
+    [SerializeField, Min(1f)] float _smokeFps = 18f;
+    [SerializeField, Min(0f)] float _smokeDelay = 0.22f;
+    Coroutine _frameRoutine;
+
     private void Awake()
     {
         ValidateReferences();
@@ -68,6 +81,14 @@ public class SpriteExplosionEffect : MonoBehaviour
     /// </summary>
     public void Play()
     {
+        if (_useFrameAnimation)
+        {
+            if (_frameRoutine != null) StopCoroutine(_frameRoutine);
+            if (_effectSequence != null) _effectSequence.Kill();
+            _frameRoutine = StartCoroutine(PlayFrames());
+            return;
+        }
+
         // 중복 재생 시 기존 연출을 정리한다.
         _effectSequence?.Kill();
 
@@ -164,6 +185,49 @@ public class SpriteExplosionEffect : MonoBehaviour
             throw new InvalidOperationException(
                 $"{name}에 충격파가 연결되지 않았습니다.");
         }
+    }
+
+
+    // 고정된 크기로 순서대로 표시하여 실제 피해 범위보다 커지지 않게 한다.
+    private System.Collections.IEnumerator PlayFrames()
+    {
+        ValidateFrames(_coreFrames);
+        ValidateFrames(_shockwaveFrames);
+        ValidateFrames(_smokeFrames);
+        if (_smokeRenderer == null || _animationFps <= 0f || _smokeFps <= 0f)
+            throw new InvalidOperationException("Explosion frame settings are incomplete.");
+        _explosionCoreTransform.localScale = Vector3.one;
+        _shockwaveTransform.localScale = Vector3.one;
+        float duration = Mathf.Max(_coreFrames.Length / _animationFps,
+            Mathf.Max(_shockwaveFrames.Length / _animationFps, _smokeDelay + _smokeFrames.Length / _smokeFps));
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            ShowFrame(_explosionCoreRenderer, _coreFrames, elapsed, _animationFps);
+            ShowFrame(_shockwaveRenderer, _shockwaveFrames, elapsed, _animationFps);
+            ShowFrame(_smokeRenderer, _smokeFrames, elapsed - _smokeDelay, _smokeFps);
+            yield return null;
+            elapsed += Time.deltaTime;
+        }
+        _frameRoutine = null;
+        Destroy(gameObject);
+    }
+
+    // 시작 전과 마지막 프레임 이후에는 해당 레이어를 숨긴다.
+    private void ShowFrame(SpriteRenderer renderer, Sprite[] frames, float elapsed, float fps)
+    {
+        int index = Mathf.FloorToInt(elapsed * fps);
+        bool visible = index >= 0 && index < frames.Length;
+        SetRendererAlpha(renderer, visible ? 1f : 0f);
+        if (visible) renderer.sprite = frames[index];
+    }
+
+    private void ValidateFrames(Sprite[] frames)
+    {
+        if (frames == null || frames.Length == 0)
+            throw new InvalidOperationException("Explosion frames are empty.");
+        foreach (Sprite frame in frames)
+            if (frame == null) throw new InvalidOperationException("Explosion sprite is missing.");
     }
 
     private void OnDestroy()

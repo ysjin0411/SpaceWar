@@ -357,3 +357,7 @@ MonoBehaviour:
       _count: 2
   - _groupName: Quest
     _entries: []
+  _stageDrops:
+  - _prefab: {fileID: 4012495091504343507, guid: 2f2fd5caed3b9a540866aa6a368269ad, type: 3}
+    _dropChancePercent: 100
+  _itemDropPoint: {fileID: 0}

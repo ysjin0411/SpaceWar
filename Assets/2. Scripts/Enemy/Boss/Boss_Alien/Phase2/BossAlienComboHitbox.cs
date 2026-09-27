@@ -13,7 +13,7 @@ public sealed class BossAlienComboHitbox
     private readonly Vector2 _center;
     private readonly Vector2 _size;
     private readonly float _angle;
-    private readonly int _damage;
+    private readonly float _damage;
 
     // 공격이 유지되는 동안 같은 목록을 재사용한다.
     private readonly List<Collider2D> _hits =
@@ -27,13 +27,17 @@ public sealed class BossAlienComboHitbox
     private bool _consumed;
 
     // 방향이 고정된 경고의 값을 받아 해당 타격의 판정을 만든다.
+    /// <summary>
+    /// 방향이 고정된 경고의 값을 받아 해당 타격의 판정을 만든다.
+    /// </summary>
     public BossAlienComboHitbox(
         PlayerController target,
         Vector2 center,
         Vector2 size,
         float angle,
-        int damage)
+        float damage)
     {
+        // 방향이 고정된 경고의 값을 받아 해당 타격의 판정을 만든다.
         if (target == null)
         {
             throw new ArgumentNullException(nameof(target));
@@ -62,6 +66,9 @@ public sealed class BossAlienComboHitbox
 
     // 공격 활성 구간에서 반복 호출한다.
     // 한 번 타격을 소비하면 이후 호출은 아무 피해도 주지 않는다.
+    /// <summary>
+    /// 한 번 타격을 소비하면 이후 호출은 아무 피해도 주지 않는다.
+    /// </summary>
     public void Tick()
     {
         if (_consumed ||
@@ -126,6 +133,9 @@ public sealed class BossAlienComboHitbox
     }
 
     // 물리 검사에 사용할 수 없는 숫자를 걸러낸다.
+    /// <summary>
+    /// 물리 검사에 사용할 수 없는 숫자를 걸러낸다.
+    /// </summary>
     private static bool IsFinite(float value)
     {
         return !float.IsNaN(value) && !float.IsInfinity(value);

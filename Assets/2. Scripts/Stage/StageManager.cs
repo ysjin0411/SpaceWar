@@ -23,6 +23,7 @@ public class StageManager : MonoBehaviour
     [Header("UI")]
     [SerializeField] HPUI _hpUI;        // HP UI
     [SerializeField] WeaponUI _weaponUI;    // 현재 선택한 무기 아이콘을 표시할 UI
+    [SerializeField] private UltimateUI _ultimateUI; // 현재 스테이지의 필살기 충전 표시 UI다.
 
     [Header("무기 슬롯 활성화 오브젝트(Tab)")]
     [SerializeField] GameObject _weaponSlotOpen;
@@ -31,6 +32,9 @@ public class StageManager : MonoBehaviour
     [SerializeField] EnemySpawner _enemySpawner;                          // 생성된 플레이어를 적들에게 전달할 EnemySpawner
     [SerializeField] StageTransitionManager _stageTransitionManager;      // 플레이어 입장과 구간 이동 연출을 담당하는 매니저
     [SerializeField] BossEncounterManager _bossEncounterManager;          // 스테이지 페이즈에 맞춰 보스를 생성할 BossEncounterManager
+
+    // 실제 전투 화면을 렌더링하는 카메라다.
+    [SerializeField] private Camera _ultimateWorldCamera;
 
     // 플레이어 사망을 스테이지 실패 상태로 전달할 매니저
     [SerializeField] StageFlowManager _stageFlowManager;
@@ -323,11 +327,30 @@ public class StageManager : MonoBehaviour
         // 선택한 캐릭터의 저장된 레벨과 경험치를 불러온다.
         _characterProgression.Initialize(_selectedCharacterData.Id);
 
+        // 적이 생성되기 전에 필살기 획득 시스템을 준비한다.
+        InitializeUltimate();
+
         // 적과 적 투사체가 새로 생성된 플레이어를 사용하도록 연결한다.
         _enemySpawner.Initialize(_spawnedPlayerController,_gameManager);
 
         // 보스 생성 시스템에도 현재 플레이어를 전달한다.
         _bossEncounterManager.Initialize(_spawnedPlayerController, _gameManager);
+
+        // 생성된 캐릭터의 방향 전환 컴포넌트를 가져온다.
+        PlayerFacing playerFacing =
+            _spawnedPlayerController.GetComponent<PlayerFacing>();
+
+        // 캐릭터 프리팹 설정 누락을 실행 초기에 확인한다.
+        if (playerFacing == null)
+        {
+            throw new MissingComponentException(
+                $"{_spawnedPlayerController.name}: PlayerFacing이 없습니다.");
+        }
+
+        // 프리팹이 직접 참조할 수 없는 씬의 관리자들을 전달한다.
+        playerFacing.Initialize(
+            _bossEncounterManager,
+            _stageFlowManager);
 
         // 증강 시스템이 새 플레이어와 해당 플레이어 프리팹의 Weapon을 사용하도록 한다.
         _upgrader.Initialize(_gameManager, _spawnedPlayerController, _spawnedWeapon);
@@ -379,5 +402,30 @@ public class StageManager : MonoBehaviour
 
         // SystemDialogueUI의 초기화와 보스 이벤트 구독이 실행되도록 한다.
         _systemDialogueFrame.gameObject.SetActive(true);
+    }
+
+    // 캐릭터 프리팹에 씬의 필살기 UI와 진행 시스템을 전달한다.
+    private void InitializeUltimate()
+    {
+        if (_ultimateUI == null || _ultimateWorldCamera == null)
+        {
+            throw new InvalidOperationException(
+                "StageManager에 UltimateUI와 Ultimate World Camera를 연결해주세요.");
+        }
+
+        UltimateCharge charge =
+            _spawnedPlayerController.GetComponent<UltimateCharge>();
+
+        if (charge == null)
+        {
+            throw new MissingComponentException(
+                $"{_spawnedPlayerController.name}: UltimateCharge가 없습니다.");
+        }
+
+        // 캐릭터 프리팹이 직접 참조할 수 없는 씬 정보를 전달한다.
+        charge.Initialize(
+            _stageFlowManager,
+            _ultimateUI,
+            _ultimateWorldCamera);
     }
 }

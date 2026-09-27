@@ -331,6 +331,9 @@ public class NpcDialoguePresenter : MonoBehaviour
         // 퀘스트 수락·거절은 마지막 줄을 모두 출력한 뒤 표시한다.
         _decisionView.SetVisible(false);
 
+        // 일반 대화와 퀘스트 대화의 기능 영역을 분리하고 새 대사의 스크롤을 초기화한다.
+        _view.SetDialogueMode(_selectedQuest != null || _isDecisionResponse, false);
+
         _visibleCharacters = 0;
         _characterProgress = 0f;
         _characterCount = _view.PrepareLine(line.Text);
@@ -631,6 +634,7 @@ public class NpcDialoguePresenter : MonoBehaviour
             _lineIndex != _data.LineCount - 1)
         {
             _rewardView.Hide();
+            _view.SetDialogueMode(_selectedQuest != null || _isDecisionResponse, false);
             return;
         }
 
@@ -649,10 +653,12 @@ public class NpcDialoguePresenter : MonoBehaviour
         if (isOffer || isCompletion)
         {
             _rewardView.Show(_selectedQuest);
+            _view.SetDialogueMode(true, _rewardView.HasRewards);
         }
         else
         {
             _rewardView.Hide();
+            _view.SetDialogueMode(_selectedQuest != null || _isDecisionResponse, false);
         }
     }
 }

@@ -21,12 +21,18 @@ public class Boss_Head : BossEnemy
     // 보스 초기화가 완료된 뒤에만 체력 조건을 검사한다.
     bool _isHealthPatternReady;
 
+    /// <summary>
+    /// 활성화 시 초기 상태와 이벤트 연결을 준비한다.
+    /// </summary>
     private void OnEnable()
     {
         // 체력이 변경될 때 특수패턴 발동 조건을 확인한다.
         HealthChanged += HandleHealthChanged;
     }
 
+    /// <summary>
+    /// 비활성화 시 이벤트 연결과 실행 상태를 정리한다.
+    /// </summary>
     protected override void OnDisable()
     {
         // 기존 체력 이벤트 구독을 해제한다.
@@ -36,6 +42,9 @@ public class Boss_Head : BossEnemy
         base.OnDisable();
     }
 
+    /// <summary>
+    /// OnBossInitialized 동작에 필요한 상태와 처리 흐름을 실행한다.
+    /// </summary>
     protected override void OnBossInitialized()
     {
         base.OnBossInitialized();
@@ -76,7 +85,7 @@ public class Boss_Head : BossEnemy
     /// <summary>
     /// 조건을 만족한 항목마다 특수패턴을 한 번만 요청한다.
     /// </summary>
-    private void HandleHealthChanged(int currentHp, int maxHp)
+    private void HandleHealthChanged(float currentHp, float maxHp)
     {
         // 초기화 전이거나 사망에 이르는 피해라면 요청하지 않는다.
         if (!_isHealthPatternReady ||

@@ -1,0 +1,2172 @@
+[
+  {
+    "weapon": "Bullet",
+    "animation": "Projectile",
+    "frames": 4,
+    "canvas": [
+      512,
+      256
+    ],
+    "ppu": 2000,
+    "fps": 24,
+    "loop": true,
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "note": "Faces +X. Fixed rigid-body dimensions across frames; emission flickers.",
+    "alpha_bounds": [
+      [
+        166,
+        98,
+        346,
+        158
+      ],
+      [
+        166,
+        98,
+        346,
+        158
+      ],
+      [
+        166,
+        98,
+        346,
+        158
+      ],
+      [
+        166,
+        98,
+        346,
+        158
+      ]
+    ],
+    "unique_frames": 3
+  },
+  {
+    "weapon": "Lazer",
+    "animation": "Projectile",
+    "frames": 8,
+    "canvas": [
+      512,
+      256
+    ],
+    "ppu": 800,
+    "fps": 24,
+    "loop": true,
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "note": "Faces +X. Fixed rigid-body dimensions across frames; emission flickers.",
+    "alpha_bounds": [
+      [
+        112,
+        86,
+        400,
+        171
+      ],
+      [
+        112,
+        86,
+        400,
+        171
+      ],
+      [
+        112,
+        86,
+        400,
+        171
+      ],
+      [
+        112,
+        86,
+        400,
+        171
+      ],
+      [
+        112,
+        86,
+        400,
+        171
+      ],
+      [
+        112,
+        86,
+        400,
+        171
+      ],
+      [
+        112,
+        86,
+        400,
+        171
+      ],
+      [
+        112,
+        86,
+        400,
+        171
+      ]
+    ],
+    "unique_frames": 8
+  },
+  {
+    "weapon": "Sniper",
+    "animation": "Projectile",
+    "frames": 4,
+    "canvas": [
+      512,
+      256
+    ],
+    "ppu": 800,
+    "fps": 24,
+    "loop": true,
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "note": "Faces +X. Fixed rigid-body dimensions across frames; emission flickers.",
+    "alpha_bounds": [
+      [
+        72,
+        114,
+        440,
+        142
+      ],
+      [
+        72,
+        114,
+        440,
+        142
+      ],
+      [
+        72,
+        114,
+        440,
+        142
+      ],
+      [
+        72,
+        114,
+        440,
+        142
+      ]
+    ],
+    "unique_frames": 3
+  },
+  {
+    "weapon": "Missile",
+    "animation": "Projectile",
+    "frames": 4,
+    "canvas": [
+      512,
+      256
+    ],
+    "ppu": 800,
+    "fps": 24,
+    "loop": true,
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "note": "Faces +X. Fixed rigid-body dimensions across frames; emission flickers.",
+    "alpha_bounds": [
+      [
+        80,
+        53,
+        432,
+        203
+      ],
+      [
+        80,
+        53,
+        432,
+        203
+      ],
+      [
+        80,
+        53,
+        432,
+        203
+      ],
+      [
+        80,
+        53,
+        432,
+        203
+      ]
+    ],
+    "unique_frames": 3
+  },
+  {
+    "weapon": "Bullet",
+    "animation": "Muzzle",
+    "frames": 6,
+    "canvas": [
+      256,
+      256
+    ],
+    "ppu": 800,
+    "fps": 30,
+    "loop": false,
+    "pivot": [
+      0.125,
+      0.5
+    ],
+    "note": "Muzzle origin at x=32px. Faces +X; position at barrel tip.",
+    "alpha_bounds": [
+      [
+        32,
+        96,
+        107,
+        176
+      ],
+      [
+        32,
+        79,
+        151,
+        190
+      ],
+      [
+        32,
+        62,
+        164,
+        193
+      ],
+      [
+        32,
+        62,
+        151,
+        193
+      ],
+      [
+        32,
+        66,
+        140,
+        191
+      ],
+      null
+    ],
+    "unique_frames": 6
+  },
+  {
+    "weapon": "Bullet",
+    "animation": "Hit",
+    "frames": 8,
+    "canvas": [
+      256,
+      256
+    ],
+    "ppu": 800,
+    "fps": 30,
+    "loop": false,
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "note": "Centered at collision contact. Sniper impact does not imply stopping the projectile.",
+    "alpha_bounds": [
+      [
+        76,
+        87,
+        178,
+        182
+      ],
+      [
+        51,
+        67,
+        209,
+        199
+      ],
+      [
+        33,
+        56,
+        222,
+        220
+      ],
+      [
+        22,
+        34,
+        220,
+        223
+      ],
+      [
+        58,
+        46,
+        209,
+        209
+      ],
+      [
+        51,
+        50,
+        212,
+        201
+      ],
+      [
+        55,
+        58,
+        201,
+        199
+      ],
+      [
+        57,
+        68,
+        194,
+        191
+      ]
+    ],
+    "unique_frames": 8
+  },
+  {
+    "weapon": "Lazer",
+    "animation": "Muzzle",
+    "frames": 6,
+    "canvas": [
+      256,
+      256
+    ],
+    "ppu": 800,
+    "fps": 30,
+    "loop": false,
+    "pivot": [
+      0.125,
+      0.5
+    ],
+    "note": "Muzzle origin at x=32px. Faces +X; position at barrel tip.",
+    "alpha_bounds": [
+      [
+        32,
+        96,
+        107,
+        176
+      ],
+      [
+        32,
+        79,
+        151,
+        190
+      ],
+      [
+        32,
+        62,
+        164,
+        193
+      ],
+      [
+        32,
+        62,
+        151,
+        193
+      ],
+      [
+        32,
+        66,
+        140,
+        191
+      ],
+      null
+    ],
+    "unique_frames": 6
+  },
+  {
+    "weapon": "Lazer",
+    "animation": "Hit",
+    "frames": 10,
+    "canvas": [
+      384,
+      384
+    ],
+    "ppu": 800,
+    "fps": 30,
+    "loop": false,
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "note": "Centered at collision contact. Sniper impact does not imply stopping the projectile.",
+    "alpha_bounds": [
+      [
+        114,
+        132,
+        266,
+        275
+      ],
+      [
+        77,
+        100,
+        314,
+        299
+      ],
+      [
+        48,
+        84,
+        334,
+        330
+      ],
+      [
+        31,
+        49,
+        330,
+        334
+      ],
+      [
+        86,
+        69,
+        314,
+        313
+      ],
+      [
+        77,
+        75,
+        318,
+        302
+      ],
+      [
+        83,
+        87,
+        301,
+        299
+      ],
+      [
+        84,
+        101,
+        291,
+        286
+      ],
+      [
+        85,
+        101,
+        290,
+        286
+      ],
+      null
+    ],
+    "unique_frames": 10
+  },
+  {
+    "weapon": "Sniper",
+    "animation": "Muzzle",
+    "frames": 6,
+    "canvas": [
+      256,
+      256
+    ],
+    "ppu": 800,
+    "fps": 30,
+    "loop": false,
+    "pivot": [
+      0.125,
+      0.5
+    ],
+    "note": "Muzzle origin at x=32px. Faces +X; position at barrel tip.",
+    "alpha_bounds": [
+      [
+        32,
+        96,
+        107,
+        176
+      ],
+      [
+        32,
+        79,
+        151,
+        190
+      ],
+      [
+        32,
+        62,
+        164,
+        193
+      ],
+      [
+        32,
+        62,
+        151,
+        193
+      ],
+      [
+        32,
+        66,
+        140,
+        191
+      ],
+      null
+    ],
+    "unique_frames": 6
+  },
+  {
+    "weapon": "Sniper",
+    "animation": "PenetrationHit",
+    "frames": 10,
+    "canvas": [
+      384,
+      384
+    ],
+    "ppu": 800,
+    "fps": 30,
+    "loop": false,
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "note": "Centered at collision contact. Sniper impact does not imply stopping the projectile.",
+    "alpha_bounds": [
+      [
+        114,
+        132,
+        266,
+        275
+      ],
+      [
+        77,
+        100,
+        314,
+        299
+      ],
+      [
+        48,
+        84,
+        334,
+        330
+      ],
+      [
+        31,
+        49,
+        330,
+        334
+      ],
+      [
+        86,
+        69,
+        314,
+        313
+      ],
+      [
+        77,
+        75,
+        318,
+        302
+      ],
+      [
+        83,
+        87,
+        301,
+        299
+      ],
+      [
+        84,
+        101,
+        291,
+        286
+      ],
+      [
+        85,
+        101,
+        290,
+        286
+      ],
+      null
+    ],
+    "unique_frames": 10
+  },
+  {
+    "weapon": "Sniper",
+    "animation": "Trail",
+    "frames": 12,
+    "canvas": [
+      512,
+      128
+    ],
+    "ppu": 800,
+    "fps": 30,
+    "loop": false,
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "note": "World trail footprint about 0.56 units; 0.4 unit existing spacing overlaps continuously.",
+    "alpha_bounds": [
+      [
+        13,
+        47,
+        493,
+        83
+      ],
+      [
+        15,
+        43,
+        489,
+        85
+      ],
+      [
+        19,
+        39,
+        487,
+        89
+      ],
+      [
+        22,
+        38,
+        484,
+        90
+      ],
+      [
+        26,
+        34,
+        482,
+        94
+      ],
+      [
+        31,
+        31,
+        479,
+        97
+      ],
+      [
+        34,
+        29,
+        476,
+        99
+      ],
+      [
+        38,
+        26,
+        474,
+        102
+      ],
+      [
+        42,
+        24,
+        472,
+        104
+      ],
+      [
+        44,
+        22,
+        470,
+        106
+      ],
+      [
+        48,
+        18,
+        468,
+        110
+      ],
+      null
+    ],
+    "unique_frames": 12
+  },
+  {
+    "weapon": "Grenade",
+    "animation": "Tumble",
+    "frames": 12,
+    "canvas": [
+      320,
+      320
+    ],
+    "ppu": 800,
+    "fps": 18,
+    "loop": true,
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "note": "Baked clockwise rotation. Do not also rotate the same renderer in code.",
+    "alpha_bounds": [
+      [
+        102,
+        72,
+        217,
+        248
+      ],
+      [
+        86,
+        74,
+        233,
+        241
+      ],
+      [
+        71,
+        94,
+        246,
+        220
+      ],
+      [
+        72,
+        102,
+        248,
+        217
+      ],
+      [
+        79,
+        86,
+        246,
+        233
+      ],
+      [
+        100,
+        71,
+        226,
+        246
+      ],
+      [
+        103,
+        72,
+        218,
+        248
+      ],
+      [
+        87,
+        79,
+        234,
+        246
+      ],
+      [
+        74,
+        100,
+        249,
+        226
+      ],
+      [
+        72,
+        103,
+        248,
+        218
+      ],
+      [
+        74,
+        87,
+        241,
+        234
+      ],
+      [
+        94,
+        74,
+        220,
+        249
+      ]
+    ],
+    "unique_frames": 12
+  },
+  {
+    "weapon": "Grenade",
+    "animation": "Armed",
+    "frames": 4,
+    "canvas": [
+      320,
+      320
+    ],
+    "ppu": 800,
+    "fps": 12,
+    "loop": true,
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "note": "Optional fuse/status pulse before explosion.",
+    "alpha_bounds": [
+      [
+        102,
+        72,
+        217,
+        248
+      ],
+      [
+        102,
+        72,
+        217,
+        248
+      ],
+      [
+        102,
+        72,
+        217,
+        248
+      ],
+      [
+        102,
+        72,
+        217,
+        248
+      ]
+    ],
+    "unique_frames": 3
+  },
+  {
+    "weapon": "Missile",
+    "animation": "Exhaust",
+    "frames": 8,
+    "canvas": [
+      320,
+      128
+    ],
+    "ppu": 800,
+    "fps": 24,
+    "loop": true,
+    "pivot": [
+      0.9,
+      0.5
+    ],
+    "note": "Attach pivot to rear nozzle. Flame points -X. Inherits missile root scale 2.",
+    "alpha_bounds": [
+      [
+        85,
+        29,
+        288,
+        99
+      ],
+      [
+        62,
+        29,
+        288,
+        99
+      ],
+      [
+        52,
+        29,
+        288,
+        99
+      ],
+      [
+        62,
+        29,
+        288,
+        99
+      ],
+      [
+        85,
+        29,
+        288,
+        99
+      ],
+      [
+        108,
+        29,
+        288,
+        99
+      ],
+      [
+        118,
+        29,
+        288,
+        99
+      ],
+      [
+        108,
+        29,
+        288,
+        99
+      ]
+    ],
+    "unique_frames": 5
+  },
+  {
+    "weapon": "Missile",
+    "animation": "Launch",
+    "frames": 8,
+    "canvas": [
+      384,
+      384
+    ],
+    "ppu": 800,
+    "fps": 30,
+    "loop": false,
+    "pivot": [
+      0.125,
+      0.5
+    ],
+    "note": "",
+    "alpha_bounds": [
+      [
+        48,
+        145,
+        160,
+        264
+      ],
+      [
+        48,
+        120,
+        226,
+        286
+      ],
+      [
+        48,
+        101,
+        254,
+        290
+      ],
+      [
+        48,
+        94,
+        245,
+        290
+      ],
+      [
+        48,
+        94,
+        226,
+        290
+      ],
+      [
+        48,
+        94,
+        232,
+        290
+      ],
+      [
+        48,
+        101,
+        209,
+        287
+      ],
+      null
+    ],
+    "unique_frames": 8
+  },
+  {
+    "weapon": "Missile",
+    "animation": "SmokeTrail",
+    "frames": 12,
+    "canvas": [
+      256,
+      256
+    ],
+    "ppu": 800,
+    "fps": 24,
+    "loop": false,
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "note": "Spawn independent puffs along trajectory. No collider.",
+    "alpha_bounds": [
+      [
+        48,
+        72,
+        205,
+        221
+      ],
+      [
+        49,
+        83,
+        195,
+        214
+      ],
+      [
+        61,
+        93,
+        194,
+        208
+      ],
+      [
+        65,
+        93,
+        189,
+        207
+      ],
+      [
+        67,
+        87,
+        185,
+        194
+      ],
+      [
+        74,
+        90,
+        168,
+        184
+      ],
+      [
+        87,
+        90,
+        174,
+        188
+      ],
+      [
+        90,
+        102,
+        157,
+        188
+      ],
+      [
+        90,
+        102,
+        157,
+        188
+      ],
+      [
+        90,
+        102,
+        157,
+        188
+      ],
+      [
+        91,
+        103,
+        156,
+        188
+      ],
+      null
+    ],
+    "unique_frames": 12
+  },
+  {
+    "weapon": "Grenade",
+    "animation": "ExplosionCore",
+    "frames": 20,
+    "canvas": [
+      512,
+      512
+    ],
+    "ppu": 112,
+    "fps": 24,
+    "loop": false,
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "note": "Baked expansion; keep transform scale fixed while playing this sequence.",
+    "alpha_bounds": [
+      [
+        206,
+        207,
+        307,
+        304
+      ],
+      [
+        182,
+        190,
+        331,
+        322
+      ],
+      [
+        149,
+        164,
+        363,
+        347
+      ],
+      [
+        122,
+        138,
+        389,
+        373
+      ],
+      [
+        103,
+        115,
+        409,
+        398
+      ],
+      [
+        93,
+        115,
+        418,
+        398
+      ],
+      [
+        95,
+        94,
+        416,
+        418
+      ],
+      [
+        97,
+        94,
+        415,
+        418
+      ],
+      [
+        99,
+        106,
+        413,
+        407
+      ],
+      [
+        109,
+        123,
+        402,
+        388
+      ],
+      [
+        121,
+        139,
+        391,
+        373
+      ],
+      [
+        128,
+        140,
+        383,
+        371
+      ],
+      [
+        133,
+        147,
+        380,
+        364
+      ],
+      [
+        159,
+        159,
+        354,
+        353
+      ],
+      [
+        166,
+        155,
+        345,
+        357
+      ],
+      [
+        187,
+        167,
+        325,
+        344
+      ],
+      [
+        190,
+        167,
+        325,
+        344
+      ],
+      [
+        190,
+        170,
+        322,
+        344
+      ],
+      [
+        190,
+        170,
+        322,
+        343
+      ],
+      null
+    ],
+    "unique_frames": 20
+  },
+  {
+    "weapon": "Grenade",
+    "animation": "Shockwave",
+    "frames": 16,
+    "canvas": [
+      512,
+      512
+    ],
+    "ppu": 112,
+    "fps": 24,
+    "loop": false,
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "note": "Max outer radius 224px. Grenade diameter 4 world units; Missile diameter 3, root scale 1.",
+    "alpha_bounds": [
+      [
+        229,
+        229,
+        283,
+        283
+      ],
+      [
+        203,
+        203,
+        309,
+        309
+      ],
+      [
+        180,
+        180,
+        332,
+        332
+      ],
+      [
+        158,
+        158,
+        354,
+        354
+      ],
+      [
+        138,
+        138,
+        374,
+        374
+      ],
+      [
+        119,
+        119,
+        393,
+        393
+      ],
+      [
+        102,
+        102,
+        410,
+        410
+      ],
+      [
+        88,
+        88,
+        424,
+        424
+      ],
+      [
+        74,
+        74,
+        438,
+        438
+      ],
+      [
+        63,
+        63,
+        449,
+        449
+      ],
+      [
+        53,
+        53,
+        459,
+        459
+      ],
+      [
+        46,
+        46,
+        466,
+        466
+      ],
+      [
+        39,
+        39,
+        473,
+        473
+      ],
+      [
+        35,
+        35,
+        477,
+        477
+      ],
+      [
+        32,
+        32,
+        480,
+        480
+      ],
+      null
+    ],
+    "unique_frames": 16
+  },
+  {
+    "weapon": "Grenade",
+    "animation": "Smoke",
+    "frames": 12,
+    "canvas": [
+      512,
+      512
+    ],
+    "ppu": 112,
+    "fps": 18,
+    "loop": false,
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "note": "",
+    "alpha_bounds": [
+      [
+        103,
+        144,
+        416,
+        442
+      ],
+      [
+        123,
+        167,
+        414,
+        429
+      ],
+      [
+        124,
+        183,
+        391,
+        415
+      ],
+      [
+        134,
+        186,
+        382,
+        414
+      ],
+      [
+        142,
+        174,
+        378,
+        388
+      ],
+      [
+        177,
+        181,
+        365,
+        369
+      ],
+      [
+        164,
+        181,
+        339,
+        377
+      ],
+      [
+        199,
+        204,
+        331,
+        377
+      ],
+      [
+        199,
+        204,
+        331,
+        377
+      ],
+      [
+        199,
+        204,
+        331,
+        377
+      ],
+      [
+        201,
+        204,
+        329,
+        377
+      ],
+      null
+    ],
+    "unique_frames": 12
+  },
+  {
+    "weapon": "Grenade",
+    "animation": "StaticCore_ForCurrentTween",
+    "frames": 1,
+    "canvas": [
+      512,
+      512
+    ],
+    "ppu": 112,
+    "fps": 24,
+    "loop": false,
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "note": "Single sprite for existing SpriteExplosionEffect DOScale/DOFade. No Animator required.",
+    "alpha_bounds": [
+      [
+        103,
+        115,
+        409,
+        398
+      ]
+    ],
+    "unique_frames": 1
+  },
+  {
+    "weapon": "Grenade",
+    "animation": "StaticShockwave_ForCurrentTween",
+    "frames": 1,
+    "canvas": [
+      512,
+      512
+    ],
+    "ppu": 112,
+    "fps": 24,
+    "loop": false,
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "note": "Existing scale/fade code controls this single sprite. Do not combine with baked expansion sequence.",
+    "alpha_bounds": [
+      [
+        32,
+        32,
+        481,
+        481
+      ]
+    ],
+    "unique_frames": 1
+  },
+  {
+    "weapon": "Missile",
+    "animation": "ExplosionCore",
+    "frames": 20,
+    "canvas": [
+      512,
+      512
+    ],
+    "ppu": 149.333333,
+    "fps": 24,
+    "loop": false,
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "note": "Baked expansion; keep transform scale fixed while playing this sequence.",
+    "alpha_bounds": [
+      [
+        152,
+        178,
+        351,
+        364
+      ],
+      [
+        152,
+        178,
+        351,
+        364
+      ],
+      [
+        105,
+        135,
+        418,
+        397
+      ],
+      [
+        105,
+        135,
+        418,
+        397
+      ],
+      [
+        66,
+        113,
+        444,
+        436
+      ],
+      [
+        66,
+        113,
+        444,
+        436
+      ],
+      [
+        44,
+        68,
+        439,
+        443
+      ],
+      [
+        44,
+        68,
+        439,
+        443
+      ],
+      [
+        99,
+        92,
+        417,
+        416
+      ],
+      [
+        109,
+        94,
+        417,
+        416
+      ],
+      [
+        104,
+        101,
+        422,
+        400
+      ],
+      [
+        105,
+        103,
+        418,
+        399
+      ],
+      [
+        133,
+        147,
+        380,
+        364
+      ],
+      [
+        159,
+        159,
+        354,
+        353
+      ],
+      [
+        166,
+        155,
+        345,
+        357
+      ],
+      [
+        187,
+        167,
+        325,
+        344
+      ],
+      [
+        190,
+        167,
+        325,
+        344
+      ],
+      [
+        190,
+        170,
+        322,
+        344
+      ],
+      [
+        190,
+        170,
+        322,
+        343
+      ],
+      null
+    ],
+    "unique_frames": 20
+  },
+  {
+    "weapon": "Missile",
+    "animation": "Shockwave",
+    "frames": 16,
+    "canvas": [
+      512,
+      512
+    ],
+    "ppu": 149.333333,
+    "fps": 24,
+    "loop": false,
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "note": "Max outer radius 224px. Grenade diameter 4 world units; Missile diameter 3, root scale 1.",
+    "alpha_bounds": [
+      [
+        229,
+        229,
+        283,
+        283
+      ],
+      [
+        203,
+        203,
+        309,
+        309
+      ],
+      [
+        180,
+        180,
+        332,
+        332
+      ],
+      [
+        158,
+        158,
+        354,
+        354
+      ],
+      [
+        138,
+        138,
+        374,
+        374
+      ],
+      [
+        119,
+        119,
+        393,
+        393
+      ],
+      [
+        102,
+        102,
+        410,
+        410
+      ],
+      [
+        88,
+        88,
+        424,
+        424
+      ],
+      [
+        74,
+        74,
+        438,
+        438
+      ],
+      [
+        63,
+        63,
+        449,
+        449
+      ],
+      [
+        53,
+        53,
+        459,
+        459
+      ],
+      [
+        46,
+        46,
+        466,
+        466
+      ],
+      [
+        39,
+        39,
+        473,
+        473
+      ],
+      [
+        35,
+        35,
+        477,
+        477
+      ],
+      [
+        32,
+        32,
+        480,
+        480
+      ],
+      null
+    ],
+    "unique_frames": 16
+  },
+  {
+    "weapon": "Missile",
+    "animation": "Smoke",
+    "frames": 12,
+    "canvas": [
+      512,
+      512
+    ],
+    "ppu": 149.333333,
+    "fps": 18,
+    "loop": false,
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "note": "",
+    "alpha_bounds": [
+      [
+        103,
+        144,
+        416,
+        442
+      ],
+      [
+        123,
+        167,
+        414,
+        429
+      ],
+      [
+        124,
+        183,
+        391,
+        415
+      ],
+      [
+        134,
+        186,
+        382,
+        414
+      ],
+      [
+        142,
+        174,
+        378,
+        388
+      ],
+      [
+        177,
+        181,
+        365,
+        369
+      ],
+      [
+        164,
+        181,
+        339,
+        377
+      ],
+      [
+        199,
+        204,
+        331,
+        377
+      ],
+      [
+        199,
+        204,
+        331,
+        377
+      ],
+      [
+        199,
+        204,
+        331,
+        377
+      ],
+      [
+        201,
+        204,
+        329,
+        377
+      ],
+      null
+    ],
+    "unique_frames": 12
+  },
+  {
+    "weapon": "Missile",
+    "animation": "StaticCore_ForCurrentTween",
+    "frames": 1,
+    "canvas": [
+      512,
+      512
+    ],
+    "ppu": 149.333333,
+    "fps": 24,
+    "loop": false,
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "note": "Single sprite for existing SpriteExplosionEffect DOScale/DOFade. No Animator required.",
+    "alpha_bounds": [
+      [
+        103,
+        115,
+        409,
+        398
+      ]
+    ],
+    "unique_frames": 1
+  },
+  {
+    "weapon": "Missile",
+    "animation": "StaticShockwave_ForCurrentTween",
+    "frames": 1,
+    "canvas": [
+      512,
+      512
+    ],
+    "ppu": 149.333333,
+    "fps": 24,
+    "loop": false,
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "note": "Existing scale/fade code controls this single sprite. Do not combine with baked expansion sequence.",
+    "alpha_bounds": [
+      [
+        32,
+        32,
+        481,
+        481
+      ]
+    ],
+    "unique_frames": 1
+  },
+  {
+    "weapon": "Lazer",
+    "animation": "ProjectileWarm",
+    "frames": 8,
+    "canvas": [
+      512,
+      256
+    ],
+    "ppu": 800,
+    "fps": 24,
+    "loop": true,
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "note": "Optional heat stage. Same canvas/pivot/shape as cyan base; heat and damage are code-controlled.",
+    "alpha_bounds": [
+      [
+        112,
+        86,
+        400,
+        171
+      ],
+      [
+        112,
+        86,
+        400,
+        171
+      ],
+      [
+        112,
+        86,
+        400,
+        171
+      ],
+      [
+        112,
+        86,
+        400,
+        171
+      ],
+      [
+        112,
+        86,
+        400,
+        171
+      ],
+      [
+        112,
+        86,
+        400,
+        171
+      ],
+      [
+        112,
+        86,
+        400,
+        171
+      ],
+      [
+        112,
+        86,
+        400,
+        171
+      ]
+    ],
+    "unique_frames": 8
+  },
+  {
+    "weapon": "Lazer",
+    "animation": "MuzzleWarm",
+    "frames": 6,
+    "canvas": [
+      256,
+      256
+    ],
+    "ppu": 800,
+    "fps": 30,
+    "loop": false,
+    "pivot": [
+      0.125,
+      0.5
+    ],
+    "note": "Optional heat stage. Same canvas/pivot/shape as cyan base; heat and damage are code-controlled.",
+    "alpha_bounds": [
+      [
+        32,
+        96,
+        107,
+        176
+      ],
+      [
+        32,
+        79,
+        151,
+        190
+      ],
+      [
+        32,
+        62,
+        164,
+        193
+      ],
+      [
+        32,
+        62,
+        151,
+        193
+      ],
+      [
+        32,
+        66,
+        140,
+        191
+      ],
+      null
+    ],
+    "unique_frames": 6
+  },
+  {
+    "weapon": "Lazer",
+    "animation": "HitWarm",
+    "frames": 10,
+    "canvas": [
+      384,
+      384
+    ],
+    "ppu": 800,
+    "fps": 30,
+    "loop": false,
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "note": "Optional heat stage. Same canvas/pivot/shape as cyan base; heat and damage are code-controlled.",
+    "alpha_bounds": [
+      [
+        114,
+        132,
+        266,
+        275
+      ],
+      [
+        77,
+        100,
+        314,
+        299
+      ],
+      [
+        48,
+        84,
+        334,
+        330
+      ],
+      [
+        31,
+        49,
+        330,
+        334
+      ],
+      [
+        86,
+        69,
+        314,
+        313
+      ],
+      [
+        77,
+        75,
+        318,
+        302
+      ],
+      [
+        83,
+        87,
+        301,
+        299
+      ],
+      [
+        84,
+        101,
+        291,
+        286
+      ],
+      [
+        85,
+        101,
+        290,
+        286
+      ],
+      null
+    ],
+    "unique_frames": 10
+  },
+  {
+    "weapon": "Lazer",
+    "animation": "ProjectileHot",
+    "frames": 8,
+    "canvas": [
+      512,
+      256
+    ],
+    "ppu": 800,
+    "fps": 24,
+    "loop": true,
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "note": "Optional heat stage. Same canvas/pivot/shape as cyan base; heat and damage are code-controlled.",
+    "alpha_bounds": [
+      [
+        112,
+        86,
+        400,
+        171
+      ],
+      [
+        112,
+        86,
+        400,
+        171
+      ],
+      [
+        112,
+        86,
+        400,
+        171
+      ],
+      [
+        112,
+        86,
+        400,
+        171
+      ],
+      [
+        112,
+        86,
+        400,
+        171
+      ],
+      [
+        112,
+        86,
+        400,
+        171
+      ],
+      [
+        112,
+        86,
+        400,
+        171
+      ],
+      [
+        112,
+        86,
+        400,
+        171
+      ]
+    ],
+    "unique_frames": 8
+  },
+  {
+    "weapon": "Lazer",
+    "animation": "MuzzleHot",
+    "frames": 6,
+    "canvas": [
+      256,
+      256
+    ],
+    "ppu": 800,
+    "fps": 30,
+    "loop": false,
+    "pivot": [
+      0.125,
+      0.5
+    ],
+    "note": "Optional heat stage. Same canvas/pivot/shape as cyan base; heat and damage are code-controlled.",
+    "alpha_bounds": [
+      [
+        32,
+        96,
+        107,
+        176
+      ],
+      [
+        32,
+        79,
+        151,
+        190
+      ],
+      [
+        32,
+        62,
+        164,
+        193
+      ],
+      [
+        32,
+        62,
+        151,
+        193
+      ],
+      [
+        32,
+        66,
+        140,
+        191
+      ],
+      null
+    ],
+    "unique_frames": 6
+  },
+  {
+    "weapon": "Lazer",
+    "animation": "HitHot",
+    "frames": 10,
+    "canvas": [
+      384,
+      384
+    ],
+    "ppu": 800,
+    "fps": 30,
+    "loop": false,
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "note": "Optional heat stage. Same canvas/pivot/shape as cyan base; heat and damage are code-controlled.",
+    "alpha_bounds": [
+      [
+        114,
+        132,
+        266,
+        275
+      ],
+      [
+        77,
+        100,
+        314,
+        299
+      ],
+      [
+        48,
+        84,
+        334,
+        330
+      ],
+      [
+        31,
+        49,
+        330,
+        334
+      ],
+      [
+        86,
+        69,
+        314,
+        313
+      ],
+      [
+        77,
+        75,
+        318,
+        302
+      ],
+      [
+        83,
+        87,
+        301,
+        299
+      ],
+      [
+        84,
+        101,
+        291,
+        286
+      ],
+      [
+        85,
+        101,
+        290,
+        286
+      ],
+      null
+    ],
+    "unique_frames": 10
+  }
+]

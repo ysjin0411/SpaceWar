@@ -1,0 +1,884 @@
+fileFormatVersion: 2
+guid: 6dafa3a61b37eb74eac87f2f15fbb752
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6428418051654423052
+    second: Charge_60_014_0
+  - first:
+      213: 6267403342977765679
+    second: Charge_60_014_1
+  - first:
+      213: -3701600664874975679
+    second: Charge_60_014_2
+  - first:
+      213: -1123842044923420840
+    second: Charge_60_014_3
+  - first:
+      213: 2565189660703783928
+    second: Charge_60_014_4
+  - first:
+      213: 1596947169443842651
+    second: Charge_60_014_5
+  - first:
+      213: -6999568406539188765
+    second: Charge_60_014_6
+  - first:
+      213: -6407465760877317993
+    second: Charge_60_014_7
+  - first:
+      213: 6041861709134077137
+    second: Charge_60_014_8
+  - first:
+      213: 389653754576142613
+    second: Charge_60_014_9
+  - first:
+      213: 6619002751643448644
+    second: Charge_60_014_10
+  - first:
+      213: -1589931599135449336
+    second: Charge_60_014_11
+  - first:
+      213: 9205939961662142379
+    second: Charge_60_014_12
+  - first:
+      213: -907488881366422645
+    second: Charge_60_014_13
+  - first:
+      213: 3074029960035276195
+    second: Charge_60_014_14
+  - first:
+      213: 1109222514532335800
+    second: Charge_60_014_15
+  - first:
+      213: -2413671403759791545
+    second: Charge_60_014_16
+  - first:
+      213: -6253175182173103785
+    second: Charge_60_014_17
+  - first:
+      213: 1894712734675358334
+    second: Charge_60_014_18
+  - first:
+      213: 5447106412366134086
+    second: Charge_60_014_19
+  - first:
+      213: 1653353913665974265
+    second: Charge_60_014_20
+  - first:
+      213: 3857685949625208558
+    second: Charge_60_014_21
+  - first:
+      213: -4917191668821630079
+    second: Charge_60_014_22
+  - first:
+      213: -5674927721914039937
+    second: Charge_60_014_23
+  - first:
+      213: 6733382437879997360
+    second: Charge_60_014_24
+  - first:
+      213: 7399864183500022128
+    second: Charge_60_014_25
+  - first:
+      213: 951400164697662444
+    second: Charge_60_014_26
+  - first:
+      213: 6417939210475684939
+    second: Charge_60_014_27
+  - first:
+      213: -4151250543996073788
+    second: Charge_60_014_28
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 236
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Charge_60_014_0
+      rect:
+        serializedVersion: 2
+        x: 285
+        y: 377
+        width: 45
+        height: 101
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4fded6b57dba9c6a0800000000000000
+      internalID: -6428418051654423052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Charge_60_014_1
+      rect:
+        serializedVersion: 2
+        x: 317
+        y: 478
+        width: 11
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f211942622a4af650800000000000000
+      internalID: 6267403342977765679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Charge_60_014_2
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 365
+        width: 64
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14ef6c5aec541acc0800000000000000
+      internalID: -3701600664874975679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Charge_60_014_3
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 423
+        width: 14
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 85fd0b05d9f4760f0800000000000000
+      internalID: -1123842044923420840
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Charge_60_014_4
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 145
+        width: 236
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8fbf0cbc762699320800000000000000
+      internalID: 2565189660703783928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Charge_60_014_5
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 385
+        width: 16
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b5a04c75dfe792610800000000000000
+      internalID: 1596947169443842651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Charge_60_014_6
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 398
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e54f2b9e998cde90800000000000000
+      internalID: -6999568406539188765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Charge_60_014_7
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 267
+        width: 125
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 790fd64b6db1417a0800000000000000
+      internalID: -6407465760877317993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Charge_60_014_8
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 311
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1dc98fa963109d350800000000000000
+      internalID: 6041861709134077137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Charge_60_014_9
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 307
+        width: 16
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 51188ea7604586500800000000000000
+      internalID: 389653754576142613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Charge_60_014_10
+      rect:
+        serializedVersion: 2
+        x: 365
+        y: 310
+        width: 78
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4457a030feb6bdb50800000000000000
+      internalID: 6619002751643448644
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Charge_60_014_11
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 298
+        width: 25
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 80fdc5862ad6fe9e0800000000000000
+      internalID: -1589931599135449336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Charge_60_014_12
+      rect:
+        serializedVersion: 2
+        x: 371
+        y: 275
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba7f176be9112cf70800000000000000
+      internalID: 9205939961662142379
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Charge_60_014_13
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 268
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b8ba984aba3f763f0800000000000000
+      internalID: -907488881366422645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Charge_60_014_14
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 233
+        width: 26
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a59fc436f529aa20800000000000000
+      internalID: 3074029960035276195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Charge_60_014_15
+      rect:
+        serializedVersion: 2
+        x: 368
+        y: 240
+        width: 34
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b0c0930000c46f00800000000000000
+      internalID: 1109222514532335800
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Charge_60_014_16
+      rect:
+        serializedVersion: 2
+        x: 383
+        y: 203
+        width: 115
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 742116e75aae08ed0800000000000000
+      internalID: -2413671403759791545
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Charge_60_014_17
+      rect:
+        serializedVersion: 2
+        x: 119
+        y: 203
+        width: 18
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 75998447d424839a0800000000000000
+      internalID: -6253175182173103785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Charge_60_014_18
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 199
+        width: 23
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e72dbbd813f5b4a10800000000000000
+      internalID: 1894712734675358334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Charge_60_014_19
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 139
+        width: 102
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 64bf5da0c62089b40800000000000000
+      internalID: 5447106412366134086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Charge_60_014_20
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 110
+        width: 29
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ffef08ef94e1f610800000000000000
+      internalID: 1653353913665974265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Charge_60_014_21
+      rect:
+        serializedVersion: 2
+        x: 287
+        y: 138
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eee0d6aaee0498530800000000000000
+      internalID: 3857685949625208558
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Charge_60_014_22
+      rect:
+        serializedVersion: 2
+        x: 314
+        y: 65
+        width: 63
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1836067ca30a2cbb0800000000000000
+      internalID: -4917191668821630079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Charge_60_014_23
+      rect:
+        serializedVersion: 2
+        x: 337
+        y: 134
+        width: 29
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f710c41dd4b9e31b0800000000000000
+      internalID: -5674927721914039937
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Charge_60_014_24
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 26
+        width: 55
+        height: 111
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b3e0baf6a7c17d50800000000000000
+      internalID: 6733382437879997360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Charge_60_014_25
+      rect:
+        serializedVersion: 2
+        x: 227
+        y: 118
+        width: 14
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 071a7abc44991b660800000000000000
+      internalID: 7399864183500022128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Charge_60_014_26
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 112
+        width: 18
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce36d08b86d043d00800000000000000
+      internalID: 951400164697662444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Charge_60_014_27
+      rect:
+        serializedVersion: 2
+        x: 296
+        y: 122
+        width: 11
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b44447e45b9111950800000000000000
+      internalID: 6417939210475684939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Charge_60_014_28
+      rect:
+        serializedVersion: 2
+        x: 177
+        y: 80
+        width: 13
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c8877fdf9bc366c0800000000000000
+      internalID: -4151250543996073788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Charge_60_014_0: -6428418051654423052
+      Charge_60_014_1: 6267403342977765679
+      Charge_60_014_10: 6619002751643448644
+      Charge_60_014_11: -1589931599135449336
+      Charge_60_014_12: 9205939961662142379
+      Charge_60_014_13: -907488881366422645
+      Charge_60_014_14: 3074029960035276195
+      Charge_60_014_15: 1109222514532335800
+      Charge_60_014_16: -2413671403759791545
+      Charge_60_014_17: -6253175182173103785
+      Charge_60_014_18: 1894712734675358334
+      Charge_60_014_19: 5447106412366134086
+      Charge_60_014_2: -3701600664874975679
+      Charge_60_014_20: 1653353913665974265
+      Charge_60_014_21: 3857685949625208558
+      Charge_60_014_22: -4917191668821630079
+      Charge_60_014_23: -5674927721914039937
+      Charge_60_014_24: 6733382437879997360
+      Charge_60_014_25: 7399864183500022128
+      Charge_60_014_26: 951400164697662444
+      Charge_60_014_27: 6417939210475684939
+      Charge_60_014_28: -4151250543996073788
+      Charge_60_014_3: -1123842044923420840
+      Charge_60_014_4: 2565189660703783928
+      Charge_60_014_5: 1596947169443842651
+      Charge_60_014_6: -6999568406539188765
+      Charge_60_014_7: -6407465760877317993
+      Charge_60_014_8: 6041861709134077137
+      Charge_60_014_9: 389653754576142613
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

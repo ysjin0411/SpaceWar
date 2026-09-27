@@ -58,6 +58,22 @@ public class Boss_Cruiser : BossEnemy
     // 보스 관리자가 플레이어와 게임 정보를 전달했는지 기록한다.
     private bool _isBattleInitialized;
 
+    // EntityRoot의 Renderer에 있는 본체 Animator다.
+    [SerializeField]
+    private Animator _phaseAnimator;
+
+    // 타워 파괴 후 본체 전투를 시작하기 전까지의 연출 진행 상태다.
+    private bool _isPhaseTransitioning;
+
+    // 1페이즈에서 2페이즈로 넘어가는 전환 애니메이션 상태다.
+    private static readonly int PhaseTransitionState =
+        Animator.StringToHash(
+            "Base Layer.Boss_Cruiser_PhaseTransition_3p5s");
+
+    // 전환 연출이 끝난 뒤 돌아갈 기본 대기 상태다.
+    private static readonly int EntityIdleState =
+        Animator.StringToHash("Base Layer.Idle");
+
     // 외부에서 현재 페이즈를 확인할 수 있게 한다.
     public CruiserPhase CurrentPhase => _currentPhase;
 
@@ -82,10 +98,25 @@ public class Boss_Cruiser : BossEnemy
         _isBattleInitialized &&
         _currentPhase == CruiserPhase.Entity;
 
+    /// <summary>
+    /// 컴포넌트 참조와 초기 실행 상태를 준비한다.
+    /// </summary>
     protected override void Awake()
     {
         // 공통 보스 체력과 이동, Animator 참조를 준비한다.
         base.Awake();
+
+        // 본체 Animator와 전환에 필요한 상태가 준비됐는지 확인한다.
+        if (_phaseAnimator == null ||
+            !_phaseAnimator.HasState(0, PhaseTransitionState) ||
+            !_phaseAnimator.HasState(0, EntityIdleState))
+        {
+            throw new InvalidOperationException(
+                $"{name}: Phase Animator의 본체 연결과 전환·Idle 상태를 확인하세요.");
+        }
+
+        // 처음 생성될 때는 전환 연출을 진행하고 있지 않다.
+        _isPhaseTransitioning = false;
 
         if (_towerShield == null)
         {
@@ -108,6 +139,9 @@ public class Boss_Cruiser : BossEnemy
         _invulnerabilityShield.enabled = true;
     }
 
+    /// <summary>
+    /// 활성화 시 초기 상태와 이벤트 연결을 준비한다.
+    /// </summary>
     private void OnEnable()
     {
         // 타워들의 합산 체력이 변경될 때 페이즈 전환을 검사한다.
@@ -122,6 +156,9 @@ public class Boss_Cruiser : BossEnemy
         }
     }
 
+    /// <summary>
+    /// OnBossInitialized 동작에 필요한 상태와 처리 흐름을 실행한다.
+    /// </summary>
     protected override void OnBossInitialized()
     {
         base.OnBossInitialized();
@@ -165,10 +202,13 @@ public class Boss_Cruiser : BossEnemy
             _towerShield.MaxShield);
     }
 
-    private void HandleShieldChanged(int currentShield, int maxShield)
+    /// <summary>
+    /// 변경된 실드 수치를 표시와 상태에 반영한다.
+    /// </summary>
+    private void HandleShieldChanged(float currentShield, float maxShield)
     {
-        // 등장 연출 중이거나 사망한 상태에서는 패턴을 요청하지 않는다.
-        if (!_isBattleInitialized || IsDead)
+        // 전환 중에 들어오는 추가 알림으로 패턴을 요청하지 않는다.
+        if (!_isBattleInitialized || IsDead || _isPhaseTransitioning)
         {
             return;
         }
@@ -182,7 +222,8 @@ public class Boss_Cruiser : BossEnemy
         // 모든 타워가 파괴되면 새 패턴보다 페이즈 전환을 우선한다.
         if (currentShield <= 0)
         {
-            EnterEntityPhase();
+            // 즉시 본체 전투를 시작하지 않고 전환 연출부터 재생한다.
+            BeginEntityPhaseTransition();
             return;
         }
 
@@ -194,28 +235,106 @@ public class Boss_Cruiser : BossEnemy
             maxShield);
     }
 
+    // 전환 연출이 끝난 뒤 본체 전투를 시작한다.
+    /// <summary>
+    /// 전환 연출이 끝난 뒤 본체 전투를 시작한다.
+    /// </summary>
     private void EnterEntityPhase()
     {
-        // 피해 허용 조건을 먼저 2페이즈로 변경한다.
+        // 전환 중이 아니거나 이미 사망했다면 중복으로 진입하지 않는다.
+        if (!_isPhaseTransitioning || IsDead)
+            return;
+
+        // 전환을 종료하고 본체 전투 단계로 바꾼다.
+        _isPhaseTransitioning = false;
         _currentPhase = CruiserPhase.Entity;
 
-        // 이전 페이즈의 충전 중인 공격과 대기 중인 패턴 요청을 정리한다.
-        // 이미 발사된 대형 탄은 독립적으로 남은 수명을 진행한다.
-        StopPatternsForPhaseChange();
-
-        // 본체의 기존 체력을 유지한 채 피격 콜라이더를 활성화한다.
+        // 이제부터 본체가 피해를 받을 수 있도록 한다.
         BodyCollider.enabled = true;
-
-        // 본체가 피해를 받을 수 있는 순간 무적 표시도 없앤다.
         _invulnerabilityShield.enabled = false;
 
-        // 이후 본체 공격과 페이즈 연출에서 사용할 전환 알림이다.
+        // 전환 때문에 멈췄던 이동을 재개한다.
+        SetControllable(true);
+
+        // 외부 시스템에 실제 2페이즈 시작을 알린다.
         if (PhaseChanged != null)
         {
             PhaseChanged.Invoke(_currentPhase);
         }
     }
 
+    // 마지막 타워가 파괴되면 본체 전투 대신 전환 연출을 시작한다.
+    /// <summary>
+    /// 마지막 타워가 파괴되면 본체 전투 대신 전환 연출을 시작한다.
+    /// </summary>
+    private void BeginEntityPhaseTransition()
+    {
+        // 초기화 전, 사망 후, 전환 중에는 중복으로 시작하지 않는다.
+        if (!_isBattleInitialized ||
+            IsDead ||
+            _isPhaseTransitioning ||
+            _currentPhase != CruiserPhase.Towers)
+        {
+            return;
+        }
+
+        // 기존 패턴을 종료하는 동안 재진입하지 않도록 먼저 기록한다.
+        _isPhaseTransitioning = true;
+
+        // 진행 중인 패턴과 대기 중인 요청을 정리한다.
+        StopPatternsForPhaseChange();
+
+        // 패턴 정리가 이동을 재개할 수 있으므로 정리 후 이동을 멈춘다.
+        SetControllable(false);
+
+        // 연출 중에는 본체를 공격할 수 없고, 보호막 이미지는 숨긴다.
+        BodyCollider.enabled = false;
+        _invulnerabilityShield.enabled = false;
+
+        // 전환 클립의 첫 프레임부터 재생한다.
+        _phaseAnimator.Play(PhaseTransitionState, 0, 0f);
+        _phaseAnimator.Update(0f);
+    }
+
+    // 전환 클립이 끝났는지 확인하고, 완료되면 본체 전투를 시작한다.
+    /// <summary>
+    /// 전환 클립이 끝났는지 확인하고, 완료되면 본체 전투를 시작한다.
+    /// </summary>
+    private void UpdateEntityPhaseTransition()
+    {
+        // 일시정지나 전투 종료 중에는 다음 페이즈를 열지 않는다.
+        if (!_isPhaseTransitioning ||
+            IsDead ||
+            Time.deltaTime <= 0f ||
+            TargetPlayer == null ||
+            !TargetPlayer.isActiveAndEnabled ||
+            TargetPlayer.IsDead ||
+            !_phaseAnimator.isActiveAndEnabled)
+        {
+            return;
+        }
+
+        AnimatorStateInfo state =
+            _phaseAnimator.GetCurrentAnimatorStateInfo(0);
+
+        // 전환 클립을 끝까지 재생한 경우에만 완료 처리한다.
+        if (state.fullPathHash != PhaseTransitionState ||
+            state.normalizedTime < 1f)
+        {
+            return;
+        }
+
+        // 전환 마지막 자세에서 기본 대기 애니메이션으로 돌아간다.
+        _phaseAnimator.Play(EntityIdleState, 0, 0f);
+        _phaseAnimator.Update(0f);
+
+        // 기존 본체 페이즈 진입 처리를 호출한다.
+        EnterEntityPhase();
+    }
+
+    /// <summary>
+    /// OnTriggerEnter2D 동작에 필요한 상태와 처리 흐름을 실행한다.
+    /// </summary>
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
         // 자식 타워의 충돌이 최상단 Rigidbody2D에 전달되더라도
@@ -230,8 +349,14 @@ public class Boss_Cruiser : BossEnemy
         base.OnTriggerEnter2D(collision);
     }
 
+    /// <summary>
+    /// 비활성화 시 이벤트 연결과 실행 상태를 정리한다.
+    /// </summary>
     protected override void OnDisable()
     {
+        // 비활성화된 뒤 이전 전환 상태가 남지 않도록 정리한다.
+        _isPhaseTransitioning = false;
+
         // 비활성화할 때 이벤트 구독을 해제한다.
         if (_towerShield != null)
         {
@@ -245,8 +370,18 @@ public class Boss_Cruiser : BossEnemy
         base.OnDisable();
     }
 
+    /// <summary>
+    /// 프레임의 이동 결과에 맞춰 후속 상태를 갱신한다.
+    /// </summary>
     private void LateUpdate()
     {
+        // 전환 중에는 클립의 완료 여부만 확인하고 타워 공격은 갱신하지 않는다.
+        if (_isPhaseTransitioning)
+        {
+            UpdateEntityPhaseTransition();
+            return;
+        }
+
         // 1페이즈에서만 타워의 공격 시간을 계산한다.
         if (!_isBattleInitialized ||
             IsDead ||
@@ -299,6 +434,9 @@ public class Boss_Cruiser : BossEnemy
     }
 
     // 목록 설정을 검사하고, 각 항목의 실행 여부를 기록할 배열을 만든다.
+    /// <summary>
+    /// 목록 설정을 검사하고, 각 항목의 실행 여부를 기록할 배열을 만든다.
+    /// </summary>
     private bool[] InitializeHealthPatterns(
         List<HealthBossPatternEntry> entries,
         string listName)
@@ -334,11 +472,14 @@ public class Boss_Cruiser : BossEnemy
     }
 
     // 현재 체력이 조건 이하인 항목을 기존 특수패턴 실행기에 요청한다.
+    /// <summary>
+    /// 현재 체력이 조건 이하인 항목을 기존 특수패턴 실행기에 요청한다.
+    /// </summary>
     private void RequestHealthPatterns(
         List<HealthBossPatternEntry> entries,
         bool[] requested,
-        int currentHealth,
-        int maxHealth)
+        float currentHealth,
+        float maxHealth)
     {
         // 치명적인 피해에서는 새 패턴을 요청하지 않는다.
         if (IsDead || currentHealth <= 0 || maxHealth <= 0)
@@ -371,7 +512,10 @@ public class Boss_Cruiser : BossEnemy
     }
 
     // BossEnemy.TakeHit()이 본체 체력을 감소시킨 뒤 호출하는 함수다.
-    protected override void OnBossDamaged(int damage)
+    /// <summary>
+    /// 보스 피격 이후 상태와 패턴을 갱신한다.
+    /// </summary>
+    protected override void OnBossDamaged(float damage)
     {
         base.OnBossDamaged(damage);
 
@@ -392,6 +536,9 @@ public class Boss_Cruiser : BossEnemy
 
     // 소환 패턴이 구멍의 현재 위치를 가져온다.
     // 0은 A, 1은 B, 2는 C다.
+    /// <summary>
+    /// 0은 A, 1은 B, 2는 C다.
+    /// </summary>
     public Transform GetSummonPoint(int holeIndex)
     {
         Transform point;
@@ -425,6 +572,9 @@ public class Boss_Cruiser : BossEnemy
 
     // 생성된 적은 패턴이 끝난 뒤에도 독립적으로 행동한다.
     // 크루저는 보스 처치 시 정리할 수 있도록 참조만 보관한다.
+    /// <summary>
+    /// 크루저는 보스 처치 시 정리할 수 있도록 참조만 보관한다.
+    /// </summary>
     public void RegisterSummonedEnemy(SmallEnemy enemy)
     {
         if (enemy == null)
@@ -438,6 +588,9 @@ public class Boss_Cruiser : BossEnemy
     }
 
     // 보스 처치 뒤 이동 연출에 소환 적의 공격이 남지 않도록 제거한다.
+    /// <summary>
+    /// 보스 처치 뒤 이동 연출에 소환 적의 공격이 남지 않도록 제거한다.
+    /// </summary>
     private void ClearSummonedEnemies()
     {
         foreach (SmallEnemy enemy in _summonedEnemies)
@@ -456,6 +609,9 @@ public class Boss_Cruiser : BossEnemy
     }
 
     // 보스의 체력이 0이 되는 시점에 호출된다.
+    /// <summary>
+    /// 보스의 체력이 0이 되는 시점에 호출된다.
+    /// </summary>
     protected override void OnBossDefeated()
     {
         ClearSummonedEnemies();

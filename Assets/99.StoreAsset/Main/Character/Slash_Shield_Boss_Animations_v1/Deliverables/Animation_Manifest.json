@@ -1,0 +1,146 @@
+[
+  {
+    "name": "Dog_Charge_Mouth",
+    "frames": 16,
+    "fps": 24,
+    "duration": 0.6666666666666666,
+    "ppu": 100,
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "canvas": [
+      149,
+      94
+    ],
+    "notes": "16-frame looping jaw motion; 24px symmetric padding; original head does not scale"
+  },
+  {
+    "name": "Dog_Death_3p5s",
+    "frames": 84,
+    "fps": 24,
+    "duration": 3.5,
+    "ppu": 100,
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "canvas": [
+      213,
+      158
+    ],
+    "notes": "Original pixel scale retained; symmetric padding 56px; source original Idle 01"
+  },
+  {
+    "name": "Head_Death_3p5s",
+    "frames": 84,
+    "fps": 24,
+    "duration": 3.5,
+    "ppu": 100,
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "canvas": [
+      176,
+      185
+    ],
+    "notes": "Original pixel scale retained; symmetric padding 56px; source original Idle 01"
+  },
+  {
+    "name": "Cruiser_Death_3p5s",
+    "frames": 84,
+    "fps": 24,
+    "duration": 3.5,
+    "ppu": 100,
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "canvas": [
+      448,
+      320
+    ],
+    "notes": "Original pixel scale retained; symmetric padding 96px; source original Idle 01"
+  },
+  {
+    "name": "Cruiser_PhaseTransition_3p5s",
+    "frames": 84,
+    "fps": 24,
+    "duration": 3.5,
+    "ppu": 100,
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "canvas": [
+      448,
+      320
+    ],
+    "notes": "Original pixel scale retained; symmetric padding 96px; source Boss_Cruiser_Body_Idle_01.png"
+  },
+  {
+    "name": "Slash_Longsword/Idle",
+    "frames": 4,
+    "fps": 12,
+    "duration": 0.3333333333333333,
+    "ppu": 100,
+    "pivot": [
+      0.5,
+      0.4622395833333333
+    ],
+    "canvas": [
+      1536,
+      1536
+    ],
+    "notes": "Original body poses, 256px padding; original short blade replaced by 390px long sword"
+  },
+  {
+    "name": "Slash_Longsword/Attack",
+    "frames": 4,
+    "fps": 12,
+    "duration": 0.3333333333333333,
+    "ppu": 100,
+    "pivot": [
+      0.5,
+      0.4622395833333333
+    ],
+    "canvas": [
+      1536,
+      1536
+    ],
+    "notes": "Original body poses, 256px padding; original short blade replaced by 390px long sword"
+  },
+  {
+    "name": "Shield/Deploy_8frames",
+    "frames": 8,
+    "fps": 24,
+    "duration": 0.3333333333333333,
+    "ppu": 100,
+    "pivot": [
+      0.5,
+      0.423828125
+    ],
+    "canvas": [
+      3072,
+      3072
+    ],
+    "notes": "Character-aligned deployment wave; trigger only on shield opening"
+  },
+  {
+    "name": "Shield/BlockHit_12frames",
+    "frames": 12,
+    "fps": 24,
+    "duration": 0.5,
+    "ppu": 1000,
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "canvas": [
+      512,
+      512
+    ],
+    "notes": "Impact-point-centered effect; 0.5 seconds; world prefab scale 1; peak height about 0.41 world units"
+  }
+]

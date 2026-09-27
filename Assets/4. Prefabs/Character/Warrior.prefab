@@ -98,17 +98,99 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _characterRenderer: {fileID: 3701499836436583151}
-  _attackSprites:
-  - {fileID: 21300000, guid: 2f22e37086039894fb533ad737121644, type: 3}
-  - {fileID: 21300000, guid: e4ede2ad26ec7cb4cb9d8dca3cf668ac, type: 3}
-  - {fileID: 21300000, guid: ecaeb4f8a7b1ac348baac794ea3740c0, type: 3}
-  - {fileID: 21300000, guid: 5053097cd038b8946ade133a97be1c85, type: 3}
   _animator: {fileID: 5121358595812171427}
-  _attackClip: {fileID: 7400000, guid: 7cadbd91fef74b547b102a84ecf2125e, type: 2}
+  _comboSteps:
+  - StateName: Attack
+    Clip: {fileID: 7400000, guid: 860dcc7a36f941446a0fa3b882736a08, type: 2}
+    Duration: 0.6
+    HitStart: 0.33333334
+    HitEnd: 1
+    HitPoses:
+    - Center: {x: 6.4311256, y: 6.9251256}
+      Angle: 45
+      Size: {x: 3.36, y: 11.1}
+    - Center: {x: -0.12100016, y: 11.849}
+      Angle: 90
+      Size: {x: 3.36, y: 11.1}
+    - Center: {x: 8.631125, y: 7.728126}
+      Angle: 45
+      Size: {x: 3.36, y: 11.1}
+    - Center: {x: 9.547763, y: -2.6257477}
+      Angle: -8
+      Size: {x: 3.36, y: 11.1}
+    - Center: {x: 8.751488, y: -5.0901556}
+      Angle: -24
+      Size: {x: 3.36, y: 11.1}
+    - Center: {x: 7.368666, y: -7.303133}
+      Angle: -40
+      Size: {x: 3.36, y: 11.1}
+    TrailEffect: {fileID: 4229685332007931030, guid: e4d4379221e3e424b982ba3f09e15b83, type: 3}
+    ImpactEffect: {fileID: 0}
+    ImpactTime: 0.5
+    ImpactOffset: {x: 0, y: 0}
+  - StateName: Attack2
+    Clip: {fileID: 7400000, guid: bc058656309b73c41a416cb050fe58c1, type: 2}
+    Duration: 0.6
+    HitStart: 0.083333336
+    HitEnd: 0.75
+    HitPoses:
+    - Center: {x: 6.8161254, y: -7.9061255}
+      Angle: -45
+      Size: {x: 3.36, y: 11.1}
+    - Center: {x: 8.13745, y: -6.2449927}
+      Angle: -32
+      Size: {x: 3.36, y: 11.1}
+    - Center: {x: 9.198828, y: -3.8610997}
+      Angle: -16
+      Size: {x: 3.36, y: 11.1}
+    - Center: {x: 11.531, y: 0.53800046}
+      Angle: 0
+      Size: {x: 3.36, y: 11.1}
+    - Center: {x: -0.12100016, y: 11.849}
+      Angle: 90
+      Size: {x: 3.36, y: 11.1}
+    - Center: {x: -0.12100016, y: 11.849}
+      Angle: 90
+      Size: {x: 3.36, y: 11.1}
+    TrailEffect: {fileID: 9075646952578211487, guid: 8d470d3a9ad22fa4a84cf68a04cdaa6b, type: 3}
+    ImpactEffect: {fileID: 0}
+    ImpactTime: 0.5
+    ImpactOffset: {x: 0, y: 0}
+  - StateName: Attack3
+    Clip: {fileID: 7400000, guid: 70c7826831d98fd43b3c3d9f5a499ffe, type: 2}
+    Duration: 1.2
+    HitStart: 0.16666667
+    HitEnd: 0.9166667
+    HitPoses:
+    - Center: {x: 2.7886515, y: 9.677372}
+      Angle: 80
+      Size: {x: 3.36, y: 11.1}
+    - Center: {x: 7.631251, y: 10.632462}
+      Angle: 47.5
+      Size: {x: 3.36, y: 11.1}
+    - Center: {x: 7.7364683, y: 2.4487488}
+      Angle: -42.5
+      Size: {x: 3.36, y: 11.1}
+    - Center: {x: -7.631251, y: 3.80217}
+      Angle: -132.5
+      Size: {x: 3.36, y: 11.1}
+    - Center: {x: -7.736469, y: 12.71125}
+      Angle: -222.5
+      Size: {x: 3.36, y: 11.1}
+    - Center: {x: 7.626967, y: 9.115633}
+      Angle: 40
+      Size: {x: 3.36, y: 11.1}
+    TrailEffect: {fileID: 1919860753279853261, guid: c40d54ad7b99b7448bb62a554dcf60db, type: 3}
+    ImpactEffect: {fileID: 4883868948727076705, guid: 6dbba5df4c6f2554191710040de597e6, type: 3}
+    ImpactTime: 0.9166667
+    ImpactOffset: {x: 10.5049305, y: 0.4125464}
   _enemyLayerMask:
     serializedVersion: 2
     m_Bits: 256
   _hitEffectPrefab: {fileID: 8670412759217664541, guid: 652c1659a108fb54a89b772baaa03240, type: 3}
+  _showHitboxGizmos: 1
+  _activeHitboxColor: {r: 1, g: 0.2, b: 0.1, a: 1}
+  _inactiveHitboxColor: {r: 0.6, g: 0.6, b: 0.6, a: 0.7}
 --- !u!1 &2428776216360149604
 GameObject:
   m_ObjectHideFlags: 0
@@ -123,6 +205,9 @@ GameObject:
   - component: {fileID: 5750656912117874597}
   - component: {fileID: 6233448519816325409}
   - component: {fileID: 2230558535362797252}
+  - component: {fileID: 6059117584867417532}
+  - component: {fileID: 7052060896459543898}
+  - component: {fileID: 1471149017889828581}
   m_Layer: 7
   m_Name: Warrior
   m_TagString: Player
@@ -187,7 +272,7 @@ MonoBehaviour:
   _giantSword: {fileID: 4514613808435279985}
   _hammer: {fileID: 6202523178986644693}
   _shield: {fileID: 3925905517475585345}
-  _slashAttackClip: {fileID: 7400000, guid: 7cadbd91fef74b547b102a84ecf2125e, type: 2}
+  _slashAttackClip: {fileID: 7400000, guid: bd2d56bc68718c14bb110e9085e80ab0, type: 2}
 --- !u!114 &5750656912117874597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -265,6 +350,50 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &6059117584867417532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2428776216360149604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da7f8781c42f20b419486b346fd00033, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _characterRenderer: {fileID: 3701499836436583151}
+  _firePoint: {fileID: 5470202707007144418}
+--- !u!114 &7052060896459543898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2428776216360149604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df1daacd7dcaa9241ad0b56198840bed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _requiredCount: 3
+  _currentCount: 0
+--- !u!114 &1471149017889828581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2428776216360149604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd34612f4f7fc51498c597db2fffcb42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _swordPrefab: {fileID: 7730162344355505760, guid: 77a225f43225d94448753976b2c100a7, type: 3}
+  _swordCount: 40
+  _fireDuration: 3
+  _spawnLineCenterViewport: {x: -0.15, y: 0.5}
 --- !u!1 &2637565476594104640
 GameObject:
   m_ObjectHideFlags: 0
@@ -279,6 +408,7 @@ GameObject:
   - component: {fileID: 9184014773160529483}
   - component: {fileID: 5121358595812171427}
   - component: {fileID: 3113079460966532702}
+  - component: {fileID: 5159091821295304594}
   m_Layer: 7
   m_Name: Renderer
   m_TagString: Untagged
@@ -345,7 +475,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 20
-  m_Sprite: {fileID: 21300000, guid: 473d3a7f1da6973449ad04345097420c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1484ebd6796aa6542a8c69b85df8c2e7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -369,7 +499,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Library: []
-  m_SpriteLibraryAsset: {fileID: 7108339969198208228, guid: 3a126447cd06c8a41929bfe57b6b601f, type: 3}
+  m_SpriteLibraryAsset: {fileID: 7108339969198208228, guid: 8cfed8262fe99fa4d9701f5aa7829674, type: 3}
 --- !u!114 &9184014773160529483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -382,10 +512,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed8b1ae4e4e52b34ea557c1c11e076fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_CategoryHash: 5.2294675e-20
-  m_labelHash: 0.0000000014266822
+  m_CategoryHash: 2.065142e-27
+  m_labelHash: 4.8593897e-31
   m_SpriteKey: 0
-  m_SpriteHash: 728815380
+  m_SpriteHash: 991548889
 --- !u!95 &5121358595812171427
 Animator:
   serializedVersion: 7
@@ -396,7 +526,7 @@ Animator:
   m_GameObject: {fileID: 2637565476594104640}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: 3fb6b033362ccfb45b9c88e55b3bc49b, type: 2}
+  m_Controller: {fileID: 9100000, guid: a50db50f2ffc21e46a321865bf8e1b3c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -418,6 +548,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 11f93a0b005be95419f26bcc01c975db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5159091821295304594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2637565476594104640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32ed630b6b31e134f9374c6601fe1499, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &3791408578791737349
@@ -466,12 +608,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 5121358595812171427}
-  _raiseDuration: 0.2
-  _lowerDuration: 0.12
   _spriteRenderer: {fileID: 3701499836436583151}
-  _guardSprite: {fileID: 21300000, guid: ad3c4768b56cefd46bde6c57d0520d1a, type: 3}
+  _raiseDuration: 0.3
+  _lowerDuration: 0.18
+  _guardCycleDuration: 0.5
   _guardCollider: {fileID: 5399611090237788206}
-  _hitEffectPrefab: {fileID: 8670412759217664541, guid: 652c1659a108fb54a89b772baaa03240, type: 3}
+  _guardOutline:
+  - {x: 2.65, y: 8.05}
+  - {x: 3.13, y: 8.65}
+  - {x: 5.96, y: 7.82}
+  - {x: 6.17, y: -2.97}
+  - {x: 4.8, y: -4.22}
+  - {x: 2.65, y: -2.7}
+  _deployEffectPrefab: {fileID: 6577251182290537006, guid: 39976eddfa5383a4e806847466bf4344, type: 3}
+  _guardEffectPrefab: {fileID: 519745507696143326, guid: 7b2f66ae500c62548a40512230d3a1b2, type: 3}
+  _hitEffectPrefab: {fileID: 1284653994326736162, guid: 56f5beb43c825774d83f67aad609dfc4, type: 3}
 --- !u!60 &5399611090237788206
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -622,17 +773,99 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _characterRenderer: {fileID: 3701499836436583151}
-  _attackSprites:
-  - {fileID: 21300000, guid: 0313bcc50fee4514f9df65e055e4392e, type: 3}
-  - {fileID: 21300000, guid: db9abd21e3abe61429235daa7c1e865d, type: 3}
-  - {fileID: 21300000, guid: 91d5e26275873b24fb953266615762c9, type: 3}
-  - {fileID: 21300000, guid: fc5bf506bd335b5478dcfa41f2d75729, type: 3}
   _animator: {fileID: 5121358595812171427}
-  _attackClip: {fileID: 7400000, guid: 7cadbd91fef74b547b102a84ecf2125e, type: 2}
+  _comboSteps:
+  - StateName: Attack
+    Clip: {fileID: 7400000, guid: 860dcc7a36f941446a0fa3b882736a08, type: 2}
+    Duration: 0.5
+    HitStart: 0.33333334
+    HitEnd: 1
+    HitPoses:
+    - Center: {x: 4.2921276, y: 4.7861276}
+      Angle: 45
+      Size: {x: 9.58, y: 1.72}
+    - Center: {x: -0.12100004, y: 8.824}
+      Angle: 90
+      Size: {x: 9.58, y: 1.72}
+    - Center: {x: 6.4921274, y: 5.589128}
+      Angle: 45
+      Size: {x: 9.58, y: 1.72}
+    - Center: {x: 6.552202, y: -2.2047489}
+      Angle: -8
+      Size: {x: 9.58, y: 1.72}
+    - Center: {x: 5.988013, y: -3.8597772}
+      Angle: -24
+      Size: {x: 9.58, y: 1.72}
+    - Center: {x: 5.0513816, y: -5.3587008}
+      Angle: -40
+      Size: {x: 9.58, y: 1.72}
+    TrailEffect: {fileID: 2354111830854274075, guid: 54e41176cb93f1a4b9e2cf2924379eec, type: 3}
+    ImpactEffect: {fileID: 0}
+    ImpactTime: 0.5
+    ImpactOffset: {x: 0, y: 0}
+  - StateName: Attack2
+    Clip: {fileID: 7400000, guid: bc058656309b73c41a416cb050fe58c1, type: 2}
+    Duration: 0.5
+    HitStart: 0.083333336
+    HitEnd: 0.75
+    HitPoses:
+    - Center: {x: 4.6771274, y: -5.7671275}
+      Angle: -45
+      Size: {x: 9.58, y: 1.72}
+    - Center: {x: 5.572105, y: -4.641987}
+      Angle: -32
+      Size: {x: 9.58, y: 1.72}
+    - Center: {x: 6.2910113, y: -3.0272968}
+      Angle: -16
+      Size: {x: 9.58, y: 1.72}
+    - Center: {x: 8.506, y: 0.53800046}
+      Angle: 0
+      Size: {x: 9.58, y: 1.72}
+    - Center: {x: -0.12100004, y: 8.824}
+      Angle: 90
+      Size: {x: 9.58, y: 1.72}
+    - Center: {x: -0.12100004, y: 8.824}
+      Angle: 90
+      Size: {x: 9.58, y: 1.72}
+    TrailEffect: {fileID: 6357555236027511434, guid: 91b80eb86bc40f44bad1d707a4c314a0, type: 3}
+    ImpactEffect: {fileID: 0}
+    ImpactTime: 0.5
+    ImpactOffset: {x: 0, y: 0}
+  - StateName: Attack3
+    Clip: {fileID: 7400000, guid: 70c7826831d98fd43b3c3d9f5a499ffe, type: 2}
+    Duration: 1
+    HitStart: 0.16666667
+    HitEnd: 0.9166667
+    HitPoses:
+    - Center: {x: 2.2633657, y: 6.698329}
+      Angle: 80
+      Size: {x: 9.58, y: 1.72}
+    - Center: {x: 5.5875907, y: 8.402198}
+      Angle: 47.5
+      Size: {x: 9.58, y: 1.72}
+    - Center: {x: 5.5062046, y: 4.3085747}
+      Angle: -42.5
+      Size: {x: 9.58, y: 1.72}
+    - Center: {x: -5.5875907, y: 6.032434}
+      Angle: -132.5
+      Size: {x: 9.58, y: 1.72}
+    - Center: {x: -5.5062046, y: 12.448863}
+      Angle: -222.5
+      Size: {x: 9.58, y: 1.72}
+    - Center: {x: 5.3096824, y: 7.1712008}
+      Angle: 40
+      Size: {x: 9.58, y: 1.72}
+    TrailEffect: {fileID: 9101098696607543376, guid: c6f06ec03f2630d40b48f6ee8c0e66ff, type: 3}
+    ImpactEffect: {fileID: 0}
+    ImpactTime: 0.5
+    ImpactOffset: {x: 7.870477, y: 2.88}
   _enemyLayerMask:
     serializedVersion: 2
     m_Bits: 256
   _hitEffectPrefab: {fileID: 8670412759217664541, guid: 652c1659a108fb54a89b772baaa03240, type: 3}
+  _showHitboxGizmos: 1
+  _activeHitboxColor: {r: 0.10196078, g: 0.11395646, b: 1, a: 1}
+  _inactiveHitboxColor: {r: 0.101960786, g: 0.11764706, b: 1, a: 0.7}
 --- !u!1 &7976534497634678632
 GameObject:
   m_ObjectHideFlags: 0

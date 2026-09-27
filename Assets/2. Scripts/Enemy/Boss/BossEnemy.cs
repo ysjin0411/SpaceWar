@@ -23,12 +23,12 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
 
     [Header("보스 체력 설정")]
     [Tooltip("보스의 최대 체력")]
-    [Min(1)][SerializeField] int _maxHp = 100;
+    [Min(1)][SerializeField] float _maxHp = 100;
 
     [Header("플레이어 충돌 설정")]
     [Tooltip("보스와 플레이어가 충돌했을 때 주는 피해")]
     [Min(0)]
-    [SerializeField] int _crashDamage;
+    [SerializeField] float _crashDamage;
 
     [Header("처치시 나오는 보상")]
     // 이 보스를 처치했을 때 사용자 계정에 지급할 경험치.
@@ -42,7 +42,7 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
     public bool IsSpecialPatternRunning { get; private set; }
 
     // 현재 패턴이 전달한 접촉 피해량이다.
-    int _patternCrashDamage;
+    float _patternCrashDamage;
 
     // true면 패턴 피해량, false면 기본 접촉 피해량을 사용한다.
     bool _isUsingPatternCrashDamage;
@@ -85,7 +85,7 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
 
     [Header("보스 런타임 데이터")]
     [Tooltip("현재 보스 체력")]
-    [SerializeField] int _currentHp;
+    [SerializeField] float _currentHp;
     [SerializeField] bool _isDead;  // 현재 보스가 사망 처리됐는지 확인
 
 
@@ -124,14 +124,14 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
     /// 보스 체력이 변경되면 현재 체력과 최대 체력을 전달한다.
     /// BossHPUI가 이 이벤트를 구독한다.
     /// </summary>
-    public event Action<int, int> HealthChanged;
+    public event Action<float, float> HealthChanged;
 
     /// <summary>
     /// 보스가 처치됐을 때 처치된 보스 자신을 전달한다.
     /// BossEncounterManager가 이 이벤트를 구독한다.
     /// </summary>
     public event Action<BossEnemy> Defeated;
-    public event Action<int> Damaged;
+    public event Action<float> Damaged;
 
     // 다음 페이즈의 보스 프리팹으로 교체해 달라고 관리자에게 알린다.
     // 순서대로 현재 보스, 다음 프리팹, 생성할 월드 위치, 회전이다.
@@ -161,10 +161,10 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
     protected GameManager GameManager { get; private set; }
 
     // 외부에서 최대 체력을 읽을 수 있게 제공한다.
-    public int MaxHp => _maxHp;
+    public float MaxHp => _maxHp;
 
     // 외부에서 현재 체력을 읽을 수 있게 제공한다.
-    public int CurrentHp => _currentHp;
+    public float CurrentHp => _currentHp;
 
     // 외부에서 사망 여부를 읽을 수 있게 제공한다.
     public bool IsDead => _isDead;
@@ -209,6 +209,9 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
 
 
 
+    /// <summary>
+    /// 컴포넌트 참조와 초기 실행 상태를 준비한다.
+    /// </summary>
     protected virtual void Awake()
     {
         // 보스 프리팹에 표시 이름이 입력되지 않았다면 설정 오류로 처리한다.
@@ -261,6 +264,9 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
         _randomMover = new BossRandomMover(_rigidbody, _moveSpeed, _movementHalfRange, _arrivalDistance);
     }
 
+    /// <summary>
+    /// 매 프레임 입력과 경과 시간에 따른 상태를 갱신한다.
+    /// </summary>
     private void Update()
     {
         // 전투 초기화 전이나 사망 후에는 패턴 시간을 갱신하지 않는다.
@@ -279,6 +285,9 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
         _timedPatternController.Tick(Time.deltaTime);
     }
 
+    /// <summary>
+    /// 물리 갱신 주기에 맞춰 이동과 충돌 처리를 수행한다.
+    /// </summary>
     private void FixedUpdate()
     {
         // BossEncounterManager의 Initialize 호출 전에는 이동하지 않는다.
@@ -345,6 +354,9 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
 
     // 자식 보스가 특수패턴을 요청하는 공통 진입점이다.
     // 기존 호출은 기본값 false를 사용하므로 동작이 유지된다.
+    /// <summary>
+    /// 기존 호출은 기본값 false를 사용하므로 동작이 유지된다.
+    /// </summary>
     protected void RequestSpecialPattern(
         BossPattern pattern,
         bool prioritize = false)
@@ -361,7 +373,7 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
     /// <summary>
     /// 패턴의 접촉 피해량을 저장하고 사용 상태를 켠다.
     /// </summary>
-    public void SetPatternCrashDamage(int damage)
+    public void SetPatternCrashDamage(float damage)
     {
         // 음수 피해량은 잘못된 설정으로 처리한다.
         if (damage < 0)
@@ -412,6 +424,9 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
     }
 
     // 패턴이 취소되었을 때 표시 중인 시스템 경고도 함께 종료한다.
+    /// <summary>
+    /// 패턴이 취소되었을 때 표시 중인 시스템 경고도 함께 종료한다.
+    /// </summary>
     public void CancelSystemDialogue()
     {
         // UI가 이미 비활성화되어 구독이 없어졌다면 처리할 일이 없다.
@@ -515,7 +530,7 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
     /// <summary>
     /// 플레이어 공격으로 전달받은 피해를 적용한다.
     /// </summary>
-    public void TakeHit(int damage)
+    public void TakeHit(float damage)
     {
         // 입장 중이거나 사망했거나 현재 페이즈가 무적이면 피해를 받지 않는다.
         if (!_isInitialized || _isDead || !CanReceiveDamage)
@@ -568,6 +583,9 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
 
     // 체력 소진 시 다음 페이즈를 시작할 수 있는지 확인한다.
     // 기본값은 false이므로 기존 보스의 사망 동작은 유지된다.
+    /// <summary>
+    /// 기본값은 false이므로 기존 보스의 사망 동작은 유지된다.
+    /// </summary>
     protected virtual bool TryBeginNextPhase()
     {
         return false;
@@ -575,6 +593,9 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
 
     // 자식 보스가 전환 연출을 마친 뒤 호출하는 교체 요청 함수다.
     // 실제 생성과 현재 보스 참조 변경은 관리자가 담당한다.
+    /// <summary>
+    /// 실제 생성과 현재 보스 참조 변경은 관리자가 담당한다.
+    /// </summary>
     protected void RequestPhaseReplacement(
         BossEnemy nextPhasePrefab,
         Vector3 spawnPosition,
@@ -618,7 +639,10 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
 
     // 다음 페이즈의 최대 체력과 현재 체력을 함께 설정한다.
     // 자식 보스는 페이즈 상태를 먼저 변경한 뒤 호출해야 한다.
-    protected void ResetHealthForPhase(int maxHp)
+    /// <summary>
+    /// 자식 보스는 페이즈 상태를 먼저 변경한 뒤 호출해야 한다.
+    /// </summary>
+    protected void ResetHealthForPhase(float maxHp)
     {
         // 잘못된 체력 설정으로 빈 체력바가 만들어지는 것을 막는다.
         if (maxHp <= 0)
@@ -672,6 +696,9 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
     }
 
     // 사망 애니메이션 종료 후 드롭을 실행한다.
+    /// <summary>
+    /// 사망 애니메이션 종료 후 드롭을 실행한다.
+    /// </summary>
     public void CompleteDefeat()
     {
         if (!_isDead || _isDefeatCompleted)
@@ -693,6 +720,9 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
     }
 
     // 씬 전환 등으로 이미 제거된 보스에는 완료 처리를 하지 않는다.
+    /// <summary>
+    /// 씬 전환 등으로 이미 제거된 보스에는 완료 처리를 하지 않는다.
+    /// </summary>
     private void HandleDropsCompleted()
     {
         if (this == null)
@@ -704,6 +734,9 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
     }
 
     // 플레이어 몸체와 접촉했을 때만 몸박 피해를 준다.
+    /// <summary>
+    /// 플레이어 몸체와 접촉했을 때만 몸박 피해를 준다.
+    /// </summary>
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         // 무기 등 다른 콜라이더의 접촉은 몸박으로 처리하지 않는다.
@@ -713,7 +746,7 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
         }
 
         // 현재 패턴에 맞는 몸박 피해량을 선택한다.
-        int damage = _isUsingPatternCrashDamage
+        float damage = _isUsingPatternCrashDamage
             ? _patternCrashDamage
             : _crashDamage;
 
@@ -744,8 +777,9 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
     /// <summary>
     /// 보스별 피격 연출이 필요하면 자식 클래스에서 재정의한다.
     /// </summary>
-    protected virtual void OnBossDamaged(int damage)
+    protected virtual void OnBossDamaged(float damage)
     {
+        // 보스 피격 이후 상태와 패턴을 갱신한다.
     }
 
     /// <summary>
@@ -776,6 +810,9 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
     }
 
     // 드롭 처리가 끝나면 기존 보스 처치 이후 흐름으로 돌아간다.
+    /// <summary>
+    /// 드롭 처리가 끝나면 기존 보스 처치 이후 흐름으로 돌아간다.
+    /// </summary>
     private void FinishDefeat()
     {
         // 기존 관리자가 별도의 보물상자 등장과 스테이지 진행을 처리한다.
@@ -789,6 +826,9 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
     }
 
     // 패턴 후 복귀를 시작할 때 두 몸체 사이의 충돌을 무시한다.
+    /// <summary>
+    /// 패턴 후 복귀를 시작할 때 두 몸체 사이의 충돌을 무시한다.
+    /// </summary>
     public void BeginReturnCollisionIgnore()
     {
         // 중복 호출로 기존 설정을 덮어쓰지 않는다.
@@ -809,6 +849,9 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
     }
 
     // 복귀 완료 또는 패턴 중단 시 원래 충돌 설정을 복원한다.
+    /// <summary>
+    /// 복귀 완료 또는 패턴 중단 시 원래 충돌 설정을 복원한다.
+    /// </summary>
     public void RestoreReturnCollision()
     {
         // 복귀 중이 아니거나 이미 복원했다면 처리하지 않는다.
@@ -840,12 +883,18 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
     }
 
     // 보스가 비활성화될 때 복귀 상태를 정리한다.
+    /// <summary>
+    /// 보스가 비활성화될 때 복귀 상태를 정리한다.
+    /// </summary>
     protected virtual void OnDisable()
     {
         RestoreReturnCollision();
     }
 
     // 자식 보스가 페이즈를 전환할 때 기존 패턴 실행과 대기열을 정리한다.
+    /// <summary>
+    /// 자식 보스가 페이즈를 전환할 때 기존 패턴 실행과 대기열을 정리한다.
+    /// </summary>
     protected void StopPatternsForPhaseChange()
     {
         if (_patternRunner == null)
@@ -859,8 +908,12 @@ public abstract class BossEnemy : MonoBehaviour, IDamageable
 
     // 보스별 방어 효과를 적용할 확장 지점이다.
     // 별도로 재정의하지 않은 보스는 원래 피해를 그대로 받는다.
-    protected virtual int CalculateIncomingDamage(int damage)
+    /// <summary>
+    /// 방어 효과를 적용한 실제 피해를 소수점까지 계산한다.
+    /// </summary>
+    protected virtual float CalculateIncomingDamage(float damage)
     {
+        // 방어 효과를 적용한 실제 피해를 소수점까지 계산한다.
         return damage;
     }
 

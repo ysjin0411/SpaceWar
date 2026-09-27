@@ -1,0 +1,1352 @@
+[
+  {
+    "name": "Soldier_Bullet",
+    "source": "C:\\YSJ\\SubPF\\Assets\\99.StoreAsset\\Main\\Character\\Player_Remake_Combo_Shield_v1\\Soldier_Remake_40\\Soldier\\HD_1024\\Bullet\\Idle\\Soldier_Bullet_Idle_01.png",
+    "canvas": [
+      1024,
+      1024
+    ],
+    "ppu": 1600,
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "frames": 12,
+    "recommended_fps": 18,
+    "measurements": [
+      {
+        "frame": 1,
+        "alpha_bounds": [
+          198,
+          237,
+          812,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 13.0
+      },
+      {
+        "frame": 2,
+        "alpha_bounds": [
+          199,
+          234,
+          813,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 10.25
+      },
+      {
+        "frame": 3,
+        "alpha_bounds": [
+          200,
+          228,
+          813,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 4.75
+      },
+      {
+        "frame": 4,
+        "alpha_bounds": [
+          200,
+          226,
+          813,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 2.0
+      },
+      {
+        "frame": 5,
+        "alpha_bounds": [
+          200,
+          228,
+          813,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 4.75
+      },
+      {
+        "frame": 6,
+        "alpha_bounds": [
+          199,
+          234,
+          813,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 10.25
+      },
+      {
+        "frame": 7,
+        "alpha_bounds": [
+          198,
+          237,
+          812,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 13.0
+      },
+      {
+        "frame": 8,
+        "alpha_bounds": [
+          197,
+          234,
+          812,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 10.25
+      },
+      {
+        "frame": 9,
+        "alpha_bounds": [
+          196,
+          228,
+          812,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 4.75
+      },
+      {
+        "frame": 10,
+        "alpha_bounds": [
+          196,
+          225,
+          812,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 2.0
+      },
+      {
+        "frame": 11,
+        "alpha_bounds": [
+          196,
+          228,
+          812,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 4.75
+      },
+      {
+        "frame": 12,
+        "alpha_bounds": [
+          197,
+          234,
+          812,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 10.25
+      }
+    ],
+    "source_sha256": "7d03128ebe5eb2a00ffd1dcc83b9e5d50f351259596d1ac5207ede28272cd796"
+  },
+  {
+    "name": "Soldier_Lazer",
+    "source": "C:\\YSJ\\SubPF\\Assets\\99.StoreAsset\\Main\\Character\\Player_Remake_Combo_Shield_v1\\Soldier_Remake_40\\Soldier\\HD_1024\\Lazer\\Idle\\Soldier_Lazer_Idle_01.png",
+    "canvas": [
+      1024,
+      1024
+    ],
+    "ppu": 1600,
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "frames": 12,
+    "recommended_fps": 18,
+    "measurements": [
+      {
+        "frame": 1,
+        "alpha_bounds": [
+          198,
+          237,
+          811,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 13.0
+      },
+      {
+        "frame": 2,
+        "alpha_bounds": [
+          199,
+          234,
+          812,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 10.25
+      },
+      {
+        "frame": 3,
+        "alpha_bounds": [
+          200,
+          228,
+          812,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 4.75
+      },
+      {
+        "frame": 4,
+        "alpha_bounds": [
+          200,
+          226,
+          812,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 2.0
+      },
+      {
+        "frame": 5,
+        "alpha_bounds": [
+          200,
+          228,
+          812,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 4.75
+      },
+      {
+        "frame": 6,
+        "alpha_bounds": [
+          199,
+          234,
+          812,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 10.25
+      },
+      {
+        "frame": 7,
+        "alpha_bounds": [
+          198,
+          237,
+          811,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 13.0
+      },
+      {
+        "frame": 8,
+        "alpha_bounds": [
+          197,
+          234,
+          811,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 10.25
+      },
+      {
+        "frame": 9,
+        "alpha_bounds": [
+          196,
+          228,
+          811,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 4.75
+      },
+      {
+        "frame": 10,
+        "alpha_bounds": [
+          196,
+          225,
+          811,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 2.0
+      },
+      {
+        "frame": 11,
+        "alpha_bounds": [
+          196,
+          228,
+          811,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 4.75
+      },
+      {
+        "frame": 12,
+        "alpha_bounds": [
+          197,
+          234,
+          811,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 10.25
+      }
+    ],
+    "source_sha256": "69753bc90520f736f807e803e366db7823110996404cbcd7264201fbc52d6938"
+  },
+  {
+    "name": "Soldier_Missile",
+    "source": "C:\\YSJ\\SubPF\\Assets\\99.StoreAsset\\Main\\Character\\Player_Remake_Combo_Shield_v1\\Soldier_Remake_40\\Soldier\\HD_1024\\Missile\\Idle\\Soldier_Missile_Idle_01.png",
+    "canvas": [
+      1024,
+      1024
+    ],
+    "ppu": 1600,
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "frames": 12,
+    "recommended_fps": 18,
+    "measurements": [
+      {
+        "frame": 1,
+        "alpha_bounds": [
+          198,
+          237,
+          820,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 13.0
+      },
+      {
+        "frame": 2,
+        "alpha_bounds": [
+          199,
+          234,
+          821,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 10.25
+      },
+      {
+        "frame": 3,
+        "alpha_bounds": [
+          200,
+          228,
+          821,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 4.75
+      },
+      {
+        "frame": 4,
+        "alpha_bounds": [
+          200,
+          226,
+          821,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 2.0
+      },
+      {
+        "frame": 5,
+        "alpha_bounds": [
+          200,
+          228,
+          821,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 4.75
+      },
+      {
+        "frame": 6,
+        "alpha_bounds": [
+          199,
+          234,
+          821,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 10.25
+      },
+      {
+        "frame": 7,
+        "alpha_bounds": [
+          198,
+          237,
+          820,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 13.0
+      },
+      {
+        "frame": 8,
+        "alpha_bounds": [
+          197,
+          234,
+          820,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 10.25
+      },
+      {
+        "frame": 9,
+        "alpha_bounds": [
+          196,
+          228,
+          820,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 4.75
+      },
+      {
+        "frame": 10,
+        "alpha_bounds": [
+          196,
+          225,
+          819,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 2.0
+      },
+      {
+        "frame": 11,
+        "alpha_bounds": [
+          196,
+          228,
+          820,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 4.75
+      },
+      {
+        "frame": 12,
+        "alpha_bounds": [
+          197,
+          234,
+          820,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 10.25
+      }
+    ],
+    "source_sha256": "dd52a40f50bda4b6feb68f347f3cee6d30ee4b8da31f6c1f5c2f5b495e674f39"
+  },
+  {
+    "name": "Soldier_Grenade",
+    "source": "C:\\YSJ\\SubPF\\Assets\\99.StoreAsset\\Main\\Character\\Player_Remake_Combo_Shield_v1\\Soldier_Remake_40\\Soldier\\HD_1024\\Grenade\\Idle\\Soldier_Grenade_Idle_01.png",
+    "canvas": [
+      1024,
+      1024
+    ],
+    "ppu": 1600,
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "frames": 12,
+    "recommended_fps": 18,
+    "measurements": [
+      {
+        "frame": 1,
+        "alpha_bounds": [
+          198,
+          237,
+          567,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 13.0
+      },
+      {
+        "frame": 2,
+        "alpha_bounds": [
+          199,
+          234,
+          568,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 10.25
+      },
+      {
+        "frame": 3,
+        "alpha_bounds": [
+          200,
+          228,
+          568,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 4.75
+      },
+      {
+        "frame": 4,
+        "alpha_bounds": [
+          200,
+          226,
+          568,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 2.0
+      },
+      {
+        "frame": 5,
+        "alpha_bounds": [
+          200,
+          228,
+          568,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 4.75
+      },
+      {
+        "frame": 6,
+        "alpha_bounds": [
+          199,
+          234,
+          568,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 10.25
+      },
+      {
+        "frame": 7,
+        "alpha_bounds": [
+          198,
+          237,
+          567,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 13.0
+      },
+      {
+        "frame": 8,
+        "alpha_bounds": [
+          197,
+          234,
+          567,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 10.25
+      },
+      {
+        "frame": 9,
+        "alpha_bounds": [
+          196,
+          228,
+          566,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 4.75
+      },
+      {
+        "frame": 10,
+        "alpha_bounds": [
+          196,
+          225,
+          566,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 2.0
+      },
+      {
+        "frame": 11,
+        "alpha_bounds": [
+          196,
+          228,
+          566,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 4.75
+      },
+      {
+        "frame": 12,
+        "alpha_bounds": [
+          197,
+          234,
+          567,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 10.25
+      }
+    ],
+    "source_sha256": "9480c9aa9e394784a5c644b5ac83afccbe875f7cd6298ca96065541a468b5c2b"
+  },
+  {
+    "name": "Soldier_Sniper",
+    "source": "C:\\YSJ\\SubPF\\Assets\\99.StoreAsset\\Main\\Character\\Player_Remake_Combo_Shield_v1\\Soldier_Remake_40\\Soldier\\HD_1024\\Sniper\\Idle\\Soldier_Sniper_Idle_01.png",
+    "canvas": [
+      1024,
+      1024
+    ],
+    "ppu": 1600,
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "frames": 12,
+    "recommended_fps": 18,
+    "measurements": [
+      {
+        "frame": 1,
+        "alpha_bounds": [
+          198,
+          237,
+          829,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 13.0
+      },
+      {
+        "frame": 2,
+        "alpha_bounds": [
+          199,
+          234,
+          830,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 10.25
+      },
+      {
+        "frame": 3,
+        "alpha_bounds": [
+          200,
+          228,
+          830,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 4.75
+      },
+      {
+        "frame": 4,
+        "alpha_bounds": [
+          200,
+          226,
+          830,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 2.0
+      },
+      {
+        "frame": 5,
+        "alpha_bounds": [
+          200,
+          228,
+          830,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 4.75
+      },
+      {
+        "frame": 6,
+        "alpha_bounds": [
+          199,
+          234,
+          830,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 10.25
+      },
+      {
+        "frame": 7,
+        "alpha_bounds": [
+          198,
+          237,
+          829,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 13.0
+      },
+      {
+        "frame": 8,
+        "alpha_bounds": [
+          197,
+          234,
+          829,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 10.25
+      },
+      {
+        "frame": 9,
+        "alpha_bounds": [
+          196,
+          228,
+          829,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 4.75
+      },
+      {
+        "frame": 10,
+        "alpha_bounds": [
+          196,
+          225,
+          828,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 2.0
+      },
+      {
+        "frame": 11,
+        "alpha_bounds": [
+          196,
+          228,
+          829,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 4.75
+      },
+      {
+        "frame": 12,
+        "alpha_bounds": [
+          197,
+          234,
+          829,
+          800
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 10.25
+      }
+    ],
+    "source_sha256": "b5730fcd758ac3c88b6017235869dc8a330434eaf9ad6dcaa42760c9ded50048"
+  },
+  {
+    "name": "Warrior_GiantSword",
+    "source": "C:\\YSJ\\SubPF\\Assets\\99.StoreAsset\\Main\\Character\\Warrior\\GiantSword\\Warrior_GiantSword_Idle_1.png",
+    "canvas": [
+      3072,
+      3072
+    ],
+    "ppu": 100,
+    "pivot": [
+      0.5,
+      0.423828125
+    ],
+    "frames": 12,
+    "recommended_fps": 14,
+    "measurements": [
+      {
+        "frame": 1,
+        "alpha_bounds": [
+          1421,
+          914,
+          1906,
+          2000
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 15.0
+      },
+      {
+        "frame": 2,
+        "alpha_bounds": [
+          1422,
+          914,
+          1910,
+          2000
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 13.0
+      },
+      {
+        "frame": 3,
+        "alpha_bounds": [
+          1422,
+          911,
+          1913,
+          2000
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 9.0
+      },
+      {
+        "frame": 4,
+        "alpha_bounds": [
+          1422,
+          909,
+          1914,
+          2000
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 7.0
+      },
+      {
+        "frame": 5,
+        "alpha_bounds": [
+          1422,
+          911,
+          1913,
+          2000
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 9.0
+      },
+      {
+        "frame": 6,
+        "alpha_bounds": [
+          1422,
+          914,
+          1910,
+          2000
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 13.0
+      },
+      {
+        "frame": 7,
+        "alpha_bounds": [
+          1421,
+          914,
+          1906,
+          2000
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 15.0
+      },
+      {
+        "frame": 8,
+        "alpha_bounds": [
+          1421,
+          911,
+          1902,
+          2000
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 13.0
+      },
+      {
+        "frame": 9,
+        "alpha_bounds": [
+          1420,
+          905,
+          1899,
+          2000
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 9.0
+      },
+      {
+        "frame": 10,
+        "alpha_bounds": [
+          1420,
+          903,
+          1898,
+          2000
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 7.0
+      },
+      {
+        "frame": 11,
+        "alpha_bounds": [
+          1420,
+          905,
+          1899,
+          2000
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 9.0
+      },
+      {
+        "frame": 12,
+        "alpha_bounds": [
+          1421,
+          911,
+          1902,
+          2000
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 13.0
+      }
+    ],
+    "source_sha256": "52b2767af3b3cfce7b15e9b6b58e6c106c37da97fd7b31c7c8972f66f50bded4"
+  },
+  {
+    "name": "Warrior_GiantHammer",
+    "source": "C:\\YSJ\\SubPF\\Assets\\99.StoreAsset\\Main\\Character\\Warrior\\GiantHammer\\Warrior_Hammer_Idle_1.png",
+    "canvas": [
+      3072,
+      3072
+    ],
+    "ppu": 100,
+    "pivot": [
+      0.5,
+      0.423828125
+    ],
+    "frames": 12,
+    "recommended_fps": 14,
+    "measurements": [
+      {
+        "frame": 1,
+        "alpha_bounds": [
+          1418,
+          801,
+          2273,
+          2000
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 15.0
+      },
+      {
+        "frame": 2,
+        "alpha_bounds": [
+          1422,
+          799,
+          2276,
+          2000
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 13.0
+      },
+      {
+        "frame": 3,
+        "alpha_bounds": [
+          1422,
+          795,
+          2279,
+          2000
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 9.0
+      },
+      {
+        "frame": 4,
+        "alpha_bounds": [
+          1422,
+          793,
+          2280,
+          2000
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 7.0
+      },
+      {
+        "frame": 5,
+        "alpha_bounds": [
+          1422,
+          795,
+          2279,
+          2000
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 9.0
+      },
+      {
+        "frame": 6,
+        "alpha_bounds": [
+          1422,
+          799,
+          2276,
+          2000
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 13.0
+      },
+      {
+        "frame": 7,
+        "alpha_bounds": [
+          1418,
+          801,
+          2273,
+          2000
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 15.0
+      },
+      {
+        "frame": 8,
+        "alpha_bounds": [
+          1414,
+          800,
+          2269,
+          2000
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 13.0
+      },
+      {
+        "frame": 9,
+        "alpha_bounds": [
+          1411,
+          796,
+          2267,
+          2000
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 9.0
+      },
+      {
+        "frame": 10,
+        "alpha_bounds": [
+          1410,
+          794,
+          2266,
+          2000
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 7.0
+      },
+      {
+        "frame": 11,
+        "alpha_bounds": [
+          1411,
+          796,
+          2267,
+          2000
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 9.0
+      },
+      {
+        "frame": 12,
+        "alpha_bounds": [
+          1414,
+          800,
+          2269,
+          2000
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 13.0
+      }
+    ],
+    "source_sha256": "7384a38a0cf63e211778ae06d62473c6c7fb3faeaed456e2e1a2938cd99ec712"
+  },
+  {
+    "name": "Warrior_Slash",
+    "source": "C:\\YSJ\\SubPF\\Assets\\99.StoreAsset\\Main\\Character\\Slash_Shield_Boss_Animations_v1\\Deliverables\\Slash_Longsword\\Idle\\Warrior_Slash_Idle_01.png",
+    "canvas": [
+      1536,
+      1536
+    ],
+    "ppu": 100,
+    "pivot": [
+      0.5,
+      0.462239583333
+    ],
+    "frames": 12,
+    "recommended_fps": 16,
+    "measurements": [
+      {
+        "frame": 1,
+        "alpha_bounds": [
+          653,
+          620,
+          1248,
+          1056
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 15.0
+      },
+      {
+        "frame": 2,
+        "alpha_bounds": [
+          654,
+          618,
+          1248,
+          1056
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 13.0
+      },
+      {
+        "frame": 3,
+        "alpha_bounds": [
+          654,
+          613,
+          1248,
+          1056
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 9.0
+      },
+      {
+        "frame": 4,
+        "alpha_bounds": [
+          654,
+          611,
+          1247,
+          1056
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 7.0
+      },
+      {
+        "frame": 5,
+        "alpha_bounds": [
+          654,
+          613,
+          1248,
+          1056
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 9.0
+      },
+      {
+        "frame": 6,
+        "alpha_bounds": [
+          654,
+          618,
+          1248,
+          1056
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 13.0
+      },
+      {
+        "frame": 7,
+        "alpha_bounds": [
+          653,
+          620,
+          1248,
+          1056
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 15.0
+      },
+      {
+        "frame": 8,
+        "alpha_bounds": [
+          653,
+          618,
+          1249,
+          1056
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 13.0
+      },
+      {
+        "frame": 9,
+        "alpha_bounds": [
+          652,
+          614,
+          1249,
+          1056
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 9.0
+      },
+      {
+        "frame": 10,
+        "alpha_bounds": [
+          652,
+          612,
+          1250,
+          1056
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 7.0
+      },
+      {
+        "frame": 11,
+        "alpha_bounds": [
+          652,
+          614,
+          1249,
+          1056
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 9.0
+      },
+      {
+        "frame": 12,
+        "alpha_bounds": [
+          653,
+          618,
+          1249,
+          1056
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 13.0
+      }
+    ],
+    "source_sha256": "c61d2ffc76907380578aa075cc8a554918908db0bfc749369b8e554301eb89a5"
+  },
+  {
+    "name": "Warrior_Shield",
+    "source": "C:\\YSJ\\SubPF\\Assets\\99.StoreAsset\\Main\\Character\\Player_Remake_Combo_Shield_v1\\Deliverables\\Warrior\\Shield\\Idle\\Warrior_Shield_Idle_01.png",
+    "canvas": [
+      3072,
+      3072
+    ],
+    "ppu": 100,
+    "pivot": [
+      0.5,
+      0.423828125
+    ],
+    "frames": 12,
+    "recommended_fps": 16,
+    "measurements": [
+      {
+        "frame": 1,
+        "alpha_bounds": [
+          1485,
+          1614,
+          1815,
+          2000
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 15.0
+      },
+      {
+        "frame": 2,
+        "alpha_bounds": [
+          1485,
+          1612,
+          1816,
+          2000
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 13.0
+      },
+      {
+        "frame": 3,
+        "alpha_bounds": [
+          1485,
+          1608,
+          1816,
+          2000
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 9.0
+      },
+      {
+        "frame": 4,
+        "alpha_bounds": [
+          1485,
+          1606,
+          1816,
+          2000
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 7.0
+      },
+      {
+        "frame": 5,
+        "alpha_bounds": [
+          1485,
+          1608,
+          1816,
+          2000
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 9.0
+      },
+      {
+        "frame": 6,
+        "alpha_bounds": [
+          1481,
+          1612,
+          1816,
+          2000
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 13.0
+      },
+      {
+        "frame": 7,
+        "alpha_bounds": [
+          1464,
+          1614,
+          1815,
+          2000
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 15.0
+      },
+      {
+        "frame": 8,
+        "alpha_bounds": [
+          1471,
+          1612,
+          1815,
+          2000
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 13.0
+      },
+      {
+        "frame": 9,
+        "alpha_bounds": [
+          1485,
+          1607,
+          1815,
+          2000
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 9.0
+      },
+      {
+        "frame": 10,
+        "alpha_bounds": [
+          1485,
+          1605,
+          1815,
+          2000
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 7.0
+      },
+      {
+        "frame": 11,
+        "alpha_bounds": [
+          1485,
+          1607,
+          1815,
+          2000
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 9.0
+      },
+      {
+        "frame": 12,
+        "alpha_bounds": [
+          1485,
+          1612,
+          1815,
+          2000
+        ],
+        "torso_scale": 1,
+        "body_bob_pixels": 13.0
+      }
+    ],
+    "source_sha256": "1b3352d4bb758e270d822cbb05bd203acf92fa5e621d0f03089b77b32bacf287"
+  }
+]

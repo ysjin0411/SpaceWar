@@ -16,7 +16,7 @@ public sealed class BossAlienTracePattern : BossPattern
 
     // 기록된 위치의 원형 공격 범위를 표시한다.
     [SerializeField]
-    private BossAlienLeapWarning _warningPrefab;
+    private BossAlienTraceWarning _warningPrefab;
 
     // Rise → Peak → Fade 순서로 표시할 발톱 효과다.
     [SerializeField]
@@ -26,15 +26,13 @@ public sealed class BossAlienTracePattern : BossPattern
     [SerializeField, Min(1)]
     private int _recordCount = 6;
 
-    // 플레이어 위치를 기록하는 시간 간격이다.
+    // 각 위치에 Aim 경고를 표시한 뒤 발톱이 나오기까지의 시간이다.
+    // 모든 기록이 끝날 때까지 기다리지 않고, 각 경고마다 따로 계산한다.
     [SerializeField, Min(0.01f)]
-    private float _recordInterval = 0.35f;
+    private float _warningDuration = 0.2f;
 
-    // 마지막 위치를 기록한 뒤 공격 시작까지 제공하는 시간이다.
-    [SerializeField, Min(0.01f)]
-    private float _lockDuration = 0.6f;
-
-    // 다음 위치의 발톱이 솟기 시작하는 시간 간격이다.
+    // 다음 위치를 기록하고 경고를 생성하는 간격이다.
+    // 각 경고가 동일한 지연 뒤 공격하므로 공격 사이의 간격도 된다.
     [SerializeField, Min(0.01f)]
     private float _strikeInterval = 0.3f;
 
@@ -60,8 +58,11 @@ public sealed class BossAlienTracePattern : BossPattern
 
     // 각 기록 위치에서 한 번 요청하는 피해량이다.
     [SerializeField, Min(0)]
-    private int _damage = 10;
+    private float _damage = 10;
 
+    /// <summary>
+    /// Execute 동작에 필요한 상태와 처리 흐름을 실행한다.
+    /// </summary>
     public override IEnumerator Execute(BossPatternContext context)
     {
         // 에일리언 본체에서만 실행할 수 있다.
@@ -93,8 +94,8 @@ public sealed class BossAlienTracePattern : BossPattern
 
         // 실행 중 생성한 모든 오브젝트를 보관하여 중단 시에도 정리한다.
         Vector2[] positions = new Vector2[_recordCount];
-        BossAlienLeapWarning[] warnings =
-            new BossAlienLeapWarning[_recordCount];
+        BossAlienTraceWarning[] warnings =
+            new BossAlienTraceWarning[_recordCount];
         BossAlienTraceClaw[] claws =
             new BossAlienTraceClaw[_recordCount];
 
@@ -152,74 +153,111 @@ public sealed class BossAlienTracePattern : BossPattern
             // 이전 패턴에서 남았을 수 있는 물리 이동 속도를 제거한다.
             context.Rigidbody.linearVelocity = Vector2.zero;
 
-            // 첫 위치는 즉시 기록하고, 이후에는 일정 간격으로 기록한다.
-            for (int i = 0; i < positions.Length; i++)
+            // 먼저 손을 땅에 박는다.
+            // 경고가 뜬 뒤 기다리는 시간에 삽입 애니메이션이 추가되지 않게 한다.
+            if (!CanContinue(boss) ||
+                visual == null ||
+                !visual.PlayTraceInsert())
             {
-                if (i > 0)
-                    yield return WaitForBattleTime(boss, _recordInterval);
+                yield break;
+            }
 
-                // 일시정지 중에는 새로운 위치를 기록하지 않는다.
-                while (CanContinue(boss) && Time.deltaTime <= 0f)
-                    yield return null;
-
-                if (!CanContinue(boss) || targetBody == null)
+            // 손을 박는 애니메이션이 끝날 때까지 기다린다.
+            while (true)
+            {
+                if (!CanContinue(boss) ||
+                    visual == null ||
+                    !visual.TryGetTraceInsertProgress(out float progress))
+                {
                     yield break;
+                }
 
-                // 예측이나 벽 보정 없이 그 순간의 실제 좌표를 저장한다.
-                // 저장한 좌표는 이후 플레이어가 움직여도 바뀌지 않는다.
-                positions[i] = targetBody.position;
+                if (progress >= 1f)
+                    break;
 
-                warnings[i] = Instantiate(_warningPrefab);
-                warnings[i].Initialize(boss, positions[i], _radius);
-                warnings[i].LockPosition(positions[i]);
+                yield return null;
             }
 
-            // 위치 기록을 마치고 발동 준비 자세로 바꾼다.
-            if (!CanContinue(boss) ||
-                visual == null ||
-                !visual.ShowPose("Phase2_Trace", "Invoke"))
-            {
+            // 이동 경로를 기록하고 공격하는 동안 손을 박은 자세를 유지한다.
+            if (!visual.PlayTraceHold())
                 yield break;
-            }
 
-            yield return WaitForBattleTime(boss, _lockDuration);
+            // 각 경고가 실제로 생성된 시각을 저장한다.
+            // 프레임이 늦어져도 새 경고의 회피 시간이 생략되지 않게 한다.
+            float[] warningTimes = new float[positions.Length];
 
-            if (!CanContinue(boss) ||
-                visual == null ||
-                !visual.ShowPose("Phase2_Trace", "Release"))
-            {
-                yield break;
-            }
-
+            // 기록과 공격이 공유하는 게임 시간이다.
             float elapsed = 0f;
+
+            // 다음 경고를 생성할 시각이다. 첫 경고는 즉시 생성한다.
+            float nextRecordTime = 0f;
+
+            // 실제로 위치와 경고가 생성된 개수다.
+            int recordedCount = 0;
+
+            // 사라지는 동작까지 모두 끝난 공격의 개수다.
             int completedCount = 0;
 
-            // 하나의 시간축에서 여러 발톱의 단계를 관리한다.
-            // 앞 발톱이 사라지기 전에도 다음 발톱이 올라올 수 있다.
+            // 경고 생성과 기존 경고의 공격 진행을 함께 처리한다.
             while (completedCount < positions.Length)
             {
-                if (!CanContinue(boss))
+                if (!CanContinue(boss) ||
+                    visual == null ||
+                    targetBody == null)
+                {
                     yield break;
+                }
 
-                // 일시정지 중에는 생성, 단계 전환, 피해 판정을 멈춘다.
+                // 일시정지 중에는 기록, 생성, 피해 처리를 진행하지 않는다.
                 if (Time.deltaTime <= 0f)
                 {
                     yield return null;
                     continue;
                 }
 
-                for (int i = 0; i < positions.Length; i++)
+                // 일정 간격마다 플레이어의 현재 위치에 새 경고를 생성한다.
+                // 지난 위치를 추측해서 채우지 않고 실제 관측한 위치만 기록한다.
+                if (recordedCount < positions.Length &&
+                    elapsed >= nextRecordTime)
+                {
+                    int index = recordedCount;
+
+                    // 예측하지 않고 현재 물리 좌표를 저장한다.
+                    positions[index] = targetBody.position;
+                    warningTimes[index] = elapsed;
+
+                    // Initialize는 Aim 이미지와 색상으로 경고를 시작한다.
+                    // Trace 전용 경고는 생성 위치에서 Aim 표시만 유지한다.
+                    warnings[index] = Instantiate(_warningPrefab);
+                    warnings[index].Initialize(
+                        boss, positions[index], _radius);
+
+                    // 이후 이 경고의 위치는 갱신하지 않는다.
+                    recordedCount++;
+
+                    // 프레임 지연 후 여러 경고가 한꺼번에 생기지 않게 한다.
+                    nextRecordTime = elapsed + _strikeInterval;
+                }
+
+                // 이미 생성한 경고들의 공격을 각각 진행한다.
+                for (int i = 0; i < recordedCount; i++)
                 {
                     if (stages[i] == 4)
                         continue;
 
-                    // 각 위치의 시작 시간을 기록 순서에 따라 뒤로 미룬다.
-                    float localTime = elapsed - i * _strikeInterval;
+                    // 피해를 주기 전 경고가 사라졌다면 보이지 않는 공격을 막는다.
+                    if (stages[i] < 2 && warnings[i] == null)
+                        yield break;
 
+                    // 각 경고의 생성 시각으로부터 발톱 생성 시점을 계산한다.
+                    float localTime =
+                        elapsed - warningTimes[i] - _warningDuration;
+
+                    // 이 경고의 대기 시간이 아직 끝나지 않았다.
                     if (localTime < 0f)
                         continue;
 
-                    // 해당 위치에서 발톱이 솟기 시작한다.
+                    // 경고를 생성했던 고정 위치에서 발톱이 올라오기 시작한다.
                     if (stages[i] == 0)
                     {
                         claws[i] = Instantiate(_clawPrefab);
@@ -227,33 +265,30 @@ public sealed class BossAlienTracePattern : BossPattern
                         stages[i] = 1;
                     }
 
-                    // 예상치 못하게 효과가 사라지면 보이지 않는 공격을 중단한다.
+                    // 공격 효과가 사라졌다면 피해 처리도 중단한다.
                     if (claws[i] == null)
                         yield break;
 
-                    // 완전히 솟는 순간 경고를 지우고 피해를 한 번 판정한다.
+                    // 발톱이 완전히 솟는 순간 피해를 한 번 적용한다.
                     if (stages[i] == 1 && localTime >= _riseDuration)
                     {
                         claws[i].ShowPeak();
 
-                        if (warnings[i] != null)
-                        {
-                            warnings[i].Remove();
-                            warnings[i] = null;
-                        }
+                        warnings[i].Remove();
+                        warnings[i] = null;
 
-                        // 피해 처리 전에 단계를 변경하여 중복 요청을 막는다.
+                        // 피해 처리 전에 단계를 바꿔 중복 피해 요청을 막는다.
                         stages[i] = 2;
 
                         BossAlienExplosionDamage.Apply(
                             positions[i], _radius, _damage);
 
-                        // 이번 피해로 플레이어가 사망했다면 후속 공격을 중단한다.
+                        // 이번 공격으로 플레이어가 사망했다면 후속 처리를 멈춘다.
                         if (!CanContinue(boss))
                             yield break;
                     }
 
-                    // Peak 유지 시간이 지나면 사라지는 이미지로 바꾼다.
+                    // 솟아 있는 시간이 지나면 사라지는 모습을 표시한다.
                     if (stages[i] == 2 &&
                         localTime >= _riseDuration + _peakDuration)
                     {
@@ -261,7 +296,7 @@ public sealed class BossAlienTracePattern : BossPattern
                         stages[i] = 3;
                     }
 
-                    // Fade가 끝난 발톱을 제거한다.
+                    // 사라지는 동작까지 끝난 공격을 정리한다.
                     if (stages[i] == 3 &&
                         localTime >=
                         _riseDuration + _peakDuration + _fadeDuration)
@@ -278,8 +313,34 @@ public sealed class BossAlienTracePattern : BossPattern
                 elapsed += Time.deltaTime;
             }
 
-            // 마지막 공격 이후 빈틈을 제공한다.
-            yield return WaitForBattleTime(boss, _recoveryDuration);
+            // 모든 지면 발톱이 사라지면 손을 빼는 동작을 시작한다.
+            if (!CanContinue(boss) ||
+                visual == null ||
+                !visual.PlayTraceWithdraw())
+            {
+                yield break;
+            }
+
+            // 회수 시간과 손 빼기 애니메이션이 모두 끝날 때까지 기다린다.
+            float recoveryElapsed = 0f;
+
+            while (true)
+            {
+                // 전투 중단이나 다른 애니메이션으로의 전환을 확인한다.
+                if (!CanContinue(boss) ||
+                    visual == null ||
+                    !visual.TryGetTraceWithdrawProgress(out float progress))
+                {
+                    yield break;
+                }
+
+                // 설정 시간이 짧아도 손 빼기 동작을 중간에 자르지 않는다.
+                if (progress >= 1f && recoveryElapsed >= _recoveryDuration)
+                    break;
+
+                yield return null;
+                recoveryElapsed += Time.deltaTime;
+            }
         }
         finally
         {
@@ -315,29 +376,19 @@ public sealed class BossAlienTracePattern : BossPattern
         }
     }
 
-    // 전투 중단을 매 프레임 확인하면서 게임 시간 기준으로 기다린다.
-    private static IEnumerator WaitForBattleTime(
-        Boss_AlienBody boss, float duration)
-    {
-        float elapsed = 0f;
-
-        while (elapsed < duration)
-        {
-            if (!CanContinue(boss))
-                yield break;
-
-            yield return null;
-            elapsed += Time.deltaTime;
-        }
-    }
-
     // 보스 또는 플레이어가 전투를 계속할 수 있는지 확인한다.
+    /// <summary>
+    /// 보스 또는 플레이어가 전투를 계속할 수 있는지 확인한다.
+    /// </summary>
     private static bool CanContinue(Boss_AlienBody boss)
     {
         return boss != null && boss.CanRunPhaseTwoPattern;
     }
 
     // 누락된 프리팹과 잘못된 설정값을 실행 전에 확인한다.
+    /// <summary>
+    /// 누락된 프리팹과 잘못된 설정값을 실행 전에 확인한다.
+    /// </summary>
     private void ValidateSettings()
     {
         // 문구 누락으로 경고 없이 특수패턴이 시작되지 않도록 확인한다.
@@ -354,8 +405,7 @@ public sealed class BossAlienTracePattern : BossPattern
         }
 
         if (_recordCount < 1 || _damage < 0 ||
-            !IsPositiveFinite(_recordInterval) ||
-            !IsPositiveFinite(_lockDuration) ||
+            !IsPositiveFinite(_warningDuration) ||
             !IsPositiveFinite(_strikeInterval) ||
             !IsPositiveFinite(_riseDuration) ||
             !IsPositiveFinite(_peakDuration) ||
@@ -369,6 +419,9 @@ public sealed class BossAlienTracePattern : BossPattern
     }
 
     // 시간과 반경은 0보다 큰 유한한 값만 허용한다.
+    /// <summary>
+    /// 시간과 반경은 0보다 큰 유한한 값만 허용한다.
+    /// </summary>
     private static bool IsPositiveFinite(float value)
     {
         return value > 0f &&

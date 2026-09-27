@@ -41,27 +41,29 @@ public sealed class BossAlienLeapPattern : BossPattern
     [SerializeField, Min(0f)]
     private float _wallPadding = 0.2f;
 
-    // 이륙 자세를 보여주는 시간이다.
-    [SerializeField, Min(0.01f)]
-    private float _takeoffDuration = 0.12f;
-
-    // 출발점에서 확정된 착지점까지 이동하는 시간이다.
-    [SerializeField, Min(0.01f)]
-    private float _flightDuration = 0.6f;
-
     // 공중에서 외형을 위로 띄우는 최대 높이다.
     // BodyVisual의 로컬 좌표 기준이며 몸체 콜라이더는 따라 올라가지 않는다.
     [SerializeField, Min(0f)]
     private float _jumpHeight = 2.5f;
 
-    // 착지 자세를 유지하며 다음 행동을 쉬는 시간이다.
-    [SerializeField, Min(0.01f)]
-    private float _recoveryDuration = 0.6f;
+    // 실제 이륙부터 착지 피해가 발생하기까지 걸리는 게임 시간이다.
+    // 이 시간에 맞춰 Leap 클립의 재생 배속을 계산한다.
+    [SerializeField, Min(0.05f)]
+    private float _flightDuration = 22f / 24f;
 
     // 착지 순간 원형 범위에 한 번 요청할 피해량이다.
     [SerializeField, Min(0)]
-    private int _landingDamage = 10;
+    private float _landingDamage = 10;
 
+    // Alien_AxeKick_028의 발 접촉 기준점이다.
+    // 2048 캔버스, 중앙 Pivot, PPU 100 기준의 SpriteRenderer 로컬 좌표다.
+    // 보스 Scale 0.43은 Transform 계산에서 적용하므로 여기에 곱하지 않는다.
+    [SerializeField]
+    private Vector2 _landingContactLocal = new Vector2(-2.144f, -5.5896f);
+
+    /// <summary>
+    /// Execute 동작에 필요한 상태와 처리 흐름을 실행한다.
+    /// </summary>
     public override IEnumerator Execute(BossPatternContext context)
     {
         // 이 패턴은 에일리언 본체에서만 실행한다.
@@ -93,11 +95,34 @@ public sealed class BossAlienLeapPattern : BossPattern
                 $"{name}: BodyVisual에 BossAlienPhaseTwoVisual이 필요합니다.");
         }
 
-        // 최초 경고를 표시할 유효한 착지 좌표를 계산한다.
+        // 실제 착지 이미지의 접촉점을 보스 원점 기준 월드 오프셋으로 환산한다.
+        SpriteRenderer bodyRenderer =
+            context.VisualTransform.GetComponent<SpriteRenderer>();
+
+        if (bodyRenderer == null)
+        {
+            throw new MissingComponentException(
+                $"{name}: BodyVisual에 SpriteRenderer가 필요합니다.");
+        }
+
+        // SpriteRenderer의 좌우·상하 반전도 접촉점에 반영한다.
+        Vector3 contactLocal = new Vector3(
+            bodyRenderer.flipX ? -_landingContactLocal.x : _landingContactLocal.x,
+            bodyRenderer.flipY ? -_landingContactLocal.y : _landingContactLocal.y,
+            0f);
+
+        // 부모 Scale과 BodyVisual의 기본 위치를 포함해 계산한다.
+        // 아직 점프 높이를 적용하기 전이므로 기본 자세 기준 오프셋이 된다.
+        Vector2 landingContactOffset =
+            (Vector2)context.VisualTransform.TransformPoint(contactLocal)
+            - context.Rigidbody.position;
+
+        // 경고 중심이 실제 발 접촉 위치가 되도록 계산한다.
         if (!boss.TryGetLeapLandingPosition(
             _predictionSeconds,
             _maxPredictionDistance,
             _wallPadding,
+            landingContactOffset,
             out Vector2 landingPosition))
         {
             yield break;
@@ -112,8 +137,10 @@ public sealed class BossAlienLeapPattern : BossPattern
 
         try
         {
-            // 웅크린 자세로 도약을 준비한다.
-            beganAction = visual.BeginAction("Phase2_Leap", "Crouch");
+            // 플레이어를 관찰하고 착지점을 고정하는 동안 새 웅크리기 자세를 표시한다.
+            beganAction = visual.BeginAction(
+                "Phase2_Leap_AxeKick",
+                "Alien_AxeKick_004");
 
             if (!beganAction)
                 yield break;
@@ -134,10 +161,12 @@ public sealed class BossAlienLeapPattern : BossPattern
                     yield break;
                 }
 
+                // 플레이어를 관찰하는 동안에도 같은 접촉점 기준으로 갱신한다.
                 if (!boss.TryGetLeapLandingPosition(
                     _predictionSeconds,
                     _maxPredictionDistance,
                     _wallPadding,
+                    landingContactOffset,
                     out landingPosition))
                 {
                     yield break;
@@ -184,127 +213,124 @@ public sealed class BossAlienLeapPattern : BossPattern
                 yield break;
             }
 
-            // 이륙 자세를 잠시 보여준다.
-            if (!visual.ShowPose("Phase2_Leap", "Takeoff"))
+            // 현재 도약 클립은 24 FPS, 전체 36프레임 길이다.
+            const float clipDuration = 36f / 24f;
+
+            // 5프레임 위치에서 이륙하고, 27프레임 위치에서 착지 공격한다.
+            const float takeoffProgress = 5f / 36f;
+            const float impactProgress = 27f / 36f;
+
+            // Inspector 제한과 별개로 실행 시에도 시간값을 검사한다.
+            if (float.IsNaN(_flightDuration) ||
+                float.IsInfinity(_flightDuration) ||
+                _flightDuration < 0.05f)
             {
+                throw new InvalidOperationException(
+                    $"{name}: Flight Duration은 0.05초 이상이어야 합니다.");
+            }
+
+            // 원본 클립에서 이륙부터 착지까지 걸리는 시간이다.
+            // 1.5초 × (27/36 - 5/36) = 약 0.917초.
+            float originalFlightDuration =
+                clipDuration * (impactProgress - takeoffProgress);
+
+            // 목표 시간이 짧으면 빠르게, 길면 느리게 재생한다.
+            float playbackSpeed =
+                originalFlightDuration / _flightDuration;
+
+            // 계산한 배속으로 도약 애니메이션을 시작한다.
+            if (!visual.PlayLeapAnimation(playbackSpeed))
                 yield break;
-            }
 
-            elapsed = 0f;
-
-            while (elapsed < _takeoffDuration)
-            {
-                if (boss == null ||
-                    !boss.CanRunPhaseTwoPattern ||
-                    warning == null)
-                {
-                    yield break;
-                }
-
-                elapsed += Time.deltaTime;
-                yield return null;
-            }
-
-            // 이륙 자세를 보여주는 동안 전투가 중단됐는지 다시 확인한다.
-            if (boss == null ||
-                !boss.CanRunPhaseTwoPattern ||
-                warning == null)
-            {
-                yield break;
-            }
-
-            if (!visual.ShowPose("Phase2_Leap", "Airborne"))
-            {
-                yield break;
-            }
-
-            // 출발점과 착지점은 여기부터 변경하지 않는다.
+            // 실제 이동 시작 위치는 착지점을 고정한 뒤의 보스 위치다.
             Vector2 startPosition = context.Rigidbody.position;
-            elapsed = 0f;
 
-            // 물리 이동 요청을 일정한 간격으로 실행한다.
+            // 경고 중심에 발을 놓으려면 보스 원점은 접촉 오프셋만큼 반대쪽에 있어야 한다.
+            Vector2 landingRootPosition =
+                landingPosition - landingContactOffset;
+
+            // 착지 피해는 클립 진행률이 착지 지점을 넘는 순간 한 번만 적용한다.
+            bool hasLanded = false;
+
+            // Rigidbody 이동은 물리 갱신 주기에 맞춘다.
             WaitForFixedUpdate waitForPhysics = new WaitForFixedUpdate();
 
-            while (elapsed < _flightDuration)
+            while (true)
             {
                 yield return waitForPhysics;
 
-                if (boss == null ||
-                    !boss.CanRunPhaseTwoPattern ||
-                    warning == null)
-                {
-                    yield break;
-                }
-
-                elapsed += Time.fixedDeltaTime;
-                float progress = Mathf.Clamp01(elapsed / _flightDuration);
-
-                // 루트는 출발점과 착지점 사이를 직선으로 이동한다.
-                Vector2 groundPosition = Vector2.Lerp(
-                    startPosition,
-                    landingPosition,
-                    progress);
-
-                context.Rigidbody.MovePosition(groundPosition);
-
-                // 외형만 포물선 모양으로 올렸다 내린다.
-                // 진행도 0과 1에서는 높이가 0, 0.5에서는 최대 높이가 된다.
-                float height = 4f * _jumpHeight * progress * (1f - progress);
-
-                context.VisualTransform.localPosition =
-                    originalVisualPosition + Vector3.up * height;
-            }
-
-            // 마지막 이동 요청이 다음 물리 계산에 적용될 시간을 준다.
-            yield return waitForPhysics;
-
-            if (boss == null ||
-                !boss.CanRunPhaseTwoPattern ||
-                warning == null)
-            {
-                yield break;
-            }
-
-            // 물리 이동의 작은 오차를 제거하고 확정한 좌표에 착지한다.
-            context.Rigidbody.position = landingPosition;
-            context.Rigidbody.linearVelocity = Vector2.zero;
-            context.VisualTransform.localPosition = originalVisualPosition;
-
-            if (!visual.ShowPose("Phase2_Leap", "Landing"))
-            {
-                yield break;
-            }
-
-            // 착지 순간 경고를 제거한다.
-            warning.Remove();
-            warning = null;
-
-            // 착지한 위치에 시각 효과를 생성한다.
-            // 짧은 연출을 마치면 이펙트 스스로 제거된다.
-            BossAlienLeapImpact impact =
-                UnityEngine.Object.Instantiate(_impactPrefab);
-
-            impact.Play(landingPosition, _landingRadius);
-
-            // 기존 원형 피해 함수를 재사용한다.
-            // 실드 방어를 먼저 검사하고 플레이어에게 중복 피해를 주지 않는다.
-            BossAlienExplosionDamage.Apply(
-                landingPosition,
-                _landingRadius,
-                _landingDamage);
-
-            elapsed = 0f;
-
-            // 착지 후 빈틈을 제공한다. 이 구간에서는 피해를 반복하지 않는다.
-            while (elapsed < _recoveryDuration)
-            {
+                // 사망·전투 중단 시 finally에서 경고와 표시 위치를 정리한다.
                 if (boss == null || !boss.CanRunPhaseTwoPattern)
-                {
                     yield break;
+
+                // 애니메이션이 다른 상태로 바뀌었다면 공격도 중단한다.
+                if (!visual.TryGetLeapProgress(out float progress))
+                    yield break;
+
+                if (!hasLanded)
+                {
+                    if (warning == null)
+                        yield break;
+
+                    if (progress >= impactProgress)
+                    {
+                        // 발 접촉점이 경고 중심에 닿도록 보정된 보스 위치를 적용한다.
+                        context.Rigidbody.position = landingRootPosition;
+                        context.Rigidbody.linearVelocity = Vector2.zero;
+                        context.VisualTransform.localPosition =
+                            originalVisualPosition;
+
+                        // 먼저 착지 완료를 기록하여 중복 피해를 방지한다.
+                        hasLanded = true;
+
+                        // 착지 순간 경고를 제거한다.
+                        warning.Remove();
+                        warning = null;
+
+                        // 기존 착지 이펙트를 유지한다.
+                        // 새 이펙트와 화면 연출은 이후 교체 단계에서 연결한다.
+                        BossAlienLeapImpact impact =
+                            UnityEngine.Object.Instantiate(_impactPrefab);
+
+                        impact.Play(landingPosition, _landingRadius);
+
+                        // 내려찍는 이미지에 맞춰 범위 피해를 한 번 적용한다.
+                        BossAlienExplosionDamage.Apply(
+                            landingPosition,
+                            _landingRadius,
+                            _landingDamage);
+                    }
+                    else if (progress >= takeoffProgress)
+                    {
+                        // 도약 시작부터 착지까지의 구간을 0~1로 환산한다.
+                        float flightProgress = Mathf.InverseLerp(
+                            takeoffProgress,
+                            impactProgress,
+                            progress);
+
+                        // 공중 이동도 보정된 목적지를 향하게 해서 착지 순간 위치가 튀지 않도록 한다.
+                        Vector2 groundPosition = Vector2.Lerp(
+                            startPosition,
+                            landingRootPosition,
+                            flightProgress);
+
+                        context.Rigidbody.MovePosition(groundPosition);
+
+                        // 기존 방식대로 BodyVisual만 포물선 높이를 적용한다.
+                        // 회전은 스프라이트에 포함되어 있으므로 Transform은 회전하지 않는다.
+                        float height =
+                            4f * _jumpHeight *
+                            flightProgress * (1f - flightProgress);
+
+                        context.VisualTransform.localPosition =
+                            originalVisualPosition + Vector3.up * height;
+                    }
                 }
 
-                elapsed += Time.deltaTime;
-                yield return null;
+                // 착지 이후에도 클립 끝까지 기다려 회복 자세를 보여준다.
+                // 완료 후 기존 finally의 EndAction이 Idle로 복귀시킨다.
+                if (progress >= 1f)
+                    break;
             }
         }
         finally

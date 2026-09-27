@@ -137,11 +137,19 @@ MonoBehaviour:
   _explosionCoreRenderer: {fileID: 8100304999818518147}
   _shockwaveTransform: {fileID: 8737743201128287816}
   _shockwaveRenderer: {fileID: 4802680356981797709}
-  _coreExpansionDuration: 0.1
-  _shockwaveExpansionDuration: 0.16
-  _holdDuration: 0.03
-  _coreFadeDuration: 0.16
-  _shockwaveFadeDuration: 0.12
+  _coreExpansionDuration: 0.05
+  _shockwaveExpansionDuration: 0.08
+  _holdDuration: 0.015
+  _coreFadeDuration: 0.08
+  _shockwaveFadeDuration: 0.06
+  _useFrameAnimation: 0
+  _coreFrames: []
+  _shockwaveFrames: []
+  _smokeFrames: []
+  _smokeRenderer: {fileID: 0}
+  _animationFps: 24
+  _smokeFps: 18
+  _smokeDelay: 0.22
 --- !u!1 &7304706496923630664
 GameObject:
   m_ObjectHideFlags: 0

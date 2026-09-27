@@ -1,0 +1,1043 @@
+{
+  "body_frame_count": 54,
+  "prepared_only_body_frames": 24,
+  "effect_frame_count": 12,
+  "project_modified": false,
+  "shield_modified": false,
+  "idle_checks": {
+    "GiantSword": {
+      "frames": 6,
+      "feet_pixels_identical": true,
+      "overall_bounds_identical": true,
+      "changed_pixels_per_frame": [
+        0,
+        0,
+        6102,
+        8812,
+        6102,
+        0
+      ],
+      "max_internal_chest_displacement_px": 1
+    },
+    "Hammer": {
+      "frames": 6,
+      "feet_pixels_identical": true,
+      "overall_bounds_identical": true,
+      "changed_pixels_per_frame": [
+        0,
+        0,
+        6442,
+        8822,
+        6442,
+        0
+      ],
+      "max_internal_chest_displacement_px": 1
+    },
+    "Slash": {
+      "frames": 6,
+      "feet_pixels_identical": true,
+      "overall_bounds_identical": true,
+      "changed_pixels_per_frame": [
+        0,
+        0,
+        3648,
+        5215,
+        3648,
+        0
+      ],
+      "max_internal_chest_displacement_px": 1
+    }
+  },
+  "weapons": {
+    "GiantSword": {
+      "same_source_as_project": true,
+      "sha256": "4177656009f6aa27b7fae16ee9cf5ed218eda6ef93cc3f99ad5e757bde4b0d3b",
+      "dimensions": [
+        1202,
+        294
+      ],
+      "scale_factor_during_compositing": 1.0
+    },
+    "Hammer": {
+      "same_source_as_project": true,
+      "sha256": "6aec68472765be4e98fa926d221683b4a6633a708313ed407ffa5157d912df16",
+      "dimensions": [
+        1277,
+        1130
+      ],
+      "scale_factor_during_compositing": 1.0
+    }
+  },
+  "files": [
+    {
+      "file": "Frames/GiantSword/Attack1/GiantSword_Attack1_01.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1382,
+        782,
+        2192,
+        2000
+      ]
+    },
+    {
+      "file": "Frames/GiantSword/Attack1/GiantSword_Attack1_02.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        748,
+        837,
+        1705,
+        2000
+      ]
+    },
+    {
+      "file": "Frames/GiantSword/Attack1/GiantSword_Attack1_03.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1375,
+        1160,
+        2638,
+        2000
+      ]
+    },
+    {
+      "file": "Frames/GiantSword/Attack1/GiantSword_Attack1_04.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1372,
+        1572,
+        2702,
+        2247
+      ]
+    },
+    {
+      "file": "Frames/GiantSword/Attack1/GiantSword_Attack1_05.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1366,
+        800,
+        2228,
+        2000
+      ]
+    },
+    {
+      "file": "Frames/GiantSword/Attack1/GiantSword_Attack1_06.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1375,
+        809,
+        2197,
+        2000
+      ]
+    },
+    {
+      "file": "Frames/GiantSword/Idle/GiantSword_Idle_01.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1412,
+        799,
+        2197,
+        2000
+      ]
+    },
+    {
+      "file": "Frames/GiantSword/Idle/GiantSword_Idle_02.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1412,
+        799,
+        2197,
+        2000
+      ]
+    },
+    {
+      "file": "Frames/GiantSword/Idle/GiantSword_Idle_03.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1412,
+        799,
+        2197,
+        2000
+      ]
+    },
+    {
+      "file": "Frames/GiantSword/Idle/GiantSword_Idle_04.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1412,
+        799,
+        2197,
+        2000
+      ]
+    },
+    {
+      "file": "Frames/GiantSword/Idle/GiantSword_Idle_05.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1412,
+        799,
+        2197,
+        2000
+      ]
+    },
+    {
+      "file": "Frames/GiantSword/Idle/GiantSword_Idle_06.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1412,
+        799,
+        2197,
+        2000
+      ]
+    },
+    {
+      "file": "Frames/GiantSword/Move/GiantSword_Move_01.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1357,
+        819,
+        2213,
+        2000
+      ]
+    },
+    {
+      "file": "Frames/GiantSword/Move/GiantSword_Move_02.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1435,
+        818,
+        2215,
+        2000
+      ]
+    },
+    {
+      "file": "Frames/GiantSword/Move/GiantSword_Move_03.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1408,
+        856,
+        2245,
+        2000
+      ]
+    },
+    {
+      "file": "Frames/GiantSword/Move/GiantSword_Move_04.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1356,
+        826,
+        2216,
+        2000
+      ]
+    },
+    {
+      "file": "Frames/GiantSword/Move/GiantSword_Move_05.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1436,
+        827,
+        2214,
+        2000
+      ]
+    },
+    {
+      "file": "Frames/GiantSword/Move/GiantSword_Move_06.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1366,
+        847,
+        2227,
+        2000
+      ]
+    },
+    {
+      "file": "Frames/Hammer/Attack1/Hammer_Attack1_01.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1316,
+        1215,
+        2617,
+        2348
+      ]
+    },
+    {
+      "file": "Frames/Hammer/Attack1/Hammer_Attack1_02.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        421,
+        764,
+        1791,
+        2000
+      ]
+    },
+    {
+      "file": "Frames/Hammer/Attack1/Hammer_Attack1_03.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1336,
+        1210,
+        2739,
+        2340
+      ]
+    },
+    {
+      "file": "Frames/Hammer/Attack1/Hammer_Attack1_04.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1365,
+        1551,
+        2822,
+        2720
+      ]
+    },
+    {
+      "file": "Frames/Hammer/Attack1/Hammer_Attack1_05.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1363,
+        838,
+        2792,
+        2000
+      ]
+    },
+    {
+      "file": "Frames/Hammer/Attack1/Hammer_Attack1_06.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1313,
+        1259,
+        2590,
+        2389
+      ]
+    },
+    {
+      "file": "Frames/Hammer/Idle/Hammer_Idle_01.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1317,
+        1093,
+        2664,
+        2222
+      ]
+    },
+    {
+      "file": "Frames/Hammer/Idle/Hammer_Idle_02.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1317,
+        1093,
+        2664,
+        2222
+      ]
+    },
+    {
+      "file": "Frames/Hammer/Idle/Hammer_Idle_03.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1317,
+        1093,
+        2664,
+        2222
+      ]
+    },
+    {
+      "file": "Frames/Hammer/Idle/Hammer_Idle_04.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1317,
+        1093,
+        2664,
+        2222
+      ]
+    },
+    {
+      "file": "Frames/Hammer/Idle/Hammer_Idle_05.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1317,
+        1093,
+        2664,
+        2222
+      ]
+    },
+    {
+      "file": "Frames/Hammer/Idle/Hammer_Idle_06.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1317,
+        1093,
+        2664,
+        2222
+      ]
+    },
+    {
+      "file": "Frames/Hammer/Move/Hammer_Move_01.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1310,
+        1140,
+        2642,
+        2273
+      ]
+    },
+    {
+      "file": "Frames/Hammer/Move/Hammer_Move_02.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1315,
+        1181,
+        2628,
+        2315
+      ]
+    },
+    {
+      "file": "Frames/Hammer/Move/Hammer_Move_03.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1326,
+        1110,
+        2668,
+        2241
+      ]
+    },
+    {
+      "file": "Frames/Hammer/Move/Hammer_Move_04.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1309,
+        1083,
+        2661,
+        2211
+      ]
+    },
+    {
+      "file": "Frames/Hammer/Move/Hammer_Move_05.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1314,
+        1063,
+        2673,
+        2187
+      ]
+    },
+    {
+      "file": "Frames/Hammer/Move/Hammer_Move_06.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1321,
+        1082,
+        2674,
+        2209
+      ]
+    },
+    {
+      "file": "Frames/Slash/Attack/Slash_Attack_01.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1396,
+        1590,
+        1842,
+        2000
+      ]
+    },
+    {
+      "file": "Frames/Slash/Attack/Slash_Attack_02.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1275,
+        1541,
+        1702,
+        2000
+      ]
+    },
+    {
+      "file": "Frames/Slash/Attack/Slash_Attack_03.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1355,
+        1625,
+        1853,
+        2000
+      ]
+    },
+    {
+      "file": "Frames/Slash/Attack/Slash_Attack_04.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1348,
+        1661,
+        2043,
+        2000
+      ]
+    },
+    {
+      "file": "Frames/Slash/Attack/Slash_Attack_05.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1363,
+        1631,
+        1937,
+        2000
+      ]
+    },
+    {
+      "file": "Frames/Slash/Attack/Slash_Attack_06.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1404,
+        1588,
+        1837,
+        2000
+      ]
+    },
+    {
+      "file": "Frames/Slash/Idle/Slash_Idle_01.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1404,
+        1560,
+        1850,
+        2000
+      ]
+    },
+    {
+      "file": "Frames/Slash/Idle/Slash_Idle_02.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1404,
+        1560,
+        1850,
+        2000
+      ]
+    },
+    {
+      "file": "Frames/Slash/Idle/Slash_Idle_03.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1404,
+        1560,
+        1850,
+        2000
+      ]
+    },
+    {
+      "file": "Frames/Slash/Idle/Slash_Idle_04.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1404,
+        1560,
+        1850,
+        2000
+      ]
+    },
+    {
+      "file": "Frames/Slash/Idle/Slash_Idle_05.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1404,
+        1560,
+        1850,
+        2000
+      ]
+    },
+    {
+      "file": "Frames/Slash/Idle/Slash_Idle_06.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1404,
+        1560,
+        1850,
+        2000
+      ]
+    },
+    {
+      "file": "Frames/Slash/Move/Slash_Move_01.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1281,
+        1597,
+        1728,
+        2000
+      ]
+    },
+    {
+      "file": "Frames/Slash/Move/Slash_Move_02.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1273,
+        1623,
+        1728,
+        2000
+      ]
+    },
+    {
+      "file": "Frames/Slash/Move/Slash_Move_03.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1290,
+        1614,
+        1689,
+        2000
+      ]
+    },
+    {
+      "file": "Frames/Slash/Move/Slash_Move_04.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1295,
+        1601,
+        1739,
+        2000
+      ]
+    },
+    {
+      "file": "Frames/Slash/Move/Slash_Move_05.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1273,
+        1623,
+        1728,
+        2000
+      ]
+    },
+    {
+      "file": "Frames/Slash/Move/Slash_Move_06.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1294,
+        1597,
+        1743,
+        2000
+      ]
+    },
+    {
+      "file": "Effects/GiantSword/Trail_Attack1/GiantSword_Trail_Attack1_01.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": null
+    },
+    {
+      "file": "Effects/GiantSword/Trail_Attack1/GiantSword_Trail_Attack1_02.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": null
+    },
+    {
+      "file": "Effects/GiantSword/Trail_Attack1/GiantSword_Trail_Attack1_03.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        965,
+        544,
+        2432,
+        1851
+      ]
+    },
+    {
+      "file": "Effects/GiantSword/Trail_Attack1/GiantSword_Trail_Attack1_04.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1570,
+        1272,
+        2790,
+        2118
+      ]
+    },
+    {
+      "file": "Effects/GiantSword/Trail_Attack1/GiantSword_Trail_Attack1_05.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1570,
+        1272,
+        2790,
+        2118
+      ]
+    },
+    {
+      "file": "Effects/GiantSword/Trail_Attack1/GiantSword_Trail_Attack1_06.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1570,
+        1272,
+        2790,
+        2118
+      ]
+    },
+    {
+      "file": "Effects/Hammer/Trail_Attack1/Hammer_Trail_Attack1_01.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": null
+    },
+    {
+      "file": "Effects/Hammer/Trail_Attack1/Hammer_Trail_Attack1_02.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": null
+    },
+    {
+      "file": "Effects/Hammer/Trail_Attack1/Hammer_Trail_Attack1_03.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        452,
+        422,
+        2839,
+        1912
+      ]
+    },
+    {
+      "file": "Effects/Hammer/Trail_Attack1/Hammer_Trail_Attack1_04.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1443,
+        1267,
+        2823,
+        2670
+      ]
+    },
+    {
+      "file": "Effects/Hammer/Trail_Attack1/Hammer_Trail_Attack1_05.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1443,
+        1267,
+        2823,
+        2670
+      ]
+    },
+    {
+      "file": "Effects/Hammer/Trail_Attack1/Hammer_Trail_Attack1_06.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1443,
+        1267,
+        2823,
+        2670
+      ]
+    },
+    {
+      "file": "PreparedOnly/GiantSword/Attack2/GiantSword_Attack2_01.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1352,
+        1556,
+        2658,
+        2264
+      ]
+    },
+    {
+      "file": "PreparedOnly/GiantSword/Attack2/GiantSword_Attack2_02.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        476,
+        1590,
+        1738,
+        2401
+      ]
+    },
+    {
+      "file": "PreparedOnly/GiantSword/Attack2/GiantSword_Attack2_03.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1344,
+        835,
+        2416,
+        2003
+      ]
+    },
+    {
+      "file": "PreparedOnly/GiantSword/Attack2/GiantSword_Attack2_04.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1347,
+        1000,
+        2609,
+        1998
+      ]
+    },
+    {
+      "file": "PreparedOnly/GiantSword/Attack2/GiantSword_Attack2_05.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1326,
+        1556,
+        2641,
+        2252
+      ]
+    },
+    {
+      "file": "PreparedOnly/GiantSword/Attack2/GiantSword_Attack2_06.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1329,
+        906,
+        2304,
+        1999
+      ]
+    },
+    {
+      "file": "PreparedOnly/GiantSword/Attack3/GiantSword_Attack3_01.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1376,
+        782,
+        2192,
+        2003
+      ]
+    },
+    {
+      "file": "PreparedOnly/GiantSword/Attack3/GiantSword_Attack3_02.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        740,
+        844,
+        1712,
+        2003
+      ]
+    },
+    {
+      "file": "PreparedOnly/GiantSword/Attack3/GiantSword_Attack3_03.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1370,
+        1148,
+        2622,
+        2002
+      ]
+    },
+    {
+      "file": "PreparedOnly/GiantSword/Attack3/GiantSword_Attack3_04.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1365,
+        1579,
+        2706,
+        2239
+      ]
+    },
+    {
+      "file": "PreparedOnly/GiantSword/Attack3/GiantSword_Attack3_05.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1363,
+        795,
+        2228,
+        1998
+      ]
+    },
+    {
+      "file": "PreparedOnly/GiantSword/Attack3/GiantSword_Attack3_06.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1366,
+        821,
+        2222,
+        1998
+      ]
+    },
+    {
+      "file": "PreparedOnly/Hammer/Attack2/Hammer_Attack2_01.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1325,
+        1295,
+        2602,
+        2425
+      ]
+    },
+    {
+      "file": "PreparedOnly/Hammer/Attack2/Hammer_Attack2_02.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        410,
+        714,
+        1786,
+        2000
+      ]
+    },
+    {
+      "file": "PreparedOnly/Hammer/Attack2/Hammer_Attack2_03.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1317,
+        1194,
+        2766,
+        2324
+      ]
+    },
+    {
+      "file": "PreparedOnly/Hammer/Attack2/Hammer_Attack2_04.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1338,
+        1141,
+        2801,
+        2271
+      ]
+    },
+    {
+      "file": "PreparedOnly/Hammer/Attack2/Hammer_Attack2_05.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1350,
+        669,
+        2759,
+        2000
+      ]
+    },
+    {
+      "file": "PreparedOnly/Hammer/Attack2/Hammer_Attack2_06.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1307,
+        1325,
+        2620,
+        2458
+      ]
+    },
+    {
+      "file": "PreparedOnly/Hammer/Attack3/Hammer_Attack3_01.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1296,
+        1313,
+        2595,
+        2446
+      ]
+    },
+    {
+      "file": "PreparedOnly/Hammer/Attack3/Hammer_Attack3_02.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        434,
+        732,
+        1806,
+        2000
+      ]
+    },
+    {
+      "file": "PreparedOnly/Hammer/Attack3/Hammer_Attack3_03.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1334,
+        1579,
+        2885,
+        2784
+      ]
+    },
+    {
+      "file": "PreparedOnly/Hammer/Attack3/Hammer_Attack3_04.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1347,
+        1556,
+        2851,
+        2777
+      ]
+    },
+    {
+      "file": "PreparedOnly/Hammer/Attack3/Hammer_Attack3_05.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1356,
+        709,
+        2732,
+        1998
+      ]
+    },
+    {
+      "file": "PreparedOnly/Hammer/Attack3/Hammer_Attack3_06.png",
+      "rgba": true,
+      "transparent_border": true,
+      "bbox": [
+        1311,
+        1241,
+        2588,
+        2371
+      ]
+    }
+  ]
+}

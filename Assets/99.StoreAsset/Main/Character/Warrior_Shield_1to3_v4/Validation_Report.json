@@ -1,0 +1,12 @@
+{
+  "files": 56,
+  "canvas": [
+    3072,
+    3072
+  ],
+  "body_reference_height": 440,
+  "default_shield_height": 440,
+  "expanded_shield_height": 1320,
+  "shield_center_y": 1780,
+  "issues": []
+}

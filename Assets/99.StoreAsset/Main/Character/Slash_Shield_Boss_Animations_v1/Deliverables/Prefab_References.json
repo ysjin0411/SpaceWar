@@ -1,0 +1,60 @@
+{
+  "Boss_Dog": [
+    [
+      "m_Sprite",
+      "C:\\YSJ\\SubPF\\Assets\\99.StoreAsset\\Main\\Bosses\\Boss_Idle\\Dog\\Doghead_boss1.png"
+    ],
+    [
+      "m_SpriteLibraryAsset",
+      "C:\\YSJ\\SubPF\\Assets\\3. Animations\\Enemy\\Boss\\SpriteLibrary\\Boss_SpriteLibrary.spriteLib"
+    ]
+  ],
+  "Boss_Head": [
+    [
+      "m_Sprite",
+      "C:\\YSJ\\SubPF\\Assets\\99.StoreAsset\\Main\\Bosses\\Boss_Idle\\Head\\Head_Boss_01.png"
+    ],
+    [
+      "m_SpriteLibraryAsset",
+      "C:\\YSJ\\SubPF\\Assets\\3. Animations\\Enemy\\Boss\\SpriteLibrary\\Boss_Head_SpriteLibrary.spriteLib"
+    ]
+  ],
+  "Boss_Cruiser": [
+    [
+      "m_Sprite",
+      "C:\\YSJ\\SubPF\\Assets\\99.StoreAsset\\Main\\Bosses\\Boss_Cruiser\\Tower_A\\Boss_Cruiser_Tower_A_Base.png"
+    ],
+    [
+      "m_SpriteLibraryAsset",
+      "C:\\YSJ\\SubPF\\Assets\\3. Animations\\Enemy\\Boss\\SpriteLibrary\\Boss_Cruiser_towerA_SpriteLibrary.spriteLib"
+    ],
+    [
+      "m_Sprite",
+      "C:\\YSJ\\SubPF\\Assets\\99.StoreAsset\\Main\\Bosses\\Boss_Cruiser\\Body\\Cruiser_Shield.png"
+    ],
+    [
+      "m_Sprite",
+      "C:\\YSJ\\SubPF\\Assets\\99.StoreAsset\\Main\\Bosses\\Boss_Cruiser\\Tower_B\\Boss_Cruiser_Tower_B_Base.png"
+    ],
+    [
+      "m_SpriteLibraryAsset",
+      "C:\\YSJ\\SubPF\\Assets\\3. Animations\\Enemy\\Boss\\SpriteLibrary\\Boss_Cruiser_towerB_SpriteLibrary.spriteLib"
+    ],
+    [
+      "m_Sprite",
+      "C:\\YSJ\\SubPF\\Assets\\99.StoreAsset\\Main\\Bosses\\Boss_Cruiser\\Body\\Boss_Cruiser_Body_Idle_01.png"
+    ],
+    [
+      "m_SpriteLibraryAsset",
+      "C:\\YSJ\\SubPF\\Assets\\3. Animations\\Enemy\\Boss\\SpriteLibrary\\Boss_Cruiser_entity_SpriteLibrary.spriteLib"
+    ],
+    [
+      "m_Sprite",
+      "C:\\YSJ\\SubPF\\Assets\\99.StoreAsset\\Main\\Bosses\\Boss_Cruiser\\Tower_C\\Boss_Cruiser_Tower_C_Base.png"
+    ],
+    [
+      "m_SpriteLibraryAsset",
+      "C:\\YSJ\\SubPF\\Assets\\3. Animations\\Enemy\\Boss\\SpriteLibrary\\Boss_Cruiser_towerC_SpriteLibrary.spriteLib"
+    ]
+  ]
+}

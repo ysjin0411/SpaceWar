@@ -6,7 +6,7 @@ using UnityEngine;
 public sealed class BossAlienMissile : MonoBehaviour
 {
     // 발사 순간 Config에서 전달받은 한 발의 폭발 피해량이다.
-    private int _damage;
+    private float _damage;
 
     // 발사한 보스와 공격 대상의 전투 종료 여부를 확인한다.
     private BossEnemy _owner;
@@ -34,6 +34,9 @@ public sealed class BossAlienMissile : MonoBehaviour
     // 발사 정보가 전달된 이후에만 이동한다.
     private bool _isFlying;
 
+    /// <summary>
+    /// 컴포넌트 참조와 초기 실행 상태를 준비한다.
+    /// </summary>
     private void Awake()
     {
         // 위치는 곡선 계산으로 직접 갱신한다.
@@ -48,6 +51,9 @@ public sealed class BossAlienMissile : MonoBehaviour
     }
 
     // 경로, 폭발 정보와 함께 발사자와 공격 대상을 전달받는다.
+    /// <summary>
+    /// 경로, 폭발 정보와 함께 발사자와 공격 대상을 전달받는다.
+    /// </summary>
     public void Launch(
         Vector3 startPoint,
         Vector3 endPoint,
@@ -56,7 +62,7 @@ public sealed class BossAlienMissile : MonoBehaviour
         float flightDuration,
         BossAlienMissileExplosion explosionPrefab,
         float explosionRadius,
-        int damage,
+        float damage,
         BossEnemy owner,
         PlayerController targetPlayer)
     {
@@ -127,6 +133,9 @@ public sealed class BossAlienMissile : MonoBehaviour
         _isFlying = true;
     }
 
+    /// <summary>
+    /// 매 프레임 입력과 경과 시간에 따른 상태를 갱신한다.
+    /// </summary>
     private void Update()
     {
         // 발사 전이거나 이미 폭발한 미사일은 처리하지 않는다.
@@ -206,6 +215,9 @@ public sealed class BossAlienMissile : MonoBehaviour
     }
 
     // 왼쪽을 향한 원본 미사일 이미지를 이동 방향에 맞춘다.
+    /// <summary>
+    /// 왼쪽을 향한 원본 미사일 이미지를 이동 방향에 맞춘다.
+    /// </summary>
     private void FaceDirection(Vector3 direction)
     {
         if (direction.sqrMagnitude < 0.0001f)

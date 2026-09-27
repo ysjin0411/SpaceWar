@@ -33,11 +33,11 @@ public class Weapon : MonoBehaviour
     [SerializeField] List<WeaponRuntimeState> _equippedWeapons = new();
 
     [Header("현재 무기 슬롯")]
-    [Tooltip("-1이면 현재 사용할 수 있는 무기가 없는 상태")]
+    // -1이면 현재 사용할 수 있는 무기가 없는 상태
     [SerializeField] int _currentSlotIndex = -1;
 
     [Header("캐릭터 프리팹 내부 참조")]
-    [Tooltip("투사체가 생성될 캐릭터 프리팹 내부 위치")]
+    // 투사체가 생성될 캐릭터 프리팹 내부 위치
     [SerializeField] Transform _firePoint;
 
     // Soldier가 Grenade를 선택했을 때 표시할 포물선 조준선이다.
@@ -68,7 +68,7 @@ public class Weapon : MonoBehaviour
 
     // 워리어 기본 레이어의 공격·대기 상태.
     static readonly int SlashAttackStateHash =
-        Animator.StringToHash("Base Layer.Attack");
+        Animator.StringToHash("Base Layer.SlashAttack");
 
     static readonly int SlashIdleStateHash =
         Animator.StringToHash("Base Layer.Idle");
@@ -82,6 +82,9 @@ public class Weapon : MonoBehaviour
 
     // 마지막 발사 이후 흐른 시간
     float _timer;
+
+    // 유지 중인 레이저 하나만 관리한다.
+    Lazer _activeLazer;
 
     // 같은 플레이어 오브젝트의 조작 가능 상태를 확인한다.
     private PlayerController _playerController;
@@ -116,6 +119,9 @@ public class Weapon : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 컴포넌트 참조와 초기 실행 상태를 준비한다.
+    /// </summary>
     private void Awake()
     {
         // 현재 프로젝트는 플레이어와 Weapon이 같은 오브젝트에 붙어 있다.
@@ -241,6 +247,9 @@ public class Weapon : MonoBehaviour
         UpdateWeaponUI();
     }
 
+    /// <summary>
+    /// 매 프레임 입력과 경과 시간에 따른 상태를 갱신한다.
+    /// </summary>
     private void Update()
     {
         // 일시정지 중에는 입력과 쿨타임을 진행하지 않는다.
@@ -265,6 +274,8 @@ public class Weapon : MonoBehaviour
         // 이동 연출이나 사망 중에는 공격·무기 변경 입력을 받지 않는다.
         if (!CanUseWeapon)
         {
+            // 제어를 잃으면 저장된 Z 유지 상태까지 지워 자동 연격을 중단한다.
+            CancelCurrentAttack();
             return;
         }
 
@@ -275,6 +286,26 @@ public class Weapon : MonoBehaviour
 
         // 실제 Z 유지 입력을 읽는다.
         bool isHeld = Input.GetKey(KeyCode.Z);
+
+        // 근접공격은 키 해제도 전달해야 다음 공격을 1타부터 시작한다.
+        // 누르고 있는 동안의 실제 공격 요청은 기존 Fire() 흐름에서 처리한다.
+        if (currentWeapon != null &&
+            (currentWeapon.Data.Type == WeaponType.GiantSword ||
+             currentWeapon.Data.Type == WeaponType.Hammer))
+        {
+            SpriteMeleeAttack melee = currentWeapon.Data.Type == WeaponType.GiantSword
+                ? _giantSword
+                : _hammer;
+
+            if (melee == null || !melee.isActiveAndEnabled)
+            {
+                throw new InvalidOperationException(
+                    $"{name}: 현재 무기의 활성화된 SpriteMeleeAttack을 연결하세요.");
+            }
+
+            melee.SetAttackHeld(isHeld);
+        }
+
 
         // 실드는 일반 발사와 별도로 자세를 제어한다.
         bool isShield =
@@ -297,6 +328,10 @@ public class Weapon : MonoBehaviour
             isHeld &&
             currentWeapon != null &&
             currentWeapon.HasAvailableCharge;
+
+        // 입력 해제 또는 다른 무기로 변경되면 출력을 초기화한다.
+        if (!isAttackHeld || currentWeapon.Data.Type != WeaponType.Lazer)
+            StopLazer();
 
         if (isShield)
         {
@@ -467,6 +502,7 @@ public class Weapon : MonoBehaviour
     /// </summary>
     private void ApplyCurrentWeaponSpriteLibrary()
     {
+        StopLazer();
         // 다른 무기 외형으로 변경하기 전에 Slash 공격을 종료한다.
         CancelSlashAnimation();
 
@@ -600,6 +636,13 @@ public class Weapon : MonoBehaviour
         }
 
         // Slash는 시작한 휘두르기가 끝나기 전에 다음 발을 생성하지 않는다.
+        // 지속 레이저는 일반 발사 쿨타임과 단발 총구 이펙트를 사용하지 않는다.
+        if (weapon.Data.Type == WeaponType.Lazer)
+        {
+            StartLazer(weapon);
+            return;
+        }
+
         if (weapon.Data.Type == WeaponType.Slash)
         {
             if (_isSlashAttacking)
@@ -617,24 +660,7 @@ public class Weapon : MonoBehaviour
 
         // 충전형 무기는 일반 공격 쿨타임 대신
         // 현재 사용할 수 있는 충전량이 있는지 검사한다.
-        if (weapon.Data.UsesCharges)
-        {
-            if (!weapon.HasAvailableCharge)
-            {
-                return;
-            }
-        }
-        else
-        {
-            // Bullet, Missile, Sniper 등의 일반 무기는
-            // 기존 공격 쿨타임이 지나야 발사할 수 있다.
-            if (_timer < weapon.CurrentCooltime)
-            {
-                return;
-            }
-        }
-
-        // 스프라이트 기반 근접 공격은 캐릭터의 자식 판정을 사용한다.
+        // 근접공격은 자체 대기시간을 사용하므로 공용 발사 타이머보다 먼저 처리한다.
         if (weapon.Data.Type == WeaponType.GiantSword ||
             weapon.Data.Type == WeaponType.Hammer)
         {
@@ -653,20 +679,42 @@ public class Weapon : MonoBehaviour
                     "활성화된 근접 공격 오브젝트를 연결해야 합니다.");
             }
 
-            // 진행 중인 휘두르기를 중복 시작하지 않는다.
-            if (meleeAttack.IsAttacking)
+            // 강화로 줄어든 쿨타임을 대기시간이 아닌 휘두르기 속도 배율로 사용한다.
+            float baseCooltime = weapon.Data.BaseCooltime;
+            float currentCooltime = weapon.CurrentCooltime;
+            if (baseCooltime <= 0f || currentCooltime <= 0f)
+                throw new InvalidOperationException("근접 무기의 쿨타임은 0보다 커야 합니다.");
+
+            float attackSpeedMultiplier = baseCooltime / currentCooltime;
+
+            // 공격 중에도 최신 수치를 전달한다. 중복 시작은 BeginAttack 내부에서 막는다.
+            // 전달된 수치는 다음 타격을 즉시 연결할 때 사용한다.
+            meleeAttack.BeginAttack(
+                weapon.CurrentDamage,
+                attackSpeedMultiplier);
+
+            return;
+        }
+
+        if (weapon.Data.UsesCharges)
+        {
+            if (!weapon.HasAvailableCharge)
             {
                 return;
             }
-
-            // 현재 무기의 증강된 공격력과 쿨타임을 전달한다.
-            meleeAttack.BeginAttack(
-                weapon.CurrentDamage,
-                weapon.CurrentCooltime);
-
-            _timer = 0f;
-            return;
         }
+        else
+        {
+            // Bullet, Missile, Sniper 등의 일반 무기는
+            // 기존 공격 쿨타임이 지나야 발사할 수 있다.
+            if (_timer < weapon.CurrentCooltime)
+            {
+                return;
+            }
+        }
+
+        // 스프라이트 기반 근접 공격은 캐릭터의 자식 판정을 사용한다.
+
 
         // 현재 무기에 공격 프리팹이 연결되어 있는지 확인한다.
         // 이 아래 기존 프리팹 생성 코드는 그대로 유지한다.
@@ -685,20 +733,7 @@ public class Weapon : MonoBehaviour
             _firePoint.rotation);
 
         // 프리팹을 생성하는 무기 중 Lazer는 펄스 빔으로 초기화한다.
-        if (weapon.Data.Type == WeaponType.Lazer)
-        {
-            InitializePulseBeamAttack(
-                attackObject,
-                weapon);
-        }
-        else
-        {
-            // 나머지 이동형 공격은 Projectile로 초기화한다.
-            // 자이언트 소드와 해머는 이 위치에 오기 전에 처리된다.
-            InitializeProjectileAttack(
-                attackObject,
-                weapon);
-        }
+        InitializeProjectileAttack(attackObject, weapon);
 
         // 프리팹 생성과 초기화가 정상적으로 끝난 다음
         // 충전형 무기의 보유량을 한 개 소비한다.
@@ -709,6 +744,31 @@ public class Weapon : MonoBehaviour
             // 이미 생성한 공격 오브젝트도 제거한다.
             Destroy(attackObject);
             return;
+        }
+
+        // 탄환 생성과 충전 횟수 차감이 성공한 뒤 총구 섬광을 재생한다.
+        SpriteOneShotEffect muzzlePrefab = weapon.Data.MuzzleEffectPrefab;
+
+        if (muzzlePrefab != null)
+        {
+            // 다음 발사 전에 꺼지도록 발사 간격의 60%만 사용한다.
+            // 느린 연사에서도 섬광이 오래 남지 않도록 최대 0.2초로 제한한다.
+            float muzzleDuration = Mathf.Min(
+                0.2f,
+                weapon.CurrentCooltime * 0.6f);
+
+            // 탄환이 생성된 총구 위치와 방향에 이펙트를 생성한다.
+            SpriteOneShotEffect muzzleEffect = Instantiate(
+                muzzlePrefab,
+                _firePoint.position,
+                _firePoint.rotation);
+
+            // 현재 연사 간격에 맞춰 애니메이션과 제거 시점을 조정한다.
+            muzzleEffect.SetPlaybackDuration(muzzleDuration);
+
+            // 재생 중에는 총구를 따라가되 현재 월드 크기를 유지한다.
+            // 재생 시간 설정 후 부모를 연결해야 크기 초기화의 영향을 피한다.
+            muzzleEffect.transform.SetParent(_firePoint, true);
         }
 
         // 생성과 초기화가 성공한 Slash 한 발에 휘두르기 한 번을 대응시킨다.
@@ -766,29 +826,35 @@ public class Weapon : MonoBehaviour
     }
 
     // 생성된 레이저에 현재 공격력과 발사 위치를 전달한다.
-    private void InitializePulseBeamAttack(
-        GameObject attackObject,
-        WeaponRuntimeState weapon)
+    /// <summary>
+    /// 생성된 레이저에 현재 공격력과 발사 위치를 전달한다.
+    /// </summary>
+    private void StartLazer(WeaponRuntimeState weapon)
     {
-        // 이름을 변경한 Lazer 컴포넌트를 가져온다.
-        if (!attackObject.TryGetComponent(out Lazer lazer))
-        {
-            // 잘못된 공격 오브젝트가 남지 않도록 제거한다.
-            Destroy(attackObject);
+        if (_activeLazer != null) return;
+        if (weapon.Data.ProjectilePrefab == null ||
+            !weapon.Data.ProjectilePrefab.TryGetComponent(out Lazer prefab))
+            throw new InvalidOperationException("Lazer prefab is missing.");
+        _activeLazer = Instantiate(prefab, _firePoint.position, _firePoint.rotation);
+        _activeLazer.Initialize(weapon, _firePoint);
+    }
 
-            throw new MissingComponentException(
-                $"무기 '{weapon.Data.WeaponName}'의 공격 프리팹에 " +
-                "Lazer 컴포넌트가 없습니다.");
-        }
-
-        // 현재 증강이 반영된 공격력과 FirePoint를 전달한다.
-        lazer.Initialize(
-            weapon.CurrentDamage,
-            _firePoint);
+    // 입력 해제, 무기 변경, 사망 및 조작 불가 상태에서 공통으로 호출한다.
+    /// <summary>
+    /// 입력 해제, 무기 변경, 사망 및 조작 불가 상태에서 공통으로 호출한다.
+    /// </summary>
+    private void StopLazer()
+    {
+        if (_activeLazer == null) return;
+        _activeLazer.StopBeam();
+        _activeLazer = null;
     }
 
     // 선택한 슬롯에 공격력 증강 효과를 전달한다.
-    public void AddDamage(int slotIndex, int value)
+    /// <summary>
+    /// 소수점 공격력 증강을 현재 무기 공격력에 더한다.
+    /// </summary>
+    public void AddDamage(int slotIndex, float value)
     {
         WeaponRuntimeState weapon = GetWeaponAtSlot(slotIndex);
 
@@ -838,7 +904,7 @@ public class Weapon : MonoBehaviour
     {
         WeaponRuntimeState weapon = GetWeaponAtSlot(slotIndex);
 
-        return weapon?.Data;
+        return weapon != null ? weapon.Data : null;
     }
 
     /// <summary>
@@ -879,6 +945,9 @@ public class Weapon : MonoBehaviour
     }
 
     // 현재 공격 간격 안에 Attack 클립을 한 번 재생한다.
+    /// <summary>
+    /// 현재 공격 간격 안에 Attack 클립을 한 번 재생한다.
+    /// </summary>
     private void BeginSlashAnimation(float attackInterval)
     {
         _isSlashAttacking = true;
@@ -891,8 +960,13 @@ public class Weapon : MonoBehaviour
         _animator.SetFloat(AttackSpeedHash, animationSpeed);
         _animator.SetBool(AttackHash, true);
         _animator.Play(SlashAttackStateHash, 0, 0f);
+        // 같은 프레임의 LateUpdate에서도 새 Slash 상태를 읽도록 반영한다.
+        _animator.Update(0f);
     }
 
+    /// <summary>
+    /// 프레임의 이동 결과에 맞춰 후속 상태를 갱신한다.
+    /// </summary>
     private void LateUpdate()
     {
         // 일시정지 중에는 현재 공격 상태를 유지한다.
@@ -918,6 +992,9 @@ public class Weapon : MonoBehaviour
     }
 
     // 공격 완료, 무기 변경, 비활성화 시 Slash 애니메이션을 정리한다.
+    /// <summary>
+    /// 공격 완료, 무기 변경, 비활성화 시 Slash 애니메이션을 정리한다.
+    /// </summary>
     private void CancelSlashAnimation()
     {
         // Slash가 제어 중일 때만 Animator를 변경한다.
@@ -933,6 +1010,9 @@ public class Weapon : MonoBehaviour
         _animator.Play(SlashIdleStateHash, 0, 0f);
     }
 
+    /// <summary>
+    /// 비활성화 시 이벤트 연결과 실행 상태를 정리한다.
+    /// </summary>
     private void OnDisable()
     {
         // 재활성화할 때 이벤트가 중복으로 연결되지 않도록 해제한다.
@@ -945,6 +1025,9 @@ public class Weapon : MonoBehaviour
         CancelCurrentAttack();
     }
 
+    /// <summary>
+    /// 활성화 시 초기 상태와 이벤트 연결을 준비한다.
+    /// </summary>
     private void OnEnable()
     {
         // 이동 연출이 시작되는 순간 공격을 중단한다.
@@ -954,6 +1037,9 @@ public class Weapon : MonoBehaviour
         HandleControlStateChanged(_playerController.CanControl);
     }
 
+    /// <summary>
+    /// HandleControlStateChanged 동작에 필요한 상태와 처리 흐름을 실행한다.
+    /// </summary>
     private void HandleControlStateChanged(bool canControl)
     {
         if (canControl)
@@ -968,8 +1054,12 @@ public class Weapon : MonoBehaviour
         CloseWeaponSlotPanel();
     }
 
+    /// <summary>
+    /// CancelCurrentAttack 동작에 필요한 상태와 처리 흐름을 실행한다.
+    /// </summary>
     private void CancelCurrentAttack()
     {
+        StopLazer();
         // Slash의 공격 중 상태와 애니메이션 속도를 정리한다.
         CancelSlashAnimation();
 

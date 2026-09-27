@@ -112,7 +112,7 @@ GameObject:
   m_Component:
   - component: {fileID: 355243526972479337}
   - component: {fileID: 196538942435466969}
-  - component: {fileID: 6987742501394166415}
+  - component: {fileID: 6804048250050553609}
   m_Layer: 0
   m_Name: BossAlienTraceWarning
   m_TagString: Untagged
@@ -191,7 +191,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6987742501394166415
+--- !u!114 &6804048250050553609
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -200,8 +200,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8871541082622547114}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31efa46e81568ff4692b10ab04134879, type: 3}
+  m_Script: {fileID: 11500000, guid: f1587497ac9f02146a4e8256ff28e98b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _aimingFrames:
+  - {fileID: 21300000, guid: 0c46d755e23faaa4c868dc795a290eca, type: 3}
+  _framesPerSecond: 24
   _aimingColor: {r: 0.8, g: 0.2, b: 1, a: 0.25}
-  _lockedColor: {r: 1, g: 0.2, b: 0.65, a: 0.5}

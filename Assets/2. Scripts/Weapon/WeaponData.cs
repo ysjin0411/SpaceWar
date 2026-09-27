@@ -41,6 +41,23 @@ public class WeaponData : ScriptableObject
 
     [Tooltip("이 무기로 공격할 때 생성할 투사체 프리팹")]
     [SerializeField] GameObject _projectilePrefab;
+
+    // 발사에 성공했을 때 총구에서 재생할 이펙트.
+    // 총구 이펙트가 없는 무기는 비워둔다.
+    [SerializeField] private SpriteOneShotEffect _muzzleEffectPrefab;
+
+    // 연사 강화가 없는 상태에서 최대 출력까지 걸리는 시간이다.
+    [SerializeField, Min(0.1f)]
+    private float _lazerChargeDuration = 3f;
+
+    // 이전 설정의 호환성을 위해 보존한다. 현재 연사 강화는 이 값을 사용하지 않는다.
+    [SerializeField, Min(0.1f)]
+    private float _lazerMinimumChargeDuration = 0.5f;
+
+    // 최대 출력일 때 기본 틱 피해량에 적용하는 배율이다.
+    [SerializeField, Min(1f)]
+    private float _lazerMaxDamageMultiplier = 3f;
+
     // 이 무기를 들었을 때 캐릭터가 사용할 전용 Sprite Library다.
     // 전용 외형이 없는 무기는 비워두면 캐릭터의 기본 라이브러리를 사용한다.
     [SerializeField] SpriteLibraryAsset _playerSpriteLibrary;
@@ -60,7 +77,7 @@ public class WeaponData : ScriptableObject
     [Header("기본 전투 스탯")]
 
     [Tooltip("전투 시작 시 사용할 기본 공격력")]
-    [Min(0)][SerializeField] int _baseDamage;
+    [Min(0)][SerializeField] float _baseDamage;
 
     [Tooltip("공격과 다음 공격 사이의 기본 대기시간")]
     [Min(0.01f)][SerializeField] float _baseCooltime;
@@ -138,6 +155,18 @@ public class WeaponData : ScriptableObject
     public Sprite Icon => _icon;
     public GameObject ProjectilePrefab => _projectilePrefab;
 
+    // 발사 시 사용할 총구 이펙트를 제공한다.
+    public SpriteOneShotEffect MuzzleEffectPrefab => _muzzleEffectPrefab;
+
+    // 레이저의 기본 충전 시간을 제공한다.
+    public float LazerChargeDuration => _lazerChargeDuration;
+
+    // 레이저 충전 시간의 하한을 제공한다.
+    public float LazerMinimumChargeDuration => _lazerMinimumChargeDuration;
+
+    // 최대 출력의 피해 배율을 제공한다.
+    public float LazerMaxDamageMultiplier => _lazerMaxDamageMultiplier;
+
     // 무기 변경 시 Weapon이 적용할 캐릭터 전용 Sprite Library다.
     // null이면 캐릭터 프리팹에 연결된 기본 라이브러리를 사용한다.
     public SpriteLibraryAsset PlayerSpriteLibrary =>
@@ -152,7 +181,16 @@ public class WeaponData : ScriptableObject
         _characterSelectPreviewOffset;
 
     // 무기 기본 전투 스탯
-    public int BaseDamage => _baseDamage;
+    // 선택한 무기의 기본 이동속도이며 증강값은 PlayerController에서 더한다.
+    [SerializeField, Min(0f)] float _weaponMoveSpeed = 5f;
+    // 레이저 연사 강화는 충전 시간이 아닌 초당 타격 빈도에 적용한다.
+    [SerializeField, Min(0.1f)] float _lazerHitsPerSecond = 10f;
+    [SerializeField, Min(0f)] float _lazerHitsPerSecondUpgrade = 1f;
+    public float WeaponMoveSpeed => _weaponMoveSpeed;
+    public float LazerHitsPerSecond => _lazerHitsPerSecond;
+    public float LazerHitsPerSecondUpgrade => _lazerHitsPerSecondUpgrade;
+
+    public float BaseDamage => _baseDamage;
     public float BaseCooltime => _baseCooltime;
 
     // 수류탄만 충전형 무기로 사용한다.

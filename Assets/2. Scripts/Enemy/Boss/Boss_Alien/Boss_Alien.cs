@@ -152,6 +152,9 @@ public sealed class Boss_Alien : BossEnemy
     // 실제 피해를 막는 손톱 실드와는 별개의 UI 설정이다.
     public override bool UsesShieldHealthBar => true;
 
+    /// <summary>
+    /// 컴포넌트 참조와 초기 실행 상태를 준비한다.
+    /// </summary>
     protected override void Awake()
     {
         // 공통 체력, 이동 객체, 필수 컴포넌트를 초기화한다.
@@ -229,6 +232,9 @@ public sealed class Boss_Alien : BossEnemy
         ResetArm();
     }
 
+    /// <summary>
+    /// OnBossInitialized 동작에 필요한 상태와 처리 흐름을 실행한다.
+    /// </summary>
     protected override void OnBossInitialized()
     {
         base.OnBossInitialized();
@@ -241,6 +247,9 @@ public sealed class Boss_Alien : BossEnemy
         InitializeHealthPatterns();
     }
 
+    /// <summary>
+    /// 활성화 시 초기 상태와 이벤트 연결을 준비한다.
+    /// </summary>
     private void OnEnable()
     {
         // 전투 도중 비활성화됐다가 켜진 경우 구독을 복구한다.
@@ -259,6 +268,9 @@ public sealed class Boss_Alien : BossEnemy
         HandleCrackCountChanged(_crackController.Count);
     }
 
+    /// <summary>
+    /// 비활성화 시 이벤트 연결과 실행 상태를 정리한다.
+    /// </summary>
     protected override void OnDisable()
     {
         // 전투 중단 시 진행 중인 본체 등장 처리를 취소한다.
@@ -303,6 +315,9 @@ public sealed class Boss_Alien : BossEnemy
         base.OnDisable();
     }
 
+    /// <summary>
+    /// HandlePlayerDied 동작에 필요한 상태와 처리 흐름을 실행한다.
+    /// </summary>
     private void HandlePlayerDied()
     {
         // 전투 중단 시 진행 중인 본체 등장 처리를 취소한다.
@@ -321,6 +336,9 @@ public sealed class Boss_Alien : BossEnemy
         ResetArm();
     }
 
+    /// <summary>
+    /// ResetArm 동작에 필요한 상태와 처리 흐름을 실행한다.
+    /// </summary>
     public void ResetArm()
     {
         // Awake 도중 설정 오류가 난 경우에도 안전하게 종료한다.
@@ -337,6 +355,9 @@ public sealed class Boss_Alien : BossEnemy
 
     // 지정한 소켓의 현재 월드 위치를 반환한다.
     // 보스가 이동해도 이동한 소켓 위치에서 발사할 수 있다.
+    /// <summary>
+    /// 보스가 이동해도 이동한 소켓 위치에서 발사할 수 있다.
+    /// </summary>
     public Vector3 GetMissileSpawnPosition(int socketIndex)
     {
         if (_missileSockets == null ||
@@ -357,6 +378,9 @@ public sealed class Boss_Alien : BossEnemy
     }
 
     // 균열 개수에 따라 실드를 갱신하고, 균열이 없어지면 경고 대기도 해제한다.
+    /// <summary>
+    /// 균열 개수에 따라 실드를 갱신하고, 균열이 없어지면 경고 대기도 해제한다.
+    /// </summary>
     private void HandleCrackCountChanged(int count)
     {
         _shieldVisual.SetActive(
@@ -370,7 +394,10 @@ public sealed class Boss_Alien : BossEnemy
     }
 
     // 균열 수와 관계없이 설정된 감소율을 한 번만 적용한다.
-    protected override int CalculateIncomingDamage(int damage)
+    /// <summary>
+    /// 방어 효과를 적용한 실제 피해를 소수점까지 계산한다.
+    /// </summary>
+    protected override float CalculateIncomingDamage(float damage)
     {
         if (!_crackController.isActiveAndEnabled ||
             _crackController.Count == 0)
@@ -387,14 +414,14 @@ public sealed class Boss_Alien : BossEnemy
             return 0;
         }
 
-        // 정수 체력에 맞춰 반올림한다.
-        // 100% 미만에서는 작은 공격도 최소 1의 피해를 준다.
-        return Mathf.Max(
-            1,
-            Mathf.RoundToInt(damage * (1f - reduction / 100f)));
+        // 피해 감소를 적용한 소수점 수치를 그대로 반환한다.
+        return Mathf.Max(0f, damage * (1f - reduction / 100f));
     }
 
     // 사망 순간 균열과 실드를 함께 정리한다.
+    /// <summary>
+    /// 사망 순간 균열과 실드를 함께 정리한다.
+    /// </summary>
     protected override void OnBossDefeated()
     {
         _crackController.ClearAll();
@@ -404,6 +431,9 @@ public sealed class Boss_Alien : BossEnemy
     }
 
     // 체력 조건을 검증하고 이번 전투의 발동 기록을 초기화한다.
+    /// <summary>
+    /// 체력 조건을 검증하고 이번 전투의 발동 기록을 초기화한다.
+    /// </summary>
     private void InitializeHealthPatterns()
     {
         _isHealthPatternReady = false;
@@ -444,7 +474,10 @@ public sealed class Boss_Alien : BossEnemy
     }
 
     // 부모가 피해 감소와 체력 차감을 처리한 뒤 호출한다.
-    protected override void OnBossDamaged(int damage)
+    /// <summary>
+    /// 보스 피격 이후 상태와 패턴을 갱신한다.
+    /// </summary>
+    protected override void OnBossDamaged(float damage)
     {
         base.OnBossDamaged(damage);
 
@@ -453,6 +486,9 @@ public sealed class Boss_Alien : BossEnemy
     }
 
     // 조건을 만족한 항목을 전투 중 한 번씩 요청한다.
+    /// <summary>
+    /// 조건을 만족한 항목을 전투 중 한 번씩 요청한다.
+    /// </summary>
     private void CheckHealthPatterns()
     {
         if (!_isHealthPatternReady ||
@@ -488,6 +524,9 @@ public sealed class Boss_Alien : BossEnemy
     }
 
     // 균열 3개가 완성되면 즉시 경고를 표시하고 공명을 예약한다.
+    /// <summary>
+    /// 균열 3개가 완성되면 즉시 경고를 표시하고 공명을 예약한다.
+    /// </summary>
     private void HandleMaxCracksReached()
     {
         if (!CanRunArmPattern ||
@@ -509,6 +548,9 @@ public sealed class Boss_Alien : BossEnemy
     }
 
     // 경고가 끝났거나 공명이 취소되면 대기 상태와 이벤트 구독을 정리한다.
+    /// <summary>
+    /// 경고가 끝났거나 공명이 취소되면 대기 상태와 이벤트 구독을 정리한다.
+    /// </summary>
     private void ClearResonanceWarningWait()
     {
         SystemDialogueCompleted -= ClearResonanceWarningWait;
@@ -516,6 +558,9 @@ public sealed class Boss_Alien : BossEnemy
     }
 
     // 로봇 체력이 소진되면 최종 사망 대신 본체 등장 연출을 시작한다.
+    /// <summary>
+    /// 로봇 체력이 소진되면 최종 사망 대신 본체 등장 연출을 시작한다.
+    /// </summary>
     protected override bool TryBeginNextPhase()
     {
         // 전환 중에 다시 호출되어도 연출이나 사망 처리를 반복하지 않는다.
@@ -581,6 +626,9 @@ public sealed class Boss_Alien : BossEnemy
     }
 
     // 전환 연출이 끝나면 관리자에게 본체 프리팹 교체를 요청한다.
+    /// <summary>
+    /// 전환 연출이 끝나면 관리자에게 본체 프리팹 교체를 요청한다.
+    /// </summary>
     private IEnumerator PlayPhaseTransition()
     {
         // 로봇의 전환 연출을 처음부터 재생한다.
@@ -653,6 +701,9 @@ public sealed class Boss_Alien : BossEnemy
     }
 
     // 전투 중단 후 전환 코루틴이 뒤늦게 완료되는 것을 막는다.
+    /// <summary>
+    /// 전투 중단 후 전환 코루틴이 뒤늦게 완료되는 것을 막는다.
+    /// </summary>
     private void StopPhaseTransitionRoutine()
     {
         if (_phaseTransitionRoutine == null)

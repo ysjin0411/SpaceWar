@@ -11,7 +11,7 @@ public class WeaponRuntimeState
     [Header("런타임 데이터")]
 
     [SerializeField] WeaponData _data;           // 이 런타임 상태가 사용하는 원본 무기 데이터
-    [SerializeField] int _currentDamage;         // 증강이 적용된 현재 공격력
+    [SerializeField] float _currentDamage;         // 증강이 적용된 현재 공격력
     [SerializeField] float _currentCooltime;     // 증강이 적용된 현재 공격 쿨타임
 
     [Header("충전형 무기 런타임 데이터")]
@@ -51,7 +51,10 @@ public class WeaponRuntimeState
             : 0f;
 
     public WeaponData Data => _data;
-    public int CurrentDamage => _currentDamage;
+    // 무기별 런타임 값이므로 다른 슬롯의 레이저와 증강 횟수를 공유하지 않는다.
+    [SerializeField] float _currentLazerHitsPerSecond;
+    public float CurrentLazerHitsPerSecond => _currentLazerHitsPerSecond;
+    public float CurrentDamage => _currentDamage;
     public float CurrentCooltime => _currentCooltime;
 
     // 강화가 적용된 현재 수류탄 1개 충전 시간이다.
@@ -102,6 +105,9 @@ public class WeaponRuntimeState
         }
     }
 
+    /// <summary>
+    /// WeaponRuntimeState 처리에서 변경된 전투 수치와 상태를 반영한다.
+    /// </summary>
     public WeaponRuntimeState(WeaponData data)
     {
         // 런타임 상태는 반드시 원본 WeaponData를 가지고 시작해야 한다.
@@ -117,6 +123,7 @@ public class WeaponRuntimeState
 
         // 전투 시작 시 기본 공격력과 기본 공격 쿨타임을 사용한다.
         _currentDamage = data.BaseDamage;
+        _currentLazerHitsPerSecond = data.LazerHitsPerSecond;
         _currentCooltime = data.BaseCooltime;
 
         // Stage 시작 시 WeaponData에 설정된 기본 충전 시간을 사용한다.
@@ -220,6 +227,9 @@ public class WeaponRuntimeState
     }
 
     // 장착된 실드의 자연회복을 진행한다.
+    /// <summary>
+    /// 장착된 실드의 자연회복을 진행한다.
+    /// </summary>
     public void UpdateShieldRecovery(float deltaTime)
     {
         // 실드가 아니거나 시간이 흐르지 않으면 처리하지 않는다.
@@ -236,6 +246,9 @@ public class WeaponRuntimeState
     }
 
     // 자연회복과 증강 회복이 함께 사용하는 체력 회복 함수.
+    /// <summary>
+    /// 자연회복과 증강 회복이 함께 사용하는 체력 회복 함수.
+    /// </summary>
     public void RestoreShieldHealth(float amount)
     {
         if (!_data.IsShield || amount <= 0f)
@@ -252,6 +265,9 @@ public class WeaponRuntimeState
 
     // 실드가 공격을 막았을 때 체력을 소모한다.
     // true는 이번 공격을 실드가 받아냈다는 뜻이다.
+    /// <summary>
+    /// true는 이번 공격을 실드가 받아냈다는 뜻이다.
+    /// </summary>
     public bool TryAbsorbShieldDamage(float damage)
     {
         // 이미 체력이 없거나 잘못된 피해량이면 막지 않는다.
@@ -270,7 +286,10 @@ public class WeaponRuntimeState
     }
 
     // 공격력 증강을 무기 종류에 맞게 적용한다.
-    public void AddDamage(int value)
+    /// <summary>
+    /// 소수점 공격력 증강을 현재 무기 공격력에 더한다.
+    /// </summary>
+    public void AddDamage(float value)
     {
         if (_data.IsShield)
         {
@@ -294,6 +313,13 @@ public class WeaponRuntimeState
     /// </summary>
     public void AddFireRate()
     {
+        // 레이저는 초당 타격 횟수를 늘리며 충전 시간은 그대로 유지한다.
+        if (_data.Type == WeaponType.Lazer)
+        {
+            _currentLazerHitsPerSecond += _data.LazerHitsPerSecondUpgrade;
+            return;
+        }
+
         // 실드는 공격 쿨타임 대신 초당 자연회복량을 증가시킨다.
         if (_data.IsShield)
         {

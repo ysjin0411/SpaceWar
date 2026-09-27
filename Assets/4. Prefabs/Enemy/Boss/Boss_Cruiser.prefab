@@ -715,7 +715,7 @@ Animator:
   m_GameObject: {fileID: 5750769060912991443}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 193eeeaa613b85349b27cbe870c0f194, type: 2}
+  m_Controller: {fileID: 9100000, guid: 22d1799feb226914a9880d3a6a1fe5c0, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -935,6 +935,9 @@ MonoBehaviour:
     _entries:
     - _prefab: {fileID: 1741529324464940269, guid: 1056bdc6af0943f4e9c5f854691450f8, type: 3}
       _count: 1
+  _stageDrops:
+  - _prefab: {fileID: 4012495091504343507, guid: 2f2fd5caed3b9a540866aa6a368269ad, type: 3}
+    _dropChancePercent: 100
   _itemDropPoint: {fileID: 4008790366048633040}
 --- !u!114 &8790472829186395643
 MonoBehaviour:
@@ -983,6 +986,7 @@ MonoBehaviour:
   _summonPointA: {fileID: 7407049284673796881}
   _summonPointB: {fileID: 7224590412404264560}
   _summonPointC: {fileID: 4414700675182493123}
+  _phaseAnimator: {fileID: 7177751443503475103}
 --- !u!50 &486255449174284901
 Rigidbody2D:
   serializedVersion: 5

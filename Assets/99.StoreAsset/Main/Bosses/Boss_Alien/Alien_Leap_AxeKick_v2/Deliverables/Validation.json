@@ -1,0 +1,18 @@
+{
+  "body_frames": 36,
+  "fps": 24,
+  "duration_seconds": 1.5,
+  "canvas": [
+    2048,
+    2048
+  ],
+  "transparent_RGBA": true,
+  "edge_clipped_frames": [],
+  "idle_pixel_exact": true,
+  "ppu": 100,
+  "scale": 0.43,
+  "impact_frame": 28,
+  "impact_time_seconds": 1.125,
+  "unity_tested": false,
+  "detail_identity": "Generated action poses are not pixel-identical to original. Head-size normalization is approximate."
+}

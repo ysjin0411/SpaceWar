@@ -19,7 +19,7 @@ public abstract class Projectile : MonoBehaviour
     [SerializeField] float _lifeTime = 5f;
 
     [Tooltip("Weapon에서 전달받은 현재 공격력")]
-    [SerializeField] int _damage;
+    [SerializeField] float _damage;
 
     // 직접 명중할 때 생성할 이펙트다.
     // Bullet, Slash, Sniper 프리팹에 공통 HitEffect를 연결한다.
@@ -42,7 +42,7 @@ public abstract class Projectile : MonoBehaviour
     protected float MoveSpeed => _moveSpeed;
 
     // 자식 클래스가 현재 공격력을 읽을 수 있게 제공한다.
-    protected int Damage => _damage;
+    protected float Damage => _damage;
 
     // 자식 클래스가 현재 진행 방향을 읽거나 변경할 수 있게 제공한다.
     protected Vector2 Direction { get; set; }
@@ -50,6 +50,9 @@ public abstract class Projectile : MonoBehaviour
     // Weapon에서 정상적으로 초기화됐는지 저장한다.
     bool _isInitialized;
 
+    /// <summary>
+    /// 컴포넌트 참조와 초기 실행 상태를 준비한다.
+    /// </summary>
     protected virtual void Awake()
     {
         // 같은 오브젝트에 있는 Rigidbody2D를 가져온다.
@@ -71,7 +74,7 @@ public abstract class Projectile : MonoBehaviour
     /// <summary>
     /// Weapon이 투사체를 생성한 직후 호출한다.
     /// </summary>
-    public void Initialize(int damage, Vector2 direction)
+    public void Initialize(float damage, Vector2 direction)
     {
         // 0 이하 공격력은 정상적인 투사체 공격력이 아니다.
         if (damage <= 0)
@@ -104,6 +107,9 @@ public abstract class Projectile : MonoBehaviour
         Destroy(gameObject, _lifeTime);
     }
 
+    /// <summary>
+    /// 물리 갱신 주기에 맞춰 이동과 충돌 처리를 수행한다.
+    /// </summary>
     protected virtual void FixedUpdate()
     {
         // Weapon이 초기화하기 전에는 움직이지 않는다.
@@ -130,6 +136,9 @@ public abstract class Projectile : MonoBehaviour
     {
     }
 
+    /// <summary>
+    /// HandleTargetHit 동작에 필요한 상태와 처리 흐름을 실행한다.
+    /// </summary>
     protected virtual void HandleTargetHit(IDamageable target)
     {
         // 대상이 죽어도 이펙트가 남도록 독립 오브젝트로 먼저 생성한다.
@@ -151,6 +160,9 @@ public abstract class Projectile : MonoBehaviour
     /// </summary>
     protected virtual bool DestroyAfterHit => true;
 
+    /// <summary>
+    /// OnTriggerEnter2D 동작에 필요한 상태와 처리 흐름을 실행한다.
+    /// </summary>
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         // 아직 초기화되지 않았거나 이미 소비된 투사체는 처리하지 않는다.

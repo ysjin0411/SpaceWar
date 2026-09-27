@@ -14,8 +14,8 @@ public class PlayerController : MonoBehaviour, IDamageable
     [SerializeField] float _moveSpeed;      // 캐릭터 이동속도
 
     [Header("런타임 체력 데이터")]
-    [SerializeField] int _maxHp;            // 최대 체력
-    [SerializeField] int _currentHp;        // 현재 체력
+    [SerializeField] float _maxHp;            // 최대 체력
+    [SerializeField] float _currentHp;        // 현재 체력
 
     [Header("UI")]
     [SerializeField] HPUI _hpUI;
@@ -38,6 +38,13 @@ public class PlayerController : MonoBehaviour, IDamageable
         new Dictionary<MonoBehaviour, Vector2>();
 
     Rigidbody2D _rigidbody;
+    // 무기를 바꿔도 누적 이동속도 증강은 유지한다.
+    float _moveSpeedBonus;
+    Weapon _weapon;
+    // 무기가 없으면 CharacterData에서 읽은 기본 속도를 사용한다.
+    public float CurrentMoveSpeed => Mathf.Max(0f,
+        (_weapon != null && _weapon.CurrentWeapon != null
+            ? _weapon.CurrentWeapon.Data.WeaponMoveSpeed : _moveSpeed) + _moveSpeedBonus);
 
 
     // 이동 가능한 화면 영역
@@ -46,18 +53,26 @@ public class PlayerController : MonoBehaviour, IDamageable
     const float MinY = -4f;
     const float MaxY = 4f;
 
+    // 플레이어와 필드 아이템이 공유하는 월드 이동 범위다.
+    public static Rect MovementBounds =>
+        Rect.MinMaxRect(MinX, MinY, MaxX, MaxY);
 
-    public int MaxHp => _maxHp;
-    public int CurrentHp => _currentHp;
+
+    public float MaxHp => _maxHp;
+    public float CurrentHp => _currentHp;
 
     // 기본 조작 허용 상태와 강제 이동 상태를 함께 반영한다.
     public bool CanControl =>
         _canControl && !_hasForcedMovement && !IsDead;
-    public bool IsDead => _currentHp <= 0;    
+    public bool IsDead => _currentHp <= 0;
+
+    // 조작 가능한 상태에서 이동 방향이 입력되고 있는지 알려준다.
+    public bool HasMoveInput =>
+        CanControl && _moveDirection.sqrMagnitude > 0.001f;
     public Transform TargetTransform => transform;  // 캐릭터의 위치 전달
 
     // 캐릭터가 데미지 입었을때 이벤트
-    public event Action<int> Damaged;
+    public event Action<float> Damaged;
 
     // 캐릭터가 사망했을 때 스테이지 시스템에 알린다.
     public event Action Died;
@@ -67,10 +82,14 @@ public class PlayerController : MonoBehaviour, IDamageable
 
 
 
+    /// <summary>
+    /// 사용할 컴포넌트와 초기 참조를 준비한다.
+    /// </summary>
     private void Awake()
     {
         // Player 프리팹에 있는 Rigidbody2D를 가져온다.
         _rigidbody = GetComponent<Rigidbody2D>();
+        _weapon = GetComponent<Weapon>();
 
         // Rigidbody2D가 없다면 플레이어를 이동시킬 수 없다.
         if (_rigidbody == null)
@@ -79,6 +98,9 @@ public class PlayerController : MonoBehaviour, IDamageable
         }
     }
 
+    /// <summary>
+    /// 초기화된 데이터를 화면과 실행 상태에 반영한다.
+    /// </summary>
     private void Start()
     {
         // HpUI 시작 업데이트
@@ -105,6 +127,7 @@ public class PlayerController : MonoBehaviour, IDamageable
         _maxHp = characterData.BaseHp;
         _currentHp = _maxHp;
         _moveSpeed = characterData.BaseMoveSpeed;
+        _moveSpeedBonus = 0f;
 
         // 프리팹이 직접 참조할 수 없는 Stage의 UI를 전달받는다.
         _hpUI = hpUI;
@@ -112,6 +135,9 @@ public class PlayerController : MonoBehaviour, IDamageable
         UpdateHpUI();
     }
 
+    /// <summary>
+    /// 매 프레임 입력과 경과 시간에 따른 상태를 갱신한다.
+    /// </summary>
     private void Update()
     {
         // 이동을 맡은 객체가 사라지거나 비활성화되면 잠금을 정리한다.
@@ -137,6 +163,9 @@ public class PlayerController : MonoBehaviour, IDamageable
         _moveDirection = new Vector2(horizontal, vertical).normalized;
     }
 
+    /// <summary>
+    /// FixedUpdate 처리에서 변경된 전투 수치와 상태를 반영한다.
+    /// </summary>
     private void FixedUpdate()
     {
         // 강제 이동 중에는 일반 이동과 화면 경계 보정을 적용하지 않는다.
@@ -147,7 +176,7 @@ public class PlayerController : MonoBehaviour, IDamageable
         }
 
         // 플레이어가 직접 입력한 이동 속도다.
-        Vector2 velocity = _moveDirection * _moveSpeed;
+        Vector2 velocity = _moveDirection * CurrentMoveSpeed;
 
         // 활성 상태인 외부 효과의 이동 속도를 합산한다.
         foreach (KeyValuePair<MonoBehaviour, Vector2> entry
@@ -194,6 +223,9 @@ public class PlayerController : MonoBehaviour, IDamageable
     }
 
     // 입장·구간 전환 등 기존 시스템의 조작 허용 상태를 변경한다.
+    /// <summary>
+    /// 입장·구간 전환 등 기존 시스템의 조작 허용 상태를 변경한다.
+    /// </summary>
     public void SetControlEnabled(bool canControl)
     {
         _canControl = canControl;
@@ -201,6 +233,9 @@ public class PlayerController : MonoBehaviour, IDamageable
     }
 
     // 최종 조작 가능 상태를 무기에도 전달한다.
+    /// <summary>
+    /// 최종 조작 가능 상태를 무기에도 전달한다.
+    /// </summary>
     private void NotifyControlState()
     {
         _moveDirection = Vector2.zero;
@@ -218,8 +253,12 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     // 일반 총알·몸박 등의 피해를 처리한다.
     // 잡기·던지기·반사 이동 중에는 CanControl이 false이므로 차단한다.
-    public void TakeHit(int damage)
+    /// <summary>
+    /// 소수점 피해를 반영하고 피격 및 사망 처리를 실행한다.
+    /// </summary>
+    public void TakeHit(float damage)
     {
+        // 소수점 피해를 반영하고 피격 및 사망 처리를 실행한다.
         if (!CanControl || _isHitInvulnerable || damage <= 0)
         {
             return;
@@ -230,8 +269,12 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     // 지속 피해도 조작이 복구되기 전까지 차단한다.
     // 조작 가능 상태에서는 기존처럼 일반 피격 무적을 무시한다.
-    public void TakeContinuousDamage(int damage)
+    /// <summary>
+    /// 조작 가능 상태에서는 기존처럼 일반 피격 무적을 무시한다.
+    /// </summary>
+    public void TakeContinuousDamage(float damage)
     {
+        // 조작 가능 상태에서는 기존처럼 일반 피격 무적을 무시한다.
         if (!CanControl || damage <= 0)
         {
             return;
@@ -241,7 +284,10 @@ public class PlayerController : MonoBehaviour, IDamageable
     }
 
     // 일반 피해와 지속 피해의 체력 감소, UI 갱신, 사망 처리를 공유한다.
-    private void ApplyDamage(int damage, bool playHitReaction)
+    /// <summary>
+    /// 일반 피해와 지속 피해의 체력 감소, UI 갱신, 사망 처리를 공유한다.
+    /// </summary>
+    private void ApplyDamage(float damage, bool playHitReaction)
     {
         // 체력이 음수가 되지 않도록 제한한다.
         _currentHp = Mathf.Max(0, _currentHp - damage);
@@ -270,6 +316,9 @@ public class PlayerController : MonoBehaviour, IDamageable
     }
 
     // 깜빡임 상태가 끝나면 다시 피해를 받을 수 있게 한다.
+    /// <summary>
+    /// 깜빡임 상태가 끝나면 다시 피해를 받을 수 있게 한다.
+    /// </summary>
     public void EndHitInvulnerability()
     {
         _isHitInvulnerable = false;
@@ -317,14 +366,15 @@ public class PlayerController : MonoBehaviour, IDamageable
     /// </summary><param name="value">추가할 이동속도</param>
     public void AddMoveSpeed(float value)
     {
-        _moveSpeed += value;
+        // 무기의 기본값을 변경하지 않고 증강분만 누적한다.
+        _moveSpeedBonus += value;
     }
 
     /// <summary>
     /// 최대체력을 증가시키고 현재 체력을 새로운 최대체력까지 회복한다.
     /// </summary>
     /// <param name="amount">증가할 최대체력</param>
-    public void IncreaseMaxHpAndFullHeal(int amount)
+    public void IncreaseMaxHpAndFullHeal(float amount)
     {
         if (amount <= 0)
         {
@@ -342,6 +392,9 @@ public class PlayerController : MonoBehaviour, IDamageable
     }
 
     // 잡기에 성공한 객체가 플레이어의 이동 권한을 요청한다.
+    /// <summary>
+    /// 잡기에 성공한 객체가 플레이어의 이동 권한을 요청한다.
+    /// </summary>
     public bool TryBeginForcedMovement(MonoBehaviour owner)
     {
         if (owner == null)
@@ -366,6 +419,9 @@ public class PlayerController : MonoBehaviour, IDamageable
     }
 
     // 권한을 가진 객체만 잡기·던지기의 월드 위치를 전달할 수 있다.
+    /// <summary>
+    /// 권한을 가진 객체만 잡기·던지기의 월드 위치를 전달할 수 있다.
+    /// </summary>
     public bool TrySetForcedPosition(MonoBehaviour owner, Vector2 position)
     {
         if (!_hasForcedMovement ||
@@ -390,6 +446,9 @@ public class PlayerController : MonoBehaviour, IDamageable
     }
 
     // 정상 종료나 패턴 취소 시 권한을 가진 객체가 호출한다.
+    /// <summary>
+    /// 정상 종료나 패턴 취소 시 권한을 가진 객체가 호출한다.
+    /// </summary>
     public void EndForcedMovement(MonoBehaviour owner)
     {
         if (!_hasForcedMovement ||
@@ -403,6 +462,9 @@ public class PlayerController : MonoBehaviour, IDamageable
     }
 
     // 소유자 제거·사망·비활성화에서도 공통으로 사용하는 정리다.
+    /// <summary>
+    /// 소유자 제거·사망·비활성화에서도 공통으로 사용하는 정리다.
+    /// </summary>
     private void ReleaseForcedMovement()
     {
         if (!_hasForcedMovement)
@@ -432,6 +494,9 @@ public class PlayerController : MonoBehaviour, IDamageable
     }
 
     // 플레이어가 비활성화되면 남은 이동 권한을 정리한다.
+    /// <summary>
+    /// 플레이어가 비활성화되면 남은 이동 권한을 정리한다.
+    /// </summary>
     private void OnDisable()
     {
         ReleaseForcedMovement();
@@ -440,7 +505,10 @@ public class PlayerController : MonoBehaviour, IDamageable
     // 강제 이동을 관리하는 객체가 해당 패턴의 피해를 적용한다.
     // 외부 피해 차단과 기존 피격 무적을 무시하지만,
     // 이동 권한이 없거나 플레이어가 사망한 경우에는 적용하지 않는다.
-    public void ApplyForcedMovementDamage(MonoBehaviour owner, int damage)
+    /// <summary>
+    /// 이동 권한이 없거나 플레이어가 사망한 경우에는 적용하지 않는다.
+    /// </summary>
+    public void ApplyForcedMovementDamage(MonoBehaviour owner, float damage)
     {
         if (!isActiveAndEnabled ||
             !_hasForcedMovement ||

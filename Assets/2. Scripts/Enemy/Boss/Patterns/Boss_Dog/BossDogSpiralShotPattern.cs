@@ -39,7 +39,7 @@ public sealed class BossDogSpiralShotPattern : BossPattern
     // 이 패턴에서 발사하는 총알 한 발의 피해량이다.
     [Min(0)]
     [SerializeField]
-    int _bulletDamage = 5;
+    float _bulletDamage = 5;
 
     [Header("회전 난사")]
 

@@ -1,0 +1,2273 @@
+{
+  "checks": "PASS",
+  "scope": "File-level dimensions, RGBA, transparent edges, counts, Soldier vertical anchors. Unity playback not tested.",
+  "counts": {
+    "soldier_64": 40,
+    "soldier_hd": 40,
+    "warrior_new_combo": 16,
+    "warrior_original_attack_reference": 8,
+    "weapon_trails": 24,
+    "shield_idle": 4,
+    "shield_attack": 4,
+    "shield_guard": 1,
+    "shield_impact": 8
+  },
+  "errors": [],
+  "files": [
+    {
+      "file": "Soldier/DropIn_64/Bullet/Attack/Soldier_Bullet_Attack_01.png",
+      "width": 64,
+      "height": 64,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        12,
+        14,
+        51,
+        50
+      ],
+      "blank": false,
+      "sha256": "d23dd88802c3c928b051edf3e48d31916e1d667252c260fa4633fcf8c3bceaf9"
+    },
+    {
+      "file": "Soldier/DropIn_64/Bullet/Attack/Soldier_Bullet_Attack_02.png",
+      "width": 64,
+      "height": 64,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        12,
+        14,
+        50,
+        50
+      ],
+      "blank": false,
+      "sha256": "9512a494818f9bbc7e6e87bf14161ae89ea4b1b6e91d1346dab1c11007e00c56"
+    },
+    {
+      "file": "Soldier/DropIn_64/Bullet/Attack/Soldier_Bullet_Attack_03.png",
+      "width": 64,
+      "height": 64,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        12,
+        14,
+        50,
+        50
+      ],
+      "blank": false,
+      "sha256": "c94c8b814afdc33bcaf069b3ae987f5564b835f7c49ae3136ec45ddd45977db6"
+    },
+    {
+      "file": "Soldier/DropIn_64/Bullet/Attack/Soldier_Bullet_Attack_04.png",
+      "width": 64,
+      "height": 64,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        12,
+        14,
+        51,
+        50
+      ],
+      "blank": false,
+      "sha256": "d23dd88802c3c928b051edf3e48d31916e1d667252c260fa4633fcf8c3bceaf9"
+    },
+    {
+      "file": "Soldier/DropIn_64/Bullet/Idle/Soldier_Bullet_Idle_01.png",
+      "width": 64,
+      "height": 64,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        12,
+        14,
+        51,
+        50
+      ],
+      "blank": false,
+      "sha256": "d23dd88802c3c928b051edf3e48d31916e1d667252c260fa4633fcf8c3bceaf9"
+    },
+    {
+      "file": "Soldier/DropIn_64/Bullet/Idle/Soldier_Bullet_Idle_02.png",
+      "width": 64,
+      "height": 64,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        12,
+        14,
+        51,
+        50
+      ],
+      "blank": false,
+      "sha256": "29eaab6366e5ef70f36887d0fa65c8bde62c6cab3e76c194990306b0a4cebd4c"
+    },
+    {
+      "file": "Soldier/DropIn_64/Bullet/Idle/Soldier_Bullet_Idle_03.png",
+      "width": 64,
+      "height": 64,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        12,
+        14,
+        51,
+        50
+      ],
+      "blank": false,
+      "sha256": "f02a3488d9164229057aa64107b9cc0579482cf9ee045f27e0f88666ede7ec9b"
+    },
+    {
+      "file": "Soldier/DropIn_64/Bullet/Idle/Soldier_Bullet_Idle_04.png",
+      "width": 64,
+      "height": 64,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        12,
+        14,
+        51,
+        50
+      ],
+      "blank": false,
+      "sha256": "29eaab6366e5ef70f36887d0fa65c8bde62c6cab3e76c194990306b0a4cebd4c"
+    },
+    {
+      "file": "Soldier/DropIn_64/Grenade/Attack/Soldier_Grenade_Attack_01.png",
+      "width": 64,
+      "height": 64,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        12,
+        14,
+        34,
+        50
+      ],
+      "blank": false,
+      "sha256": "dc8ccb1d3cb0b0ee697f33d79bca185612bc64ff0b477efd05814cdd795e736a"
+    },
+    {
+      "file": "Soldier/DropIn_64/Grenade/Attack/Soldier_Grenade_Attack_02.png",
+      "width": 64,
+      "height": 64,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        12,
+        14,
+        35,
+        50
+      ],
+      "blank": false,
+      "sha256": "5504cb78e3c0a1e7bdc63e70698a074fbdbe1173b5a5289b0aec708a46a54717"
+    },
+    {
+      "file": "Soldier/DropIn_64/Grenade/Attack/Soldier_Grenade_Attack_03.png",
+      "width": 64,
+      "height": 64,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        12,
+        14,
+        35,
+        50
+      ],
+      "blank": false,
+      "sha256": "0bfd4bac6ef90064806419e8df62c316882c5a9b7a75b012db33516effb191a1"
+    },
+    {
+      "file": "Soldier/DropIn_64/Grenade/Attack/Soldier_Grenade_Attack_04.png",
+      "width": 64,
+      "height": 64,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        12,
+        14,
+        35,
+        50
+      ],
+      "blank": false,
+      "sha256": "f2c0435e80428ff21b40f076996e06fb55491650866ab1c3e0342301f8bea24a"
+    },
+    {
+      "file": "Soldier/DropIn_64/Grenade/Idle/Soldier_Grenade_Idle_01.png",
+      "width": 64,
+      "height": 64,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        12,
+        14,
+        35,
+        50
+      ],
+      "blank": false,
+      "sha256": "f2c0435e80428ff21b40f076996e06fb55491650866ab1c3e0342301f8bea24a"
+    },
+    {
+      "file": "Soldier/DropIn_64/Grenade/Idle/Soldier_Grenade_Idle_02.png",
+      "width": 64,
+      "height": 64,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        12,
+        14,
+        35,
+        50
+      ],
+      "blank": false,
+      "sha256": "8ca1849fe19997ef23e5c1aad56cf53fc834426beec68ef17b1d1ac060bf95c0"
+    },
+    {
+      "file": "Soldier/DropIn_64/Grenade/Idle/Soldier_Grenade_Idle_03.png",
+      "width": 64,
+      "height": 64,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        12,
+        14,
+        35,
+        50
+      ],
+      "blank": false,
+      "sha256": "1f0bd6a1f62a312e7c89deb4706397cbe9224d670eae0ecfa104bb9a3250b73e"
+    },
+    {
+      "file": "Soldier/DropIn_64/Grenade/Idle/Soldier_Grenade_Idle_04.png",
+      "width": 64,
+      "height": 64,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        12,
+        14,
+        35,
+        50
+      ],
+      "blank": false,
+      "sha256": "ae7adec7a464aa144fcc87a01ea5fa4e4a56a49a1431fa85d109e7a41e2b5771"
+    },
+    {
+      "file": "Soldier/DropIn_64/Lazer/Attack/Soldier_Lazer_Attack_01.png",
+      "width": 64,
+      "height": 64,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        12,
+        14,
+        51,
+        50
+      ],
+      "blank": false,
+      "sha256": "997af8e3135ceadefcd50c7f8dbf301ae78ba21ce6eab0eeb21539ed892d30af"
+    },
+    {
+      "file": "Soldier/DropIn_64/Lazer/Attack/Soldier_Lazer_Attack_02.png",
+      "width": 64,
+      "height": 64,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        12,
+        14,
+        50,
+        50
+      ],
+      "blank": false,
+      "sha256": "79f2ffa0a3d63aa436030b5d2752be82d03e8077ddaa90a8d2d97bda0e769654"
+    },
+    {
+      "file": "Soldier/DropIn_64/Lazer/Attack/Soldier_Lazer_Attack_03.png",
+      "width": 64,
+      "height": 64,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        12,
+        14,
+        50,
+        50
+      ],
+      "blank": false,
+      "sha256": "15b5991cdd6244302debdf696a4f1b2ed0d988266b7ae8f8671c6c270e32cc3b"
+    },
+    {
+      "file": "Soldier/DropIn_64/Lazer/Attack/Soldier_Lazer_Attack_04.png",
+      "width": 64,
+      "height": 64,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        12,
+        14,
+        51,
+        50
+      ],
+      "blank": false,
+      "sha256": "997af8e3135ceadefcd50c7f8dbf301ae78ba21ce6eab0eeb21539ed892d30af"
+    },
+    {
+      "file": "Soldier/DropIn_64/Lazer/Idle/Soldier_Lazer_Idle_01.png",
+      "width": 64,
+      "height": 64,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        12,
+        14,
+        51,
+        50
+      ],
+      "blank": false,
+      "sha256": "997af8e3135ceadefcd50c7f8dbf301ae78ba21ce6eab0eeb21539ed892d30af"
+    },
+    {
+      "file": "Soldier/DropIn_64/Lazer/Idle/Soldier_Lazer_Idle_02.png",
+      "width": 64,
+      "height": 64,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        12,
+        14,
+        51,
+        50
+      ],
+      "blank": false,
+      "sha256": "e83fe489df3e420882b1ff82e183d0ff9c7e6ead3eb4f13005ef69e2c8712972"
+    },
+    {
+      "file": "Soldier/DropIn_64/Lazer/Idle/Soldier_Lazer_Idle_03.png",
+      "width": 64,
+      "height": 64,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        12,
+        14,
+        51,
+        50
+      ],
+      "blank": false,
+      "sha256": "ad64de76cf5b1f8940503ba1fff16bfddd7bbb9b9450a0b96db126b34e3f7f27"
+    },
+    {
+      "file": "Soldier/DropIn_64/Lazer/Idle/Soldier_Lazer_Idle_04.png",
+      "width": 64,
+      "height": 64,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        12,
+        14,
+        51,
+        50
+      ],
+      "blank": false,
+      "sha256": "e83fe489df3e420882b1ff82e183d0ff9c7e6ead3eb4f13005ef69e2c8712972"
+    },
+    {
+      "file": "Soldier/DropIn_64/Missile/Attack/Soldier_Missile_Attack_01.png",
+      "width": 64,
+      "height": 64,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        12,
+        14,
+        51,
+        50
+      ],
+      "blank": false,
+      "sha256": "9de60f6dfea3ba6feed2f5584336047d6748b0cabba80c8b2985251c3f9fecc1"
+    },
+    {
+      "file": "Soldier/DropIn_64/Missile/Attack/Soldier_Missile_Attack_02.png",
+      "width": 64,
+      "height": 64,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        12,
+        14,
+        50,
+        50
+      ],
+      "blank": false,
+      "sha256": "88724b8bbea5cee433ed1b0a34440218afe73d19159d7e34ad05542c6a186d9d"
+    },
+    {
+      "file": "Soldier/DropIn_64/Missile/Attack/Soldier_Missile_Attack_03.png",
+      "width": 64,
+      "height": 64,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        12,
+        14,
+        51,
+        50
+      ],
+      "blank": false,
+      "sha256": "3c8f6b9db9ea3cc8017a6628a05502b8b00b745480d1c055f33b3bdf1110d70b"
+    },
+    {
+      "file": "Soldier/DropIn_64/Missile/Attack/Soldier_Missile_Attack_04.png",
+      "width": 64,
+      "height": 64,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        12,
+        14,
+        51,
+        50
+      ],
+      "blank": false,
+      "sha256": "9de60f6dfea3ba6feed2f5584336047d6748b0cabba80c8b2985251c3f9fecc1"
+    },
+    {
+      "file": "Soldier/DropIn_64/Missile/Idle/Soldier_Missile_Idle_01.png",
+      "width": 64,
+      "height": 64,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        12,
+        14,
+        51,
+        50
+      ],
+      "blank": false,
+      "sha256": "9de60f6dfea3ba6feed2f5584336047d6748b0cabba80c8b2985251c3f9fecc1"
+    },
+    {
+      "file": "Soldier/DropIn_64/Missile/Idle/Soldier_Missile_Idle_02.png",
+      "width": 64,
+      "height": 64,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        12,
+        14,
+        51,
+        50
+      ],
+      "blank": false,
+      "sha256": "f0ee9721d80972099d45421a697e2f5f259ee449d22bf36ce2062f4fb7bf15df"
+    },
+    {
+      "file": "Soldier/DropIn_64/Missile/Idle/Soldier_Missile_Idle_03.png",
+      "width": 64,
+      "height": 64,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        12,
+        14,
+        51,
+        50
+      ],
+      "blank": false,
+      "sha256": "2803d37d8a1990bb71795aa5e8663d5834f3936ffc1d7a780aeaf21013140ff0"
+    },
+    {
+      "file": "Soldier/DropIn_64/Missile/Idle/Soldier_Missile_Idle_04.png",
+      "width": 64,
+      "height": 64,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        12,
+        14,
+        51,
+        50
+      ],
+      "blank": false,
+      "sha256": "f0ee9721d80972099d45421a697e2f5f259ee449d22bf36ce2062f4fb7bf15df"
+    },
+    {
+      "file": "Soldier/DropIn_64/Sniper/Attack/Soldier_Sniper_Attack_01.png",
+      "width": 64,
+      "height": 64,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        12,
+        14,
+        52,
+        50
+      ],
+      "blank": false,
+      "sha256": "46952543aa577ec782c5271290e7d84338ec6c57b7eb3e5987e4f294d37ace62"
+    },
+    {
+      "file": "Soldier/DropIn_64/Sniper/Attack/Soldier_Sniper_Attack_02.png",
+      "width": 64,
+      "height": 64,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        12,
+        14,
+        51,
+        50
+      ],
+      "blank": false,
+      "sha256": "ab8b72fd07dc6600babcb604c7ba7ba4d333e484e79b4b5c035d09d876081ecc"
+    },
+    {
+      "file": "Soldier/DropIn_64/Sniper/Attack/Soldier_Sniper_Attack_03.png",
+      "width": 64,
+      "height": 64,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        12,
+        14,
+        51,
+        50
+      ],
+      "blank": false,
+      "sha256": "186121d3370716dc666f75602f557a5ae772f89f86ad495287b5d485132134a0"
+    },
+    {
+      "file": "Soldier/DropIn_64/Sniper/Attack/Soldier_Sniper_Attack_04.png",
+      "width": 64,
+      "height": 64,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        12,
+        14,
+        52,
+        50
+      ],
+      "blank": false,
+      "sha256": "46952543aa577ec782c5271290e7d84338ec6c57b7eb3e5987e4f294d37ace62"
+    },
+    {
+      "file": "Soldier/DropIn_64/Sniper/Idle/Soldier_Sniper_Idle_01.png",
+      "width": 64,
+      "height": 64,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        12,
+        14,
+        52,
+        50
+      ],
+      "blank": false,
+      "sha256": "46952543aa577ec782c5271290e7d84338ec6c57b7eb3e5987e4f294d37ace62"
+    },
+    {
+      "file": "Soldier/DropIn_64/Sniper/Idle/Soldier_Sniper_Idle_02.png",
+      "width": 64,
+      "height": 64,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        12,
+        14,
+        52,
+        50
+      ],
+      "blank": false,
+      "sha256": "cce47b88c76d74a8a5dce909e7a6d035f88a6c448865330c947a67b2461fbffe"
+    },
+    {
+      "file": "Soldier/DropIn_64/Sniper/Idle/Soldier_Sniper_Idle_03.png",
+      "width": 64,
+      "height": 64,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        12,
+        14,
+        52,
+        50
+      ],
+      "blank": false,
+      "sha256": "7e014943cc6c0df6b0503b7652e316fecb6348c24165aa8d587e3d2fe4898d4a"
+    },
+    {
+      "file": "Soldier/DropIn_64/Sniper/Idle/Soldier_Sniper_Idle_04.png",
+      "width": 64,
+      "height": 64,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        12,
+        14,
+        52,
+        50
+      ],
+      "blank": false,
+      "sha256": "cce47b88c76d74a8a5dce909e7a6d035f88a6c448865330c947a67b2461fbffe"
+    },
+    {
+      "file": "Soldier/HD_1024/Bullet/Attack/Soldier_Bullet_Attack_01.png",
+      "width": 1024,
+      "height": 1024,
+      "ppu": 1600,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        188,
+        224,
+        814,
+        800
+      ],
+      "blank": false,
+      "sha256": "7d03128ebe5eb2a00ffd1dcc83b9e5d50f351259596d1ac5207ede28272cd796"
+    },
+    {
+      "file": "Soldier/HD_1024/Bullet/Attack/Soldier_Bullet_Attack_02.png",
+      "width": 1024,
+      "height": 1024,
+      "ppu": 1600,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        188,
+        224,
+        795,
+        800
+      ],
+      "blank": false,
+      "sha256": "cee4254f8f200fcaeba19fae12f6ee0f417e02677a86f6b963070fa69224f00c"
+    },
+    {
+      "file": "Soldier/HD_1024/Bullet/Attack/Soldier_Bullet_Attack_03.png",
+      "width": 1024,
+      "height": 1024,
+      "ppu": 1600,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        188,
+        224,
+        805,
+        800
+      ],
+      "blank": false,
+      "sha256": "fbfe06fd075a41a5fdae7b971587c1221064cfb95321c1640aec7eeb7ba86def"
+    },
+    {
+      "file": "Soldier/HD_1024/Bullet/Attack/Soldier_Bullet_Attack_04.png",
+      "width": 1024,
+      "height": 1024,
+      "ppu": 1600,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        188,
+        224,
+        814,
+        800
+      ],
+      "blank": false,
+      "sha256": "7d03128ebe5eb2a00ffd1dcc83b9e5d50f351259596d1ac5207ede28272cd796"
+    },
+    {
+      "file": "Soldier/HD_1024/Bullet/Idle/Soldier_Bullet_Idle_01.png",
+      "width": 1024,
+      "height": 1024,
+      "ppu": 1600,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        188,
+        224,
+        814,
+        800
+      ],
+      "blank": false,
+      "sha256": "7d03128ebe5eb2a00ffd1dcc83b9e5d50f351259596d1ac5207ede28272cd796"
+    },
+    {
+      "file": "Soldier/HD_1024/Bullet/Idle/Soldier_Bullet_Idle_02.png",
+      "width": 1024,
+      "height": 1024,
+      "ppu": 1600,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        188,
+        224,
+        814,
+        800
+      ],
+      "blank": false,
+      "sha256": "6bf8f058ef1120d4ec9940c6dfd3417bb52b4a1720e956329726333d31b31612"
+    },
+    {
+      "file": "Soldier/HD_1024/Bullet/Idle/Soldier_Bullet_Idle_03.png",
+      "width": 1024,
+      "height": 1024,
+      "ppu": 1600,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        188,
+        224,
+        814,
+        800
+      ],
+      "blank": false,
+      "sha256": "304c0669a94a3bcd54e91b72df2362196387e5c2ad6918a0cc6682e5a15bd5a0"
+    },
+    {
+      "file": "Soldier/HD_1024/Bullet/Idle/Soldier_Bullet_Idle_04.png",
+      "width": 1024,
+      "height": 1024,
+      "ppu": 1600,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        188,
+        224,
+        814,
+        800
+      ],
+      "blank": false,
+      "sha256": "6bf8f058ef1120d4ec9940c6dfd3417bb52b4a1720e956329726333d31b31612"
+    },
+    {
+      "file": "Soldier/HD_1024/Grenade/Attack/Soldier_Grenade_Attack_01.png",
+      "width": 1024,
+      "height": 1024,
+      "ppu": 1600,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        188,
+        224,
+        543,
+        800
+      ],
+      "blank": false,
+      "sha256": "c7e4480e93de6a364dd6a4edb1adac7c6054b91197e3b1f778082be09118a62c"
+    },
+    {
+      "file": "Soldier/HD_1024/Grenade/Attack/Soldier_Grenade_Attack_02.png",
+      "width": 1024,
+      "height": 1024,
+      "ppu": 1600,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        188,
+        224,
+        560,
+        800
+      ],
+      "blank": false,
+      "sha256": "caa68807b49161fc80989765f1654e36714f9e8f78ed6fe45db5f1cf5f1e087b"
+    },
+    {
+      "file": "Soldier/HD_1024/Grenade/Attack/Soldier_Grenade_Attack_03.png",
+      "width": 1024,
+      "height": 1024,
+      "ppu": 1600,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        188,
+        224,
+        557,
+        800
+      ],
+      "blank": false,
+      "sha256": "428dd85de035d498d64a626edb3f443c81c94eb93d1f3ae36d5ae3de7d85ff4c"
+    },
+    {
+      "file": "Soldier/HD_1024/Grenade/Attack/Soldier_Grenade_Attack_04.png",
+      "width": 1024,
+      "height": 1024,
+      "ppu": 1600,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        188,
+        224,
+        569,
+        800
+      ],
+      "blank": false,
+      "sha256": "9480c9aa9e394784a5c644b5ac83afccbe875f7cd6298ca96065541a468b5c2b"
+    },
+    {
+      "file": "Soldier/HD_1024/Grenade/Idle/Soldier_Grenade_Idle_01.png",
+      "width": 1024,
+      "height": 1024,
+      "ppu": 1600,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        188,
+        224,
+        569,
+        800
+      ],
+      "blank": false,
+      "sha256": "9480c9aa9e394784a5c644b5ac83afccbe875f7cd6298ca96065541a468b5c2b"
+    },
+    {
+      "file": "Soldier/HD_1024/Grenade/Idle/Soldier_Grenade_Idle_02.png",
+      "width": 1024,
+      "height": 1024,
+      "ppu": 1600,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        188,
+        224,
+        568,
+        800
+      ],
+      "blank": false,
+      "sha256": "fc71693280fe9c4838015d2ced6cf8665c7e7845c6cf2ba51f4d69b0e6058a41"
+    },
+    {
+      "file": "Soldier/HD_1024/Grenade/Idle/Soldier_Grenade_Idle_03.png",
+      "width": 1024,
+      "height": 1024,
+      "ppu": 1600,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        188,
+        224,
+        569,
+        800
+      ],
+      "blank": false,
+      "sha256": "f95a12797458765686dec6bb5b1689fec1576d06fdfafbe49b71d2718b08199f"
+    },
+    {
+      "file": "Soldier/HD_1024/Grenade/Idle/Soldier_Grenade_Idle_04.png",
+      "width": 1024,
+      "height": 1024,
+      "ppu": 1600,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        188,
+        224,
+        570,
+        800
+      ],
+      "blank": false,
+      "sha256": "1fa73f002009239cd1b575a370592b543b472eed88c1bc8b4aa0d69b09a1286f"
+    },
+    {
+      "file": "Soldier/HD_1024/Lazer/Attack/Soldier_Lazer_Attack_01.png",
+      "width": 1024,
+      "height": 1024,
+      "ppu": 1600,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        188,
+        224,
+        813,
+        800
+      ],
+      "blank": false,
+      "sha256": "69753bc90520f736f807e803e366db7823110996404cbcd7264201fbc52d6938"
+    },
+    {
+      "file": "Soldier/HD_1024/Lazer/Attack/Soldier_Lazer_Attack_02.png",
+      "width": 1024,
+      "height": 1024,
+      "ppu": 1600,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        188,
+        224,
+        795,
+        800
+      ],
+      "blank": false,
+      "sha256": "e9270d5bdb0200ed5a64e26390681dc14d8dfcf9a9a717083cb754dc913194bf"
+    },
+    {
+      "file": "Soldier/HD_1024/Lazer/Attack/Soldier_Lazer_Attack_03.png",
+      "width": 1024,
+      "height": 1024,
+      "ppu": 1600,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        188,
+        224,
+        804,
+        800
+      ],
+      "blank": false,
+      "sha256": "2896cd65cebd5ce9411dec973d4b1c35e440d7167ba397dd2d95c4ecc1751cb1"
+    },
+    {
+      "file": "Soldier/HD_1024/Lazer/Attack/Soldier_Lazer_Attack_04.png",
+      "width": 1024,
+      "height": 1024,
+      "ppu": 1600,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        188,
+        224,
+        813,
+        800
+      ],
+      "blank": false,
+      "sha256": "69753bc90520f736f807e803e366db7823110996404cbcd7264201fbc52d6938"
+    },
+    {
+      "file": "Soldier/HD_1024/Lazer/Idle/Soldier_Lazer_Idle_01.png",
+      "width": 1024,
+      "height": 1024,
+      "ppu": 1600,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        188,
+        224,
+        813,
+        800
+      ],
+      "blank": false,
+      "sha256": "69753bc90520f736f807e803e366db7823110996404cbcd7264201fbc52d6938"
+    },
+    {
+      "file": "Soldier/HD_1024/Lazer/Idle/Soldier_Lazer_Idle_02.png",
+      "width": 1024,
+      "height": 1024,
+      "ppu": 1600,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        188,
+        224,
+        813,
+        800
+      ],
+      "blank": false,
+      "sha256": "50d6d0e943818235b14a1a17172f40adb3252c7f6955a50e9271d7e514306ecb"
+    },
+    {
+      "file": "Soldier/HD_1024/Lazer/Idle/Soldier_Lazer_Idle_03.png",
+      "width": 1024,
+      "height": 1024,
+      "ppu": 1600,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        188,
+        224,
+        813,
+        800
+      ],
+      "blank": false,
+      "sha256": "8beacf9c4c16f0b207d3d83e4d8bbcbfcf1600a00c4250b84cb1703c3deb386a"
+    },
+    {
+      "file": "Soldier/HD_1024/Lazer/Idle/Soldier_Lazer_Idle_04.png",
+      "width": 1024,
+      "height": 1024,
+      "ppu": 1600,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        188,
+        224,
+        813,
+        800
+      ],
+      "blank": false,
+      "sha256": "50d6d0e943818235b14a1a17172f40adb3252c7f6955a50e9271d7e514306ecb"
+    },
+    {
+      "file": "Soldier/HD_1024/Missile/Attack/Soldier_Missile_Attack_01.png",
+      "width": 1024,
+      "height": 1024,
+      "ppu": 1600,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        188,
+        224,
+        822,
+        800
+      ],
+      "blank": false,
+      "sha256": "dd52a40f50bda4b6feb68f347f3cee6d30ee4b8da31f6c1f5c2f5b495e674f39"
+    },
+    {
+      "file": "Soldier/HD_1024/Missile/Attack/Soldier_Missile_Attack_02.png",
+      "width": 1024,
+      "height": 1024,
+      "ppu": 1600,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        188,
+        224,
+        803,
+        800
+      ],
+      "blank": false,
+      "sha256": "c932dd9348a26d3a66b4e7989e7e237051a5c8d823c9847a075b73809088c635"
+    },
+    {
+      "file": "Soldier/HD_1024/Missile/Attack/Soldier_Missile_Attack_03.png",
+      "width": 1024,
+      "height": 1024,
+      "ppu": 1600,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        188,
+        224,
+        813,
+        800
+      ],
+      "blank": false,
+      "sha256": "5de36fa88eaaad31de51385d18142f2b99949f8f2d9b3d6ae17ae049abde838d"
+    },
+    {
+      "file": "Soldier/HD_1024/Missile/Attack/Soldier_Missile_Attack_04.png",
+      "width": 1024,
+      "height": 1024,
+      "ppu": 1600,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        188,
+        224,
+        822,
+        800
+      ],
+      "blank": false,
+      "sha256": "dd52a40f50bda4b6feb68f347f3cee6d30ee4b8da31f6c1f5c2f5b495e674f39"
+    },
+    {
+      "file": "Soldier/HD_1024/Missile/Idle/Soldier_Missile_Idle_01.png",
+      "width": 1024,
+      "height": 1024,
+      "ppu": 1600,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        188,
+        224,
+        822,
+        800
+      ],
+      "blank": false,
+      "sha256": "dd52a40f50bda4b6feb68f347f3cee6d30ee4b8da31f6c1f5c2f5b495e674f39"
+    },
+    {
+      "file": "Soldier/HD_1024/Missile/Idle/Soldier_Missile_Idle_02.png",
+      "width": 1024,
+      "height": 1024,
+      "ppu": 1600,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        188,
+        224,
+        822,
+        800
+      ],
+      "blank": false,
+      "sha256": "2018cd7290ecce726d90257699759431683c724c8907fd9495f6141b3d5c6de1"
+    },
+    {
+      "file": "Soldier/HD_1024/Missile/Idle/Soldier_Missile_Idle_03.png",
+      "width": 1024,
+      "height": 1024,
+      "ppu": 1600,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        188,
+        224,
+        822,
+        800
+      ],
+      "blank": false,
+      "sha256": "6afdad631ff2a0709b329f33227b5c69b057791a7dd2635c50226c42d2d07ca1"
+    },
+    {
+      "file": "Soldier/HD_1024/Missile/Idle/Soldier_Missile_Idle_04.png",
+      "width": 1024,
+      "height": 1024,
+      "ppu": 1600,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        188,
+        224,
+        822,
+        800
+      ],
+      "blank": false,
+      "sha256": "2018cd7290ecce726d90257699759431683c724c8907fd9495f6141b3d5c6de1"
+    },
+    {
+      "file": "Soldier/HD_1024/Sniper/Attack/Soldier_Sniper_Attack_01.png",
+      "width": 1024,
+      "height": 1024,
+      "ppu": 1600,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        188,
+        224,
+        831,
+        800
+      ],
+      "blank": false,
+      "sha256": "b5730fcd758ac3c88b6017235869dc8a330434eaf9ad6dcaa42760c9ded50048"
+    },
+    {
+      "file": "Soldier/HD_1024/Sniper/Attack/Soldier_Sniper_Attack_02.png",
+      "width": 1024,
+      "height": 1024,
+      "ppu": 1600,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        188,
+        224,
+        812,
+        800
+      ],
+      "blank": false,
+      "sha256": "7801995f84483620d4cc889fcb788530f4fa3e4c01bcee8107a5f348e4a4d22e"
+    },
+    {
+      "file": "Soldier/HD_1024/Sniper/Attack/Soldier_Sniper_Attack_03.png",
+      "width": 1024,
+      "height": 1024,
+      "ppu": 1600,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        188,
+        224,
+        822,
+        800
+      ],
+      "blank": false,
+      "sha256": "3f6ffbb3b234a257da2f9bf804256da8399fac68ac2b55a08bf370577faed5a2"
+    },
+    {
+      "file": "Soldier/HD_1024/Sniper/Attack/Soldier_Sniper_Attack_04.png",
+      "width": 1024,
+      "height": 1024,
+      "ppu": 1600,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        188,
+        224,
+        831,
+        800
+      ],
+      "blank": false,
+      "sha256": "b5730fcd758ac3c88b6017235869dc8a330434eaf9ad6dcaa42760c9ded50048"
+    },
+    {
+      "file": "Soldier/HD_1024/Sniper/Idle/Soldier_Sniper_Idle_01.png",
+      "width": 1024,
+      "height": 1024,
+      "ppu": 1600,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        188,
+        224,
+        831,
+        800
+      ],
+      "blank": false,
+      "sha256": "b5730fcd758ac3c88b6017235869dc8a330434eaf9ad6dcaa42760c9ded50048"
+    },
+    {
+      "file": "Soldier/HD_1024/Sniper/Idle/Soldier_Sniper_Idle_02.png",
+      "width": 1024,
+      "height": 1024,
+      "ppu": 1600,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        188,
+        224,
+        831,
+        800
+      ],
+      "blank": false,
+      "sha256": "7a4cdde56e019d9387a3469cd0fe83aa4370fcade602255f1b3324d26277290d"
+    },
+    {
+      "file": "Soldier/HD_1024/Sniper/Idle/Soldier_Sniper_Idle_03.png",
+      "width": 1024,
+      "height": 1024,
+      "ppu": 1600,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        188,
+        224,
+        831,
+        800
+      ],
+      "blank": false,
+      "sha256": "3bb93a0b21c09b8939176c92e7f8bbe28bb37bd9f3cc74e6c21bfac6c0bba9bb"
+    },
+    {
+      "file": "Soldier/HD_1024/Sniper/Idle/Soldier_Sniper_Idle_04.png",
+      "width": 1024,
+      "height": 1024,
+      "ppu": 1600,
+      "pivot_x": 0.5,
+      "pivot_y": 0.5,
+      "alpha_bbox": [
+        188,
+        224,
+        831,
+        800
+      ],
+      "blank": false,
+      "sha256": "7a4cdde56e019d9387a3469cd0fe83aa4370fcade602255f1b3324d26277290d"
+    },
+    {
+      "file": "Warrior/GiantSword/Attack1_Existing/GiantSword_Attack1_01.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": [
+        898,
+        803,
+        1693,
+        2000
+      ],
+      "blank": false,
+      "sha256": "2abe732afbfa188b4217f2b9b1bcc44dcc347a65b4749e0b4fa70deb33c72025"
+    },
+    {
+      "file": "Warrior/GiantSword/Attack1_Existing/GiantSword_Attack1_02.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": [
+        1371,
+        1599,
+        2628,
+        2000
+      ],
+      "blank": false,
+      "sha256": "b7aad5392fbf9d2af0a6180531031c7fca1a74577cbe0c174212ade11566d5e2"
+    },
+    {
+      "file": "Warrior/GiantSword/Attack1_Existing/GiantSword_Attack1_03.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": [
+        1367,
+        1591,
+        2490,
+        2402
+      ],
+      "blank": false,
+      "sha256": "1c6e3ffc6561c5a8ae622d7b760b3b1012d2f53705b63dfefb64ddcd1af4b300"
+    },
+    {
+      "file": "Warrior/GiantSword/Attack1_Existing/GiantSword_Attack1_04.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": [
+        1397,
+        975,
+        2053,
+        2000
+      ],
+      "blank": false,
+      "sha256": "4b4430b7d3acabd05b18ec75db744c537e71495acc0551c2d76724611e66fc68"
+    },
+    {
+      "file": "Warrior/GiantSword/Attack2/GiantSword_Attack2_01.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": [
+        1371,
+        1599,
+        2477,
+        2333
+      ],
+      "blank": false,
+      "sha256": "0f4ae62095a7529d620b0b7b43633231848f1f9718749e2ac80fea3efca89299"
+    },
+    {
+      "file": "Warrior/GiantSword/Attack2/GiantSword_Attack2_02.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": [
+        1371,
+        1599,
+        2619,
+        2000
+      ],
+      "blank": false,
+      "sha256": "0e47391cbcb5bf543a204ca5f78af9974644e78b99dbc9919861c4c8183e5f5c"
+    },
+    {
+      "file": "Warrior/GiantSword/Attack2/GiantSword_Attack2_03.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": [
+        1371,
+        931,
+        2016,
+        2000
+      ],
+      "blank": false,
+      "sha256": "b306776d0c9d24354f2fcaa80116eea8a110ebac180d583021c60d03660e3bd3"
+    },
+    {
+      "file": "Warrior/GiantSword/Attack2/GiantSword_Attack2_04.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": [
+        1371,
+        1213,
+        2413,
+        2000
+      ],
+      "blank": false,
+      "sha256": "63b5f86434962af51aa7654c1f87c397e3277073760523b5c6f1f60bc068ff08"
+    },
+    {
+      "file": "Warrior/GiantSword/Attack3/GiantSword_Attack3_01.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": [
+        1371,
+        925,
+        1779,
+        2000
+      ],
+      "blank": false,
+      "sha256": "acdbd04d06a604d747754fe4615f24ceed25cdfdb30b46ea044eaa6621a0e4f0"
+    },
+    {
+      "file": "Warrior/GiantSword/Attack3/GiantSword_Attack3_02.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": [
+        1371,
+        1079,
+        2275,
+        2000
+      ],
+      "blank": false,
+      "sha256": "08c1b3cee0d5e82b487e85b8938fe020414d09794c8c29d97a51b82897ff9054"
+    },
+    {
+      "file": "Warrior/GiantSword/Attack3/GiantSword_Attack3_03.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": [
+        1371,
+        1599,
+        2256,
+        2562
+      ],
+      "blank": false,
+      "sha256": "b4d239fafc7cdcff7927f8b4ec6cb38cb26dc627d20f15aa618bbcc5f16d6a49"
+    },
+    {
+      "file": "Warrior/GiantSword/Attack3/GiantSword_Attack3_04.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": [
+        1371,
+        947,
+        2057,
+        2000
+      ],
+      "blank": false,
+      "sha256": "75983bb7f7221ba5b29119bf6d48f99d80db4ccdbf10d414c2d967f55efe660a"
+    },
+    {
+      "file": "Warrior/GiantSword/Trails_Attack1/GiantSword_Trail1_01.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": null,
+      "blank": true,
+      "sha256": "95de7080a245d49de1c7da9c02d83c8b063693631eb5db5237fd633a2b0ef89b"
+    },
+    {
+      "file": "Warrior/GiantSword/Trails_Attack1/GiantSword_Trail1_02.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": [
+        1804,
+        1079,
+        2628,
+        1870
+      ],
+      "blank": false,
+      "sha256": "3f739b86b987d18f399700bb355b000a3f5a3ed4b440e62ec695a7256dfd9ff5"
+    },
+    {
+      "file": "Warrior/GiantSword/Trails_Attack1/GiantSword_Trail1_03.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": [
+        1824,
+        1648,
+        2628,
+        2421
+      ],
+      "blank": false,
+      "sha256": "522888be161038206f1d5e4bd49d6326d030c7afdbe80548bca6a3204b652a88"
+    },
+    {
+      "file": "Warrior/GiantSword/Trails_Attack1/GiantSword_Trail1_04.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": null,
+      "blank": true,
+      "sha256": "95de7080a245d49de1c7da9c02d83c8b063693631eb5db5237fd633a2b0ef89b"
+    },
+    {
+      "file": "Warrior/GiantSword/Trails_Attack2/GiantSword_Trail2_01.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": null,
+      "blank": true,
+      "sha256": "95de7080a245d49de1c7da9c02d83c8b063693631eb5db5237fd633a2b0ef89b"
+    },
+    {
+      "file": "Warrior/GiantSword/Trails_Attack2/GiantSword_Trail2_02.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": [
+        1869,
+        1722,
+        2630,
+        2243
+      ],
+      "blank": false,
+      "sha256": "cac42d09c28d51174b65489562b74245ed9802a2e4ec1f56e0962f38fea0ef6d"
+    },
+    {
+      "file": "Warrior/GiantSword/Trails_Attack2/GiantSword_Trail2_03.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": [
+        1769,
+        996,
+        2577,
+        1809
+      ],
+      "blank": false,
+      "sha256": "789c19f17e1d4dc0d48a49171d243b5784b726021fd5ede80046e60030690628"
+    },
+    {
+      "file": "Warrior/GiantSword/Trails_Attack2/GiantSword_Trail2_04.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": null,
+      "blank": true,
+      "sha256": "95de7080a245d49de1c7da9c02d83c8b063693631eb5db5237fd633a2b0ef89b"
+    },
+    {
+      "file": "Warrior/GiantSword/Trails_Attack3/GiantSword_Trail3_01.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": null,
+      "blank": true,
+      "sha256": "95de7080a245d49de1c7da9c02d83c8b063693631eb5db5237fd633a2b0ef89b"
+    },
+    {
+      "file": "Warrior/GiantSword/Trails_Attack3/GiantSword_Trail3_02.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": [
+        1539,
+        888,
+        2161,
+        1658
+      ],
+      "blank": false,
+      "sha256": "43373e8d86c9fcd3ccf90f8e1a33f690ec664ffe5d356b7d85d449866b53311c"
+    },
+    {
+      "file": "Warrior/GiantSword/Trails_Attack3/GiantSword_Trail3_03.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": [
+        1839,
+        1284,
+        2631,
+        2363
+      ],
+      "blank": false,
+      "sha256": "348a9b8eab1ba8151a96502883080cdc5dc6667517258809ccdff17228fd386f"
+    },
+    {
+      "file": "Warrior/GiantSword/Trails_Attack3/GiantSword_Trail3_04.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": null,
+      "blank": true,
+      "sha256": "95de7080a245d49de1c7da9c02d83c8b063693631eb5db5237fd633a2b0ef89b"
+    },
+    {
+      "file": "Warrior/Hammer/Attack1_Existing/Hammer_Attack1_01.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": [
+        570,
+        572,
+        1693,
+        2000
+      ],
+      "blank": false,
+      "sha256": "fb2a43fd4c5cb793e279f3f9c7cce68ce0def6cab0c0b0e438935d2f9a0adcc7"
+    },
+    {
+      "file": "Warrior/Hammer/Attack1_Existing/Hammer_Attack1_02.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": [
+        1371,
+        1317,
+        2685,
+        2186
+      ],
+      "blank": false,
+      "sha256": "089ba9e1b1e48227ba655bc8644aeb33fc5a41f76e6f138cdc8b8777f442705d"
+    },
+    {
+      "file": "Warrior/Hammer/Attack1_Existing/Hammer_Attack1_03.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": [
+        1367,
+        1591,
+        2775,
+        2683
+      ],
+      "blank": false,
+      "sha256": "2c2ad3ca5c62178390141471aec3b591b1be0115e5fb3279f393550a370d46f6"
+    },
+    {
+      "file": "Warrior/Hammer/Attack1_Existing/Hammer_Attack1_04.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": [
+        1397,
+        795,
+        2403,
+        2000
+      ],
+      "blank": false,
+      "sha256": "729ad02ee543a3cd15654dea670f9dc64330249ec39b15bc66775563eb417d9d"
+    },
+    {
+      "file": "Warrior/Hammer/Attack2/Hammer_Attack2_01.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": [
+        1371,
+        1599,
+        2700,
+        2665
+      ],
+      "blank": false,
+      "sha256": "b57cbd022e732fde1cc4caaf4ad548c8c716396afedd1c972326d61aaebaed5f"
+    },
+    {
+      "file": "Warrior/Hammer/Attack2/Hammer_Attack2_02.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": [
+        1371,
+        1248,
+        2707,
+        2112
+      ],
+      "blank": false,
+      "sha256": "c9498887263df1eb9805bfea9e49ae5de0aaf86aad2c99cd39624b4c3ff6ad6d"
+    },
+    {
+      "file": "Warrior/Hammer/Attack2/Hammer_Attack2_03.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": [
+        1371,
+        799,
+        2378,
+        2000
+      ],
+      "blank": false,
+      "sha256": "a64ee1bdfd6ceb5d04c397a6e18bfb4479cbafad3925f0fc163f04dbcfef9f14"
+    },
+    {
+      "file": "Warrior/Hammer/Attack2/Hammer_Attack2_04.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": [
+        1371,
+        909,
+        2675,
+        2000
+      ],
+      "blank": false,
+      "sha256": "f41b0cdb19cef19683e5a28def4ba01000de36156cef092a2c28da1e5249ad09"
+    },
+    {
+      "file": "Warrior/Hammer/Attack3/Hammer_Attack3_01.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": [
+        1050,
+        793,
+        1895,
+        2000
+      ],
+      "blank": false,
+      "sha256": "82132ecb0ac39a42393738e6232920e4ebe4f4cf40055c800f56f9da03cfe624"
+    },
+    {
+      "file": "Warrior/Hammer/Attack3/Hammer_Attack3_02.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": [
+        1371,
+        836,
+        2592,
+        2000
+      ],
+      "blank": false,
+      "sha256": "05c0ef7f1c1ecb47a5f641cc15bae2a393538740d365ec3385725497ff1e719e"
+    },
+    {
+      "file": "Warrior/Hammer/Attack3/Hammer_Attack3_03.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": [
+        1371,
+        1599,
+        2576,
+        2803
+      ],
+      "blank": false,
+      "sha256": "ad4614b7c14858d7a0ec72cb401528834ad26160ce27af499247d48055f19020"
+    },
+    {
+      "file": "Warrior/Hammer/Attack3/Hammer_Attack3_04.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": [
+        1371,
+        796,
+        2415,
+        2000
+      ],
+      "blank": false,
+      "sha256": "4a1c8e0562bc3aef342d0156cd6f3d275716dd24d79e45db6918b1b6005236c7"
+    },
+    {
+      "file": "Warrior/Hammer/Trails_Attack1/Hammer_Trail1_01.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": null,
+      "blank": true,
+      "sha256": "95de7080a245d49de1c7da9c02d83c8b063693631eb5db5237fd633a2b0ef89b"
+    },
+    {
+      "file": "Warrior/Hammer/Trails_Attack1/Hammer_Trail1_02.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": [
+        1833,
+        836,
+        2725,
+        2186
+      ],
+      "blank": false,
+      "sha256": "890ce229fc169075a4d9175e30b16d18be7a3bec96dffd9afdc7646867dcd0c0"
+    },
+    {
+      "file": "Warrior/Hammer/Trails_Attack1/Hammer_Trail1_03.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": [
+        1871,
+        1275,
+        2719,
+        2725
+      ],
+      "blank": false,
+      "sha256": "31a82e5fb6593dbb4a27ae8200c5a4b92a03e2e2481cbca5629864dbbe770af0"
+    },
+    {
+      "file": "Warrior/Hammer/Trails_Attack1/Hammer_Trail1_04.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": null,
+      "blank": true,
+      "sha256": "95de7080a245d49de1c7da9c02d83c8b063693631eb5db5237fd633a2b0ef89b"
+    },
+    {
+      "file": "Warrior/Hammer/Trails_Attack2/Hammer_Trail2_01.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": null,
+      "blank": true,
+      "sha256": "95de7080a245d49de1c7da9c02d83c8b063693631eb5db5237fd633a2b0ef89b"
+    },
+    {
+      "file": "Warrior/Hammer/Trails_Attack2/Hammer_Trail2_02.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": [
+        1905,
+        1348,
+        2722,
+        2591
+      ],
+      "blank": false,
+      "sha256": "c036ecac87308307d99b4d53a8d3a10b41f765516c9cfb867ae8441b834884e1"
+    },
+    {
+      "file": "Warrior/Hammer/Trails_Attack2/Hammer_Trail2_03.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": [
+        1691,
+        803,
+        2729,
+        1951
+      ],
+      "blank": false,
+      "sha256": "c19e6118217c5d69ca311a2b055a658f77fd198e7e1f756ab6d101c1f25f503c"
+    },
+    {
+      "file": "Warrior/Hammer/Trails_Attack2/Hammer_Trail2_04.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": null,
+      "blank": true,
+      "sha256": "95de7080a245d49de1c7da9c02d83c8b063693631eb5db5237fd633a2b0ef89b"
+    },
+    {
+      "file": "Warrior/Hammer/Trails_Attack3/Hammer_Trail3_01.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": null,
+      "blank": true,
+      "sha256": "95de7080a245d49de1c7da9c02d83c8b063693631eb5db5237fd633a2b0ef89b"
+    },
+    {
+      "file": "Warrior/Hammer/Trails_Attack3/Hammer_Trail3_02.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": [
+        1166,
+        797,
+        2505,
+        1619
+      ],
+      "blank": false,
+      "sha256": "b0c51401b6726921adc5c848292c7cecf4854964768d35d429068b6faac13899"
+    },
+    {
+      "file": "Warrior/Hammer/Trails_Attack3/Hammer_Trail3_03.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": [
+        1884,
+        958,
+        2726,
+        2686
+      ],
+      "blank": false,
+      "sha256": "687493abd9bfd8fe1beaf1bb67a11114434dbadc699d3db6be2a40a19a9932eb"
+    },
+    {
+      "file": "Warrior/Hammer/Trails_Attack3/Hammer_Trail3_04.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": null,
+      "blank": true,
+      "sha256": "95de7080a245d49de1c7da9c02d83c8b063693631eb5db5237fd633a2b0ef89b"
+    },
+    {
+      "file": "Warrior/Shield/Attack/Warrior_Shield_Attack_01.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": [
+        1371,
+        1599,
+        1835,
+        2000
+      ],
+      "blank": false,
+      "sha256": "d172589cebc77eaf11c9195d49aec683ae4645402ce5b53bc1460b8d7914f645"
+    },
+    {
+      "file": "Warrior/Shield/Attack/Warrior_Shield_Attack_02.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": [
+        1371,
+        1599,
+        1909,
+        2046
+      ],
+      "blank": false,
+      "sha256": "4d7a6fed3a978fcf7ce5db22095aee266becb40c87dd8d0aad45a9d89e728951"
+    },
+    {
+      "file": "Warrior/Shield/Attack/Warrior_Shield_Attack_03.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": [
+        1371,
+        1466,
+        2049,
+        2206
+      ],
+      "blank": false,
+      "sha256": "9df3f34c0acfba72bce25a7752c4bd6f855b1f3b41ad609b79831a699d06bd30"
+    },
+    {
+      "file": "Warrior/Shield/Attack/Warrior_Shield_Attack_04.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": [
+        1371,
+        1599,
+        1882,
+        2014
+      ],
+      "blank": false,
+      "sha256": "64edeedaaee62e82a34c744e715b1b7d9d1093283302bc5372a72e0fa771a95d"
+    },
+    {
+      "file": "Warrior/Shield/Idle/Warrior_Shield_Idle_01.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": [
+        1371,
+        1599,
+        1816,
+        2000
+      ],
+      "blank": false,
+      "sha256": "1b3352d4bb758e270d822cbb05bd203acf92fa5e621d0f03089b77b32bacf287"
+    },
+    {
+      "file": "Warrior/Shield/Idle/Warrior_Shield_Idle_02.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": [
+        1371,
+        1599,
+        1817,
+        2000
+      ],
+      "blank": false,
+      "sha256": "4ee8c41f47589f6549fa864b5647c4eef4a060be566e7e6c9dc7a280c8e2ac02"
+    },
+    {
+      "file": "Warrior/Shield/Idle/Warrior_Shield_Idle_03.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": [
+        1371,
+        1599,
+        1818,
+        2000
+      ],
+      "blank": false,
+      "sha256": "11a59641e994411e2b33d43e817abe516f32d99ecf1fafdb414c75198014a0a2"
+    },
+    {
+      "file": "Warrior/Shield/Idle/Warrior_Shield_Idle_04.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": [
+        1371,
+        1599,
+        1817,
+        2000
+      ],
+      "blank": false,
+      "sha256": "4ee8c41f47589f6549fa864b5647c4eef4a060be566e7e6c9dc7a280c8e2ac02"
+    },
+    {
+      "file": "Warrior/Shield/Impact_8frames/Shield_Impact_01.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": [
+        1960,
+        1614,
+        2256,
+        2014
+      ],
+      "blank": false,
+      "sha256": "b464be882c0c2267690ce6cdb63a44e0483c4ee825ec965758f32f0c916ae88f"
+    },
+    {
+      "file": "Warrior/Shield/Impact_8frames/Shield_Impact_02.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": [
+        1972,
+        1579,
+        2320,
+        2049
+      ],
+      "blank": false,
+      "sha256": "af684235fba45e7d2001cd090e5a38c6fd5f9ed673f3998a4c618d38facc15cf"
+    },
+    {
+      "file": "Warrior/Shield/Impact_8frames/Shield_Impact_03.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": [
+        1984,
+        1544,
+        2384,
+        2084
+      ],
+      "blank": false,
+      "sha256": "c0aa9dc56a2cfc6df70a84f5c74d26cf6ecf94620709b1e829afff14f10c5981"
+    },
+    {
+      "file": "Warrior/Shield/Impact_8frames/Shield_Impact_04.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": [
+        1996,
+        1509,
+        2448,
+        2119
+      ],
+      "blank": false,
+      "sha256": "9323703ae7bc5003aecce4a46424e4f7ea678ffa181951dad1bd672cbf47ed93"
+    },
+    {
+      "file": "Warrior/Shield/Impact_8frames/Shield_Impact_05.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": [
+        2008,
+        1474,
+        2512,
+        2154
+      ],
+      "blank": false,
+      "sha256": "451288d51576a3dce4436bedd2fc9da87a7c5aea8a61bd146284bd1f8a0598fc"
+    },
+    {
+      "file": "Warrior/Shield/Impact_8frames/Shield_Impact_06.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": [
+        2020,
+        1439,
+        2575,
+        2189
+      ],
+      "blank": false,
+      "sha256": "32989049ab47f220c0d28723d02e7f6d0f5bb6ec3c1f9a543c19daf1721d64f3"
+    },
+    {
+      "file": "Warrior/Shield/Impact_8frames/Shield_Impact_07.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": [
+        2032,
+        1404,
+        2639,
+        2224
+      ],
+      "blank": false,
+      "sha256": "643ace5daeef54a51cd8a18ac4b6ea89cba0c0f468630b968dc0fbee394de605"
+    },
+    {
+      "file": "Warrior/Shield/Impact_8frames/Shield_Impact_08.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": null,
+      "blank": true,
+      "sha256": "95de7080a245d49de1c7da9c02d83c8b063693631eb5db5237fd633a2b0ef89b"
+    },
+    {
+      "file": "Warrior/Shield/Warrior_Shield_Guard.png",
+      "width": 3072,
+      "height": 3072,
+      "ppu": 100,
+      "pivot_x": 0.5,
+      "pivot_y": 0.423828125,
+      "alpha_bbox": [
+        1371,
+        1466,
+        2049,
+        2206
+      ],
+      "blank": false,
+      "sha256": "9df3f34c0acfba72bce25a7752c4bd6f855b1f3b41ad609b79831a699d06bd30"
+    }
+  ]
+}

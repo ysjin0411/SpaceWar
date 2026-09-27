@@ -51,6 +51,9 @@ public sealed class Boss_AlienBody : BossEnemy
         CanRunPhaseTwoPattern;
 
     // 게임 시간이 멈춰도 실행되어 물리 프레임을 기다리는 패턴을 정리한다.
+    /// <summary>
+    /// 게임 시간이 멈춰도 실행되어 물리 프레임을 기다리는 패턴을 정리한다.
+    /// </summary>
     private void LateUpdate()
     {
         if (!HasBattleStarted ||
@@ -72,6 +75,9 @@ public sealed class Boss_AlienBody : BossEnemy
     }
 
     // 본체가 비활성화되면 실행 중인 공격과 대기 중인 패턴을 정리한다.
+    /// <summary>
+    /// 본체가 비활성화되면 실행 중인 공격과 대기 중인 패턴을 정리한다.
+    /// </summary>
     protected override void OnDisable()
     {
         // 기존 실행기를 중단하고 패턴의 finally 정리 코드를 실행한다.
@@ -85,6 +91,9 @@ public sealed class Boss_AlienBody : BossEnemy
         base.OnDisable();
     }
 
+    /// <summary>
+    /// OnBossInitialized 동작에 필요한 상태와 처리 흐름을 실행한다.
+    /// </summary>
     protected override void OnBossInitialized()
     {
         base.OnBossInitialized();
@@ -127,6 +136,9 @@ public sealed class Boss_AlienBody : BossEnemy
     }
 
     // 체력 특수패턴 설정을 검사하고 이번 본체의 발동 기록을 초기화한다.
+    /// <summary>
+    /// 체력 특수패턴 설정을 검사하고 이번 본체의 발동 기록을 초기화한다.
+    /// </summary>
     private void InitializeHealthPatterns()
     {
         _isHealthPatternReady = false;
@@ -170,13 +182,20 @@ public sealed class Boss_AlienBody : BossEnemy
     }
 
     // 부모가 실제 피해를 적용한 다음 본체의 체력 조건을 확인한다.
-    protected override void OnBossDamaged(int damage)
+    /// <summary>
+    /// 보스 피격 이후 상태와 패턴을 갱신한다.
+    /// </summary>
+    protected override void OnBossDamaged(float damage)
     {
+        // 보스 피격 이후 상태와 패턴을 갱신한다.
         base.OnBossDamaged(damage);
         CheckHealthPatterns();
     }
 
     // 조건을 만족한 항목을 전투 중 한 번씩 특수패턴 대기열에 넣는다.
+    /// <summary>
+    /// 조건을 만족한 항목을 전투 중 한 번씩 특수패턴 대기열에 넣는다.
+    /// </summary>
     private void CheckHealthPatterns()
     {
         // 치명타로 체력이 0이 됐으면 공격 예약보다 사망 처리를 우선한다.
@@ -210,6 +229,9 @@ public sealed class Boss_AlienBody : BossEnemy
     }
 
     // 본체 패턴들이 동일한 전투 영역을 사용하도록 제공한다.
+    /// <summary>
+    /// 본체 패턴들이 동일한 전투 영역을 사용하도록 제공한다.
+    /// </summary>
     public Rect GetBattleArea()
     {
         if (_arena == null || !_arena.isActiveAndEnabled)
@@ -223,6 +245,9 @@ public sealed class Boss_AlienBody : BossEnemy
 
     // 현재 이동을 기준으로 플레이어의 미래 위치를 계산한다.
     // 이 함수는 위치 계산만 하며 보스를 움직이거나 피해를 주지 않는다.
+    /// <summary>
+    /// 이 함수는 위치 계산만 하며 보스를 움직이거나 피해를 주지 않는다.
+    /// </summary>
     public bool TryGetPredictedTargetPosition(
         float predictionSeconds,
         float maxPredictionDistance,
@@ -268,11 +293,16 @@ public sealed class Boss_AlienBody : BossEnemy
 
     // 예상 착지점인 보스 루트 좌표를 전투 영역 안으로 제한한다.
     // 피격 콜라이더의 크기는 착지점 제한에 사용하지 않는다.
+    /// <summary>
+    /// 피격 콜라이더의 크기는 착지점 제한에 사용하지 않는다.
+    /// </summary>
     public bool TryGetLeapLandingPosition(
-        float predictionSeconds,
-        float maxPredictionDistance,
-        float wallPadding,
-        out Vector2 landingPosition)
+    float predictionSeconds,
+    float maxPredictionDistance,
+    float wallPadding,
+    // 보스 원점에서 착지할 발 접촉점까지의 월드 좌표 차이다.
+    Vector2 landingContactOffset,
+    out Vector2 landingPosition)
     {
         landingPosition = Vector2.zero;
 
@@ -308,6 +338,13 @@ public sealed class Boss_AlienBody : BossEnemy
         float maxX = area.xMax - wallPadding;
         float minY = area.yMin + wallPadding;
         float maxY = area.yMax - wallPadding;
+
+        // 발 접촉점과 보스 원점이 모두 허용 영역 안에 있도록 범위를 좁힌다.
+        // 발 위치를 보정하면서 보스 원점이 외벽 밖으로 나가는 것을 방지한다.
+        minX = Mathf.Max(minX, minX + landingContactOffset.x);
+        maxX = Mathf.Min(maxX, maxX + landingContactOffset.x);
+        minY = Mathf.Max(minY, minY + landingContactOffset.y);
+        maxY = Mathf.Min(maxY, maxY + landingContactOffset.y);
 
         // 여유 간격이 전투 영역보다 크면 설정 오류를 알린다.
         if (minX > maxX || minY > maxY)

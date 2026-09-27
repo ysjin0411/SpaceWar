@@ -29,7 +29,7 @@ public struct BossBlackHoleSettings
     [Min(0.01f)] public float DamageInterval;
 
     // 피해 간격마다 적용할 피해량이다.
-    [SerializeField][Min(1)] public int Damage;
+    [SerializeField][Min(1)] public float Damage;
 
     // 유지·소멸 중 초당 회전 각도다. 음수는 시계 방향이다.
     public float RotationSpeed;
@@ -123,6 +123,9 @@ public sealed class BossBlackHole : MonoBehaviour
     private float WorldDamageRadius =>
         WorldSuctionRadius * _damageRadiusRatio;
 
+    /// <summary>
+    /// 컴포넌트 참조와 초기 실행 상태를 준비한다.
+    /// </summary>
     private void Awake()
     {
         // 이미지가 루트에 있으면 판정 위치까지 회전·축소될 수 있다.
@@ -182,6 +185,9 @@ public sealed class BossBlackHole : MonoBehaviour
         _state = HoleState.Flying;
 }
 
+    /// <summary>
+    /// 매 프레임 입력과 경과 시간에 따른 상태를 갱신한다.
+    /// </summary>
     private void Update()
     {
         if (_state == HoleState.None)
@@ -267,6 +273,9 @@ public sealed class BossBlackHole : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 물리 갱신 주기에 맞춰 이동과 충돌 처리를 수행한다.
+    /// </summary>
     private void FixedUpdate()
     {
         if (_state != HoleState.Active)
@@ -394,6 +403,9 @@ public sealed class BossBlackHole : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// IsOwnerAlive 동작에 필요한 상태와 처리 흐름을 실행한다.
+    /// </summary>
     private bool IsOwnerAlive()
     {
         return _owner != null &&
@@ -401,6 +413,9 @@ public sealed class BossBlackHole : MonoBehaviour
                _owner.isActiveAndEnabled;
     }
 
+    /// <summary>
+    /// 비활성화 시 이벤트 연결과 실행 상태를 정리한다.
+    /// </summary>
     private void OnDisable()
     {
         // 맵 교체 등으로 제거돼도 플레이어에게 흡인이 남지 않게 한다.

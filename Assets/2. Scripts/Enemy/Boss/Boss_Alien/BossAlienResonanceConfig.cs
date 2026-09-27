@@ -32,7 +32,7 @@ public sealed class BossAlienResonanceConfig : ScriptableObject
     // 충격파 하나에 맞았을 때의 피해다.
     // 같은 충격파는 플레이어에게 한 번만 피해를 시도한다.
     [SerializeField, Min(1)]
-    private int _waveDamage = 10;
+    private float _waveDamage = 10;
 
     [Header("마무리 공격")]
 
@@ -52,7 +52,7 @@ public sealed class BossAlienResonanceConfig : ScriptableObject
     // 안전 통로 밖에서 마무리 공격에 맞았을 때의 피해다.
     // 마무리 공격 전체에서 한 번만 피해를 시도한다.
     [SerializeField, Min(1)]
-    private int _finalDamage = 20;
+    private float _finalDamage = 20;
 
     [Header("회복")]
 
@@ -84,13 +84,13 @@ public sealed class BossAlienResonanceConfig : ScriptableObject
     public float WaveSpeed => _waveSpeed;
     public float WaveWidth => _waveWidth;
     public float WaveThickness => _waveThickness;
-    public int WaveDamage => _waveDamage;
+    public float WaveDamage => _waveDamage;
 
     // 실행 코드가 읽을 마무리 공격과 회복 설정이다.
     public float FinalWarningDuration => _finalWarningDuration;
     public float SafeLaneWidth => _safeLaneWidth;
     public float FinalActiveDuration => _finalActiveDuration;
-    public int FinalDamage => _finalDamage;
+    public float FinalDamage => _finalDamage;
     public float RecoveryDuration => _recoveryDuration;
 
     // 카메라 연출에만 사용하며 전투 경계에는 적용하지 않는다.

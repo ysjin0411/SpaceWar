@@ -25,9 +25,12 @@ public sealed class BossCruiserBurstShotPattern : BossPattern
 
     // 탄이 플레이어나 방패에 전달하는 피해량이다.
     [SerializeField, Min(0)]
-    private int _bulletDamage = 20;
+    private float _bulletDamage = 20;
 
     // 일반 패턴 실행기가 호출하는 연속 발사 동작이다.
+    /// <summary>
+    /// 일반 패턴 실행기가 호출하는 연속 발사 동작이다.
+    /// </summary>
     public override IEnumerator Execute(BossPatternContext context)
     {
         // 모든 보스가 상속하는 공통 타입으로 실행 주체를 가져온다.
@@ -101,6 +104,9 @@ public sealed class BossCruiserBurstShotPattern : BossPattern
 
     // 보스 종류와 관계없이 생존 상태와 활성화 상태를 확인한다.
     // 일반 패턴의 사용 시점은 각 보스의 CanUseNormalPatterns가 결정한다.
+    /// <summary>
+    /// 일반 패턴의 사용 시점은 각 보스의 CanUseNormalPatterns가 결정한다.
+    /// </summary>
     private static bool CanFire(BossEnemy boss)
     {
         return boss != null &&

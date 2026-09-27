@@ -1,0 +1,572 @@
+fileFormatVersion: 2
+guid: bbd0299f57624a64b94d171446e1e150
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7656984963446852248
+    second: Alien_AxeKick_030_0
+  - first:
+      213: -4964446785697395096
+    second: Alien_AxeKick_030_1
+  - first:
+      213: 1898897011465372580
+    second: Alien_AxeKick_030_2
+  - first:
+      213: 7265196899534753257
+    second: Alien_AxeKick_030_3
+  - first:
+      213: 3712881975253649443
+    second: Alien_AxeKick_030_4
+  - first:
+      213: 7909212272629913931
+    second: Alien_AxeKick_030_5
+  - first:
+      213: 4016478300292405136
+    second: Alien_AxeKick_030_6
+  - first:
+      213: -378512833740364393
+    second: Alien_AxeKick_030_7
+  - first:
+      213: -3271897347779492918
+    second: Alien_AxeKick_030_8
+  - first:
+      213: -4606877552776786764
+    second: Alien_AxeKick_030_9
+  - first:
+      213: -2407212939858641713
+    second: Alien_AxeKick_030_10
+  - first:
+      213: 5221681794984052591
+    second: Alien_AxeKick_030_11
+  - first:
+      213: -7156846332220696453
+    second: Alien_AxeKick_030_12
+  - first:
+      213: -6953654211277558899
+    second: Alien_AxeKick_030_13
+  - first:
+      213: -7713199266048444792
+    second: Alien_AxeKick_030_14
+  - first:
+      213: 2829842527756651595
+    second: Alien_AxeKick_030_15
+  - first:
+      213: 2119411086919560049
+    second: Alien_AxeKick_030_16
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Alien_AxeKick_030_0
+      rect:
+        serializedVersion: 2
+        x: 481
+        y: 355
+        width: 1306
+        height: 1262
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89ac1cc7143134a60800000000000000
+      internalID: 7656984963446852248
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alien_AxeKick_030_1
+      rect:
+        serializedVersion: 2
+        x: 939
+        y: 1528
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 86e4d2083fdba1bb0800000000000000
+      internalID: -4964446785697395096
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alien_AxeKick_030_2
+      rect:
+        serializedVersion: 2
+        x: 519
+        y: 402
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4a3c17965cc3a5a10800000000000000
+      internalID: 1898897011465372580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alien_AxeKick_030_3
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 407
+        width: 11
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9edc904661a23d460800000000000000
+      internalID: 7265196899534753257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alien_AxeKick_030_4
+      rect:
+        serializedVersion: 2
+        x: 1031
+        y: 394
+        width: 21
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 328c1fb1c7ec68330800000000000000
+      internalID: 3712881975253649443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alien_AxeKick_030_5
+      rect:
+        serializedVersion: 2
+        x: 1099
+        y: 389
+        width: 51
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b49144b38aa23cd60800000000000000
+      internalID: 7909212272629913931
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alien_AxeKick_030_6
+      rect:
+        serializedVersion: 2
+        x: 1416
+        y: 391
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0975ef0ebb56db730800000000000000
+      internalID: 4016478300292405136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alien_AxeKick_030_7
+      rect:
+        serializedVersion: 2
+        x: 1569
+        y: 382
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 795aaf945904fbaf0800000000000000
+      internalID: -378512833740364393
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alien_AxeKick_030_8
+      rect:
+        serializedVersion: 2
+        x: 546
+        y: 350
+        width: 18
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac38f0c82b2e792d0800000000000000
+      internalID: -3271897347779492918
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alien_AxeKick_030_9
+      rect:
+        serializedVersion: 2
+        x: 1180
+        y: 360
+        width: 20
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4bcc40726451110c0800000000000000
+      internalID: -4606877552776786764
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alien_AxeKick_030_10
+      rect:
+        serializedVersion: 2
+        x: 1537
+        y: 368
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fcc700dc59cd79ed0800000000000000
+      internalID: -2407212939858641713
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alien_AxeKick_030_11
+      rect:
+        serializedVersion: 2
+        x: 1560
+        y: 357
+        width: 24
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6706284de3277840800000000000000
+      internalID: 5221681794984052591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alien_AxeKick_030_12
+      rect:
+        serializedVersion: 2
+        x: 1717
+        y: 358
+        width: 18
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b789defed26cdac90800000000000000
+      internalID: -7156846332220696453
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alien_AxeKick_030_13
+      rect:
+        serializedVersion: 2
+        x: 532
+        y: 350
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d8be6ed3658af7f90800000000000000
+      internalID: -6953654211277558899
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alien_AxeKick_030_14
+      rect:
+        serializedVersion: 2
+        x: 542
+        y: 354
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 886f061422635f490800000000000000
+      internalID: -7713199266048444792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alien_AxeKick_030_15
+      rect:
+        serializedVersion: 2
+        x: 1209
+        y: 349
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4c8a3d29ce954720800000000000000
+      internalID: 2829842527756651595
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alien_AxeKick_030_16
+      rect:
+        serializedVersion: 2
+        x: 1212
+        y: 333
+        width: 55
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 17b6dd88729a96d10800000000000000
+      internalID: 2119411086919560049
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Alien_AxeKick_030_0: 7656984963446852248
+      Alien_AxeKick_030_1: -4964446785697395096
+      Alien_AxeKick_030_10: -2407212939858641713
+      Alien_AxeKick_030_11: 5221681794984052591
+      Alien_AxeKick_030_12: -7156846332220696453
+      Alien_AxeKick_030_13: -6953654211277558899
+      Alien_AxeKick_030_14: -7713199266048444792
+      Alien_AxeKick_030_15: 2829842527756651595
+      Alien_AxeKick_030_16: 2119411086919560049
+      Alien_AxeKick_030_2: 1898897011465372580
+      Alien_AxeKick_030_3: 7265196899534753257
+      Alien_AxeKick_030_4: 3712881975253649443
+      Alien_AxeKick_030_5: 7909212272629913931
+      Alien_AxeKick_030_6: 4016478300292405136
+      Alien_AxeKick_030_7: -378512833740364393
+      Alien_AxeKick_030_8: -3271897347779492918
+      Alien_AxeKick_030_9: -4606877552776786764
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

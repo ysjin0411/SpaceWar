@@ -20,7 +20,7 @@ public sealed class BossAlienResonanceWave : MonoBehaviour
 
     // 설정 에셋에서 복사한 속도·피해와 남은 이동 거리다.
     private float _speed;
-    private int _damage;
+    private float _damage;
     private float _remainingDistance;
 
     // 초기화 전 이동과 한 충격파의 중복 피해를 막는다.
@@ -34,6 +34,9 @@ public sealed class BossAlienResonanceWave : MonoBehaviour
     private readonly List<RaycastHit2D> _hits =
         new List<RaycastHit2D>();
 
+    /// <summary>
+    /// 컴포넌트 참조와 초기 실행 상태를 준비한다.
+    /// </summary>
     private void Awake()
     {
         // 이동 루트와 외형을 분리해 크기 조절이 피해 판정에 영향을 주지 않게 한다.
@@ -54,6 +57,9 @@ public sealed class BossAlienResonanceWave : MonoBehaviour
     }
 
     // 패턴이 균열 위치·표면 방향·전투 경계까지의 거리를 전달한다.
+    /// <summary>
+    /// 패턴이 균열 위치·표면 방향·전투 경계까지의 거리를 전달한다.
+    /// </summary>
     public void Initialize(
         Boss_Alien owner,
         BossAlienResonanceConfig config,
@@ -110,6 +116,9 @@ public sealed class BossAlienResonanceWave : MonoBehaviour
         _running = true;
     }
 
+    /// <summary>
+    /// 매 프레임 입력과 경과 시간에 따른 상태를 갱신한다.
+    /// </summary>
     private void Update()
     {
         if (!_running)
@@ -150,6 +159,9 @@ public sealed class BossAlienResonanceWave : MonoBehaviour
     }
 
     // 경로상의 가까운 접촉부터 처리한다.
+    /// <summary>
+    /// 경로상의 가까운 접촉부터 처리한다.
+    /// </summary>
     private void CheckHit(Vector2 origin, float distance)
     {
         Physics2D.SyncTransforms();
@@ -204,6 +216,9 @@ public sealed class BossAlienResonanceWave : MonoBehaviour
     }
 
     // 거리 순으로 정렬하고, 같은 거리면 방패 접촉을 우선한다.
+    /// <summary>
+    /// 거리 순으로 정렬하고, 같은 거리면 방패 접촉을 우선한다.
+    /// </summary>
     private static int CompareHits(RaycastHit2D a, RaycastHit2D b)
     {
         int order = a.distance.CompareTo(b.distance);
@@ -222,6 +237,9 @@ public sealed class BossAlienResonanceWave : MonoBehaviour
     }
 
     // 속도와 크기에 사용할 수 있는 유효한 양수인지 검사한다.
+    /// <summary>
+    /// 속도와 크기에 사용할 수 있는 유효한 양수인지 검사한다.
+    /// </summary>
     private static bool Positive(float value)
     {
         return !float.IsNaN(value) &&
@@ -229,6 +247,9 @@ public sealed class BossAlienResonanceWave : MonoBehaviour
             value > 0f;
     }
 
+    /// <summary>
+    /// 비활성화 시 이벤트 연결과 실행 상태를 정리한다.
+    /// </summary>
     private void OnDisable()
     {
         // 제거 또는 비활성화 직후에는 추가 피해를 검사하지 않는다.

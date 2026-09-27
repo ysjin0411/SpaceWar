@@ -12,17 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 116f21423bdfcc34e804d893141eb07e, type: 3}
   m_Name: BossAlienLeapPattern
   m_EditorClassIdentifier: 
-  _pauseRandomMovement: 0
+  _pauseRandomMovement: 1
   _warningPrefab: {fileID: 6987742501394166415, guid: 5449e4acfd88e4d4d9f4f7e180ab8331, type: 3}
   _impactPrefab: {fileID: 1712920402833702481, guid: 96eb4c67569210a4e8d6de05917370df, type: 3}
   _aimDuration: 0.8
-  _lockDuration: 0.4
+  _lockDuration: 0.3
   _predictionSeconds: 0.4
-  _maxPredictionDistance: 3
+  _maxPredictionDistance: 2
   _landingRadius: 3
   _wallPadding: 0.2
-  _takeoffDuration: 0.12
-  _flightDuration: 0.6
   _jumpHeight: 2.5
-  _recoveryDuration: 0.6
-  _landingDamage: 10
+  _flightDuration: 0.7
+  _landingDamage: 20
+  _landingContactLocal: {x: -2.144, y: -5.5896}

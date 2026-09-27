@@ -144,7 +144,7 @@ Animator:
   m_GameObject: {fileID: 5750769060912991443}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: 4b4046934c39bfa4ebc7182ed898d286, type: 2}
+  m_Controller: {fileID: 9100000, guid: 0031ea8cbc49a424a85fc1345fafa53f, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -226,6 +226,9 @@ MonoBehaviour:
       _count: 10
   - _groupName: Quest
     _entries: []
+  _stageDrops:
+  - _prefab: {fileID: 4012495091504343507, guid: 2f2fd5caed3b9a540866aa6a368269ad, type: 3}
+    _dropChancePercent: 100
   _itemDropPoint: {fileID: 0}
 --- !u!114 &4304024611186011532
 MonoBehaviour:
@@ -240,7 +243,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bossName: Head
-  _bossIcon: {fileID: 21300000, guid: 463669100b05b044c8ffffb691d2c7a8, type: 3}
+  _bossIcon: {fileID: 21300000, guid: 6fc431706f85c0f4daa1607236cce711, type: 3}
   _firePoint: {fileID: 8735207689797437126}
   _maxHp: 500
   _crashDamage: 10

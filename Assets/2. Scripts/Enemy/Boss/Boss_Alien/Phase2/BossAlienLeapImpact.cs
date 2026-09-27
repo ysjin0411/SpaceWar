@@ -7,13 +7,16 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 public sealed class BossAlienLeapImpact : MonoBehaviour
 {
-    // 충격파가 나타났다가 사라지는 전체 시간이다.
-    [SerializeField, Min(0.01f)]
-    private float _duration = 0.35f;
+    // 지면 균열 이미지 12장을 001부터 012까지 순서대로 등록한다.
+    [SerializeField]
+    private Sprite[] _frames = Array.Empty<Sprite>();
 
-    // 최초 표시 크기는 최종 크기의 일정 비율로 시작한다.
-    [SerializeField, Range(0.1f, 1f)]
-    private float _startScaleRatio = 0.7f;
+    // 초당 표시할 이미지 수다. 12장을 24 FPS로 재생하면 0.5초다.
+    [SerializeField, Min(1f)]
+    private float _framesPerSecond = 24f;
+
+    // 이미지 수와 FPS로 계산하는 전체 재생 시간이다.
+    private float _duration;
 
     // 이미지에 적용할 색상과 초기 투명도다.
     [SerializeField]
@@ -42,6 +45,29 @@ public sealed class BossAlienLeapImpact : MonoBehaviour
             throw new InvalidOperationException(
                 $"{name}: 착지 이펙트는 부모 없이 생성하세요.");
         }
+        // 재생할 이미지 목록과 초당 프레임 수가 올바른지 확인한다.
+        if (_frames == null || _frames.Length == 0 ||
+            !IsFinite(_framesPerSecond) || _framesPerSecond <= 0f)
+        {
+            throw new InvalidOperationException(
+                $"{name}: Frames와 Frames Per Second를 확인하세요.");
+        }
+
+        // 등록된 이미지 중 비어 있는 항목이 있으면 알려준다.
+        for (int i = 0; i < _frames.Length; i++)
+        {
+            if (_frames[i] == null)
+            {
+                throw new InvalidOperationException(
+                    $"{name}: Frames의 Element {i}가 비어 있습니다.");
+            }
+        }
+
+        // 기존 이미지 대신 균열의 첫 번째 이미지로 재생을 시작한다.
+        _visual.sprite = _frames[0];
+
+        // 12장 ÷ 24 FPS = 0.5초 동안 재생한다.
+        _duration = _frames.Length / _framesPerSecond;
 
         if (_visual.sprite == null ||
             !IsFinite(radius) || radius <= 0f ||
@@ -99,21 +125,21 @@ public sealed class BossAlienLeapImpact : MonoBehaviour
         }
     }
 
-    // 초반에는 빠르게 퍼지고, 남은 시간 동안 서서히 사라진다.
+    // 재생 진행률에 맞춰 균열 이미지를 순서대로 표시한다.
     private void ApplyProgress(float progress)
     {
-        float expansion = 1f - (1f - progress) * (1f - progress);
-        float scaleRatio = Mathf.Lerp(
-            _startScaleRatio, 1f, expansion);
+        // 진행률 0~1을 이미지 번호 0~11로 변환한다.
+        // 종료 지점에서도 배열 범위를 넘지 않도록 마지막 번호로 제한한다.
+        int frameIndex = Mathf.Clamp(
+            Mathf.FloorToInt(progress * _frames.Length),
+            0,
+            _frames.Length - 1);
 
-        transform.localScale = new Vector3(
-            _targetScale.x * scaleRatio,
-            _targetScale.y * scaleRatio,
-            1f);
+        _visual.sprite = _frames[frameIndex];
 
-        Color color = _color;
-        color.a *= 1f - progress;
-        _visual.color = color;
+        // 확대와 소멸은 이미지에 포함되어 있으므로 추가 변형하지 않는다.
+        transform.localScale = _targetScale;
+        _visual.color = _color;
     }
 
     // NaN과 무한대가 위치·크기 계산에 들어가지 않게 한다.

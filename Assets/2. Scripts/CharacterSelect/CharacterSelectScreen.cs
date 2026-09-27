@@ -33,6 +33,12 @@ public class CharacterSelectScreen : MonoBehaviour
         // 장착 순서대로 연결하는 무기 아이콘 3개.
         public Image[] weaponIcons = new Image[3];
 
+        // 잠금 상태일 때 표시할 자물쇠와 안내 문구의 부모다.
+        public GameObject lockOverlay;
+
+        // 해금 조건을 표시할 텍스트다.
+        public TMP_Text unlockText;
+
         // 아래 값은 실행 중 사용하는 상태이며 Inspector에는 저장하지 않는다.
         [NonSerialized] public Sprite[] idleFrames;
         [NonSerialized] public int frameIndex;
@@ -98,6 +104,103 @@ public class CharacterSelectScreen : MonoBehaviour
     // 상점의 첫 화면에서 뒤로 가기를 누르면 서비스 창 닫기를 요청한다.
     public event Action CloseRequested;
 
+    // 상태 변경 이벤트를 연결한 저장 관리자를 보관한다.
+    private SaveManager _saveManager;
+
+
+
+    // 버튼 상태와 별개로 최신 유저 레벨을 확인한다.
+    private bool CanSelectCharacter(int index)
+    {
+        if (index < 0 || index >= _slots.Length)
+        {
+            return false;
+        }
+
+        if (_saveManager == null || !_saveManager.IsLoggedIn)
+        {
+            return false;
+        }
+
+        CharacterData character =
+            _characterDatabase.GetCharacterDataAt(index);
+
+        return character.IsUnlocked(_saveManager.CurrentUserLevel);
+    }
+
+    // 화면 진입 시와 유저 정보 변경 시 선택 가능 상태를 갱신한다.
+    private void RefreshCharacterLocks()
+    {
+        if (!_initialized || _isLeaving)
+        {
+            return;
+        }
+
+        for (int i = 0; i < _slots.Length; i++)
+        {
+            bool unlocked = CanSelectCharacter(i);
+
+            // 버튼 입력만 차단한다. 카드와 Idle 이미지는 계속 활성화한다.
+            _slots[i].button.interactable = unlocked;
+
+            CharacterSlot slot = _slots[i];
+
+            // 잠금 상태에서는 캐릭터, 무기 아이콘, 이름 등 카드 전체를 숨긴다.
+            // 해금되면 기존 카드를 다시 표시한다.
+            slot.cardVisual.gameObject.SetActive(unlocked);
+
+            // 카드와 별도로 배치된 선택 링도 잠금 상태에서는 숨긴다.
+            if (!unlocked)
+            {
+                slot.selectionRing.gameObject.SetActive(false);
+            }
+
+            CharacterData character =
+                _characterDatabase.GetCharacterDataAt(i);
+
+            // 해금 조건이 있는 캐릭터는 잠금 표시 연결이 필요하다.
+            if (character.RequiredUserLevel > 1 &&
+                (slot.lockOverlay == null || slot.unlockText == null))
+            {
+                throw new InvalidOperationException(
+                    $"{character.CharacterName}: Lock Overlay와 Unlock Text를 연결해주세요.");
+            }
+
+            // 레벨 조건은 CharacterData에서 읽어 문구와 실제 조건을 일치시킨다.
+            if (slot.unlockText != null)
+            {
+                slot.unlockText.text =
+                    $"레벨 {character.RequiredUserLevel} 이상";
+            }
+
+            // 잠금 표시만 켜고 끈다. 캐릭터 미리보기는 계속 재생한다.
+            if (slot.lockOverlay != null)
+            {
+                slot.lockOverlay.SetActive(!unlocked);
+            }
+
+            // 테스트 중 레벨을 낮춰도 잠긴 캐릭터의 선택이 남지 않게 한다.
+            if (!unlocked && _selectedIndex == i)
+            {
+                if (_ringTween != null)
+                {
+                    _ringTween.Kill();
+                    _ringTween = null;
+                }
+
+                ApplySelection(_slots[i], false);
+                _selectedIndex = -1;
+
+                if (EventSystem.current != null &&
+                    EventSystem.current.currentSelectedGameObject ==
+                    _slots[i].button.gameObject)
+                {
+                    EventSystem.current.SetSelectedGameObject(null);
+                }
+            }
+        }
+    }
+
     private void Start()
     {
         // 데이터와 슬롯의 기본 연결을 확인한다.
@@ -140,6 +243,12 @@ public class CharacterSelectScreen : MonoBehaviour
         }
 
         _initialized = true;
+
+        // 슬롯 준비가 끝난 뒤 잠금 조건을 적용한다.
+        _saveManager = SaveManager.Instance;
+        _saveManager.UserStatusChanged += RefreshCharacterLocks;
+
+        RefreshCharacterLocks();
 
         // 화면에 들어오자마자 특정 캐릭터가 자동 선택되지 않게 한다.
         if (EventSystem.current != null)
@@ -359,8 +468,9 @@ public class CharacterSelectScreen : MonoBehaviour
     public void SelectingCharacter(int index)
     {
         if (!_initialized || _isLeaving ||
-            index < 0 || index >= _slots.Length ||
-            index == _selectedIndex)
+    index < 0 || index >= _slots.Length ||
+    !CanSelectCharacter(index) ||
+    index == _selectedIndex)
         {
             return;
         }
@@ -468,8 +578,10 @@ public class CharacterSelectScreen : MonoBehaviour
     // 선택한 캐릭터를 저장하고, 선택 목적에 맞는 화면 전환을 요청한다.
     public void LoadCharacter(int index)
     {
+        // 클릭 외에 다른 코드에서 호출해도 잠긴 캐릭터로 진행하지 않는다.
         if (!_initialized || _isLeaving ||
             index < 0 || index >= _slots.Length ||
+            !CanSelectCharacter(index) ||
             !_slots[index].button.IsInteractable())
         {
             return;
@@ -584,6 +696,12 @@ public class CharacterSelectScreen : MonoBehaviour
 
     private void OnDestroy()
     {
+        // 화면이 제거되면 저장 관리자의 이벤트 구독을 해제한다.
+        if (_saveManager != null)
+        {
+            _saveManager.UserStatusChanged -= RefreshCharacterLocks;
+        }
+
         // 씬 이동 시 이 화면에서 생성한 트윈을 정리한다.
         if (_ringTween != null)
         {

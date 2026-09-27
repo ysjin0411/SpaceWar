@@ -12,15 +12,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c420b9c456cfa094a9e96f54c4f32a05, type: 3}
   m_Name: 5_Soldier Sniper WeaponData
   m_EditorClassIdentifier: 
+  _equipmentPreviewScale: 1
+  _equipmentPreviewOffset: {x: 0, y: 0}
   _id: soldier_sniper
   _name: Sniper
   _type: 4
-  _fireMode: 0
   _icon: {fileID: -7617997308927173554, guid: b664d2d0e370a9743ad6c4fa0adb857f, type: 3}
   _projectilePrefab: {fileID: 8053201812717553051, guid: 78bb0c012a56e6949bf255fd021eb706, type: 3}
+  _muzzleEffectPrefab: {fileID: 8670412759217664541, guid: 7213892ddd594854f8c729bbc9e86647, type: 3}
+  _lazerChargeDuration: 3
+  _lazerMinimumChargeDuration: 0.5
+  _lazerMaxDamageMultiplier: 3
   _playerSpriteLibrary: {fileID: 7108339969198208228, guid: 871250447aca08d42a766a71ce8143c3, type: 3}
+  _characterSelectPreviewScale: 1
+  _characterSelectPreviewOffset: {x: 0, y: 0}
   _baseDamage: 10
   _baseCooltime: 1
+  _maximumChargeCount: 0
+  _chargeRecoveryTime: 5
+  _chargeRecoveryUpgradeValue: 0.5
+  _minimumChargeRecoveryTime: 1
+  _shieldMaxHealth: 100
+  _shieldRecoveryPerSecond: 5
+  _shieldRepairAmount: 100
+  _shieldRecoveryUpgradeValue: 1
   _price: 2000
   _requiredCharacterLevel: 10
   _isInitiallyOwned: 0
@@ -29,3 +44,6 @@ MonoBehaviour:
   _info: "\uC804\uBC29\uC744 \uD5A5\uD574 \uC801\uC744 \uAD00\uD1B5\uD558\uB294 \uD0C4\uD658\uC744
     \uBC1C\uC0AC\uD55C\uB2E4."
   _upgradeSelectionInfo: "Sniper\uB97C \uAC15\uD654\uD55C\uB2E4."
+  _weaponMoveSpeed: 4
+  _lazerHitsPerSecond: 10
+  _lazerHitsPerSecondUpgrade: 1

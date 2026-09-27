@@ -57,7 +57,7 @@ public sealed class BossLaserBeam : MonoBehaviour
     Vector2 _direction;
 
     // 이번 공격의 피해량이다.
-    int _damage;
+    float _damage;
 
     // 레이저의 실제 충돌 범위다.
     BoxCollider2D _damageCollider;
@@ -96,6 +96,9 @@ public sealed class BossLaserBeam : MonoBehaviour
     // 패턴이 종료 연출 완료를 기다릴 때 사용한다.
     public bool IsFading => _isFading;
 
+    /// <summary>
+    /// 컴포넌트 참조와 초기 실행 상태를 준비한다.
+    /// </summary>
     private void Awake()
     {
         // 필수 프리팹 연결을 검사한다.
@@ -178,7 +181,7 @@ public sealed class BossLaserBeam : MonoBehaviour
         Transform firePoint,
         Camera battleCamera,
         Vector2 direction,
-        int damage)
+        float damage)
     {
         if (owner == null || firePoint == null || battleCamera == null)
         {
@@ -248,6 +251,9 @@ public sealed class BossLaserBeam : MonoBehaviour
         _direction = direction.normalized;
     }
 
+    /// <summary>
+    /// 프레임의 이동 결과에 맞춰 후속 상태를 갱신한다.
+    /// </summary>
     private void LateUpdate()
     {
         if (!_initialized)
@@ -276,6 +282,9 @@ public sealed class BossLaserBeam : MonoBehaviour
         UpdateGeometry();
     }
 
+    /// <summary>
+    /// UpdateAnimation 동작에 필요한 상태와 처리 흐름을 실행한다.
+    /// </summary>
     private void UpdateAnimation()
     {
         // 게임이 일시정지되면 레이저 애니메이션도 함께 멈춘다.
@@ -335,6 +344,9 @@ public sealed class BossLaserBeam : MonoBehaviour
         return origin + (Vector3)(_direction * length);
     }
 
+    /// <summary>
+    /// UpdateGeometry 동작에 필요한 상태와 처리 흐름을 실행한다.
+    /// </summary>
     private void UpdateGeometry()
     {
         Vector3 start = _firePoint.position;
@@ -363,12 +375,18 @@ public sealed class BossLaserBeam : MonoBehaviour
         UpdateSpriteAppearance();
     }
 
+    /// <summary>
+    /// OnTriggerEnter2D 동작에 필요한 상태와 처리 흐름을 실행한다.
+    /// </summary>
     private void OnTriggerEnter2D(Collider2D other)
     {
         // 처음 레이저에 닿은 순간에도 피해를 처리한다.
         TryDamage(other);
     }
 
+    /// <summary>
+    /// OnTriggerStay2D 동작에 필요한 상태와 처리 흐름을 실행한다.
+    /// </summary>
     private void OnTriggerStay2D(Collider2D other)
     {
         // 계속 닿아 있으면 설정한 간격으로 피해를 처리한다.
@@ -453,6 +471,9 @@ public sealed class BossLaserBeam : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// SetVisibility 동작에 필요한 상태와 처리 흐름을 실행한다.
+    /// </summary>
     private void SetVisibility(float ratio)
     {
         // 기존 DOTween이 전달하는 소멸 비율을 사용한다.
@@ -460,6 +481,9 @@ public sealed class BossLaserBeam : MonoBehaviour
         UpdateSpriteAppearance();
     }
 
+    /// <summary>
+    /// UpdateSpriteAppearance 동작에 필요한 상태와 처리 흐름을 실행한다.
+    /// </summary>
     private void UpdateSpriteAppearance()
     {
         Sprite sprite = _beamRenderer.sprite;
@@ -484,6 +508,9 @@ public sealed class BossLaserBeam : MonoBehaviour
         _beamRenderer.color = color;
     }
 
+    /// <summary>
+    /// 비활성화 시 이벤트 연결과 실행 상태를 정리한다.
+    /// </summary>
     private void OnDisable()
     {
         // 비활성화된 레이저가 피해나 Tween을 유지하지 않게 한다.

@@ -1,0 +1,650 @@
+fileFormatVersion: 2
+guid: f747de8a79a63be4d965faebc3bfd202
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6143551250992363450
+    second: Hammer_GeneratedPoses_0
+  - first:
+      213: -8532916676962648611
+    second: Hammer_GeneratedPoses_1
+  - first:
+      213: -495941233954186238
+    second: Hammer_GeneratedPoses_2
+  - first:
+      213: 2730209621893774625
+    second: Hammer_GeneratedPoses_3
+  - first:
+      213: -6387017877495556685
+    second: Hammer_GeneratedPoses_4
+  - first:
+      213: 5502252816604677924
+    second: Hammer_GeneratedPoses_5
+  - first:
+      213: -7709779413194746593
+    second: Hammer_GeneratedPoses_6
+  - first:
+      213: -6129246178611616900
+    second: Hammer_GeneratedPoses_7
+  - first:
+      213: 6444390041922406699
+    second: Hammer_GeneratedPoses_8
+  - first:
+      213: 6340236277195216194
+    second: Hammer_GeneratedPoses_9
+  - first:
+      213: 3134802561792912018
+    second: Hammer_GeneratedPoses_10
+  - first:
+      213: 7960275276730044508
+    second: Hammer_GeneratedPoses_11
+  - first:
+      213: -9189641958218487381
+    second: Hammer_GeneratedPoses_12
+  - first:
+      213: -635443894126625190
+    second: Hammer_GeneratedPoses_13
+  - first:
+      213: -3809866294585412520
+    second: Hammer_GeneratedPoses_14
+  - first:
+      213: -3247685839825926815
+    second: Hammer_GeneratedPoses_15
+  - first:
+      213: -5385629867626844469
+    second: Hammer_GeneratedPoses_16
+  - first:
+      213: 7910708983406221195
+    second: Hammer_GeneratedPoses_17
+  - first:
+      213: -6409853019794539792
+    second: Hammer_GeneratedPoses_18
+  - first:
+      213: -7002387240958866123
+    second: Hammer_GeneratedPoses_19
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Hammer_GeneratedPoses_0
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 666
+        width: 197
+        height: 479
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6488139efa8bdbaa0800000000000000
+      internalID: -6143551250992363450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hammer_GeneratedPoses_1
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 670
+        width: 211
+        height: 462
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ddd72abdd7df49980800000000000000
+      internalID: -8532916676962648611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hammer_GeneratedPoses_2
+      rect:
+        serializedVersion: 2
+        x: 483
+        y: 665
+        width: 198
+        height: 480
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 20c11b843101e19f0800000000000000
+      internalID: -495941233954186238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hammer_GeneratedPoses_3
+      rect:
+        serializedVersion: 2
+        x: 695
+        y: 668
+        width: 205
+        height: 467
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 12df4539f27a3e520800000000000000
+      internalID: 2730209621893774625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hammer_GeneratedPoses_4
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 668
+        width: 200
+        height: 466
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b5decd8411cc57a0800000000000000
+      internalID: -6387017877495556685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hammer_GeneratedPoses_5
+      rect:
+        serializedVersion: 2
+        x: 1129
+        y: 672
+        width: 212
+        height: 460
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4274d16d8cdeb5c40800000000000000
+      internalID: 5502252816604677924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hammer_GeneratedPoses_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 459
+        width: 227
+        height: 204
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f1558ebc87c510590800000000000000
+      internalID: -7709779413194746593
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hammer_GeneratedPoses_7
+      rect:
+        serializedVersion: 2
+        x: 234
+        y: 475
+        width: 209
+        height: 188
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c732fee131b80faa0800000000000000
+      internalID: -6129246178611616900
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hammer_GeneratedPoses_8
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 259
+        width: 448
+        height: 389
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b2989da69921f6950800000000000000
+      internalID: 6444390041922406699
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hammer_GeneratedPoses_9
+      rect:
+        serializedVersion: 2
+        x: 509
+        y: 256
+        width: 154
+        height: 215
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24514465d4b0df750800000000000000
+      internalID: 6340236277195216194
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hammer_GeneratedPoses_10
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 434
+        width: 457
+        height: 229
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 29aa6a0325e018b20800000000000000
+      internalID: 3134802561792912018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hammer_GeneratedPoses_11
+      rect:
+        serializedVersion: 2
+        x: 347
+        y: 442
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c5091d75034987e60800000000000000
+      internalID: 7960275276730044508
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hammer_GeneratedPoses_12
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 27
+        width: 219
+        height: 376
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba9ac5be355d77080800000000000000
+      internalID: -9189641958218487381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hammer_GeneratedPoses_13
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 27
+        width: 221
+        height: 411
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a5e34ef15237e27f0800000000000000
+      internalID: -635443894126625190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hammer_GeneratedPoses_14
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 258
+        width: 241
+        height: 179
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 854b0856ac2a02bc0800000000000000
+      internalID: -3809866294585412520
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hammer_GeneratedPoses_15
+      rect:
+        serializedVersion: 2
+        x: 1170
+        y: 249
+        width: 195
+        height: 156
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1650c178fe6ede2d0800000000000000
+      internalID: -3247685839825926815
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hammer_GeneratedPoses_16
+      rect:
+        serializedVersion: 2
+        x: 483
+        y: 25
+        width: 130
+        height: 203
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bce2e507b266245b0800000000000000
+      internalID: -5385629867626844469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hammer_GeneratedPoses_17
+      rect:
+        serializedVersion: 2
+        x: 651
+        y: 0
+        width: 255
+        height: 143
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b875b6d58eb78cd60800000000000000
+      internalID: 7910708983406221195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hammer_GeneratedPoses_18
+      rect:
+        serializedVersion: 2
+        x: 952
+        y: 27
+        width: 213
+        height: 219
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0fa7eaca3a0ab07a0800000000000000
+      internalID: -6409853019794539792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hammer_GeneratedPoses_19
+      rect:
+        serializedVersion: 2
+        x: 1174
+        y: 28
+        width: 167
+        height: 216
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53d4be297e582de90800000000000000
+      internalID: -7002387240958866123
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Hammer_GeneratedPoses_0: -6143551250992363450
+      Hammer_GeneratedPoses_1: -8532916676962648611
+      Hammer_GeneratedPoses_10: 3134802561792912018
+      Hammer_GeneratedPoses_11: 7960275276730044508
+      Hammer_GeneratedPoses_12: -9189641958218487381
+      Hammer_GeneratedPoses_13: -635443894126625190
+      Hammer_GeneratedPoses_14: -3809866294585412520
+      Hammer_GeneratedPoses_15: -3247685839825926815
+      Hammer_GeneratedPoses_16: -5385629867626844469
+      Hammer_GeneratedPoses_17: 7910708983406221195
+      Hammer_GeneratedPoses_18: -6409853019794539792
+      Hammer_GeneratedPoses_19: -7002387240958866123
+      Hammer_GeneratedPoses_2: -495941233954186238
+      Hammer_GeneratedPoses_3: 2730209621893774625
+      Hammer_GeneratedPoses_4: -6387017877495556685
+      Hammer_GeneratedPoses_5: 5502252816604677924
+      Hammer_GeneratedPoses_6: -7709779413194746593
+      Hammer_GeneratedPoses_7: -6129246178611616900
+      Hammer_GeneratedPoses_8: 6444390041922406699
+      Hammer_GeneratedPoses_9: 6340236277195216194
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

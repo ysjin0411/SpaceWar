@@ -1,0 +1,4060 @@
+{
+  "frame_count": 168,
+  "issues": [],
+  "canvas_body": [
+    3072,
+    3072
+  ],
+  "body_reference_idle_height": 440,
+  "ground_y": 2000,
+  "original_weapon_bounds": {
+    "GiantSword": [
+      925,
+      226
+    ],
+    "Hammer": [
+      982,
+      869
+    ]
+  },
+  "new_weapon_bounds": {
+    "GiantSword": [
+      1202,
+      294
+    ],
+    "Hammer": [
+      1277,
+      1130
+    ]
+  },
+  "weapon_ratio_note": "1.3x in each unrotated axis, rounded to nearest pixel. Fixed source reused for every pose.",
+  "verification_scope": "RGBA, dimensions, margins, frame counts and fixed weapon scale checked. Visual proportions of redrawn anatomy are not pixel-identical across poses. Unity import and gameplay not performed.",
+  "frames": [
+    {
+      "path": "Frames/GiantSword/Idle/GiantSword_Idle_01.png",
+      "weapon": "GiantSword",
+      "state": "Idle",
+      "frame": 1,
+      "grip": [
+        1674,
+        1770
+      ],
+      "angle": 76.11881915623661,
+      "body_scale": 4.190476190476191,
+      "source_body_bbox": [
+        48,
+        154,
+        123,
+        259
+      ],
+      "bbox": [
+        1381,
+        676,
+        2006,
+        2000
+      ],
+      "weapon_size": [
+        1202,
+        294
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9717373318142362
+    },
+    {
+      "path": "Frames/GiantSword/Idle/GiantSword_Idle_02.png",
+      "weapon": "GiantSword",
+      "state": "Idle",
+      "frame": 2,
+      "grip": [
+        1681,
+        1774
+      ],
+      "angle": 76.7951672676865,
+      "body_scale": 4.190476190476191,
+      "source_body_bbox": [
+        258,
+        149,
+        334,
+        259
+      ],
+      "bbox": [
+        1379,
+        677,
+        2001,
+        2000
+      ],
+      "weapon_size": [
+        1202,
+        294
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9716410107082791
+    },
+    {
+      "path": "Frames/GiantSword/Idle/GiantSword_Idle_03.png",
+      "weapon": "GiantSword",
+      "state": "Idle",
+      "frame": 3,
+      "grip": [
+        1660,
+        1774
+      ],
+      "angle": 75.20891510128884,
+      "body_scale": 4.190476190476191,
+      "source_body_bbox": [
+        477,
+        151,
+        547,
+        259
+      ],
+      "bbox": [
+        1391,
+        684,
+        2007,
+        2000
+      ],
+      "weapon_size": [
+        1202,
+        294
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9720705880059136
+    },
+    {
+      "path": "Frames/GiantSword/Idle/GiantSword_Idle_04.png",
+      "weapon": "GiantSword",
+      "state": "Idle",
+      "frame": 4,
+      "grip": [
+        1681,
+        1774
+      ],
+      "angle": 75.88846645778374,
+      "body_scale": 4.190476190476191,
+      "source_body_bbox": [
+        680,
+        100,
+        753,
+        259
+      ],
+      "bbox": [
+        1387,
+        681,
+        2017,
+        2000
+      ],
+      "weapon_size": [
+        1202,
+        294
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9708521101209853
+    },
+    {
+      "path": "Frames/GiantSword/Idle/GiantSword_Idle_05.png",
+      "weapon": "GiantSword",
+      "state": "Idle",
+      "frame": 5,
+      "grip": [
+        1674,
+        1774
+      ],
+      "angle": 77.0989272547852,
+      "body_scale": 4.190476190476191,
+      "source_body_bbox": [
+        889,
+        113,
+        960,
+        259
+      ],
+      "bbox": [
+        1389,
+        675,
+        1989,
+        2000
+      ],
+      "weapon_size": [
+        1202,
+        294
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9715357886420356
+    },
+    {
+      "path": "Frames/GiantSword/Idle/GiantSword_Idle_06.png",
+      "weapon": "GiantSword",
+      "state": "Idle",
+      "frame": 6,
+      "grip": [
+        1660,
+        1770
+      ],
+      "angle": 76.88656177014332,
+      "body_scale": 4.190476190476191,
+      "source_body_bbox": [
+        1087,
+        127,
+        1163,
+        260
+      ],
+      "bbox": [
+        1379,
+        672,
+        1979,
+        2000
+      ],
+      "weapon_size": [
+        1202,
+        294
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9718703163994683
+    },
+    {
+      "path": "Frames/GiantSword/Move/GiantSword_Move_01.png",
+      "weapon": "GiantSword",
+      "state": "Move",
+      "frame": 1,
+      "grip": [
+        1666,
+        1765
+      ],
+      "angle": 75.80526238720913,
+      "body_scale": 4.190476190476191,
+      "source_body_bbox": [
+        53,
+        355,
+        124,
+        511
+      ],
+      "bbox": [
+        1389,
+        672,
+        2003,
+        2000
+      ],
+      "weapon_size": [
+        1202,
+        294
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9715994728936089
+    },
+    {
+      "path": "Frames/GiantSword/Move/GiantSword_Move_02.png",
+      "weapon": "GiantSword",
+      "state": "Move",
+      "frame": 2,
+      "grip": [
+        1660,
+        1757
+      ],
+      "angle": 76.59249156293683,
+      "body_scale": 4.190476190476191,
+      "source_body_bbox": [
+        266,
+        404,
+        338,
+        513
+      ],
+      "bbox": [
+        1387,
+        660,
+        1984,
+        2000
+      ],
+      "weapon_size": [
+        1202,
+        294
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9722683164808485
+    },
+    {
+      "path": "Frames/GiantSword/Move/GiantSword_Move_03.png",
+      "weapon": "GiantSword",
+      "state": "Move",
+      "frame": 3,
+      "grip": [
+        1674,
+        1761
+      ],
+      "angle": 74.40718906073366,
+      "body_scale": 4.190476190476191,
+      "source_body_bbox": [
+        469,
+        407,
+        550,
+        514
+      ],
+      "bbox": [
+        1368,
+        675,
+        2035,
+        2000
+      ],
+      "weapon_size": [
+        1202,
+        294
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9721991221110026
+    },
+    {
+      "path": "Frames/GiantSword/Move/GiantSword_Move_04.png",
+      "weapon": "GiantSword",
+      "state": "Move",
+      "frame": 4,
+      "grip": [
+        1678,
+        1761
+      ],
+      "angle": 77.61153684669146,
+      "body_scale": 4.190476190476191,
+      "source_body_bbox": [
+        677,
+        365,
+        752,
+        514
+      ],
+      "bbox": [
+        1373,
+        660,
+        1985,
+        2000
+      ],
+      "weapon_size": [
+        1202,
+        294
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9715838962131076
+    },
+    {
+      "path": "Frames/GiantSword/Move/GiantSword_Move_05.png",
+      "weapon": "GiantSword",
+      "state": "Move",
+      "frame": 5,
+      "grip": [
+        1601,
+        1757
+      ],
+      "angle": 76.44054812946597,
+      "body_scale": 4.190476190476191,
+      "source_body_bbox": [
+        888,
+        407,
+        952,
+        514
+      ],
+      "bbox": [
+        1329,
+        661,
+        1928,
+        2000
+      ],
+      "weapon_size": [
+        1202,
+        294
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9725719028049045
+    },
+    {
+      "path": "Frames/GiantSword/Move/GiantSword_Move_06.png",
+      "weapon": "GiantSword",
+      "state": "Move",
+      "frame": 6,
+      "grip": [
+        1670,
+        1761
+      ],
+      "angle": 77.39984017391933,
+      "body_scale": 4.190476190476191,
+      "source_body_bbox": [
+        1092,
+        375,
+        1151,
+        514
+      ],
+      "bbox": [
+        1406,
+        661,
+        1980,
+        2000
+      ],
+      "weapon_size": [
+        1202,
+        294
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9721767637464735
+    },
+    {
+      "path": "Frames/GiantSword/Attack1/GiantSword_Attack1_01.png",
+      "weapon": "GiantSword",
+      "state": "Attack1",
+      "frame": 1,
+      "grip": [
+        1404,
+        1732
+      ],
+      "angle": 46.89338584574627,
+      "body_scale": 4.190476190476191,
+      "source_body_bbox": [
+        38,
+        622,
+        122,
+        738
+      ],
+      "bbox": [
+        1327,
+        900,
+        2171,
+        2000
+      ],
+      "weapon_size": [
+        1202,
+        294
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9730792575412326
+    },
+    {
+      "path": "Frames/GiantSword/Attack1/GiantSword_Attack1_02.png",
+      "weapon": "GiantSword",
+      "state": "Attack1",
+      "frame": 2,
+      "grip": [
+        1356,
+        1753
+      ],
+      "angle": 58.29857033049428,
+      "body_scale": 4.190476190476191,
+      "source_body_bbox": [
+        261,
+        625,
+        355,
+        738
+      ],
+      "bbox": [
+        1284,
+        790,
+        1969,
+        2000
+      ],
+      "weapon_size": [
+        1202,
+        294
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9722438388400607
+    },
+    {
+      "path": "Frames/GiantSword/Attack1/GiantSword_Attack1_03.png",
+      "weapon": "GiantSword",
+      "state": "Attack1",
+      "frame": 3,
+      "grip": [
+        1716,
+        1765
+      ],
+      "angle": 5.152081702206227,
+      "body_scale": 4.190476190476191,
+      "source_body_bbox": [
+        438,
+        630,
+        553,
+        738
+      ],
+      "bbox": [
+        1297,
+        1547,
+        2835,
+        2000
+      ],
+      "weapon_size": [
+        1202,
+        294
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9683296415540907
+    },
+    {
+      "path": "Frames/GiantSword/Attack1/GiantSword_Attack1_04.png",
+      "weapon": "GiantSword",
+      "state": "Attack1",
+      "frame": 4,
+      "grip": [
+        1729,
+        1757
+      ],
+      "angle": 10.868525340168704,
+      "body_scale": 4.190476190476191,
+      "source_body_bbox": [
+        656,
+        627,
+        760,
+        737
+      ],
+      "bbox": [
+        1322,
+        1465,
+        2831,
+        2000
+      ],
+      "weapon_size": [
+        1202,
+        294
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9688842561509874
+    },
+    {
+      "path": "Frames/GiantSword/Attack1/GiantSword_Attack1_05.png",
+      "weapon": "GiantSword",
+      "state": "Attack1",
+      "frame": 5,
+      "grip": [
+        1743,
+        1744
+      ],
+      "angle": 10.7842978675626,
+      "body_scale": 4.190476190476191,
+      "source_body_bbox": [
+        867,
+        628,
+        1086,
+        739
+      ],
+      "bbox": [
+        1324,
+        1453,
+        2846,
+        2000
+      ],
+      "weapon_size": [
+        1202,
+        294
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9682875739203559
+    },
+    {
+      "path": "Frames/GiantSword/Attack1/GiantSword_Attack1_06.png",
+      "weapon": "GiantSword",
+      "state": "Attack1",
+      "frame": 6,
+      "grip": [
+        1626,
+        1786
+      ],
+      "angle": 70.7802265740861,
+      "body_scale": 4.190476190476191,
+      "source_body_bbox": [
+        1083,
+        638,
+        1195,
+        739
+      ],
+      "bbox": [
+        1303,
+        720,
+        2047,
+        2000
+      ],
+      "weapon_size": [
+        1202,
+        294
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9729832543267144
+    },
+    {
+      "path": "Frames/GiantSword/Attack2/GiantSword_Attack2_01.png",
+      "weapon": "GiantSword",
+      "state": "Attack2",
+      "frame": 1,
+      "grip": [
+        1603,
+        1807
+      ],
+      "angle": -13.924773220409435,
+      "body_scale": 4.190476190476191,
+      "source_body_bbox": [
+        37,
+        870,
+        128,
+        974
+      ],
+      "bbox": [
+        1347,
+        1564,
+        2697,
+        2140
+      ],
+      "weapon_size": [
+        1202,
+        294
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9711253907945421
+    },
+    {
+      "path": "Frames/GiantSword/Attack2/GiantSword_Attack2_02.png",
+      "weapon": "GiantSword",
+      "state": "Attack2",
+      "frame": 2,
+      "grip": [
+        1760,
+        1824
+      ],
+      "angle": -20.955776730632184,
+      "body_scale": 4.190476190476191,
+      "source_body_bbox": [
+        256,
+        868,
+        341,
+        974
+      ],
+      "bbox": [
+        1496,
+        1556,
+        2814,
+        2273
+      ],
+      "weapon_size": [
+        1202,
+        294
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9714703030056424
+    },
+    {
+      "path": "Frames/GiantSword/Attack2/GiantSword_Attack2_03.png",
+      "weapon": "GiantSword",
+      "state": "Attack2",
+      "frame": 3,
+      "grip": [
+        1553,
+        1740
+      ],
+      "angle": 52.950773426393006,
+      "body_scale": 4.190476190476191,
+      "source_body_bbox": [
+        456,
+        822,
+        561,
+        974
+      ],
+      "bbox": [
+        1318,
+        835,
+        2239,
+        2000
+      ],
+      "weapon_size": [
+        1202,
+        294
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9708651436699761
+    },
+    {
+      "path": "Frames/GiantSword/Attack2/GiantSword_Attack2_04.png",
+      "weapon": "GiantSword",
+      "state": "Attack2",
+      "frame": 4,
+      "grip": [
+        1553,
+        1652
+      ],
+      "angle": 49.98241959037582,
+      "body_scale": 4.190476190476191,
+      "source_body_bbox": [
+        661,
+        866,
+        760,
+        974
+      ],
+      "bbox": [
+        1331,
+        782,
+        2278,
+        2005
+      ],
+      "weapon_size": [
+        1202,
+        294
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9713534249199761
+    },
+    {
+      "path": "Frames/GiantSword/Attack2/GiantSword_Attack2_05.png",
+      "weapon": "GiantSword",
+      "state": "Attack2",
+      "frame": 5,
+      "grip": [
+        1544,
+        1707
+      ],
+      "angle": 53.45891240017056,
+      "body_scale": 4.190476190476191,
+      "source_body_bbox": [
+        865,
+        871,
+        964,
+        973
+      ],
+      "bbox": [
+        1331,
+        796,
+        2223,
+        2000
+      ],
+      "weapon_size": [
+        1202,
+        294
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.972931014166938
+    },
+    {
+      "path": "Frames/GiantSword/Attack2/GiantSword_Attack2_06.png",
+      "weapon": "GiantSword",
+      "state": "Attack2",
+      "frame": 6,
+      "grip": [
+        1496,
+        1581
+      ],
+      "angle": 52.05230600784119,
+      "body_scale": 4.190476190476191,
+      "source_body_bbox": [
+        1085,
+        803,
+        1175,
+        974
+      ],
+      "bbox": [
+        1350,
+        686,
+        2194,
+        2000
+      ],
+      "weapon_size": [
+        1202,
+        294
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9696004655626085
+    },
+    {
+      "path": "Frames/GiantSword/Attack3/GiantSword_Attack3_01.png",
+      "weapon": "GiantSword",
+      "state": "Attack3",
+      "frame": 1,
+      "grip": [
+        1546,
+        1589
+      ],
+      "angle": 74.94878000740901,
+      "body_scale": 4.190476190476191,
+      "source_body_bbox": [
+        42,
+        1113,
+        128,
+        1227
+      ],
+      "bbox": [
+        1358,
+        500,
+        1898,
+        2000
+      ],
+      "weapon_size": [
+        1202,
+        294
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9707568486531576
+    },
+    {
+      "path": "Frames/GiantSword/Attack3/GiantSword_Attack3_02.png",
+      "weapon": "GiantSword",
+      "state": "Attack3",
+      "frame": 2,
+      "grip": [
+        1542,
+        1543
+      ],
+      "angle": 74.86416449625196,
+      "body_scale": 4.190476190476191,
+      "source_body_bbox": [
+        213,
+        1107,
+        301,
+        1228
+      ],
+      "bbox": [
+        1354,
+        454,
+        1895,
+        2000
+      ],
+      "weapon_size": [
+        1202,
+        294
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9700696733262804
+    },
+    {
+      "path": "Frames/GiantSword/Attack3/GiantSword_Attack3_03.png",
+      "weapon": "GiantSword",
+      "state": "Attack3",
+      "frame": 3,
+      "grip": [
+        1553,
+        1728
+      ],
+      "angle": 83.60950468535302,
+      "body_scale": 4.190476190476191,
+      "source_body_bbox": [
+        385,
+        1107,
+        482,
+        1229
+      ],
+      "bbox": [
+        1335,
+        609,
+        1756,
+        2000
+      ],
+      "weapon_size": [
+        1202,
+        294
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9720946417914497
+    },
+    {
+      "path": "Frames/GiantSword/Attack3/GiantSword_Attack3_04.png",
+      "weapon": "GiantSword",
+      "state": "Attack3",
+      "frame": 4,
+      "grip": [
+        1670,
+        1895
+      ],
+      "angle": -4.666858371438996,
+      "body_scale": 4.190476190476191,
+      "source_body_bbox": [
+        736,
+        1150,
+        831,
+        1230
+      ],
+      "bbox": [
+        1394,
+        1669,
+        2791,
+        2068
+      ],
+      "weapon_size": [
+        1202,
+        294
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.974241680569119
+    },
+    {
+      "path": "Frames/GiantSword/Attack3/GiantSword_Attack3_05.png",
+      "weapon": "GiantSword",
+      "state": "Attack3",
+      "frame": 5,
+      "grip": [
+        1599,
+        1799
+      ],
+      "angle": 67.98871680208065,
+      "body_scale": 4.190476190476191,
+      "source_body_bbox": [
+        940,
+        1116,
+        1019,
+        1229
+      ],
+      "bbox": [
+        1373,
+        752,
+        2065,
+        2000
+      ],
+      "weapon_size": [
+        1202,
+        294
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9734788470798068
+    },
+    {
+      "path": "Frames/GiantSword/Attack3/GiantSword_Attack3_06.png",
+      "weapon": "GiantSword",
+      "state": "Attack3",
+      "frame": 6,
+      "grip": [
+        1588,
+        1694
+      ],
+      "angle": 67.68441142412924,
+      "body_scale": 4.190476190476191,
+      "source_body_bbox": [
+        1103,
+        1110,
+        1196,
+        1229
+      ],
+      "bbox": [
+        1379,
+        649,
+        2058,
+        2000
+      ],
+      "weapon_size": [
+        1202,
+        294
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9716151555379232
+    },
+    {
+      "path": "Frames/Hammer/Idle/Hammer_Idle_01.png",
+      "weapon": "Hammer",
+      "state": "Idle",
+      "frame": 1,
+      "grip": [
+        1637,
+        1778
+      ],
+      "angle": 88.70783311375007,
+      "body_scale": 4.036697247706422,
+      "source_body_bbox": [
+        84,
+        128,
+        157,
+        237
+      ],
+      "bbox": [
+        1094,
+        573,
+        2226,
+        2000
+      ],
+      "weapon_size": [
+        1277,
+        1130
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9547843933105469
+    },
+    {
+      "path": "Frames/Hammer/Idle/Hammer_Idle_02.png",
+      "weapon": "Hammer",
+      "state": "Idle",
+      "frame": 2,
+      "grip": [
+        1633,
+        1778
+      ],
+      "angle": 86.50536107274667,
+      "body_scale": 4.036697247706422,
+      "source_body_bbox": [
+        306,
+        125,
+        377,
+        237
+      ],
+      "bbox": [
+        1129,
+        557,
+        2262,
+        2000
+      ],
+      "weapon_size": [
+        1277,
+        1130
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9544389512803819
+    },
+    {
+      "path": "Frames/Hammer/Idle/Hammer_Idle_03.png",
+      "weapon": "Hammer",
+      "state": "Idle",
+      "frame": 3,
+      "grip": [
+        1603,
+        1778
+      ],
+      "angle": 88.70783311375007,
+      "body_scale": 4.036697247706422,
+      "source_body_bbox": [
+        525,
+        129,
+        597,
+        237
+      ],
+      "bbox": [
+        1060,
+        573,
+        2192,
+        2000
+      ],
+      "weapon_size": [
+        1277,
+        1130
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.955010732014974
+    },
+    {
+      "path": "Frames/Hammer/Idle/Hammer_Idle_04.png",
+      "weapon": "Hammer",
+      "state": "Idle",
+      "frame": 4,
+      "grip": [
+        1621,
+        1778
+      ],
+      "angle": 87.81419919322441,
+      "body_scale": 4.036697247706422,
+      "source_body_bbox": [
+        739,
+        130,
+        810,
+        237
+      ],
+      "bbox": [
+        1094,
+        566,
+        2226,
+        2000
+      ],
+      "weapon_size": [
+        1277,
+        1130
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9549871020846896
+    },
+    {
+      "path": "Frames/Hammer/Idle/Hammer_Idle_05.png",
+      "weapon": "Hammer",
+      "state": "Idle",
+      "frame": 5,
+      "grip": [
+        1625,
+        1778
+      ],
+      "angle": 87.41697933136494,
+      "body_scale": 4.036697247706422,
+      "source_body_bbox": [
+        954,
+        128,
+        1027,
+        237
+      ],
+      "bbox": [
+        1105,
+        563,
+        2238,
+        2000
+      ],
+      "weapon_size": [
+        1277,
+        1130
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9551572799682617
+    },
+    {
+      "path": "Frames/Hammer/Idle/Hammer_Idle_06.png",
+      "weapon": "Hammer",
+      "state": "Idle",
+      "frame": 6,
+      "grip": [
+        1635,
+        1778
+      ],
+      "angle": 86.50536107274667,
+      "body_scale": 4.036697247706422,
+      "source_body_bbox": [
+        1170,
+        95,
+        1244,
+        237
+      ],
+      "bbox": [
+        1131,
+        557,
+        2264,
+        2000
+      ],
+      "weapon_size": [
+        1277,
+        1130
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9545805189344618
+    },
+    {
+      "path": "Frames/Hammer/Move/Hammer_Move_01.png",
+      "weapon": "Hammer",
+      "state": "Move",
+      "frame": 1,
+      "grip": [
+        1651,
+        1774
+      ],
+      "angle": 90.4212849041686,
+      "body_scale": 4.036697247706422,
+      "source_body_bbox": [
+        88,
+        357,
+        154,
+        470
+      ],
+      "bbox": [
+        1078,
+        576,
+        2209,
+        2000
+      ],
+      "weapon_size": [
+        1277,
+        1130
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9546922047932943
+    },
+    {
+      "path": "Frames/Hammer/Move/Hammer_Move_02.png",
+      "weapon": "Hammer",
+      "state": "Move",
+      "frame": 2,
+      "grip": [
+        1603,
+        1770
+      ],
+      "angle": 90.0,
+      "body_scale": 4.036697247706422,
+      "source_body_bbox": [
+        321,
+        358,
+        383,
+        469
+      ],
+      "bbox": [
+        1038,
+        576,
+        2168,
+        2000
+      ],
+      "weapon_size": [
+        1277,
+        1130
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9553788503011068
+    },
+    {
+      "path": "Frames/Hammer/Move/Hammer_Move_03.png",
+      "weapon": "Hammer",
+      "state": "Move",
+      "frame": 3,
+      "grip": [
+        1623,
+        1770
+      ],
+      "angle": 90.42440541936148,
+      "body_scale": 4.036697247706422,
+      "source_body_bbox": [
+        535,
+        356,
+        594,
+        470
+      ],
+      "bbox": [
+        1050,
+        572,
+        2181,
+        2000
+      ],
+      "weapon_size": [
+        1277,
+        1130
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9553564919365777
+    },
+    {
+      "path": "Frames/Hammer/Move/Hammer_Move_04.png",
+      "weapon": "Hammer",
+      "state": "Move",
+      "frame": 4,
+      "grip": [
+        1617,
+        1770
+      ],
+      "angle": 87.86308914624276,
+      "body_scale": 4.036697247706422,
+      "source_body_bbox": [
+        740,
+        357,
+        819,
+        469
+      ],
+      "bbox": [
+        1089,
+        559,
+        2221,
+        2000
+      ],
+      "weapon_size": [
+        1277,
+        1130
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9554823769463433
+    },
+    {
+      "path": "Frames/Hammer/Move/Hammer_Move_05.png",
+      "weapon": "Hammer",
+      "state": "Move",
+      "frame": 5,
+      "grip": [
+        1601,
+        1770
+      ],
+      "angle": 89.14490260373329,
+      "body_scale": 4.036697247706422,
+      "source_body_bbox": [
+        967,
+        357,
+        1042,
+        469
+      ],
+      "bbox": [
+        1051,
+        569,
+        2182,
+        2000
+      ],
+      "weapon_size": [
+        1277,
+        1130
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9553181330362955
+    },
+    {
+      "path": "Frames/Hammer/Move/Hammer_Move_06.png",
+      "weapon": "Hammer",
+      "state": "Move",
+      "frame": 6,
+      "grip": [
+        1621,
+        1774
+      ],
+      "angle": 87.87890360333854,
+      "body_scale": 4.036697247706422,
+      "source_body_bbox": [
+        1196,
+        357,
+        1247,
+        469
+      ],
+      "bbox": [
+        1093,
+        563,
+        2225,
+        2000
+      ],
+      "weapon_size": [
+        1277,
+        1130
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.956125365363227
+    },
+    {
+      "path": "Frames/Hammer/Attack1/Hammer_Attack1_01.png",
+      "weapon": "Hammer",
+      "state": "Attack1",
+      "frame": 1,
+      "grip": [
+        1358,
+        1693
+      ],
+      "angle": 139.72013693104356,
+      "body_scale": 4.036697247706422,
+      "source_body_bbox": [
+        120,
+        540,
+        223,
+        657
+      ],
+      "bbox": [
+        133,
+        546,
+        1746,
+        2000
+      ],
+      "weapon_size": [
+        1277,
+        1130
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9521429273817275
+    },
+    {
+      "path": "Frames/Hammer/Attack1/Hammer_Attack1_02.png",
+      "weapon": "Hammer",
+      "state": "Attack1",
+      "frame": 2,
+      "grip": [
+        1360,
+        1685
+      ],
+      "angle": 157.57413807864822,
+      "body_scale": 4.036697247706422,
+      "source_body_bbox": [
+        325,
+        539,
+        438,
+        657
+      ],
+      "bbox": [
+        71,
+        751,
+        1748,
+        2004
+      ],
+      "weapon_size": [
+        1277,
+        1130
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9517626232571073
+    },
+    {
+      "path": "Frames/Hammer/Attack1/Hammer_Attack1_03.png",
+      "weapon": "Hammer",
+      "state": "Attack1",
+      "frame": 3,
+      "grip": [
+        1405,
+        1697
+      ],
+      "angle": -177.06432655357884,
+      "body_scale": 4.036697247706422,
+      "source_body_bbox": [
+        552,
+        539,
+        662,
+        656
+      ],
+      "bbox": [
+        188,
+        1182,
+        1760,
+        2316
+      ],
+      "weapon_size": [
+        1277,
+        1130
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9520265791151259
+    },
+    {
+      "path": "Frames/Hammer/Attack1/Hammer_Attack1_04.png",
+      "weapon": "Hammer",
+      "state": "Attack1",
+      "frame": 4,
+      "grip": [
+        1415,
+        1689
+      ],
+      "angle": 172.53943387383165,
+      "body_scale": 4.036697247706422,
+      "source_body_bbox": [
+        760,
+        540,
+        882,
+        657
+      ],
+      "bbox": [
+        168,
+        990,
+        1758,
+        2122
+      ],
+      "weapon_size": [
+        1277,
+        1130
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9515806833902994
+    },
+    {
+      "path": "Frames/Hammer/Attack1/Hammer_Attack1_05.png",
+      "weapon": "Hammer",
+      "state": "Attack1",
+      "frame": 5,
+      "grip": [
+        1615,
+        1629
+      ],
+      "angle": 3.6522227803063356,
+      "body_scale": 4.036697247706422,
+      "source_body_bbox": [
+        923,
+        536,
+        1039,
+        657
+      ],
+      "bbox": [
+        1304,
+        997,
+        2837,
+        2131
+      ],
+      "weapon_size": [
+        1277,
+        1130
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9520690706041124
+    },
+    {
+      "path": "Frames/Hammer/Attack1/Hammer_Attack1_06.png",
+      "weapon": "Hammer",
+      "state": "Attack1",
+      "frame": 6,
+      "grip": [
+        1588,
+        1665
+      ],
+      "angle": 17.241459398939973,
+      "body_scale": 4.036697247706422,
+      "source_body_bbox": [
+        1142,
+        541,
+        1256,
+        656
+      ],
+      "bbox": [
+        1326,
+        809,
+        2872,
+        2000
+      ],
+      "weapon_size": [
+        1277,
+        1130
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9523600472344292
+    },
+    {
+      "path": "Frames/Hammer/Attack2/Hammer_Attack2_01.png",
+      "weapon": "Hammer",
+      "state": "Attack2",
+      "frame": 1,
+      "grip": [
+        1431,
+        1762
+      ],
+      "angle": -157.16634582208246,
+      "body_scale": 4.036697247706422,
+      "source_body_bbox": [
+        137,
+        753,
+        228,
+        875
+      ],
+      "bbox": [
+        142,
+        1508,
+        1721,
+        2702
+      ],
+      "weapon_size": [
+        1277,
+        1130
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9518406126234267
+    },
+    {
+      "path": "Frames/Hammer/Attack2/Hammer_Attack2_02.png",
+      "weapon": "Hammer",
+      "state": "Attack2",
+      "frame": 2,
+      "grip": [
+        1607,
+        1742
+      ],
+      "angle": 30.96375653207352,
+      "body_scale": 4.036697247706422,
+      "source_body_bbox": [
+        266,
+        768,
+        386,
+        875
+      ],
+      "bbox": [
+        1296,
+        695,
+        2880,
+        2000
+      ],
+      "weapon_size": [
+        1277,
+        1130
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9519698884752061
+    },
+    {
+      "path": "Frames/Hammer/Attack2/Hammer_Attack2_03.png",
+      "weapon": "Hammer",
+      "state": "Attack2",
+      "frame": 3,
+      "grip": [
+        1554,
+        1617
+      ],
+      "angle": 69.92847413546127,
+      "body_scale": 4.036697247706422,
+      "source_body_bbox": [
+        516,
+        760,
+        628,
+        875
+      ],
+      "bbox": [
+        1312,
+        329,
+        2453,
+        2000
+      ],
+      "weapon_size": [
+        1277,
+        1130
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9529120127360026
+    },
+    {
+      "path": "Frames/Hammer/Attack2/Hammer_Attack2_04.png",
+      "weapon": "Hammer",
+      "state": "Attack2",
+      "frame": 4,
+      "grip": [
+        1544,
+        1629
+      ],
+      "angle": 86.24827092947402,
+      "body_scale": 4.036697247706422,
+      "source_body_bbox": [
+        731,
+        764,
+        834,
+        874
+      ],
+      "bbox": [
+        1044,
+        406,
+        2178,
+        2000
+      ],
+      "weapon_size": [
+        1277,
+        1130
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9533955256144205
+    },
+    {
+      "path": "Frames/Hammer/Attack2/Hammer_Attack2_05.png",
+      "weapon": "Hammer",
+      "state": "Attack2",
+      "frame": 5,
+      "grip": [
+        1498,
+        1730
+      ],
+      "angle": 142.38604315126727,
+      "body_scale": 4.036697247706422,
+      "source_body_bbox": [
+        978,
+        753,
+        1108,
+        875
+      ],
+      "bbox": [
+        256,
+        608,
+        1801,
+        2000
+      ],
+      "weapon_size": [
+        1277,
+        1130
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9527928034464518
+    },
+    {
+      "path": "Frames/Hammer/Attack2/Hammer_Attack2_06.png",
+      "weapon": "Hammer",
+      "state": "Attack2",
+      "frame": 6,
+      "grip": [
+        1677,
+        1762
+      ],
+      "angle": -24.8293465881496,
+      "body_scale": 4.036697247706422,
+      "source_body_bbox": [
+        1183,
+        744,
+        1289,
+        875
+      ],
+      "bbox": [
+        1358,
+        1471,
+        2965,
+        2730
+      ],
+      "weapon_size": [
+        1277,
+        1130
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9509880277845595
+    },
+    {
+      "path": "Frames/Hammer/Attack3/Hammer_Attack3_01.png",
+      "weapon": "Hammer",
+      "state": "Attack3",
+      "frame": 1,
+      "grip": [
+        1471,
+        1681
+      ],
+      "angle": 97.76516601842533,
+      "body_scale": 4.036697247706422,
+      "source_body_bbox": [
+        107,
+        989,
+        190,
+        1114
+      ],
+      "bbox": [
+        767,
+        433,
+        1900,
+        2000
+      ],
+      "weapon_size": [
+        1277,
+        1130
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9536430570814345
+    },
+    {
+      "path": "Frames/Hammer/Attack3/Hammer_Attack3_02.png",
+      "weapon": "Hammer",
+      "state": "Attack3",
+      "frame": 2,
+      "grip": [
+        1554,
+        1677
+      ],
+      "angle": 90.0,
+      "body_scale": 4.036697247706422,
+      "source_body_bbox": [
+        300,
+        978,
+        398,
+        1114
+      ],
+      "bbox": [
+        989,
+        483,
+        2119,
+        2000
+      ],
+      "weapon_size": [
+        1277,
+        1130
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9537419213189019
+    },
+    {
+      "path": "Frames/Hammer/Attack3/Hammer_Attack3_03.png",
+      "weapon": "Hammer",
+      "state": "Attack3",
+      "frame": 3,
+      "grip": [
+        1532,
+        1649
+      ],
+      "angle": 88.91907581333932,
+      "body_scale": 4.036697247706422,
+      "source_body_bbox": [
+        493,
+        1019,
+        608,
+        1114
+      ],
+      "bbox": [
+        986,
+        446,
+        2117,
+        2000
+      ],
+      "weapon_size": [
+        1277,
+        1130
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9542259640163846
+    },
+    {
+      "path": "Frames/Hammer/Attack3/Hammer_Attack3_04.png",
+      "weapon": "Hammer",
+      "state": "Attack3",
+      "frame": 4,
+      "grip": [
+        1635,
+        1839
+      ],
+      "angle": -7.214262039206761,
+      "body_scale": 4.036697247706422,
+      "source_body_bbox": [
+        707,
+        1011,
+        815,
+        1114
+      ],
+      "bbox": [
+        1320,
+        1401,
+        2880,
+        2534
+      ],
+      "weapon_size": [
+        1277,
+        1130
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9538394080268012
+    },
+    {
+      "path": "Frames/Hammer/Attack3/Hammer_Attack3_05.png",
+      "weapon": "Hammer",
+      "state": "Attack3",
+      "frame": 5,
+      "grip": [
+        1623,
+        1641
+      ],
+      "angle": 62.19854122006586,
+      "body_scale": 4.036697247706422,
+      "source_body_bbox": [
+        961,
+        996,
+        1069,
+        1114
+      ],
+      "bbox": [
+        1320,
+        358,
+        2631,
+        2000
+      ],
+      "weapon_size": [
+        1277,
+        1130
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9535027609931098
+    },
+    {
+      "path": "Frames/Hammer/Attack3/Hammer_Attack3_06.png",
+      "weapon": "Hammer",
+      "state": "Attack3",
+      "frame": 6,
+      "grip": [
+        1593,
+        1677
+      ],
+      "angle": 82.12606186827438,
+      "body_scale": 4.036697247706422,
+      "source_body_bbox": [
+        1183,
+        1008,
+        1274,
+        1114
+      ],
+      "bbox": [
+        1167,
+        428,
+        2299,
+        2000
+      ],
+      "weapon_size": [
+        1277,
+        1130
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9544191360473633
+    },
+    {
+      "path": "Frames/Slash/Idle/Slash_Idle_01.png",
+      "weapon": "Slash",
+      "state": "Idle",
+      "frame": 1,
+      "body_scale": 1.8644067796610169,
+      "bbox": [
+        1314,
+        1560,
+        1760,
+        2000
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9907417297363281
+    },
+    {
+      "path": "Frames/Slash/Idle/Slash_Idle_02.png",
+      "weapon": "Slash",
+      "state": "Idle",
+      "frame": 2,
+      "body_scale": 1.8644067796610169,
+      "bbox": [
+        1316,
+        1554,
+        1758,
+        2000
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9906361897786459
+    },
+    {
+      "path": "Frames/Slash/Idle/Slash_Idle_03.png",
+      "weapon": "Slash",
+      "state": "Idle",
+      "frame": 3,
+      "body_scale": 1.8644067796610169,
+      "bbox": [
+        1398,
+        1562,
+        1845,
+        2000
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.990812725490994
+    },
+    {
+      "path": "Frames/Slash/Idle/Slash_Idle_04.png",
+      "weapon": "Slash",
+      "state": "Idle",
+      "frame": 4,
+      "body_scale": 1.8644067796610169,
+      "bbox": [
+        1315,
+        1558,
+        1759,
+        2000
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9906894895765517
+    },
+    {
+      "path": "Frames/Slash/Idle/Slash_Idle_05.png",
+      "weapon": "Slash",
+      "state": "Idle",
+      "frame": 5,
+      "body_scale": 1.8644067796610169,
+      "bbox": [
+        1398,
+        1567,
+        1853,
+        2000
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9906892776489258
+    },
+    {
+      "path": "Frames/Slash/Idle/Slash_Idle_06.png",
+      "weapon": "Slash",
+      "state": "Idle",
+      "frame": 6,
+      "body_scale": 1.8644067796610169,
+      "bbox": [
+        1321,
+        1558,
+        1754,
+        2000
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9907906850179037
+    },
+    {
+      "path": "Frames/Slash/Move/Slash_Move_01.png",
+      "weapon": "Slash",
+      "state": "Move",
+      "frame": 1,
+      "body_scale": 1.8644067796610169,
+      "bbox": [
+        1395,
+        1597,
+        1842,
+        2000
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9921299616495768
+    },
+    {
+      "path": "Frames/Slash/Move/Slash_Move_02.png",
+      "weapon": "Slash",
+      "state": "Move",
+      "frame": 2,
+      "body_scale": 1.8644067796610169,
+      "bbox": [
+        1317,
+        1623,
+        1776,
+        2000
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9929674996270074
+    },
+    {
+      "path": "Frames/Slash/Move/Slash_Move_03.png",
+      "weapon": "Slash",
+      "state": "Move",
+      "frame": 3,
+      "body_scale": 1.8644067796610169,
+      "bbox": [
+        1317,
+        1612,
+        1716,
+        2000
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9931423399183485
+    },
+    {
+      "path": "Frames/Slash/Move/Slash_Move_04.png",
+      "weapon": "Slash",
+      "state": "Move",
+      "frame": 4,
+      "body_scale": 1.8644067796610169,
+      "bbox": [
+        1393,
+        1601,
+        1837,
+        2000
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9921691682603624
+    },
+    {
+      "path": "Frames/Slash/Move/Slash_Move_05.png",
+      "weapon": "Slash",
+      "state": "Move",
+      "frame": 5,
+      "body_scale": 1.8644067796610169,
+      "bbox": [
+        1488,
+        1633,
+        1792,
+        2000
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.993526988559299
+    },
+    {
+      "path": "Frames/Slash/Move/Slash_Move_06.png",
+      "weapon": "Slash",
+      "state": "Move",
+      "frame": 6,
+      "body_scale": 1.8644067796610169,
+      "bbox": [
+        1384,
+        1597,
+        1833,
+        2000
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9921749962700738
+    },
+    {
+      "path": "Frames/Slash/Attack/Slash_Attack_01.png",
+      "weapon": "Slash",
+      "state": "Attack",
+      "frame": 1,
+      "body_scale": 1.8644067796610169,
+      "bbox": [
+        1315,
+        1590,
+        1761,
+        2000
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9913624657524956
+    },
+    {
+      "path": "Frames/Slash/Attack/Slash_Attack_02.png",
+      "weapon": "Slash",
+      "state": "Attack",
+      "frame": 2,
+      "body_scale": 1.8644067796610169,
+      "bbox": [
+        1271,
+        1541,
+        1698,
+        2000
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9919335047403971
+    },
+    {
+      "path": "Frames/Slash/Attack/Slash_Attack_03.png",
+      "weapon": "Slash",
+      "state": "Attack",
+      "frame": 3,
+      "body_scale": 1.8644067796610169,
+      "bbox": [
+        1355,
+        1625,
+        1853,
+        2000
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.99209107293023
+    },
+    {
+      "path": "Frames/Slash/Attack/Slash_Attack_04.png",
+      "weapon": "Slash",
+      "state": "Attack",
+      "frame": 4,
+      "body_scale": 1.8644067796610169,
+      "bbox": [
+        1356,
+        1661,
+        2051,
+        2000
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9917049407958984
+    },
+    {
+      "path": "Frames/Slash/Attack/Slash_Attack_05.png",
+      "weapon": "Slash",
+      "state": "Attack",
+      "frame": 5,
+      "body_scale": 1.8644067796610169,
+      "bbox": [
+        1364,
+        1631,
+        1938,
+        2000
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.992616229587131
+    },
+    {
+      "path": "Frames/Slash/Attack/Slash_Attack_06.png",
+      "weapon": "Slash",
+      "state": "Attack",
+      "frame": 6,
+      "body_scale": 1.8644067796610169,
+      "bbox": [
+        1321,
+        1588,
+        1754,
+        2000
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.991397327846951
+    },
+    {
+      "path": "Frames/Shield/Idle/Shield_Idle_01.png",
+      "weapon": "Shield",
+      "state": "Idle",
+      "frame": 1,
+      "body_scale": 2.2564102564102564,
+      "bbox": [
+        1392,
+        1560,
+        1733,
+        2000
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9907183117336698
+    },
+    {
+      "path": "Frames/Shield/Idle/Shield_Idle_02.png",
+      "weapon": "Shield",
+      "state": "Idle",
+      "frame": 2,
+      "body_scale": 2.2564102564102564,
+      "bbox": [
+        1405,
+        1558,
+        1737,
+        2000
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.990271356370714
+    },
+    {
+      "path": "Frames/Shield/Idle/Shield_Idle_03.png",
+      "weapon": "Shield",
+      "state": "Idle",
+      "frame": 3,
+      "body_scale": 2.2564102564102564,
+      "bbox": [
+        1401,
+        1558,
+        1742,
+        2000
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9902083079020182
+    },
+    {
+      "path": "Frames/Shield/Idle/Shield_Idle_04.png",
+      "weapon": "Shield",
+      "state": "Idle",
+      "frame": 4,
+      "body_scale": 2.2564102564102564,
+      "bbox": [
+        1397,
+        1555,
+        1735,
+        2000
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9902146657307943
+    },
+    {
+      "path": "Frames/Shield/Idle/Shield_Idle_05.png",
+      "weapon": "Shield",
+      "state": "Idle",
+      "frame": 5,
+      "body_scale": 2.2564102564102564,
+      "bbox": [
+        1401,
+        1555,
+        1733,
+        2000
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9902179506089952
+    },
+    {
+      "path": "Frames/Shield/Idle/Shield_Idle_06.png",
+      "weapon": "Shield",
+      "state": "Idle",
+      "frame": 6,
+      "body_scale": 2.2564102564102564,
+      "bbox": [
+        1399,
+        1558,
+        1737,
+        2000
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9902423222859701
+    },
+    {
+      "path": "Frames/Shield/Move/Shield_Move_01.png",
+      "weapon": "Shield",
+      "state": "Move",
+      "frame": 1,
+      "body_scale": 2.2564102564102564,
+      "bbox": [
+        1389,
+        1544,
+        1727,
+        2000
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9902860853407118
+    },
+    {
+      "path": "Frames/Shield/Move/Shield_Move_02.png",
+      "weapon": "Shield",
+      "state": "Move",
+      "frame": 2,
+      "body_scale": 2.2564102564102564,
+      "bbox": [
+        1366,
+        1544,
+        1720,
+        2000
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9902913835313585
+    },
+    {
+      "path": "Frames/Shield/Move/Shield_Move_03.png",
+      "weapon": "Shield",
+      "state": "Move",
+      "frame": 3,
+      "body_scale": 2.2564102564102564,
+      "bbox": [
+        1421,
+        1551,
+        1730,
+        2000
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9907343122694228
+    },
+    {
+      "path": "Frames/Shield/Move/Shield_Move_04.png",
+      "weapon": "Shield",
+      "state": "Move",
+      "frame": 4,
+      "body_scale": 2.2564102564102564,
+      "bbox": [
+        1393,
+        1544,
+        1725,
+        2000
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9903153313530816
+    },
+    {
+      "path": "Frames/Shield/Move/Shield_Move_05.png",
+      "weapon": "Shield",
+      "state": "Move",
+      "frame": 5,
+      "body_scale": 2.2564102564102564,
+      "bbox": [
+        1374,
+        1551,
+        1724,
+        2000
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.990298695034451
+    },
+    {
+      "path": "Frames/Shield/Move/Shield_Move_06.png",
+      "weapon": "Shield",
+      "state": "Move",
+      "frame": 6,
+      "body_scale": 2.2564102564102564,
+      "bbox": [
+        1401,
+        1551,
+        1721,
+        2000
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9906973308987088
+    },
+    {
+      "path": "Frames/Shield/Deploy/Shield_Deploy_01.png",
+      "weapon": "Shield",
+      "state": "Deploy",
+      "frame": 1,
+      "body_scale": 2.2564102564102564,
+      "bbox": [
+        1392,
+        1555,
+        1746,
+        2000
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9903347227308485
+    },
+    {
+      "path": "Frames/Shield/Deploy/Shield_Deploy_02.png",
+      "weapon": "Shield",
+      "state": "Deploy",
+      "frame": 2,
+      "body_scale": 2.2564102564102564,
+      "bbox": [
+        1380,
+        1553,
+        1788,
+        2000
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9897208743625217
+    },
+    {
+      "path": "Frames/Shield/Deploy/Shield_Deploy_03.png",
+      "weapon": "Shield",
+      "state": "Deploy",
+      "frame": 3,
+      "body_scale": 2.2564102564102564,
+      "bbox": [
+        1380,
+        1551,
+        1773,
+        2000
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9889641867743598
+    },
+    {
+      "path": "Frames/Shield/Deploy/Shield_Deploy_04.png",
+      "weapon": "Shield",
+      "state": "Deploy",
+      "frame": 4,
+      "body_scale": 2.2564102564102564,
+      "bbox": [
+        1360,
+        1533,
+        1773,
+        2000
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9869346618652344
+    },
+    {
+      "path": "Frames/Shield/Deploy/Shield_Deploy_05.png",
+      "weapon": "Shield",
+      "state": "Deploy",
+      "frame": 5,
+      "body_scale": 2.2564102564102564,
+      "bbox": [
+        1360,
+        1517,
+        1762,
+        2009
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.986469586690267
+    },
+    {
+      "path": "Frames/Shield/Deploy/Shield_Deploy_06.png",
+      "weapon": "Shield",
+      "state": "Deploy",
+      "frame": 6,
+      "body_scale": 2.2564102564102564,
+      "bbox": [
+        1344,
+        1497,
+        1761,
+        2014
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9852726194593642
+    },
+    {
+      "path": "Frames/Shield/Guard/Shield_Guard_01.png",
+      "weapon": "Shield",
+      "state": "Guard",
+      "frame": 1,
+      "body_scale": 2.2564102564102564,
+      "bbox": [
+        1355,
+        1504,
+        1763,
+        2014
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9858963224622939
+    },
+    {
+      "path": "Frames/Shield/Guard/Shield_Guard_02.png",
+      "weapon": "Shield",
+      "state": "Guard",
+      "frame": 2,
+      "body_scale": 2.2564102564102564,
+      "bbox": [
+        1355,
+        1504,
+        1766,
+        2014
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9858549965752496
+    },
+    {
+      "path": "Frames/Shield/Guard/Shield_Guard_03.png",
+      "weapon": "Shield",
+      "state": "Guard",
+      "frame": 3,
+      "body_scale": 2.2564102564102564,
+      "bbox": [
+        1351,
+        1504,
+        1759,
+        2014
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9858183330959744
+    },
+    {
+      "path": "Frames/Shield/Guard/Shield_Guard_04.png",
+      "weapon": "Shield",
+      "state": "Guard",
+      "frame": 4,
+      "body_scale": 2.2564102564102564,
+      "bbox": [
+        1346,
+        1504,
+        1761,
+        2014
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9855925242106119
+    },
+    {
+      "path": "Frames/Shield/Guard/Shield_Guard_05.png",
+      "weapon": "Shield",
+      "state": "Guard",
+      "frame": 5,
+      "body_scale": 2.2564102564102564,
+      "bbox": [
+        1355,
+        1504,
+        1770,
+        2014
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9858359230889214
+    },
+    {
+      "path": "Frames/Shield/Guard/Shield_Guard_06.png",
+      "weapon": "Shield",
+      "state": "Guard",
+      "frame": 6,
+      "body_scale": 2.2564102564102564,
+      "bbox": [
+        1346,
+        1504,
+        1763,
+        2014
+      ],
+      "ground_y": 2000,
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.9857099321153429
+    },
+    {
+      "path": "Effects/Shield/DeployFX/Shield_DeployFX_01.png",
+      "weapon": "Shield",
+      "state": "DeployFX",
+      "frame": 1,
+      "bbox": [
+        252,
+        352,
+        541,
+        719
+      ],
+      "loop": false,
+      "width": 1024,
+      "height": 1024,
+      "alpha_min": 0,
+      "alpha_max": 253,
+      "transparent_fraction": 0.9712409973144531
+    },
+    {
+      "path": "Effects/Shield/DeployFX/Shield_DeployFX_02.png",
+      "weapon": "Shield",
+      "state": "DeployFX",
+      "frame": 2,
+      "bbox": [
+        146,
+        324,
+        561,
+        758
+      ],
+      "loop": false,
+      "width": 1024,
+      "height": 1024,
+      "alpha_min": 0,
+      "alpha_max": 253,
+      "transparent_fraction": 0.9378805160522461
+    },
+    {
+      "path": "Effects/Shield/DeployFX/Shield_DeployFX_03.png",
+      "weapon": "Shield",
+      "state": "DeployFX",
+      "frame": 3,
+      "bbox": [
+        101,
+        239,
+        687,
+        800
+      ],
+      "loop": false,
+      "width": 1024,
+      "height": 1024,
+      "alpha_min": 0,
+      "alpha_max": 253,
+      "transparent_fraction": 0.8619756698608398
+    },
+    {
+      "path": "Effects/Shield/DeployFX/Shield_DeployFX_04.png",
+      "weapon": "Shield",
+      "state": "DeployFX",
+      "frame": 4,
+      "bbox": [
+        129,
+        214,
+        743,
+        834
+      ],
+      "loop": false,
+      "width": 1024,
+      "height": 1024,
+      "alpha_min": 0,
+      "alpha_max": 253,
+      "transparent_fraction": 0.8214921951293945
+    },
+    {
+      "path": "Effects/Shield/DeployFX/Shield_DeployFX_05.png",
+      "weapon": "Shield",
+      "state": "DeployFX",
+      "frame": 5,
+      "bbox": [
+        190,
+        251,
+        793,
+        826
+      ],
+      "loop": false,
+      "width": 1024,
+      "height": 1024,
+      "alpha_min": 0,
+      "alpha_max": 253,
+      "transparent_fraction": 0.9013290405273438
+    },
+    {
+      "path": "Effects/Shield/DeployFX/Shield_DeployFX_06.png",
+      "weapon": "Shield",
+      "state": "DeployFX",
+      "frame": 6,
+      "bbox": [
+        246,
+        293,
+        667,
+        758
+      ],
+      "loop": false,
+      "width": 1024,
+      "height": 1024,
+      "alpha_min": 0,
+      "alpha_max": 252,
+      "transparent_fraction": 0.9576482772827148
+    },
+    {
+      "path": "Effects/Shield/GuardFX/Shield_GuardFX_01.png",
+      "weapon": "Shield",
+      "state": "GuardFX",
+      "frame": 1,
+      "bbox": [
+        497,
+        193,
+        867,
+        798
+      ],
+      "loop": true,
+      "width": 1024,
+      "height": 1024,
+      "alpha_min": 0,
+      "alpha_max": 253,
+      "transparent_fraction": 0.9073925018310547
+    },
+    {
+      "path": "Effects/Shield/GuardFX/Shield_GuardFX_02.png",
+      "weapon": "Shield",
+      "state": "GuardFX",
+      "frame": 2,
+      "bbox": [
+        453,
+        203,
+        836,
+        798
+      ],
+      "loop": true,
+      "width": 1024,
+      "height": 1024,
+      "alpha_min": 0,
+      "alpha_max": 253,
+      "transparent_fraction": 0.9036731719970703
+    },
+    {
+      "path": "Effects/Shield/GuardFX/Shield_GuardFX_03.png",
+      "weapon": "Shield",
+      "state": "GuardFX",
+      "frame": 3,
+      "bbox": [
+        453,
+        209,
+        839,
+        798
+      ],
+      "loop": true,
+      "width": 1024,
+      "height": 1024,
+      "alpha_min": 0,
+      "alpha_max": 253,
+      "transparent_fraction": 0.9090261459350586
+    },
+    {
+      "path": "Effects/Shield/GuardFX/Shield_GuardFX_04.png",
+      "weapon": "Shield",
+      "state": "GuardFX",
+      "frame": 4,
+      "bbox": [
+        460,
+        178,
+        842,
+        798
+      ],
+      "loop": true,
+      "width": 1024,
+      "height": 1024,
+      "alpha_min": 0,
+      "alpha_max": 253,
+      "transparent_fraction": 0.9083061218261719
+    },
+    {
+      "path": "Effects/Shield/GuardFX/Shield_GuardFX_05.png",
+      "weapon": "Shield",
+      "state": "GuardFX",
+      "frame": 5,
+      "bbox": [
+        487,
+        209,
+        876,
+        798
+      ],
+      "loop": true,
+      "width": 1024,
+      "height": 1024,
+      "alpha_min": 0,
+      "alpha_max": 252,
+      "transparent_fraction": 0.9066715240478516
+    },
+    {
+      "path": "Effects/Shield/GuardFX/Shield_GuardFX_06.png",
+      "weapon": "Shield",
+      "state": "GuardFX",
+      "frame": 6,
+      "bbox": [
+        484,
+        209,
+        839,
+        798
+      ],
+      "loop": true,
+      "width": 1024,
+      "height": 1024,
+      "alpha_min": 0,
+      "alpha_max": 252,
+      "transparent_fraction": 0.9119958877563477
+    },
+    {
+      "path": "Effects/Shield/BlockHitFX/Shield_BlockHitFX_01.png",
+      "weapon": "Shield",
+      "state": "BlockHitFX",
+      "frame": 1,
+      "bbox": [
+        502,
+        320,
+        662,
+        682
+      ],
+      "loop": false,
+      "width": 1024,
+      "height": 1024,
+      "alpha_min": 0,
+      "alpha_max": 253,
+      "transparent_fraction": 0.9726409912109375
+    },
+    {
+      "path": "Effects/Shield/BlockHitFX/Shield_BlockHitFX_02.png",
+      "weapon": "Shield",
+      "state": "BlockHitFX",
+      "frame": 2,
+      "bbox": [
+        447,
+        314,
+        705,
+        678
+      ],
+      "loop": false,
+      "width": 1024,
+      "height": 1024,
+      "alpha_min": 0,
+      "alpha_max": 253,
+      "transparent_fraction": 0.9637060165405273
+    },
+    {
+      "path": "Effects/Shield/BlockHitFX/Shield_BlockHitFX_03.png",
+      "weapon": "Shield",
+      "state": "BlockHitFX",
+      "frame": 3,
+      "bbox": [
+        451,
+        312,
+        727,
+        678
+      ],
+      "loop": false,
+      "width": 1024,
+      "height": 1024,
+      "alpha_min": 0,
+      "alpha_max": 253,
+      "transparent_fraction": 0.955531120300293
+    },
+    {
+      "path": "Effects/Shield/BlockHitFX/Shield_BlockHitFX_04.png",
+      "weapon": "Shield",
+      "state": "BlockHitFX",
+      "frame": 4,
+      "bbox": [
+        471,
+        304,
+        772,
+        731
+      ],
+      "loop": false,
+      "width": 1024,
+      "height": 1024,
+      "alpha_min": 0,
+      "alpha_max": 253,
+      "transparent_fraction": 0.9422454833984375
+    },
+    {
+      "path": "Effects/Shield/BlockHitFX/Shield_BlockHitFX_05.png",
+      "weapon": "Shield",
+      "state": "BlockHitFX",
+      "frame": 5,
+      "bbox": [
+        252,
+        320,
+        772,
+        678
+      ],
+      "loop": false,
+      "width": 1024,
+      "height": 1024,
+      "alpha_min": 0,
+      "alpha_max": 252,
+      "transparent_fraction": 0.9631032943725586
+    },
+    {
+      "path": "Effects/Shield/BlockHitFX/Shield_BlockHitFX_06.png",
+      "weapon": "Shield",
+      "state": "BlockHitFX",
+      "frame": 6,
+      "bbox": [
+        504,
+        320,
+        711,
+        682
+      ],
+      "loop": false,
+      "width": 1024,
+      "height": 1024,
+      "alpha_min": 0,
+      "alpha_max": 253,
+      "transparent_fraction": 0.9684925079345703
+    },
+    {
+      "path": "Effects/Hammer/GroundImpact/Hammer_GroundImpact_01.png",
+      "weapon": "Hammer",
+      "state": "GroundImpact",
+      "frame": 1,
+      "bbox": [
+        377,
+        554,
+        664,
+        847
+      ],
+      "loop": false,
+      "width": 1024,
+      "height": 1024,
+      "alpha_min": 0,
+      "alpha_max": 252,
+      "transparent_fraction": 0.9716787338256836
+    },
+    {
+      "path": "Effects/Hammer/GroundImpact/Hammer_GroundImpact_02.png",
+      "weapon": "Hammer",
+      "state": "GroundImpact",
+      "frame": 2,
+      "bbox": [
+        304,
+        492,
+        679,
+        856
+      ],
+      "loop": false,
+      "width": 1024,
+      "height": 1024,
+      "alpha_min": 0,
+      "alpha_max": 253,
+      "transparent_fraction": 0.9407196044921875
+    },
+    {
+      "path": "Effects/Hammer/GroundImpact/Hammer_GroundImpact_03.png",
+      "weapon": "Hammer",
+      "state": "GroundImpact",
+      "frame": 3,
+      "bbox": [
+        272,
+        485,
+        786,
+        860
+      ],
+      "loop": false,
+      "width": 1024,
+      "height": 1024,
+      "alpha_min": 0,
+      "alpha_max": 253,
+      "transparent_fraction": 0.9301939010620117
+    },
+    {
+      "path": "Effects/Hammer/GroundImpact/Hammer_GroundImpact_04.png",
+      "weapon": "Hammer",
+      "state": "GroundImpact",
+      "frame": 4,
+      "bbox": [
+        238,
+        479,
+        758,
+        873
+      ],
+      "loop": false,
+      "width": 1024,
+      "height": 1024,
+      "alpha_min": 0,
+      "alpha_max": 252,
+      "transparent_fraction": 0.9270162582397461
+    },
+    {
+      "path": "Effects/Hammer/GroundImpact/Hammer_GroundImpact_05.png",
+      "weapon": "Hammer",
+      "state": "GroundImpact",
+      "frame": 5,
+      "bbox": [
+        289,
+        590,
+        786,
+        858
+      ],
+      "loop": false,
+      "width": 1024,
+      "height": 1024,
+      "alpha_min": 0,
+      "alpha_max": 250,
+      "transparent_fraction": 0.9589262008666992
+    },
+    {
+      "path": "Effects/Hammer/GroundImpact/Hammer_GroundImpact_06.png",
+      "weapon": "Hammer",
+      "state": "GroundImpact",
+      "frame": 6,
+      "bbox": [
+        238,
+        642,
+        737,
+        841
+      ],
+      "loop": false,
+      "width": 1024,
+      "height": 1024,
+      "alpha_min": 0,
+      "alpha_max": 242,
+      "transparent_fraction": 0.9823513031005859
+    },
+    {
+      "path": "Effects/Slash/Projectile/Slash_Projectile_01.png",
+      "weapon": "Slash",
+      "state": "Projectile",
+      "frame": 1,
+      "bbox": [
+        275,
+        365,
+        750,
+        608
+      ],
+      "loop": true,
+      "width": 1024,
+      "height": 1024,
+      "alpha_min": 0,
+      "alpha_max": 253,
+      "transparent_fraction": 0.9482955932617188
+    },
+    {
+      "path": "Effects/Slash/Projectile/Slash_Projectile_02.png",
+      "weapon": "Slash",
+      "state": "Projectile",
+      "frame": 2,
+      "bbox": [
+        261,
+        357,
+        722,
+        601
+      ],
+      "loop": true,
+      "width": 1024,
+      "height": 1024,
+      "alpha_min": 0,
+      "alpha_max": 253,
+      "transparent_fraction": 0.9386119842529297
+    },
+    {
+      "path": "Effects/Slash/Projectile/Slash_Projectile_03.png",
+      "weapon": "Slash",
+      "state": "Projectile",
+      "frame": 3,
+      "bbox": [
+        254,
+        357,
+        726,
+        601
+      ],
+      "loop": true,
+      "width": 1024,
+      "height": 1024,
+      "alpha_min": 0,
+      "alpha_max": 253,
+      "transparent_fraction": 0.9435453414916992
+    },
+    {
+      "path": "Effects/Slash/Projectile/Slash_Projectile_04.png",
+      "weapon": "Slash",
+      "state": "Projectile",
+      "frame": 4,
+      "bbox": [
+        268,
+        360,
+        733,
+        601
+      ],
+      "loop": true,
+      "width": 1024,
+      "height": 1024,
+      "alpha_min": 0,
+      "alpha_max": 253,
+      "transparent_fraction": 0.94598388671875
+    },
+    {
+      "path": "Effects/Slash/Projectile/Slash_Projectile_05.png",
+      "weapon": "Slash",
+      "state": "Projectile",
+      "frame": 5,
+      "bbox": [
+        270,
+        360,
+        791,
+        606
+      ],
+      "loop": true,
+      "width": 1024,
+      "height": 1024,
+      "alpha_min": 0,
+      "alpha_max": 253,
+      "transparent_fraction": 0.9381723403930664
+    },
+    {
+      "path": "Effects/Slash/Projectile/Slash_Projectile_06.png",
+      "weapon": "Slash",
+      "state": "Projectile",
+      "frame": 6,
+      "bbox": [
+        323,
+        360,
+        776,
+        606
+      ],
+      "loop": true,
+      "width": 1024,
+      "height": 1024,
+      "alpha_min": 0,
+      "alpha_max": 253,
+      "transparent_fraction": 0.9417667388916016
+    },
+    {
+      "path": "Effects/GiantSword/Trail_Attack1/GiantSword_Trail_Attack1_01.png",
+      "weapon": "GiantSword",
+      "state": "Trail_Attack1",
+      "frame": 1,
+      "bbox": [
+        1479,
+        900,
+        2171,
+        1643
+      ],
+      "matching_body_frame": "Frames/GiantSword/Attack1/GiantSword_Attack1_01.png",
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 18,
+      "transparent_fraction": 0.9834841622246636
+    },
+    {
+      "path": "Effects/GiantSword/Trail_Attack1/GiantSword_Trail_Attack1_02.png",
+      "weapon": "GiantSword",
+      "state": "Trail_Attack1",
+      "frame": 2,
+      "bbox": [
+        1392,
+        804,
+        2102,
+        1658
+      ],
+      "matching_body_frame": "Frames/GiantSword/Attack1/GiantSword_Attack1_02.png",
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 68,
+      "transparent_fraction": 0.973897722032335
+    },
+    {
+      "path": "Effects/GiantSword/Trail_Attack1/GiantSword_Trail_Attack1_03.png",
+      "weapon": "GiantSword",
+      "state": "Trail_Attack1",
+      "frame": 3,
+      "bbox": [
+        1773,
+        874,
+        2815,
+        1814
+      ],
+      "matching_body_frame": "Frames/GiantSword/Attack1/GiantSword_Attack1_03.png",
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 116,
+      "transparent_fraction": 0.9409237967597114
+    },
+    {
+      "path": "Effects/GiantSword/Trail_Attack1/GiantSword_Trail_Attack1_04.png",
+      "weapon": "GiantSword",
+      "state": "Trail_Attack1",
+      "frame": 4,
+      "bbox": [
+        1919,
+        1477,
+        2846,
+        1829
+      ],
+      "matching_body_frame": "Frames/GiantSword/Attack1/GiantSword_Attack1_04.png",
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 131,
+      "transparent_fraction": 0.9786586761474609
+    },
+    {
+      "path": "Effects/GiantSword/Trail_Attack1/GiantSword_Trail_Attack1_05.png",
+      "weapon": "GiantSword",
+      "state": "Trail_Attack1",
+      "frame": 5,
+      "bbox": [
+        1932,
+        1452,
+        2846,
+        1797
+      ],
+      "matching_body_frame": "Frames/GiantSword/Attack1/GiantSword_Attack1_05.png",
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 100,
+      "transparent_fraction": 0.9834098815917969
+    },
+    {
+      "path": "Effects/GiantSword/Trail_Attack1/GiantSword_Trail_Attack1_06.png",
+      "weapon": "GiantSword",
+      "state": "Trail_Attack1",
+      "frame": 6,
+      "bbox": [
+        1637,
+        776,
+        2691,
+        1809
+      ],
+      "matching_body_frame": "Frames/GiantSword/Attack1/GiantSword_Attack1_06.png",
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 31,
+      "transparent_fraction": 0.935837639702691
+    },
+    {
+      "path": "Effects/GiantSword/Trail_Attack2/GiantSword_Trail_Attack2_01.png",
+      "weapon": "GiantSword",
+      "state": "Trail_Attack2",
+      "frame": 1,
+      "bbox": [
+        1784,
+        1766,
+        2697,
+        2140
+      ],
+      "matching_body_frame": "Frames/GiantSword/Attack2/GiantSword_Attack2_01.png",
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 18,
+      "transparent_fraction": 0.9834845860799154
+    },
+    {
+      "path": "Effects/GiantSword/Trail_Attack2/GiantSword_Trail_Attack2_02.png",
+      "weapon": "GiantSword",
+      "state": "Trail_Attack2",
+      "frame": 2,
+      "bbox": [
+        1925,
+        1787,
+        2850,
+        2258
+      ],
+      "matching_body_frame": "Frames/GiantSword/Attack2/GiantSword_Attack2_02.png",
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 68,
+      "transparent_fraction": 0.9775565465291342
+    },
+    {
+      "path": "Effects/GiantSword/Trail_Attack2/GiantSword_Trail_Attack2_03.png",
+      "weapon": "GiantSword",
+      "state": "Trail_Attack2",
+      "frame": 3,
+      "bbox": [
+        1640,
+        951,
+        2676,
+        2035
+      ],
+      "matching_body_frame": "Frames/GiantSword/Attack2/GiantSword_Attack2_03.png",
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 109,
+      "transparent_fraction": 0.9257415135701498
+    },
+    {
+      "path": "Effects/GiantSword/Trail_Attack2/GiantSword_Trail_Attack2_04.png",
+      "weapon": "GiantSword",
+      "state": "Trail_Attack2",
+      "frame": 4,
+      "bbox": [
+        1606,
+        751,
+        2273,
+        1550
+      ],
+      "matching_body_frame": "Frames/GiantSword/Attack2/GiantSword_Attack2_04.png",
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 131,
+      "transparent_fraction": 0.9809728198581271
+    },
+    {
+      "path": "Effects/GiantSword/Trail_Attack2/GiantSword_Trail_Attack2_05.png",
+      "weapon": "GiantSword",
+      "state": "Trail_Attack2",
+      "frame": 5,
+      "bbox": [
+        1595,
+        800,
+        2263,
+        1605
+      ],
+      "matching_body_frame": "Frames/GiantSword/Attack2/GiantSword_Attack2_05.png",
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 100,
+      "transparent_fraction": 0.9805471632215712
+    },
+    {
+      "path": "Effects/GiantSword/Trail_Attack2/GiantSword_Trail_Attack2_06.png",
+      "weapon": "GiantSword",
+      "state": "Trail_Attack2",
+      "frame": 6,
+      "bbox": [
+        1546,
+        671,
+        2191,
+        1472
+      ],
+      "matching_body_frame": "Frames/GiantSword/Attack2/GiantSword_Attack2_06.png",
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 31,
+      "transparent_fraction": 0.9822916454739041
+    },
+    {
+      "path": "Effects/GiantSword/Trail_Attack3/GiantSword_Trail_Attack3_01.png",
+      "weapon": "GiantSword",
+      "state": "Trail_Attack3",
+      "frame": 1,
+      "bbox": [
+        1510,
+        500,
+        1898,
+        1410
+      ],
+      "matching_body_frame": "Frames/GiantSword/Attack3/GiantSword_Attack3_01.png",
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 18,
+      "transparent_fraction": 0.9834841622246636
+    },
+    {
+      "path": "Effects/GiantSword/Trail_Attack3/GiantSword_Trail_Attack3_02.png",
+      "weapon": "GiantSword",
+      "state": "Trail_Attack3",
+      "frame": 2,
+      "bbox": [
+        1506,
+        454,
+        1895,
+        1365
+      ],
+      "matching_body_frame": "Frames/GiantSword/Attack3/GiantSword_Attack3_02.png",
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 68,
+      "transparent_fraction": 0.9834097756279839
+    },
+    {
+      "path": "Effects/GiantSword/Trail_Attack3/GiantSword_Trail_Attack3_03.png",
+      "weapon": "GiantSword",
+      "state": "Trail_Attack3",
+      "frame": 3,
+      "bbox": [
+        1487,
+        612,
+        1888,
+        1547
+      ],
+      "matching_body_frame": "Frames/GiantSword/Attack3/GiantSword_Attack3_03.png",
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 116,
+      "transparent_fraction": 0.9761174519856771
+    },
+    {
+      "path": "Effects/GiantSword/Trail_Attack3/GiantSword_Trail_Attack3_04.png",
+      "weapon": "GiantSword",
+      "state": "Trail_Attack3",
+      "frame": 4,
+      "bbox": [
+        1643,
+        818,
+        2786,
+        1965
+      ],
+      "matching_body_frame": "Frames/GiantSword/Attack3/GiantSword_Attack3_04.png",
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 115,
+      "transparent_fraction": 0.9156840642293295
+    },
+    {
+      "path": "Effects/GiantSword/Trail_Attack3/GiantSword_Trail_Attack3_05.png",
+      "weapon": "GiantSword",
+      "state": "Trail_Attack3",
+      "frame": 5,
+      "bbox": [
+        1627,
+        829,
+        2719,
+        1876
+      ],
+      "matching_body_frame": "Frames/GiantSword/Attack3/GiantSword_Attack3_05.png",
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 94,
+      "transparent_fraction": 0.926640616522895
+    },
+    {
+      "path": "Effects/GiantSword/Trail_Attack3/GiantSword_Trail_Attack3_06.png",
+      "weapon": "GiantSword",
+      "state": "Trail_Attack3",
+      "frame": 6,
+      "bbox": [
+        1580,
+        647,
+        2058,
+        1535
+      ],
+      "matching_body_frame": "Frames/GiantSword/Attack3/GiantSword_Attack3_06.png",
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 31,
+      "transparent_fraction": 0.9832235972086588
+    },
+    {
+      "path": "Effects/Hammer/Trail_Attack1/Hammer_Trail_Attack1_01.png",
+      "weapon": "Hammer",
+      "state": "Trail_Attack1",
+      "frame": 1,
+      "bbox": [
+        133,
+        546,
+        1020,
+        1513
+      ],
+      "matching_body_frame": "Frames/Hammer/Attack1/Hammer_Attack1_01.png",
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 18,
+      "transparent_fraction": 0.966096560160319
+    },
+    {
+      "path": "Effects/Hammer/Trail_Attack1/Hammer_Trail_Attack1_02.png",
+      "weapon": "Hammer",
+      "state": "Trail_Attack1",
+      "frame": 2,
+      "bbox": [
+        72,
+        559,
+        986,
+        1795
+      ],
+      "matching_body_frame": "Frames/Hammer/Attack1/Hammer_Attack1_02.png",
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 68,
+      "transparent_fraction": 0.9503017001681857
+    },
+    {
+      "path": "Effects/Hammer/Trail_Attack1/Hammer_Trail_Attack1_03.png",
+      "weapon": "Hammer",
+      "state": "Trail_Attack1",
+      "frame": 3,
+      "bbox": [
+        118,
+        811,
+        759,
+        2258
+      ],
+      "matching_body_frame": "Frames/Hammer/Attack1/Hammer_Attack1_03.png",
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 116,
+      "transparent_fraction": 0.9443996217515733
+    },
+    {
+      "path": "Effects/Hammer/Trail_Attack1/Hammer_Trail_Attack1_04.png",
+      "weapon": "Hammer",
+      "state": "Trail_Attack1",
+      "frame": 4,
+      "bbox": [
+        176,
+        1013,
+        619,
+        2284
+      ],
+      "matching_body_frame": "Frames/Hammer/Attack1/Hammer_Attack1_04.png",
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 131,
+      "transparent_fraction": 0.9562732908460829
+    },
+    {
+      "path": "Effects/Hammer/Trail_Attack1/Hammer_Trail_Attack1_05.png",
+      "weapon": "Hammer",
+      "state": "Trail_Attack1",
+      "frame": 5,
+      "bbox": [
+        334,
+        340,
+        2902,
+        1739
+      ],
+      "matching_body_frame": "Frames/Hammer/Attack1/Hammer_Attack1_05.png",
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 62,
+      "transparent_fraction": 0.874063703748915
+    },
+    {
+      "path": "Effects/Hammer/Trail_Attack1/Hammer_Trail_Attack1_06.png",
+      "weapon": "Hammer",
+      "state": "Trail_Attack1",
+      "frame": 6,
+      "bbox": [
+        2281,
+        835,
+        2868,
+        2137
+      ],
+      "matching_body_frame": "Frames/Hammer/Attack1/Hammer_Attack1_06.png",
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 31,
+      "transparent_fraction": 0.9536844889322916
+    },
+    {
+      "path": "Effects/Hammer/Trail_Attack2/Hammer_Trail_Attack2_01.png",
+      "weapon": "Hammer",
+      "state": "Trail_Attack2",
+      "frame": 1,
+      "bbox": [
+        142,
+        1617,
+        832,
+        2702
+      ],
+      "matching_body_frame": "Frames/Hammer/Attack2/Hammer_Attack2_01.png",
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 18,
+      "transparent_fraction": 0.9660956064860026
+    },
+    {
+      "path": "Effects/Hammer/Trail_Attack2/Hammer_Trail_Attack2_02.png",
+      "weapon": "Hammer",
+      "state": "Trail_Attack2",
+      "frame": 2,
+      "bbox": [
+        319,
+        458,
+        2728,
+        2332
+      ],
+      "matching_body_frame": "Frames/Hammer/Attack2/Hammer_Attack2_02.png",
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 40,
+      "transparent_fraction": 0.8734187020195855
+    },
+    {
+      "path": "Effects/Hammer/Trail_Attack2/Hammer_Trail_Attack2_03.png",
+      "weapon": "Hammer",
+      "state": "Trail_Attack2",
+      "frame": 3,
+      "bbox": [
+        1449,
+        330,
+        2805,
+        1521
+      ],
+      "matching_body_frame": "Frames/Hammer/Attack2/Hammer_Attack2_03.png",
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 116,
+      "transparent_fraction": 0.9341343773735894
+    },
+    {
+      "path": "Effects/Hammer/Trail_Attack2/Hammer_Trail_Attack2_04.png",
+      "weapon": "Hammer",
+      "state": "Trail_Attack2",
+      "frame": 4,
+      "bbox": [
+        1081,
+        343,
+        2412,
+        967
+      ],
+      "matching_body_frame": "Frames/Hammer/Attack2/Hammer_Attack2_04.png",
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 131,
+      "transparent_fraction": 0.9515062967936198
+    },
+    {
+      "path": "Effects/Hammer/Trail_Attack2/Hammer_Trail_Attack2_05.png",
+      "weapon": "Hammer",
+      "state": "Trail_Attack2",
+      "frame": 5,
+      "bbox": [
+        307,
+        443,
+        2007,
+        1476
+      ],
+      "matching_body_frame": "Frames/Hammer/Attack2/Hammer_Attack2_05.png",
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 100,
+      "transparent_fraction": 0.9230067994859483
+    },
+    {
+      "path": "Effects/Hammer/Trail_Attack2/Hammer_Trail_Attack2_06.png",
+      "weapon": "Hammer",
+      "state": "Trail_Attack2",
+      "frame": 6,
+      "bbox": [
+        624,
+        489,
+        2960,
+        2399
+      ],
+      "matching_body_frame": "Frames/Hammer/Attack2/Hammer_Attack2_06.png",
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 18,
+      "transparent_fraction": 0.8743989732530382
+    },
+    {
+      "path": "Effects/Hammer/Trail_Attack3/Hammer_Trail_Attack3_01.png",
+      "weapon": "Hammer",
+      "state": "Trail_Attack3",
+      "frame": 1,
+      "bbox": [
+        767,
+        433,
+        1900,
+        900
+      ],
+      "matching_body_frame": "Frames/Hammer/Attack3/Hammer_Attack3_01.png",
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 18,
+      "transparent_fraction": 0.9660974078708224
+    },
+    {
+      "path": "Effects/Hammer/Trail_Attack3/Hammer_Trail_Attack3_02.png",
+      "weapon": "Hammer",
+      "state": "Trail_Attack3",
+      "frame": 2,
+      "bbox": [
+        867,
+        434,
+        2102,
+        886
+      ],
+      "matching_body_frame": "Frames/Hammer/Attack3/Hammer_Attack3_02.png",
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 68,
+      "transparent_fraction": 0.9584727817111545
+    },
+    {
+      "path": "Effects/Hammer/Trail_Attack3/Hammer_Trail_Attack3_03.png",
+      "weapon": "Hammer",
+      "state": "Trail_Attack3",
+      "frame": 3,
+      "bbox": [
+        969,
+        447,
+        2115,
+        827
+      ],
+      "matching_body_frame": "Frames/Hammer/Attack3/Hammer_Attack3_03.png",
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 116,
+      "transparent_fraction": 0.9647703170776367
+    },
+    {
+      "path": "Effects/Hammer/Trail_Attack3/Hammer_Trail_Attack3_04.png",
+      "weapon": "Hammer",
+      "state": "Trail_Attack3",
+      "frame": 4,
+      "bbox": [
+        1306,
+        552,
+        2918,
+        2321
+      ],
+      "matching_body_frame": "Frames/Hammer/Attack3/Hammer_Attack3_04.png",
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 124,
+      "transparent_fraction": 0.9033319685194228
+    },
+    {
+      "path": "Effects/Hammer/Trail_Attack3/Hammer_Trail_Attack3_05.png",
+      "weapon": "Hammer",
+      "state": "Trail_Attack3",
+      "frame": 5,
+      "bbox": [
+        1734,
+        392,
+        2909,
+        2181
+      ],
+      "matching_body_frame": "Frames/Hammer/Attack3/Hammer_Attack3_05.png",
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 100,
+      "transparent_fraction": 0.9166704813639323
+    },
+    {
+      "path": "Effects/Hammer/Trail_Attack3/Hammer_Trail_Attack3_06.png",
+      "weapon": "Hammer",
+      "state": "Trail_Attack3",
+      "frame": 6,
+      "bbox": [
+        1213,
+        388,
+        2568,
+        1112
+      ],
+      "matching_body_frame": "Frames/Hammer/Attack3/Hammer_Attack3_06.png",
+      "width": 3072,
+      "height": 3072,
+      "alpha_min": 0,
+      "alpha_max": 31,
+      "transparent_fraction": 0.9486331939697266
+    }
+  ]
+}

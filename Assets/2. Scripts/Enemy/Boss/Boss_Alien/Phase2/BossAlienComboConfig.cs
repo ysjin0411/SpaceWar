@@ -8,10 +8,6 @@ using UnityEngine;
     fileName = "BossAlienComboConfig")]
 public sealed class BossAlienComboConfig : ScriptableObject
 {
-    // 콤보 시작 시 플레이어에게 접근하는 속도다.
-    [SerializeField, Min(0.01f)]
-    private float _chaseSpeed = 3f;
-
     // 플레이어를 계속 쫓기만 하지 않도록 추적 시간을 제한한다.
     [SerializeField, Min(0.01f)]
     private float _maxChaseDuration = 2f;
@@ -34,7 +30,6 @@ public sealed class BossAlienComboConfig : ScriptableObject
     };
 
     // 패턴 코드에서 읽을 추적 설정이다.
-    public float ChaseSpeed => _chaseSpeed;
     public float MaxChaseDuration => _maxChaseDuration;
     public float StopDistance => _stopDistance;
     public float WallPadding => _wallPadding;
@@ -42,6 +37,9 @@ public sealed class BossAlienComboConfig : ScriptableObject
     // 배열 자체를 외부에 넘기지 않고 순서대로 설정을 읽게 한다.
     public int StrikeCount => _strikes.Length;
 
+    /// <summary>
+    /// GetStrike 동작에 필요한 상태와 처리 흐름을 실행한다.
+    /// </summary>
     public StrikeSettings GetStrike(int index)
     {
         return _strikes[index];
@@ -51,17 +49,19 @@ public sealed class BossAlienComboConfig : ScriptableObject
     [Serializable]
     public sealed class StrikeSettings
     {
-        // Phase2_Combo에서 사용할 준비 자세의 Label이다.
-        [SerializeField]
-        private string _prepareLabel;
+        // 이번 타격 전에 플레이어에게 접근하는 이동 속도다.
+        // Strikes의 0, 1, 2번에 각각 N, M, Z를 설정한다.
+        [SerializeField, Min(0.01f)]
+        private float _chaseSpeed = 6f;
 
-        // 실제 타격 순간에 표시할 Label이다.
-        [SerializeField]
-        private string _attackLabel;
+        // 이번 추적에서 ComboChase 클립을 재생하는 배속이다.
+        // 이동 속도와 별개로 발을 얼마나 빠르게 움직일지 조절한다.
+        [SerializeField, Min(0.01f)]
+        private float _chaseAnimationSpeed = 2f;
 
-        // 공격 후 회복 자세의 Label이다.
-        [SerializeField]
-        private string _recoverLabel;
+        // 패턴에서 이번 타격의 추적 설정을 읽는다.
+        public float ChaseSpeed => _chaseSpeed;
+        public float ChaseAnimationSpeed => _chaseAnimationSpeed;
 
         // 준비 자세에서 플레이어 방향을 갱신하는 시간이다.
         [SerializeField, Min(0.01f)]
@@ -83,21 +83,12 @@ public sealed class BossAlienComboConfig : ScriptableObject
 
         // 해당 타격의 피해량이다.
         [SerializeField, Min(0)]
-        private int _damage = 10;
+        private float _damage = 10;
 
         // 공격 사각형의 크기다.
         // X는 공격 방향으로의 길이, Y는 그 방향에 수직인 폭이다.
         [SerializeField]
         private Vector2 _hitboxSize = new Vector2(3f, 2.5f);
-
-        // 보스 루트에서 공격 방향으로 판정 중심을 옮길 거리다.
-        [SerializeField, Min(0f)]
-        private float _forwardOffset = 1.5f;
-
-        // 패턴에서 사용할 자세 이름이다.
-        public string PrepareLabel => _prepareLabel;
-        public string AttackLabel => _attackLabel;
-        public string RecoverLabel => _recoverLabel;
 
         // 각 공격 단계의 시간이다.
         public float AimDuration => _aimDuration;
@@ -106,8 +97,7 @@ public sealed class BossAlienComboConfig : ScriptableObject
         public float RecoveryDuration => _recoveryDuration;
 
         // 실제 피해 판정에 사용할 설정이다.
-        public int Damage => _damage;
+        public float Damage => _damage;
         public Vector2 HitboxSize => _hitboxSize;
-        public float ForwardOffset => _forwardOffset;
     }
 }

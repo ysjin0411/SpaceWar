@@ -24,6 +24,9 @@ public class QuestRewardListView : MonoBehaviour
     private bool _hasRewards;
 
     // 다른 View나 Presenter의 Awake에서도 검사할 수 있다.
+    // 부모 화면이 숨겨져 있어도 표시할 보상이 있는지 확인한다.
+    public bool HasRewards => _hasRewards;
+
     public bool IsConfigured =>
         _root != null &&
         _content != null &&

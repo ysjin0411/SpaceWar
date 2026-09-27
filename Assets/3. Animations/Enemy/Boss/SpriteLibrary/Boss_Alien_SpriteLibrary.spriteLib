@@ -116,28 +116,608 @@ MonoBehaviour:
     m_Hash: 473878675
     m_CategoryList: []
     m_OverrideEntries:
-    - m_Name: Break_01
-      m_Hash: 207172777
-      m_Sprite: {fileID: 21300000, guid: 748adca5d556e0f48802ebf6f0ffdfdc, type: 3}
+    - m_Name: Alien_Transition_001
+      m_Hash: 666077724
+      m_Sprite: {fileID: 21300000, guid: b8b1bd8757852544ea99eb0a000d5e27, type: 3}
       m_FromMain: 0
-      m_SpriteOverride: {fileID: 21300000, guid: 748adca5d556e0f48802ebf6f0ffdfdc, type: 3}
-    - m_Name: Break_02
-      m_Hash: 357590291
-      m_Sprite: {fileID: 21300000, guid: 6ad7af9c328d10a4391f000e22566328, type: 3}
+      m_SpriteOverride: {fileID: 21300000, guid: b8b1bd8757852544ea99eb0a000d5e27, type: 3}
+    - m_Name: Alien_Transition_002
+      m_Hash: 1052433318
+      m_Sprite: {fileID: 21300000, guid: 6bd753a0b6179bb4691d0934644d8e69, type: 3}
       m_FromMain: 0
-      m_SpriteOverride: {fileID: 21300000, guid: 6ad7af9c328d10a4391f000e22566328, type: 3}
-    - m_Name: Emerge_03
-      m_Hash: 102414848
-      m_Sprite: {fileID: 21300000, guid: 97d482d0f2d73d34b86f2b3be4d7d84b, type: 3}
+      m_SpriteOverride: {fileID: 21300000, guid: 6bd753a0b6179bb4691d0934644d8e69, type: 3}
+    - m_Name: Alien_Transition_003
+      m_Hash: 163441456
+      m_Sprite: {fileID: 21300000, guid: ad02043ad9398e946b2c52fbeb4eb84f, type: 3}
       m_FromMain: 0
-      m_SpriteOverride: {fileID: 21300000, guid: 97d482d0f2d73d34b86f2b3be4d7d84b, type: 3}
-    - m_Name: Land_04
-      m_Hash: 372973119
-      m_Sprite: {fileID: 21300000, guid: 2668462d765181e46ac78ff0ae438ba7, type: 3}
+      m_SpriteOverride: {fileID: 21300000, guid: ad02043ad9398e946b2c52fbeb4eb84f, type: 3}
+    - m_Name: Alien_Transition_004
+      m_Hash: 400129683
+      m_Sprite: {fileID: 21300000, guid: 0b615b7122f4f2e4ea99389ff445a5f0, type: 3}
       m_FromMain: 0
-      m_SpriteOverride: {fileID: 21300000, guid: 2668462d765181e46ac78ff0ae438ba7, type: 3}
+      m_SpriteOverride: {fileID: 21300000, guid: 0b615b7122f4f2e4ea99389ff445a5f0, type: 3}
+    - m_Name: Alien_Transition_005
+      m_Hash: 551439877
+      m_Sprite: {fileID: 21300000, guid: 0af91c71a25207947a6dc8e3ce6be678, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 0af91c71a25207947a6dc8e3ce6be678, type: 3}
+    - m_Name: Alien_Transition_006
+      m_Hash: 970399679
+      m_Sprite: {fileID: 21300000, guid: a358957d83d208a4dbb16ed4251355c3, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: a358957d83d208a4dbb16ed4251355c3, type: 3}
+    - m_Name: Alien_Transition_007
+      m_Hash: 248524585
+      m_Sprite: {fileID: 21300000, guid: 8d807765d7673504c876a4db917a99a7, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 8d807765d7673504c876a4db917a99a7, type: 3}
+    - m_Name: Alien_Transition_008
+      m_Hash: 510603960
+      m_Sprite: {fileID: 21300000, guid: bbe5ea8b27ac8dc409b400cb053f2d39, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: bbe5ea8b27ac8dc409b400cb053f2d39, type: 3}
+    - m_Name: Alien_Transition_009
+      m_Hash: 694682158
+      m_Sprite: {fileID: 21300000, guid: 4f88d158f69afd54ab4067ffd9b10440, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 4f88d158f69afd54ab4067ffd9b10440, type: 3}
+    - m_Name: Alien_Transition_010
+      m_Hash: 162499531
+      m_Sprite: {fileID: 21300000, guid: 4bd7e6e659da4274f8d4aece1c44a0cc, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 4bd7e6e659da4274f8d4aece1c44a0cc, type: 3}
+    - m_Name: Alien_Transition_011
+      m_Hash: 1051245405
+      m_Sprite: {fileID: 21300000, guid: 23789dd3acbd2984da0c4cfafacbc9f8, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 23789dd3acbd2984da0c4cfafacbc9f8, type: 3}
+    - m_Name: Alien_Transition_012
+      m_Hash: 664922855
+      m_Sprite: {fileID: 21300000, guid: fe593f8efd77fbd4dbd00d09ef743f4c, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: fe593f8efd77fbd4dbd00d09ef743f4c, type: 3}
+    - m_Name: Alien_Transition_013
+      m_Hash: 279370353
+      m_Sprite: {fileID: 21300000, guid: eace1a46f3cb8544fa03bf929f01248c, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: eace1a46f3cb8544fa03bf929f01248c, type: 3}
+    - m_Name: Alien_Transition_014
+      m_Hash: 247615442
+      m_Sprite: {fileID: 21300000, guid: c8644ea0c61f1c14dad10eb1c948403f, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: c8644ea0c61f1c14dad10eb1c948403f, type: 3}
+    - m_Name: Alien_Transition_015
+      m_Hash: 969244484
+      m_Sprite: {fileID: 21300000, guid: 25b5c85f171b42640a1e3437e4856852, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 25b5c85f171b42640a1e3437e4856852, type: 3}
+    - m_Name: Alien_Transition_016
+      m_Hash: 550252286
+      m_Sprite: {fileID: 21300000, guid: fbb86525801cbfd45a89e7da326a4223, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: fbb86525801cbfd45a89e7da326a4223, type: 3}
+    - m_Name: Alien_Transition_017
+      m_Hash: 399187560
+      m_Sprite: {fileID: 21300000, guid: 1f016a7215c38db44ba9bec740f08fc3, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 1f016a7215c38db44ba9bec740f08fc3, type: 3}
+    - m_Name: Alien_Transition_018
+      m_Hash: 125043705
+      m_Sprite: {fileID: 21300000, guid: 8e8969491ec729a4abcf93416cdb0e08, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 8e8969491ec729a4abcf93416cdb0e08, type: 3}
+    - m_Name: Alien_Transition_019
+      m_Hash: 812856175
+      m_Sprite: {fileID: 21300000, guid: f9c2675438226c043b893f305bc9fe84, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: f9c2675438226c043b893f305bc9fe84, type: 3}
+    - m_Name: Alien_Transition_020
+      m_Hash: 579000328
+      m_Sprite: {fileID: 21300000, guid: 95389627974d30040a715479ca2fece8, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 95389627974d30040a715479ca2fece8, type: 3}
+    - m_Name: Alien_Transition_021
+      m_Hash: 361097374
+      m_Sprite: {fileID: 21300000, guid: ee090b9d22eca0346837b10f1945a296, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: ee090b9d22eca0346837b10f1945a296, type: 3}
+    - m_Name: Alien_Transition_022
+      m_Hash: 210549028
+      m_Sprite: {fileID: 21300000, guid: 84279155a5c8e894aaf1ae5acaf8cca1, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 84279155a5c8e894aaf1ae5acaf8cca1, type: 3}
+    - m_Name: Alien_Transition_023
+      m_Hash: 999000498
+      m_Sprite: {fileID: 21300000, guid: 2c6e67c93a0615c449810cf1665e7888, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 2c6e67c93a0615c449810cf1665e7888, type: 3}
+    - m_Name: Alien_Transition_024
+      m_Hash: 636427281
+      m_Sprite: {fileID: 21300000, guid: 4805bf1db44f1b54192e1b76815a126c, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 4805bf1db44f1b54192e1b76815a126c, type: 3}
+    - m_Name: Alien_Transition_025
+      m_Hash: 317205639
+      m_Sprite: {fileID: 21300000, guid: 12116a2c0cc769743b9039906bc078fc, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 12116a2c0cc769743b9039906bc078fc, type: 3}
+    - m_Name: Alien_Transition_026
+      m_Hash: 199327037
+      m_Sprite: {fileID: 21300000, guid: 93ebbebb9e45c4947935e6b68ef16d68, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 93ebbebb9e45c4947935e6b68ef16d68, type: 3}
+    - m_Name: Alien_Transition_027
+      m_Hash: 1021726123
+      m_Sprite: {fileID: 21300000, guid: c610a711717317547b7be61a5749372b, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: c610a711717317547b7be61a5749372b, type: 3}
+    - m_Name: Alien_Transition_028
+      m_Hash: 744050746
+      m_Sprite: {fileID: 21300000, guid: b2c6ad31cd1e1884bb15d850847d29cd, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: b2c6ad31cd1e1884bb15d850847d29cd, type: 3}
+    - m_Name: Alien_Transition_029
+      m_Hash: 459169964
+      m_Sprite: {fileID: 21300000, guid: 49ab103e6d424a64ca0baf1675571d09, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 49ab103e6d424a64ca0baf1675571d09, type: 3}
+    - m_Name: Alien_Transition_030
+      m_Hash: 999942473
+      m_Sprite: {fileID: 21300000, guid: 6d5ea7d731c3e984a81bed470b954abb, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 6d5ea7d731c3e984a81bed470b954abb, type: 3}
+    - m_Name: Alien_Transition_031
+      m_Hash: 211737055
+      m_Sprite: {fileID: 21300000, guid: e4e2807bcd7c32d47bda46c20c4ae1a8, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: e4e2807bcd7c32d47bda46c20c4ae1a8, type: 3}
+    - m_Name: Alien_Transition_032
+      m_Hash: 362252389
+      m_Sprite: {fileID: 21300000, guid: 16d872c4f50809544b1520af5e366a44, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 16d872c4f50809544b1520af5e366a44, type: 3}
+    - m_Name: Alien_Transition_033
+      m_Hash: 579909875
+      m_Sprite: {fileID: 21300000, guid: eaf0c1130a019b1408d4218fc7fb9c88, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: eaf0c1130a019b1408d4218fc7fb9c88, type: 3}
+    - m_Name: Alien_Transition_034
+      m_Hash: 1022635344
+      m_Sprite: {fileID: 21300000, guid: 54a838bd5eaa6f54bae665ca97d4de8b, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 54a838bd5eaa6f54bae665ca97d4de8b, type: 3}
+    - m_Name: Alien_Transition_035
+      m_Hash: 200482246
+      m_Sprite: {fileID: 21300000, guid: 00c4191d0f8c8a64b92e348b28fd16a5, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 00c4191d0f8c8a64b92e348b28fd16a5, type: 3}
+    - m_Name: Alien_Transition_036
+      m_Hash: 318393468
+      m_Sprite: {fileID: 21300000, guid: dd13c91ae94143a43b4ee67cf92e11f9, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: dd13c91ae94143a43b4ee67cf92e11f9, type: 3}
+    - m_Name: Alien_Transition_037
+      m_Hash: 637369578
+      m_Sprite: {fileID: 21300000, guid: b5d9015f47b93b8459d339ecc3fe443f, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: b5d9015f47b93b8459d339ecc3fe443f, type: 3}
+    - m_Name: Alien_Transition_038
+      m_Hash: 893542779
+      m_Sprite: {fileID: 21300000, guid: d477f4e384a24e748a845b6f9b9e57f0, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: d477f4e384a24e748a845b6f9b9e57f0, type: 3}
+    - m_Name: Alien_Transition_039
+      m_Hash: 38097389
+      m_Sprite: {fileID: 21300000, guid: 74d2044a26ab8944fa7a1d009f67bf82, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 74d2044a26ab8944fa7a1d009f67bf82, type: 3}
+    - m_Name: Alien_Transition_040
+      m_Hash: 886603662
+      m_Sprite: {fileID: 21300000, guid: 58edf14d0ef178e49bb544eab0ec0727, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 58edf14d0ef178e49bb544eab0ec0727, type: 3}
+    - m_Name: Alien_Transition_041
+      m_Hash: 64966424
+      m_Sprite: {fileID: 21300000, guid: 32d8139429df4d548a88eb47ed7543a7, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 32d8139429df4d548a88eb47ed7543a7, type: 3}
+    - m_Name: Alien_Transition_042
+      m_Hash: 450240162
+      m_Sprite: {fileID: 21300000, guid: 18e07595c5a03ee4f8d1ab85243ca3e3, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 18e07595c5a03ee4f8d1ab85243ca3e3, type: 3}
+    - m_Name: Alien_Transition_043
+      m_Hash: 768683572
+      m_Sprite: {fileID: 21300000, guid: 8eb4fd8722e08d34aada1e741ddddc27, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 8eb4fd8722e08d34aada1e741ddddc27, type: 3}
+    - m_Name: Alien_Transition_044
+      m_Hash: 867548055
+      m_Sprite: {fileID: 21300000, guid: c4deec9b52683d54fba3c45b715d4e53, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: c4deec9b52683d54fba3c45b715d4e53, type: 3}
+    - m_Name: Alien_Transition_045
+      m_Hash: 78809857
+      m_Sprite: {fileID: 21300000, guid: d9ac6b15620604e4c8e01f17cc65c5f9, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: d9ac6b15620604e4c8e01f17cc65c5f9, type: 3}
+    - m_Name: Alien_Transition_046
+      m_Hash: 498850491
+      m_Sprite: {fileID: 21300000, guid: 63495352714310848abf630bb486ef1f, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 63495352714310848abf630bb486ef1f, type: 3}
+    - m_Name: Alien_Transition_047
+      m_Hash: 717023789
+      m_Sprite: {fileID: 21300000, guid: e1c63b000232dd0409859c5c05c42453, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: e1c63b000232dd0409859c5c05c42453, type: 3}
+    - m_Name: Alien_Transition_048
+      m_Hash: 973338556
+      m_Sprite: {fileID: 21300000, guid: 3f925524b97ae31478bbc39014898d23, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 3f925524b97ae31478bbc39014898d23, type: 3}
+    - m_Name: Alien_Transition_049
+      m_Hash: 218416938
+      m_Sprite: {fileID: 21300000, guid: 132312b2deb86ed46b80a90efdf3f190, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 132312b2deb86ed46b80a90efdf3f190, type: 3}
+    - m_Name: Alien_Transition_050
+      m_Hash: 767774415
+      m_Sprite: {fileID: 21300000, guid: 2a92b6b68e1f1a541a4c5ad8536f947e, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 2a92b6b68e1f1a541a4c5ad8536f947e, type: 3}
+    - m_Name: Alien_Transition_051
+      m_Hash: 449085017
+      m_Sprite: {fileID: 21300000, guid: c68fab92b846af148a2bdd72ddb2c58d, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: c68fab92b846af148a2bdd72ddb2c58d, type: 3}
+    - m_Name: Alien_Transition_052
+      m_Hash: 63778787
+      m_Sprite: {fileID: 21300000, guid: 6681364eb6ef34541a597716e337a039, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 6681364eb6ef34541a597716e337a039, type: 3}
+    - m_Name: Alien_Transition_053
+      m_Hash: 885661557
+      m_Sprite: {fileID: 21300000, guid: f35a5fbe72685d543968a0ecc793d260, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: f35a5fbe72685d543968a0ecc793d260, type: 3}
+    - m_Name: Alien_Transition_054
+      m_Hash: 716081878
+      m_Sprite: {fileID: 21300000, guid: 53d9df7eea847e74bb857148e0edad3a, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 53d9df7eea847e74bb857148e0edad3a, type: 3}
+    - m_Name: Alien_Transition_055
+      m_Hash: 497662528
+      m_Sprite: {fileID: 21300000, guid: ca119809f671b90428050f223dbcd212, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: ca119809f671b90428050f223dbcd212, type: 3}
+    - m_Name: Alien_Transition_056
+      m_Hash: 77655034
+      m_Sprite: {fileID: 21300000, guid: b95ac2276cd15e54b82863d28c70eed3, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: b95ac2276cd15e54b82863d28c70eed3, type: 3}
+    - m_Name: Alien_Transition_057
+      m_Hash: 866638700
+      m_Sprite: {fileID: 21300000, guid: fd8c1b2c32b9ce940ba91d9608daeb29, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: fd8c1b2c32b9ce940ba91d9608daeb29, type: 3}
+    - m_Name: Alien_Transition_058
+      m_Hash: 588826365
+      m_Sprite: {fileID: 21300000, guid: 854cbc9456c1b5d4e86d3b9e122b9bad, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 854cbc9456c1b5d4e86d3b9e122b9bad, type: 3}
+    - m_Name: Alien_Transition_059
+      m_Hash: 337639019
+      m_Sprite: {fileID: 21300000, guid: 6f2402b622c92e843a09d3a7854ba862, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 6f2402b622c92e843a09d3a7854ba862, type: 3}
+    - m_Name: Alien_Transition_060
+      m_Hash: 116268300
+      m_Sprite: {fileID: 21300000, guid: e747f987f2ee0e645b0f2a1f946eeac3, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: e747f987f2ee0e645b0f2a1f946eeac3, type: 3}
+    - m_Name: Alien_Transition_061
+      m_Hash: 837365146
+      m_Sprite: {fileID: 21300000, guid: 438e6efad0d130545a4632c894b26265, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 438e6efad0d130545a4632c894b26265, type: 3}
+    - m_Name: Alien_Transition_062
+      m_Hash: 685800480
+      m_Sprite: {fileID: 21300000, guid: 033e82f6445754444a9276edcb1a4c35, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 033e82f6445754444a9276edcb1a4c35, type: 3}
+    - m_Name: Alien_Transition_063
+      m_Hash: 535252150
+      m_Sprite: {fileID: 21300000, guid: c5b4c66bcc76e4e48b044a82beb13fac, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: c5b4c66bcc76e4e48b044a82beb13fac, type: 3}
+    - m_Name: Alien_Transition_064
+      m_Hash: 25418005
+      m_Sprite: {fileID: 21300000, guid: e484fbc83d525514fa51cc3c9b445ca2, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: e484fbc83d525514fa51cc3c9b445ca2, type: 3}
+    - m_Name: Alien_Transition_065
+      m_Hash: 914680195
+      m_Sprite: {fileID: 21300000, guid: eda56ff145a68de48bf63cce496a2fa8, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: eda56ff145a68de48bf63cce496a2fa8, type: 3}
+    - m_Name: Alien_Transition_066
+      m_Hash: 797816889
+      m_Sprite: {fileID: 21300000, guid: 23bfaf050adddb54e804208a8d2e07e6, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 23bfaf050adddb54e804208a8d2e07e6, type: 3}
+    - m_Name: Alien_Transition_067
+      m_Hash: 411732143
+      m_Sprite: {fileID: 21300000, guid: 01e1ab8dfa092b147b71f3b094ffe310, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 01e1ab8dfa092b147b71f3b094ffe310, type: 3}
+    - m_Name: Alien_Transition_068
+      m_Hash: 137729342
+      m_Sprite: {fileID: 21300000, guid: 300ad76a5c782c6438ca5d6e9fdb581e, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 300ad76a5c782c6438ca5d6e9fdb581e, type: 3}
+    - m_Name: Alien_Transition_069
+      m_Hash: 1060283816
+      m_Sprite: {fileID: 21300000, guid: 18f4b426a90e54343bcf1df9df1941af, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 18f4b426a90e54343bcf1df9df1941af, type: 3}
+    - m_Name: Alien_Transition_070
+      m_Hash: 536161357
+      m_Sprite: {fileID: 21300000, guid: d4c282ad561d8844bbd3dcf9ea1ccc66, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: d4c282ad561d8844bbd3dcf9ea1ccc66, type: 3}
+    - m_Name: Alien_Transition_071
+      m_Hash: 686955739
+      m_Sprite: {fileID: 21300000, guid: daac4b879df7a7644b031ec7264282f7, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: daac4b879df7a7644b031ec7264282f7, type: 3}
+    - m_Name: Alien_Transition_072
+      m_Hash: 838552929
+      m_Sprite: {fileID: 21300000, guid: 619e1881abafd43429685f00d8a73816, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 619e1881abafd43429685f00d8a73816, type: 3}
+    - m_Name: Alien_Transition_073
+      m_Hash: 117210615
+      m_Sprite: {fileID: 21300000, guid: a12b697ae2e47024baf370de3d746eb2, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: a12b697ae2e47024baf370de3d746eb2, type: 3}
+    - m_Name: Alien_Transition_074
+      m_Hash: 412674132
+      m_Sprite: {fileID: 21300000, guid: ccb2d0be2800ffc48b14f94d4127d9ef, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: ccb2d0be2800ffc48b14f94d4127d9ef, type: 3}
+    - m_Name: Alien_Transition_075
+      m_Hash: 799004866
+      m_Sprite: {fileID: 21300000, guid: ae05f43578e3aa841abdc0dd1ed542bc, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: ae05f43578e3aa841abdc0dd1ed542bc, type: 3}
+    - m_Name: Alien_Transition_076
+      m_Hash: 915835256
+      m_Sprite: {fileID: 21300000, guid: b5880076622f57647a6f9a0e86b6055e, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: b5880076622f57647a6f9a0e86b6055e, type: 3}
+    - m_Name: Alien_Transition_077
+      m_Hash: 26327534
+      m_Sprite: {fileID: 21300000, guid: 8a3158e10a4843341b41eeae0365e0b2, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 8a3158e10a4843341b41eeae0365e0b2, type: 3}
+    - m_Name: Alien_Transition_078
+      m_Hash: 288269439
+      m_Sprite: {fileID: 21300000, guid: a4774f48282a5914fb644588911f6951, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: a4774f48282a5914fb644588911f6951, type: 3}
+    - m_Name: Alien_Transition_079
+      m_Hash: 640259305
+      m_Sprite: {fileID: 21300000, guid: f219cbbcaf4a12945b3bdb92b6011bee, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: f219cbbcaf4a12945b3bdb92b6011bee, type: 3}
+    - m_Name: Alien_Transition_080
+      m_Hash: 409809026
+      m_Sprite: {fileID: 21300000, guid: bd83b5f6d4352884583b861e8afbce96, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: bd83b5f6d4352884583b861e8afbce96, type: 3}
+    - m_Name: Alien_Transition_081
+      m_Hash: 795475988
+      m_Sprite: {fileID: 21300000, guid: 5a81c6e92b41cf04bb6e81eb78eed83a, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 5a81c6e92b41cf04bb6e81eb78eed83a, type: 3}
+    - m_Name: Alien_Transition_082
+      m_Hash: 912478638
+      m_Sprite: {fileID: 21300000, guid: da5b09d7d1189084da212d67cf47d21b, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: da5b09d7d1189084da212d67cf47d21b, type: 3}
+    - m_Name: Alien_Transition_083
+      m_Hash: 23355704
+      m_Sprite: {fileID: 21300000, guid: c9b26587ed44c814e870b422cc5fd09f, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: c9b26587ed44c814e870b422cc5fd09f, type: 3}
+    - m_Name: Alien_Transition_084
+      m_Hash: 520156315
+      m_Sprite: {fileID: 21300000, guid: 890a17155af5fee4ab5e4ab6b4a0481f, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 890a17155af5fee4ab5e4ab6b4a0481f, type: 3}
+    - m_Name: Alien_Transition_085
+      m_Hash: 671597581
+      m_Sprite: {fileID: 21300000, guid: 970d9aec785876443a1b118ca1c7c12b, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 970d9aec785876443a1b118ca1c7c12b, type: 3}
+    - m_Name: Alien_Transition_086
+      m_Hash: 823039415
+      m_Sprite: {fileID: 21300000, guid: 17e214be673982a40a9d72a8f898c589, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 17e214be673982a40a9d72a8f898c589, type: 3}
+    - m_Name: Alien_Transition_087
+      m_Hash: 101295393
+      m_Sprite: {fileID: 21300000, guid: 1c85f5e53f38e23469538f66f877b0ad, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 1c85f5e53f38e23469538f66f877b0ad, type: 3}
+    - m_Name: Alien_Transition_088
+      m_Hash: 381073584
+      m_Sprite: {fileID: 21300000, guid: 97eef66857a5c564b8005efb922d7cbf, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 97eef66857a5c564b8005efb922d7cbf, type: 3}
+    - m_Name: Alien_Transition_089
+      m_Hash: 565282854
+      m_Sprite: {fileID: 21300000, guid: 3612b45f4317c1849a578ce89c298520, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 3612b45f4317c1849a578ce89c298520, type: 3}
+    - m_Name: Alien_Transition_090
+      m_Hash: 24510915
+      m_Sprite: {fileID: 21300000, guid: 3d4959125a568e443b962270ff8facbb, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 3d4959125a568e443b962270ff8facbb, type: 3}
+    - m_Name: Alien_Transition_091
+      m_Hash: 913387861
+      m_Sprite: {fileID: 21300000, guid: 6e5a02b3dd0c635498de93648b061665, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 6e5a02b3dd0c635498de93648b061665, type: 3}
+    - m_Name: Alien_Transition_092
+      m_Hash: 796418287
+      m_Sprite: {fileID: 21300000, guid: ab93a447c634d6c4a828c79280e3937d, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: ab93a447c634d6c4a828c79280e3937d, type: 3}
+    - m_Name: Alien_Transition_093
+      m_Hash: 410996857
+      m_Sprite: {fileID: 21300000, guid: 4616244b24493a64cb1b2dcc8f2bac9b, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 4616244b24493a64cb1b2dcc8f2bac9b, type: 3}
+    - m_Name: Alien_Transition_094
+      m_Hash: 102483418
+      m_Sprite: {fileID: 21300000, guid: f7abac0272e87854bbfa30ac4a929734, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: f7abac0272e87854bbfa30ac4a929734, type: 3}
+    - m_Name: Alien_Transition_095
+      m_Hash: 823981388
+      m_Sprite: {fileID: 21300000, guid: 619e6c07258a0714782bb981a7ed523b, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 619e6c07258a0714782bb981a7ed523b, type: 3}
+    - m_Name: Alien_Transition_096
+      m_Hash: 672507126
+      m_Sprite: {fileID: 21300000, guid: f7ad8ee54ae97eb46bcc5051ed007bf5, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: f7ad8ee54ae97eb46bcc5051ed007bf5, type: 3}
+    - m_Name: Alien_Transition_097
+      m_Hash: 521311328
+      m_Sprite: {fileID: 21300000, guid: 272a0976f94e7f340a4a63b86c19538e, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 272a0976f94e7f340a4a63b86c19538e, type: 3}
+    - m_Name: Alien_Transition_098
+      m_Hash: 263031281
+      m_Sprite: {fileID: 21300000, guid: 32d8945ca24a37f44ab6b74f49db14ef, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 32d8945ca24a37f44ab6b74f49db14ef, type: 3}
+    - m_Name: Alien_Transition_099
+      m_Hash: 950712679
+      m_Sprite: {fileID: 21300000, guid: 5a4479f62e044ba479d500c0a62b88d0, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 5a4479f62e044ba479d500c0a62b88d0, type: 3}
+    - m_Name: Alien_Transition_100
+      m_Hash: 292999357
+      m_Sprite: {fileID: 21300000, guid: 0e05ba321a6670c40aba85b0eabfd8e0, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 0e05ba321a6670c40aba85b0eabfd8e0, type: 3}
+    - m_Name: Alien_Transition_101
+      m_Hash: 644997163
+      m_Sprite: {fileID: 21300000, guid: beb6d66c1f489024c9ea746d81381411, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: beb6d66c1f489024c9ea746d81381411, type: 3}
+    - m_Name: Alien_Transition_102
+      m_Hash: 1064874385
+      m_Sprite: {fileID: 21300000, guid: 3e4c9f3b1c2d1a345b5a52b2b3724e6d, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 3e4c9f3b1c2d1a345b5a52b2b3724e6d, type: 3}
+    - m_Name: Alien_Transition_103
+      m_Hash: 142573831
+      m_Sprite: {fileID: 21300000, guid: 239eef2575e283a42b3a5f117804e72f, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 239eef2575e283a42b3a5f117804e72f, type: 3}
+    - m_Name: Alien_Transition_104
+      m_Hash: 370873508
+      m_Sprite: {fileID: 21300000, guid: d59d1674a46df364ba8ca909adbb8075, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: d59d1674a46df364ba8ca909adbb8075, type: 3}
+    - m_Name: Alien_Transition_105
+      m_Hash: 555492402
+      m_Sprite: {fileID: 21300000, guid: faaf978f74a74ea44b213247f6d28797, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: faaf978f74a74ea44b213247f6d28797, type: 3}
+    - m_Name: Alien_Transition_106
+      m_Hash: 940930440
+      m_Sprite: {fileID: 21300000, guid: 700f5c2cea3d77d428061215f9585379, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 700f5c2cea3d77d428061215f9585379, type: 3}
+    - m_Name: Alien_Transition_107
+      m_Hash: 252855582
+      m_Sprite: {fileID: 21300000, guid: a1929df19d07cd34ba3b707b21820053, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: a1929df19d07cd34ba3b707b21820053, type: 3}
+    - m_Name: Alien_Transition_108
+      m_Hash: 531454095
+      m_Sprite: {fileID: 21300000, guid: 0e6dd30e9e863bf4b8c8993035516e35, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 0e6dd30e9e863bf4b8c8993035516e35, type: 3}
+    - m_Name: Alien_Transition_109
+      m_Hash: 682256409
+      m_Sprite: {fileID: 21300000, guid: 0f2aa35b8cc90374294278fee34ecc91, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 0f2aa35b8cc90374294278fee34ecc91, type: 3}
+    - m_Name: Alien_Transition_110
+      m_Hash: 141419004
+      m_Sprite: {fileID: 21300000, guid: 1026cfe4849517345974132d54f1e987, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 1026cfe4849517345974132d54f1e987, type: 3}
+    - m_Name: Alien_Transition_111
+      m_Hash: 1063965034
+      m_Sprite: {fileID: 21300000, guid: 4d4e5ea5f20066c4babca126d66d814a, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 4d4e5ea5f20066c4babca126d66d814a, type: 3}
+    - m_Name: Alien_Transition_112
+      m_Hash: 644055248
+      m_Sprite: {fileID: 21300000, guid: 21e1c8d4c2854534aae623bc0f8d4d76, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 21e1c8d4c2854534aae623bc0f8d4d76, type: 3}
+    - m_Name: Alien_Transition_113
+      m_Hash: 291811398
+      m_Sprite: {fileID: 21300000, guid: 0a88d99c68a9a98458c1de16f93426c6, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 0a88d99c68a9a98458c1de16f93426c6, type: 3}
+    - m_Name: Alien_Transition_114
+      m_Hash: 251667941
+      m_Sprite: {fileID: 21300000, guid: e4cabe6b8554e9f458c55489ac80e9b8, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: e4cabe6b8554e9f458c55489ac80e9b8, type: 3}
+    - m_Name: Alien_Transition_115
+      m_Hash: 939988339
+      m_Sprite: {fileID: 21300000, guid: 8ba498acccad9014986edb1dd7ab4fe0, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 8ba498acccad9014986edb1dd7ab4fe0, type: 3}
+    - m_Name: Alien_Transition_116
+      m_Hash: 554583241
+      m_Sprite: {fileID: 21300000, guid: 387387b83e8c17d4da334282d14e93d7, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 387387b83e8c17d4da334282d14e93d7, type: 3}
+    - m_Name: Alien_Transition_117
+      m_Hash: 369718367
+      m_Sprite: {fileID: 21300000, guid: 65314116ac274a94aabeebfaf511fa61, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 65314116ac274a94aabeebfaf511fa61, type: 3}
+    - m_Name: Alien_Transition_118
+      m_Hash: 112617934
+      m_Sprite: {fileID: 21300000, guid: 73432e781d9ecdd41a1ed24eb5e9483f, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 73432e781d9ecdd41a1ed24eb5e9483f, type: 3}
+    - m_Name: Alien_Transition_119
+      m_Hash: 833706328
+      m_Sprite: {fileID: 21300000, guid: d7b4201ae07f9d745874d70ec4d40296, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: d7b4201ae07f9d745874d70ec4d40296, type: 3}
+    - m_Name: Alien_Transition_120
+      m_Hash: 591442495
+      m_Sprite: {fileID: 21300000, guid: 25553cb26ef070d488ac5bab3b12ae1b, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 25553cb26ef070d488ac5bab3b12ae1b, type: 3}
     m_FromMain: 0
-    m_EntryOverrideCount: 4
+    m_EntryOverrideCount: 120
   m_PrimaryLibraryGUID: 
-  m_ModificationHash: 639257572257422709
+  m_ModificationHash: 639258011862150834
   m_Version: 1

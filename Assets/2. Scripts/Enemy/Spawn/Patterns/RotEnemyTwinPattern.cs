@@ -60,7 +60,7 @@ public struct RotEnemyTwinSettings
     [Min(0.01f)] public float BulletSpeed;
 
     // 총알 하나의 피해량이다.
-    [Min(0)] public int BulletDamage;
+    [Min(0)] public float BulletDamage;
 }
 
 /// <summary>

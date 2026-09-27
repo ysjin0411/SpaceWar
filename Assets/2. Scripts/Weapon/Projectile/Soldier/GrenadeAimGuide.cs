@@ -54,6 +54,12 @@ public class GrenadeAimGuide : MonoBehaviour
     [Range(0f, 1f)]
     [SerializeField] float _endDotAlpha = 0.25f;
 
+    // 현재 플레이어의 좌우 방향을 확인한다.
+    PlayerFacing _playerFacing;
+
+    // 계산된 수류탄 발사 방향을 보관한다.
+    Vector2 _currentDirection = Vector2.right;
+
     // 시작할 때 한 번 생성하고 계속 재사용하는 궤적 점 배열이다.
     SpriteRenderer[] _trajectoryDots;
 
@@ -72,16 +78,30 @@ public class GrenadeAimGuide : MonoBehaviour
     // 현재 Grenade 조준선을 표시하고 있는지 확인한다.
     bool _isVisible;
 
-    // Z키를 누른 순간 Grenade에 전달할 현재 발사 방향이다.
-    public Vector2 CurrentDirection { get; private set; } =
-        Vector2.right;
+    // 발사 순간 다시 계산하여 같은 프레임의 방향 전환까지 반영한다.
+    public Vector2 CurrentDirection
+    {
+        get
+        {
+            UpdateCurrentDirection();
+            return _currentDirection;
+        }
+    }
 
     private void Awake()
     {
+        // GrenadeAimGuide는 캐릭터의 자식이므로 부모에서 방향 정보를 찾는다.
+        _playerFacing = GetComponentInParent<PlayerFacing>();
+
+        if (_playerFacing == null)
+        {
+            throw new MissingComponentException(
+                $"{name}: 부모 플레이어에 PlayerFacing이 필요합니다.");
+        }
+
+        // 기존 조준선 초기화는 유지한다.
         ValidateReferences();
         CreateTrajectoryDots();
-
-        // Grenade가 선택되기 전에는 모든 표시를 숨긴다.
         Hide();
     }
 
@@ -194,10 +214,7 @@ public class GrenadeAimGuide : MonoBehaviour
         _trajectoryDotTemplate.gameObject.SetActive(false);
     }
 
-    /// <summary>
-    /// 최소 각도와 최대 각도 사이를 왕복하며
-    /// 현재 수류탄 발사 방향을 계산한다.
-    /// </summary>
+    // 오른쪽과 왼쪽 모두 위쪽을 향하는 수류탄 조준 방향을 계산한다.
     private void UpdateCurrentDirection()
     {
         float sweepProgress = Mathf.PingPong(
@@ -209,15 +226,17 @@ public class GrenadeAimGuide : MonoBehaviour
             _maximumAngle,
             sweepProgress);
 
-        Vector3 rotatedDirection =
-            Quaternion.Euler(
-                0f,
-                0f,
-                currentAngle) *
-            _firePoint.right;
+        // 오른쪽에서는 반시계 방향, 왼쪽에서는 시계 방향으로 올린다.
+        // 따라서 좌우 전환 후에도 위로 던지는 각도가 유지된다.
+        if (_playerFacing.IsFacingLeft)
+        {
+            currentAngle = -currentAngle;
+        }
 
-        CurrentDirection =
-            ((Vector2)rotatedDirection).normalized;
+        Vector3 rotatedDirection =
+            Quaternion.Euler(0f, 0f, currentAngle) * _firePoint.right;
+
+        _currentDirection = ((Vector2)rotatedDirection).normalized;
     }
 
     /// <summary>

@@ -2,19 +2,31 @@ using System;
 using DG.Tweening;
 using UnityEngine;
 
-[RequireComponent(typeof(BoxCollider2D), typeof(Rigidbody2D))]
+// 구체형 접촉 판정과 투사체 이동에 필요한 컴포넌트.
+[RequireComponent(typeof(CircleCollider2D), typeof(Rigidbody2D))]
 public sealed class CruiserBigBullet : MonoBehaviour
 {
     // 화면 반사 시 그림이 화면 밖으로 잘리지 않도록 크기를 확인한다.
     [SerializeField] private SpriteRenderer _bulletRenderer;
 
-    // 충전이 끝났을 때 도달할 루트 오브젝트의 스케일.
-    [SerializeField, Min(0.01f)] private float _targetScale = 4f;
+    // 충전과 비행 스프라이트 애니메이션을 재생한다.
+    [SerializeField] private Animator _bulletAnimator;
 
-    // 스케일이 0에서 목표 크기까지 성장하는 시간.
+    // 충전 시작 시 재생할 상태의 전체 경로.
+    private static readonly int ChargeState =
+        Animator.StringToHash("Base Layer.CruiserBigBullet_Charge");
+
+    // 충전 완료 후 대기 중과 비행 중에 반복할 상태의 전체 경로.
+    private static readonly int ActiveFlightState =
+        Animator.StringToHash("Base Layer.CruiserBigBullet_ActiveFlight");
+
+    // 충전부터 비행까지 유지할 탄환 전체 크기 배율.
+    [SerializeField, Min(0.01f)] private float _bulletScale = 1.8f;
+
+    // 충전 스프라이트가 처음부터 끝까지 재생되는 시간.
     [SerializeField, Min(0.01f)] private float _growDuration = 2f;
 
-    // 성장이 끝난 뒤 발사하기 전까지 기다리는 시간.
+    // 충전 완료 후 완성된 모습을 반복하며 발사를 기다리는 시간.
     [SerializeField, Min(0f)] private float _holdDuration = 1f;
 
     // 발사 후 초당 이동 거리.
@@ -27,7 +39,7 @@ public sealed class CruiserBigBullet : MonoBehaviour
     [SerializeField, Min(0.01f)] private float _damageInterval = 0.5f;
 
     // 접촉 시간이 피해 간격에 도달했을 때 적용할 피해량.
-    [SerializeField, Min(1)] private int _damage = 5;
+    [SerializeField, Min(1)] private float _damage = 5;
 
     // 투사체를 생성한 보스와 피해를 받을 플레이어.
     private BossEnemy _owner;
@@ -37,8 +49,8 @@ public sealed class CruiserBigBullet : MonoBehaviour
     private Transform _firePoint;
     private Camera _battleCamera;
 
-    // 실제 접촉 여부를 확인할 두 콜라이더.
-    private BoxCollider2D _bulletCollider;
+    // 탄환의 원형 피해 영역.
+    private CircleCollider2D _bulletCollider;
     private Collider2D _playerCollider;
 
     // 투사체 이동은 이 스크립트에서 직접 계산한다.
@@ -67,9 +79,13 @@ public sealed class CruiserBigBullet : MonoBehaviour
     // 다음 단계의 보스 패턴에서 발사 완료 여부를 확인한다.
     public bool HasLaunched => _launched;
 
+    /// <summary>
+    /// 컴포넌트 참조와 초기 실행 상태를 준비한다.
+    /// </summary>
     private void Awake()
     {
-        _bulletCollider = GetComponent<BoxCollider2D>();
+        // 루트의 원형 콜라이더를 접촉 판정에 사용한다.
+        _bulletCollider = GetComponent<CircleCollider2D>();
         _body = GetComponent<Rigidbody2D>();
 
         // 충전 중에는 접촉 피해를 판정하지 않는다.
@@ -85,6 +101,9 @@ public sealed class CruiserBigBullet : MonoBehaviour
     }
 
     // 보스 패턴이 투사체를 생성한 직후 호출한다.
+    /// <summary>
+    /// 보스 패턴이 투사체를 생성한 직후 호출한다.
+    /// </summary>
     public void Initialize(
         BossEnemy owner,
         PlayerController player,
@@ -106,6 +125,24 @@ public sealed class CruiserBigBullet : MonoBehaviour
                 $"{name}: 보스, 플레이어, FirePoint, 카메라, Renderer를 확인하세요.");
         }
 
+        // 그림을 표시하는 오브젝트의 Animator가 연결됐는지 확인한다.
+        if (_bulletAnimator == null ||
+            _bulletAnimator.gameObject != _bulletRenderer.gameObject ||
+            !_bulletAnimator.isActiveAndEnabled ||
+            _bulletAnimator.runtimeAnimatorController == null)
+        {
+            throw new InvalidOperationException(
+                $"{name}: Renderer의 Animator와 Controller를 확인하세요.");
+        }
+
+        // 충전·비행 상태가 모두 있어야 연출을 정상 전환할 수 있다.
+        if (!_bulletAnimator.HasState(0, ChargeState) ||
+            !_bulletAnimator.HasState(0, ActiveFlightState))
+        {
+            throw new InvalidOperationException(
+                $"{name}: 충전 또는 비행 애니메이션 상태가 없습니다.");
+        }
+
         // 현재 게임처럼 회전하지 않은 XY 평면의 직교 카메라를 사용한다.
         if (!battleCamera.orthographic ||
             Vector3.Dot(battleCamera.transform.right, Vector3.right) < 0.9999f ||
@@ -115,13 +152,16 @@ public sealed class CruiserBigBullet : MonoBehaviour
                 $"{name}: XY 평면을 보는 회전 없는 직교 카메라가 필요합니다.");
         }
 
-        if (_targetScale <= 0f || _growDuration <= 0f ||
-            _holdDuration < 0f || _speed <= 0f ||
-            _lifeDuration <= 0f || _damageInterval <= 0f ||
+        if (_bulletScale <= 0f || 
+            _growDuration <= 0f ||
+            _holdDuration < 0f ||
+            _speed <= 0f ||
+            _lifeDuration <= 0f || 
+            _damageInterval <= 0f ||
             _damage <= 0)
         {
             throw new InvalidOperationException(
-                $"{name}: 크기, 시간, 속도, 피해 설정을 확인하세요.");
+                $"{name}: 시간, 속도, 피해 설정을 확인하세요.");
         }
 
         _playerCollider = player.GetComponent<Collider2D>();
@@ -143,22 +183,52 @@ public sealed class CruiserBigBullet : MonoBehaviour
         transform.SetPositionAndRotation(
             firePoint.position, Quaternion.identity);
 
-        // 현재 프리팹처럼 중앙에 있는 BoxCollider2D를 사용한다.
+        // 새 스프라이트는 PPU 236, Scale 1을 기준으로 제작했다.
+        // 충전 중에도 크기는 고정하고 이미지 변화로 충전을 표현한다.
         _bulletCollider.offset = Vector2.zero;
-        transform.localScale = Vector3.zero;
+        // 충전과 비행 내내 지정한 크기를 유지한다.
+        transform.localScale = Vector3.one * _bulletScale;
+
+        // 충전 클립을 첫 프레임부터 재생하고 길이를 확인한다.
+        _bulletAnimator.speed = 1f;
+        _bulletAnimator.Play(ChargeState, 0, 0f);
+        _bulletAnimator.Update(0f);
+
+        float chargeClipLength =
+            _bulletAnimator.GetCurrentAnimatorStateInfo(0).length;
+
+        if (chargeClipLength <= 0f)
+        {
+            throw new InvalidOperationException(
+                $"{name}: 충전 애니메이션 클립의 길이를 확인하세요.");
+        }
+
+        // 충전 시간을 조절해도 전체 충전 이미지가 그 시간 안에 재생된다.
+        _bulletAnimator.speed = chargeClipLength / _growDuration;
 
         _initialized = true;
 
-        // 기본 게임 시간으로 진행하므로 일시정지 시 충전도 멈춘다.
+        // 충전과 발사 대기는 게임 시간으로 진행한다.
         _chargeSequence = DOTween.Sequence();
-        _chargeSequence.Append(
-            transform.DOScale(_targetScale, _growDuration)
-                .SetEase(Ease.Linear));
+        _chargeSequence.AppendInterval(_growDuration);
 
+        // 충전이 끝나면 완성된 탄환 애니메이션을 정상 속도로 반복한다.
+        _chargeSequence.AppendCallback(() =>
+        {
+            _bulletAnimator.speed = 1f;
+            _bulletAnimator.Play(ActiveFlightState, 0, 0f);
+            _bulletAnimator.Update(0f);
+        });
+
+        // 완성된 모습으로 대기한 뒤 발사한다.
+        // 발사 후에도 같은 비행 애니메이션을 계속 반복한다.
         _chargeSequence.AppendInterval(_holdDuration);
         _chargeSequence.OnComplete(Launch);
     }
 
+    /// <summary>
+    /// 프레임의 이동 결과에 맞춰 후속 상태를 갱신한다.
+    /// </summary>
     private void LateUpdate()
     {
         if (!_initialized)
@@ -187,6 +257,9 @@ public sealed class CruiserBigBullet : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Launch 동작에 필요한 상태와 처리 흐름을 실행한다.
+    /// </summary>
     private void Launch()
     {
         if (_owner == null || _owner.IsDead ||
@@ -239,6 +312,9 @@ public sealed class CruiserBigBullet : MonoBehaviour
     }
 
     // 발사 시점의 카메라 화면을 반사 영역으로 사용한다.
+    /// <summary>
+    /// 발사 시점의 카메라 화면을 반사 영역으로 사용한다.
+    /// </summary>
     private void CalculateMovementBounds()
     {
         float depth = Vector3.Dot(
@@ -278,6 +354,9 @@ public sealed class CruiserBigBullet : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 물리 갱신 주기에 맞춰 이동과 충돌 처리를 수행한다.
+    /// </summary>
     private void FixedUpdate()
     {
         if (!_launched)
@@ -343,6 +422,9 @@ public sealed class CruiserBigBullet : MonoBehaviour
 
     // 벽을 초과한 이동 거리도 반사하여 속도가 줄지 않도록 한다.
     // 모서리에서는 X와 Y가 각각 반사된다.
+    /// <summary>
+    /// 모서리에서는 X와 Y가 각각 반사된다.
+    /// </summary>
     private static void ReflectAxis(
         ref float position,
         ref float velocity,
@@ -364,6 +446,9 @@ public sealed class CruiserBigBullet : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// AccumulateContactDamage 동작에 필요한 상태와 처리 흐름을 실행한다.
+    /// </summary>
     private void AccumulateContactDamage(float duration)
     {
         // 이동 연출 중에는 접촉 시간도 쌓지 않는다.
@@ -401,6 +486,9 @@ public sealed class CruiserBigBullet : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 비활성화 시 이벤트 연결과 실행 상태를 정리한다.
+    /// </summary>
     private void OnDisable()
     {
         // 충전 도중 제거되면 예약된 발사 콜백도 함께 취소한다.

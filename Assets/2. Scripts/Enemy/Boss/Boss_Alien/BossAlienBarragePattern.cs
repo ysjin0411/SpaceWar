@@ -75,6 +75,9 @@ public sealed class BossAlienBarragePattern : BossPattern
 
     // 시스템 경고가 끝나면 모든 회차의 위험지대를 순서대로 표시한다.
     // 실행 데이터와 이벤트 대기 상태는 이번 호출 안에서만 보관한다.
+    /// <summary>
+    /// 실행 데이터와 이벤트 대기 상태는 이번 호출 안에서만 보관한다.
+    /// </summary>
     public override IEnumerator Execute(BossPatternContext context)
     {
 
@@ -353,6 +356,9 @@ public sealed class BossAlienBarragePattern : BossPattern
 
     // 실행 전에 필요한 참조와 수치를 검사한다.
     // 실제 Execute를 구현할 때 예고 시작 전에 호출한다.
+    /// <summary>
+    /// 실제 Execute를 구현할 때 예고 시작 전에 호출한다.
+    /// </summary>
     private void ValidateSettings()
     {
         if (string.IsNullOrWhiteSpace(_warningMessage))
@@ -444,6 +450,9 @@ public sealed class BossAlienBarragePattern : BossPattern
 
     // Inspector 메뉴에서 실행하지 않고 설정만 검사할 수 있게 한다.
     [ContextMenu("Validate Barrage Settings")]
+    /// <summary>
+    /// ValidateFromInspector 동작에 필요한 상태와 처리 흐름을 실행한다.
+    /// </summary>
     private void ValidateFromInspector()
     {
         ValidateSettings();
@@ -451,6 +460,9 @@ public sealed class BossAlienBarragePattern : BossPattern
     }
 
     // 숫자가 유효한지와 0 허용 여부를 함께 검사한다.
+    /// <summary>
+    /// 숫자가 유효한지와 0 허용 여부를 함께 검사한다.
+    /// </summary>
     private void ValidateNumber(float value, string label, bool allowZero)
     {
         if (!IsFinite(value) ||
@@ -464,6 +476,9 @@ public sealed class BossAlienBarragePattern : BossPattern
     }
 
     // NaN과 무한대는 좌표·시간·반경으로 사용하지 않는다.
+    /// <summary>
+    /// NaN과 무한대는 좌표·시간·반경으로 사용하지 않는다.
+    /// </summary>
     private static bool IsFinite(float value)
     {
         return !float.IsNaN(value) && !float.IsInfinity(value);
@@ -476,7 +491,7 @@ public sealed class BossAlienBarragePattern : BossPattern
         // 예고와 폭격이 함께 사용할 확정된 공격 설정이다.
         public readonly Vector2 Position;
         public readonly float Radius;
-        public readonly int Damage;
+        public readonly float Damage;
         public readonly float VisualScale;
         public readonly Sprite Sprite;
 
@@ -490,6 +505,9 @@ public sealed class BossAlienBarragePattern : BossPattern
         public bool ImpactHandled;
 
         // 원본 Config를 보관하지 않고 필요한 값을 복사한다.
+        /// <summary>
+        /// 원본 Config를 보관하지 않고 필요한 값을 복사한다.
+        /// </summary>
         public MissileRuntime(
             BossAlienBarrageRoundConfig.MissileSettings settings)
         {
@@ -502,6 +520,9 @@ public sealed class BossAlienBarragePattern : BossPattern
 
         // 이 미사일에 속한 장판과 연출만 정리한다.
         // 정상 종료와 패턴 취소 시 모두 호출할 수 있다.
+        /// <summary>
+        /// 정상 종료와 패턴 취소 시 모두 호출할 수 있다.
+        /// </summary>
         public void Clear()
         {
             if (Warning != null)
@@ -533,6 +554,9 @@ public sealed class BossAlienBarragePattern : BossPattern
         // 이 회차에 속한 미사일들이다.
         public readonly MissileRuntime[] Missiles;
 
+        /// <summary>
+        /// RoundRuntime 동작에 필요한 상태와 처리 흐름을 실행한다.
+        /// </summary>
         public RoundRuntime(BossAlienBarrageRoundConfig config)
         {
             PreviewDuration = config.PreviewDuration;
@@ -547,6 +571,9 @@ public sealed class BossAlienBarragePattern : BossPattern
         }
 
         // 완료한 회차 또는 취소된 회차의 오브젝트를 정리한다.
+        /// <summary>
+        /// 완료한 회차 또는 취소된 회차의 오브젝트를 정리한다.
+        /// </summary>
         public void Clear()
         {
             for (int i = 0; i < Missiles.Length; i++)
@@ -558,6 +585,9 @@ public sealed class BossAlienBarragePattern : BossPattern
 
     // 설정 검사를 통과한 뒤, 이번 실행 전용 데이터를 생성한다.
     // 반환한 배열은 Execute의 지역 변수로 보관한다.
+    /// <summary>
+    /// 반환한 배열은 Execute의 지역 변수로 보관한다.
+    /// </summary>
     private RoundRuntime[] CreateRuntimeRounds()
     {
         RoundRuntime[] result = new RoundRuntime[_rounds.Length];
@@ -573,6 +603,9 @@ public sealed class BossAlienBarragePattern : BossPattern
 
     // 한 회차의 미사일을 같은 프레임에 모두 생성하고 낙하시킨다.
     // spawnY는 패턴 실행 시작 시 계산할 공통 출발 높이다.
+    /// <summary>
+    /// spawnY는 패턴 실행 시작 시 계산할 공통 출발 높이다.
+    /// </summary>
     private void LaunchRound(
         Boss_Alien boss,
         RoundRuntime round,
@@ -601,6 +634,9 @@ public sealed class BossAlienBarragePattern : BossPattern
     }
 
     // 해당 회차의 모든 미사일이 목표에 도착했는지 확인한다.
+    /// <summary>
+    /// 해당 회차의 모든 미사일이 목표에 도착했는지 확인한다.
+    /// </summary>
     private bool HaveAllMissilesArrived(RoundRuntime round)
     {
         bool allArrived = true;
@@ -628,6 +664,9 @@ public sealed class BossAlienBarragePattern : BossPattern
 
     // 모든 미사일이 도착한 회차의 폭발 외형을 한꺼번에 생성한다.
     // 회차당 최대 피해 한 번 적용은 별도 메서드에서 처리한다.
+    /// <summary>
+    /// 회차당 최대 피해 한 번 적용은 별도 메서드에서 처리한다.
+    /// </summary>
     private void CreateRoundExplosions(
         Boss_Alien boss,
         RoundRuntime round,
@@ -667,6 +706,9 @@ public sealed class BossAlienBarragePattern : BossPattern
     }
 
     // 해당 회차의 폭발 애니메이션과 페이드아웃이 모두 끝났는지 확인한다.
+    /// <summary>
+    /// 해당 회차의 폭발 애니메이션과 페이드아웃이 모두 끝났는지 확인한다.
+    /// </summary>
     private bool HaveAllExplosionsFinished(RoundRuntime round)
     {
         for (int i = 0; i < round.Missiles.Length; i++)
@@ -692,6 +734,9 @@ public sealed class BossAlienBarragePattern : BossPattern
 
     // 플레이어 몸과 겹친 폭발 중 최대 피해를 선택해 한 번만 요청한다.
     // 회차의 폭발 생성 직후 한 번 호출하며, 잔광에는 피해가 없다.
+    /// <summary>
+    /// 회차의 폭발 생성 직후 한 번 호출하며, 잔광에는 피해가 없다.
+    /// </summary>
     private void ApplyRoundDamage(
         RoundRuntime round,
         PlayerController player)

@@ -100,6 +100,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c624cc82be0f215488c5202930e591f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _frames:
+  - {fileID: 21300000, guid: 02af9f85614477d45a2db4bf48d3d9e3, type: 3}
+  - {fileID: 21300000, guid: 80259c04a720ad8418325f493561dc23, type: 3}
+  - {fileID: 21300000, guid: 77bfa90da757cc64daac4cda0411c9d5, type: 3}
+  - {fileID: 21300000, guid: da535b7d28a3a104699a2932109e87f7, type: 3}
+  - {fileID: 21300000, guid: df8d0c1948de0b1489fa42aee8658d88, type: 3}
+  - {fileID: 21300000, guid: 0765a5ed1164e0e41b8ba3ffc6b0d1cc, type: 3}
+  - {fileID: 21300000, guid: 5b142a9fa626a5e4395337b3744ac91d, type: 3}
+  - {fileID: 21300000, guid: 20154c9a061f90d4b989b02ea3e25dff, type: 3}
+  - {fileID: 21300000, guid: b089cc4f9f38bfa4db6d5f50a96abb2b, type: 3}
+  - {fileID: 21300000, guid: dda017565705ff34b86911e7fe991083, type: 3}
+  - {fileID: 21300000, guid: e144cc529ab9a0f4796613bfa0566452, type: 3}
+  - {fileID: 21300000, guid: cb2ffd8459836284ca9ce3f0de4d21da, type: 3}
+  _framesPerSecond: 24
   _duration: 0.35
   _startScaleRatio: 0.7
   _color: {r: 1, g: 1, b: 1, a: 1}

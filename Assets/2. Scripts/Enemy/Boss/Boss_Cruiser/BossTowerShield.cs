@@ -8,19 +8,19 @@ public sealed class BossTowerShield : MonoBehaviour
     [SerializeField] private Tower[] _towers;
 
     // 최초 최대 체력 합계를 유지한다.
-    private int _maxShield;
+    private float _maxShield;
 
     // 현재 타워 체력 합계다.
-    private int _currentShield;
+    private float _currentShield;
 
     // 초기화 중복을 방지한다.
     private bool _isInitialized;
 
     // 합산 체력이 바뀌면 현재 값과 최대 값을 UI에 전달한다.
-    public event Action<int, int> ShieldChanged;
+    public event Action<float, float> ShieldChanged;
 
     // UI가 이벤트 구독 직후 현재 상태를 읽을 수 있도록 공개한다.
-    public int MaxShield
+    public float MaxShield
     {
         get
         {
@@ -29,7 +29,7 @@ public sealed class BossTowerShield : MonoBehaviour
         }
     }
 
-    public int CurrentShield
+    public float CurrentShield
     {
         get
         {
@@ -38,12 +38,18 @@ public sealed class BossTowerShield : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 컴포넌트 참조와 초기 실행 상태를 준비한다.
+    /// </summary>
     private void Awake()
     {
         InitializeShield();
     }
 
     // 타워 목록을 검증하고 최대 체력 합계를 한 번만 계산한다.
+    /// <summary>
+    /// 타워 목록을 검증하고 최대 체력 합계를 한 번만 계산한다.
+    /// </summary>
     private void InitializeShield()
     {
         if (_isInitialized)
@@ -71,6 +77,9 @@ public sealed class BossTowerShield : MonoBehaviour
         _isInitialized = true;
     }
 
+    /// <summary>
+    /// 활성화 시 초기 상태와 이벤트 연결을 준비한다.
+    /// </summary>
     private void OnEnable()
     {
         InitializeShield();
@@ -83,6 +92,9 @@ public sealed class BossTowerShield : MonoBehaviour
         RefreshShield();
     }
 
+    /// <summary>
+    /// 비활성화 시 이벤트 연결과 실행 상태를 정리한다.
+    /// </summary>
     private void OnDisable()
     {
         if (!_isInitialized)
@@ -97,6 +109,9 @@ public sealed class BossTowerShield : MonoBehaviour
     }
 
     // 피해가 발생했을 때만 현재 체력을 다시 합산한다.
+    /// <summary>
+    /// 피해가 발생했을 때만 현재 체력을 다시 합산한다.
+    /// </summary>
     private void RefreshShield()
     {
         _currentShield = 0;

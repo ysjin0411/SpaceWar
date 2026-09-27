@@ -1,0 +1,832 @@
+fileFormatVersion: 2
+guid: e2bbc6dfef08c0942834a5d19868af58
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3401147181990565339
+    second: Claw_Slam_04_0
+  - first:
+      213: -7184742545471068739
+    second: Claw_Slam_04_1
+  - first:
+      213: 4840312614619500443
+    second: Claw_Slam_04_2
+  - first:
+      213: 4781025193754234137
+    second: Claw_Slam_04_3
+  - first:
+      213: -2449179814838375271
+    second: Claw_Slam_04_4
+  - first:
+      213: -2883053226186432329
+    second: Claw_Slam_04_5
+  - first:
+      213: -4737934261348839195
+    second: Claw_Slam_04_6
+  - first:
+      213: 4087892699040908310
+    second: Claw_Slam_04_7
+  - first:
+      213: 7618327744503234435
+    second: Claw_Slam_04_8
+  - first:
+      213: 4199716333555270110
+    second: Claw_Slam_04_9
+  - first:
+      213: -7106661256337635257
+    second: Claw_Slam_04_10
+  - first:
+      213: 6032533344305145345
+    second: Claw_Slam_04_11
+  - first:
+      213: 197151114197078572
+    second: Claw_Slam_04_12
+  - first:
+      213: -1378624122976059175
+    second: Claw_Slam_04_13
+  - first:
+      213: -3692060509503140157
+    second: Claw_Slam_04_14
+  - first:
+      213: 6732950839449219485
+    second: Claw_Slam_04_15
+  - first:
+      213: -5573963994580585630
+    second: Claw_Slam_04_16
+  - first:
+      213: 1570865263119387096
+    second: Claw_Slam_04_17
+  - first:
+      213: 3943550443512338782
+    second: Claw_Slam_04_18
+  - first:
+      213: -3433128065861298204
+    second: Claw_Slam_04_19
+  - first:
+      213: 5308877314343843096
+    second: Claw_Slam_04_20
+  - first:
+      213: -7681466369628471959
+    second: Claw_Slam_04_21
+  - first:
+      213: -8847337251986728184
+    second: Claw_Slam_04_22
+  - first:
+      213: -1879265828546179718
+    second: Claw_Slam_04_23
+  - first:
+      213: -4182099353410355029
+    second: Claw_Slam_04_24
+  - first:
+      213: -3904805478307768649
+    second: Claw_Slam_04_25
+  - first:
+      213: -8858257099224471829
+    second: Claw_Slam_04_26
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Claw_Slam_04_0
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 140
+        width: 661
+        height: 1249
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 52aa1a478a2bcc0d0800000000000000
+      internalID: -3401147181990565339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Claw_Slam_04_1
+      rect:
+        serializedVersion: 2
+        x: 374
+        y: 1388
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db5af86a8baaa4c90800000000000000
+      internalID: -7184742545471068739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Claw_Slam_04_2
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 1367
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9fcc3c8dae3c2340800000000000000
+      internalID: 4840312614619500443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Claw_Slam_04_3
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 1365
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91d0aef251d995240800000000000000
+      internalID: 4781025193754234137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Claw_Slam_04_4
+      rect:
+        serializedVersion: 2
+        x: 806
+        y: 140
+        width: 578
+        height: 1235
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 99c60894fe3c20ed0800000000000000
+      internalID: -2449179814838375271
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Claw_Slam_04_5
+      rect:
+        serializedVersion: 2
+        x: 205
+        y: 1330
+        width: 42
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b02d98ad565df7d0800000000000000
+      internalID: -2883053226186432329
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Claw_Slam_04_6
+      rect:
+        serializedVersion: 2
+        x: 780
+        y: 1297
+        width: 49
+        height: 69
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e0562754e97f3eb0800000000000000
+      internalID: -4737934261348839195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Claw_Slam_04_7
+      rect:
+        serializedVersion: 2
+        x: 241
+        y: 1289
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6140f3e40cc1bb830800000000000000
+      internalID: 4087892699040908310
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Claw_Slam_04_8
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 1074
+        width: 84
+        height: 164
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 38f3e9158bcb9b960800000000000000
+      internalID: 7618327744503234435
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Claw_Slam_04_9
+      rect:
+        serializedVersion: 2
+        x: 756
+        y: 1046
+        width: 15
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed1c7fa11c3684a30800000000000000
+      internalID: 4199716333555270110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Claw_Slam_04_10
+      rect:
+        serializedVersion: 2
+        x: 766
+        y: 1070
+        width: 17
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 748c6f47d31106d90800000000000000
+      internalID: -7106661256337635257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Claw_Slam_04_11
+      rect:
+        serializedVersion: 2
+        x: 1284
+        y: 1109
+        width: 8
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 106e10b6d1dd7b350800000000000000
+      internalID: 6032533344305145345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Claw_Slam_04_12
+      rect:
+        serializedVersion: 2
+        x: 1296
+        y: 1127
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c221ac0d4eb6cb200800000000000000
+      internalID: 197151114197078572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Claw_Slam_04_13
+      rect:
+        serializedVersion: 2
+        x: 1304
+        y: 1219
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d04a371aa42edce0800000000000000
+      internalID: -1378624122976059175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Claw_Slam_04_14
+      rect:
+        serializedVersion: 2
+        x: 251
+        y: 1056
+        width: 12
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ce41d9278a23ccc0800000000000000
+      internalID: -3692060509503140157
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Claw_Slam_04_15
+      rect:
+        serializedVersion: 2
+        x: 764
+        y: 978
+        width: 23
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d91f983ad1f307d50800000000000000
+      internalID: 6732950839449219485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Claw_Slam_04_16
+      rect:
+        serializedVersion: 2
+        x: 1294
+        y: 443
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 263f430774d45a2b0800000000000000
+      internalID: -5573963994580585630
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Claw_Slam_04_17
+      rect:
+        serializedVersion: 2
+        x: 1302
+        y: 435
+        width: 12
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d94b3e42a5dcc510800000000000000
+      internalID: 1570865263119387096
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Claw_Slam_04_18
+      rect:
+        serializedVersion: 2
+        x: 1323
+        y: 449
+        width: 19
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e59136b0c3e4ab630800000000000000
+      internalID: 3943550443512338782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Claw_Slam_04_19
+      rect:
+        serializedVersion: 2
+        x: 1264
+        y: 381
+        width: 38
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4e7d9eda6341b50d0800000000000000
+      internalID: -3433128065861298204
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Claw_Slam_04_20
+      rect:
+        serializedVersion: 2
+        x: 188
+        y: 293
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 815389d2acbeca940800000000000000
+      internalID: 5308877314343843096
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Claw_Slam_04_21
+      rect:
+        serializedVersion: 2
+        x: 250
+        y: 218
+        width: 11
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96d7f24f803f56590800000000000000
+      internalID: -7681466369628471959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Claw_Slam_04_22
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 226
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 80b104ff4a1f73580800000000000000
+      internalID: -8847337251986728184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Claw_Slam_04_23
+      rect:
+        serializedVersion: 2
+        x: 237
+        y: 207
+        width: 16
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7d89fa8fa18be5e0800000000000000
+      internalID: -1879265828546179718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Claw_Slam_04_24
+      rect:
+        serializedVersion: 2
+        x: 979
+        y: 190
+        width: 9
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba0c598bbc236f5c0800000000000000
+      internalID: -4182099353410355029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Claw_Slam_04_25
+      rect:
+        serializedVersion: 2
+        x: 1039
+        y: 196
+        width: 13
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b657742b185fc9c0800000000000000
+      internalID: -3904805478307768649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Claw_Slam_04_26
+      rect:
+        serializedVersion: 2
+        x: 951
+        y: 188
+        width: 9
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be6a4afe916211580800000000000000
+      internalID: -8858257099224471829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Claw_Slam_04_0: -3401147181990565339
+      Claw_Slam_04_1: -7184742545471068739
+      Claw_Slam_04_10: -7106661256337635257
+      Claw_Slam_04_11: 6032533344305145345
+      Claw_Slam_04_12: 197151114197078572
+      Claw_Slam_04_13: -1378624122976059175
+      Claw_Slam_04_14: -3692060509503140157
+      Claw_Slam_04_15: 6732950839449219485
+      Claw_Slam_04_16: -5573963994580585630
+      Claw_Slam_04_17: 1570865263119387096
+      Claw_Slam_04_18: 3943550443512338782
+      Claw_Slam_04_19: -3433128065861298204
+      Claw_Slam_04_2: 4840312614619500443
+      Claw_Slam_04_20: 5308877314343843096
+      Claw_Slam_04_21: -7681466369628471959
+      Claw_Slam_04_22: -8847337251986728184
+      Claw_Slam_04_23: -1879265828546179718
+      Claw_Slam_04_24: -4182099353410355029
+      Claw_Slam_04_25: -3904805478307768649
+      Claw_Slam_04_26: -8858257099224471829
+      Claw_Slam_04_3: 4781025193754234137
+      Claw_Slam_04_4: -2449179814838375271
+      Claw_Slam_04_5: -2883053226186432329
+      Claw_Slam_04_6: -4737934261348839195
+      Claw_Slam_04_7: 4087892699040908310
+      Claw_Slam_04_8: 7618327744503234435
+      Claw_Slam_04_9: 4199716333555270110
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

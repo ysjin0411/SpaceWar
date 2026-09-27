@@ -6,6 +6,9 @@ using UnityEngine;
 [CanEditMultipleObjects]
 public class WeaponDataEditor : Editor
 {
+    /// <summary>
+    /// OnInspectorGUI 처리에서 변경된 전투 수치와 상태를 반영한다.
+    /// </summary>
     public override void OnInspectorGUI()
     {
         // 최신 에셋 값을 읽는다.
@@ -27,6 +30,7 @@ public class WeaponDataEditor : Editor
         DrawProperty("_characterSelectPreviewScale");
         DrawProperty("_characterSelectPreviewOffset");
         // 상점 미리보기 보정값도 무기 Inspector에 표시한다.
+        DrawProperty("_weaponMoveSpeed");
         DrawProperty("_equipmentPreviewScale");
         DrawProperty("_equipmentPreviewOffset");
 
@@ -65,6 +69,9 @@ public class WeaponDataEditor : Editor
     }
 
     // 선택한 무기 타입에 필요한 설정만 표시한다.
+    /// <summary>
+    /// 선택한 무기 타입에 필요한 설정만 표시한다.
+    /// </summary>
     private void DrawTypeSettings(WeaponType type)
     {
         bool isShield = type == WeaponType.Shield;
@@ -78,6 +85,23 @@ public class WeaponDataEditor : Editor
         if (!isShield && !isAttachedMelee)
         {
             DrawProperty("_projectilePrefab");
+        }
+
+        // 총구에서 발사하는 무기에만 총구 섬광 설정을 표시한다.
+        if (type == WeaponType.Bullet ||
+            type == WeaponType.Missile ||
+            type == WeaponType.Sniper)
+        {
+            DrawProperty("_muzzleEffectPrefab");
+        }
+
+        // 레이저를 선택했을 때 출력 관련 설정을 표시한다.
+        if (type == WeaponType.Lazer)
+        {
+            DrawProperty("_lazerChargeDuration");
+            DrawProperty("_lazerHitsPerSecond");
+            DrawProperty("_lazerHitsPerSecondUpgrade");
+            DrawProperty("_lazerMaxDamageMultiplier");
         }
 
         if (isShield)
@@ -115,6 +139,9 @@ public class WeaponDataEditor : Editor
     }
 
     // 직렬화된 필드를 기본 Unity 편집 방식으로 표시한다.
+    /// <summary>
+    /// 직렬화된 필드를 기본 Unity 편집 방식으로 표시한다.
+    /// </summary>
     private void DrawProperty(string propertyName)
     {
         SerializedProperty property =

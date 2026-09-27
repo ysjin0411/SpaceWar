@@ -29,7 +29,10 @@ public class NpcDialogueUI : MonoBehaviour
     // 버튼 안에 표시할 기능 이름.
     [SerializeField] private TMP_Text _actionButtonText;
 
-    // UI 이미지에 반영할 NPC 렌더러와 이미지의 기본 크기.
+    // 대화 상태에 따라 고정 기능 영역과 보상 스크롤을 전환한다.
+    [SerializeField] private NpcDialogueBodyView _bodyView;
+
+    // NPC 초상화의 애니메이션 원본과 기본 크기.
     private SpriteRenderer _portraitSource;
     private Vector3 _imageScale;
 
@@ -60,7 +63,8 @@ public class NpcDialogueUI : MonoBehaviour
             _advanceButton == null ||
             _closeButton == null ||
             _actionButton == null ||
-            _actionButtonText == null)
+            _actionButtonText == null ||
+            _bodyView == null || !_bodyView.IsConfigured)
         {
             Debug.LogError(
                 "NpcDialogueUI의 Inspector 연결을 확인해주세요.", this);
@@ -69,6 +73,7 @@ public class NpcDialogueUI : MonoBehaviour
             return;
         }
 
+        _bodyView.SetMode(false, false);
         _imageScale = _npcImage.rectTransform.localScale;
         _npcImage.preserveAspect = true;
         _npcImage.raycastTarget = false;
@@ -85,6 +90,7 @@ public class NpcDialogueUI : MonoBehaviour
     // 이름과 초상 원본을 연결하고 창을 표시한다.
     public void Show(string npcName, SpriteRenderer portraitSource)
     {
+        _bodyView.SetMode(false, false);
         _npcNameText.text = npcName;
         _dialogueText.text = string.Empty;
         _portraitSource = portraitSource;
@@ -111,10 +117,18 @@ public class NpcDialogueUI : MonoBehaviour
         int characterCount = _dialogueText.textInfo.characterCount;
 
         _dialogueText.maxVisibleCharacters = 0;
+        _bodyView.ResetPosition();
         return characterCount;
     }
 
     // Presenter가 결정한 수만큼 글자를 보여준다.
+    // 보상 표시 여부는 Presenter가 판단하고 실제 배치는 전용 View에 맡긴다.
+    public void SetDialogueMode(bool questDialogue, bool rewardsVisible)
+    {
+        _bodyView.SetMode(questDialogue, rewardsVisible);
+    }
+
+    // 타이핑 진행에 맞춰 보이는 글자 수만 변경한다.
     public void SetVisibleCharacterCount(int count)
     {
         _dialogueText.maxVisibleCharacters = count;

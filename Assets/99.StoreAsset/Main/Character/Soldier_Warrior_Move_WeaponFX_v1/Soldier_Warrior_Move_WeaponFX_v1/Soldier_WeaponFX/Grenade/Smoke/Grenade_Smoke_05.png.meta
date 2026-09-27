@@ -1,0 +1,546 @@
+fileFormatVersion: 2
+guid: 58b26892a4b453a44a48d6614f709a3f
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1143182919759425016
+    second: Grenade_Smoke_05_0
+  - first:
+      213: -7007375977958296788
+    second: Grenade_Smoke_05_1
+  - first:
+      213: 3560431617129405468
+    second: Grenade_Smoke_05_2
+  - first:
+      213: 3422225045830574626
+    second: Grenade_Smoke_05_3
+  - first:
+      213: 2301964655470624446
+    second: Grenade_Smoke_05_4
+  - first:
+      213: 7222111336238420359
+    second: Grenade_Smoke_05_5
+  - first:
+      213: 9143018418072811084
+    second: Grenade_Smoke_05_6
+  - first:
+      213: 2802231810813991197
+    second: Grenade_Smoke_05_7
+  - first:
+      213: 4367253640116908521
+    second: Grenade_Smoke_05_8
+  - first:
+      213: -7584417553048201391
+    second: Grenade_Smoke_05_9
+  - first:
+      213: 4425038426918243319
+    second: Grenade_Smoke_05_10
+  - first:
+      213: -5695239440413021308
+    second: Grenade_Smoke_05_11
+  - first:
+      213: 6362028718593052831
+    second: Grenade_Smoke_05_12
+  - first:
+      213: -3735967646184640489
+    second: Grenade_Smoke_05_13
+  - first:
+      213: -5461672470686356981
+    second: Grenade_Smoke_05_14
+  - first:
+      213: 259913303801423449
+    second: Grenade_Smoke_05_15
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 9
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 112
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 512
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Grenade_Smoke_05_0
+      rect:
+        serializedVersion: 2
+        x: 191
+        y: 191
+        width: 82
+        height: 121
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8fded850fc66ddf00800000000000000
+      internalID: 1143182919759425016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grenade_Smoke_05_1
+      rect:
+        serializedVersion: 2
+        x: 266
+        y: 312
+        width: 29
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c23b03abcacc0ce90800000000000000
+      internalID: -7007375977958296788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grenade_Smoke_05_2
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 257
+        width: 31
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1c511a11b1396130800000000000000
+      internalID: 3560431617129405468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grenade_Smoke_05_3
+      rect:
+        serializedVersion: 2
+        x: 302
+        y: 275
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2222d262c8f2e7f20800000000000000
+      internalID: 3422225045830574626
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grenade_Smoke_05_4
+      rect:
+        serializedVersion: 2
+        x: 350
+        y: 240
+        width: 16
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ebeb4d668a832ff10800000000000000
+      internalID: 2301964655470624446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grenade_Smoke_05_5
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 213
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 78110d4fef71a3460800000000000000
+      internalID: 7222111336238420359
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grenade_Smoke_05_6
+      rect:
+        serializedVersion: 2
+        x: 141
+        y: 185
+        width: 17
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c4675183fc682ee70800000000000000
+      internalID: 9143018418072811084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grenade_Smoke_05_7
+      rect:
+        serializedVersion: 2
+        x: 173
+        y: 175
+        width: 27
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d191edd2cf683e620800000000000000
+      internalID: 2802231810813991197
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grenade_Smoke_05_8
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 160
+        width: 23
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e133370c0a9b9c30800000000000000
+      internalID: 4367253640116908521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grenade_Smoke_05_9
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 141
+        width: 49
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15713526b6cbeb690800000000000000
+      internalID: -7584417553048201391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grenade_Smoke_05_10
+      rect:
+        serializedVersion: 2
+        x: 359
+        y: 178
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7fb4ae12105e86d30800000000000000
+      internalID: 4425038426918243319
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grenade_Smoke_05_11
+      rect:
+        serializedVersion: 2
+        x: 178
+        y: 146
+        width: 14
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 48b236357e176f0b0800000000000000
+      internalID: -5695239440413021308
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grenade_Smoke_05_12
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 123
+        width: 20
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f90929e79677a4850800000000000000
+      internalID: 6362028718593052831
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grenade_Smoke_05_13
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 142
+        width: 13
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 710ffc4483d272cc0800000000000000
+      internalID: -3735967646184640489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grenade_Smoke_05_14
+      rect:
+        serializedVersion: 2
+        x: 343
+        y: 136
+        width: 20
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0aa53933dd3434b0800000000000000
+      internalID: -5461672470686356981
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grenade_Smoke_05_15
+      rect:
+        serializedVersion: 2
+        x: 296
+        y: 126
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9566b71d5c56b9300800000000000000
+      internalID: 259913303801423449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Grenade_Smoke_05_0: 1143182919759425016
+      Grenade_Smoke_05_1: -7007375977958296788
+      Grenade_Smoke_05_10: 4425038426918243319
+      Grenade_Smoke_05_11: -5695239440413021308
+      Grenade_Smoke_05_12: 6362028718593052831
+      Grenade_Smoke_05_13: -3735967646184640489
+      Grenade_Smoke_05_14: -5461672470686356981
+      Grenade_Smoke_05_15: 259913303801423449
+      Grenade_Smoke_05_2: 3560431617129405468
+      Grenade_Smoke_05_3: 3422225045830574626
+      Grenade_Smoke_05_4: 2301964655470624446
+      Grenade_Smoke_05_5: 7222111336238420359
+      Grenade_Smoke_05_6: 9143018418072811084
+      Grenade_Smoke_05_7: 2802231810813991197
+      Grenade_Smoke_05_8: 4367253640116908521
+      Grenade_Smoke_05_9: -7584417553048201391
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

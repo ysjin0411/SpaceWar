@@ -35,6 +35,9 @@ public sealed class EnemyHitFlash : MonoBehaviour
     // 원래 색으로 복귀한 후 불필요한 갱신을 하지 않는다.
     bool _isFlashing;
 
+    /// <summary>
+    /// 컴포넌트 참조와 초기 실행 상태를 준비한다.
+    /// </summary>
     private void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
@@ -57,6 +60,9 @@ public sealed class EnemyHitFlash : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 활성화 시 초기 상태와 이벤트 연결을 준비한다.
+    /// </summary>
     private void OnEnable()
     {
         // 재활성화할 때 이전 피격 밝기가 남지 않게 한다.
@@ -69,8 +75,9 @@ public sealed class EnemyHitFlash : MonoBehaviour
     /// 맞을 때마다 밝기를 다시 올리고 복귀 시간을 새로 시작한다.
     /// 연속 피격도 무시하지 않는다.
     /// </summary>
-    private void HandleDamaged(int damage)
+    private void HandleDamaged(float damage)
     {
+        // 소수점 피해 이벤트를 받아 피격 연출을 처리한다.
         if (_damageable.IsDead || damage <= 0)
         {
             return;
@@ -82,6 +89,9 @@ public sealed class EnemyHitFlash : MonoBehaviour
         ApplyFlash(_flashStrength);
     }
 
+    /// <summary>
+    /// 프레임의 이동 결과에 맞춰 후속 상태를 갱신한다.
+    /// </summary>
     private void LateUpdate()
     {
         if (!_isFlashing)
@@ -132,6 +142,9 @@ public sealed class EnemyHitFlash : MonoBehaviour
         ApplyFlash(0f);
     }
 
+    /// <summary>
+    /// 비활성화 시 이벤트 연결과 실행 상태를 정리한다.
+    /// </summary>
     private void OnDisable()
     {
         if (_damageable != null)

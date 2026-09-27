@@ -19,17 +19,25 @@ public sealed class BossAlienResonancePattern : BossPattern
     // 각 균열에서 발사할 충격파 프리팹이다.
     [SerializeField] private BossAlienResonanceWave _wavePrefab;
 
+    // 각 균열에서 충격파를 발사할 때 재생할 폭발 이펙트.
+    [SerializeField] private SpriteOneShotEffect _crackBurstPrefab;
+
+    // 마지막 공격의 좌우 피해 영역에 표시할 광역 방전 이펙트.
+    [SerializeField] private BossAlienFinalAreaEffect _finalAreaEffectPrefab;
+
     public override IEnumerator Execute(BossPatternContext context)
     {
         Boss_Alien boss = context.Boss as Boss_Alien;
 
-        // 누락된 설정으로 패턴 실행기가 무한 대기하지 않게 한다.
+        // 공격에 필요한 설정과 이펙트 프리팹이 모두 연결됐는지 확인한다.
         if (boss == null || _config == null ||
             _warningPrefab == null || _wavePrefab == null ||
+            _crackBurstPrefab == null || _finalAreaEffectPrefab == null ||
             !PauseRandomMovement)
         {
             Debug.LogError(
-                $"{name}: Config, 두 프리팹, Pause Random Movement를 확인하세요.");
+                $"{name}: Config, Warning/Wave/Crack Burst/Final Area Effect " +
+                "프리팹과 Pause Random Movement를 확인하세요.");
             yield break;
         }
 
@@ -80,6 +88,27 @@ public sealed class BossAlienResonancePattern : BossPattern
         // 정상 종료와 강제 취소에서 제거할 생성물 목록이다.
         var warnings = new List<BossAlienAttackWarning>();
         var waves = new List<BossAlienResonanceWave>();
+
+        // 패턴 취소 시 아직 재생 중인 폭발도 제거하기 위한 목록.
+        var crackBursts = new List<SpriteOneShotEffect>();
+
+        // 정상 종료와 패턴 취소 시 좌우 방전 이펙트를 함께 정리한다.
+        var finalAreaEffects = new List<BossAlienFinalAreaEffect>();
+
+        // 공격 종료나 강제 취소 시 광역 이펙트를 즉시 숨기고 제거한다.
+        void ClearFinalAreaEffects()
+        {
+            foreach (BossAlienFinalAreaEffect effect in finalAreaEffects)
+            {
+                if (effect != null)
+                {
+                    effect.gameObject.SetActive(false);
+                    Destroy(effect.gameObject);
+                }
+            }
+
+            finalAreaEffects.Clear();
+        }
 
         // 마무리 공격의 물리 검사 결과를 재사용한다.
         var hits = new List<Collider2D>();
@@ -187,6 +216,15 @@ public sealed class BossAlienResonancePattern : BossPattern
 
                 Destroy(warning.gameObject);
 
+                // 균열 위치에서 충격파 진행 방향으로 폭발을 재생한다.
+                // 부모 없이 생성해 기존 균열의 Scale 6을 상속받지 않는다.
+                SpriteOneShotEffect burst = Instantiate(
+                    _crackBurstPrefab,
+                    source.Position,
+                    Quaternion.Euler(0f, 0f, angle));
+
+                crackBursts.Add(burst);
+
                 BossAlienResonanceWave wave = Instantiate(_wavePrefab);
                 waves.Add(wave);
                 wave.Initialize(
@@ -263,6 +301,18 @@ public sealed class BossAlienResonancePattern : BossPattern
             ShowAttack(leftWarning);
             ShowAttack(rightWarning);
 
+            // 피해 판정에 사용하는 왼쪽 사각형을 그대로 표시한다.
+            BossAlienFinalAreaEffect leftEffect =
+                Instantiate(_finalAreaEffectPrefab);
+            finalAreaEffects.Add(leftEffect);
+            leftEffect.Initialize(leftArea);
+
+            // 오른쪽도 별도로 표시해 가운데 안전 통로를 비워 둔다.
+            BossAlienFinalAreaEffect rightEffect =
+                Instantiate(_finalAreaEffectPrefab);
+            finalAreaEffects.Add(rightEffect);
+            rightEffect.Initialize(rightArea);
+
             // 마무리 공격이 시작되는 순간 카메라를 강하게 흔든다.
             if (cameraShake != null)
             {
@@ -278,6 +328,11 @@ public sealed class BossAlienResonancePattern : BossPattern
             while (activeElapsed < _config.FinalActiveDuration &&
                    CanContinue())
             {
+                // 피해 판정과 같은 경과 시간으로 양쪽 이펙트의 프레임을 갱신한다.
+                float progress = activeElapsed / _config.FinalActiveDuration;
+                leftEffect.SetProgress(progress);
+                rightEffect.SetProgress(progress);
+
                 if (!hitConsumed)
                 {
                     Physics2D.SyncTransforms();
@@ -291,6 +346,9 @@ public sealed class BossAlienResonancePattern : BossPattern
                 activeElapsed += Time.deltaTime;
                 yield return null;
             }
+
+            // 실제 공격 시간이 끝나면 회복 대기에 들어가기 전에 제거한다.
+            ClearFinalAreaEffects();
 
             if (!CanContinue())
             {
@@ -306,6 +364,9 @@ public sealed class BossAlienResonancePattern : BossPattern
         }
         finally
         {
+            // 공격 도중 사망하거나 코루틴이 중단돼도 이펙트를 남기지 않는다.
+            ClearFinalAreaEffects();
+
             // 패턴이 종료되거나 취소되면 카메라를 원래 위치로 복구한다.
             if (cameraShake != null)
             {
@@ -328,6 +389,17 @@ public sealed class BossAlienResonancePattern : BossPattern
                 {
                     wave.gameObject.SetActive(false);
                     Destroy(wave.gameObject);
+                }
+            }
+
+            // 사망이나 패턴 취소 시 남아 있는 폭발 이펙트를 정리한다.
+            // 정상 재생을 마치고 이미 제거된 이펙트는 건너뛴다.
+            foreach (SpriteOneShotEffect burst in crackBursts)
+            {
+                if (burst != null)
+                {
+                    burst.gameObject.SetActive(false);
+                    Destroy(burst.gameObject);
                 }
             }
 

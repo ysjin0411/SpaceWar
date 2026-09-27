@@ -1,0 +1,1144 @@
+fileFormatVersion: 2
+guid: 9226895dc67a7644380064213cb1f1ff
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -7710414660691946884
+    second: UltimateFrame_Sparks_01_0
+  - first:
+      213: -6699604234114933833
+    second: UltimateFrame_Sparks_01_1
+  - first:
+      213: -9064842408654289679
+    second: UltimateFrame_Sparks_01_2
+  - first:
+      213: 5601576098775885993
+    second: UltimateFrame_Sparks_01_3
+  - first:
+      213: -56842911165067709
+    second: UltimateFrame_Sparks_01_4
+  - first:
+      213: 6652680258322649116
+    second: UltimateFrame_Sparks_01_5
+  - first:
+      213: -9189221939023866929
+    second: UltimateFrame_Sparks_01_6
+  - first:
+      213: 3746350584027346984
+    second: UltimateFrame_Sparks_01_7
+  - first:
+      213: -7634510653419311728
+    second: UltimateFrame_Sparks_01_8
+  - first:
+      213: 5375128628245474617
+    second: UltimateFrame_Sparks_01_9
+  - first:
+      213: 4434586587709162764
+    second: UltimateFrame_Sparks_01_10
+  - first:
+      213: -2736458588597233882
+    second: UltimateFrame_Sparks_01_11
+  - first:
+      213: 7773819030266503397
+    second: UltimateFrame_Sparks_01_12
+  - first:
+      213: -1528466600478148213
+    second: UltimateFrame_Sparks_01_13
+  - first:
+      213: -8765904384744180152
+    second: UltimateFrame_Sparks_01_14
+  - first:
+      213: -8177874073279411167
+    second: UltimateFrame_Sparks_01_15
+  - first:
+      213: 7109940366584904361
+    second: UltimateFrame_Sparks_01_16
+  - first:
+      213: -5969384521167926118
+    second: UltimateFrame_Sparks_01_17
+  - first:
+      213: 2389389595653916191
+    second: UltimateFrame_Sparks_01_18
+  - first:
+      213: 518882328224424544
+    second: UltimateFrame_Sparks_01_19
+  - first:
+      213: -8447153325264668611
+    second: UltimateFrame_Sparks_01_20
+  - first:
+      213: -2065811118432748650
+    second: UltimateFrame_Sparks_01_21
+  - first:
+      213: -5456313621957503183
+    second: UltimateFrame_Sparks_01_22
+  - first:
+      213: 5993813765191830495
+    second: UltimateFrame_Sparks_01_23
+  - first:
+      213: -3255441448492452093
+    second: UltimateFrame_Sparks_01_24
+  - first:
+      213: 93300342823099046
+    second: UltimateFrame_Sparks_01_25
+  - first:
+      213: 8267359629965827413
+    second: UltimateFrame_Sparks_01_26
+  - first:
+      213: -3669165949953473144
+    second: UltimateFrame_Sparks_01_27
+  - first:
+      213: -1952133656365246430
+    second: UltimateFrame_Sparks_01_28
+  - first:
+      213: 291220967437408781
+    second: UltimateFrame_Sparks_01_29
+  - first:
+      213: -5661059058427652799
+    second: UltimateFrame_Sparks_01_30
+  - first:
+      213: 3189319495914522574
+    second: UltimateFrame_Sparks_01_31
+  - first:
+      213: 1685267720189631826
+    second: UltimateFrame_Sparks_01_32
+  - first:
+      213: -2317406808912641552
+    second: UltimateFrame_Sparks_01_33
+  - first:
+      213: -4562660693297519249
+    second: UltimateFrame_Sparks_01_34
+  - first:
+      213: 4563901598123530496
+    second: UltimateFrame_Sparks_01_35
+  - first:
+      213: -7253311912474067055
+    second: UltimateFrame_Sparks_01_36
+  - first:
+      213: -7614830932725877134
+    second: UltimateFrame_Sparks_01_37
+  - first:
+      213: 3399679452272585356
+    second: UltimateFrame_Sparks_01_38
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: UltimateFrame_Sparks_01_0
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 387
+        width: 970
+        height: 552
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c721e76b7ba1ff490800000000000000
+      internalID: -7710414660691946884
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UltimateFrame_Sparks_01_1
+      rect:
+        serializedVersion: 2
+        x: 649
+        y: 876
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7bb50e1f1793603a0800000000000000
+      internalID: -6699604234114933833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UltimateFrame_Sparks_01_2
+      rect:
+        serializedVersion: 2
+        x: 1083
+        y: 866
+        width: 68
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f4c34f5bd5333280800000000000000
+      internalID: -9064842408654289679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UltimateFrame_Sparks_01_3
+      rect:
+        serializedVersion: 2
+        x: 1228
+        y: 543
+        width: 426
+        height: 375
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a8eadd88cbccbd40800000000000000
+      internalID: 5601576098775885993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UltimateFrame_Sparks_01_4
+      rect:
+        serializedVersion: 2
+        x: 1147
+        y: 850
+        width: 16
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 34ec1086cad063ff0800000000000000
+      internalID: -56842911165067709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UltimateFrame_Sparks_01_5
+      rect:
+        serializedVersion: 2
+        x: 1141
+        y: 827
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1053919271135c50800000000000000
+      internalID: 6652680258322649116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UltimateFrame_Sparks_01_6
+      rect:
+        serializedVersion: 2
+        x: 1161
+        y: 746
+        width: 74
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc391424553597080800000000000000
+      internalID: -9189221939023866929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UltimateFrame_Sparks_01_7
+      rect:
+        serializedVersion: 2
+        x: 686
+        y: 744
+        width: 51
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 828f605d106bdf330800000000000000
+      internalID: 3746350584027346984
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UltimateFrame_Sparks_01_8
+      rect:
+        serializedVersion: 2
+        x: 1226
+        y: 799
+        width: 11
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09da1059205cc0690800000000000000
+      internalID: -7634510653419311728
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UltimateFrame_Sparks_01_9
+      rect:
+        serializedVersion: 2
+        x: 680
+        y: 762
+        width: 13
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93daa9c320b489a40800000000000000
+      internalID: 5375128628245474617
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UltimateFrame_Sparks_01_10
+      rect:
+        serializedVersion: 2
+        x: 1193
+        y: 772
+        width: 6
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c05cd1e8101da8d30800000000000000
+      internalID: 4434586587709162764
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UltimateFrame_Sparks_01_11
+      rect:
+        serializedVersion: 2
+        x: 1252
+        y: 762
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 627581c7965260ad0800000000000000
+      internalID: -2736458588597233882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UltimateFrame_Sparks_01_12
+      rect:
+        serializedVersion: 2
+        x: 1244
+        y: 748
+        width: 7
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e0e437783722eb60800000000000000
+      internalID: 7773819030266503397
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UltimateFrame_Sparks_01_13
+      rect:
+        serializedVersion: 2
+        x: 664
+        y: 714
+        width: 9
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b89737b99bbc9cae0800000000000000
+      internalID: -1528466600478148213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UltimateFrame_Sparks_01_14
+      rect:
+        serializedVersion: 2
+        x: 672
+        y: 716
+        width: 9
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 846b844e760495680800000000000000
+      internalID: -8765904384744180152
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UltimateFrame_Sparks_01_15
+      rect:
+        serializedVersion: 2
+        x: 1494
+        y: 600
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 12ccd4ccbda528e80800000000000000
+      internalID: -8177874073279411167
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UltimateFrame_Sparks_01_16
+      rect:
+        serializedVersion: 2
+        x: 1499
+        y: 600
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9aaf084e7159ba260800000000000000
+      internalID: 7109940366584904361
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UltimateFrame_Sparks_01_17
+      rect:
+        serializedVersion: 2
+        x: 1476
+        y: 569
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a9c0218b76c782da0800000000000000
+      internalID: -5969384521167926118
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UltimateFrame_Sparks_01_18
+      rect:
+        serializedVersion: 2
+        x: 1484
+        y: 568
+        width: 20
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f1647fe7d21d82120800000000000000
+      internalID: 2389389595653916191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UltimateFrame_Sparks_01_19
+      rect:
+        serializedVersion: 2
+        x: 194
+        y: 409
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0626b067ab0733700800000000000000
+      internalID: 518882328224424544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UltimateFrame_Sparks_01_20
+      rect:
+        serializedVersion: 2
+        x: 1466
+        y: 454
+        width: 100
+        height: 78
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d38f65c3ecea5ca80800000000000000
+      internalID: -8447153325264668611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UltimateFrame_Sparks_01_21
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 421
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 69b73c0abb3c453e0800000000000000
+      internalID: -2065811118432748650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UltimateFrame_Sparks_01_22
+      rect:
+        serializedVersion: 2
+        x: 190
+        y: 356
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 137191c6ba74744b0800000000000000
+      internalID: -5456313621957503183
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UltimateFrame_Sparks_01_23
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 356
+        width: 7
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fdb0b14ecdd4e2350800000000000000
+      internalID: 5993813765191830495
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UltimateFrame_Sparks_01_24
+      rect:
+        serializedVersion: 2
+        x: 205
+        y: 330
+        width: 45
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 307368b204952d2d0800000000000000
+      internalID: -3255441448492452093
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UltimateFrame_Sparks_01_25
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 369
+        width: 17
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6aa946fda287b4100800000000000000
+      internalID: 93300342823099046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UltimateFrame_Sparks_01_26
+      rect:
+        serializedVersion: 2
+        x: 947
+        y: 11
+        width: 709
+        height: 405
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55d9486f7cf8bb270800000000000000
+      internalID: 8267359629965827413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UltimateFrame_Sparks_01_27
+      rect:
+        serializedVersion: 2
+        x: 118
+        y: 340
+        width: 35
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 88580133201841dc0800000000000000
+      internalID: -3669165949953473144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UltimateFrame_Sparks_01_28
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 338
+        width: 14
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 228d34a48c0a8e4e0800000000000000
+      internalID: -1952133656365246430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UltimateFrame_Sparks_01_29
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 15
+        width: 540
+        height: 317
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d0a904b4def9a0400800000000000000
+      internalID: 291220967437408781
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UltimateFrame_Sparks_01_30
+      rect:
+        serializedVersion: 2
+        x: 491
+        y: 145
+        width: 24
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14599e9a7c0ef61b0800000000000000
+      internalID: -5661059058427652799
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UltimateFrame_Sparks_01_31
+      rect:
+        serializedVersion: 2
+        x: 511
+        y: 159
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec7863d0f2db24c20800000000000000
+      internalID: 3189319495914522574
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UltimateFrame_Sparks_01_32
+      rect:
+        serializedVersion: 2
+        x: 554
+        y: 66
+        width: 57
+        height: 99
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 25dd5550016436710800000000000000
+      internalID: 1685267720189631826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UltimateFrame_Sparks_01_33
+      rect:
+        serializedVersion: 2
+        x: 1155
+        y: 161
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f1c0b219cae6dfd0800000000000000
+      internalID: -2317406808912641552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UltimateFrame_Sparks_01_34
+      rect:
+        serializedVersion: 2
+        x: 1161
+        y: 161
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f652d51064c2ea0c0800000000000000
+      internalID: -4562660693297519249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UltimateFrame_Sparks_01_35
+      rect:
+        serializedVersion: 2
+        x: 511
+        y: 134
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0099df9a25c365f30800000000000000
+      internalID: 4563901598123530496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UltimateFrame_Sparks_01_36
+      rect:
+        serializedVersion: 2
+        x: 513
+        y: 131
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 19fbfdbce3f075b90800000000000000
+      internalID: -7253311912474067055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UltimateFrame_Sparks_01_37
+      rect:
+        serializedVersion: 2
+        x: 531
+        y: 86
+        width: 28
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 276b73e9c9fa25690800000000000000
+      internalID: -7614830932725877134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UltimateFrame_Sparks_01_38
+      rect:
+        serializedVersion: 2
+        x: 594
+        y: 0
+        width: 29
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8ae6e613761e2f20800000000000000
+      internalID: 3399679452272585356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      UltimateFrame_Sparks_01_0: -7710414660691946884
+      UltimateFrame_Sparks_01_1: -6699604234114933833
+      UltimateFrame_Sparks_01_10: 4434586587709162764
+      UltimateFrame_Sparks_01_11: -2736458588597233882
+      UltimateFrame_Sparks_01_12: 7773819030266503397
+      UltimateFrame_Sparks_01_13: -1528466600478148213
+      UltimateFrame_Sparks_01_14: -8765904384744180152
+      UltimateFrame_Sparks_01_15: -8177874073279411167
+      UltimateFrame_Sparks_01_16: 7109940366584904361
+      UltimateFrame_Sparks_01_17: -5969384521167926118
+      UltimateFrame_Sparks_01_18: 2389389595653916191
+      UltimateFrame_Sparks_01_19: 518882328224424544
+      UltimateFrame_Sparks_01_2: -9064842408654289679
+      UltimateFrame_Sparks_01_20: -8447153325264668611
+      UltimateFrame_Sparks_01_21: -2065811118432748650
+      UltimateFrame_Sparks_01_22: -5456313621957503183
+      UltimateFrame_Sparks_01_23: 5993813765191830495
+      UltimateFrame_Sparks_01_24: -3255441448492452093
+      UltimateFrame_Sparks_01_25: 93300342823099046
+      UltimateFrame_Sparks_01_26: 8267359629965827413
+      UltimateFrame_Sparks_01_27: -3669165949953473144
+      UltimateFrame_Sparks_01_28: -1952133656365246430
+      UltimateFrame_Sparks_01_29: 291220967437408781
+      UltimateFrame_Sparks_01_3: 5601576098775885993
+      UltimateFrame_Sparks_01_30: -5661059058427652799
+      UltimateFrame_Sparks_01_31: 3189319495914522574
+      UltimateFrame_Sparks_01_32: 1685267720189631826
+      UltimateFrame_Sparks_01_33: -2317406808912641552
+      UltimateFrame_Sparks_01_34: -4562660693297519249
+      UltimateFrame_Sparks_01_35: 4563901598123530496
+      UltimateFrame_Sparks_01_36: -7253311912474067055
+      UltimateFrame_Sparks_01_37: -7614830932725877134
+      UltimateFrame_Sparks_01_38: 3399679452272585356
+      UltimateFrame_Sparks_01_4: -56842911165067709
+      UltimateFrame_Sparks_01_5: 6652680258322649116
+      UltimateFrame_Sparks_01_6: -9189221939023866929
+      UltimateFrame_Sparks_01_7: 3746350584027346984
+      UltimateFrame_Sparks_01_8: -7634510653419311728
+      UltimateFrame_Sparks_01_9: 5375128628245474617
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

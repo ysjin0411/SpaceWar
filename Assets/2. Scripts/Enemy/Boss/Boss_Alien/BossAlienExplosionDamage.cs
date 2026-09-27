@@ -4,7 +4,10 @@ using UnityEngine;
 // 폭발 순간의 범위를 검사해 실드 또는 플레이어에 한 번 피해를 준다.
 public static class BossAlienExplosionDamage
 {
-    public static void Apply(Vector2 center, float radius, int damage)
+    /// <summary>
+    /// Apply 처리에서 변경된 전투 수치와 상태를 반영한다.
+    /// </summary>
+    public static void Apply(Vector2 center, float radius, float damage)
     {
         // 피해가 없는 설정이면 시각 효과만 재생한다.
         if (damage <= 0)

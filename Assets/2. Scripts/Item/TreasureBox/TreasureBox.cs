@@ -38,7 +38,7 @@ public class TreasureBox : MonoBehaviour, IDamageable
 
     // 현재 등급에서 누적된 피해량이다.
     [SerializeField]
-    int _accumulatedDamage;
+    float _accumulatedDamage;
 
     // 기존 상자가 작아져 사라지는 시간이다.
     [SerializeField, Min(0.01f)]
@@ -64,7 +64,7 @@ public class TreasureBox : MonoBehaviour, IDamageable
     bool _isInitialized;
 
     // 기존 IDamageable 규약에 맞춘 피격 알림이다.
-    public event Action<int> Damaged;
+    public event Action<float> Damaged;
 
     // 이후 Charge 등의 시각 효과를 연결할 상태 변경 알림이다.
     public event Action<TreasureBoxState> StateChanged;
@@ -90,6 +90,9 @@ public class TreasureBox : MonoBehaviour, IDamageable
     TreasureBoxGradeData CurrentData =>
         _gradeDatas[(int)_currentGrade - 1];
 
+    /// <summary>
+    /// 컴포넌트 참조와 초기 실행 상태를 준비한다.
+    /// </summary>
     private void Awake()
     {
         // 낙하 연출이 끝나기 전에는 공격받지 않는다.
@@ -100,6 +103,9 @@ public class TreasureBox : MonoBehaviour, IDamageable
 
     // 외부에서 추첨한 최종 등급을 전달한다.
     // 최종 등급과 관계없이 외형은 항상 Wood부터 시작한다.
+    /// <summary>
+    /// 최종 등급과 관계없이 외형은 항상 Wood부터 시작한다.
+    /// </summary>
     public void Initialize(TreasureBoxGrade finalGrade)
     {
         // 같은 상자의 최종 등급을 다시 설정하지 않는다.
@@ -127,6 +133,9 @@ public class TreasureBox : MonoBehaviour, IDamageable
     }
 
     // 낙하와 두 번의 반동이 모두 끝났을 때 호출한다.
+    /// <summary>
+    /// 낙하와 두 번의 반동이 모두 끝났을 때 호출한다.
+    /// </summary>
     public void BeginReceivingDamage()
     {
         // 초기화 전이거나 이미 시작한 상자는 처리하지 않는다.
@@ -140,7 +149,10 @@ public class TreasureBox : MonoBehaviour, IDamageable
     }
 
     // 기존 무기가 IDamageable을 통해 호출하는 피격 처리다.
-    public void TakeHit(int damage)
+    /// <summary>
+    /// 소수점 피해를 반영하고 피격 및 사망 처리를 실행한다.
+    /// </summary>
+    public void TakeHit(float damage)
     {
         // 초기화가 끝나고 피해 누적 또는 Charge 상태일 때만 타격을 처리한다.
         // 낙하, 승급 연출, 개봉 완료 상태에서는 피해를 받지 않는다.
@@ -161,7 +173,7 @@ public class TreasureBox : MonoBehaviour, IDamageable
         }
 
         // 필요한 만큼만 누적하여 기준을 넘는 피해는 버린다.
-        int remainingDamage =
+        float remainingDamage =
             CurrentData.RequiredDamage - _accumulatedDamage;
 
         _accumulatedDamage += Mathf.Min(damage, remainingDamage);
@@ -177,6 +189,9 @@ public class TreasureBox : MonoBehaviour, IDamageable
     }
 
     // Charge 상태에서 받은 추가 타격으로 승급하거나 보상을 요청한다.
+    /// <summary>
+    /// Charge 상태에서 받은 추가 타격으로 승급하거나 보상을 요청한다.
+    /// </summary>
     private void ResolveChargedHit()
     {
         if (_currentGrade < _finalGrade)
@@ -201,6 +216,9 @@ public class TreasureBox : MonoBehaviour, IDamageable
     }
 
     // 공통 본체는 유지하고 등급별 외형만 교체한다.
+    /// <summary>
+    /// 공통 본체는 유지하고 등급별 외형만 교체한다.
+    /// </summary>
     private void ChangeVisual()
     {
         if (_currentVisual != null)
@@ -228,6 +246,9 @@ public class TreasureBox : MonoBehaviour, IDamageable
     }
 
     // 상태를 변경하고 연출 담당 코드에 알린다.
+    /// <summary>
+    /// 상태를 변경하고 연출 담당 코드에 알린다.
+    /// </summary>
     private void ChangeState(TreasureBoxState nextState)
     {
         if (_state == nextState)
@@ -242,6 +263,9 @@ public class TreasureBox : MonoBehaviour, IDamageable
     }
 
     // 배열 누락이나 순서 오류를 초기화 시점에 확인한다.
+    /// <summary>
+    /// 배열 누락이나 순서 오류를 초기화 시점에 확인한다.
+    /// </summary>
     private void ValidateSettings()
     {
         if (_visualRoot == null || _visualRoot == transform)
@@ -272,6 +296,9 @@ public class TreasureBox : MonoBehaviour, IDamageable
     }
 
     // 등급별 가중치로 최종 등급을 한 번 추첨하고 상자를 초기화한다.
+    /// <summary>
+    /// 등급별 가중치로 최종 등급을 한 번 추첨하고 상자를 초기화한다.
+    /// </summary>
     public void InitializeRandom()
     {
         // 이미 초기화된 상자는 재추첨하지 않는다.
@@ -340,6 +367,9 @@ public class TreasureBox : MonoBehaviour, IDamageable
     }
 
     // 기존 외형을 축소한 뒤 다음 등급 외형을 펼친다.
+    /// <summary>
+    /// 기존 외형을 축소한 뒤 다음 등급 외형을 펼친다.
+    /// </summary>
     private void PlayUpgrade()
     {
         // 연출 중에는 충돌 판정과 직접 전달되는 추가 피해를 모두 막는다.
@@ -391,6 +421,9 @@ public class TreasureBox : MonoBehaviour, IDamageable
     }
 
     // 실패나 씬 전환으로 상자가 제거되면 진행 중인 승급 연출을 정리한다.
+    /// <summary>
+    /// 실패나 씬 전환으로 상자가 제거되면 진행 중인 승급 연출을 정리한다.
+    /// </summary>
     private void OnDestroy()
     {
         if (_upgradeSequence != null)
@@ -402,6 +435,9 @@ public class TreasureBox : MonoBehaviour, IDamageable
     }
 
     // 현재 등급 외형의 퇴장이 끝날 때까지 외부에서 기다릴 수 있게 한다.
+    /// <summary>
+    /// 현재 등급 외형의 퇴장이 끝날 때까지 외부에서 기다릴 수 있게 한다.
+    /// </summary>
     public IEnumerator PlayExit(float duration)
     {
         return _currentVisualController.FadeOut(duration);

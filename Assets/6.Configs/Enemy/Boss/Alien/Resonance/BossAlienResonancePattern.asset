@@ -16,3 +16,5 @@ MonoBehaviour:
   _config: {fileID: 11400000, guid: af647bf3e1d4db1499e52af4b62933b2, type: 2}
   _warningPrefab: {fileID: 9196240372041597207, guid: 82ee36cdef0526c4f887af1259be42e0, type: 3}
   _wavePrefab: {fileID: 7806473284304297000, guid: d7b2241d4df190743b29f27bab263ab5, type: 3}
+  _crackBurstPrefab: {fileID: 1380570929668140919, guid: b0dde48598d0e2e47aebb9d188bd8b8c, type: 3}
+  _finalAreaEffectPrefab: {fileID: 6686255164054581889, guid: fefdd44e3c8001546a7a0899df1c3447, type: 3}

@@ -1,0 +1,122 @@
+[
+  {
+    "path": "Frames/Slash/Move/Slash_Move_01.png",
+    "source": "Original v3 Slash poses, unchanged artwork, re-registered body anchor",
+    "ground_y": 2000,
+    "ppu": 100,
+    "pivot": [
+      0.5,
+      0.423828125
+    ]
+  },
+  {
+    "path": "Frames/Slash/Move/Slash_Move_02.png",
+    "source": "Original v3 Slash poses, unchanged artwork, re-registered body anchor",
+    "ground_y": 2000,
+    "ppu": 100,
+    "pivot": [
+      0.5,
+      0.423828125
+    ]
+  },
+  {
+    "path": "Frames/Slash/Move/Slash_Move_03.png",
+    "source": "Original v3 Slash poses, unchanged artwork, re-registered body anchor",
+    "ground_y": 2000,
+    "ppu": 100,
+    "pivot": [
+      0.5,
+      0.423828125
+    ]
+  },
+  {
+    "path": "Frames/Slash/Move/Slash_Move_04.png",
+    "source": "Original v3 Slash poses, unchanged artwork, re-registered body anchor",
+    "ground_y": 2000,
+    "ppu": 100,
+    "pivot": [
+      0.5,
+      0.423828125
+    ]
+  },
+  {
+    "path": "Frames/Slash/Move/Slash_Move_05.png",
+    "source": "Original v3 Slash poses, unchanged artwork, re-registered body anchor",
+    "ground_y": 2000,
+    "ppu": 100,
+    "pivot": [
+      0.5,
+      0.423828125
+    ]
+  },
+  {
+    "path": "Frames/Slash/Move/Slash_Move_06.png",
+    "source": "Original v3 Slash poses, unchanged artwork, re-registered body anchor",
+    "ground_y": 2000,
+    "ppu": 100,
+    "pivot": [
+      0.5,
+      0.423828125
+    ]
+  },
+  {
+    "path": "Frames/Slash/Attack/Slash_Attack_01.png",
+    "source": "Original v3 Slash poses, unchanged artwork, re-registered body anchor",
+    "ground_y": 2000,
+    "ppu": 100,
+    "pivot": [
+      0.5,
+      0.423828125
+    ]
+  },
+  {
+    "path": "Frames/Slash/Attack/Slash_Attack_02.png",
+    "source": "Original v3 Slash poses, unchanged artwork, re-registered body anchor",
+    "ground_y": 2000,
+    "ppu": 100,
+    "pivot": [
+      0.5,
+      0.423828125
+    ]
+  },
+  {
+    "path": "Frames/Slash/Attack/Slash_Attack_03.png",
+    "source": "Original v3 Slash poses, unchanged artwork, re-registered body anchor",
+    "ground_y": 2000,
+    "ppu": 100,
+    "pivot": [
+      0.5,
+      0.423828125
+    ]
+  },
+  {
+    "path": "Frames/Slash/Attack/Slash_Attack_04.png",
+    "source": "Original v3 Slash poses, unchanged artwork, re-registered body anchor",
+    "ground_y": 2000,
+    "ppu": 100,
+    "pivot": [
+      0.5,
+      0.423828125
+    ]
+  },
+  {
+    "path": "Frames/Slash/Attack/Slash_Attack_05.png",
+    "source": "Original v3 Slash poses, unchanged artwork, re-registered body anchor",
+    "ground_y": 2000,
+    "ppu": 100,
+    "pivot": [
+      0.5,
+      0.423828125
+    ]
+  },
+  {
+    "path": "Frames/Slash/Attack/Slash_Attack_06.png",
+    "source": "Original v3 Slash poses, unchanged artwork, re-registered body anchor",
+    "ground_y": 2000,
+    "ppu": 100,
+    "pivot": [
+      0.5,
+      0.423828125
+    ]
+  }
+]

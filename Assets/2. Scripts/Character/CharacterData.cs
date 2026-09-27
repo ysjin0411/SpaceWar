@@ -21,7 +21,7 @@ public class CharacterData : ScriptableObject
     [SerializeField] GameObject _characterPrefab;   // 캐릭터 프리팹
 
     [Header("기본 스탯")]
-    [SerializeField] int _baseHp;   // 캐릭터 기본 최대 체력
+    [SerializeField] float _baseHp;   // 캐릭터 기본 최대 체력
     [SerializeField] float _baseMoveSpeed;  // 캐릭터 기본 이속
 
     [Header("사용 가능한 무기")]
@@ -33,6 +33,18 @@ public class CharacterData : ScriptableObject
     // 장착 무기의 Sprite Library에서 미리보기에 사용할 Idle 카테고리.
     [SerializeField] private string _previewIdleCategory;
 
+    // 이 캐릭터를 선택할 수 있는 최소 유저 레벨이다.
+    [SerializeField, Min(1)] private int _requiredUserLevel = 1;
+
+    // 잠금 안내 문구에서도 같은 조건을 사용한다.
+    public int RequiredUserLevel => _requiredUserLevel;
+
+    // 캐릭터 레벨이 아닌 계정의 UserLevel로 해금 여부를 판단한다.
+    public bool IsUnlocked(int userLevel)
+    {
+        return userLevel >= _requiredUserLevel;
+    }
+
     // 캐릭터 선택과 상점이 같은 Idle 카테고리를 사용한다.
     public string PreviewIdleCategory => _previewIdleCategory;
 
@@ -40,7 +52,7 @@ public class CharacterData : ScriptableObject
     public string CharacterName => _name;
     public Sprite Icon => _icon;
     public GameObject CharacterPrefab => _characterPrefab;
-    public int BaseHp => _baseHp;
+    public float BaseHp => _baseHp;
     public float BaseMoveSpeed => _baseMoveSpeed;
     public WeaponData[] AvailableWeapons => _availableWeapons;
     public WeaponData[] InitialEquippedWeapons => _initialEquippedWeapons;

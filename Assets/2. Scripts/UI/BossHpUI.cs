@@ -85,6 +85,9 @@ public class BossHpUI : MonoBehaviour
     // 최초 체력 이벤트인지 확인한다.
     bool _hasReceivedInitialHealth;
 
+    /// <summary>
+    /// 컴포넌트 참조와 초기 실행 상태를 준비한다.
+    /// </summary>
     private void Awake()
     {
         if (_bossEncounterManager == null)
@@ -154,6 +157,9 @@ public class BossHpUI : MonoBehaviour
         RefreshPhaseCount();
     }
 
+    /// <summary>
+    /// 활성화 시 초기 상태와 이벤트 연결을 준비한다.
+    /// </summary>
     private void OnEnable()
     {
         // 보스가 생성된 순간을 전달받는다.
@@ -167,6 +173,9 @@ public class BossHpUI : MonoBehaviour
             HandleSectionMapChanged;
     }
 
+    /// <summary>
+    /// 비활성화 시 이벤트 연결과 실행 상태를 정리한다.
+    /// </summary>
     private void OnDisable()
     {
         _bossEncounterManager.BossSpawned -= HandleBossSpawned;
@@ -188,6 +197,9 @@ public class BossHpUI : MonoBehaviour
     }
 
     // 최초 등장에서는 보스를 연결하고 체력바 등장 연출을 재생한다.
+    /// <summary>
+    /// 최초 등장에서는 보스를 연결하고 체력바 등장 연출을 재생한다.
+    /// </summary>
     private void HandleBossSpawned(BossEnemy spawnedBoss)
     {
         if (spawnedBoss == null)
@@ -198,6 +210,9 @@ public class BossHpUI : MonoBehaviour
     }
 
     // 페이즈 교체에서는 체력바를 펼친 상태로 새 보스를 표시한다.
+    /// <summary>
+    /// 페이즈 교체에서는 체력바를 펼친 상태로 새 보스를 표시한다.
+    /// </summary>
     private void HandleBossReplaced(BossEnemy replacementBoss)
     {
         if (replacementBoss == null)
@@ -218,6 +233,9 @@ public class BossHpUI : MonoBehaviour
     }
 
     // 최초 등장과 페이즈 교체에서 공통으로 사용하는 구독 처리다.
+    /// <summary>
+    /// 최초 등장과 페이즈 교체에서 공통으로 사용하는 구독 처리다.
+    /// </summary>
     private void BindBoss(BossEnemy boss)
     {
         // 이전 보스의 체력·실드 이벤트와 진행 중인 보간을 정리한다.
@@ -239,7 +257,10 @@ public class BossHpUI : MonoBehaviour
     }
 
     // 보스가 지정한 체력 바에 현재 체력을 표시한다.
-    private void HandleHealthChanged(int currentHp, int maxHp)
+    /// <summary>
+    /// 변경된 체력에 맞춰 표시 또는 보스 상태를 갱신한다.
+    /// </summary>
+    private void HandleHealthChanged(float currentHp, float maxHp)
     {
         if (_boundBoss == null || maxHp <= 0)
         {
@@ -405,6 +426,9 @@ public class BossHpUI : MonoBehaviour
     }
 
     // 이전 보스의 체력 및 실드 이벤트 연결을 모두 해제한다.
+    /// <summary>
+    /// 이전 보스의 체력 및 실드 이벤트 연결을 모두 해제한다.
+    /// </summary>
     private void UnbindBoss()
     {
         if (_boundBoss != null)
@@ -452,6 +476,9 @@ public class BossHpUI : MonoBehaviour
     }
 
     // 실드 컴포넌트가 있는 보스만 파란 체력 바에 연결한다.
+    /// <summary>
+    /// 실드 컴포넌트가 있는 보스만 파란 체력 바에 연결한다.
+    /// </summary>
     private void BindShield(BossEnemy boss)
     {
         // 실드 이미지가 없는 씬은 기존 체력 UI만 사용한다.
@@ -482,7 +509,10 @@ public class BossHpUI : MonoBehaviour
     }
 
     // 합산 체력을 파란색 바의 fillAmount에 반영한다.
-    private void HandleShieldChanged(int currentShield, int maxShield)
+    /// <summary>
+    /// 변경된 실드 수치를 표시와 상태에 반영한다.
+    /// </summary>
+    private void HandleShieldChanged(float currentShield, float maxShield)
     {
         // 보스 연결 또는 체력 상태에 맞춰 남은 페이즈 표시를 갱신한다.
         RefreshPhaseCount();
@@ -513,6 +543,9 @@ public class BossHpUI : MonoBehaviour
     }
 
     // 연결된 보스의 남은 페이즈 수를 TMP에 반영한다.
+    /// <summary>
+    /// 연결된 보스의 남은 페이즈 수를 TMP에 반영한다.
+    /// </summary>
     private void RefreshPhaseCount()
     {
         // 아직 TMP를 연결하지 않은 씬에서도 기존 UI는 동작한다.

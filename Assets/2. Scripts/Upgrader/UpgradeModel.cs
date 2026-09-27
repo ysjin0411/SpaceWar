@@ -199,9 +199,8 @@ public sealed class UpgradeModel
 
             case UpgradeType.Damage:
 
-                // 범용 float 수치를 공격력에 맞게 정수로 변환한다.
-                int damageAmount = Mathf.RoundToInt(
-                    _pendingWeaponUpgrade.UpgradeValue);
+                // 소수점 증강값을 반올림하지 않고 그대로 사용한다.
+                float damageAmount = _pendingWeaponUpgrade.UpgradeValue;
 
                 _weapon.AddDamage(
                     weaponSlotIndex,
@@ -225,6 +224,7 @@ public sealed class UpgradeModel
     private void ApplyPlayerUpgrade(
         UpgradeData upgradeData)
     {
+        // / </summary>
         switch (upgradeData.Type)
         {
             case UpgradeType.MoveSpeed:
@@ -235,8 +235,7 @@ public sealed class UpgradeModel
 
             case UpgradeType.MaxHealthAndFullHeal:
 
-                int healthAmount = Mathf.RoundToInt(
-                    upgradeData.UpgradeValue);
+                float healthAmount = upgradeData.UpgradeValue;
 
                 _playerController.IncreaseMaxHpAndFullHeal(
                     healthAmount);

@@ -51,7 +51,7 @@ public sealed class BossVerticalShotPattern : BossPattern
     // 이 패턴에서 생성하는 총알 한 발의 피해량이다.
     [Min(0)]
     [SerializeField]
-    int _bulletDamage = 5;
+    float _bulletDamage = 5;
 
     /// <summary>
     /// 시작 위치 이동이 끝나면 하강과 발사를 함께 실행한다.

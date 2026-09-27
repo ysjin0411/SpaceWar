@@ -12,13 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c420b9c456cfa094a9e96f54c4f32a05, type: 3}
   m_Name: 4_Soldier Grenade WeaponData
   m_EditorClassIdentifier: 
+  _equipmentPreviewScale: 1
+  _equipmentPreviewOffset: {x: 0, y: 0}
   _id: soldier_grenade
   _name: Grenade
   _type: 3
   _icon: {fileID: -2539149618839620213, guid: b9518af61e8f58b428bdfd3e7a702c6a, type: 3}
   _projectilePrefab: {fileID: 8053201812717553051, guid: 137e2cae1eb9e294eab573e3517f3f44, type: 3}
+  _muzzleEffectPrefab: {fileID: 0}
+  _lazerChargeDuration: 3
+  _lazerMinimumChargeDuration: 0.5
+  _lazerMaxDamageMultiplier: 3
   _playerSpriteLibrary: {fileID: 7108339969198208228, guid: 7fa0862f63ad8a646839f532572a45d7, type: 3}
-  _characterSelectPreviewScale: 0.7
+  _characterSelectPreviewScale: 1
   _characterSelectPreviewOffset: {x: 0, y: 0}
   _baseDamage: 10
   _baseCooltime: 1
@@ -37,3 +43,6 @@ MonoBehaviour:
   _minimumCooltime: 0.05
   _info: "\uCDA9\uC804\uD615 \uC218\uB958\uD0C4\uC744 \uB358\uC9C4\uB2E4."
   _upgradeSelectionInfo: "Grenade\uB97C \uAC15\uD654\uD55C\uB2E4."
+  _weaponMoveSpeed: 8
+  _lazerHitsPerSecond: 10
+  _lazerHitsPerSecondUpgrade: 1

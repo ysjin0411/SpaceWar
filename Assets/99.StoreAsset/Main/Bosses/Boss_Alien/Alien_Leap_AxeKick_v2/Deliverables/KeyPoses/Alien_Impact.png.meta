@@ -1,0 +1,572 @@
+fileFormatVersion: 2
+guid: 84d46b1caba7595438e739e662c04315
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4551007810962457505
+    second: Alien_Impact_0
+  - first:
+      213: 1884766266772598687
+    second: Alien_Impact_1
+  - first:
+      213: -7756286428416722209
+    second: Alien_Impact_2
+  - first:
+      213: -9141685939423025372
+    second: Alien_Impact_3
+  - first:
+      213: 6240329998653750088
+    second: Alien_Impact_4
+  - first:
+      213: -2608590198636527082
+    second: Alien_Impact_5
+  - first:
+      213: -3946893316318433872
+    second: Alien_Impact_6
+  - first:
+      213: -7569861471814350988
+    second: Alien_Impact_7
+  - first:
+      213: -5494575389974327305
+    second: Alien_Impact_8
+  - first:
+      213: 8849448202220265248
+    second: Alien_Impact_9
+  - first:
+      213: -4582009897828838817
+    second: Alien_Impact_10
+  - first:
+      213: 5705748327252599474
+    second: Alien_Impact_11
+  - first:
+      213: 5438511758853351330
+    second: Alien_Impact_12
+  - first:
+      213: 7908777344914805084
+    second: Alien_Impact_13
+  - first:
+      213: -1600863254167875318
+    second: Alien_Impact_14
+  - first:
+      213: -4141208890809018982
+    second: Alien_Impact_15
+  - first:
+      213: 7663355417218392820
+    second: Alien_Impact_16
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Alien_Impact_0
+      rect:
+        serializedVersion: 2
+        x: 481
+        y: 367
+        width: 1306
+        height: 1262
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a30276ed7d682f30800000000000000
+      internalID: 4551007810962457505
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alien_Impact_1
+      rect:
+        serializedVersion: 2
+        x: 939
+        y: 1540
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9fae970fe8082a10800000000000000
+      internalID: 1884766266772598687
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alien_Impact_2
+      rect:
+        serializedVersion: 2
+        x: 519
+        y: 414
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fdab90286922c5490800000000000000
+      internalID: -7756286428416722209
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alien_Impact_3
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 419
+        width: 11
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 427e184a215322180800000000000000
+      internalID: -9141685939423025372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alien_Impact_4
+      rect:
+        serializedVersion: 2
+        x: 1031
+        y: 406
+        width: 21
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 84b78f2321b1a9650800000000000000
+      internalID: 6240329998653750088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alien_Impact_5
+      rect:
+        serializedVersion: 2
+        x: 1099
+        y: 401
+        width: 51
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61244b5090d6ccbd0800000000000000
+      internalID: -2608590198636527082
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alien_Impact_6
+      rect:
+        serializedVersion: 2
+        x: 1416
+        y: 403
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0bde97ab071d939c0800000000000000
+      internalID: -3946893316318433872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alien_Impact_7
+      rect:
+        serializedVersion: 2
+        x: 1569
+        y: 394
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4770795291372f690800000000000000
+      internalID: -7569861471814350988
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alien_Impact_8
+      rect:
+        serializedVersion: 2
+        x: 546
+        y: 362
+        width: 18
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ff0af85bc85fb3b0800000000000000
+      internalID: -5494575389974327305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alien_Impact_9
+      rect:
+        serializedVersion: 2
+        x: 1180
+        y: 372
+        width: 20
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02fde87e04e8fca70800000000000000
+      internalID: 8849448202220265248
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alien_Impact_10
+      rect:
+        serializedVersion: 2
+        x: 1537
+        y: 380
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f529692464e6960c0800000000000000
+      internalID: -4582009897828838817
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alien_Impact_11
+      rect:
+        serializedVersion: 2
+        x: 1560
+        y: 369
+        width: 24
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b2abaf8fd3ee2f40800000000000000
+      internalID: 5705748327252599474
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alien_Impact_12
+      rect:
+        serializedVersion: 2
+        x: 1717
+        y: 370
+        width: 18
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a72d3551a9797b40800000000000000
+      internalID: 5438511758853351330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alien_Impact_13
+      rect:
+        serializedVersion: 2
+        x: 532
+        y: 362
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c51dd4bb71f91cd60800000000000000
+      internalID: 7908777344914805084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alien_Impact_14
+      rect:
+        serializedVersion: 2
+        x: 542
+        y: 366
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a0119512a5798c9e0800000000000000
+      internalID: -1600863254167875318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alien_Impact_15
+      rect:
+        serializedVersion: 2
+        x: 1209
+        y: 361
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a9593a274787786c0800000000000000
+      internalID: -4141208890809018982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alien_Impact_16
+      rect:
+        serializedVersion: 2
+        x: 1212
+        y: 345
+        width: 55
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f22ed65625b95a60800000000000000
+      internalID: 7663355417218392820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Alien_Impact_0: 4551007810962457505
+      Alien_Impact_1: 1884766266772598687
+      Alien_Impact_10: -4582009897828838817
+      Alien_Impact_11: 5705748327252599474
+      Alien_Impact_12: 5438511758853351330
+      Alien_Impact_13: 7908777344914805084
+      Alien_Impact_14: -1600863254167875318
+      Alien_Impact_15: -4141208890809018982
+      Alien_Impact_16: 7663355417218392820
+      Alien_Impact_2: -7756286428416722209
+      Alien_Impact_3: -9141685939423025372
+      Alien_Impact_4: 6240329998653750088
+      Alien_Impact_5: -2608590198636527082
+      Alien_Impact_6: -3946893316318433872
+      Alien_Impact_7: -7569861471814350988
+      Alien_Impact_8: -5494575389974327305
+      Alien_Impact_9: 8849448202220265248
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

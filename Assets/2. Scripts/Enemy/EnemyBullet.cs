@@ -11,7 +11,7 @@ public class EnemyBullet : MonoBehaviour
     [SerializeField] PlayerController _playerController;
 
     // 플레이어 또는 실드에 적용할 피해량.
-    [SerializeField] int _damage;
+    [SerializeField] float _damage;
 
     // 총알의 실제 크기를 이용해 이동 경로를 검사한다.
     BoxCollider2D _bulletCollider;
@@ -32,6 +32,9 @@ public class EnemyBullet : MonoBehaviour
     // Destroy가 프레임 끝에 실행되더라도 중복 피해를 막는다.
     bool _consumed;
 
+    /// <summary>
+    /// 컴포넌트 참조와 초기 실행 상태를 준비한다.
+    /// </summary>
     private void Awake()
     {
         _bulletCollider = GetComponent<BoxCollider2D>();
@@ -62,13 +65,19 @@ public class EnemyBullet : MonoBehaviour
     }
 
     // 일반 적이 플레이어를 향해 발사할 때 사용한다.
+    /// <summary>
+    /// 일반 적이 플레이어를 향해 발사할 때 사용한다.
+    /// </summary>
     public void Init(PlayerController playerController)
     {
         _playerController = playerController;
     }
 
     // 보스 패턴 등이 방향, 속도, 피해량을 직접 지정할 때 사용한다.
-    public void Init(Vector2 direction, float speed, int damage)
+    /// <summary>
+    /// 보스 패턴 등이 방향, 속도, 피해량을 직접 지정할 때 사용한다.
+    /// </summary>
+    public void Init(Vector2 direction, float speed, float damage)
     {
         _dir = direction.normalized;
         _speed = speed;
@@ -79,6 +88,9 @@ public class EnemyBullet : MonoBehaviour
         RotateToDirection();
     }
 
+    /// <summary>
+    /// 초기화된 데이터를 화면과 실행 상태에 반영한다.
+    /// </summary>
     private void Start()
     {
         if (!_hasExplicitDirection)
@@ -87,6 +99,9 @@ public class EnemyBullet : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// SetDirection 동작에 필요한 상태와 처리 흐름을 실행한다.
+    /// </summary>
     public void SetDirection()
     {
         if (_playerController == null)
@@ -103,6 +118,9 @@ public class EnemyBullet : MonoBehaviour
         RotateToDirection();
     }
 
+    /// <summary>
+    /// 매 프레임 입력과 경과 시간에 따른 상태를 갱신한다.
+    /// </summary>
     private void Update()
     {
         if (_consumed || Time.timeScale <= 0f)
@@ -165,6 +183,9 @@ public class EnemyBullet : MonoBehaviour
     }
 
     // 이동하기 전부터 겹쳐 있는 대상을 처리한다.
+    /// <summary>
+    /// 이동하기 전부터 겹쳐 있는 대상을 처리한다.
+    /// </summary>
     private bool TryHitOverlappingTarget()
     {
         _overlaps.Clear();
@@ -195,6 +216,9 @@ public class EnemyBullet : MonoBehaviour
     }
 
     // 이미 계산된 충돌 위치를 받아 피해 또는 방어를 처리한다.
+    /// <summary>
+    /// 이미 계산된 충돌 위치를 받아 피해 또는 방어를 처리한다.
+    /// </summary>
     private bool TryHitTarget(Collider2D target, Vector2 hitPoint)
     {
         if (_consumed || target == null)
@@ -231,6 +255,9 @@ public class EnemyBullet : MonoBehaviour
     }
 
     // 한 번 사용된 총알의 판정을 즉시 제거한다.
+    /// <summary>
+    /// 한 번 사용된 총알의 판정을 즉시 제거한다.
+    /// </summary>
     private void Consume()
     {
         if (_consumed)
@@ -244,6 +271,9 @@ public class EnemyBullet : MonoBehaviour
     }
 
     // 이미 겹친 대상은 현재 두 콜라이더로 명중 위치를 계산한다.
+    /// <summary>
+    /// 이미 겹친 대상은 현재 두 콜라이더로 명중 위치를 계산한다.
+    /// </summary>
     private bool TryHitTarget(Collider2D target)
     {
         if (_consumed || target == null)
@@ -258,6 +288,9 @@ public class EnemyBullet : MonoBehaviour
     }
 
     // Foward가 가리키는 앞쪽을 실제 이동 방향에 맞춘다.
+    /// <summary>
+    /// Foward가 가리키는 앞쪽을 실제 이동 방향에 맞춘다.
+    /// </summary>
     private void RotateToDirection()
     {
         // 이동 방향이 없으면 현재 회전을 유지한다.

@@ -80,6 +80,33 @@ public class SpriteOneShotEffect : MonoBehaviour
         SetSpriteScale();
     }
 
+    // 생성된 이펙트 인스턴스의 전체 재생 시간을 지정한다.
+    // 무기 연사 속도에 맞춰 프레임 교체와 자동 제거 시점이 함께 빨라진다.
+    public void SetPlaybackDuration(float duration)
+    {
+        // 유효하지 않은 재생 시간은 설정 오류로 처리한다.
+        if (float.IsNaN(duration) ||
+            float.IsInfinity(duration) ||
+            duration <= 0f)
+        {
+            throw new ArgumentOutOfRangeException(
+                nameof(duration),
+                duration,
+                "이펙트 재생 시간은 0보다 큰 유한한 값이어야 합니다.");
+        }
+
+        // 지정된 시간 안에 모든 프레임의 재생 구간이 끝나도록 계산한다.
+        // 생성된 인스턴스의 값만 바뀌므로 원본 프리팹에는 영향이 없다.
+        _framesPerSecond = _frames.Length / duration;
+
+        // 새 재생 시간으로 첫 프레임부터 시작한다.
+        _elapsed = 0f;
+        _spriteRenderer.sprite = _frames[0];
+
+        // 크기 변화가 있는 이펙트도 전체 재생 시간 안에 끝나도록 갱신한다.
+        SetSpriteScale();
+    }
+
     private void SetSpriteScale()
     {
         // 이전 스케일 연출이 남아 있다면 종료한다.

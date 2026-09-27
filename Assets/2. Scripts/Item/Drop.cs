@@ -10,6 +10,12 @@ public class Drop : MonoBehaviour
     [SerializeField]
     private List<DropGroup> _dropGroups = new List<DropGroup>();
 
+    // 전투 중 필드에 생성할 스테이지 전용 아이템 목록이다.
+    // 기존 Drop Groups와 별도로 각 항목의 백분율을 추첨한다.
+    [SerializeField]
+    private List<StageDropEntry> _stageDrops =
+        new List<StageDropEntry>();
+
     // 아이템이 나타날 월드 위치.
     // 보스 머리 위에 만든 자식 Transform을 연결한다.
     [SerializeField] private Transform _itemDropPoint;
@@ -30,7 +36,13 @@ public class Drop : MonoBehaviour
         }
 
         _gameManager = gameManager;
+
+        // 기존 확정 드랍 설정을 검사한다.
         ValidateConfiguration();
+
+        // 스테이지 전용 확률 드랍 설정을 검사한다.
+        ValidateStageDropConfiguration();
+
         _isInitialized = true;
     }
 
@@ -149,6 +161,10 @@ public class Drop : MonoBehaviour
 
         _hasDropped = true;
 
+        // 필드 아이템은 생성까지만 처리한다.
+        // 획득이나 수명 종료를 보스 보상 완료 조건으로 기다리지 않는다.
+        ExecuteStageDrops();
+
         Vector3 moneyPosition = transform.position;
 
         // 모든 보상을 등록하기 전에 완료가 호출되지 않도록
@@ -237,5 +253,75 @@ public class Drop : MonoBehaviour
         // 모든 보상의 등록이 끝났다.
         // 기다릴 연출이 없으면 여기서 바로 완료된다.
         finishOne();
+    }
+
+    // 스테이지 전용 드랍 설정을 생성 전에 검사한다.
+    private void ValidateStageDropConfiguration()
+    {
+        if (_stageDrops == null)
+        {
+            throw new InvalidOperationException(
+                $"{name}: Stage Drops 목록을 확인해주세요.");
+        }
+
+        foreach (StageDropEntry entry in _stageDrops)
+        {
+            if (entry == null || entry.Prefab == null)
+            {
+                throw new InvalidOperationException(
+                    $"{name}: Stage Drops에 비어 있는 항목이 있습니다.");
+            }
+
+            float chance = entry.DropChancePercent;
+
+            // Range는 Inspector 입력을 제한하므로,
+            // 런타임에서도 유효한 수치인지 별도로 확인한다.
+            if (float.IsNaN(chance) ||
+                float.IsInfinity(chance) ||
+                chance < 0f ||
+                chance > 100f)
+            {
+                throw new InvalidOperationException(
+                    $"{name}: {entry.Prefab.name}의 드랍 확률은 " +
+                    "0~100 사이여야 합니다.");
+            }
+
+            // 기존 인벤토리 아이템과 재화에는 별도의 지급 절차가 있다.
+            // Stage Drops에 등록하여 그 절차를 건너뛰지 않도록 한다.
+            Item inventoryItem = entry.Prefab.GetComponent<Item>();
+            Money money = entry.Prefab.GetComponent<Money>();
+
+            if (inventoryItem != null || money != null)
+            {
+                throw new InvalidOperationException(
+                    $"{name}: {entry.Prefab.name}에는 Item 또는 Money가 있습니다. " +
+                    "인벤토리 아이템과 재화는 기존 Drop Groups에 등록해주세요.");
+            }
+        }
+    }
+
+    // 각 항목을 독립적으로 추첨하고 성공한 프리팹을 생성한다.
+    private void ExecuteStageDrops()
+    {
+        foreach (StageDropEntry entry in _stageDrops)
+        {
+            if (!entry.Roll())
+            {
+                continue;
+            }
+
+            // 몬스터가 사라져도 아이템은 남아 있어야 하므로
+            // 몬스터의 자식으로 생성하지 않는다.
+            GameObject instance = Instantiate(
+                entry.Prefab,
+                transform.position,
+                entry.Prefab.transform.rotation);
+
+            // 추가 로딩된 씬이 있더라도 드랍한 몬스터의 씬에 소속시킨다.
+            // 해당 스테이지 씬을 해제하면 아이템도 함께 제거된다.
+            UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(
+                instance,
+                gameObject.scene);
+        }
     }
 }

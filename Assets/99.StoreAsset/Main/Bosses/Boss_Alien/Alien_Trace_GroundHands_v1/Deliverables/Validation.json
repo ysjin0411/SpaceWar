@@ -1,0 +1,33 @@
+{
+  "body_canvas": [
+    2048,
+    2048
+  ],
+  "ppu": 100,
+  "pivot": [
+    0.5,
+    0.5
+  ],
+  "scale": 0.43,
+  "insert_frames": 12,
+  "insert_fps": 24,
+  "hold_frames": 8,
+  "hold_fps": 12,
+  "withdraw_frames": 12,
+  "withdraw_fps": 24,
+  "rim_anchors_top_left_pixels": [
+    [
+      977,
+      1432
+    ],
+    [
+      1253,
+      1432
+    ]
+  ],
+  "edge_clipped_frames": [],
+  "original_idle_pixel_exact": true,
+  "new_pose_uniform_scale": 0.97,
+  "identity": "Generated new arm poses preserve reference concept, not pixel-exact details. Crouch retains head scale instead of scaling crouched height up to Idle.",
+  "unity_tested": false
+}

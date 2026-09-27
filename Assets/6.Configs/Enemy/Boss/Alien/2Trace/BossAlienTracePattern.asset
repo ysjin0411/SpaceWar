@@ -12,15 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82f5a754912e6c948b023103d896614a, type: 3}
   m_Name: BossAlienTracePattern
   m_EditorClassIdentifier: 
-  _pauseRandomMovement: 0
-  _warningPrefab: {fileID: 6987742501394166415, guid: 9a2ba771da4dabb4189c2e321920be0b, type: 3}
+  _pauseRandomMovement: 1
+  _warningMessage: "\uACBD\uACE0! \uC774\uB3D9 \uD754\uC801\uC774 \uAC10\uC9C0\uB429\uB2C8\uB2E4.
+    \uAE30\uB85D\uB41C \uC704\uCE58\uC5D0\uC11C \uBC97\uC5B4\uB098\uC2ED\uC2DC\uC624."
+  _warningPrefab: {fileID: 6804048250050553609, guid: 9a2ba771da4dabb4189c2e321920be0b, type: 3}
   _clawPrefab: {fileID: 1427030137258137657, guid: 5b8be1a29b6b42b4bbc0452e634abce0, type: 3}
-  _recordCount: 6
-  _recordInterval: 0.35
-  _lockDuration: 0.6
-  _strikeInterval: 0.3
-  _riseDuration: 0.12
-  _peakDuration: 0.18
+  _recordCount: 30
+  _warningDuration: 0.3
+  _strikeInterval: 0.15
+  _riseDuration: 0.08
+  _peakDuration: 0.3
   _fadeDuration: 0.15
   _recoveryDuration: 0.6
   _radius: 1.2

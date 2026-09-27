@@ -48,7 +48,7 @@ public sealed class BossAlienGrabConfig : ScriptableObject
 
     // 벽 충돌 시 적용할 피해량이다. 0이면 충돌 피해는 없다.
     [SerializeField, Min(0)]
-    private int _wallImpactDamage = 10;
+    private float _wallImpactDamage = 10;
 
     // 애니메이션 이벤트가 누락됐을 때 무한 대기를 막는 제한 시간이다.
     [SerializeField, Min(0.1f)]
@@ -91,7 +91,7 @@ public sealed class BossAlienGrabConfig : ScriptableObject
     public float ShakeAmplitude => _shakeAmplitude;
     public float ShakeFrequency => _shakeFrequency;
     public float ThrowSpeed => _throwSpeed;
-    public int WallImpactDamage => _wallImpactDamage;
+    public float WallImpactDamage => _wallImpactDamage;
     public float AnimationTimeout => _animationTimeout;
 
     // 던지기 실행 코드가 각도와 반사·회복 설정을 읽을 때 사용한다.

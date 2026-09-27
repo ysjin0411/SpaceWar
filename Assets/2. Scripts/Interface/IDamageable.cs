@@ -9,7 +9,7 @@ using UnityEngine;
 public interface IDamageable
 {
     // 대미지를 받아 체력이 변경되었을 때 발생한다.
-    event Action<int> Damaged;
+    event Action<float> Damaged;
 
     // 현재 대상이 사망 처리됐는지 외부에서 확인한다.
     bool IsDead { get; }
@@ -18,5 +18,5 @@ public interface IDamageable
     Transform TargetTransform { get; }
 
     // 플레이어 공격으로 전달받은 피해를 적용한다.
-    void TakeHit(int damage);
+    void TakeHit(float damage);
 }

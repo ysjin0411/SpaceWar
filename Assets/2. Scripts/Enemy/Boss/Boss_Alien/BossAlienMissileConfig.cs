@@ -16,7 +16,7 @@ public sealed class BossAlienMissileConfig : ScriptableObject
 
     // 미사일 한 발이 폭발할 때 적용할 피해량이다.
     [SerializeField, Min(0)]
-    private int _damage = 10;
+    private float _damage = 10;
 
     // 폭발 중심에서 피해를 적용할 월드 반경이다.
     [SerializeField, Min(0.01f)]
@@ -40,12 +40,15 @@ public sealed class BossAlienMissileConfig : ScriptableObject
     // 실행 코드가 읽을 공통 설정이다.
     public BossAlienMissile MissilePrefab => _missilePrefab;
     public BossAlienMissileExplosion ExplosionPrefab => _explosionPrefab;
-    public int Damage => _damage;
+    public float Damage => _damage;
     public float ExplosionRadius => _explosionRadius;
     public float FlightDuration => _flightDuration;
     public int SocketCount => _sockets.Length;
 
     // 지정된 소켓의 발사 설정을 반환한다.
+    /// <summary>
+    /// 지정된 소켓의 발사 설정을 반환한다.
+    /// </summary>
     public SocketSettings GetSocketSettings(int socketIndex)
     {
         return _sockets[socketIndex];

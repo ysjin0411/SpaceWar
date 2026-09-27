@@ -10,12 +10,12 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     [Header("체력 설정")]
     [Tooltip("적이 생성됐을 때 가지는 최대 체력")]
     [Min(1)]
-    [SerializeField] int _maxHp = 1;
+    [SerializeField] float _maxHp = 1;
 
     [Header("플레이어 충돌 설정")]
     [Tooltip("플레이어와 몸으로 충돌했을 때 주는 피해")]
     [Min(0)]
-    [SerializeField] int _crashDamage;
+    [SerializeField] float _crashDamage;
 
     [Header("경험치 보상 설정")]
     [Tooltip("이 적을 처치했을 때 현재 캐릭터가 획득할 경험치")]
@@ -32,7 +32,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
 
     [Header("적 런타임 데이터")]
     [Tooltip("현재 남아 있는 체력")]
-    [SerializeField] int _currentHp;
+    [SerializeField] float _currentHp;
 
     [Tooltip("현재 적이 사망 처리됐는지 확인")]
     [SerializeField] bool _isDead;
@@ -48,6 +48,9 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     private Drop _drop;
 
     // 적이 제거돼도 끝까지 재생되는 독립 사망 이펙트를 생성한다.
+    /// <summary>
+    /// 적이 제거돼도 끝까지 재생되는 독립 사망 이펙트를 생성한다.
+    /// </summary>
     private void SpawnDeathEffect()
     {
         Vector3 worldPosition =
@@ -59,7 +62,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
             Quaternion.identity);
     }
 
-    public event Action<int> Damaged;
+    public event Action<float> Damaged;
 
     // 자식 적이 현재 플레이어를 사용할 수 있도록 제공한다.
     protected PlayerController PlayerController { get; private set; }
@@ -68,10 +71,10 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     protected GameManager GameManager { get; private set; }
 
     // 외부에서 최대 체력을 읽을 수 있게 제공한다.
-    public int MaxHp => _maxHp;
+    public float MaxHp => _maxHp;
 
     // 외부에서 현재 체력을 읽을 수 있게 제공한다.
-    public int CurrentHp => _currentHp;
+    public float CurrentHp => _currentHp;
 
     // 외부에서 사망 여부를 읽을 수 있게 제공한다.
     public bool IsDead => _isDead;
@@ -127,7 +130,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     /// <summary>
     /// 플레이어 투사체로부터 피해를 받는다.
     /// </summary>
-    public void TakeHit(int damage)
+    public void TakeHit(float damage)
     {
         // 이미 죽은 적은 추가 피해를 받지 않는다.
         if (_isDead)
@@ -210,8 +213,9 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     /// 피해를 받은 직후 자식 클래스가 추가 효과를 처리할 수 있다.
     /// 일반 적은 구현하지 않아도 된다.
     /// </summary>
-    protected virtual void OnDamaged(int damage)
+    protected virtual void OnDamaged(float damage)
     {
+        // 전달받은 피해에 따른 후속 반응을 처리한다.
     }
 
     /// <summary>

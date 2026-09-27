@@ -49,7 +49,7 @@ public class TreasureBoxGradeData : ScriptableObject
     // Charge 상태에 진입하는 데 필요한 누적 피해량이다.
     // 기준을 채운 뒤 별도의 추가 타격이 있어야 승급하거나 열린다.
     [SerializeField, Min(1)]
-    int _requiredDamage = 100;
+    float _requiredDamage = 100;
 
     // 처음 등장할 때 최종 보상 등급을 추첨하는 가중치다.
     // 승급할 때 다시 추첨하지 않는다.
@@ -65,7 +65,7 @@ public class TreasureBoxGradeData : ScriptableObject
     // 외부에서 등급별 설정을 읽을 때 사용한다.
     public TreasureBoxGrade Grade => _grade;
     public GameObject VisualPrefab => _visualPrefab;
-    public int RequiredDamage => _requiredDamage;
+    public float RequiredDamage => _requiredDamage;
     public float SelectionWeight => _selectionWeight;
 
     // 외부 코드에서 목록을 조회할 수 있도록 공개한다.

@@ -1,0 +1,33 @@
+﻿Weapon,Animation,Frames,Width,Height,PPU,PivotX,PivotY,FPS,Loop,Note
+Bullet,Projectile,4,512,256,2000,0.5,0.5,24,True,Faces +X. Fixed rigid-body dimensions across frames; emission flickers.
+Lazer,Projectile,8,512,256,800,0.5,0.5,24,True,Faces +X. Fixed rigid-body dimensions across frames; emission flickers.
+Sniper,Projectile,4,512,256,800,0.5,0.5,24,True,Faces +X. Fixed rigid-body dimensions across frames; emission flickers.
+Missile,Projectile,4,512,256,800,0.5,0.5,24,True,Faces +X. Fixed rigid-body dimensions across frames; emission flickers.
+Bullet,Muzzle,6,256,256,800,0.125,0.5,30,False,Muzzle origin at x=32px. Faces +X; position at barrel tip.
+Bullet,Hit,8,256,256,800,0.5,0.5,30,False,Centered at collision contact. Sniper impact does not imply stopping the projectile.
+Lazer,Muzzle,6,256,256,800,0.125,0.5,30,False,Muzzle origin at x=32px. Faces +X; position at barrel tip.
+Lazer,Hit,10,384,384,800,0.5,0.5,30,False,Centered at collision contact. Sniper impact does not imply stopping the projectile.
+Sniper,Muzzle,6,256,256,800,0.125,0.5,30,False,Muzzle origin at x=32px. Faces +X; position at barrel tip.
+Sniper,PenetrationHit,10,384,384,800,0.5,0.5,30,False,Centered at collision contact. Sniper impact does not imply stopping the projectile.
+Sniper,Trail,12,512,128,800,0.5,0.5,30,False,World trail footprint about 0.56 units; 0.4 unit existing spacing overlaps continuously.
+Grenade,Tumble,12,320,320,800,0.5,0.5,18,True,Baked clockwise rotation. Do not also rotate the same renderer in code.
+Grenade,Armed,4,320,320,800,0.5,0.5,12,True,Optional fuse/status pulse before explosion.
+Missile,Exhaust,8,320,128,800,0.9,0.5,24,True,Attach pivot to rear nozzle. Flame points -X. Inherits missile root scale 2.
+Missile,Launch,8,384,384,800,0.125,0.5,30,False,
+Missile,SmokeTrail,12,256,256,800,0.5,0.5,24,False,Spawn independent puffs along trajectory. No collider.
+Grenade,ExplosionCore,20,512,512,112,0.5,0.5,24,False,Baked expansion; keep transform scale fixed while playing this sequence.
+Grenade,Shockwave,16,512,512,112,0.5,0.5,24,False,"Max outer radius 224px. Grenade diameter 4 world units; Missile diameter 3, root scale 1."
+Grenade,Smoke,12,512,512,112,0.5,0.5,18,False,
+Grenade,StaticCore_ForCurrentTween,1,512,512,112,0.5,0.5,24,False,Single sprite for existing SpriteExplosionEffect DOScale/DOFade. No Animator required.
+Grenade,StaticShockwave_ForCurrentTween,1,512,512,112,0.5,0.5,24,False,Existing scale/fade code controls this single sprite. Do not combine with baked expansion sequence.
+Missile,ExplosionCore,20,512,512,149.333333,0.5,0.5,24,False,Baked expansion; keep transform scale fixed while playing this sequence.
+Missile,Shockwave,16,512,512,149.333333,0.5,0.5,24,False,"Max outer radius 224px. Grenade diameter 4 world units; Missile diameter 3, root scale 1."
+Missile,Smoke,12,512,512,149.333333,0.5,0.5,18,False,
+Missile,StaticCore_ForCurrentTween,1,512,512,149.333333,0.5,0.5,24,False,Single sprite for existing SpriteExplosionEffect DOScale/DOFade. No Animator required.
+Missile,StaticShockwave_ForCurrentTween,1,512,512,149.333333,0.5,0.5,24,False,Existing scale/fade code controls this single sprite. Do not combine with baked expansion sequence.
+Lazer,ProjectileWarm,8,512,256,800,0.5,0.5,24,True,Optional heat stage. Same canvas/pivot/shape as cyan base; heat and damage are code-controlled.
+Lazer,MuzzleWarm,6,256,256,800,0.125,0.5,30,False,Optional heat stage. Same canvas/pivot/shape as cyan base; heat and damage are code-controlled.
+Lazer,HitWarm,10,384,384,800,0.5,0.5,30,False,Optional heat stage. Same canvas/pivot/shape as cyan base; heat and damage are code-controlled.
+Lazer,ProjectileHot,8,512,256,800,0.5,0.5,24,True,Optional heat stage. Same canvas/pivot/shape as cyan base; heat and damage are code-controlled.
+Lazer,MuzzleHot,6,256,256,800,0.125,0.5,30,False,Optional heat stage. Same canvas/pivot/shape as cyan base; heat and damage are code-controlled.
+Lazer,HitHot,10,384,384,800,0.5,0.5,30,False,Optional heat stage. Same canvas/pivot/shape as cyan base; heat and damage are code-controlled.

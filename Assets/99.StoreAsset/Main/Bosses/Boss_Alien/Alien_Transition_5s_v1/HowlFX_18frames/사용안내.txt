@@ -1,0 +1,45 @@
+하울링 음파 이펙트 추가 에셋
+
+투명 PNG 18장, 1254×1254, 24fps, 0.75초.
+보라색 음파 두 겹이 입 주변에서 시간차로 퍼졌다 사라집니다.
+처음과 마지막 프레임은 완전 투명하여 표시·종료 키로 사용할 수 있습니다.
+Source_HowlRing.png는 생성 원본입니다. 실제 연결에는 Frames 폴더를 사용합니다.
+Alien_HowlFX_Clear.png는 투명 상태를 명시적으로 지정하는 이미지입니다.
+
+기존에 전달한 120장 전환 시퀀스에 맞춰 위치가 이미 배치되어 있습니다.
+이 이펙트도 PPU 100, 중앙 Pivot, Full Rect, Sprite Single, Alpha Is Transparency,
+Max Size 2048 이상, 압축 없음으로 임포트합니다.
+발광 테두리는 Bilinear 필터를 사용하면 부드럽게 표시됩니다.
+
+배치
+전환을 재생하는 로봇의 BodyVisual 아래에 HowlFX 오브젝트를 만들고
+SpriteRenderer를 추가합니다. Local Position (0,0,0), Local Rotation (0,0,0),
+Local Scale (1,1,1)로 둡니다. BodyVisual의 월드 스케일 1 기준입니다.
+Sorting Layer는 본체와 같게, Order in Layer는 본체보다 1 높게 설정합니다.
+표시 색은 White, Alpha 1로 두고 스프라이트의 알파를 그대로 사용합니다.
+이펙트 캔버스 안에 입 위치가 이미 반영돼 있으므로 입 위치로 오브젝트를 다시 옮기지 마세요.
+Boss_AlienBody의 0.43 스케일을 이 FX에 한 번 더 적용하지 마세요.
+이 에셋은 전환 장면의 하울링에 맞춘 것이며, 이동 중인 보스에 재사용할 때는 배치를 다시 잡아야 합니다.
+
+애니메이션 연결
+기존 5초 Alien_PhaseTransition 클립에 HowlFX > SpriteRenderer > Sprite 트랙을 추가합니다.
+0초: Alien_HowlFX_Clear
+4.208333초(24fps 기준 101프레임 위치): Alien_HowlFX_001
+이후 1/24초 간격으로 002~018을 배치합니다.
+4.916667초: Alien_HowlFX_018 (완전 투명)
+5.000000초: Alien_HowlFX_Clear
+정확한 시간은 timeline.csv를 참고하세요.
+별도 FX 오브젝트의 SpriteRenderer만 애니메이션합니다. 본체 SpriteResolver 트랙은 그대로 사용합니다.
+
+화면 흔들림과 사운드
+화면 흔들림 시작 권장: 4.2083초
+화면 흔들림 종료 권장: 4.60초
+하울링 사운드도 같은 시작 시점에 맞추는 구성이 자연스럽습니다.
+화면 흔들림, 사운드, 이벤트 코드는 이 에셋에 포함되지 않습니다.
+
+Preview_With_HowlFX.gif는 기존 5초 장면 위에 실제 FX를 합성한 미리보기입니다.
+미리보기 배경은 확인용이며, Frames의 PNG는 투명 배경입니다.
+내장 이미지 생성 도구로 음파 원본을 생성하고, 승인받은 Python/Pillow 합성 방식으로
+크기·위치·확산·투명도 중간 프레임을 만들었습니다.
+PNG 크기, 투명도, 가장자리 잘림, 시작/끝의 완전 투명 상태를 검사했습니다.
+프로젝트는 수정하지 않았고 Unity 내 재생 테스트는 수행하지 않았습니다.

@@ -12,16 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c420b9c456cfa094a9e96f54c4f32a05, type: 3}
   m_Name: 4_Warrior Hammer WeaponData
   m_EditorClassIdentifier: 
-  _equipmentPreviewScale: 2.5
+  _equipmentPreviewScale: 3.3
   _equipmentPreviewOffset: {x: 0, y: 0}
   _id: warrior_hammer
   _name: Hammer
   _type: 8
   _icon: {fileID: -1235648141532224321, guid: dd0db2facc676c14fb7b5c1606f73247, type: 3}
   _projectilePrefab: {fileID: 0}
-  _playerSpriteLibrary: {fileID: 7108339969198208228, guid: 5d7fa32797b6e3a4da8cab0a0fdf9013, type: 3}
-  _characterSelectPreviewScale: 2
-  _characterSelectPreviewOffset: {x: 0, y: 0}
+  _muzzleEffectPrefab: {fileID: 0}
+  _lazerChargeDuration: 3
+  _lazerMinimumChargeDuration: 0.5
+  _lazerMaxDamageMultiplier: 3
+  _playerSpriteLibrary: {fileID: 7108339969198208228, guid: b8bba38b484082e4bb421a21b09df8d2, type: 3}
+  _characterSelectPreviewScale: 3.5
+  _characterSelectPreviewOffset: {x: -80, y: 50}
   _baseDamage: 30
   _baseCooltime: 1
   _maximumChargeCount: 0
@@ -39,3 +43,6 @@ MonoBehaviour:
   _minimumCooltime: 0.05
   _info: "\uAC70\uB300 \uD574\uBA38."
   _upgradeSelectionInfo: "Hammer\uB97C \uAC15\uD654\uD55C\uB2E4."
+  _weaponMoveSpeed: 8
+  _lazerHitsPerSecond: 10
+  _lazerHitsPerSecondUpgrade: 1

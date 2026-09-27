@@ -19,8 +19,11 @@ public sealed class TowerBulletAttack : TowerAttack
     [SerializeField, Min(0.1f)] private float _bulletSpeed = 5f;
 
     // 생성한 총알에 전달할 피해량이다.
-    [SerializeField, Min(1)] private int _bulletDamage = 5;
+    [SerializeField, Min(1)] private float _bulletDamage = 5;
 
+    /// <summary>
+    /// 컴포넌트 참조와 초기 실행 상태를 준비한다.
+    /// </summary>
     protected override void Awake()
     {
         base.Awake();
@@ -33,6 +36,9 @@ public sealed class TowerBulletAttack : TowerAttack
         }
     }
 
+    /// <summary>
+    /// ExecuteAttack 동작에 필요한 상태와 처리 흐름을 실행한다.
+    /// </summary>
     protected override void ExecuteAttack(PlayerController targetPlayer)
     {
         // 발사 순간의 플레이어 위치를 기준으로 조준한다.

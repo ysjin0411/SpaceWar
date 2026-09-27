@@ -44,7 +44,7 @@ public sealed class BossHeadLaserSweepPattern : BossPattern
 
     // 레이저의 피해 간격마다 적용할 피해량이다.
     [Min(1)]
-    [SerializeField] int _damage = 20;
+    [SerializeField] float _damage = 20;
 
     // 전체 위험 범위를 표시할 경고 프리팹이다.
     [SerializeField] BossLaserWarning _warningPrefab;

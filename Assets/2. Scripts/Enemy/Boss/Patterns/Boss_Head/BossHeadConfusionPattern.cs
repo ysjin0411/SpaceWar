@@ -40,7 +40,7 @@ public sealed class BossHeadConfusionPattern : BossPattern
 
     // 시간 초과 또는 Life 소진 시 한 번 적용할 피해량이다.
     [Min(1)]
-    [SerializeField] int _failureDamage = 20;
+    [SerializeField] float _failureDamage = 20;
 
     // 실패 시 카메라가 흔들리는 시간이다.
     [Min(0.01f)]
@@ -50,6 +50,9 @@ public sealed class BossHeadConfusionPattern : BossPattern
     [Min(0f)]
     [SerializeField] float _shakeStrength = 0.12f;
 
+    /// <summary>
+    /// Execute 동작에 필요한 상태와 처리 흐름을 실행한다.
+    /// </summary>
     public override IEnumerator Execute(BossPatternContext context)
     {
         ValidateSettings(context);
@@ -256,6 +259,9 @@ public sealed class BossHeadConfusionPattern : BossPattern
                !player.IsDead;
     }
 
+    /// <summary>
+    /// IsBossAlive 동작에 필요한 상태와 처리 흐름을 실행한다.
+    /// </summary>
     private static bool IsBossAlive(BossEnemy boss)
     {
         return boss != null &&

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: soldier
   _name: Soldier
-  _icon: {fileID: 21300000, guid: d866bb76d662f8d4289b29f89bdcdbce, type: 3}
+  _icon: {fileID: 21300000, guid: b8d52c4c6d774fa4c8ecafa88b99c244, type: 3}
   _characterPrefab: {fileID: 2428776216360149604, guid: 29e3b4128c7f96648b405525783bca1f, type: 3}
   _baseHp: 100
   _baseMoveSpeed: 5
@@ -28,4 +28,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 243fc29c1a4804a4ca791bdef396a6e0, type: 2}
   - {fileID: 11400000, guid: a06171464db15e04eb56c99c990b978f, type: 2}
   - {fileID: 11400000, guid: 4be91cef2e7208d42810bc9c16e2c5ea, type: 2}
-  _previewIdleCategory: Idle3
+  _previewIdleCategory: Idle

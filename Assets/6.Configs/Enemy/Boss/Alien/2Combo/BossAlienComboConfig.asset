@@ -12,38 +12,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c245f57a5d75244da31c83563e58d2d, type: 3}
   m_Name: BossAlienComboConfig
   m_EditorClassIdentifier: 
-  _chaseSpeed: 3
   _maxChaseDuration: 2
   _stopDistance: 3
   _wallPadding: 0.2
   _strikes:
-  - _prepareLabel: PrepareA
-    _attackLabel: SlashA
-    _recoverLabel: RecoverA
+  - _chaseSpeed: 5
+    _chaseAnimationSpeed: 2
     _aimDuration: 0.35
     _lockDuration: 0.2
     _activeDuration: 0.15
     _recoveryDuration: 0.25
     _damage: 10
     _hitboxSize: {x: 3, y: 2.5}
-    _forwardOffset: 1.5
-  - _prepareLabel: PrepareB
-    _attackLabel: SlashB
-    _recoverLabel: RecoverB
+  - _chaseSpeed: 10
+    _chaseAnimationSpeed: 2
     _aimDuration: 0.25
     _lockDuration: 0.2
     _activeDuration: 0.15
     _recoveryDuration: 0.25
     _damage: 10
     _hitboxSize: {x: 3, y: 2.5}
-    _forwardOffset: 1.5
-  - _prepareLabel: PrepareSlam
-    _attackLabel: Slam
-    _recoverLabel: RecoverSlam
+  - _chaseSpeed: 15
+    _chaseAnimationSpeed: 2
     _aimDuration: 0.4
     _lockDuration: 0.35
     _activeDuration: 0.2
     _recoveryDuration: 0.7
     _damage: 15
     _hitboxSize: {x: 4, y: 2}
-    _forwardOffset: 2

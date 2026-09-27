@@ -101,6 +101,1284 @@ MonoBehaviour:
       m_SpriteOverride: {fileID: 21300000, guid: 11d2fb541b40d0641a3de0c0adfb84e3, type: 3}
     m_FromMain: 1
     m_EntryOverrideCount: 6
+  - m_Name: Dog_Death_3p5s
+    m_Hash: 299146509
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: Dog_Death_3p5s_001
+      m_Hash: 278708262
+      m_Sprite: {fileID: 21300000, guid: e30142fd5d39c264396f9da763aeea6d, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: e30142fd5d39c264396f9da763aeea6d, type: 3}
+    - m_Name: Dog_Death_3p5s_002
+      m_Hash: 160797084
+      m_Sprite: {fileID: 21300000, guid: 68263ead5c7a34945bee9dcec4022490, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 68263ead5c7a34945bee9dcec4022490, type: 3}
+    - m_Name: Dog_Death_3p5s_003
+      m_Hash: 1049796874
+      m_Sprite: {fileID: 21300000, guid: d0cfa3e8eeba25e41aa909bdd0df6ec1, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: d0cfa3e8eeba25e41aa909bdd0df6ec1, type: 3}
+    - m_Name: Dog_Death_3p5s_004
+      m_Hash: 553006249
+      m_Sprite: {fileID: 21300000, guid: 370a25d7d10d7b04bb70ded2911c5292, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 370a25d7d10d7b04bb70ded2911c5292, type: 3}
+    - m_Name: Dog_Death_3p5s_005
+      m_Hash: 401671231
+      m_Sprite: {fileID: 21300000, guid: 40709d34365e428418b6f73b6693fc95, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 40709d34365e428418b6f73b6693fc95, type: 3}
+    - m_Name: Dog_Death_3p5s_006
+      m_Hash: 251155845
+      m_Sprite: {fileID: 21300000, guid: 430b26f6f7a22314ea6b08ed8d5d50ab, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 430b26f6f7a22314ea6b08ed8d5d50ab, type: 3}
+    - m_Name: Dog_Death_3p5s_007
+      m_Hash: 973038867
+      m_Sprite: {fileID: 21300000, guid: 3a01fcc8b6e8dbc4ea522a2103a75a3c, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 3a01fcc8b6e8dbc4ea522a2103a75a3c, type: 3}
+    - m_Name: Dog_Death_3p5s_008
+      m_Hash: 692091010
+      m_Sprite: {fileID: 21300000, guid: 3eac3d34b7877584eadecafb8e1eb40e, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 3eac3d34b7877584eadecafb8e1eb40e, type: 3}
+    - m_Name: Dog_Death_3p5s_009
+      m_Hash: 507987988
+      m_Sprite: {fileID: 21300000, guid: e415288af4bf2ee499a31a293c10b8c3, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: e415288af4bf2ee499a31a293c10b8c3, type: 3}
+    - m_Name: Dog_Death_3p5s_010
+      m_Hash: 1048625649
+      m_Sprite: {fileID: 21300000, guid: ed4e50f9d3106b742b3c3eaf4bd4191f, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: ed4e50f9d3106b742b3c3eaf4bd4191f, type: 3}
+    - m_Name: Dog_Death_3p5s_011
+      m_Hash: 159904103
+      m_Sprite: {fileID: 21300000, guid: 8cbe8a5e043faee48b18bf51451b6189, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 8cbe8a5e043faee48b18bf51451b6189, type: 3}
+    - m_Name: Dog_Death_3p5s_012
+      m_Hash: 277782749
+      m_Sprite: {fileID: 21300000, guid: f22f206ce0f077d44be8dce678b77b8d, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: f22f206ce0f077d44be8dce678b77b8d, type: 3}
+    - m_Name: Dog_Death_3p5s_013
+      m_Hash: 663326795
+      m_Sprite: {fileID: 21300000, guid: df4cbbee225cb9e4d80ba4add5c76e0d, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: df4cbbee225cb9e4d80ba4add5c76e0d, type: 3}
+    - m_Name: Dog_Death_3p5s_014
+      m_Hash: 971834856
+      m_Sprite: {fileID: 21300000, guid: 7d534517b6e3c014faae5716962b5e60, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 7d534517b6e3c014faae5716962b5e60, type: 3}
+    - m_Name: Dog_Death_3p5s_015
+      m_Hash: 250230142
+      m_Sprite: {fileID: 21300000, guid: 815fd82bc12d00b4d82808f2462716af, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 815fd82bc12d00b4d82808f2462716af, type: 3}
+    - m_Name: Dog_Death_3p5s_016
+      m_Hash: 400778436
+      m_Sprite: {fileID: 21300000, guid: c3805f338bbb89247b6fcc24a6105bf5, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: c3805f338bbb89247b6fcc24a6105bf5, type: 3}
+    - m_Name: Dog_Death_3p5s_017
+      m_Hash: 551834706
+      m_Sprite: {fileID: 21300000, guid: 9770d57f2f3e2ed4cbcb5a09f36da0fd, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 9770d57f2f3e2ed4cbcb5a09f36da0fd, type: 3}
+    - m_Name: Dog_Death_3p5s_018
+      m_Hash: 811289027
+      m_Sprite: {fileID: 21300000, guid: d11ed3028b7a64f44a95f9e9c528ac0f, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: d11ed3028b7a64f44a95f9e9c528ac0f, type: 3}
+    - m_Name: Dog_Death_3p5s_019
+      m_Hash: 123500885
+      m_Sprite: {fileID: 21300000, guid: 58914b260bf9c3b46b6e391a8c0e3545, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 58914b260bf9c3b46b6e391a8c0e3545, type: 3}
+    - m_Name: Dog_Death_3p5s_020
+      m_Hash: 363696690
+      m_Sprite: {fileID: 21300000, guid: 2c6703892df4ffa42a382f6cf3b753dd, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 2c6703892df4ffa42a382f6cf3b753dd, type: 3}
+    - m_Name: Dog_Death_3p5s_021
+      m_Hash: 581608100
+      m_Sprite: {fileID: 21300000, guid: 39e1a2e8d37a2954db8270e7c2c2f5b3, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 39e1a2e8d37a2954db8270e7c2c2f5b3, type: 3}
+    - m_Name: Dog_Death_3p5s_022
+      m_Hash: 1000600350
+      m_Sprite: {fileID: 21300000, guid: de18624cd99417b4e9c9271316b22456, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: de18624cd99417b4e9c9271316b22456, type: 3}
+    - m_Name: Dog_Death_3p5s_023
+      m_Hash: 212124552
+      m_Sprite: {fileID: 21300000, guid: 6c1f4c17ed3fc0d409fd65df85f7a055, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 6c1f4c17ed3fc0d409fd65df85f7a055, type: 3}
+    - m_Name: Dog_Death_3p5s_024
+      m_Hash: 314594859
+      m_Sprite: {fileID: 21300000, guid: 37d8292a5b497384c96b60bb35a8b17f, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 37d8292a5b497384c96b60bb35a8b17f, type: 3}
+    - m_Name: Dog_Death_3p5s_025
+      m_Hash: 633824957
+      m_Sprite: {fileID: 21300000, guid: e788f2b8fcec18244ad5fc8c0ad6cea7, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: e788f2b8fcec18244ad5fc8c0ad6cea7, type: 3}
+    - m_Name: Dog_Death_3p5s_026
+      m_Hash: 1020147463
+      m_Sprite: {fileID: 21300000, guid: ddb1f3d55c3eeb14fb9a364c7a223eca, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: ddb1f3d55c3eeb14fb9a364c7a223eca, type: 3}
+    - m_Name: Dog_Death_3p5s_027
+      m_Hash: 197724049
+      m_Sprite: {fileID: 21300000, guid: 6f13eb09803e56f45a6cf3e7b1d40a98, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 6f13eb09803e56f45a6cf3e7b1d40a98, type: 3}
+    - m_Name: Dog_Death_3p5s_028
+      m_Hash: 460724736
+      m_Sprite: {fileID: 21300000, guid: ec28ede9c24ac6d489b93a56328f360c, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: ec28ede9c24ac6d489b93a56328f360c, type: 3}
+    - m_Name: Dog_Death_3p5s_029
+      m_Hash: 745613974
+      m_Sprite: {fileID: 21300000, guid: 3597dad868f20af45a9641762dbfaf60, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 3597dad868f20af45a9641762dbfaf60, type: 3}
+    - m_Name: Dog_Death_3p5s_030
+      m_Hash: 213295987
+      m_Sprite: {fileID: 21300000, guid: 1b379488987d9d04a90e34699c2ecf38, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 1b379488987d9d04a90e34699c2ecf38, type: 3}
+    - m_Name: Dog_Death_3p5s_031
+      m_Hash: 1001493477
+      m_Sprite: {fileID: 21300000, guid: 7b6016a14a728f44e9f6b6b025c65531, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 7b6016a14a728f44e9f6b6b025c65531, type: 3}
+    - m_Name: Dog_Death_3p5s_032
+      m_Hash: 582533727
+      m_Sprite: {fileID: 21300000, guid: c23e0f691b2d7c54caef6d309e391826, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: c23e0f691b2d7c54caef6d309e391826, type: 3}
+    - m_Name: Dog_Death_3p5s_033
+      m_Hash: 364901065
+      m_Sprite: {fileID: 21300000, guid: fb7658e354eb1ce4086397ff5a9c28d1, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: fb7658e354eb1ce4086397ff5a9c28d1, type: 3}
+    - m_Name: Dog_Death_3p5s_034
+      m_Hash: 198928234
+      m_Sprite: {fileID: 21300000, guid: 81744bf4586b5134ebe6a2c4d5da395f, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 81744bf4586b5134ebe6a2c4d5da395f, type: 3}
+    - m_Name: Dog_Death_3p5s_035
+      m_Hash: 1021073404
+      m_Sprite: {fileID: 21300000, guid: 1bd95f3a87bc95946a2016f9793a4c28, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 1bd95f3a87bc95946a2016f9793a4c28, type: 3}
+    - m_Name: Dog_Death_3p5s_036
+      m_Hash: 634717766
+      m_Sprite: {fileID: 21300000, guid: 81aaeb0468f592345942f232468ece9d, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 81aaeb0468f592345942f232468ece9d, type: 3}
+    - m_Name: Dog_Death_3p5s_037
+      m_Hash: 315766480
+      m_Sprite: {fileID: 21300000, guid: 6908a3087b93c7f4ebd408790a8c4610, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 6908a3087b93c7f4ebd408790a8c4610, type: 3}
+    - m_Name: Dog_Death_3p5s_038
+      m_Hash: 40708929
+      m_Sprite: {fileID: 21300000, guid: 3a7af25728cc700458d1ce97afb9950c, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 3a7af25728cc700458d1ce97afb9950c, type: 3}
+    - m_Name: Dog_Death_3p5s_039
+      m_Hash: 896146391
+      m_Sprite: {fileID: 21300000, guid: d90f5c724ce855249af0369e36661d22, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: d90f5c724ce855249af0369e36661d22, type: 3}
+    - m_Name: Dog_Death_3p5s_040
+      m_Hash: 66532788
+      m_Sprite: {fileID: 21300000, guid: f2a94f9be241f6a468152f388e71478c, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: f2a94f9be241f6a468152f388e71478c, type: 3}
+    - m_Name: Dog_Death_3p5s_041
+      m_Hash: 888145186
+      m_Sprite: {fileID: 21300000, guid: 0070ec3e3b2753d47a400d0ee1b2ed52, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 0070ec3e3b2753d47a400d0ee1b2ed52, type: 3}
+    - m_Name: Dog_Death_3p5s_042
+      m_Hash: 771314840
+      m_Sprite: {fileID: 21300000, guid: 763cd30a3489637499a4c7cd721c01fe, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 763cd30a3489637499a4c7cd721c01fe, type: 3}
+    - m_Name: Dog_Death_3p5s_043
+      m_Hash: 452879374
+      m_Sprite: {fileID: 21300000, guid: 7489ae125ce5a734aa91e9dde85ee5b4, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 7489ae125ce5a734aa91e9dde85ee5b4, type: 3}
+    - m_Name: Dog_Death_3p5s_044
+      m_Hash: 77263277
+      m_Sprite: {fileID: 21300000, guid: 49a5347ab8984854bbe54ea6f69bfc89, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 49a5347ab8984854bbe54ea6f69bfc89, type: 3}
+    - m_Name: Dog_Death_3p5s_045
+      m_Hash: 865976635
+      m_Sprite: {fileID: 21300000, guid: 3fdd5b808662ee24f85bed65fe5154d0, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 3fdd5b808662ee24f85bed65fe5154d0, type: 3}
+    - m_Name: Dog_Death_3p5s_046
+      m_Hash: 714379393
+      m_Sprite: {fileID: 21300000, guid: 6272b625b94a71f46a0a48c97772f8db, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 6272b625b94a71f46a0a48c97772f8db, type: 3}
+    - m_Name: Dog_Death_3p5s_047
+      m_Hash: 496214039
+      m_Sprite: {fileID: 21300000, guid: e1d812b33fc30214fa1f6afe035726c6, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: e1d812b33fc30214fa1f6afe035726c6, type: 3}
+    - m_Name: Dog_Death_3p5s_048
+      m_Hash: 221035910
+      m_Sprite: {fileID: 21300000, guid: 620ac32ff30b7084a896fdae1435a8f1, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 620ac32ff30b7084a896fdae1435a8f1, type: 3}
+    - m_Name: Dog_Death_3p5s_049
+      m_Hash: 975932688
+      m_Sprite: {fileID: 21300000, guid: cddfc47462985334fb5638a4f65857a1, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: cddfc47462985334fb5638a4f65857a1, type: 3}
+    - m_Name: Dog_Death_3p5s_050
+      m_Hash: 451675381
+      m_Sprite: {fileID: 21300000, guid: 2ee2fa5440d8dc746a2220155f382b0a, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 2ee2fa5440d8dc746a2220155f382b0a, type: 3}
+    - m_Name: Dog_Death_3p5s_051
+      m_Hash: 770389091
+      m_Sprite: {fileID: 21300000, guid: 99e4acda454118c40a432553f01166db, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 99e4acda454118c40a432553f01166db, type: 3}
+    - m_Name: Dog_Death_3p5s_052
+      m_Hash: 887252441
+      m_Sprite: {fileID: 21300000, guid: a465e105703edf74b9f879b2f5ffbdeb, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: a465e105703edf74b9f879b2f5ffbdeb, type: 3}
+    - m_Name: Dog_Death_3p5s_053
+      m_Hash: 65361231
+      m_Sprite: {fileID: 21300000, guid: 633a8ebdde0e68d46a9a56e71f69b04f, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 633a8ebdde0e68d46a9a56e71f69b04f, type: 3}
+    - m_Name: Dog_Death_3p5s_054
+      m_Hash: 495042796
+      m_Sprite: {fileID: 21300000, guid: e5ab4ca57a652804b883cc147c89b4be, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: e5ab4ca57a652804b883cc147c89b4be, type: 3}
+    - m_Name: Dog_Death_3p5s_055
+      m_Hash: 713486458
+      m_Sprite: {fileID: 21300000, guid: 766c785e5fea7164da7a9aaecaeb86d5, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 766c785e5fea7164da7a9aaecaeb86d5, type: 3}
+    - m_Name: Dog_Death_3p5s_056
+      m_Hash: 865051072
+      m_Sprite: {fileID: 21300000, guid: 4c1f11b4aa8aa154d928b3232576c0b6, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 4c1f11b4aa8aa154d928b3232576c0b6, type: 3}
+    - m_Name: Dog_Death_3p5s_057
+      m_Hash: 76058966
+      m_Sprite: {fileID: 21300000, guid: 39eecfeaf8989634d8a93d6540395751, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 39eecfeaf8989634d8a93d6540395751, type: 3}
+    - m_Name: Dog_Death_3p5s_058
+      m_Hash: 339184839
+      m_Sprite: {fileID: 21300000, guid: c7d46a78e1602d746a427881f992defd, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: c7d46a78e1602d746a427881f992defd, type: 3}
+    - m_Name: Dog_Death_3p5s_059
+      m_Hash: 590396497
+      m_Sprite: {fileID: 21300000, guid: a19d9f96fb5e61e49948a72464a72b66, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: a19d9f96fb5e61e49948a72464a72b66, type: 3}
+    - m_Name: Dog_Death_3p5s_060
+      m_Hash: 834754358
+      m_Sprite: {fileID: 21300000, guid: 27e43070dddee27499e0871e6b40953e, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 27e43070dddee27499e0871e6b40953e, type: 3}
+    - m_Name: Dog_Death_3p5s_061
+      m_Hash: 113665952
+      m_Sprite: {fileID: 21300000, guid: 7c1d2dc7545c859408a948c25f9dc3db, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 7c1d2dc7545c859408a948c25f9dc3db, type: 3}
+    - m_Name: Dog_Death_3p5s_062
+      m_Hash: 533673498
+      m_Sprite: {fileID: 21300000, guid: f344eda5fd93e5a4498a3a6a75b01e55, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: f344eda5fd93e5a4498a3a6a75b01e55, type: 3}
+    - m_Name: Dog_Death_3p5s_063
+      m_Hash: 684197516
+      m_Sprite: {fileID: 21300000, guid: 5a98aaf7da268894ba8a18c9d2bbea80, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 5a98aaf7da268894ba8a18c9d2bbea80, type: 3}
+    - m_Name: Dog_Death_3p5s_064
+      m_Hash: 917279535
+      m_Sprite: {fileID: 21300000, guid: 46e03b0684ca5d64eb22fc214f7bf982, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 46e03b0684ca5d64eb22fc214f7bf982, type: 3}
+    - m_Name: Dog_Death_3p5s_065
+      m_Hash: 28025785
+      m_Sprite: {fileID: 21300000, guid: f3a2ba1058e556e42b88c1ade2c095a3, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: f3a2ba1058e556e42b88c1ade2c095a3, type: 3}
+    - m_Name: Dog_Death_3p5s_066
+      m_Hash: 413331971
+      m_Sprite: {fileID: 21300000, guid: 22bfdc0682a4e564f8893829b6ae6d07, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 22bfdc0682a4e564f8893829b6ae6d07, type: 3}
+    - m_Name: Dog_Death_3p5s_067
+      m_Hash: 799392405
+      m_Sprite: {fileID: 21300000, guid: 0aa27dd1da9c8784ba3976b524dfd351, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 0aa27dd1da9c8784ba3976b524dfd351, type: 3}
+    - m_Name: Dog_Death_3p5s_068
+      m_Hash: 1058725636
+      m_Sprite: {fileID: 21300000, guid: d30c9b7ca1258314a941cbfe82be4942, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: d30c9b7ca1258314a941cbfe82be4942, type: 3}
+    - m_Name: Dog_Death_3p5s_069
+      m_Hash: 136179602
+      m_Sprite: {fileID: 21300000, guid: 1afe5349b76f13c47bc55a5b7b673ed8, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 1afe5349b76f13c47bc55a5b7b673ed8, type: 3}
+    - m_Name: Dog_Death_3p5s_070
+      m_Hash: 685401719
+      m_Sprite: {fileID: 21300000, guid: 1941b6143468eb6429d145c7f0c8e4a4, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 1941b6143468eb6429d145c7f0c8e4a4, type: 3}
+    - m_Name: Dog_Death_3p5s_071
+      m_Hash: 534599393
+      m_Sprite: {fileID: 21300000, guid: 26b0fcb0c0d8fde4d8d18d3d3524c1dc, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 26b0fcb0c0d8fde4d8d18d3d3524c1dc, type: 3}
+    - m_Name: Dog_Death_3p5s_072
+      m_Hash: 114558811
+      m_Sprite: {fileID: 21300000, guid: 906b3d8eff42016479180e1f8d54e7db, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 906b3d8eff42016479180e1f8d54e7db, type: 3}
+    - m_Name: Dog_Death_3p5s_073
+      m_Hash: 835925965
+      m_Sprite: {fileID: 21300000, guid: d025cc034f96e684192ca9d954697b4b, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: d025cc034f96e684192ca9d954697b4b, type: 3}
+    - m_Name: Dog_Death_3p5s_074
+      m_Hash: 800563822
+      m_Sprite: {fileID: 21300000, guid: dccbea27ce0ddb74aa14afc98979c409, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: dccbea27ce0ddb74aa14afc98979c409, type: 3}
+    - m_Name: Dog_Death_3p5s_075
+      m_Hash: 414225144
+      m_Sprite: {fileID: 21300000, guid: 4efb4f336668b4d4da48353935290b6f, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 4efb4f336668b4d4da48353935290b6f, type: 3}
+    - m_Name: Dog_Death_3p5s_076
+      m_Hash: 28951362
+      m_Sprite: {fileID: 21300000, guid: 3c51cbc6b366734448d506460b6a59dd, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 3c51cbc6b366734448d506460b6a59dd, type: 3}
+    - m_Name: Dog_Death_3p5s_077
+      m_Hash: 918483924
+      m_Sprite: {fileID: 21300000, guid: 0bbfcd1d05e92194d94e5ec14a7f5f6f, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 0bbfcd1d05e92194d94e5ec14a7f5f6f, type: 3}
+    - m_Name: Dog_Death_3p5s_078
+      m_Hash: 637660741
+      m_Sprite: {fileID: 21300000, guid: 1e4709e7627b19a4699d48f0839b5f6f, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 1e4709e7627b19a4699d48f0839b5f6f, type: 3}
+    - m_Name: Dog_Death_3p5s_079
+      m_Hash: 285662931
+      m_Sprite: {fileID: 21300000, guid: fa199feb51a2cf94bb9984c690fd3eae, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: fa199feb51a2cf94bb9984c690fd3eae, type: 3}
+    - m_Name: Dog_Death_3p5s_080
+      m_Hash: 792885944
+      m_Sprite: {fileID: 21300000, guid: 927b8b50f7e8e7549abafe871559869e, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 927b8b50f7e8e7549abafe871559869e, type: 3}
+    - m_Name: Dog_Death_3p5s_081
+      m_Hash: 407194158
+      m_Sprite: {fileID: 21300000, guid: 0c6fba64125850f4da210cb212d0e183, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 0c6fba64125850f4da210cb212d0e183, type: 3}
+    - m_Name: Dog_Death_3p5s_082
+      m_Hash: 21765012
+      m_Sprite: {fileID: 21300000, guid: c21e5e41410b38245a58a6092859ae20, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: c21e5e41410b38245a58a6092859ae20, type: 3}
+    - m_Name: Dog_Death_3p5s_083
+      m_Hash: 910895874
+      m_Sprite: {fileID: 21300000, guid: badc7fd251c538d4dadeae9337c8c07f, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: badc7fd251c538d4dadeae9337c8c07f, type: 3}
+    - m_Name: Dog_Death_3p5s_084
+      m_Hash: 674217633
+      m_Sprite: {fileID: 21300000, guid: 3e9fc569059427948b04fb9889e6bb21, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 21300000, guid: 3e9fc569059427948b04fb9889e6bb21, type: 3}
+    m_FromMain: 1
+    m_EntryOverrideCount: 0
+  - m_Name: Cruiser_Death_3p5s
+    m_Hash: 914093580
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: Cruiser_Death_3p5s_001
+      m_Hash: 227481071
+      m_Sprite: {fileID: 21300000, guid: 98787d88e2713fc4a9340fafdfb2336e, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 98787d88e2713fc4a9340fafdfb2336e, type: 3}
+    - m_Name: Cruiser_Death_3p5s_002
+      m_Hash: 344343637
+      m_Sprite: {fileID: 21300000, guid: 2698f0ee0744afb439d4ed1fbb1a86dc, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 2698f0ee0744afb439d4ed1fbb1a86dc, type: 3}
+    - m_Name: Cruiser_Death_3p5s_003
+      m_Hash: 595686595
+      m_Sprite: {fileID: 21300000, guid: 8b84eefb20b346141974856ad5446ee3, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 8b84eefb20b346141974856ad5446ee3, type: 3}
+    - m_Name: Cruiser_Death_3p5s_004
+      m_Hash: 1038475616
+      m_Sprite: {fileID: 21300000, guid: fc209d33309099c4385242883333ef0a, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: fc209d33309099c4385242883333ef0a, type: 3}
+    - m_Name: Cruiser_Death_3p5s_005
+      m_Hash: 182637046
+      m_Sprite: {fileID: 21300000, guid: 442db01ee5a2d7a4e825a84dfd4c9153, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 442db01ee5a2d7a4e825a84dfd4c9153, type: 3}
+    - m_Name: Cruiser_Death_3p5s_006
+      m_Hash: 334200908
+      m_Sprite: {fileID: 21300000, guid: 54a78bd7917dd8c4593ef6550e1be6bc, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 54a78bd7917dd8c4593ef6550e1be6bc, type: 3}
+    - m_Name: Cruiser_Death_3p5s_007
+      m_Hash: 619491546
+      m_Sprite: {fileID: 21300000, guid: 800eb8276d7122749aeea5eee4272efc, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 800eb8276d7122749aeea5eee4272efc, type: 3}
+    - m_Name: Cruiser_Death_3p5s_008
+      m_Hash: 877899083
+      m_Sprite: {fileID: 21300000, guid: 42f16c3615e325e4fa8cf4efabcb3a56, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 42f16c3615e325e4fa8cf4efabcb3a56, type: 3}
+    - m_Name: Cruiser_Death_3p5s_009
+      m_Hash: 55877085
+      m_Sprite: {fileID: 21300000, guid: 21787aa22081a96439f445c761db052c, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 21787aa22081a96439f445c761db052c, type: 3}
+    - m_Name: Cruiser_Death_3p5s_010
+      m_Hash: 596841528
+      m_Sprite: {fileID: 21300000, guid: e20dc51841272ec4eb8378f727260abb, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: e20dc51841272ec4eb8378f727260abb, type: 3}
+    - m_Name: Cruiser_Death_3p5s_011
+      m_Hash: 345253038
+      m_Sprite: {fileID: 21300000, guid: 9fbe44b520279dd438f723a0264a1405, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 9fbe44b520279dd438f723a0264a1405, type: 3}
+    - m_Name: Cruiser_Death_3p5s_012
+      m_Hash: 228422932
+      m_Sprite: {fileID: 21300000, guid: 5e507e9371d065f44a2947ae07bb0015, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 5e507e9371d065f44a2947ae07bb0015, type: 3}
+    - m_Name: Cruiser_Death_3p5s_013
+      m_Hash: 983188866
+      m_Sprite: {fileID: 21300000, guid: c1c68de08acbd0743a9ce0c99fdf7bd6, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: c1c68de08acbd0743a9ce0c99fdf7bd6, type: 3}
+    - m_Name: Cruiser_Death_3p5s_014
+      m_Hash: 620679201
+      m_Sprite: {fileID: 21300000, guid: 56e3a1fdb0be9fc40badc6609ce761a8, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 56e3a1fdb0be9fc40badc6609ce761a8, type: 3}
+    - m_Name: Cruiser_Death_3p5s_015
+      m_Hash: 335143095
+      m_Sprite: {fileID: 21300000, guid: 6d0de08f78c0b4d4a81d72f9f7c2c2fa, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 6d0de08f78c0b4d4a81d72f9f7c2c2fa, type: 3}
+    - m_Name: Cruiser_Death_3p5s_016
+      m_Hash: 183546125
+      m_Sprite: {fileID: 21300000, guid: 2b04a36dc088e054eb75d0d43041840d, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 2b04a36dc088e054eb75d0d43041840d, type: 3}
+    - m_Name: Cruiser_Death_3p5s_017
+      m_Hash: 1039630747
+      m_Sprite: {fileID: 21300000, guid: b5d03fb72a014c44c872645a1358544f, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: b5d03fb72a014c44c872645a1358544f, type: 3}
+    - m_Name: Cruiser_Death_3p5s_018
+      m_Hash: 759733258
+      m_Sprite: {fileID: 21300000, guid: 7717e0eb7d4fcc244aece6ec6a8f045e, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 7717e0eb7d4fcc244aece6ec6a8f045e, type: 3}
+    - m_Name: Cruiser_Death_3p5s_019
+      m_Hash: 441429148
+      m_Sprite: {fileID: 21300000, guid: 57e022f7515d4de4cbea90b9b3b357ad, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 57e022f7515d4de4cbea90b9b3b357ad, type: 3}
+    - m_Name: Cruiser_Death_3p5s_020
+      m_Hash: 146687995
+      m_Sprite: {fileID: 21300000, guid: 878e23bb1dbe00842be0a3db29305882, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 878e23bb1dbe00842be0a3db29305882, type: 3}
+    - m_Name: Cruiser_Death_3p5s_021
+      m_Hash: 1069119341
+      m_Sprite: {fileID: 21300000, guid: 98c7331ad84200f429fa6a7f00275fd2, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 98c7331ad84200f429fa6a7f00275fd2, type: 3}
+    - m_Name: Cruiser_Death_3p5s_022
+      m_Hash: 649078487
+      m_Sprite: {fileID: 21300000, guid: c630c40e1f9a30f489b474a7317e6ec1, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: c630c40e1f9a30f489b474a7317e6ec1, type: 3}
+    - m_Name: Cruiser_Death_3p5s_023
+      m_Hash: 297211457
+      m_Sprite: {fileID: 21300000, guid: 3c056a1a200d52045be25905f149032d, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 3c056a1a200d52045be25905f149032d, type: 3}
+    - m_Name: Cruiser_Death_3p5s_024
+      m_Hash: 265520098
+      m_Sprite: {fileID: 21300000, guid: 67a650c291d0be443ae298331471c48e, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 67a650c291d0be443ae298331471c48e, type: 3}
+    - m_Name: Cruiser_Death_3p5s_025
+      m_Hash: 953463668
+      m_Sprite: {fileID: 21300000, guid: 792cb579bb119e9449d78b1a13ae330e, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 792cb579bb119e9449d78b1a13ae330e, type: 3}
+    - m_Name: Cruiser_Death_3p5s_026
+      m_Hash: 568189646
+      m_Sprite: {fileID: 21300000, guid: 88e9f6b11cd236a4f8a58ff7b9249aa2, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 88e9f6b11cd236a4f8a58ff7b9249aa2, type: 3}
+    - m_Name: Cruiser_Death_3p5s_027
+      m_Hash: 383439448
+      m_Sprite: {fileID: 21300000, guid: ee7c738d6552b5e4ba14f444f88ab2a1, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: ee7c738d6552b5e4ba14f444f88ab2a1, type: 3}
+    - m_Name: Cruiser_Death_3p5s_028
+      m_Hash: 107335625
+      m_Sprite: {fileID: 21300000, guid: 37775cf0dc5ba8c47938574a1343fac4, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 37775cf0dc5ba8c47938574a1343fac4, type: 3}
+    - m_Name: Cruiser_Death_3p5s_029
+      m_Hash: 828571487
+      m_Sprite: {fileID: 21300000, guid: 8fbf254fb3027644abf310800031c3db, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 8fbf254fb3027644abf310800031c3db, type: 3}
+    - m_Name: Cruiser_Death_3p5s_030
+      m_Hash: 296056506
+      m_Sprite: {fileID: 21300000, guid: c4c486c926d024646b0b94aa2e7c4c31, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: c4c486c926d024646b0b94aa2e7c4c31, type: 3}
+    - m_Name: Cruiser_Death_3p5s_031
+      m_Hash: 648169004
+      m_Sprite: {fileID: 21300000, guid: 6a4883ab6d09a6845ad9d27907917875, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 6a4883ab6d09a6845ad9d27907917875, type: 3}
+    - m_Name: Cruiser_Death_3p5s_032
+      m_Hash: 1068177302
+      m_Sprite: {fileID: 21300000, guid: ba8fa71a7e5632143b52075e360548c8, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: ba8fa71a7e5632143b52075e360548c8, type: 3}
+    - m_Name: Cruiser_Death_3p5s_033
+      m_Hash: 145499904
+      m_Sprite: {fileID: 21300000, guid: 3f6e388cad6bbc94c83f0acce874abe2, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 3f6e388cad6bbc94c83f0acce874abe2, type: 3}
+    - m_Name: Cruiser_Death_3p5s_034
+      m_Hash: 382251683
+      m_Sprite: {fileID: 21300000, guid: 1ed2a0cc1bacf664fba3bbc24859f691, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 1ed2a0cc1bacf664fba3bbc24859f691, type: 3}
+    - m_Name: Cruiser_Death_3p5s_035
+      m_Hash: 567247413
+      m_Sprite: {fileID: 21300000, guid: 7028eea0582f42b409221d9e1a3656c6, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 7028eea0582f42b409221d9e1a3656c6, type: 3}
+    - m_Name: Cruiser_Death_3p5s_036
+      m_Hash: 952554383
+      m_Sprite: {fileID: 21300000, guid: c26fc346afa9c9a4b9ba23f31d30b054, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: c26fc346afa9c9a4b9ba23f31d30b054, type: 3}
+    - m_Name: Cruiser_Death_3p5s_037
+      m_Hash: 264364825
+      m_Sprite: {fileID: 21300000, guid: 8b12a7f5fb19e17489231782ebfc3a32, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 8b12a7f5fb19e17489231782ebfc3a32, type: 3}
+    - m_Name: Cruiser_Death_3p5s_038
+      m_Hash: 528416392
+      m_Sprite: {fileID: 21300000, guid: b800fcc9aa7610c47938d47998608321, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: b800fcc9aa7610c47938d47998608321, type: 3}
+    - m_Name: Cruiser_Death_3p5s_039
+      m_Hash: 679071262
+      m_Sprite: {fileID: 21300000, guid: 8748f3f13edebed43aac586be0519aeb, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 8748f3f13edebed43aac586be0519aeb, type: 3}
+    - m_Name: Cruiser_Death_3p5s_040
+      m_Hash: 518316157
+      m_Sprite: {fileID: 21300000, guid: b31eda6bf9cb9524aa107a1c75790dea, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: b31eda6bf9cb9524aa107a1c75790dea, type: 3}
+    - m_Name: Cruiser_Death_3p5s_041
+      m_Hash: 702796011
+      m_Sprite: {fileID: 21300000, guid: 1d989d6ee203fff4bb46c11539d24033, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 1d989d6ee203fff4bb46c11539d24033, type: 3}
+    - m_Name: Cruiser_Death_3p5s_042
+      m_Hash: 820674897
+      m_Sprite: {fileID: 21300000, guid: 3ad0d85ab35044149bf203bb1ed27b16, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 3ad0d85ab35044149bf203bb1ed27b16, type: 3}
+    - m_Name: Cruiser_Death_3p5s_043
+      m_Hash: 133018055
+      m_Sprite: {fileID: 21300000, guid: e9bc88a76f848db4ba7a1f410e52eb2d, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: e9bc88a76f848db4ba7a1f410e52eb2d, type: 3}
+    - m_Name: Cruiser_Death_3p5s_044
+      m_Hash: 428418148
+      m_Sprite: {fileID: 21300000, guid: 240012d839d37ba4a9c66599e877328c, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 240012d839d37ba4a9c66599e877328c, type: 3}
+    - m_Name: Cruiser_Death_3p5s_045
+      m_Hash: 781063410
+      m_Sprite: {fileID: 21300000, guid: 2bc7e979bf40a454dae633e050bba3f4, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 2bc7e979bf40a454dae633e050bba3f4, type: 3}
+    - m_Name: Cruiser_Death_3p5s_046
+      m_Hash: 931611976
+      m_Sprite: {fileID: 21300000, guid: 1d83dac6f6274814bb01116ed7daf18d, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 1d83dac6f6274814bb01116ed7daf18d, type: 3}
+    - m_Name: Cruiser_Death_3p5s_047
+      m_Hash: 8418782
+      m_Sprite: {fileID: 21300000, guid: 44fbbcbdc70713f4e93982b78b4e9c12, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 44fbbcbdc70713f4e93982b78b4e9c12, type: 3}
+    - m_Name: Cruiser_Death_3p5s_048
+      m_Hash: 272590927
+      m_Sprite: {fileID: 21300000, guid: 80bf457e135b4f6498290da3d8e9ad4e, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 80bf457e135b4f6498290da3d8e9ad4e, type: 3}
+    - m_Name: Cruiser_Death_3p5s_049
+      m_Hash: 658004185
+      m_Sprite: {fileID: 21300000, guid: b656997ad081d1542803ed56d82935f8, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: b656997ad081d1542803ed56d82935f8, type: 3}
+    - m_Name: Cruiser_Death_3p5s_050
+      m_Hash: 134205756
+      m_Sprite: {fileID: 21300000, guid: ac0ab73c152d3cb4bb4be66176c7c128, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: ac0ab73c152d3cb4bb4be66176c7c128, type: 3}
+    - m_Name: Cruiser_Death_3p5s_051
+      m_Hash: 821617066
+      m_Sprite: {fileID: 21300000, guid: dbc59928a7f432f439e5fa6bde16f926, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: dbc59928a7f432f439e5fa6bde16f926, type: 3}
+    - m_Name: Cruiser_Death_3p5s_052
+      m_Hash: 703705104
+      m_Sprite: {fileID: 21300000, guid: b502d1a84f0d9f4489b5a2e54584cfdc, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: b502d1a84f0d9f4489b5a2e54584cfdc, type: 3}
+    - m_Name: Cruiser_Death_3p5s_053
+      m_Hash: 519471238
+      m_Sprite: {fileID: 21300000, guid: d68a90cc4cd51904ba769f35bc35649a, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: d68a90cc4cd51904ba769f35bc35649a, type: 3}
+    - m_Name: Cruiser_Death_3p5s_054
+      m_Hash: 9573669
+      m_Sprite: {fileID: 21300000, guid: 8efeb8ce3e849c644879f9e9d6ee93d7, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 8efeb8ce3e849c644879f9e9d6ee93d7, type: 3}
+    - m_Name: Cruiser_Death_3p5s_055
+      m_Hash: 932521395
+      m_Sprite: {fileID: 21300000, guid: 82ac27df23c611b4b985bec87ec75b85, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 82ac27df23c611b4b985bec87ec75b85, type: 3}
+    - m_Name: Cruiser_Death_3p5s_056
+      m_Hash: 782005257
+      m_Sprite: {fileID: 21300000, guid: 6d69f7886a557004cbe5123ce1edfd13, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 6d69f7886a557004cbe5123ce1edfd13, type: 3}
+    - m_Name: Cruiser_Death_3p5s_057
+      m_Hash: 429606047
+      m_Sprite: {fileID: 21300000, guid: f60c988dbdce1764f9dbac71597e06d1, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: f60c988dbdce1764f9dbac71597e06d1, type: 3}
+    - m_Name: Cruiser_Death_3p5s_058
+      m_Hash: 153377038
+      m_Sprite: {fileID: 21300000, guid: 93011a93aaae1464b9d487f49210d4bd, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 93011a93aaae1464b9d487f49210d4bd, type: 3}
+    - m_Name: Cruiser_Death_3p5s_059
+      m_Hash: 1042508184
+      m_Sprite: {fileID: 21300000, guid: a7a7835bf17cff544acabcdb17b488b0, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: a7a7835bf17cff544acabcdb17b488b0, type: 3}
+    - m_Name: Cruiser_Death_3p5s_060
+      m_Hash: 751993599
+      m_Sprite: {fileID: 21300000, guid: 7ab1fb2362dd7bb4c9aacf478a5519f2, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 7ab1fb2362dd7bb4c9aacf478a5519f2, type: 3}
+    - m_Name: Cruiser_Death_3p5s_061
+      m_Hash: 466989673
+      m_Sprite: {fileID: 21300000, guid: 9f9032137ff4f55498463c1eb7b74b4a, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 9f9032137ff4f55498463c1eb7b74b4a, type: 3}
+    - m_Name: Cruiser_Death_3p5s_062
+      m_Hash: 48030675
+      m_Sprite: {fileID: 21300000, guid: 17ddd34625e9cf84cbd8a4c3bd5e79e9, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 17ddd34625e9cf84cbd8a4c3bd5e79e9, type: 3}
+    - m_Name: Cruiser_Death_3p5s_063
+      m_Hash: 903598917
+      m_Sprite: {fileID: 21300000, guid: 5ce4e5599adb63a46bb960ee0677f61a, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 5ce4e5599adb63a46bb960ee0677f61a, type: 3}
+    - m_Name: Cruiser_Death_3p5s_064
+      m_Hash: 733955814
+      m_Sprite: {fileID: 21300000, guid: 588e67c495ac8e54d91e7224d4f4602a, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 588e67c495ac8e54d91e7224d4f4602a, type: 3}
+    - m_Name: Cruiser_Death_3p5s_065
+      m_Hash: 481850992
+      m_Sprite: {fileID: 21300000, guid: 1547e85a4f4a50a488108706a95b164a, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 1547e85a4f4a50a488108706a95b164a, type: 3}
+    - m_Name: Cruiser_Death_3p5s_066
+      m_Hash: 95496138
+      m_Sprite: {fileID: 21300000, guid: e366622ff6e105c439c43968d50eb18a, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: e366622ff6e105c439c43968d50eb18a, type: 3}
+    - m_Name: Cruiser_Death_3p5s_067
+      m_Hash: 850794332
+      m_Sprite: {fileID: 21300000, guid: a873c5464e730db4987ef3dfec5b9a78, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: a873c5464e730db4987ef3dfec5b9a78, type: 3}
+    - m_Name: Cruiser_Death_3p5s_068
+      m_Hash: 571017933
+      m_Sprite: {fileID: 21300000, guid: daed3a7665d05d64cab874aa0ffbbca6, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: daed3a7665d05d64cab874aa0ffbbca6, type: 3}
+    - m_Name: Cruiser_Death_3p5s_069
+      m_Hash: 353253979
+      m_Sprite: {fileID: 21300000, guid: 91bf3e7157946c54a8239ee82dc72231, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 91bf3e7157946c54a8239ee82dc72231, type: 3}
+    - m_Name: Cruiser_Death_3p5s_070
+      m_Hash: 902411198
+      m_Sprite: {fileID: 21300000, guid: 8a11b06d7ea4536449597dd2750e8a78, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 8a11b06d7ea4536449597dd2750e8a78, type: 3}
+    - m_Name: Cruiser_Death_3p5s_071
+      m_Hash: 47088424
+      m_Sprite: {fileID: 21300000, guid: 4d974d9e4df29be40b356ea660075d86, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 4d974d9e4df29be40b356ea660075d86, type: 3}
+    - m_Name: Cruiser_Death_3p5s_072
+      m_Hash: 466080402
+      m_Sprite: {fileID: 21300000, guid: f15da112e5608ba4d98953c3161cf104, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: f15da112e5608ba4d98953c3161cf104, type: 3}
+    - m_Name: Cruiser_Death_3p5s_073
+      m_Hash: 750838276
+      m_Sprite: {fileID: 21300000, guid: 1d600f0e9439c7f41983f173473f8927, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 1d600f0e9439c7f41983f173473f8927, type: 3}
+    - m_Name: Cruiser_Death_3p5s_074
+      m_Hash: 849639335
+      m_Sprite: {fileID: 21300000, guid: be9007175a8efe141ae25a122faea36d, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: be9007175a8efe141ae25a122faea36d, type: 3}
+    - m_Name: Cruiser_Death_3p5s_075
+      m_Hash: 94586673
+      m_Sprite: {fileID: 21300000, guid: 2b3dc239b2dd0464bb9b7155f373c1ab, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 2b3dc239b2dd0464bb9b7155f373c1ab, type: 3}
+    - m_Name: Cruiser_Death_3p5s_076
+      m_Hash: 480908939
+      m_Sprite: {fileID: 21300000, guid: 5e7a26af6e92dd54bb97062f0509a3d9, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 5e7a26af6e92dd54bb97062f0509a3d9, type: 3}
+    - m_Name: Cruiser_Death_3p5s_077
+      m_Hash: 732767773
+      m_Sprite: {fileID: 21300000, guid: 08d1e7e648c5c5f448edf00c4148028e, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 08d1e7e648c5c5f448edf00c4148028e, type: 3}
+    - m_Name: Cruiser_Death_3p5s_078
+      m_Hash: 991050636
+      m_Sprite: {fileID: 21300000, guid: 29205f769b4073b4e8b2027558b121ca, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 29205f769b4073b4e8b2027558b121ca, type: 3}
+    - m_Name: Cruiser_Death_3p5s_079
+      m_Hash: 202705690
+      m_Sprite: {fileID: 21300000, guid: 1d8d6561a56a4b240be2a66fd3fea078, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 1d8d6561a56a4b240be2a66fd3fea078, type: 3}
+    - m_Name: Cruiser_Death_3p5s_080
+      m_Hash: 844214129
+      m_Sprite: {fileID: 21300000, guid: 985a124c9b283194b96616afd07ced03, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 985a124c9b283194b96616afd07ced03, type: 3}
+    - m_Name: Cruiser_Death_3p5s_081
+      m_Hash: 89563111
+      m_Sprite: {fileID: 21300000, guid: 599ef3b3875156b4e8166153e2e981bf, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 599ef3b3875156b4e8166153e2e981bf, type: 3}
+    - m_Name: Cruiser_Death_3p5s_082
+      m_Hash: 476040797
+      m_Sprite: {fileID: 21300000, guid: 3d52fd4608a974b49a0ba9fe7a798f4d, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 3d52fd4608a974b49a0ba9fe7a798f4d, type: 3}
+    - m_Name: Cruiser_Death_3p5s_083
+      m_Hash: 727252683
+      m_Sprite: {fileID: 21300000, guid: 5bce305679709204685d8207017a1245, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 5bce305679709204685d8207017a1245, type: 3}
+    - m_Name: Cruiser_Death_3p5s_084
+      m_Hash: 893152104
+      m_Sprite: {fileID: 21300000, guid: d7e8e97cb98c12d479376074b59ec4e1, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: d7e8e97cb98c12d479376074b59ec4e1, type: 3}
+    m_FromMain: 0
+    m_EntryOverrideCount: 0
+  - m_Name: Cruiser_PhaseTransition_3p5s
+    m_Hash: 523225889
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: Cruiser_PhaseTransition_3p5s_001
+      m_Hash: 879089219
+      m_Sprite: {fileID: 21300000, guid: d6f96777877f047459b1c02a60c0f428, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: d6f96777877f047459b1c02a60c0f428, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_002
+      m_Hash: 762087417
+      m_Sprite: {fileID: 21300000, guid: 7f25673ce08d8014ebcb9dacc0cfade0, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 7f25673ce08d8014ebcb9dacc0cfade0, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_003
+      m_Hash: 443266927
+      m_Sprite: {fileID: 21300000, guid: daa74d2e42638454eb636d2cec888120, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: daa74d2e42638454eb636d2cec888120, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_004
+      m_Hash: 68100812
+      m_Sprite: {fileID: 21300000, guid: 4a44beb5093096b4999fa8550c9325bd, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 4a44beb5093096b4999fa8550c9325bd, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_005
+      m_Hash: 856167002
+      m_Sprite: {fileID: 21300000, guid: fbd10abe221937b48987b2d5fd2214a5, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: fbd10abe221937b48987b2d5fd2214a5, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_006
+      m_Hash: 704725984
+      m_Sprite: {fileID: 21300000, guid: 0969089a6fb9b3d41b48f8aee18806af, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 0969089a6fb9b3d41b48f8aee18806af, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_007
+      m_Hash: 486962038
+      m_Sprite: {fileID: 21300000, guid: 562184fd2ca83f240812c04cb89d3eeb, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 562184fd2ca83f240812c04cb89d3eeb, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_008
+      m_Hash: 230256359
+      m_Sprite: {fileID: 21300000, guid: 9de0fa5c05f5a9c48b2fe549282edd72, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 9de0fa5c05f5a9c48b2fe549282edd72, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_009
+      m_Hash: 985554545
+      m_Sprite: {fileID: 21300000, guid: 23b71a0035dabf341bff345fa48805b2, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 23b71a0035dabf341bff345fa48805b2, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_010
+      m_Hash: 444192660
+      m_Sprite: {fileID: 21300000, guid: 296b2318e39045240a1061030fc6c169, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 296b2318e39045240a1061030fc6c169, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_011
+      m_Hash: 763291394
+      m_Sprite: {fileID: 21300000, guid: 8a02977ec91a4874282a2c168e0e50fb, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 8a02977ec91a4874282a2c168e0e50fb, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_012
+      m_Hash: 880260792
+      m_Sprite: {fileID: 21300000, guid: 008d88ef3a734894e965de3546611beb, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 008d88ef3a734894e965de3546611beb, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_013
+      m_Hash: 57706030
+      m_Sprite: {fileID: 21300000, guid: 342eaabd413d10c4e9b5c896651b23da, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 342eaabd413d10c4e9b5c896651b23da, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_014
+      m_Hash: 487854989
+      m_Sprite: {fileID: 21300000, guid: 87d3b0c7f59e44e428e848b2b66acbe2, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 87d3b0c7f59e44e428e848b2b66acbe2, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_015
+      m_Hash: 705897243
+      m_Sprite: {fileID: 21300000, guid: 439a82b22c02f1e46a9e3445f98abc92, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 439a82b22c02f1e46a9e3445f98abc92, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_016
+      m_Hash: 857371297
+      m_Sprite: {fileID: 21300000, guid: 15ed78fd06b59ee4a8e5c9c3c00def47, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 15ed78fd06b59ee4a8e5c9c3c00def47, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_017
+      m_Hash: 69026359
+      m_Sprite: {fileID: 21300000, guid: 93b6c56adce03ce44b5b785e5bbb61e0, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 93b6c56adce03ce44b5b785e5bbb61e0, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_018
+      m_Hash: 346185638
+      m_Sprite: {fileID: 21300000, guid: 6e12d23c6f47db4459717a7243ff30df, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 6e12d23c6f47db4459717a7243ff30df, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_019
+      m_Hash: 598044464
+      m_Sprite: {fileID: 21300000, guid: dc9a2ac600cf71440b41e81fc921aacb, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: dc9a2ac600cf71440b41e81fc921aacb, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_020
+      m_Hash: 827622487
+      m_Sprite: {fileID: 21300000, guid: 8f13c43f4a9c89f40b656f1098a58220, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 8f13c43f4a9c89f40b656f1098a58220, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_021
+      m_Hash: 106149057
+      m_Sprite: {fileID: 21300000, guid: dfd4152080fcac847a2e600281743def, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: dfd4152080fcac847a2e600281743def, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_022
+      m_Hash: 526050683
+      m_Sprite: {fileID: 21300000, guid: 767da6e7d7e5d27408fb77b6f7264293, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 767da6e7d7e5d27408fb77b6f7264293, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_023
+      m_Hash: 677238253
+      m_Sprite: {fileID: 21300000, guid: a662d5950bfafa2468e878bd5bc3d0c4, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: a662d5950bfafa2468e878bd5bc3d0c4, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_024
+      m_Hash: 909721678
+      m_Sprite: {fileID: 21300000, guid: 921dc090fd71a9944b6ece11da31e161, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 921dc090fd71a9944b6ece11da31e161, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_025
+      m_Hash: 20869336
+      m_Sprite: {fileID: 21300000, guid: 8626eb4d16174b6438f9b7aa2d200c92, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 8626eb4d16174b6438f9b7aa2d200c92, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_026
+      m_Hash: 406266210
+      m_Sprite: {fileID: 21300000, guid: dba137d1413291f42ba4f0ee5af3da64, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: dba137d1413291f42ba4f0ee5af3da64, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_027
+      m_Hash: 791679476
+      m_Sprite: {fileID: 21300000, guid: 346c944d371a6684199b18a3feb73456, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 346c944d371a6684199b18a3feb73456, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_028
+      m_Hash: 1066339429
+      m_Sprite: {fileID: 21300000, guid: c0bb4935fa78aa347a50a755cc52f0fb, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: c0bb4935fa78aa347a50a755cc52f0fb, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_029
+      m_Hash: 143146227
+      m_Sprite: {fileID: 21300000, guid: 2b43c93e22798b845aa0d850e3fcdc7b, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 2b43c93e22798b845aa0d850e3fcdc7b, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_030
+      m_Hash: 676312342
+      m_Sprite: {fileID: 21300000, guid: b3528c7c9e80bd14689f86dbbad3171c, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: b3528c7c9e80bd14689f86dbbad3171c, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_031
+      m_Hash: 524846464
+      m_Sprite: {fileID: 21300000, guid: 296eb7ef0d38e9249b3e27ac9b53620b, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 296eb7ef0d38e9249b3e27ac9b53620b, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_032
+      m_Hash: 104977466
+      m_Sprite: {fileID: 21300000, guid: d0a154b1276279848a3a561fff181050, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: d0a154b1276279848a3a561fff181050, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_033
+      m_Hash: 826729644
+      m_Sprite: {fileID: 21300000, guid: a3a53f3f498603c4199323c9517e5f76, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: a3a53f3f498603c4199323c9517e5f76, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_034
+      m_Hash: 790786319
+      m_Sprite: {fileID: 21300000, guid: 30e701a8fb7310c40960f35bf3b7b6b8, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 30e701a8fb7310c40960f35bf3b7b6b8, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_035
+      m_Hash: 405094809
+      m_Sprite: {fileID: 21300000, guid: 88277bb6cd116404886bcd21ca3bbcbd, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 88277bb6cd116404886bcd21ca3bbcbd, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_036
+      m_Hash: 19664931
+      m_Sprite: {fileID: 21300000, guid: 04e582d178ad4df40b15490816da43c2, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 04e582d178ad4df40b15490816da43c2, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_037
+      m_Hash: 908796085
+      m_Sprite: {fileID: 21300000, guid: c07cb5fba05c18848862438386299ea6, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: c07cb5fba05c18848862438386299ea6, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_038
+      m_Hash: 647249188
+      m_Sprite: {fileID: 21300000, guid: 486c7daaa4d9eb64c90707e13aff6fb5, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 486c7daaa4d9eb64c90707e13aff6fb5, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_039
+      m_Hash: 294849970
+      m_Sprite: {fileID: 21300000, guid: 9a05f5fdf82809249b1246e4a2e1db9d, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 9a05f5fdf82809249b1246e4a2e1db9d, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_040
+      m_Hash: 655238097
+      m_Sprite: {fileID: 21300000, guid: ffcf975677dbb8a45bf6ce83d3dd0a6e, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: ffcf975677dbb8a45bf6ce83d3dd0a6e, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_041
+      m_Hash: 269030215
+      m_Sprite: {fileID: 21300000, guid: 54b79bd6179ae0a40a023d0cd3dfef24, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 54b79bd6179ae0a40a023d0cd3dfef24, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_042
+      m_Hash: 151012093
+      m_Sprite: {fileID: 21300000, guid: 7a18fa7ea794c4546989f955aefbfd2b, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 7a18fa7ea794c4546989f955aefbfd2b, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_043
+      m_Hash: 1040675435
+      m_Sprite: {fileID: 21300000, guid: 3a46fbbf9306de8418453f7475a5c264, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 3a46fbbf9306de8418453f7475a5c264, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_044
+      m_Hash: 543418312
+      m_Sprite: {fileID: 21300000, guid: 10c35d0199dc73b45b22bb4fd63d33d4, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 10c35d0199dc73b45b22bb4fd63d33d4, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_045
+      m_Hash: 392484702
+      m_Sprite: {fileID: 21300000, guid: f164290cb03a0294daa6758e929922f2, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: f164290cb03a0294daa6758e929922f2, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_046
+      m_Hash: 242058980
+      m_Sprite: {fileID: 21300000, guid: 0eecf9ab960e87246ba6233767dd80a4, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 0eecf9ab960e87246ba6233767dd80a4, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_047
+      m_Hash: 963294834
+      m_Sprite: {fileID: 21300000, guid: 4fabd36c2c696154490f2948131db5ca, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 4fabd36c2c696154490f2948131db5ca, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_048
+      m_Hash: 701869027
+      m_Sprite: {fileID: 21300000, guid: 896fc788000fac64098574e3ddd9c205, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 896fc788000fac64098574e3ddd9c205, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_049
+      m_Hash: 517118837
+      m_Sprite: {fileID: 21300000, guid: da7efb9e635d1a24781bea006a9171e0, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: da7efb9e635d1a24781bea006a9171e0, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_050
+      m_Hash: 1041568400
+      m_Sprite: {fileID: 21300000, guid: 34cc85154209f2c4e8bba7d873e546be, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 34cc85154209f2c4e8bba7d873e546be, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_051
+      m_Hash: 152183302
+      m_Sprite: {fileID: 21300000, guid: ede44e4c1bfefba43a87bb1e4b6ab6b4, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: ede44e4c1bfefba43a87bb1e4b6ab6b4, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_052
+      m_Hash: 270234556
+      m_Sprite: {fileID: 21300000, guid: dbf0364ab08e07149ba5dd55d15a9901, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: dbf0364ab08e07149ba5dd55d15a9901, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_053
+      m_Hash: 656163626
+      m_Sprite: {fileID: 21300000, guid: 8e64dcd262e731547a0f15b388e3b337, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 8e64dcd262e731547a0f15b388e3b337, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_054
+      m_Hash: 964220553
+      m_Sprite: {fileID: 21300000, guid: ee3e6f4bc3c6fd344ad081e50fc48fda, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: ee3e6f4bc3c6fd344ad081e50fc48fda, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_055
+      m_Hash: 243263007
+      m_Sprite: {fileID: 21300000, guid: 5e6d635c24cbc7b4c9d2be1bd5e58680, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 5e6d635c24cbc7b4c9d2be1bd5e58680, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_056
+      m_Hash: 393656229
+      m_Sprite: {fileID: 21300000, guid: 12512b77db156cd4da8adb5bf2fff337, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 12512b77db156cd4da8adb5bf2fff337, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_057
+      m_Hash: 544311091
+      m_Sprite: {fileID: 21300000, guid: 635c9ca4d81c12249a7e9e6ce67e4a49, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 635c9ca4d81c12249a7e9e6ce67e4a49, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_058
+      m_Hash: 818846370
+      m_Sprite: {fileID: 21300000, guid: da6eee759c8a09441ab11e433cbb2cb7, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: da6eee759c8a09441ab11e433cbb2cb7, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_059
+      m_Hash: 130656820
+      m_Sprite: {fileID: 21300000, guid: 424a4ddac9929ce4b9d0dafbcdf4607f, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 424a4ddac9929ce4b9d0dafbcdf4607f, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_060
+      m_Hash: 356008275
+      m_Sprite: {fileID: 21300000, guid: 6ad9ed922bf37ed46a9e225e302f78c8, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 6ad9ed922bf37ed46a9e225e302f78c8, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_061
+      m_Hash: 574583237
+      m_Sprite: {fileID: 21300000, guid: ebf3b9bc6e1b2a44a801954d91c044e4, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: ebf3b9bc6e1b2a44a801954d91c044e4, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_062
+      m_Hash: 993403007
+      m_Sprite: {fileID: 21300000, guid: 7542b91bfa932c04d98d6ba7b5eff77b, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 7542b91bfa932c04d98d6ba7b5eff77b, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_063
+      m_Hash: 204542185
+      m_Sprite: {fileID: 21300000, guid: 2c03a34780a345643986f7a6a646ce23, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 2c03a34780a345643986f7a6a646ce23, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_064
+      m_Hash: 307594570
+      m_Sprite: {fileID: 21300000, guid: ea7a45f0006025a48bd88345cdb557e8, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: ea7a45f0006025a48bd88345cdb557e8, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_065
+      m_Hash: 626177500
+      m_Sprite: {fileID: 21300000, guid: dfb8ecbdd3c5f8740a40e8f129744d1b, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: dfb8ecbdd3c5f8740a40e8f129744d1b, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_066
+      m_Hash: 1012655206
+      m_Sprite: {fileID: 21300000, guid: db38929681b1a6d4289d5c31f2532296, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: db38929681b1a6d4289d5c31f2532296, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_067
+      m_Hash: 190633200
+      m_Sprite: {fileID: 21300000, guid: 444668ed31ab5ab4bbf75471897b4c6b, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 444668ed31ab5ab4bbf75471897b4c6b, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_068
+      m_Hash: 467913057
+      m_Sprite: {fileID: 21300000, guid: ce52b5570833393499e7a3075fdc00c9, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: ce52b5570833393499e7a3075fdc00c9, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_069
+      m_Hash: 753203703
+      m_Sprite: {fileID: 21300000, guid: 6f47073e6e62c5b46b4e4a2271a6e1a4, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 6f47073e6e62c5b46b4e4a2271a6e1a4, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_070
+      m_Hash: 203649042
+      m_Sprite: {fileID: 21300000, guid: 46c658fdcabf63044a844735a714daba, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 46c658fdcabf63044a844735a714daba, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_071
+      m_Hash: 992231556
+      m_Sprite: {fileID: 21300000, guid: 327d7ac390a1e1e4cb75d2ae64f1e4c5, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 327d7ac390a1e1e4cb75d2ae64f1e4c5, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_072
+      m_Hash: 573378878
+      m_Sprite: {fileID: 21300000, guid: 60bb1b3327fba48469a0946a2b67b890, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 60bb1b3327fba48469a0946a2b67b890, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_073
+      m_Hash: 355082664
+      m_Sprite: {fileID: 21300000, guid: baf116675d9145143b7b40df51e95833, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: baf116675d9145143b7b40df51e95833, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_074
+      m_Hash: 189707275
+      m_Sprite: {fileID: 21300000, guid: cb956c593eab0e547a5ac373850d472d, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: cb956c593eab0e547a5ac373850d472d, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_075
+      m_Hash: 1011451037
+      m_Sprite: {fileID: 21300000, guid: fa82dea1054801f42ae99268b75b2f8d, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: fa82dea1054801f42ae99268b75b2f8d, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_076
+      m_Hash: 625005863
+      m_Sprite: {fileID: 21300000, guid: 577ff7c13a26e4a4f91ca53b3f234450, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 577ff7c13a26e4a4f91ca53b3f234450, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_077
+      m_Hash: 306701745
+      m_Sprite: {fileID: 21300000, guid: 857e572cf52e2b44f8a8c28d64f7f6af, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 857e572cf52e2b44f8a8c28d64f7f6af, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_078
+      m_Hash: 49870880
+      m_Sprite: {fileID: 21300000, guid: c88953e90a738d54aa109331f7bc1961, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: c88953e90a738d54aa109331f7bc1961, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_079
+      m_Hash: 905955510
+      m_Sprite: {fileID: 21300000, guid: 29e6759255abfce468363fa2a300c06f, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 29e6759255abfce468363fa2a300c06f, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_080
+      m_Hash: 196832477
+      m_Sprite: {fileID: 21300000, guid: 5b9c82cf1fcf1b1449fd5a4f3f02b95c, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 5b9c82cf1fcf1b1449fd5a4f3f02b95c, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_081
+      m_Hash: 1018977355
+      m_Sprite: {fileID: 21300000, guid: 09c6755f600b1524984760c2b07884eb, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 09c6755f600b1524984760c2b07884eb, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_082
+      m_Hash: 632622577
+      m_Sprite: {fileID: 21300000, guid: 73da51ee746179743bc1f8bba4f432a4, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 73da51ee746179743bc1f8bba4f432a4, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_083
+      m_Hash: 313671015
+      m_Sprite: {fileID: 21300000, guid: fc5eed497c9be1048b99d84b5a945a6c, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: fc5eed497c9be1048b99d84b5a945a6c, type: 3}
+    - m_Name: Cruiser_PhaseTransition_3p5s_084
+      m_Hash: 215394500
+      m_Sprite: {fileID: 21300000, guid: 8eb4a419d370ee44c9e009e9b816bebc, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 8eb4a419d370ee44c9e009e9b816bebc, type: 3}
+    m_FromMain: 0
+    m_EntryOverrideCount: 84
   m_PrimaryLibraryGUID: dc95bcfc5e2babc4b8548adc9583eb0f
-  m_ModificationHash: 639252482646171177
+  m_ModificationHash: 639258507815307210
   m_Version: 1

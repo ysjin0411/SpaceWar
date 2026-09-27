@@ -29,6 +29,9 @@ public sealed class BossAlienBarrageRoundConfig : ScriptableObject
     public int MissileCount => _missiles == null ? 0 : _missiles.Length;
 
     // 지정한 미사일 한 발의 설정을 반환한다.
+    /// <summary>
+    /// 지정한 미사일 한 발의 설정을 반환한다.
+    /// </summary>
     public MissileSettings GetMissileSettings(int index)
     {
         return _missiles[index];
@@ -51,7 +54,7 @@ public sealed class BossAlienBarrageRoundConfig : ScriptableObject
         // 이 미사일의 폭발 피해량이다.
         // 같은 회차의 폭발이 겹칠 때 피해를 합산할지는 실행 단계에서 정한다.
         [SerializeField, Min(0)]
-        private int _damage = 10;
+        private float _damage = 10;
 
         // 피해 반경에 맞춘 폭발 외형에 추가로 곱할 크기 배율이다.
         // 1이면 기준 크기, 1.2이면 외형만 20% 커진다.
@@ -67,7 +70,7 @@ public sealed class BossAlienBarrageRoundConfig : ScriptableObject
         // 실행 코드가 읽을 미사일별 설정이다.
         public Vector2 WorldPosition => _worldPosition;
         public float Radius => _radius;
-        public int Damage => _damage;
+        public float Damage => _damage;
         public float ExplosionVisualScale => _explosionVisualScale;
         public Sprite MissileSprite => _missileSprite;
     }

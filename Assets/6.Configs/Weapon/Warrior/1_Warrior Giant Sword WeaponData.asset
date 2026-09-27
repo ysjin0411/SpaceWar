@@ -12,15 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c420b9c456cfa094a9e96f54c4f32a05, type: 3}
   m_Name: 1_Warrior Giant Sword WeaponData
   m_EditorClassIdentifier: 
-  _equipmentPreviewScale: 2.5
+  _equipmentPreviewScale: 3.3
   _equipmentPreviewOffset: {x: 0, y: 0}
   _id: warrior_giantsword
   _name: Giant Sword
   _type: 5
   _icon: {fileID: -7839315311559736734, guid: 19ce3fdb5e773fa4aaf15feaa423f8c4, type: 3}
   _projectilePrefab: {fileID: 0}
-  _playerSpriteLibrary: {fileID: 7108339969198208228, guid: 3a126447cd06c8a41929bfe57b6b601f, type: 3}
-  _characterSelectPreviewScale: 2.8
+  _muzzleEffectPrefab: {fileID: 0}
+  _lazerChargeDuration: 3
+  _lazerMinimumChargeDuration: 0.5
+  _lazerMaxDamageMultiplier: 3
+  _playerSpriteLibrary: {fileID: 7108339969198208228, guid: 8cfed8262fe99fa4d9701f5aa7829674, type: 3}
+  _characterSelectPreviewScale: 3.5
   _characterSelectPreviewOffset: {x: -34, y: 23}
   _baseDamage: 30
   _baseCooltime: 1
@@ -39,3 +43,6 @@ MonoBehaviour:
   _minimumCooltime: 0.05
   _info: "\uAC70\uB300\uD55C \uAC80\uC744 \uD718\uB450\uB978\uB2E4."
   _upgradeSelectionInfo: "Giant Sword\uB97C \uAC15\uD654\uD55C\uB2E4."
+  _weaponMoveSpeed: 8
+  _lazerHitsPerSecond: 10
+  _lazerHitsPerSecondUpgrade: 1

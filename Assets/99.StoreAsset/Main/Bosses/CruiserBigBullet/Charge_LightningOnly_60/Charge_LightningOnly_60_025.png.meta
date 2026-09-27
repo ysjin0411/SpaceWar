@@ -1,0 +1,572 @@
+fileFormatVersion: 2
+guid: f25de98e17639474fb552bddf144e727
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 6950538908741473195
+    second: Charge_LightningOnly_60_025_0
+  - first:
+      213: -8299177271867135995
+    second: Charge_LightningOnly_60_025_1
+  - first:
+      213: 8131123848085160893
+    second: Charge_LightningOnly_60_025_2
+  - first:
+      213: 858605081026832922
+    second: Charge_LightningOnly_60_025_3
+  - first:
+      213: -5109035201608025815
+    second: Charge_LightningOnly_60_025_4
+  - first:
+      213: 3255646511808078842
+    second: Charge_LightningOnly_60_025_5
+  - first:
+      213: -201637937273036921
+    second: Charge_LightningOnly_60_025_6
+  - first:
+      213: -1861738067674266565
+    second: Charge_LightningOnly_60_025_7
+  - first:
+      213: -1290924463418653282
+    second: Charge_LightningOnly_60_025_8
+  - first:
+      213: -3206844383461620834
+    second: Charge_LightningOnly_60_025_9
+  - first:
+      213: 5155719658902539551
+    second: Charge_LightningOnly_60_025_10
+  - first:
+      213: -6740692874546958216
+    second: Charge_LightningOnly_60_025_11
+  - first:
+      213: 7523175957537456477
+    second: Charge_LightningOnly_60_025_12
+  - first:
+      213: -7070648245496715622
+    second: Charge_LightningOnly_60_025_13
+  - first:
+      213: -4768101896912749905
+    second: Charge_LightningOnly_60_025_14
+  - first:
+      213: 1841611878843545003
+    second: Charge_LightningOnly_60_025_15
+  - first:
+      213: -8974368013309815232
+    second: Charge_LightningOnly_60_025_16
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Charge_LightningOnly_60_025_0
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 333
+        width: 105
+        height: 89
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba3111ddf46457060800000000000000
+      internalID: 6950538908741473195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Charge_LightningOnly_60_025_1
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 416
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5082d5efd3663dc80800000000000000
+      internalID: -8299177271867135995
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Charge_LightningOnly_60_025_2
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 385
+        width: 50
+        height: 102
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db3c2dd2f0e87d070800000000000000
+      internalID: 8131123848085160893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Charge_LightningOnly_60_025_3
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 338
+        width: 81
+        height: 78
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a1a23f8a5c06aeb00800000000000000
+      internalID: 858605081026832922
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Charge_LightningOnly_60_025_4
+      rect:
+        serializedVersion: 2
+        x: 422
+        y: 414
+        width: 11
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 929ff2f8d8f0919b0800000000000000
+      internalID: -5109035201608025815
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Charge_LightningOnly_60_025_5
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 392
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af36f8ad0416e2d20800000000000000
+      internalID: 3255646511808078842
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Charge_LightningOnly_60_025_6
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 233
+        width: 87
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 78f19974d53a33df0800000000000000
+      internalID: -201637937273036921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Charge_LightningOnly_60_025_7
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 271
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b3404736717c926e0800000000000000
+      internalID: -1861738067674266565
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Charge_LightningOnly_60_025_8
+      rect:
+        serializedVersion: 2
+        x: 385
+        y: 231
+        width: 88
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e95c1164a07b51ee0800000000000000
+      internalID: -1290924463418653282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Charge_LightningOnly_60_025_9
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 267
+        width: 24
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9340d916000f73d0800000000000000
+      internalID: -3206844383461620834
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Charge_LightningOnly_60_025_10
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 224
+        width: 26
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f1d426ea6bbcc8740800000000000000
+      internalID: 5155719658902539551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Charge_LightningOnly_60_025_11
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 209
+        width: 19
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8703f985b8f3472a0800000000000000
+      internalID: -6740692874546958216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Charge_LightningOnly_60_025_12
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 93
+        width: 85
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5187c38ca0b76860800000000000000
+      internalID: 7523175957537456477
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Charge_LightningOnly_60_025_13
+      rect:
+        serializedVersion: 2
+        x: 227
+        y: 117
+        width: 11
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a96ed63f1e200ed90800000000000000
+      internalID: -7070648245496715622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Charge_LightningOnly_60_025_14
+      rect:
+        serializedVersion: 2
+        x: 233
+        y: 31
+        width: 53
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: faa36a5569c44ddb0800000000000000
+      internalID: -4768101896912749905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Charge_LightningOnly_60_025_15
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 98
+        width: 21
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba5fb9c1f38be8910800000000000000
+      internalID: 1841611878843545003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Charge_LightningOnly_60_025_16
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 93
+        width: 90
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0465a0317d3a47380800000000000000
+      internalID: -8974368013309815232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Charge_LightningOnly_60_025_0: 6950538908741473195
+      Charge_LightningOnly_60_025_1: -8299177271867135995
+      Charge_LightningOnly_60_025_10: 5155719658902539551
+      Charge_LightningOnly_60_025_11: -6740692874546958216
+      Charge_LightningOnly_60_025_12: 7523175957537456477
+      Charge_LightningOnly_60_025_13: -7070648245496715622
+      Charge_LightningOnly_60_025_14: -4768101896912749905
+      Charge_LightningOnly_60_025_15: 1841611878843545003
+      Charge_LightningOnly_60_025_16: -8974368013309815232
+      Charge_LightningOnly_60_025_2: 8131123848085160893
+      Charge_LightningOnly_60_025_3: 858605081026832922
+      Charge_LightningOnly_60_025_4: -5109035201608025815
+      Charge_LightningOnly_60_025_5: 3255646511808078842
+      Charge_LightningOnly_60_025_6: -201637937273036921
+      Charge_LightningOnly_60_025_7: -1861738067674266565
+      Charge_LightningOnly_60_025_8: -1290924463418653282
+      Charge_LightningOnly_60_025_9: -3206844383461620834
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

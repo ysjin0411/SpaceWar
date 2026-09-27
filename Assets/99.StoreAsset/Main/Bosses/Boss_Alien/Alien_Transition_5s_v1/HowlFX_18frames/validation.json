@@ -1,0 +1,18 @@
+{
+  "frame_count": 18,
+  "size": [
+    1254,
+    1254
+  ],
+  "fps": 24,
+  "duration": 0.75,
+  "start_at_transition_seconds": 4.208333333333333,
+  "effect_center_in_canvas": [
+    527,
+    720
+  ],
+  "alpha_transparency": true,
+  "clipped_frames": 0,
+  "first_last_frames_transparent": true,
+  "unity_tested": false
+}

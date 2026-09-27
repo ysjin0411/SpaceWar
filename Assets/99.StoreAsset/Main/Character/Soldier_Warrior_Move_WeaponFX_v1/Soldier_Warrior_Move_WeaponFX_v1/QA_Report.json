@@ -1,0 +1,67 @@
+{
+  "asset_png_count": 378,
+  "transparent_rgba": true,
+  "clipped_edges": [],
+  "empty_terminal_frames": [
+    "Soldier_WeaponFX\\Bullet\\Muzzle\\Bullet_Muzzle_06.png",
+    "Soldier_WeaponFX\\Lazer\\Muzzle\\Lazer_Muzzle_06.png",
+    "Soldier_WeaponFX\\Lazer\\Hit\\Lazer_Hit_10.png",
+    "Soldier_WeaponFX\\Sniper\\Muzzle\\Sniper_Muzzle_06.png",
+    "Soldier_WeaponFX\\Sniper\\PenetrationHit\\Sniper_PenetrationHit_10.png",
+    "Soldier_WeaponFX\\Sniper\\Trail\\Sniper_Trail_12.png",
+    "Soldier_WeaponFX\\Missile\\Launch\\Missile_Launch_08.png",
+    "Soldier_WeaponFX\\Missile\\SmokeTrail\\Missile_SmokeTrail_12.png",
+    "Soldier_WeaponFX\\Grenade\\ExplosionCore\\Grenade_ExplosionCore_20.png",
+    "Soldier_WeaponFX\\Grenade\\Shockwave\\Grenade_Shockwave_16.png",
+    "Soldier_WeaponFX\\Grenade\\Smoke\\Grenade_Smoke_12.png",
+    "Soldier_WeaponFX\\Missile\\ExplosionCore\\Missile_ExplosionCore_20.png",
+    "Soldier_WeaponFX\\Missile\\Shockwave\\Missile_Shockwave_16.png",
+    "Soldier_WeaponFX\\Missile\\Smoke\\Missile_Smoke_12.png",
+    "Soldier_WeaponFX\\Lazer\\MuzzleWarm\\Lazer_MuzzleWarm_06.png",
+    "Soldier_WeaponFX\\Lazer\\HitWarm\\Lazer_HitWarm_10.png",
+    "Soldier_WeaponFX\\Lazer\\MuzzleHot\\Lazer_MuzzleHot_06.png",
+    "Soldier_WeaponFX\\Lazer\\HitHot\\Lazer_HitHot_10.png"
+  ],
+  "unexpected_empty_frames": [],
+  "canvas_consistency": true,
+  "move_ground_y": {
+    "Soldier_Bullet": [
+      800
+    ],
+    "Soldier_Lazer": [
+      800
+    ],
+    "Soldier_Missile": [
+      800
+    ],
+    "Soldier_Grenade": [
+      800
+    ],
+    "Soldier_Sniper": [
+      800
+    ],
+    "Warrior_GiantSword": [
+      2000
+    ],
+    "Warrior_GiantHammer": [
+      2000
+    ],
+    "Warrior_Slash": [
+      1056
+    ],
+    "Warrior_Shield": [
+      2000
+    ]
+  },
+  "source_hashes": {
+    "Soldier_Bullet": "7d03128ebe5eb2a00ffd1dcc83b9e5d50f351259596d1ac5207ede28272cd796",
+    "Soldier_Lazer": "69753bc90520f736f807e803e366db7823110996404cbcd7264201fbc52d6938",
+    "Soldier_Missile": "dd52a40f50bda4b6feb68f347f3cee6d30ee4b8da31f6c1f5c2f5b495e674f39",
+    "Soldier_Grenade": "9480c9aa9e394784a5c644b5ac83afccbe875f7cd6298ca96065541a468b5c2b",
+    "Soldier_Sniper": "b5730fcd758ac3c88b6017235869dc8a330434eaf9ad6dcaa42760c9ded50048",
+    "Warrior_GiantSword": "52b2767af3b3cfce7b15e9b6b58e6c106c37da97fd7b31c7c8972f66f50bded4",
+    "Warrior_GiantHammer": "7384a38a0cf63e211778ae06d62473c6c7fb3faeaed456e2e1a2938cd99ec712",
+    "Warrior_Slash": "c61d2ffc76907380578aa075cc8a554918908db0bfc749369b8e554301eb89a5",
+    "Warrior_Shield": "1b3352d4bb758e270d822cbb05bd203acf92fa5e621d0f03089b77b32bacf287"
+  }
+}

@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 
 /// <summary>
@@ -11,6 +12,14 @@ using UnityEngine;
     menuName = "BossPattern/Dog/Wide Charge")]
 public sealed class BossDogWideChargePattern : BossPattern
 {
+    // 돌진 중 입을 벌렸다 닫는 반복 애니메이션 상태다.
+    private static readonly int ChargeMouthState =
+        Animator.StringToHash("Base Layer.Boss_Dog_Charge_Mouth");
+
+    // 돌진을 마친 뒤 돌아갈 대기 애니메이션 상태다.
+    private static readonly int IdleState =
+        Animator.StringToHash("Base Layer.Idle");
+
     [Header("시스템 경고")]
 
     // 패턴 시작 시 시스템 다이얼로그에 출력할 메시지다.
@@ -93,7 +102,7 @@ public sealed class BossDogWideChargePattern : BossPattern
     // 이 패턴 Config의 Inspector에서 개별 설정한다.
     [Min(0)]
     [SerializeField]
-    int _chargeDamage = 30;
+    float _chargeDamage = 30;
 
     [Header("패턴 종료 복귀")]
 
@@ -121,6 +130,24 @@ public sealed class BossDogWideChargePattern : BossPattern
         {
             throw new InvalidOperationException(
                 $"{name} 패턴은 Boss_Dog만 사용할 수 있습니다.");
+        }
+
+        // 본체 Renderer에 연결된 Animator를 가져온다.
+        Animator chargeAnimator =
+            context.VisualTransform.GetComponent<Animator>();
+
+        if (chargeAnimator == null)
+        {
+            throw new MissingComponentException(
+                $"{context.Boss.name}: 본체 Animator를 확인하세요.");
+        }
+
+        // 돌진과 복귀에 필요한 상태가 Controller에 있는지 확인한다.
+        if (!chargeAnimator.HasState(0, ChargeMouthState) ||
+            !chargeAnimator.HasState(0, IdleState))
+        {
+            throw new InvalidOperationException(
+                $"{context.Boss.name}: Boss_Dog_Charge_Mouth와 Idle 상태를 확인하세요.");
         }
 
         // Boss Dog의 실제 충돌 판정에 사용하는 BoxCollider2D를 가져온다.
@@ -298,7 +325,12 @@ public sealed class BossDogWideChargePattern : BossPattern
 
         try
         {
-            // 경고로 표시했던 경로를 따라 왼쪽으로 돌진한다.
+            // 실제 돌진을 시작할 때 입 동작 클립을 처음부터 재생한다.
+            // 반복 속도는 Animator 상태의 Speed 설정을 그대로 사용한다.
+            chargeAnimator.Play(ChargeMouthState, 0, 0f);
+            chargeAnimator.Update(0f);
+
+            // 입 동작 재생 속도와 별개로 기존 돌진 시간만큼 이동한다.
             yield return MoveToPosition(
                 context.Rigidbody,
                 chargeEndPosition,
@@ -306,8 +338,22 @@ public sealed class BossDogWideChargePattern : BossPattern
         }
         finally
         {
-            // 돌진 구간을 빠져나오면 기본 접촉 피해로 되돌린다.
-            context.Boss.ResetPatternCrashDamage();
+            // 돌진 종료나 패턴 취소 시 전용 접촉 피해 설정을 해제한다.
+            if (context.Boss != null)
+                context.Boss.ResetPatternCrashDamage();
+
+            // 살아 있고 돌진 상태가 유지된 경우에만 Idle로 돌아간다.
+            // 사망했거나 다른 상태로 바뀌었다면 해당 상태를 덮어쓰지 않는다.
+            if (context.Boss != null &&
+                !context.Boss.IsDead &&
+                chargeAnimator != null &&
+                chargeAnimator.isActiveAndEnabled &&
+                chargeAnimator.GetCurrentAnimatorStateInfo(0).fullPathHash
+                    == ChargeMouthState)
+            {
+                chargeAnimator.Play(IdleState, 0, 0f);
+                chargeAnimator.Update(0f);
+            }
         }
 
         if (context.Boss.IsDead)

@@ -40,7 +40,7 @@ public class SmallEnemy : Enemy
 
     [Header("자폭 피해 설정")]
     [Min(0f)][SerializeField] float _explosionRadius = 1.5f; // 자폭 피해가 적용되는 반경
-    [Min(0)][SerializeField] int _explosionDamage = 20; // 자폭 범위 안의 플레이어가 받는 피해
+    [Min(0)][SerializeField] float _explosionDamage = 20; // 자폭 범위 안의 플레이어가 받는 피해
     [SerializeField] SpriteExplosionEffect _explosionEffectPrefab; // 자폭할 때 생성할 선택적 폭발 이펙트
 
     // Renderer 자식의 Animator다.
@@ -103,6 +103,9 @@ public class SmallEnemy : Enemy
     // 패턴 전체의 소환 시간과는 별개다.
     private float _curveDuration;
 
+    /// <summary>
+    /// 컴포넌트 참조와 초기 실행 상태를 준비한다.
+    /// </summary>
     protected override void Awake()
     {
         base.Awake();
@@ -141,6 +144,9 @@ public class SmallEnemy : Enemy
     }
 
 
+    /// <summary>
+    /// 매 프레임 입력과 경과 시간에 따른 상태를 갱신한다.
+    /// </summary>
     private void Update()
     {
         // 일시정지, 사망, 폭발 완료, 초기화 전에는 행동하지 않는다.
@@ -171,8 +177,29 @@ public class SmallEnemy : Enemy
         }
     }
 
+    // 전달받은 월드 방향으로 몸체와 충돌 판정을 함께 회전시킨다.
+    private void FaceDirection(Vector2 direction)
+    {
+        // 방향 벡터가 거의 0이면 현재 회전을 유지한다.
+        if (direction.sqrMagnitude <= 0.00000001f)
+        {
+            return;
+        }
+
+        // 오른쪽을 0도로 기준 삼아 방향 벡터를 각도로 변환한다.
+        float angle =
+            Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+        // 원본 이미지가 왼쪽을 바라보므로 180도를 보정한다.
+        // 루트를 회전시켜 자식 이미지와 몸체 콜라이더를 함께 돌린다.
+        transform.rotation = Quaternion.Euler(0f, 0f, angle - 180f);
+    }
+
     // 목표 위치까지 이동하되, 몸이나 실드에 먼저 닿으면 폭발한다.
     // 정상적으로 이동을 마쳤으면 true, 폭발했으면 false를 반환한다.
+    /// <summary>
+    /// 정상적으로 이동을 마쳤으면 true, 폭발했으면 false를 반환한다.
+    /// </summary>
     private bool MoveWithContactCheck(Vector3 nextPosition)
     {
         if (_hasExploded || IsDead)
@@ -180,7 +207,15 @@ public class SmallEnemy : Enemy
             return false;
         }
 
-        // 플레이어 이동과 실드 윤곽 변경을 물리 검사에 반영한다.
+        // 현재 위치에서 이번 프레임에 이동할 위치로 향하는 방향을 계산한다.
+        Vector2 moveDirection =
+            (Vector2)(nextPosition - transform.position);
+
+        // 일반 자폭과 크루저 곡선 비행 모두 이동 방향을 바라보게 한다.
+        // 이동 거리가 거의 0이면 기존 회전을 유지한다.
+        FaceDirection(moveDirection);
+
+        // 변경된 회전을 반영한 뒤 겹침과 이동 경로를 검사한다.
         Physics2D.SyncTransforms();
 
         _contactOverlaps.Clear();
@@ -263,6 +298,9 @@ public class SmallEnemy : Enemy
     }
 
     // 루트의 이동 위치와 이펙트를 생성할 접촉 위치를 따로 받는다.
+    /// <summary>
+    /// 루트의 이동 위치와 이펙트를 생성할 접촉 위치를 따로 받는다.
+    /// </summary>
     private bool TryExplodeOnContact(
         Collider2D target,
         Vector3 contactPosition,
@@ -443,6 +481,18 @@ public class SmallEnemy : Enemy
     /// </summary>
     private void UpdateAiming()
     {
+        // 조준하는 동안 현재 플레이어 위치를 바라본다.
+        if (PlayerController != null)
+        {
+            // 현재 위치에서 플레이어로 향하는 월드 방향을 계산한다.
+            Vector2 aimDirection =
+                (Vector2)PlayerController.transform.position -
+                (Vector2)transform.position;
+
+            // 몸체와 충돌 판정을 플레이어 방향으로 회전시킨다.
+            FaceDirection(aimDirection);
+        }
+
         // 조준 상태에서 흐른 시간을 누적한다.
         _stateTimer += Time.deltaTime;
 
@@ -473,6 +523,9 @@ public class SmallEnemy : Enemy
         {
             _chargeDirection = direction.normalized;
         }
+
+        // 돌진을 시작하기 전에 확정된 돌진 방향으로 몸체를 회전시킨다.
+        FaceDirection(_chargeDirection);
 
         // 다음 돌진 단계에서 사용할 시간을 초기화한다.
         _stateTimer = 0f;
@@ -518,6 +571,9 @@ public class SmallEnemy : Enemy
 
     // 실드로 막힌 폭발은 플레이어에게 범위 피해를 주지 않는다.
     // 인수를 생략한 기존 Explode() 호출은 일반 폭발로 처리한다.
+    /// <summary>
+    /// 인수를 생략한 기존 Explode() 호출은 일반 폭발로 처리한다.
+    /// </summary>
     private void Explode(bool blockedByShield = false)
     {
         // 사망하거나 이미 폭발한 개체는 중복 처리하지 않는다.
@@ -569,6 +625,9 @@ public class SmallEnemy : Enemy
         _moveType = moveType;
     }
 
+    /// <summary>
+    /// OnTriggerEnter2D 동작에 필요한 상태와 처리 흐름을 실행한다.
+    /// </summary>
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
         // 자폭형은 MoveWithContactCheck에서 접촉 순서를 판단한다.
@@ -594,6 +653,9 @@ public class SmallEnemy : Enemy
     }
 
     // 이미 겹친 상태에서 자폭병이 실드나 몸에 접촉한 경우다.
+    /// <summary>
+    /// 이미 겹친 상태에서 자폭병이 실드나 몸에 접촉한 경우다.
+    /// </summary>
     private bool TryExplodeOnContact(
         Collider2D target,
         Vector3 contactPosition)
@@ -612,6 +674,9 @@ public class SmallEnemy : Enemy
 
     // 크루저 패턴이 적을 생성하고 기본 Init()을 호출한 뒤 사용한다.
     // 제어점과 도착점은 모두 월드 좌표다.
+    /// <summary>
+    /// 제어점과 도착점은 모두 월드 좌표다.
+    /// </summary>
     public void InitializeCurvedSuicidePattern(
         Vector2 control1,
         Vector2 control2,
@@ -643,6 +708,9 @@ public class SmallEnemy : Enemy
     }
 
     // 구멍에서 곡선으로 출격한 뒤 기존 조준 상태로 전환한다.
+    /// <summary>
+    /// 구멍에서 곡선으로 출격한 뒤 기존 조준 상태로 전환한다.
+    /// </summary>
     private void UpdateCurvedEntering()
     {
         _stateTimer += Time.deltaTime;
