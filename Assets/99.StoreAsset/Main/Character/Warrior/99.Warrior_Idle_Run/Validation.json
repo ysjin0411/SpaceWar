@@ -1,0 +1,97 @@
+{
+  "png_count": 144,
+  "issues": [],
+  "sequences": [
+    {
+      "weapon": "GiantSword",
+      "state": "Idle",
+      "frames": 48,
+      "fps": 20,
+      "duration_seconds": 2.4,
+      "periodic_pose_exact_match": true,
+      "last_to_first_difference": 0.0,
+      "largest_adjacent_difference": 0.4466872215270996,
+      "bbox_union": [
+        950,
+        542,
+        1544,
+        1162
+      ],
+      "max_leg_reach_excess": 0
+    },
+    {
+      "weapon": "GiantSword",
+      "state": "Move",
+      "frames": 24,
+      "fps": 40,
+      "duration_seconds": 0.6,
+      "periodic_pose_exact_match": true,
+      "last_to_first_difference": 0.8620157241821289,
+      "largest_adjacent_difference": 1.2024939060211182,
+      "bbox_union": [
+        948,
+        652,
+        1648,
+        1162
+      ],
+      "max_leg_reach_excess": 0.0
+    },
+    {
+      "weapon": "Hammer",
+      "state": "Idle",
+      "frames": 48,
+      "fps": 20,
+      "duration_seconds": 2.4,
+      "periodic_pose_exact_match": true,
+      "last_to_first_difference": 0.0,
+      "largest_adjacent_difference": 0.752648115158081,
+      "bbox_union": [
+        892,
+        614,
+        1700,
+        1300
+      ],
+      "max_leg_reach_excess": 0
+    },
+    {
+      "weapon": "Hammer",
+      "state": "Move",
+      "frames": 24,
+      "fps": 40,
+      "duration_seconds": 0.6,
+      "periodic_pose_exact_match": true,
+      "last_to_first_difference": 1.432751178741455,
+      "largest_adjacent_difference": 1.7633037567138672,
+      "bbox_union": [
+        894,
+        724,
+        1680,
+        1440
+      ],
+      "max_leg_reach_excess": 0.0
+    }
+  ],
+  "source_assets": [
+    {
+      "file": "C:\\YSJStudy\\SubPF\\Assets\\99.StoreAsset\\Main\\Character\\Warrior_Unified_v7\\Frames\\GiantSword\\Idle\\GiantSword_Idle_01.png",
+      "sha256": "d38bb7647dae536f30d1b7f61d440096cc900324601191e3e8bd39d30d95bc2b"
+    },
+    {
+      "file": "C:\\YSJStudy\\SubPF\\Assets\\99.StoreAsset\\Main\\Character\\Warrior_Unified_v7\\Frames\\Hammer\\Idle\\Hammer_Idle_01.png",
+      "sha256": "7116422f536ee68eb08883845a9ae5606a36981e49af1ce6b88690cf39e7539e"
+    }
+  ],
+  "attack_compatible_settings": {
+    "canvas": [
+      2048,
+      2048
+    ],
+    "ppu": 60,
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "maxSize": 2048,
+    "sourceScale": 0.6
+  }
+}

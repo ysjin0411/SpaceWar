@@ -15,7 +15,7 @@ public sealed class BossAlienComboEffect : MonoBehaviour
     private bool _initialized;
 
     // 이번 타격에서 순서대로 표시할 이펙트 이미지 목록이다.
-    private Sprite[] _frames = Array.Empty<Sprite>();
+    [SerializeField]private Sprite[] _frames = Array.Empty<Sprite>();
 
     private void Awake()
     {

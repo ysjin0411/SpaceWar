@@ -1,0 +1,1820 @@
+fileFormatVersion: 2
+guid: dfc7986ed5e681a4ca5654fd8e8be388
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1091532343250817282
+    second: Shield_Barrier_4F_768x724_RGBA_0
+  - first:
+      213: 3462179858221402958
+    second: Shield_Barrier_4F_768x724_RGBA_1
+  - first:
+      213: 5729746201203186623
+    second: Shield_Barrier_4F_768x724_RGBA_2
+  - first:
+      213: -8687923830783382769
+    second: Shield_Barrier_4F_768x724_RGBA_3
+  - first:
+      213: 30030251417531881
+    second: Shield_Barrier_4F_768x724_RGBA_4
+  - first:
+      213: 1345662797373539649
+    second: Shield_Barrier_4F_768x724_RGBA_5
+  - first:
+      213: -5459299242799416994
+    second: Shield_Barrier_4F_768x724_RGBA_6
+  - first:
+      213: 4844613587414214975
+    second: Shield_Barrier_4F_768x724_RGBA_7
+  - first:
+      213: -1018056352439647809
+    second: Shield_Barrier_4F_768x724_RGBA_8
+  - first:
+      213: 199786703165970306
+    second: Shield_Barrier_4F_768x724_RGBA_9
+  - first:
+      213: 3689461479899834386
+    second: Shield_Barrier_4F_768x724_RGBA_10
+  - first:
+      213: 2788830752826236908
+    second: Shield_Barrier_4F_768x724_RGBA_11
+  - first:
+      213: -5299956100512051859
+    second: Shield_Barrier_4F_768x724_RGBA_12
+  - first:
+      213: 7313282468577708657
+    second: Shield_Barrier_4F_768x724_RGBA_13
+  - first:
+      213: 4059343120635499081
+    second: Shield_Barrier_4F_768x724_RGBA_14
+  - first:
+      213: 6264389136304705331
+    second: Shield_Barrier_4F_768x724_RGBA_15
+  - first:
+      213: -1269174595200614084
+    second: Shield_Barrier_4F_768x724_RGBA_16
+  - first:
+      213: 5867681986144175027
+    second: Shield_Barrier_4F_768x724_RGBA_17
+  - first:
+      213: 5061466823473655929
+    second: Shield_Barrier_4F_768x724_RGBA_18
+  - first:
+      213: -9144795239148453553
+    second: Shield_Barrier_4F_768x724_RGBA_19
+  - first:
+      213: -4119847282865361772
+    second: Shield_Barrier_4F_768x724_RGBA_20
+  - first:
+      213: -4830042310006671781
+    second: Shield_Barrier_4F_768x724_RGBA_21
+  - first:
+      213: -8230238647350947950
+    second: Shield_Barrier_4F_768x724_RGBA_22
+  - first:
+      213: -3501563415123687179
+    second: Shield_Barrier_4F_768x724_RGBA_23
+  - first:
+      213: -2904710975425889009
+    second: Shield_Barrier_4F_768x724_RGBA_24
+  - first:
+      213: 7702113321544552361
+    second: Shield_Barrier_4F_768x724_RGBA_25
+  - first:
+      213: 4384367471934311401
+    second: Shield_Barrier_4F_768x724_RGBA_26
+  - first:
+      213: -4460134307252198268
+    second: Shield_Barrier_4F_768x724_RGBA_27
+  - first:
+      213: 2292985043779676251
+    second: Shield_Barrier_4F_768x724_RGBA_28
+  - first:
+      213: 3955880698521832620
+    second: Shield_Barrier_4F_768x724_RGBA_29
+  - first:
+      213: 2476759420838028034
+    second: Shield_Barrier_4F_768x724_RGBA_30
+  - first:
+      213: -8003730698971541229
+    second: Shield_Barrier_4F_768x724_RGBA_31
+  - first:
+      213: 3605076904398306796
+    second: Shield_Barrier_4F_768x724_RGBA_32
+  - first:
+      213: -3628250533073451687
+    second: Shield_Barrier_4F_768x724_RGBA_33
+  - first:
+      213: -3304518013236115417
+    second: Shield_Barrier_4F_768x724_RGBA_34
+  - first:
+      213: 8529800560535043692
+    second: Shield_Barrier_4F_768x724_RGBA_35
+  - first:
+      213: -4267301090313469775
+    second: Shield_Barrier_4F_768x724_RGBA_36
+  - first:
+      213: 8337085498896045
+    second: Shield_Barrier_4F_768x724_RGBA_37
+  - first:
+      213: 2911575846250790786
+    second: Shield_Barrier_4F_768x724_RGBA_38
+  - first:
+      213: -7144082582636476613
+    second: Shield_Barrier_4F_768x724_RGBA_39
+  - first:
+      213: -44247752777180530
+    second: Shield_Barrier_4F_768x724_RGBA_40
+  - first:
+      213: -656064187256672353
+    second: Shield_Barrier_4F_768x724_RGBA_41
+  - first:
+      213: 6899982319292194698
+    second: Shield_Barrier_4F_768x724_RGBA_42
+  - first:
+      213: 2452363586286737468
+    second: Shield_Barrier_4F_768x724_RGBA_43
+  - first:
+      213: -884933283008396366
+    second: Shield_Barrier_4F_768x724_RGBA_44
+  - first:
+      213: -6193763935640274263
+    second: Shield_Barrier_4F_768x724_RGBA_45
+  - first:
+      213: 2330620094542865720
+    second: Shield_Barrier_4F_768x724_RGBA_46
+  - first:
+      213: 6613336391570541951
+    second: Shield_Barrier_4F_768x724_RGBA_47
+  - first:
+      213: 7167996791277440037
+    second: Shield_Barrier_4F_768x724_RGBA_48
+  - first:
+      213: -7973841239247996760
+    second: Shield_Barrier_4F_768x724_RGBA_49
+  - first:
+      213: -9165756640761863173
+    second: Shield_Barrier_4F_768x724_RGBA_50
+  - first:
+      213: 2478759449216381061
+    second: Shield_Barrier_4F_768x724_RGBA_51
+  - first:
+      213: 8009838919551080230
+    second: Shield_Barrier_4F_768x724_RGBA_52
+  - first:
+      213: 3070742911759397676
+    second: Shield_Barrier_4F_768x724_RGBA_53
+  - first:
+      213: 3227591474541798721
+    second: Shield_Barrier_4F_768x724_RGBA_54
+  - first:
+      213: -4891773317389391556
+    second: Shield_Barrier_4F_768x724_RGBA_55
+  - first:
+      213: -4473480551956413743
+    second: Shield_Barrier_4F_768x724_RGBA_56
+  - first:
+      213: 8777446396883376938
+    second: Shield_Barrier_4F_768x724_RGBA_57
+  - first:
+      213: 4011416351978870795
+    second: Shield_Barrier_4F_768x724_RGBA_58
+  - first:
+      213: 6289071797622329029
+    second: Shield_Barrier_4F_768x724_RGBA_59
+  - first:
+      213: 4737936178521809293
+    second: Shield_Barrier_4F_768x724_RGBA_60
+  - first:
+      213: 3601390945424135178
+    second: Shield_Barrier_4F_768x724_RGBA_61
+  - first:
+      213: 4523135417039532531
+    second: Shield_Barrier_4F_768x724_RGBA_62
+  - first:
+      213: 4387501580881677779
+    second: Shield_Barrier_4F_768x724_RGBA_63
+  - first:
+      213: 7062875514334325845
+    second: Shield_Barrier_4F_768x724_RGBA_64
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_0
+      rect:
+        serializedVersion: 2
+        x: 1605
+        y: 64
+        width: 500
+        height: 613
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: efe6fa3fd191ad0f0800000000000000
+      internalID: -1091532343250817282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_1
+      rect:
+        serializedVersion: 2
+        x: 2128
+        y: 591
+        width: 106
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e4b8cc5dc322c0030800000000000000
+      internalID: 3462179858221402958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_2
+      rect:
+        serializedVersion: 2
+        x: 2132
+        y: 671
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fbb1cdfffc5248f40800000000000000
+      internalID: 5729746201203186623
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_3
+      rect:
+        serializedVersion: 2
+        x: 2374
+        y: 64
+        width: 610
+        height: 613
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f0b61867e4b4e6780800000000000000
+      internalID: -8687923830783382769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_4
+      rect:
+        serializedVersion: 2
+        x: 2374
+        y: 361
+        width: 88
+        height: 316
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e5f144ca50ba6000800000000000000
+      internalID: 30030251417531881
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_5
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 64
+        width: 473
+        height: 594
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14588e04f21cca210800000000000000
+      internalID: 1345662797373539649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_6
+      rect:
+        serializedVersion: 2
+        x: 838
+        y: 265
+        width: 92
+        height: 365
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e59b166634cac34b0800000000000000
+      internalID: -5459299242799416994
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_7
+      rect:
+        serializedVersion: 2
+        x: 862
+        y: 63
+        width: 576
+        height: 599
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f39eadfc3668b3340800000000000000
+      internalID: 4844613587414214975
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_8
+      rect:
+        serializedVersion: 2
+        x: 870
+        y: 617
+        width: 21
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb1418f24232fd1f0800000000000000
+      internalID: -1018056352439647809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_9
+      rect:
+        serializedVersion: 2
+        x: 2116
+        y: 627
+        width: 22
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 287dd01b2f8c5c200800000000000000
+      internalID: 199786703165970306
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_10
+      rect:
+        serializedVersion: 2
+        x: 2134
+        y: 619
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 218aae91ba9933330800000000000000
+      internalID: 3689461479899834386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_11
+      rect:
+        serializedVersion: 2
+        x: 1407
+        y: 578
+        width: 27
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cef94e83bcae3b620800000000000000
+      internalID: 2788830752826236908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_12
+      rect:
+        serializedVersion: 2
+        x: 1605
+        y: 536
+        width: 95
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d6d80d7c106c276b0800000000000000
+      internalID: -5299956100512051859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_13
+      rect:
+        serializedVersion: 2
+        x: 2151
+        y: 587
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 17a8aa168affd7560800000000000000
+      internalID: 7313282468577708657
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_14
+      rect:
+        serializedVersion: 2
+        x: 2161
+        y: 586
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 94297e69f0fa55830800000000000000
+      internalID: 4059343120635499081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_15
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 570
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33f0244bab49fe650800000000000000
+      internalID: 6264389136304705331
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_16
+      rect:
+        serializedVersion: 2
+        x: 590
+        y: 490
+        width: 44
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c310e171e6cf26ee0800000000000000
+      internalID: -1269174595200614084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_17
+      rect:
+        serializedVersion: 2
+        x: 1334
+        y: 568
+        width: 9
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b305179da13e6150800000000000000
+      internalID: 5867681986144175027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_18
+      rect:
+        serializedVersion: 2
+        x: 1342
+        y: 564
+        width: 8
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 97072975241fd3640800000000000000
+      internalID: 5061466823473655929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_19
+      rect:
+        serializedVersion: 2
+        x: 2151
+        y: 392
+        width: 83
+        height: 190
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f418fd26e29271180800000000000000
+      internalID: -9144795239148453553
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_20
+      rect:
+        serializedVersion: 2
+        x: 1350
+        y: 552
+        width: 18
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 49ca3ff59bc53d6c0800000000000000
+      internalID: -4119847282865361772
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_21
+      rect:
+        serializedVersion: 2
+        x: 1364
+        y: 528
+        width: 16
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b56f1f51c1e38fcb0800000000000000
+      internalID: -4830042310006671781
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_22
+      rect:
+        serializedVersion: 2
+        x: 633
+        y: 243
+        width: 65
+        height: 284
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 29f84ff4e8158cd80800000000000000
+      internalID: -8230238647350947950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_23
+      rect:
+        serializedVersion: 2
+        x: 1368
+        y: 498
+        width: 20
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f88c0340a2f76fc0800000000000000
+      internalID: -3501563415123687179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_24
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 425
+        width: 147
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f0dbf86f1c460b7d0800000000000000
+      internalID: -2904710975425889009
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_25
+      rect:
+        serializedVersion: 2
+        x: 586
+        y: 440
+        width: 10
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9af8776224763ea60800000000000000
+      internalID: 7702113321544552361
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_26
+      rect:
+        serializedVersion: 2
+        x: 1692
+        y: 423
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9eb0c618cf668dc30800000000000000
+      internalID: 4384367471934311401
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_27
+      rect:
+        serializedVersion: 2
+        x: 1696
+        y: 426
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 48423b57a7b6a12c0800000000000000
+      internalID: -4460134307252198268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_28
+      rect:
+        serializedVersion: 2
+        x: 1702
+        y: 426
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b5865c1afb152df10800000000000000
+      internalID: 2292985043779676251
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_29
+      rect:
+        serializedVersion: 2
+        x: 1694
+        y: 345
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cacc731498c16e630800000000000000
+      internalID: 3955880698521832620
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_30
+      rect:
+        serializedVersion: 2
+        x: 1700
+        y: 337
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 203272122973f5220800000000000000
+      internalID: 2476759420838028034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_31
+      rect:
+        serializedVersion: 2
+        x: 1700
+        y: 331
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 31199e9b5590de090800000000000000
+      internalID: -8003730698971541229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_32
+      rect:
+        serializedVersion: 2
+        x: 1706
+        y: 311
+        width: 16
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ced30a2185ec70230800000000000000
+      internalID: 3605076904398306796
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_33
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 295
+        width: 17
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 955090c0d5dd5adc0800000000000000
+      internalID: -3628250533073451687
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_34
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 72
+        width: 86
+        height: 196
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7288e23006ef322d0800000000000000
+      internalID: -3304518013236115417
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_35
+      rect:
+        serializedVersion: 2
+        x: 2136
+        y: 116
+        width: 98
+        height: 113
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6e7e9fba60ff5670800000000000000
+      internalID: 8529800560535043692
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_36
+      rect:
+        serializedVersion: 2
+        x: 2151
+        y: 231
+        width: 27
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b08a3a744087c4c0800000000000000
+      internalID: -4267301090313469775
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_37
+      rect:
+        serializedVersion: 2
+        x: 2193
+        y: 199
+        width: 35
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: daeaf9bf88e9d1000800000000000000
+      internalID: 8337085498896045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_38
+      rect:
+        serializedVersion: 2
+        x: 572
+        y: 163
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 28fb2645ecef76820800000000000000
+      internalID: 2911575846250790786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_39
+      rect:
+        serializedVersion: 2
+        x: 584
+        y: 171
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b37c5e7fdbe1bdc90800000000000000
+      internalID: -7144082582636476613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_40
+      rect:
+        serializedVersion: 2
+        x: 592
+        y: 166
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e8a5b9d37ecc26ff0800000000000000
+      internalID: -44247752777180530
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_41
+      rect:
+        serializedVersion: 2
+        x: 2118
+        y: 152
+        width: 16
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9fe5b0091135e6f0800000000000000
+      internalID: -656064187256672353
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_42
+      rect:
+        serializedVersion: 2
+        x: 566
+        y: 148
+        width: 10
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8f13e99c59a1cf50800000000000000
+      internalID: 6899982319292194698
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_43
+      rect:
+        serializedVersion: 2
+        x: 574
+        y: 144
+        width: 9
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c3859b440bb880220800000000000000
+      internalID: 2452363586286737468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_44
+      rect:
+        serializedVersion: 2
+        x: 582
+        y: 147
+        width: 12
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b34d502ed518b3f0800000000000000
+      internalID: -884933283008396366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_45
+      rect:
+        serializedVersion: 2
+        x: 2098
+        y: 149
+        width: 18
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9aa398934845b0aa0800000000000000
+      internalID: -6193763935640274263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_46
+      rect:
+        serializedVersion: 2
+        x: 2140
+        y: 142
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8356d99b0a6085020800000000000000
+      internalID: 2330620094542865720
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_47
+      rect:
+        serializedVersion: 2
+        x: 2482
+        y: 150
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f7dc9bfb86a47cb50800000000000000
+      internalID: 6613336391570541951
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_48
+      rect:
+        serializedVersion: 2
+        x: 2118
+        y: 136
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 52c4b3f9a17d97360800000000000000
+      internalID: 7167996791277440037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_49
+      rect:
+        serializedVersion: 2
+        x: 2124
+        y: 142
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a8334fd3a9375190800000000000000
+      internalID: -7973841239247996760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_50
+      rect:
+        serializedVersion: 2
+        x: 2134
+        y: 135
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf326b1c5e0bcc080800000000000000
+      internalID: -9165756640761863173
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_51
+      rect:
+        serializedVersion: 2
+        x: 2143
+        y: 135
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5807f260692566220800000000000000
+      internalID: 2478759449216381061
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_52
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 128
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 627d0f33f0aa82f60800000000000000
+      internalID: 8009838919551080230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_53
+      rect:
+        serializedVersion: 2
+        x: 582
+        y: 126
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c23b7f3a8687d9a20800000000000000
+      internalID: 3070742911759397676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_54
+      rect:
+        serializedVersion: 2
+        x: 1702
+        y: 122
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 145a4287855bacc20800000000000000
+      internalID: 3227591474541798721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_55
+      rect:
+        serializedVersion: 2
+        x: 572
+        y: 100
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c396547e51eec1cb0800000000000000
+      internalID: -4891773317389391556
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_56
+      rect:
+        serializedVersion: 2
+        x: 950
+        y: 88
+        width: 16
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d20507b3210be1c0800000000000000
+      internalID: -4473480551956413743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_57
+      rect:
+        serializedVersion: 2
+        x: 965
+        y: 87
+        width: 33
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2b14493ef0cfc970800000000000000
+      internalID: 8777446396883376938
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_58
+      rect:
+        serializedVersion: 2
+        x: 2428
+        y: 91
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b08d4e13be96ba730800000000000000
+      internalID: 4011416351978870795
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_59
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 80
+        width: 19
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5cec430aa75474750800000000000000
+      internalID: 6289071797622329029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_60
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 63
+        width: 38
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d81a3490ad780c140800000000000000
+      internalID: 4737936178521809293
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_61
+      rect:
+        serializedVersion: 2
+        x: 926
+        y: 66
+        width: 24
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a04505fdbf5baf130800000000000000
+      internalID: 3601390945424135178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_62
+      rect:
+        serializedVersion: 2
+        x: 1080
+        y: 63
+        width: 130
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f131ab72b765ce30800000000000000
+      internalID: 4523135417039532531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_63
+      rect:
+        serializedVersion: 2
+        x: 2490
+        y: 76
+        width: 12
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ddcaeb117983ec30800000000000000
+      internalID: 4387501580881677779
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shield_Barrier_4F_768x724_RGBA_64
+      rect:
+        serializedVersion: 2
+        x: 342
+        y: 63
+        width: 105
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55ca3bc0cdf540260800000000000000
+      internalID: 7062875514334325845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Shield_Barrier_4F_768x724_RGBA_0: -1091532343250817282
+      Shield_Barrier_4F_768x724_RGBA_1: 3462179858221402958
+      Shield_Barrier_4F_768x724_RGBA_10: 3689461479899834386
+      Shield_Barrier_4F_768x724_RGBA_11: 2788830752826236908
+      Shield_Barrier_4F_768x724_RGBA_12: -5299956100512051859
+      Shield_Barrier_4F_768x724_RGBA_13: 7313282468577708657
+      Shield_Barrier_4F_768x724_RGBA_14: 4059343120635499081
+      Shield_Barrier_4F_768x724_RGBA_15: 6264389136304705331
+      Shield_Barrier_4F_768x724_RGBA_16: -1269174595200614084
+      Shield_Barrier_4F_768x724_RGBA_17: 5867681986144175027
+      Shield_Barrier_4F_768x724_RGBA_18: 5061466823473655929
+      Shield_Barrier_4F_768x724_RGBA_19: -9144795239148453553
+      Shield_Barrier_4F_768x724_RGBA_2: 5729746201203186623
+      Shield_Barrier_4F_768x724_RGBA_20: -4119847282865361772
+      Shield_Barrier_4F_768x724_RGBA_21: -4830042310006671781
+      Shield_Barrier_4F_768x724_RGBA_22: -8230238647350947950
+      Shield_Barrier_4F_768x724_RGBA_23: -3501563415123687179
+      Shield_Barrier_4F_768x724_RGBA_24: -2904710975425889009
+      Shield_Barrier_4F_768x724_RGBA_25: 7702113321544552361
+      Shield_Barrier_4F_768x724_RGBA_26: 4384367471934311401
+      Shield_Barrier_4F_768x724_RGBA_27: -4460134307252198268
+      Shield_Barrier_4F_768x724_RGBA_28: 2292985043779676251
+      Shield_Barrier_4F_768x724_RGBA_29: 3955880698521832620
+      Shield_Barrier_4F_768x724_RGBA_3: -8687923830783382769
+      Shield_Barrier_4F_768x724_RGBA_30: 2476759420838028034
+      Shield_Barrier_4F_768x724_RGBA_31: -8003730698971541229
+      Shield_Barrier_4F_768x724_RGBA_32: 3605076904398306796
+      Shield_Barrier_4F_768x724_RGBA_33: -3628250533073451687
+      Shield_Barrier_4F_768x724_RGBA_34: -3304518013236115417
+      Shield_Barrier_4F_768x724_RGBA_35: 8529800560535043692
+      Shield_Barrier_4F_768x724_RGBA_36: -4267301090313469775
+      Shield_Barrier_4F_768x724_RGBA_37: 8337085498896045
+      Shield_Barrier_4F_768x724_RGBA_38: 2911575846250790786
+      Shield_Barrier_4F_768x724_RGBA_39: -7144082582636476613
+      Shield_Barrier_4F_768x724_RGBA_4: 30030251417531881
+      Shield_Barrier_4F_768x724_RGBA_40: -44247752777180530
+      Shield_Barrier_4F_768x724_RGBA_41: -656064187256672353
+      Shield_Barrier_4F_768x724_RGBA_42: 6899982319292194698
+      Shield_Barrier_4F_768x724_RGBA_43: 2452363586286737468
+      Shield_Barrier_4F_768x724_RGBA_44: -884933283008396366
+      Shield_Barrier_4F_768x724_RGBA_45: -6193763935640274263
+      Shield_Barrier_4F_768x724_RGBA_46: 2330620094542865720
+      Shield_Barrier_4F_768x724_RGBA_47: 6613336391570541951
+      Shield_Barrier_4F_768x724_RGBA_48: 7167996791277440037
+      Shield_Barrier_4F_768x724_RGBA_49: -7973841239247996760
+      Shield_Barrier_4F_768x724_RGBA_5: 1345662797373539649
+      Shield_Barrier_4F_768x724_RGBA_50: -9165756640761863173
+      Shield_Barrier_4F_768x724_RGBA_51: 2478759449216381061
+      Shield_Barrier_4F_768x724_RGBA_52: 8009838919551080230
+      Shield_Barrier_4F_768x724_RGBA_53: 3070742911759397676
+      Shield_Barrier_4F_768x724_RGBA_54: 3227591474541798721
+      Shield_Barrier_4F_768x724_RGBA_55: -4891773317389391556
+      Shield_Barrier_4F_768x724_RGBA_56: -4473480551956413743
+      Shield_Barrier_4F_768x724_RGBA_57: 8777446396883376938
+      Shield_Barrier_4F_768x724_RGBA_58: 4011416351978870795
+      Shield_Barrier_4F_768x724_RGBA_59: 6289071797622329029
+      Shield_Barrier_4F_768x724_RGBA_6: -5459299242799416994
+      Shield_Barrier_4F_768x724_RGBA_60: 4737936178521809293
+      Shield_Barrier_4F_768x724_RGBA_61: 3601390945424135178
+      Shield_Barrier_4F_768x724_RGBA_62: 4523135417039532531
+      Shield_Barrier_4F_768x724_RGBA_63: 4387501580881677779
+      Shield_Barrier_4F_768x724_RGBA_64: 7062875514334325845
+      Shield_Barrier_4F_768x724_RGBA_7: 4844613587414214975
+      Shield_Barrier_4F_768x724_RGBA_8: -1018056352439647809
+      Shield_Barrier_4F_768x724_RGBA_9: 199786703165970306
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

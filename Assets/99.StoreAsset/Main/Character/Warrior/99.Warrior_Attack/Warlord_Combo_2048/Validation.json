@@ -1,0 +1,79 @@
+{
+  "checks": {
+    "png_count": 216,
+    "expected_png_count": 216,
+    "wrong_size_or_mode": [],
+    "nontransparent_outer_8px": [],
+    "suspicious_backgrounds": [],
+    "transitions": [
+      {
+        "weapon": "GiantSword",
+        "from": "Attack1",
+        "to": "Attack2",
+        "identical_pixels": true
+      },
+      {
+        "weapon": "GiantSword",
+        "from": "Attack2",
+        "to": "Attack3",
+        "identical_pixels": true
+      },
+      {
+        "weapon": "GiantSword",
+        "from": "Attack3",
+        "to": "Recovery",
+        "identical_pixels": true
+      },
+      {
+        "weapon": "GiantSword",
+        "from": "Recovery",
+        "to": "Attack1",
+        "identical_pixels": true
+      },
+      {
+        "weapon": "Hammer",
+        "from": "Attack1",
+        "to": "Attack2",
+        "identical_pixels": true
+      },
+      {
+        "weapon": "Hammer",
+        "from": "Attack2",
+        "to": "Attack3",
+        "identical_pixels": true
+      },
+      {
+        "weapon": "Hammer",
+        "from": "Attack3",
+        "to": "Recovery",
+        "identical_pixels": true
+      },
+      {
+        "weapon": "Hammer",
+        "from": "Recovery",
+        "to": "Attack1",
+        "identical_pixels": true
+      }
+    ],
+    "body_scale_max_error": 1.1102230246251565e-16,
+    "hand_reach_excess_pixels": 0.0,
+    "somersault_max_degrees": 360,
+    "grounded_body_bottom_range": [
+      690,
+      690
+    ],
+    "body_components_for_review": [],
+    "attack3_end_angle_degrees_cartesian": -45.0
+  },
+  "issues": [],
+  "source_assets": [
+    {
+      "path": "C:\\YSJStudy\\SubPF\\Assets\\99.StoreAsset\\Main\\Character\\Warrior_Unified_v7\\Frames\\Hammer\\Idle\\Hammer_Idle_01.png",
+      "sha256": "7116422f536ee68eb08883845a9ae5606a36981e49af1ce6b88690cf39e7539e"
+    },
+    {
+      "path": "C:\\YSJStudy\\SubPF\\Assets\\99.StoreAsset\\Main\\Character\\Warrior_Unified_v7\\Frames\\GiantSword\\Idle\\GiantSword_Idle_01.png",
+      "sha256": "d38bb7647dae536f30d1b7f61d440096cc900324601191e3e8bd39d30d95bc2b"
+    }
+  ]
+}

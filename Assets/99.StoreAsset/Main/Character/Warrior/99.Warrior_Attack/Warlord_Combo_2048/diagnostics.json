@@ -1,0 +1,3026 @@
+[
+  {
+    "weapon": "GiantSword",
+    "stage": 1,
+    "frame": 1,
+    "bbox": [
+      471,
+      234,
+      770,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 1,
+    "frame": 2,
+    "bbox": [
+      471,
+      215,
+      751,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 1,
+    "frame": 3,
+    "bbox": [
+      471,
+      175,
+      699,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 1,
+    "frame": 4,
+    "bbox": [
+      471,
+      139,
+      618,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 1,
+    "frame": 5,
+    "bbox": [
+      469,
+      125,
+      563,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 1,
+    "frame": 6,
+    "bbox": [
+      398,
+      131,
+      553,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 1,
+    "frame": 7,
+    "bbox": [
+      353,
+      141,
+      553,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 1,
+    "frame": 8,
+    "bbox": [
+      343,
+      146,
+      553,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 1,
+    "frame": 9,
+    "bbox": [
+      331,
+      155,
+      553,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 1,
+    "frame": 10,
+    "bbox": [
+      321,
+      167,
+      553,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 1,
+    "frame": 11,
+    "bbox": [
+      302,
+      109,
+      553,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 1,
+    "frame": 12,
+    "bbox": [
+      301,
+      114,
+      563,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 1,
+    "frame": 13,
+    "bbox": [
+      296,
+      112,
+      715,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 1,
+    "frame": 14,
+    "bbox": [
+      300,
+      112,
+      884,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 1,
+    "frame": 15,
+    "bbox": [
+      301,
+      110,
+      925,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 1,
+    "frame": 16,
+    "bbox": [
+      308,
+      112,
+      928,
+      624
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 1,
+    "frame": 17,
+    "bbox": [
+      378,
+      112,
+      925,
+      632
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 1,
+    "frame": 18,
+    "bbox": [
+      471,
+      134,
+      925,
+      641
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 1,
+    "frame": 19,
+    "bbox": [
+      471,
+      265,
+      924,
+      644
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 1,
+    "frame": 20,
+    "bbox": [
+      471,
+      468,
+      923,
+      645
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 1,
+    "frame": 21,
+    "bbox": [
+      471,
+      467,
+      920,
+      644
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 1,
+    "frame": 22,
+    "bbox": [
+      471,
+      467,
+      919,
+      644
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 1,
+    "frame": 23,
+    "bbox": [
+      471,
+      466,
+      916,
+      638
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 1,
+    "frame": 24,
+    "bbox": [
+      471,
+      466,
+      896,
+      624
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 2,
+    "frame": 1,
+    "bbox": [
+      471,
+      466,
+      896,
+      624
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 2,
+    "frame": 2,
+    "bbox": [
+      471,
+      465,
+      889,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 2,
+    "frame": 3,
+    "bbox": [
+      471,
+      451,
+      776,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 2,
+    "frame": 4,
+    "bbox": [
+      471,
+      438,
+      570,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 2,
+    "frame": 5,
+    "bbox": [
+      263,
+      428,
+      553,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 2,
+    "frame": 6,
+    "bbox": [
+      155,
+      449,
+      553,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 2,
+    "frame": 7,
+    "bbox": [
+      142,
+      449,
+      553,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 2,
+    "frame": 8,
+    "bbox": [
+      128,
+      419,
+      915,
+      610
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 2,
+    "frame": 9,
+    "bbox": [
+      124,
+      415,
+      913,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 2,
+    "frame": 10,
+    "bbox": [
+      123,
+      414,
+      880,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 2,
+    "frame": 11,
+    "bbox": [
+      117,
+      412,
+      740,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 2,
+    "frame": 12,
+    "bbox": [
+      117,
+      417,
+      553,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 2,
+    "frame": 13,
+    "bbox": [
+      120,
+      441,
+      553,
+      592
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 2,
+    "frame": 14,
+    "bbox": [
+      120,
+      452,
+      654,
+      596
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 2,
+    "frame": 15,
+    "bbox": [
+      123,
+      451,
+      799,
+      596
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 2,
+    "frame": 16,
+    "bbox": [
+      130,
+      451,
+      862,
+      596
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 2,
+    "frame": 17,
+    "bbox": [
+      144,
+      450,
+      877,
+      596
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 2,
+    "frame": 18,
+    "bbox": [
+      156,
+      450,
+      907,
+      596
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 2,
+    "frame": 19,
+    "bbox": [
+      192,
+      447,
+      914,
+      598
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 2,
+    "frame": 20,
+    "bbox": [
+      287,
+      423,
+      918,
+      596
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 2,
+    "frame": 21,
+    "bbox": [
+      460,
+      412,
+      914,
+      594
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 2,
+    "frame": 22,
+    "bbox": [
+      471,
+      407,
+      914,
+      582
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 2,
+    "frame": 23,
+    "bbox": [
+      471,
+      397,
+      913,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 2,
+    "frame": 24,
+    "bbox": [
+      471,
+      389,
+      911,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 2,
+    "frame": 25,
+    "bbox": [
+      410,
+      388,
+      911,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 2,
+    "frame": 26,
+    "bbox": [
+      301,
+      389,
+      903,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 2,
+    "frame": 27,
+    "bbox": [
+      238,
+      392,
+      867,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 2,
+    "frame": 28,
+    "bbox": [
+      225,
+      415,
+      553,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 3,
+    "frame": 1,
+    "bbox": [
+      225,
+      415,
+      553,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 3,
+    "frame": 2,
+    "bbox": [
+      225,
+      419,
+      553,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 3,
+    "frame": 3,
+    "bbox": [
+      225,
+      423,
+      553,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 3,
+    "frame": 4,
+    "bbox": [
+      225,
+      423,
+      553,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 3,
+    "frame": 5,
+    "bbox": [
+      225,
+      421,
+      553,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 3,
+    "frame": 6,
+    "bbox": [
+      225,
+      417,
+      553,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 3,
+    "frame": 7,
+    "bbox": [
+      210,
+      393,
+      553,
+      568
+    ],
+    "spin": 0.7464358834326037,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 3,
+    "frame": 8,
+    "bbox": [
+      190,
+      345,
+      548,
+      548
+    ],
+    "spin": 5.868426594750317,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 3,
+    "frame": 9,
+    "bbox": [
+      183,
+      267,
+      542,
+      531
+    ],
+    "spin": 15.413671426386964,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 3,
+    "frame": 10,
+    "bbox": [
+      183,
+      173,
+      556,
+      515
+    ],
+    "spin": 28.87016040955925,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 3,
+    "frame": 11,
+    "bbox": [
+      183,
+      92,
+      571,
+      497
+    ],
+    "spin": 45.72588357548385,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 3,
+    "frame": 12,
+    "bbox": [
+      180,
+      37,
+      585,
+      477
+    ],
+    "spin": 65.46883095537753,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 3,
+    "frame": 13,
+    "bbox": [
+      182,
+      24,
+      632,
+      453
+    ],
+    "spin": 87.58699258045691,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 3,
+    "frame": 14,
+    "bbox": [
+      182,
+      24,
+      769,
+      439
+    ],
+    "spin": 111.56835848193872,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 3,
+    "frame": 15,
+    "bbox": [
+      187,
+      23,
+      873,
+      453
+    ],
+    "spin": 136.9009186910397,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 3,
+    "frame": 16,
+    "bbox": [
+      215,
+      21,
+      913,
+      466
+    ],
+    "spin": 163.07266323897647,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 3,
+    "frame": 17,
+    "bbox": [
+      286,
+      24,
+      915,
+      569
+    ],
+    "spin": 189.57158215696577,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 3,
+    "frame": 18,
+    "bbox": [
+      397,
+      21,
+      914,
+      698
+    ],
+    "spin": 215.8856654762243,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 3,
+    "frame": 19,
+    "bbox": [
+      443,
+      29,
+      913,
+      766
+    ],
+    "spin": 241.5029032279688,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 3,
+    "frame": 20,
+    "bbox": [
+      404,
+      67,
+      914,
+      777
+    ],
+    "spin": 265.9112854434158,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 3,
+    "frame": 21,
+    "bbox": [
+      273,
+      161,
+      914,
+      777
+    ],
+    "spin": 288.59880215378223,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 3,
+    "frame": 22,
+    "bbox": [
+      180,
+      307,
+      912,
+      777
+    ],
+    "spin": 309.0534433902847,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 3,
+    "frame": 23,
+    "bbox": [
+      130,
+      332,
+      889,
+      776
+    ],
+    "spin": 326.76319918413986,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 3,
+    "frame": 24,
+    "bbox": [
+      112,
+      332,
+      804,
+      779
+    ],
+    "spin": 341.21605956656447,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 3,
+    "frame": 25,
+    "bbox": [
+      112,
+      331,
+      668,
+      777
+    ],
+    "spin": 351.90001456877513,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 3,
+    "frame": 26,
+    "bbox": [
+      112,
+      314,
+      553,
+      769
+    ],
+    "spin": 358.30305422198876,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 3,
+    "frame": 27,
+    "bbox": [
+      112,
+      313,
+      552,
+      728
+    ],
+    "spin": 360,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 3,
+    "frame": 28,
+    "bbox": [
+      111,
+      313,
+      553,
+      649
+    ],
+    "spin": 360,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 3,
+    "frame": 29,
+    "bbox": [
+      112,
+      313,
+      554,
+      553
+    ],
+    "spin": 360,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 3,
+    "frame": 30,
+    "bbox": [
+      113,
+      214,
+      555,
+      551
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 3,
+    "frame": 31,
+    "bbox": [
+      119,
+      84,
+      556,
+      568
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 3,
+    "frame": 32,
+    "bbox": [
+      126,
+      82,
+      570,
+      579
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 3,
+    "frame": 33,
+    "bbox": [
+      129,
+      82,
+      790,
+      582
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 3,
+    "frame": 34,
+    "bbox": [
+      129,
+      82,
+      918,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 3,
+    "frame": 35,
+    "bbox": [
+      131,
+      82,
+      918,
+      775
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 3,
+    "frame": 36,
+    "bbox": [
+      156,
+      82,
+      918,
+      798
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 3,
+    "frame": 37,
+    "bbox": [
+      330,
+      84,
+      917,
+      798
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 3,
+    "frame": 38,
+    "bbox": [
+      447,
+      94,
+      915,
+      797
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 3,
+    "frame": 39,
+    "bbox": [
+      471,
+      145,
+      914,
+      795
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 3,
+    "frame": 40,
+    "bbox": [
+      471,
+      467,
+      801,
+      775
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 4,
+    "frame": 1,
+    "bbox": [
+      471,
+      467,
+      801,
+      775
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 4,
+    "frame": 2,
+    "bbox": [
+      471,
+      467,
+      806,
+      769
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 4,
+    "frame": 3,
+    "bbox": [
+      471,
+      466,
+      818,
+      754
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 4,
+    "frame": 4,
+    "bbox": [
+      471,
+      465,
+      836,
+      731
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 4,
+    "frame": 5,
+    "bbox": [
+      471,
+      463,
+      856,
+      699
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 4,
+    "frame": 6,
+    "bbox": [
+      471,
+      461,
+      874,
+      659
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 4,
+    "frame": 7,
+    "bbox": [
+      471,
+      460,
+      887,
+      611
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 4,
+    "frame": 8,
+    "bbox": [
+      471,
+      458,
+      893,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 4,
+    "frame": 9,
+    "bbox": [
+      471,
+      455,
+      889,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 4,
+    "frame": 10,
+    "bbox": [
+      471,
+      401,
+      877,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 4,
+    "frame": 11,
+    "bbox": [
+      471,
+      352,
+      858,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 4,
+    "frame": 12,
+    "bbox": [
+      471,
+      311,
+      835,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 4,
+    "frame": 13,
+    "bbox": [
+      471,
+      279,
+      811,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 4,
+    "frame": 14,
+    "bbox": [
+      471,
+      254,
+      790,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 4,
+    "frame": 15,
+    "bbox": [
+      471,
+      239,
+      775,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "GiantSword",
+    "stage": 4,
+    "frame": 16,
+    "bbox": [
+      471,
+      234,
+      770,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 1,
+    "frame": 1,
+    "bbox": [
+      471,
+      164,
+      855,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 1,
+    "frame": 2,
+    "bbox": [
+      471,
+      156,
+      844,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 1,
+    "frame": 3,
+    "bbox": [
+      471,
+      143,
+      808,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 1,
+    "frame": 4,
+    "bbox": [
+      409,
+      146,
+      746,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 1,
+    "frame": 5,
+    "bbox": [
+      330,
+      147,
+      670,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 1,
+    "frame": 6,
+    "bbox": [
+      270,
+      119,
+      601,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 1,
+    "frame": 7,
+    "bbox": [
+      236,
+      110,
+      557,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 1,
+    "frame": 8,
+    "bbox": [
+      229,
+      111,
+      553,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 1,
+    "frame": 9,
+    "bbox": [
+      222,
+      113,
+      553,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 1,
+    "frame": 10,
+    "bbox": [
+      217,
+      118,
+      553,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 1,
+    "frame": 11,
+    "bbox": [
+      224,
+      112,
+      624,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 1,
+    "frame": 12,
+    "bbox": [
+      311,
+      109,
+      660,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 1,
+    "frame": 13,
+    "bbox": [
+      468,
+      108,
+      827,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 1,
+    "frame": 14,
+    "bbox": [
+      471,
+      110,
+      891,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 1,
+    "frame": 15,
+    "bbox": [
+      471,
+      114,
+      893,
+      726
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 1,
+    "frame": 16,
+    "bbox": [
+      471,
+      123,
+      891,
+      766
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 1,
+    "frame": 17,
+    "bbox": [
+      471,
+      143,
+      894,
+      772
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 1,
+    "frame": 18,
+    "bbox": [
+      471,
+      230,
+      897,
+      779
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 1,
+    "frame": 19,
+    "bbox": [
+      471,
+      431,
+      897,
+      781
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 1,
+    "frame": 20,
+    "bbox": [
+      471,
+      429,
+      896,
+      782
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 1,
+    "frame": 21,
+    "bbox": [
+      471,
+      425,
+      895,
+      781
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 1,
+    "frame": 22,
+    "bbox": [
+      471,
+      420,
+      893,
+      781
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 1,
+    "frame": 23,
+    "bbox": [
+      471,
+      416,
+      891,
+      774
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 1,
+    "frame": 24,
+    "bbox": [
+      471,
+      414,
+      890,
+      752
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 2,
+    "frame": 1,
+    "bbox": [
+      471,
+      414,
+      890,
+      752
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 2,
+    "frame": 2,
+    "bbox": [
+      471,
+      343,
+      867,
+      683
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 2,
+    "frame": 3,
+    "bbox": [
+      471,
+      311,
+      804,
+      647
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 2,
+    "frame": 4,
+    "bbox": [
+      348,
+      385,
+      687,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 2,
+    "frame": 5,
+    "bbox": [
+      243,
+      297,
+      553,
+      634
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 2,
+    "frame": 6,
+    "bbox": [
+      183,
+      317,
+      553,
+      657
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 2,
+    "frame": 7,
+    "bbox": [
+      174,
+      326,
+      553,
+      666
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 2,
+    "frame": 8,
+    "bbox": [
+      175,
+      330,
+      827,
+      670
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 2,
+    "frame": 9,
+    "bbox": [
+      180,
+      337,
+      825,
+      677
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 2,
+    "frame": 10,
+    "bbox": [
+      189,
+      340,
+      796,
+      680
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 2,
+    "frame": 11,
+    "bbox": [
+      203,
+      347,
+      690,
+      687
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 2,
+    "frame": 12,
+    "bbox": [
+      205,
+      367,
+      553,
+      703
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 2,
+    "frame": 13,
+    "bbox": [
+      208,
+      404,
+      587,
+      699
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 2,
+    "frame": 14,
+    "bbox": [
+      209,
+      401,
+      740,
+      699
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 2,
+    "frame": 15,
+    "bbox": [
+      211,
+      366,
+      804,
+      702
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 2,
+    "frame": 16,
+    "bbox": [
+      218,
+      351,
+      838,
+      691
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 2,
+    "frame": 17,
+    "bbox": [
+      230,
+      347,
+      845,
+      687
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 2,
+    "frame": 18,
+    "bbox": [
+      241,
+      331,
+      856,
+      670
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 2,
+    "frame": 19,
+    "bbox": [
+      270,
+      307,
+      855,
+      647
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 2,
+    "frame": 20,
+    "bbox": [
+      344,
+      288,
+      830,
+      627
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 2,
+    "frame": 21,
+    "bbox": [
+      471,
+      281,
+      826,
+      617
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 2,
+    "frame": 22,
+    "bbox": [
+      471,
+      278,
+      825,
+      612
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 2,
+    "frame": 23,
+    "bbox": [
+      471,
+      274,
+      824,
+      598
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 2,
+    "frame": 24,
+    "bbox": [
+      391,
+      307,
+      823,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 2,
+    "frame": 25,
+    "bbox": [
+      303,
+      291,
+      822,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 2,
+    "frame": 26,
+    "bbox": [
+      263,
+      275,
+      814,
+      604
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 2,
+    "frame": 27,
+    "bbox": [
+      228,
+      279,
+      783,
+      617
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 2,
+    "frame": 28,
+    "bbox": [
+      215,
+      283,
+      553,
+      621
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 3,
+    "frame": 1,
+    "bbox": [
+      215,
+      283,
+      553,
+      621
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 3,
+    "frame": 2,
+    "bbox": [
+      215,
+      288,
+      553,
+      626
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 3,
+    "frame": 3,
+    "bbox": [
+      215,
+      291,
+      553,
+      629
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 3,
+    "frame": 4,
+    "bbox": [
+      215,
+      292,
+      553,
+      630
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 3,
+    "frame": 5,
+    "bbox": [
+      215,
+      289,
+      553,
+      628
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 3,
+    "frame": 6,
+    "bbox": [
+      215,
+      285,
+      553,
+      623
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 3,
+    "frame": 7,
+    "bbox": [
+      215,
+      262,
+      553,
+      600
+    ],
+    "spin": 0.7464358834326037,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 3,
+    "frame": 8,
+    "bbox": [
+      194,
+      212,
+      548,
+      554
+    ],
+    "spin": 5.868426594750317,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 3,
+    "frame": 9,
+    "bbox": [
+      175,
+      152,
+      542,
+      531
+    ],
+    "spin": 15.413671426386964,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 3,
+    "frame": 10,
+    "bbox": [
+      186,
+      94,
+      556,
+      515
+    ],
+    "spin": 28.87016040955925,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 3,
+    "frame": 11,
+    "bbox": [
+      235,
+      59,
+      571,
+      497
+    ],
+    "spin": 45.72588357548385,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 3,
+    "frame": 12,
+    "bbox": [
+      285,
+      53,
+      657,
+      477
+    ],
+    "spin": 65.46883095537753,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 3,
+    "frame": 13,
+    "bbox": [
+      287,
+      53,
+      778,
+      453
+    ],
+    "spin": 87.58699258045691,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 3,
+    "frame": 14,
+    "bbox": [
+      292,
+      53,
+      869,
+      439
+    ],
+    "spin": 111.56835848193872,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 3,
+    "frame": 15,
+    "bbox": [
+      311,
+      52,
+      903,
+      453
+    ],
+    "spin": 136.9009186910397,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 3,
+    "frame": 16,
+    "bbox": [
+      361,
+      53,
+      905,
+      575
+    ],
+    "spin": 163.07266323897647,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 3,
+    "frame": 17,
+    "bbox": [
+      454,
+      51,
+      903,
+      696
+    ],
+    "spin": 189.57158215696577,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 3,
+    "frame": 18,
+    "bbox": [
+      463,
+      62,
+      903,
+      760
+    ],
+    "spin": 215.8856654762243,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 3,
+    "frame": 19,
+    "bbox": [
+      391,
+      103,
+      903,
+      766
+    ],
+    "spin": 241.5029032279688,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 3,
+    "frame": 20,
+    "bbox": [
+      255,
+      192,
+      903,
+      766
+    ],
+    "spin": 265.9112854434158,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 3,
+    "frame": 21,
+    "bbox": [
+      165,
+      326,
+      901,
+      766
+    ],
+    "spin": 288.59880215378223,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 3,
+    "frame": 22,
+    "bbox": [
+      127,
+      337,
+      877,
+      766
+    ],
+    "spin": 309.0534433902847,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 3,
+    "frame": 23,
+    "bbox": [
+      123,
+      306,
+      792,
+      766
+    ],
+    "spin": 326.76319918413986,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 3,
+    "frame": 24,
+    "bbox": [
+      123,
+      231,
+      654,
+      766
+    ],
+    "spin": 341.21605956656447,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 3,
+    "frame": 25,
+    "bbox": [
+      123,
+      185,
+      556,
+      755
+    ],
+    "spin": 351.90001456877513,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 3,
+    "frame": 26,
+    "bbox": [
+      122,
+      167,
+      553,
+      704
+    ],
+    "spin": 358.30305422198876,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 3,
+    "frame": 27,
+    "bbox": [
+      123,
+      166,
+      552,
+      608
+    ],
+    "spin": 360,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 3,
+    "frame": 28,
+    "bbox": [
+      123,
+      166,
+      553,
+      547
+    ],
+    "spin": 360,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 3,
+    "frame": 29,
+    "bbox": [
+      130,
+      165,
+      554,
+      565
+    ],
+    "spin": 360,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 3,
+    "frame": 30,
+    "bbox": [
+      156,
+      124,
+      555,
+      551
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 3,
+    "frame": 31,
+    "bbox": [
+      190,
+      90,
+      615,
+      568
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 3,
+    "frame": 32,
+    "bbox": [
+      221,
+      89,
+      701,
+      579
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 3,
+    "frame": 33,
+    "bbox": [
+      227,
+      89,
+      862,
+      582
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 3,
+    "frame": 34,
+    "bbox": [
+      227,
+      88,
+      885,
+      715
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 3,
+    "frame": 35,
+    "bbox": [
+      231,
+      90,
+      886,
+      851
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 3,
+    "frame": 36,
+    "bbox": [
+      276,
+      86,
+      884,
+      862
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 3,
+    "frame": 37,
+    "bbox": [
+      471,
+      101,
+      882,
+      862
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 3,
+    "frame": 38,
+    "bbox": [
+      471,
+      143,
+      882,
+      861
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 3,
+    "frame": 39,
+    "bbox": [
+      471,
+      266,
+      880,
+      859
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 3,
+    "frame": 40,
+    "bbox": [
+      471,
+      467,
+      878,
+      853
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 4,
+    "frame": 1,
+    "bbox": [
+      471,
+      467,
+      878,
+      853
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 4,
+    "frame": 2,
+    "bbox": [
+      471,
+      467,
+      880,
+      850
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 4,
+    "frame": 3,
+    "bbox": [
+      471,
+      466,
+      884,
+      842
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 4,
+    "frame": 4,
+    "bbox": [
+      471,
+      465,
+      891,
+      828
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 4,
+    "frame": 5,
+    "bbox": [
+      471,
+      463,
+      894,
+      806
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 4,
+    "frame": 6,
+    "bbox": [
+      471,
+      448,
+      892,
+      776
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 4,
+    "frame": 7,
+    "bbox": [
+      471,
+      402,
+      882,
+      739
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 4,
+    "frame": 8,
+    "bbox": [
+      471,
+      356,
+      864,
+      696
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 4,
+    "frame": 9,
+    "bbox": [
+      471,
+      310,
+      873,
+      650
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 4,
+    "frame": 10,
+    "bbox": [
+      471,
+      269,
+      884,
+      603
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 4,
+    "frame": 11,
+    "bbox": [
+      471,
+      234,
+      887,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 4,
+    "frame": 12,
+    "bbox": [
+      471,
+      206,
+      882,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 4,
+    "frame": 13,
+    "bbox": [
+      471,
+      187,
+      874,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 4,
+    "frame": 14,
+    "bbox": [
+      471,
+      174,
+      864,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 4,
+    "frame": 15,
+    "bbox": [
+      471,
+      166,
+      858,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  },
+  {
+    "weapon": "Hammer",
+    "stage": 4,
+    "frame": 16,
+    "bbox": [
+      471,
+      164,
+      855,
+      581
+    ],
+    "spin": 0.0,
+    "source_scale": 0.6,
+    "clip": false
+  }
+]

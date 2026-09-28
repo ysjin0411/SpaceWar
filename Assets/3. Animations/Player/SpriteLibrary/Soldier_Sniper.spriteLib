@@ -13,48 +13,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Library:
-  - m_Name: Idle3
-    m_Hash: 17981889
-    m_CategoryList: []
-    m_OverrideEntries:
-    - m_Name: Robot_idle 1
-      m_Hash: 990451449
-      m_Sprite: {fileID: 21300000, guid: a0d04bc828fd4084cb8c7a08091f1aae, type: 3}
-      m_FromMain: 1
-      m_SpriteOverride: {fileID: -3479676734980544347, guid: 01ee99f8c8d4f164f99a2b8f9da15dbd, type: 3}
-    - m_Name: Robot_idle 2
-      m_Hash: 570443587
-      m_Sprite: {fileID: 21300000, guid: 8469d33fea3aa6c4387815d172e7bc77, type: 3}
-      m_FromMain: 1
-      m_SpriteOverride: {fileID: 7497364276574200297, guid: 76032935545b7c24a9e4f1f2cafa1e72, type: 3}
-    - m_Name: Robot_idle 3
-      m_Hash: 352810965
-      m_Sprite: {fileID: 21300000, guid: 455eebe95dcf50a40bd238252b463401, type: 3}
-      m_FromMain: 1
-      m_SpriteOverride: {fileID: 5370153051239922572, guid: e5b259f7fcb0fcb46b0146a025fbcecf, type: 3}
-    m_FromMain: 1
-    m_EntryOverrideCount: 3
-  - m_Name: Attack3
-    m_Hash: 321101326
-    m_CategoryList: []
-    m_OverrideEntries:
-    - m_Name: Robot_shoot 1
-      m_Hash: 601591850
-      m_Sprite: {fileID: 21300000, guid: e765223c7ed079a4a99f9da343b4d548, type: 3}
-      m_FromMain: 1
-      m_SpriteOverride: {fileID: 7318963516382793313, guid: d65d566069274384b9101d8dc8a4ca26, type: 3}
-    - m_Name: Robot_shoot 2
-      m_Hash: 986890640
-      m_Sprite: {fileID: 21300000, guid: 33455829c28e8d74180ba2cfd75c5cb2, type: 3}
-      m_FromMain: 1
-      m_SpriteOverride: {fileID: -4066648296560240853, guid: df47cb07361d07a4687c07284967725c, type: 3}
-    - m_Name: Robot_shoot 3
-      m_Hash: 232124678
-      m_Sprite: {fileID: 21300000, guid: fd0c43b46b5131f40bd99c7803af621a, type: 3}
-      m_FromMain: 1
-      m_SpriteOverride: {fileID: -11820904297745714, guid: d679ce24ff4a2074db23fffbbfd401f8, type: 3}
-    m_FromMain: 1
-    m_EntryOverrideCount: 3
   - m_Name: Idle
     m_Hash: 1008081451
     m_CategoryList: []
@@ -214,5 +172,5 @@ MonoBehaviour:
     m_FromMain: 1
     m_EntryOverrideCount: 12
   m_PrimaryLibraryGUID: 4d52b8326e59c6d46aed91038b4df258
-  m_ModificationHash: 639259475909399281
+  m_ModificationHash: 639261894253251006
   m_Version: 1

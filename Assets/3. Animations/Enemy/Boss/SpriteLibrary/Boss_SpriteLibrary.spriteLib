@@ -48,39 +48,9 @@ MonoBehaviour:
   - m_Name: Die
     m_Hash: 20298039
     m_CategoryList: []
-    m_OverrideEntries:
-    - m_Name: DogheadBoss_Death_01_101x46_0
-      m_Hash: 764876554
-      m_Sprite: {fileID: -1756659314249247648, guid: 92d09b964c3723248a33171f9efed876, type: 3}
-      m_FromMain: 0
-      m_SpriteOverride: {fileID: -1756659314249247648, guid: 92d09b964c3723248a33171f9efed876, type: 3}
-    - m_Name: DogheadBoss_Death_02_101x46_0
-      m_Hash: 111193097
-      m_Sprite: {fileID: 7604722112217556492, guid: 9d6cb1d55dc9f92418492cb7c91596b3, type: 3}
-      m_FromMain: 0
-      m_SpriteOverride: {fileID: 7604722112217556492, guid: 9d6cb1d55dc9f92418492cb7c91596b3, type: 3}
-    - m_Name: DogheadBoss_Death_03_101x46_0
-      m_Hash: 694339383
-      m_Sprite: {fileID: -150672672863661063, guid: db608ddf4d7173d46a55706d7ba2d26c, type: 3}
-      m_FromMain: 0
-      m_SpriteOverride: {fileID: -150672672863661063, guid: db608ddf4d7173d46a55706d7ba2d26c, type: 3}
-    - m_Name: DogheadBoss_Death_04_101x46_0
-      m_Hash: 197057614
-      m_Sprite: {fileID: -7979495084206352890, guid: ff756fded1ff90946a449c81f0b328ea, type: 3}
-      m_FromMain: 0
-      m_SpriteOverride: {fileID: -7979495084206352890, guid: ff756fded1ff90946a449c81f0b328ea, type: 3}
-    - m_Name: DogheadBoss_Death_05_101x46_0
-      m_Hash: 612153200
-      m_Sprite: {fileID: -7236882371209948545, guid: f02a73a204443dc478a9e3b80e38d382, type: 3}
-      m_FromMain: 0
-      m_SpriteOverride: {fileID: -7236882371209948545, guid: f02a73a204443dc478a9e3b80e38d382, type: 3}
-    - m_Name: DogheadBoss_Death_06_101x46_6
-      m_Hash: 640198982
-      m_Sprite: {fileID: 5848577492753489224, guid: bc6249f8f6c08d240bd00763ae638d37, type: 3}
-      m_FromMain: 0
-      m_SpriteOverride: {fileID: 5848577492753489224, guid: bc6249f8f6c08d240bd00763ae638d37, type: 3}
+    m_OverrideEntries: []
     m_FromMain: 0
-    m_EntryOverrideCount: 6
+    m_EntryOverrideCount: 0
   m_PrimaryLibraryGUID: 
-  m_ModificationHash: 639258555389580232
+  m_ModificationHash: 639261868415073369
   m_Version: 1

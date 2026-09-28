@@ -13,58 +13,144 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Library:
-  - m_Name: Idle4
-    m_Hash: 527889506
+  - m_Name: Idle
+    m_Hash: 1008081451
     m_CategoryList: []
     m_OverrideEntries:
-    - m_Name: Warrior_W1_GiantSword_Body_Idle_Normalized_0
-      m_Hash: 818156779
-      m_Sprite: {fileID: 1172603024462411506, guid: 048dbea86cea98d42ab319f516667797, type: 3}
-      m_FromMain: 1
-      m_SpriteOverride: {fileID: 21300000, guid: f0ce8ab989691084e9d36c1221f5fa6c, type: 3}
-    - m_Name: Warrior_W1_GiantSword_Body_Idle_Normalized_1
-      m_Hash: 130229373
-      m_Sprite: {fileID: 4352798021013328757, guid: 048dbea86cea98d42ab319f516667797, type: 3}
-      m_FromMain: 1
-      m_SpriteOverride: {fileID: 21300000, guid: 69db7c0a09a32974cab7bb97c8ef8cd9, type: 3}
-    - m_Name: Warrior_W1_GiantSword_Body_Idle_Normalized_2
-      m_Hash: 516584903
-      m_Sprite: {fileID: -565055428435564568, guid: 048dbea86cea98d42ab319f516667797, type: 3}
-      m_FromMain: 1
-      m_SpriteOverride: {fileID: 21300000, guid: a63a69905f9ddc94582d09e988204aea, type: 3}
-    - m_Name: Warrior_W1_GiantSword_Body_Idle_Normalized_3
-      m_Hash: 701318481
-      m_Sprite: {fileID: 7138342240701873923, guid: 048dbea86cea98d42ab319f516667797, type: 3}
-      m_FromMain: 1
-      m_SpriteOverride: {fileID: 21300000, guid: 682c86e7d0cbdfd489f3c6b5c5ee9cb1, type: 3}
-    m_FromMain: 1
-    m_EntryOverrideCount: 4
-  - m_Name: Attack4
-    m_Hash: 222759853
+    - m_Name: 01
+      m_Hash: 255927350
+      m_Sprite: {fileID: 0}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 2c07af206df06554f9b6119916e30548, type: 3}
+    - m_Name: 02
+      m_Hash: 373847436
+      m_Sprite: {fileID: 0}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: d0d5637eea97dbd458dfd04b522b5542, type: 3}
+    - m_Name: 03
+      m_Hash: 558843162
+      m_Sprite: {fileID: 0}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 13a0903940bc547458bb9c319c517a1e, type: 3}
+    - m_Name: 04
+      m_Hash: 1059836089
+      m_Sprite: {fileID: 0}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: d783452159afc684285dd92e8e0f8a9e, type: 3}
+    - m_Name: 05
+      m_Hash: 137158703
+      m_Sprite: {fileID: 0}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 41c1485748b5d2946a5b6b5bc6b094d6, type: 3}
+    - m_Name: 06
+      m_Hash: 287682965
+      m_Sprite: {fileID: 0}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 29a6613a625076146bde44c2ab95539b, type: 3}
+    - m_Name: 07
+      m_Hash: 639795459
+      m_Sprite: {fileID: 0}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: f67af787166d3e048be50ca9410ed329, type: 3}
+    - m_Name: 08
+      m_Hash: 916298898
+      m_Sprite: {fileID: 0}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 9becddb7ebd94f64b8d985e200a6f900, type: 3}
+    - m_Name: 09
+      m_Hash: 26913796
+      m_Sprite: {fileID: 0}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: f2176ad2a4841134db063fa38c4fadcb, type: 3}
+    - m_Name: 10
+      m_Hash: 559752673
+      m_Sprite: {fileID: 0}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 84d8452377089c541ba6b645b19d7bad, type: 3}
+    - m_Name: 11
+      m_Hash: 375002487
+      m_Sprite: {fileID: 0}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: c3451359c8733354baa571cc63746152, type: 3}
+    - m_Name: 12
+      m_Hash: 257115341
+      m_Sprite: {fileID: 0}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 438bffa888d24984188c7e685dbe4c73, type: 3}
+    m_FromMain: 0
+    m_EntryOverrideCount: 0
+  - m_Name: Move
+    m_Hash: 252483654
     m_CategoryList: []
     m_OverrideEntries:
-    - m_Name: Warrior_W1_GiantSword_Body_Attack_Normalized_0
-      m_Hash: 563801244
-      m_Sprite: {fileID: 2129419174029641845, guid: 477f86561f60430448ddcf73a4c24df1, type: 3}
-      m_FromMain: 1
-      m_SpriteOverride: {fileID: 21300000, guid: 782378cb1f9d26f4ea74b0467099273d, type: 3}
-    - m_Name: Warrior_W1_GiantSword_Body_Attack_Normalized_1
-      m_Hash: 379444234
-      m_Sprite: {fileID: 4211281512609576510, guid: 477f86561f60430448ddcf73a4c24df1, type: 3}
-      m_FromMain: 1
-      m_SpriteOverride: {fileID: 21300000, guid: 3c2283b5b054f664cbfa9a2c0a92504e, type: 3}
-    - m_Name: Warrior_W1_GiantSword_Body_Attack_Normalized_2
-      m_Hash: 261393840
-      m_Sprite: {fileID: 6236330917939545304, guid: 477f86561f60430448ddcf73a4c24df1, type: 3}
-      m_FromMain: 1
-      m_SpriteOverride: {fileID: 21300000, guid: a7e7fd95f722cb84a9d4522a95775f3b, type: 3}
-    - m_Name: Warrior_W1_GiantSword_Body_Attack_Normalized_3
-      m_Hash: 949206310
-      m_Sprite: {fileID: 712126402214820872, guid: 477f86561f60430448ddcf73a4c24df1, type: 3}
-      m_FromMain: 1
-      m_SpriteOverride: {fileID: 21300000, guid: eb5b2f4305ae0614e9dc7e2185e1c9a6, type: 3}
-    m_FromMain: 1
-    m_EntryOverrideCount: 4
-  m_PrimaryLibraryGUID: 3a126447cd06c8a41929bfe57b6b601f
-  m_ModificationHash: 639242400929632095
+    - m_Name: 01
+      m_Hash: 255927350
+      m_Sprite: {fileID: 0}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 48ff21d494053374fb872c5b101161e7, type: 3}
+    - m_Name: 02
+      m_Hash: 373847436
+      m_Sprite: {fileID: 0}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 2e9dcc9bd83d0184c87c8c1383b8d868, type: 3}
+    - m_Name: 03
+      m_Hash: 558843162
+      m_Sprite: {fileID: 0}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 28e7e2721b2269d4f819c11701a1239f, type: 3}
+    - m_Name: 04
+      m_Hash: 1059836089
+      m_Sprite: {fileID: 0}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 8bc01ad40b22cc7479edc46979344430, type: 3}
+    - m_Name: 05
+      m_Hash: 137158703
+      m_Sprite: {fileID: 0}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 1ec3fd7deb2f4c84d9e55af97faca6c1, type: 3}
+    - m_Name: 06
+      m_Hash: 287682965
+      m_Sprite: {fileID: 0}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: da6eac6a32f391d489516f5b68c52759, type: 3}
+    m_FromMain: 0
+    m_EntryOverrideCount: 0
+  - m_Name: Attack
+    m_Hash: 7088141
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: 01
+      m_Hash: 255927350
+      m_Sprite: {fileID: 0}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 7fda2da80ccadbf4eae602fe935e89ea, type: 3}
+    - m_Name: 02
+      m_Hash: 373847436
+      m_Sprite: {fileID: 0}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 5ffaa24b2d12310429660ca16dddb474, type: 3}
+    - m_Name: 03
+      m_Hash: 558843162
+      m_Sprite: {fileID: 0}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: b7d7a0f949b7d39499d5af1b052c9c23, type: 3}
+    - m_Name: 04
+      m_Hash: 1059836089
+      m_Sprite: {fileID: 0}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 1a05d9802e01ed94da3d9205edc65f03, type: 3}
+    - m_Name: 05
+      m_Hash: 137158703
+      m_Sprite: {fileID: 0}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 930f9f14db8edda41ba3ba335f5697b6, type: 3}
+    - m_Name: 06
+      m_Hash: 287682965
+      m_Sprite: {fileID: 0}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 21300000, guid: 8df8baae8582d9b49abb5b928ce3df96, type: 3}
+    m_FromMain: 0
+    m_EntryOverrideCount: 0
+  m_PrimaryLibraryGUID: 
+  m_ModificationHash: 639260371959091529
   m_Version: 1
