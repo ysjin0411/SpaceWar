@@ -1,0 +1,57 @@
+MODE: built-in image_gen; transparent_background=true
+
+actionPromptGuardFinal
+Edit/reference transformation. Image 1 is the authoritative overall composition AND RELATIVE SCALE: tiny warrior alongside huge shield, exactly these proportions. Image 2 is a close-up ONLY to show armor detail, NEVER to enlarge the warrior.
+Create a 3 columns x 2 rows six-frame SHIELD GUARD sprite sheet. Every cell reproduces the same overall composition as image1: a tiny slim warrior next to a huge shield that is FIVE TIMES TALLER than the character. Keep this extreme size relationship. DO NOT MAKE A NORMAL HUMAN-SIZED SHIELD. In each cell, shield is 500px tall and warrior is 100px tall (or scale both equally to fit). Keep full shield visible with transparent gutters. The warrior is at the vertical middle of the shield, not at its bottom.
+Modify ONLY warrior arm pose: remove sword fragment, reach both hands forward RIGHT to grip a short handle on the shield's left edge around center height. Retain the exact helmet, slim body armor, long legs, cyan visor and antenna of image2. The six consecutive frames are tiny breathing variations of this braced two-hand defensive pose. Shield remains exactly the same size and design in all frames, extends far above and far below him. No pose changes besides subtle breathing. Transparent background, pixel art, square sheet, no text, no floor, no grid, no overlapping figures. Follow image1's size relationship literally.
+
+---
+
+actionPromptGuardCorrection
+Precise local edit of this sprite sheet. Keep all six tower shields PIXEL-IDENTICAL in size, position, shape, appearance. ONLY make each of the six small warriors 40 percent smaller: scale each warrior down to 60% of its CURRENT height and width. Their current body height is around180px; corrected height MUST be108px. Their shield remains550px tall. Anchor their hands at the same shield handle point when shrinking so arms remain attached, feet rise as a result. Do not reposition or shrink shields. Do not enlarge heads. Do not alter armor design or palette. Same six poses and same3x2 arrangement, actual transparent background. This is a proportional body-size correction ONLY. Shield height must be at least FIVE TIMES warrior height in every cell. No ground, no text, no new effects.
+
+---
+
+actionPromptGuardSize
+Precise edit: shrink ONLY each of the six warrior bodies to 83% of their current height AND width, anchored at the shield handle (hands remain attached). Keep every shield exactly unchanged in size, position and design. All six characters must be around105-110px tall while shields stay550px tall. Preserve every armor detail and current pose; do not redraw shields or alter framing. Transparent alpha, same3x2 grid. Body size correction only.
+
+---
+
+actionPromptDeployA
+Edit target image1, an exact six-frame layout and size guide for the FIRST HALF of a shield deployment. Keep all six sprites in the same positions and keep the character and shield sizes exactly as in this guide. DO NOT zoom, crop, enlarge small characters, change camera or rearrange cells. Reference image2 supplies close-up current Shield Idle appearance.
+ONLY change character arms and stance to make a coherent sequential shield activation: in frame1 hold compact shield in relaxed idle; frame2 bring free hand toward handle; frame3 both hands clasp handle; frame4 elbows extend and knees start to bend slightly; frame5 lean forward braced; frame6 firm two-hand guard stance. Character body retains same helmet/head size, anatomy, small lean slim body, long legs and armor pattern as reference2 throughout. Remove any blade/sword fragment from guide; there is no sword, only shield. Hands physically contact handle at left side of shield.
+Preserve each shield design, aspect ratio and exact increasing heights from image1: about 1.02,1.36,1.72,2.08,2.46,2.84 times character height. Shield magically expands uniformly around the hand height; the warrior NEVER grows. Shield is navy-blue, orange frame, silver chevrons, cyan vertical core, pointed bottom. 3 columns by 2 rows, exactly6 frames, readable left-to-right top-to-bottom. No text, grid, backdrop, floor, extra VFX or overlap. Actual transparent alpha. Crisp pixel-art matching reference2. The empty space in image1 is intentional; KEEP IT.
+
+---
+
+actionPromptDeployB
+Edit target image1, an exact six-frame layout and size guide for the SECOND HALF of a shield deployment. Keep all six sprites in the same positions and keep the character and shield sizes exactly as in this guide. DO NOT zoom, crop, enlarge small characters, change camera or rearrange cells. Reference image2 supplies close-up current Shield Idle appearance.
+ONLY change warrior arms/stance to a two-hand braced defense. Tiny slim warrior facing right standing left of giant shield, both arms reach to short horizontal handle on left edge around shield vertical middle. Remove any sword fragment; only shield. Subtle transition to fully extended arms and stable slightly bent knees, same body size every frame, feet stationary. Preserve exact helmet, faceplate, small lean slim body, long legs and detailed armor pattern of reference2, no round chibi redesign.
+Shield continues expanding around the hands; six consecutive shield heights are 3.22,3.60,3.98,4.36,4.70,5.00 times standing character height, already precisely demonstrated in guide. Preserve those sizes, tower shield aspect ratio and exact mechanical blue/orange/silver design with cyan core. Warrior NEVER grows along with shield. Last frame is max-size held defense. Six frames, 3 columns 2 rows, left-to-right top-to-bottom. No text, grid, backdrop, floor, extra VFX or overlap. Transparent alpha. Crisp pixel-art same as reference2. Empty space and tiny figures in image1 are intentional: KEEP THEM.
+
+---
+
+actionPromptDeployBSize
+Precise edit: shrink ONLY each of the six warrior bodies to 58% of their current height AND width, anchored at the shield handle (hands remain attached). Current warriors are about145px tall, corrected warriors should be84px tall in ALL SIX cells. Keep every shield exactly unchanged in size, position and design: first shield270px tall, last shield440px tall. This is the second half of shield expansion animation, final shield FIVE TIMES taller than warrior. Preserve all helmet/armor anatomy and current poses. Transparent alpha, same3x2 grid and margins. Do not enlarge heads, alter shields, reframe, or add effects.
+
+---
+
+actionPromptSlash
+Use case: identity-preserve. Create a professional 2D game pixel-art sprite animation sheet, EXACTLY SIX frames of a single sword SLASH ATTACK, regular THREE columns and TWO rows, chronological left-to-right top-to-bottom. Transparent alpha, generous empty margins between cells. 2048x2048 square canvas preferred.
+Image 1 is the ONLY character identity and proportions reference, current Slash Idle. The character must be precisely the same slim adult blue/navy orange silver sci-fi Warrior: small helmet with cyan visor, white narrow jaw mask, antenna, angular orange shoulder and knee armor, long lean legs and slim torso with cyan bars. No giant head, stocky cartoon body or redesign. Image 1 also defines sword appearance and its size relative to forearms and body. Dark blue straight blade with silver cutting edges and an orange spine stripe, small cyan hilt. The sword does not grow during the attack. Image 2 is supporting ONLY attack motion reference, never body-size reference.
+Animation: frame1 anticipation with sword pulled back above rear shoulder; frame2 rotate shoulders and start powerful forward downward swing; frame3 fast horizontal cutting sweep across waist toward screen RIGHT with restrained cyan slash arc; frame4 follow through with sword forward-right and clear tapered cyan trail; frame5 recoil and lower sword toward idle; frame6 same ready stance as image1 with sword downward-right, no trail. One attack cycle, not six separate attacks. Keep feet on same baseline, pelvis centered within each cell, consistent body/head/limb dimensions across all frames. Both hands gripping the same sword, only one sword and exactly two arms per frame. No floating projectile (projectile handled separately in game). Arc only attached to blade in frames3-4. Preserve crisp pixel-art palette and edge style of image1. No cropping, no overlap, no text or drawn cell borders, no ground or background.
+
+---
+
+actionPromptSlash3
+Create ONE individual transparent pixel-art sprite frame for a sword attack. Image1 is the exact Warrior identity, body proportions and sword appearance. Keep same lean adult body, small narrow helmet, antenna, orange shoulder/knee armor, navy torso with cyan strips, silver joints, long legs, same sword length relative to body. Image2 is motion reference ONLY: reproduce the TOP RIGHT pose, warrior leaning forward in a wide braced stance performing a two-handed horizontal sword slash toward RIGHT at waist height. A compact bright cyan curved trail follows the blade. The ENTIRE cyan arc, sword tip and both boots MUST be inside the canvas, with at least15% transparent margin on ALL sides. No other figures, no ground, no text, no background or glow around body. Same crisp pixel-art style as image1, no chibi or enlarged head. Full figure and complete arc as ONE isolated asset.
+
+---
+
+actionPromptSlash4
+Use case: identity-preserve. Produce ONE individual transparent pixel-art Warrior sword attack frame, not a sprite sheet. Recreate the BOTTOM LEFT character from image1 alone, the follow-through pose: warrior lunges to screen RIGHT with the same dark blue blade, orange stripe and silver edge pointing right and slightly down, both hands gripping hilt. Small narrow cyan afterimage hugging blade only. Wide stance, body leaning forward. Keep the exact helmet size, body anatomy and detailed blue-orange-silver armor of image2 (current Slash Idle). The warrior should be lean and small-headed like image2, no cartoon redesign. Same sword length relative to body as image2. Full figure and entire blade with generous transparent margin all sides. No other characters, no text, no floor, no opaque background.
+
+---
+
+actionPromptSlash4Short
+Precise object edit: keep the warrior body, pose, helmet, armor, hands, feet, framing and transparency unchanged. Shorten ONLY the sword blade to 65% of its current length, keeping the hilt fixed in the hands. Preserve blade width, navy interior, silver edge and orange stripe; the blade should be around one-half of the character's head-to-sole height, not as long as his entire torso and legs. Shorten the cyan blade trail to follow the shortened blade. Do not create a second blade, move the hands, enlarge the body or change anything else. Clean true transparent background, remove diffuse glow around the body; keep a small cyan trail at blade only.

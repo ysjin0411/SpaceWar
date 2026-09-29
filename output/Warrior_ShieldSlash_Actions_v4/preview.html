@@ -1,0 +1,20 @@
+<!doctype html><html lang="ko"><meta charset="utf-8"><title>Warrior 동작 36장</title><style>body{margin:24px;background:#171c25;color:#edf2f7;font:16px system-ui}button,select,input{font:inherit;margin:6px;padding:7px}canvas{max-width:100%;background-color:#303946;background-image:conic-gradient(#3e4754 25%,transparent 0 50%,#3e4754 0 75%,transparent 0);background-size:24px 24px;image-rendering:pixelated;border:1px solid #68768b}.panels{display:flex;gap:20px;flex-wrap:wrap}.panel{flex:1;min-width:320px}p{color:#b8c8dd}.tag{color:#7ee5ee}label{white-space:nowrap}</style>
+<h1>Shield · Slash — 새 동작 36장</h1><p>현재 Idle 기준 몸체 · PPU 100 · Max Size 2048 · Pivot (0.5, 0.5)</p>
+<div><select id="seq"><option>Shield_Deploy</option><option>Shield_Guard</option><option>Shield_Lower</option><option>Slash_Attack</option><option value="Shield_Cycle">Shield 전체 흐름</option></select><button id="play">일시 정지</button><label>FPS <input id="fps" type="number" min="1" max="60" value="12" style="width:60px"></label><label><input type="checkbox" id="zoom" checked>몸체 확대</label><label><input type="checkbox" id="ghost">현재 Idle 겹쳐 보기</label></div>
+<div><input id="frame" type="range" min="0" max="11" value="0" style="width:min(650px,80%)"><span id="status" class="tag"></span></div>
+<div class="panels"><div class="panel"><h3>새 동작</h3><canvas id="current" width="750" height="500"></canvas></div><div class="panel"><h3>현재 Idle 원본 — 같은 픽셀 배율</h3><canvas id="idle" width="750" height="500"></canvas></div></div>
+<p>몸체 확대를 끄면 커진 방패 전체를 볼 수 있습니다. 모든 프레임의 발 기준은 같으며, 초록색 선은 발 기준입니다. Lower는 Deploy의 역순입니다.</p>
+<p>AI로 다시 그린 갑옷·무기의 세부 도트는 원본과 차이가 있습니다. 클립과 라이브러리는 아직 교체하지 않았습니다.</p>
+<script>
+const counts={Shield_Deploy:12,Shield_Guard:6,Shield_Lower:12,Slash_Attack:6},images={},ref={};
+const $=id=>document.getElementById(id);let playing=true,index=0,last=0;
+function load(path){const img=new Image();img.src=path;img.onload=draw;return img}
+for(const [name,n] of Object.entries(counts))for(let i=1;i<=n;i++){const key=name+'_'+String(i).padStart(2,'0');images[key]=load('Frames/'+name+'/'+key+'.png')}
+ref.Shield=load('Reference/Shield_Idle_Full.png');ref.Slash=load('Reference/Slash_Idle_Full.png');
+function timeline(){const s=$('seq').value;if(s!=='Shield_Cycle')return Array.from({length:counts[s]},(_,i)=>s+'_'+String(i+1).padStart(2,'0'));return [...Array.from({length:12},(_,i)=>'Shield_Deploy_'+String(i+1).padStart(2,'0')),...Array.from({length:12},(_,i)=>'Shield_Guard_'+String(i%6+1).padStart(2,'0')),...Array.from({length:12},(_,i)=>'Shield_Lower_'+String(i+1).padStart(2,'0'))]}
+function paint(canvas,img,reference,overlay){const c=canvas.getContext('2d');const zoom=$('zoom').checked;canvas.width=750;canvas.height=zoom?500:911;c.imageSmoothingEnabled=false;const r=zoom?[850,750,750,500]:[650,150,1400,1700];c.clearRect(0,0,canvas.width,canvas.height);if(img&&img.complete)c.drawImage(img,...r,0,0,canvas.width,canvas.height);if(overlay&&reference.complete){c.globalAlpha=.3;c.drawImage(reference,...r,0,0,canvas.width,canvas.height);c.globalAlpha=1}const y=(1162-r[1])/r[3]*canvas.height;c.strokeStyle='#72e4a8';c.beginPath();c.moveTo(0,y);c.lineTo(canvas.width,y);c.stroke()}
+function draw(){const list=timeline();index=Math.min(index,list.length-1);$('frame').max=list.length-1;$('frame').value=index;const kind=$('seq').value.startsWith('Slash')?'Slash':'Shield';const reference=ref[kind];if(!reference)return;paint($('current'),images[list[index]],reference,$('ghost').checked);paint($('idle'),reference,reference,false);$('status').textContent=(index+1)+' / '+list.length+' · '+list[index]}
+$('play').onclick=()=>{playing=!playing;$('play').textContent=playing?'일시 정지':'재생'};$('seq').onchange=()=>{index=0;draw()};$('frame').oninput=()=>{index=+$('frame').value;playing=false;$('play').textContent='재생';draw()};$('zoom').onchange=draw;$('ghost').onchange=draw;
+function tick(t){if(playing&&t-last>1000/Math.max(1,+$('fps').value)){index=(index+1)%timeline().length;draw();last=t}requestAnimationFrame(tick)}requestAnimationFrame(tick);
+</script></html>
+

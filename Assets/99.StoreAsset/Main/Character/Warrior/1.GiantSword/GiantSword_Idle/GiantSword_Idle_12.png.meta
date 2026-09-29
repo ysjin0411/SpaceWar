@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 2bdf2143a83ecd84398a3c0e02bca871
+guid: 756a6b15eeec0c84c8d7df189f1bf0ca
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1444544425186576527
-    second: GiantSword_Idle_12_0
+      213: -4927539180197337939
+    second: GiantSword_Idle_23_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -72,7 +72,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: GiantSword_Idle_12_0
+      name: GiantSword_Idle_23_0
       rect:
         serializedVersion: 2
         x: 949
         y: 885
         width: 596
-        height: 622
+        height: 620
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f88448d408d0c0410800000000000000
-      internalID: 1444544425186576527
+      spriteID: da4a48b093ddd9bb0800000000000000
+      internalID: -4927539180197337939
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      GiantSword_Idle_12_0: 1444544425186576527
+      GiantSword_Idle_23_0: -4927539180197337939
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

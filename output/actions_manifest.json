@@ -1,0 +1,418 @@
+[
+  {
+    "kind": "shield",
+    "input": "C:/Users/User/.codex/generated_images/01a0e66a-4db6-7ca3-b09b-92d555da7cd9/exec-0800a3c9-1a3a-4981-bacc-865a434142b3.png",
+    "output": "C:/YSJStudy/SubPF/output/Warrior_ShieldSlash_Actions_v4/Frames/Shield_Guard/Shield_Guard_01.png",
+    "area": [
+      0,
+      0,
+      418,
+      627
+    ],
+    "body": [
+      110,
+      280,
+      76,
+      145
+    ],
+    "splitX": 201,
+    "handY": 337,
+    "shieldHeight": 1320
+  },
+  {
+    "kind": "shield",
+    "input": "C:/Users/User/.codex/generated_images/01a0e66a-4db6-7ca3-b09b-92d555da7cd9/exec-0800a3c9-1a3a-4981-bacc-865a434142b3.png",
+    "output": "C:/YSJStudy/SubPF/output/Warrior_ShieldSlash_Actions_v4/Frames/Shield_Guard/Shield_Guard_02.png",
+    "area": [
+      418,
+      0,
+      418,
+      627
+    ],
+    "body": [
+      510,
+      280,
+      70,
+      145
+    ],
+    "splitX": 600,
+    "handY": 337,
+    "shieldHeight": 1320
+  },
+  {
+    "kind": "shield",
+    "input": "C:/Users/User/.codex/generated_images/01a0e66a-4db6-7ca3-b09b-92d555da7cd9/exec-0800a3c9-1a3a-4981-bacc-865a434142b3.png",
+    "output": "C:/YSJStudy/SubPF/output/Warrior_ShieldSlash_Actions_v4/Frames/Shield_Guard/Shield_Guard_03.png",
+    "area": [
+      836,
+      0,
+      418,
+      627
+    ],
+    "body": [
+      935,
+      280,
+      80,
+      145
+    ],
+    "splitX": 1034,
+    "handY": 337,
+    "shieldHeight": 1320
+  },
+  {
+    "kind": "shield",
+    "input": "C:/Users/User/.codex/generated_images/01a0e66a-4db6-7ca3-b09b-92d555da7cd9/exec-0800a3c9-1a3a-4981-bacc-865a434142b3.png",
+    "output": "C:/YSJStudy/SubPF/output/Warrior_ShieldSlash_Actions_v4/Frames/Shield_Guard/Shield_Guard_04.png",
+    "area": [
+      0,
+      627,
+      418,
+      627
+    ],
+    "body": [
+      115,
+      890,
+      77,
+      150
+    ],
+    "splitX": 212,
+    "handY": 954,
+    "shieldHeight": 1320
+  },
+  {
+    "kind": "shield",
+    "input": "C:/Users/User/.codex/generated_images/01a0e66a-4db6-7ca3-b09b-92d555da7cd9/exec-0800a3c9-1a3a-4981-bacc-865a434142b3.png",
+    "output": "C:/YSJStudy/SubPF/output/Warrior_ShieldSlash_Actions_v4/Frames/Shield_Guard/Shield_Guard_05.png",
+    "area": [
+      418,
+      627,
+      418,
+      627
+    ],
+    "body": [
+      510,
+      890,
+      70,
+      150
+    ],
+    "splitX": 601,
+    "handY": 954,
+    "shieldHeight": 1320
+  },
+  {
+    "kind": "shield",
+    "input": "C:/Users/User/.codex/generated_images/01a0e66a-4db6-7ca3-b09b-92d555da7cd9/exec-0800a3c9-1a3a-4981-bacc-865a434142b3.png",
+    "output": "C:/YSJStudy/SubPF/output/Warrior_ShieldSlash_Actions_v4/Frames/Shield_Guard/Shield_Guard_06.png",
+    "area": [
+      836,
+      627,
+      418,
+      627
+    ],
+    "body": [
+      935,
+      890,
+      80,
+      150
+    ],
+    "splitX": 1034,
+    "handY": 954,
+    "shieldHeight": 1320
+  },
+  {
+    "kind": "shield",
+    "input": "C:/Users/User/.codex/generated_images/01a0e66a-4db6-7ca3-b09b-92d555da7cd9/exec-aafc25d6-de99-4b31-9767-e93d02d342a0.png",
+    "output": "C:/YSJStudy/SubPF/output/Warrior_ShieldSlash_Actions_v4/Frames/Shield_Deploy/Shield_Deploy_02.png",
+    "area": [
+      418,
+      0,
+      418,
+      627
+    ],
+    "body": [
+      518,
+      260,
+      85,
+      190
+    ],
+    "splitX": 621,
+    "handY": 331,
+    "shieldHeight": 340
+  },
+  {
+    "kind": "shield",
+    "input": "C:/Users/User/.codex/generated_images/01a0e66a-4db6-7ca3-b09b-92d555da7cd9/exec-aafc25d6-de99-4b31-9767-e93d02d342a0.png",
+    "output": "C:/YSJStudy/SubPF/output/Warrior_ShieldSlash_Actions_v4/Frames/Shield_Deploy/Shield_Deploy_03.png",
+    "area": [
+      836,
+      0,
+      418,
+      627
+    ],
+    "body": [
+      936,
+      260,
+      94,
+      190
+    ],
+    "splitX": 1048,
+    "handY": 331,
+    "shieldHeight": 430
+  },
+  {
+    "kind": "shield",
+    "input": "C:/Users/User/.codex/generated_images/01a0e66a-4db6-7ca3-b09b-92d555da7cd9/exec-aafc25d6-de99-4b31-9767-e93d02d342a0.png",
+    "output": "C:/YSJStudy/SubPF/output/Warrior_ShieldSlash_Actions_v4/Frames/Shield_Deploy/Shield_Deploy_04.png",
+    "area": [
+      0,
+      627,
+      418,
+      627
+    ],
+    "body": [
+      100,
+      887,
+      82,
+      190
+    ],
+    "splitX": 200,
+    "handY": 946,
+    "shieldHeight": 530
+  },
+  {
+    "kind": "shield",
+    "input": "C:/Users/User/.codex/generated_images/01a0e66a-4db6-7ca3-b09b-92d555da7cd9/exec-aafc25d6-de99-4b31-9767-e93d02d342a0.png",
+    "output": "C:/YSJStudy/SubPF/output/Warrior_ShieldSlash_Actions_v4/Frames/Shield_Deploy/Shield_Deploy_05.png",
+    "area": [
+      418,
+      627,
+      418,
+      627
+    ],
+    "body": [
+      518,
+      887,
+      98,
+      190
+    ],
+    "splitX": 634,
+    "handY": 946,
+    "shieldHeight": 640
+  },
+  {
+    "kind": "shield",
+    "input": "C:/Users/User/.codex/generated_images/01a0e66a-4db6-7ca3-b09b-92d555da7cd9/exec-aafc25d6-de99-4b31-9767-e93d02d342a0.png",
+    "output": "C:/YSJStudy/SubPF/output/Warrior_ShieldSlash_Actions_v4/Frames/Shield_Deploy/Shield_Deploy_06.png",
+    "area": [
+      836,
+      627,
+      418,
+      627
+    ],
+    "body": [
+      936,
+      887,
+      106,
+      190
+    ],
+    "splitX": 1060,
+    "handY": 946,
+    "shieldHeight": 750
+  },
+  {
+    "kind": "shield",
+    "input": "C:/Users/User/.codex/generated_images/01a0e66a-4db6-7ca3-b09b-92d555da7cd9/exec-79f44446-5bb2-464f-9b51-e059d85808f9.png",
+    "output": "C:/YSJStudy/SubPF/output/Warrior_ShieldSlash_Actions_v4/Frames/Shield_Deploy/Shield_Deploy_07.png",
+    "area": [
+      0,
+      0,
+      418,
+      627
+    ],
+    "body": [
+      100,
+      270,
+      84,
+      160
+    ],
+    "splitX": 202,
+    "handY": 323,
+    "shieldHeight": 850
+  },
+  {
+    "kind": "shield",
+    "input": "C:/Users/User/.codex/generated_images/01a0e66a-4db6-7ca3-b09b-92d555da7cd9/exec-79f44446-5bb2-464f-9b51-e059d85808f9.png",
+    "output": "C:/YSJStudy/SubPF/output/Warrior_ShieldSlash_Actions_v4/Frames/Shield_Deploy/Shield_Deploy_08.png",
+    "area": [
+      418,
+      0,
+      418,
+      627
+    ],
+    "body": [
+      518,
+      270,
+      87,
+      160
+    ],
+    "splitX": 623,
+    "handY": 323,
+    "shieldHeight": 950
+  },
+  {
+    "kind": "shield",
+    "input": "C:/Users/User/.codex/generated_images/01a0e66a-4db6-7ca3-b09b-92d555da7cd9/exec-79f44446-5bb2-464f-9b51-e059d85808f9.png",
+    "output": "C:/YSJStudy/SubPF/output/Warrior_ShieldSlash_Actions_v4/Frames/Shield_Deploy/Shield_Deploy_09.png",
+    "area": [
+      836,
+      0,
+      418,
+      627
+    ],
+    "body": [
+      936,
+      270,
+      92,
+      160
+    ],
+    "splitX": 1046,
+    "handY": 323,
+    "shieldHeight": 1050
+  },
+  {
+    "kind": "shield",
+    "input": "C:/Users/User/.codex/generated_images/01a0e66a-4db6-7ca3-b09b-92d555da7cd9/exec-79f44446-5bb2-464f-9b51-e059d85808f9.png",
+    "output": "C:/YSJStudy/SubPF/output/Warrior_ShieldSlash_Actions_v4/Frames/Shield_Deploy/Shield_Deploy_10.png",
+    "area": [
+      0,
+      627,
+      418,
+      627
+    ],
+    "body": [
+      100,
+      897,
+      86,
+      160
+    ],
+    "splitX": 204,
+    "handY": 950,
+    "shieldHeight": 1150
+  },
+  {
+    "kind": "shield",
+    "input": "C:/Users/User/.codex/generated_images/01a0e66a-4db6-7ca3-b09b-92d555da7cd9/exec-79f44446-5bb2-464f-9b51-e059d85808f9.png",
+    "output": "C:/YSJStudy/SubPF/output/Warrior_ShieldSlash_Actions_v4/Frames/Shield_Deploy/Shield_Deploy_11.png",
+    "area": [
+      418,
+      627,
+      418,
+      627
+    ],
+    "body": [
+      518,
+      897,
+      88,
+      160
+    ],
+    "splitX": 624,
+    "handY": 950,
+    "shieldHeight": 1240
+  },
+  {
+    "input": "C:/Users/User/.codex/generated_images/01a0e66a-4db6-7ca3-b09b-92d555da7cd9/exec-b42c2991-c637-4587-b848-a2cab3e1fba7.png",
+    "output": "C:/YSJStudy/SubPF/output/Warrior_ShieldSlash_Actions_v4/Frames/Slash_Attack/Slash_Attack_01.png",
+    "area": [
+      0,
+      0,
+      410,
+      627
+    ],
+    "body": [
+      205,
+      175,
+      150,
+      445
+    ],
+    "anchorX": 220,
+    "targetHeight": 264,
+    "scale": 0.6285714285714286
+  },
+  {
+    "input": "C:/Users/User/.codex/generated_images/01a0e66a-4db6-7ca3-b09b-92d555da7cd9/exec-b42c2991-c637-4587-b848-a2cab3e1fba7.png",
+    "output": "C:/YSJStudy/SubPF/output/Warrior_ShieldSlash_Actions_v4/Frames/Slash_Attack/Slash_Attack_02.png",
+    "area": [
+      410,
+      0,
+      390,
+      627
+    ],
+    "body": [
+      480,
+      180,
+      210,
+      440
+    ],
+    "anchorX": 584,
+    "targetHeight": 264,
+    "scale": 0.6285714285714286
+  },
+  {
+    "input": "C:/Users/User/.codex/generated_images/01a0e66a-4db6-7ca3-b09b-92d555da7cd9/exec-a584d342-e3c9-43a2-a83b-bb1ef08bd04c.png",
+    "output": "C:/YSJStudy/SubPF/output/Warrior_ShieldSlash_Actions_v4/Frames/Slash_Attack/Slash_Attack_04.png",
+    "area": [
+      0,
+      0,
+      1536,
+      1024
+    ],
+    "body": [
+      140,
+      130,
+      680,
+      820
+    ],
+    "anchorX": 515,
+    "targetHeight": 252,
+    "scale": 0
+  },
+  {
+    "input": "C:/Users/User/.codex/generated_images/01a0e66a-4db6-7ca3-b09b-92d555da7cd9/exec-b42c2991-c637-4587-b848-a2cab3e1fba7.png",
+    "output": "C:/YSJStudy/SubPF/output/Warrior_ShieldSlash_Actions_v4/Frames/Slash_Attack/Slash_Attack_05.png",
+    "area": [
+      885,
+      740,
+      369,
+      514
+    ],
+    "body": [
+      900,
+      780,
+      235,
+      440
+    ],
+    "anchorX": 1020,
+    "targetHeight": 264,
+    "scale": 0.6285714285714286
+  },
+  {
+    "input": "C:/Users/User/.codex/generated_images/01a0e66a-4db6-7ca3-b09b-92d555da7cd9/exec-1d4964b0-4752-481b-941f-7f0daacffa9d.png",
+    "output": "C:/YSJStudy/SubPF/output/Warrior_ShieldSlash_Actions_v4/Frames/Slash_Attack/Slash_Attack_03.png",
+    "area": [
+      0,
+      0,
+      1536,
+      1024
+    ],
+    "body": [
+      290,
+      180,
+      665,
+      780
+    ],
+    "anchorX": 625,
+    "targetHeight": 240,
+    "scale": 0
+  }
+]
+

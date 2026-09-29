@@ -1,0 +1,572 @@
+fileFormatVersion: 2
+guid: 1b60f5039684d4548a3a21e6ea947146
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1301721066353491320
+    second: SmallEnemy_SuicideExplosion_Core_0
+  - first:
+      213: -4271895857961447960
+    second: SmallEnemy_SuicideExplosion_Core_1
+  - first:
+      213: 5748272987918807510
+    second: SmallEnemy_SuicideExplosion_Core_2
+  - first:
+      213: -1760838655648127070
+    second: SmallEnemy_SuicideExplosion_Core_3
+  - first:
+      213: 6512086258143760791
+    second: SmallEnemy_SuicideExplosion_Core_4
+  - first:
+      213: -8380605384845695287
+    second: SmallEnemy_SuicideExplosion_Core_5
+  - first:
+      213: -4901097873042365204
+    second: SmallEnemy_SuicideExplosion_Core_6
+  - first:
+      213: -6044132540271296811
+    second: SmallEnemy_SuicideExplosion_Core_7
+  - first:
+      213: -3510782942203010756
+    second: SmallEnemy_SuicideExplosion_Core_8
+  - first:
+      213: -964693119134178660
+    second: SmallEnemy_SuicideExplosion_Core_9
+  - first:
+      213: 3762683797874456660
+    second: SmallEnemy_SuicideExplosion_Core_10
+  - first:
+      213: 4798800385435684454
+    second: SmallEnemy_SuicideExplosion_Core_11
+  - first:
+      213: -6334757063494016966
+    second: SmallEnemy_SuicideExplosion_Core_12
+  - first:
+      213: -6256010372685307135
+    second: SmallEnemy_SuicideExplosion_Core_13
+  - first:
+      213: -3707819057187836037
+    second: SmallEnemy_SuicideExplosion_Core_14
+  - first:
+      213: -7101645661805801964
+    second: SmallEnemy_SuicideExplosion_Core_15
+  - first:
+      213: 8387445289798668888
+    second: SmallEnemy_SuicideExplosion_Core_16
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 400
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: SmallEnemy_SuicideExplosion_Core_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1221
+        height: 1207
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8828b53469b5fede0800000000000000
+      internalID: -1301721066353491320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SmallEnemy_SuicideExplosion_Core_1
+      rect:
+        serializedVersion: 2
+        x: 665
+        y: 1204
+        width: 146
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8edceb4c95d27b4c0800000000000000
+      internalID: -4271895857961447960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SmallEnemy_SuicideExplosion_Core_2
+      rect:
+        serializedVersion: 2
+        x: 860
+        y: 1110
+        width: 76
+        height: 106
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d1bfdca3d7f5cf40800000000000000
+      internalID: 5748272987918807510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SmallEnemy_SuicideExplosion_Core_3
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 915
+        width: 30
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a7215f629e3097e0800000000000000
+      internalID: -1760838655648127070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SmallEnemy_SuicideExplosion_Core_4
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 614
+        width: 35
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7919c5303f39f5a50800000000000000
+      internalID: 6512086258143760791
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SmallEnemy_SuicideExplosion_Core_5
+      rect:
+        serializedVersion: 2
+        x: 1161
+        y: 614
+        width: 14
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c6eb890ecb12bb80800000000000000
+      internalID: -8380605384845695287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SmallEnemy_SuicideExplosion_Core_6
+      rect:
+        serializedVersion: 2
+        x: 1174
+        y: 610
+        width: 7
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce423eb937dcbfbb0800000000000000
+      internalID: -4901097873042365204
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SmallEnemy_SuicideExplosion_Core_7
+      rect:
+        serializedVersion: 2
+        x: 1212
+        y: 616
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5deffb15a7dee1ca0800000000000000
+      internalID: -6044132540271296811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SmallEnemy_SuicideExplosion_Core_8
+      rect:
+        serializedVersion: 2
+        x: 1133
+        y: 596
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c312d76d381374fc0800000000000000
+      internalID: -3510782942203010756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SmallEnemy_SuicideExplosion_Core_9
+      rect:
+        serializedVersion: 2
+        x: 1136
+        y: 592
+        width: 13
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c926eb428b8bc92f0800000000000000
+      internalID: -964693119134178660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SmallEnemy_SuicideExplosion_Core_10
+      rect:
+        serializedVersion: 2
+        x: 1131
+        y: 471
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 458bc668afcb73430800000000000000
+      internalID: 3762683797874456660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SmallEnemy_SuicideExplosion_Core_11
+      rect:
+        serializedVersion: 2
+        x: 1147
+        y: 471
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 66ec6e18683c89240800000000000000
+      internalID: 4798800385435684454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SmallEnemy_SuicideExplosion_Core_12
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 326
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a30ea04830c6618a0800000000000000
+      internalID: -6334757063494016966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SmallEnemy_SuicideExplosion_Core_13
+      rect:
+        serializedVersion: 2
+        x: 520
+        y: 135
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 103eee836bf2e29a0800000000000000
+      internalID: -6256010372685307135
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SmallEnemy_SuicideExplosion_Core_14
+      rect:
+        serializedVersion: 2
+        x: 514
+        y: 119
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b7f25ec563e2b8cc0800000000000000
+      internalID: -3707819057187836037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SmallEnemy_SuicideExplosion_Core_15
+      rect:
+        serializedVersion: 2
+        x: 665
+        y: 109
+        width: 13
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 41e0f5f85e2e17d90800000000000000
+      internalID: -7101645661805801964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SmallEnemy_SuicideExplosion_Core_16
+      rect:
+        serializedVersion: 2
+        x: 741
+        y: 33
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 852197f6d01366470800000000000000
+      internalID: 8387445289798668888
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      SmallEnemy_SuicideExplosion_Core_0: -1301721066353491320
+      SmallEnemy_SuicideExplosion_Core_1: -4271895857961447960
+      SmallEnemy_SuicideExplosion_Core_10: 3762683797874456660
+      SmallEnemy_SuicideExplosion_Core_11: 4798800385435684454
+      SmallEnemy_SuicideExplosion_Core_12: -6334757063494016966
+      SmallEnemy_SuicideExplosion_Core_13: -6256010372685307135
+      SmallEnemy_SuicideExplosion_Core_14: -3707819057187836037
+      SmallEnemy_SuicideExplosion_Core_15: -7101645661805801964
+      SmallEnemy_SuicideExplosion_Core_16: 8387445289798668888
+      SmallEnemy_SuicideExplosion_Core_2: 5748272987918807510
+      SmallEnemy_SuicideExplosion_Core_3: -1760838655648127070
+      SmallEnemy_SuicideExplosion_Core_4: 6512086258143760791
+      SmallEnemy_SuicideExplosion_Core_5: -8380605384845695287
+      SmallEnemy_SuicideExplosion_Core_6: -4901097873042365204
+      SmallEnemy_SuicideExplosion_Core_7: -6044132540271296811
+      SmallEnemy_SuicideExplosion_Core_8: -3510782942203010756
+      SmallEnemy_SuicideExplosion_Core_9: -964693119134178660
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

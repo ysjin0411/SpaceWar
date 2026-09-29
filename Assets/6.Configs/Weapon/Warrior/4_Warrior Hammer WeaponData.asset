@@ -17,7 +17,7 @@ MonoBehaviour:
   _id: warrior_hammer
   _name: Hammer
   _type: 8
-  _icon: {fileID: -1235648141532224321, guid: dd0db2facc676c14fb7b5c1606f73247, type: 3}
+  _icon: {fileID: -41718167389833123, guid: 014b8508677e02141893db12d21c093c, type: 3}
   _projectilePrefab: {fileID: 0}
   _muzzleEffectPrefab: {fileID: 0}
   _lazerChargeDuration: 3

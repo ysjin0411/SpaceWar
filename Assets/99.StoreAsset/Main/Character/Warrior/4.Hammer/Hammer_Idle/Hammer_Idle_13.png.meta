@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: c13a3b46a9e510e4e8e9815240cbb59a
+guid: c269504fbd276f547a9381ba98984b0c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5089745193375478134
-    second: Hammer_Idle_13_0
+      213: -2132751284778835591
+    second: Hammer_Idle_25_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -72,7 +72,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -113,11 +113,11 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Hammer_Idle_13_0
+      name: Hammer_Idle_25_0
       rect:
         serializedVersion: 2
         x: 891
-        y: 757
+        y: 753
         width: 810
         height: 678
       alignment: 0
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 671b568694862a640800000000000000
-      internalID: 5089745193375478134
+      spriteID: 971ef7c9102f662e0800000000000000
+      internalID: -2132751284778835591
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Hammer_Idle_13_0: 5089745193375478134
+      Hammer_Idle_25_0: -2132751284778835591
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

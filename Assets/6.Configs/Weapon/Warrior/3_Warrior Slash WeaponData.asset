@@ -17,7 +17,7 @@ MonoBehaviour:
   _id: warrior_slash
   _name: Slash
   _type: 7
-  _icon: {fileID: -3045193025102504070, guid: f9c2ef65a63e94c49a5fa9ef36090440, type: 3}
+  _icon: {fileID: 21300000, guid: e261f3dfe7a58834c819be5a14dc1a14, type: 3}
   _projectilePrefab: {fileID: 8053201812717553051, guid: a0136871e6a03024ab1120ee5db02527, type: 3}
   _muzzleEffectPrefab: {fileID: 0}
   _lazerChargeDuration: 3

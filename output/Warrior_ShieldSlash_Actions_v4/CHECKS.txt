@@ -1,0 +1,7 @@
+Frame count: 36
+All 36 frames: 2048x2048, transparent corners, nonempty, visible alpha bounds inside canvas.
+Shield_Deploy: 12 PNG, 12 unique hashes
+Shield_Guard: 6 PNG, 6 unique hashes
+Shield_Lower: 12 PNG, 12 unique hashes
+Slash_Attack: 6 PNG, 6 unique hashes
+Lower is exact reverse of Deploy. Original Idle endpoints preserved. PPU and Pivot require Unity import configuration. Unity runtime not tested.

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 930f9f14db8edda41ba3ba335f5697b6
+guid: 8ef697473e8e2aa40bbdcc7855ee1616
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -49,8 +49,8 @@ TextureImporter:
   spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 9
-  spritePivot: {x: 0.5, y: 0.42382812}
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
@@ -72,7 +72,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 4096
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -116,10 +116,10 @@ TextureImporter:
       name: Slash_Attack_05_0
       rect:
         serializedVersion: 2
-        x: 1363
-        y: 1071
-        width: 576
-        height: 371
+        x: 944
+        y: 883
+        width: 210
+        height: 269
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

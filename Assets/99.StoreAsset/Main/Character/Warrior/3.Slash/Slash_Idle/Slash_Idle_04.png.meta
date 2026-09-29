@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: d783452159afc684285dd92e8e0f8a9e
+guid: 8a52d2c160a860b4ea3ecd61e1212d90
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 9217377434993510013
-    second: Slash_Idle_01_0
+      213: 2923560508654160648
+    second: Slash_Idle_04_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -49,8 +49,8 @@ TextureImporter:
   spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 9
-  spritePivot: {x: 0.5, y: 0.42382812}
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
@@ -72,7 +72,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 4096
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Slash_Idle_01_0
+      name: Slash_Idle_04_0
       rect:
         serializedVersion: 2
-        x: 1313
-        y: 1071
-        width: 448
-        height: 442
+        x: 957
+        y: 883
+        width: 213
+        height: 270
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d764d7df0f3baef70800000000000000
-      internalID: 9217377434993510013
+      spriteID: 80b01bdfac2929820800000000000000
+      internalID: 2923560508654160648
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Slash_Idle_01_0: 9217377434993510013
+      Slash_Idle_04_0: 2923560508654160648
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
