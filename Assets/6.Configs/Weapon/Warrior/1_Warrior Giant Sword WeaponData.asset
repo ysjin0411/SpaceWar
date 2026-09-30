@@ -17,7 +17,7 @@ MonoBehaviour:
   _id: warrior_giantsword
   _name: Giant Sword
   _type: 5
-  _icon: {fileID: 2251042807896452514, guid: c53f91275ba97e84681fbdd02ca3cd83, type: 3}
+  _icon: {fileID: 21300000, guid: c53f91275ba97e84681fbdd02ca3cd83, type: 3}
   _projectilePrefab: {fileID: 0}
   _muzzleEffectPrefab: {fileID: 0}
   _lazerChargeDuration: 3

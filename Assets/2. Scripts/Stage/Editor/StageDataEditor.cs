@@ -69,19 +69,29 @@ public class StageDataEditor : Editor
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("씬에서 자동으로 읽은 보스");
 
-        // 결과는 확인만 가능하고 여기에서 직접 바꿀 수 없다.
+        // 자동으로 추출한 정보를 확인만 할 수 있도록 표시한다.
         using (new EditorGUI.DisabledScope(true))
         {
-            EditorGUILayout.ObjectField(
-                "Mid Boss",
-                data.MidBossPrefab,
-                typeof(BossEnemy),
-                false);
+            // 중간 보스의 이름과 아이콘을 표시한다.
+            EditorGUILayout.TextField(
+                "Mid Boss Name",
+                data.MidBossName);
 
             EditorGUILayout.ObjectField(
-                "Final Boss",
-                data.FinalBossPrefab,
-                typeof(BossEnemy),
+                "Mid Boss Icon",
+                data.MidBossIcon,
+                typeof(Sprite),
+                false);
+
+            // 최종 보스의 이름과 아이콘을 표시한다.
+            EditorGUILayout.TextField(
+                "Final Boss Name",
+                data.FinalBossName);
+
+            EditorGUILayout.ObjectField(
+                "Final Boss Icon",
+                data.FinalBossIcon,
+                typeof(Sprite),
                 false);
         }
     }
@@ -250,16 +260,43 @@ public class StageDataEditor : Editor
         StoreBosses(data, midBoss, finalBoss);
     }
 
-    // 추출 결과가 바뀌었을 때만 저장 대상으로 표시한다.
+    // 찾은 보스 프리팹에서 선택 화면용 정보만 추출해 저장한다.
     private static void StoreBosses(
         StageData data,
         BossEnemy midBoss,
         BossEnemy finalBoss)
     {
-        if (data.SetExtractedBosses(midBoss, finalBoss))
+        // 잠긴 스테이지나 추출 실패 상황에서는 빈 정보를 저장한다.
+        string midBossName = string.Empty;
+        Sprite midBossIcon = null;
+
+        string finalBossName = string.Empty;
+        Sprite finalBossIcon = null;
+
+        // 중간 보스가 있으면 이름과 아이콘을 복사한다.
+        if (midBoss != null)
         {
-            EditorUtility.SetDirty(data);
+            midBossName = midBoss.BossName;
+            midBossIcon = midBoss.BossIcon;
         }
+
+        // 최종 보스가 있으면 이름과 아이콘을 복사한다.
+        if (finalBoss != null)
+        {
+            finalBossName = finalBoss.BossName;
+            finalBossIcon = finalBoss.BossIcon;
+        }
+
+        // StageData에는 보스 프리팹을 전달하지 않는다.
+        data.SetExtractedBossInfo(
+            midBossName,
+            midBossIcon,
+            finalBossName,
+            finalBossIcon);
+
+        // 새 필드 구조로 에셋이 다시 저장되도록 변경 상태로 표시한다.
+        // 실제 저장은 기존 호출부의 AssetDatabase.SaveAssets()가 처리한다.
+        EditorUtility.SetDirty(data);
     }
 }
 

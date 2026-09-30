@@ -16,6 +16,8 @@ MonoBehaviour:
   _stageName: Stage 2
   _stageIcon: {fileID: 21300000, guid: d9b296a535876a44196e4d9767e8135f, type: 3}
   _sourceScene: {fileID: 102900000, guid: 4d6059eb40cbba246a48894a1495eba8, type: 3}
-  _midBossPrefab: {fileID: 8790472829186395643, guid: 7ee450cb08ab104468c3c24720064aa7, type: 3}
-  _finalBossPrefab: {fileID: 7767557935219227618, guid: fef9237912d95a84fa076bff287b4fc8, type: 3}
+  _midBossName: Cruiser
+  _midBossIcon: {fileID: 21300000, guid: d058589bca3682f479627072e2b72694, type: 3}
+  _finalBossName: Boss_Alien
+  _finalBossIcon: {fileID: 21300000, guid: f07c2b47ad40741419afcff3c42dbba1, type: 3}
   _isLocked: 0

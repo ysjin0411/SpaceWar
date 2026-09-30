@@ -1,0 +1,546 @@
+fileFormatVersion: 2
+guid: c4134484a9a85f846a6b880cd0874ef0
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6965787940444394212
+    second: Missile_SmokeTrail_05_0
+  - first:
+      213: 2681258168452308608
+    second: Missile_SmokeTrail_05_1
+  - first:
+      213: -6896013291511103343
+    second: Missile_SmokeTrail_05_2
+  - first:
+      213: -4479885488172061959
+    second: Missile_SmokeTrail_05_3
+  - first:
+      213: 7477686118814971538
+    second: Missile_SmokeTrail_05_4
+  - first:
+      213: -5186475714867890657
+    second: Missile_SmokeTrail_05_5
+  - first:
+      213: 2900473655000733670
+    second: Missile_SmokeTrail_05_6
+  - first:
+      213: 5934401730255874433
+    second: Missile_SmokeTrail_05_7
+  - first:
+      213: -7997793870608776767
+    second: Missile_SmokeTrail_05_8
+  - first:
+      213: 9129665968029602811
+    second: Missile_SmokeTrail_05_9
+  - first:
+      213: -6232679554913902282
+    second: Missile_SmokeTrail_05_10
+  - first:
+      213: -5958957018289109749
+    second: Missile_SmokeTrail_05_11
+  - first:
+      213: 5905187050400539962
+    second: Missile_SmokeTrail_05_12
+  - first:
+      213: -2874355748486595102
+    second: Missile_SmokeTrail_05_13
+  - first:
+      213: 1469890053047106894
+    second: Missile_SmokeTrail_05_14
+  - first:
+      213: 7779637685647308205
+    second: Missile_SmokeTrail_05_15
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 9
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 800
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 512
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Missile_SmokeTrail_05_0
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 156
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1dac1546cc845f90800000000000000
+      internalID: -6965787940444394212
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_SmokeTrail_05_1
+      rect:
+        serializedVersion: 2
+        x: 119
+        y: 95
+        width: 42
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 08ed6b9291eb53520800000000000000
+      internalID: 2681258168452308608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_SmokeTrail_05_2
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 137
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 190cb11b2707c40a0800000000000000
+      internalID: -6896013291511103343
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_SmokeTrail_05_3
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 128
+        width: 17
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9faa31b42ef34d1c0800000000000000
+      internalID: -4479885488172061959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_SmokeTrail_05_4
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 120
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 296f5d518e316c760800000000000000
+      internalID: 7477686118814971538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_SmokeTrail_05_5
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 106
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f16fb1301dfe508b0800000000000000
+      internalID: -5186475714867890657
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_SmokeTrail_05_6
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 89
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e792befb6d804820800000000000000
+      internalID: 2900473655000733670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_SmokeTrail_05_7
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 71
+        width: 26
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1896d5e8eea3b5250800000000000000
+      internalID: 5934401730255874433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_SmokeTrail_05_8
+      rect:
+        serializedVersion: 2
+        x: 121
+        y: 81
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c1419b49d0220190800000000000000
+      internalID: -7997793870608776767
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_SmokeTrail_05_9
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 87
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf3906ea3d613be70800000000000000
+      internalID: 9129665968029602811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_SmokeTrail_05_10
+      rect:
+        serializedVersion: 2
+        x: 177
+        y: 92
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 631648a87f21189a0800000000000000
+      internalID: -6232679554913902282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_SmokeTrail_05_11
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 67
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b058e0de9288d4da0800000000000000
+      internalID: -5958957018289109749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_SmokeTrail_05_12
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 71
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a356c57d55073f150800000000000000
+      internalID: 5905187050400539962
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_SmokeTrail_05_13
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 61
+        width: 11
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2edba5dfcac3c18d0800000000000000
+      internalID: -2874355748486595102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_SmokeTrail_05_14
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 72
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e4db0c62739166410800000000000000
+      internalID: 1469890053047106894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missile_SmokeTrail_05_15
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 63
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da5ff3eb143d6fb60800000000000000
+      internalID: 7779637685647308205
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Missile_SmokeTrail_05_0: -6965787940444394212
+      Missile_SmokeTrail_05_1: 2681258168452308608
+      Missile_SmokeTrail_05_10: -6232679554913902282
+      Missile_SmokeTrail_05_11: -5958957018289109749
+      Missile_SmokeTrail_05_12: 5905187050400539962
+      Missile_SmokeTrail_05_13: -2874355748486595102
+      Missile_SmokeTrail_05_14: 1469890053047106894
+      Missile_SmokeTrail_05_15: 7779637685647308205
+      Missile_SmokeTrail_05_2: -6896013291511103343
+      Missile_SmokeTrail_05_3: -4479885488172061959
+      Missile_SmokeTrail_05_4: 7477686118814971538
+      Missile_SmokeTrail_05_5: -5186475714867890657
+      Missile_SmokeTrail_05_6: 2900473655000733670
+      Missile_SmokeTrail_05_7: 5934401730255874433
+      Missile_SmokeTrail_05_8: -7997793870608776767
+      Missile_SmokeTrail_05_9: 9129665968029602811
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

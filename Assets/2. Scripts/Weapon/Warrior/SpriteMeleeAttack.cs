@@ -35,8 +35,6 @@ public class SpriteMeleeAttack : MonoBehaviour
         [Range(0f, 1f)] public float HitEnd = 5f / 6f;
         // 원본 애니메이션 순서와 동일한 여섯 프레임의 무기 판정.
         public HitPose[] HitPoses = new HitPose[6];
-        // 몸체와 같은 캔버스/피벗으로 제작된 전체 동작의 궤적 효과.
-        public SpriteOneShotEffect TrailEffect;
         // 내려찍기 등 특정 순간에 생성할 효과. 없으면 생성하지 않는다.
         public SpriteOneShotEffect ImpactEffect;
         // 전체 동작 중 ImpactEffect를 생성할 시점.
@@ -81,8 +79,6 @@ public class SpriteMeleeAttack : MonoBehaviour
     private bool _isAttackActive;
     private bool _resetComboOnFinish;
     private bool _impactPlayed;
-    private SpriteOneShotEffect _activeTrailEffect;
-    private SpriteRenderer _trailRenderer;
 
     [Header("Hitbox Gizmos")]
     // 끄면 플레이 중 히트박스 표시를 숨긴다.
@@ -161,18 +157,6 @@ public class SpriteMeleeAttack : MonoBehaviour
         _animator.SetBool(AttackHash, true);
         _animator.Play(_currentAttackStateHash, 0, 0f);
         _animator.Update(0f);
-
-        if (step.TrailEffect != null)
-        {
-            _activeTrailEffect = Instantiate(step.TrailEffect, _characterRenderer.transform, false);
-            _activeTrailEffect.transform.localPosition = Vector3.zero;
-            _activeTrailEffect.transform.localRotation = Quaternion.identity;
-            _activeTrailEffect.transform.localScale = Vector3.one;
-            // 몸체와 궤적에 동일한 시간을 적용하여 강화 후에도 위치가 어긋나지 않게 한다.
-            _activeTrailEffect.SetPlaybackDuration(duration);
-            _trailRenderer = _activeTrailEffect.GetComponent<SpriteRenderer>();
-            SyncTrailVisual();
-        }
     }
 
     /// <summary>세 타격의 클립, 시간, 판정 좌표가 유효한지 시작 전에 검사한다.</summary>
@@ -215,7 +199,6 @@ public class SpriteMeleeAttack : MonoBehaviour
         }
         ComboStep step = _comboSteps[_currentComboIndex];
         float current = Mathf.Clamp01(state.normalizedTime);
-        SyncTrailVisual();
         float from = Mathf.Max(_previousNormalizedTime, step.HitStart);
         float to = Mathf.Min(current, step.HitEnd);
         // 프레임이 건너뛰어도 지나간 유효 구간 전체를 검사한다.
@@ -324,16 +307,6 @@ public class SpriteMeleeAttack : MonoBehaviour
         return _characterRenderer.transform.TransformPoint(point);
     }
 
-    /// <summary>무기 궤적의 반전과 정렬 순서를 본체에 맞춘다.</summary>
-    private void SyncTrailVisual()
-    {
-        if (_trailRenderer == null) return;
-        _trailRenderer.flipX = _characterRenderer.flipX;
-        _trailRenderer.flipY = _characterRenderer.flipY;
-        _trailRenderer.sortingLayerID = _characterRenderer.sortingLayerID;
-        _trailRenderer.sortingOrder = _characterRenderer.sortingOrder + 1;
-    }
-
     /// <summary>내려찍기 효과를 생성 위치에 남겨 캐릭터를 따라가지 않게 한다.</summary>
     private void PlayImpact(ComboStep step)
     {
@@ -370,7 +343,9 @@ public class SpriteMeleeAttack : MonoBehaviour
         EndAttack(true);
     }
 
-    /// <summary>판정과 효과를 정리하고, 공격을 실제로 멈출 때만 Idle로 돌아간다.</summary>
+    /// <summary>
+    /// 공격 상태와 판정을 정리하고, 필요하면 콤보를 초기화하거나 Idle로 복귀한다.
+    /// </summary>
     private void EndAttack(bool resetCombo)
     {
         bool wasAttacking = _isAttackActive;
@@ -379,9 +354,6 @@ public class SpriteMeleeAttack : MonoBehaviour
         _currentAttackStateHash = 0;
         _hitTargets.Clear();
         if (_hitCollider != null) _hitCollider.enabled = false;
-        if (_activeTrailEffect != null) Destroy(_activeTrailEffect.gameObject);
-        _activeTrailEffect = null;
-        _trailRenderer = null;
 
         if (resetCombo)
         {

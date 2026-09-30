@@ -1,0 +1,520 @@
+fileFormatVersion: 2
+guid: eb74833c4705c694ea64a5c738292c0b
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3991129306833969293
+    second: Lazer_Hit_08_0
+  - first:
+      213: -2519794900975263933
+    second: Lazer_Hit_08_1
+  - first:
+      213: 1520578802582133147
+    second: Lazer_Hit_08_2
+  - first:
+      213: 5226914597437484402
+    second: Lazer_Hit_08_3
+  - first:
+      213: 2546349145221400485
+    second: Lazer_Hit_08_4
+  - first:
+      213: -529855898962764473
+    second: Lazer_Hit_08_5
+  - first:
+      213: 4923440709613925345
+    second: Lazer_Hit_08_6
+  - first:
+      213: 1690225932515413165
+    second: Lazer_Hit_08_7
+  - first:
+      213: 6369531620538914764
+    second: Lazer_Hit_08_8
+  - first:
+      213: -184662765706636758
+    second: Lazer_Hit_08_9
+  - first:
+      213: -882105298916285922
+    second: Lazer_Hit_08_10
+  - first:
+      213: -2053224881921832208
+    second: Lazer_Hit_08_11
+  - first:
+      213: 6565503007703170033
+    second: Lazer_Hit_08_12
+  - first:
+      213: 8277342221178335844
+    second: Lazer_Hit_08_13
+  - first:
+      213: 7624667242789709172
+    second: Lazer_Hit_08_14
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 9
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 800
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 512
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Lazer_Hit_08_0
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 246
+        width: 34
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 37f92859a09ac98c0800000000000000
+      internalID: -3991129306833969293
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lazer_Hit_08_1
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 269
+        width: 9
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 34f578453e3e70dd0800000000000000
+      internalID: -2519794900975263933
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lazer_Hit_08_2
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 105
+        width: 75
+        height: 139
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9995e45d5e2a1510800000000000000
+      internalID: 1520578802582133147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lazer_Hit_08_3
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 226
+        width: 20
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27da09b022bb98840800000000000000
+      internalID: 5226914597437484402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lazer_Hit_08_4
+      rect:
+        serializedVersion: 2
+        x: 265
+        y: 244
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a78a037e03765320800000000000000
+      internalID: 2546349145221400485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lazer_Hit_08_5
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 219
+        width: 15
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74ddd200ed295a8f0800000000000000
+      internalID: -529855898962764473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lazer_Hit_08_6
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 217
+        width: 14
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e33c396d33935440800000000000000
+      internalID: 4923440709613925345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lazer_Hit_08_7
+      rect:
+        serializedVersion: 2
+        x: 237
+        y: 202
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dac0cb9c783e47710800000000000000
+      internalID: 1690225932515413165
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lazer_Hit_08_8
+      rect:
+        serializedVersion: 2
+        x: 277
+        y: 191
+        width: 15
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc717dbf24f156850800000000000000
+      internalID: 6369531620538914764
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lazer_Hit_08_9
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 181
+        width: 11
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2290d66132ff6df0800000000000000
+      internalID: -184662765706636758
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lazer_Hit_08_10
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 169
+        width: 16
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e12ea9b77e122c3f0800000000000000
+      internalID: -882105298916285922
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lazer_Hit_08_11
+      rect:
+        serializedVersion: 2
+        x: 235
+        y: 166
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0fa4e0d29da7183e0800000000000000
+      internalID: -2053224881921832208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lazer_Hit_08_12
+      rect:
+        serializedVersion: 2
+        x: 141
+        y: 145
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1fbf7e1333a5d1b50800000000000000
+      internalID: 6565503007703170033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lazer_Hit_08_13
+      rect:
+        serializedVersion: 2
+        x: 241
+        y: 129
+        width: 20
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4627da915e60fd270800000000000000
+      internalID: 8277342221178335844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lazer_Hit_08_14
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 97
+        width: 12
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 475a909c57240d960800000000000000
+      internalID: 7624667242789709172
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Lazer_Hit_08_0: -3991129306833969293
+      Lazer_Hit_08_1: -2519794900975263933
+      Lazer_Hit_08_10: -882105298916285922
+      Lazer_Hit_08_11: -2053224881921832208
+      Lazer_Hit_08_12: 6565503007703170033
+      Lazer_Hit_08_13: 8277342221178335844
+      Lazer_Hit_08_14: 7624667242789709172
+      Lazer_Hit_08_2: 1520578802582133147
+      Lazer_Hit_08_3: 5226914597437484402
+      Lazer_Hit_08_4: 2546349145221400485
+      Lazer_Hit_08_5: -529855898962764473
+      Lazer_Hit_08_6: 4923440709613925345
+      Lazer_Hit_08_7: 1690225932515413165
+      Lazer_Hit_08_8: 6369531620538914764
+      Lazer_Hit_08_9: -184662765706636758
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,520 @@
+fileFormatVersion: 2
+guid: b001274b5230d7e4f8c964ced0953e39
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7704401079457162322
+    second: Sniper_PenetrationHit_08_0
+  - first:
+      213: -5997334857815933830
+    second: Sniper_PenetrationHit_08_1
+  - first:
+      213: 2950135347825406719
+    second: Sniper_PenetrationHit_08_2
+  - first:
+      213: -8681271461377839661
+    second: Sniper_PenetrationHit_08_3
+  - first:
+      213: -6020969279505043492
+    second: Sniper_PenetrationHit_08_4
+  - first:
+      213: -360960518944135425
+    second: Sniper_PenetrationHit_08_5
+  - first:
+      213: -3550935730329091785
+    second: Sniper_PenetrationHit_08_6
+  - first:
+      213: -7738506337371292482
+    second: Sniper_PenetrationHit_08_7
+  - first:
+      213: 7555365775181644159
+    second: Sniper_PenetrationHit_08_8
+  - first:
+      213: 5827350682523048157
+    second: Sniper_PenetrationHit_08_9
+  - first:
+      213: 2842277155322740759
+    second: Sniper_PenetrationHit_08_10
+  - first:
+      213: 7434503083193854442
+    second: Sniper_PenetrationHit_08_11
+  - first:
+      213: -5080665171335913176
+    second: Sniper_PenetrationHit_08_12
+  - first:
+      213: 3014116550730442082
+    second: Sniper_PenetrationHit_08_13
+  - first:
+      213: 2417328617709674613
+    second: Sniper_PenetrationHit_08_14
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 9
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 800
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 512
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Sniper_PenetrationHit_08_0
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 246
+        width: 34
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2542e2c46f78bea60800000000000000
+      internalID: 7704401079457162322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sniper_PenetrationHit_08_1
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 269
+        width: 9
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7c30d8d8bf25cca0800000000000000
+      internalID: -5997334857815933830
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sniper_PenetrationHit_08_2
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 105
+        width: 75
+        height: 139
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff2f476e77cf0f820800000000000000
+      internalID: 2950135347825406719
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sniper_PenetrationHit_08_3
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 226
+        width: 20
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3dd66d9e99de58780800000000000000
+      internalID: -8681271461377839661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sniper_PenetrationHit_08_4
+      rect:
+        serializedVersion: 2
+        x: 265
+        y: 244
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cdfef8b3758317ca0800000000000000
+      internalID: -6020969279505043492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sniper_PenetrationHit_08_5
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 219
+        width: 15
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff6e46a025c9dfaf0800000000000000
+      internalID: -360960518944135425
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sniper_PenetrationHit_08_6
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 217
+        width: 14
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7310e7554ca88bec0800000000000000
+      internalID: -3550935730329091785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sniper_PenetrationHit_08_7
+      rect:
+        serializedVersion: 2
+        x: 237
+        y: 202
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ebcffdc8c7d4b9490800000000000000
+      internalID: -7738506337371292482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sniper_PenetrationHit_08_8
+      rect:
+        serializedVersion: 2
+        x: 277
+        y: 191
+        width: 15
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f7188d9742d0ad860800000000000000
+      internalID: 7555365775181644159
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sniper_PenetrationHit_08_9
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 181
+        width: 11
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd89a653298eed050800000000000000
+      internalID: 5827350682523048157
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sniper_PenetrationHit_08_10
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 169
+        width: 16
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7104834830cc17720800000000000000
+      internalID: 2842277155322740759
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sniper_PenetrationHit_08_11
+      rect:
+        serializedVersion: 2
+        x: 235
+        y: 166
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae9e05b1a29ac2760800000000000000
+      internalID: 7434503083193854442
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sniper_PenetrationHit_08_12
+      rect:
+        serializedVersion: 2
+        x: 141
+        y: 145
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 821e2d7f1f9dd79b0800000000000000
+      internalID: -5080665171335913176
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sniper_PenetrationHit_08_13
+      rect:
+        serializedVersion: 2
+        x: 241
+        y: 129
+        width: 20
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 265e9ed880b44d920800000000000000
+      internalID: 3014116550730442082
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sniper_PenetrationHit_08_14
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 97
+        width: 12
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 570a8fbf1931c8120800000000000000
+      internalID: 2417328617709674613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Sniper_PenetrationHit_08_0: 7704401079457162322
+      Sniper_PenetrationHit_08_1: -5997334857815933830
+      Sniper_PenetrationHit_08_10: 2842277155322740759
+      Sniper_PenetrationHit_08_11: 7434503083193854442
+      Sniper_PenetrationHit_08_12: -5080665171335913176
+      Sniper_PenetrationHit_08_13: 3014116550730442082
+      Sniper_PenetrationHit_08_14: 2417328617709674613
+      Sniper_PenetrationHit_08_2: 2950135347825406719
+      Sniper_PenetrationHit_08_3: -8681271461377839661
+      Sniper_PenetrationHit_08_4: -6020969279505043492
+      Sniper_PenetrationHit_08_5: -360960518944135425
+      Sniper_PenetrationHit_08_6: -3550935730329091785
+      Sniper_PenetrationHit_08_7: -7738506337371292482
+      Sniper_PenetrationHit_08_8: 7555365775181644159
+      Sniper_PenetrationHit_08_9: 5827350682523048157
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

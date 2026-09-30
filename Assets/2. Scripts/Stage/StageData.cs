@@ -4,66 +4,75 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
-// 스테이지 선택 화면에서 사용하는 정보.
-// 보스 배정은 원본 씬에서 자동으로 가져온다.
+// 스테이지 선택 화면에 필요한 정보만 저장한다.
 [CreateAssetMenu(
     fileName = "StageData",
     menuName = "Game/Stage Data")]
 public class StageData : ScriptableObject
 {
-    // 기존 세이브 기록과 연결되는 인덱스.
-    // Stage1은 0, Stage2는 1이다.
+    // 저장된 클리어 기록과 연결되는 번호다.
+    // Stage1은 0, Stage2는 1을 사용한다.
     [SerializeField, Min(0)] int _stageIndex;
 
-    // 선택 화면에 표시할 스테이지 이름.
+    // 선택 화면에 표시할 스테이지 이름이다.
     [SerializeField] string _stageName;
 
-    // 지도에서 사용할 스테이지 아이콘.
+    // 스테이지 선택 버튼에 표시할 아이콘이다.
     [SerializeField] Sprite _stageIcon;
 
 #if UNITY_EDITOR
-    // 보스 배정을 읽어올 원본 씬.
-    // SceneAsset은 에디터에서만 사용하고 빌드에는 포함하지 않는다.
+    // 에디터에서 보스 정보를 추출할 원본 씬이다.
+    // 게임 빌드에는 이 필드가 포함되지 않는다.
     [SerializeField] SceneAsset _sourceScene;
 
+    // 에디터의 자동 추출 기능에서 원본 씬을 확인한다.
     public SceneAsset SourceScene => _sourceScene;
 #endif
 
-    // 원본 씬에서 자동 추출한 보스 참조.
-    // 수동 입력을 막기 위해 기본 Inspector에서는 숨긴다.
-    [SerializeField, HideInInspector] BossEnemy _midBossPrefab;
-    [SerializeField, HideInInspector] BossEnemy _finalBossPrefab;
+    // 씬에서 추출한 중간 보스 이름이다.
+    [SerializeField, HideInInspector]
+    string _midBossName = string.Empty;
 
-    // 잠긴 스테이지는 지도에서 선택할 수 있지만 입장할 수 없다.
+    // 씬에서 추출한 중간 보스 아이콘이다.
+    [SerializeField, HideInInspector]
+    Sprite _midBossIcon;
+
+    // 씬에서 추출한 최종 보스 이름이다.
+    [SerializeField, HideInInspector]
+    string _finalBossName = string.Empty;
+
+    // 씬에서 추출한 최종 보스 아이콘이다.
+    [SerializeField, HideInInspector]
+    Sprite _finalBossIcon;
+
+    // 잠긴 스테이지는 선택 정보와 입장을 제한한다.
     [SerializeField] bool _isLocked;
 
-    // 선택 화면과 에디터에서 잠금 여부를 확인한다.
-    public bool IsLocked => _isLocked;
-
+    // 선택 화면에서 사용하는 스테이지 기본 정보다.
     public int StageIndex => _stageIndex;
     public string StageName => _stageName;
     public Sprite StageIcon => _stageIcon;
+    public bool IsLocked => _isLocked;
 
-    // 선택 화면은 이 프리팹에서 이름과 아이콘을 읽는다.
-    public BossEnemy MidBossPrefab => _midBossPrefab;
-    public BossEnemy FinalBossPrefab => _finalBossPrefab;
+    // 선택 화면은 보스 프리팹 대신 저장된 표시 정보를 읽는다.
+    public string MidBossName => _midBossName;
+    public Sprite MidBossIcon => _midBossIcon;
+    public string FinalBossName => _finalBossName;
+    public Sprite FinalBossIcon => _finalBossIcon;
 
 #if UNITY_EDITOR
-    // 자동 추출 도구만 사용하는 갱신 함수.
-    // 변경 여부를 반환해 불필요한 에셋 저장을 피한다.
-    public bool SetExtractedBosses(
-        BossEnemy midBoss,
-        BossEnemy finalBoss)
+    // 에디터에서 추출한 이름과 아이콘만 저장한다.
+    // 보스 프리팹 자체의 참조는 보관하지 않는다.
+    public void SetExtractedBossInfo(
+        string midBossName,
+        Sprite midBossIcon,
+        string finalBossName,
+        Sprite finalBossIcon)
     {
-        if (_midBossPrefab == midBoss &&
-            _finalBossPrefab == finalBoss)
-        {
-            return false;
-        }
-
-        _midBossPrefab = midBoss;
-        _finalBossPrefab = finalBoss;
-        return true;
+        _midBossName = midBossName;
+        _midBossIcon = midBossIcon;
+        _finalBossName = finalBossName;
+        _finalBossIcon = finalBossIcon;
     }
 #endif
 }

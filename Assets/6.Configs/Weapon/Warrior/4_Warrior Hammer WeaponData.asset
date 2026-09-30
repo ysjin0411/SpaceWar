@@ -17,7 +17,7 @@ MonoBehaviour:
   _id: warrior_hammer
   _name: Hammer
   _type: 8
-  _icon: {fileID: -41718167389833123, guid: 014b8508677e02141893db12d21c093c, type: 3}
+  _icon: {fileID: 21300000, guid: 620be09d5b76df843b2584a398c3135e, type: 3}
   _projectilePrefab: {fileID: 0}
   _muzzleEffectPrefab: {fileID: 0}
   _lazerChargeDuration: 3
@@ -25,7 +25,7 @@ MonoBehaviour:
   _lazerMaxDamageMultiplier: 3
   _playerSpriteLibrary: {fileID: 7108339969198208228, guid: b8bba38b484082e4bb421a21b09df8d2, type: 3}
   _characterSelectPreviewScale: 3.5
-  _characterSelectPreviewOffset: {x: -80, y: 50}
+  _characterSelectPreviewOffset: {x: -40, y: 10}
   _baseDamage: 30
   _baseCooltime: 1
   _maximumChargeCount: 0

@@ -455,7 +455,7 @@ MonoBehaviour:
   - Data: {fileID: 11400000, guid: 555ffe3406037d64682df9e79ad195cf, type: 2}
     Button: {fileID: 48502325}
     SelectionRing: {fileID: 224221669}
-  - Data: {fileID: 11400000, guid: f55ccc4a1c720554daf66e043fcd05a9, type: 2}
+  - Data: {fileID: 11400000, guid: 2adcd3c429aaf2e4dbc6e8b762348969, type: 2}
     Button: {fileID: 756432904}
     SelectionRing: {fileID: 473067669}
   _mapContent: {fileID: 1836202954}
@@ -1956,8 +1956,8 @@ RectTransform:
   m_GameObject: {fileID: 895524517}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.78, y: 0.78, z: 0.78}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 649956002}
   - {fileID: 1418917621}
@@ -2891,7 +2891,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 125, y: 0}
-  m_SizeDelta: {x: 110, y: 110}
+  m_SizeDelta: {x: 171, y: 176}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1284508993
 MonoBehaviour:
@@ -3403,7 +3403,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 125, y: 0}
-  m_SizeDelta: {x: 110, y: 110}
+  m_SizeDelta: {x: 171, y: 176}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1473730925
 MonoBehaviour:

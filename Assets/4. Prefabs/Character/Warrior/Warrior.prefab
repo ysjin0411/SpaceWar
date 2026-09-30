@@ -124,7 +124,6 @@ MonoBehaviour:
     - Center: {x: 7.368666, y: -7.303133}
       Angle: -40
       Size: {x: 3.36, y: 11.1}
-    TrailEffect: {fileID: 4229685332007931030, guid: e4d4379221e3e424b982ba3f09e15b83, type: 3}
     ImpactEffect: {fileID: 0}
     ImpactTime: 0.5
     ImpactOffset: {x: 0, y: 0}
@@ -152,7 +151,6 @@ MonoBehaviour:
     - Center: {x: -0.12100016, y: 11.849}
       Angle: 90
       Size: {x: 3.36, y: 11.1}
-    TrailEffect: {fileID: 9075646952578211487, guid: 8d470d3a9ad22fa4a84cf68a04cdaa6b, type: 3}
     ImpactEffect: {fileID: 0}
     ImpactTime: 0.5
     ImpactOffset: {x: 0, y: 0}
@@ -180,7 +178,6 @@ MonoBehaviour:
     - Center: {x: 7.626967, y: 9.115633}
       Angle: 40
       Size: {x: 3.36, y: 11.1}
-    TrailEffect: {fileID: 1919860753279853261, guid: c40d54ad7b99b7448bb62a554dcf60db, type: 3}
     ImpactEffect: {fileID: 4883868948727076705, guid: 6dbba5df4c6f2554191710040de597e6, type: 3}
     ImpactTime: 0.9166667
     ImpactOffset: {x: 10.5049305, y: 0.4125464}
@@ -474,8 +471,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 20
-  m_Sprite: {fileID: 0}
+  m_SortingOrder: 100
+  m_Sprite: {fileID: 21300000, guid: 4d75fff82f85f9b4f91aade31611e1b5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -483,7 +480,7 @@ SpriteRenderer:
   m_Size: {x: 20.48, y: 20.48}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &5654995447477566822
@@ -512,7 +509,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed8b1ae4e4e52b34ea557c1c11e076fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_CategoryHash: 0.04247964
+  m_CategoryHash: 9.932601e-39
   m_labelHash: 9.522609e-30
   m_SpriteKey: 0
   m_SpriteHash: 129537692
@@ -799,7 +796,6 @@ MonoBehaviour:
     - Center: {x: 5.0513816, y: -5.3587008}
       Angle: -40
       Size: {x: 9.58, y: 1.72}
-    TrailEffect: {fileID: 0}
     ImpactEffect: {fileID: 0}
     ImpactTime: 0.5
     ImpactOffset: {x: 0, y: 0}
@@ -827,7 +823,6 @@ MonoBehaviour:
     - Center: {x: -0.12100004, y: 8.824}
       Angle: 90
       Size: {x: 9.58, y: 1.72}
-    TrailEffect: {fileID: 0}
     ImpactEffect: {fileID: 0}
     ImpactTime: 0.5
     ImpactOffset: {x: 0, y: 0}
@@ -855,7 +850,6 @@ MonoBehaviour:
     - Center: {x: 5.3096824, y: 7.1712008}
       Angle: 40
       Size: {x: 9.58, y: 1.72}
-    TrailEffect: {fileID: 9101098696607543376, guid: c6f06ec03f2630d40b48f6ee8c0e66ff, type: 3}
     ImpactEffect: {fileID: 0}
     ImpactTime: 0.5
     ImpactOffset: {x: 7.870477, y: 2.88}

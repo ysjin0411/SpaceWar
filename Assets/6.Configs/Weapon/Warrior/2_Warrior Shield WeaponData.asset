@@ -17,7 +17,7 @@ MonoBehaviour:
   _id: warrior_shield
   _name: Shield
   _type: 6
-  _icon: {fileID: 29704717305753780, guid: 01a9879f633604e48a4025465f37cde4, type: 3}
+  _icon: {fileID: 21300000, guid: e90653a56f5c5994ca05fccb4cd23227, type: 3}
   _projectilePrefab: {fileID: 0}
   _muzzleEffectPrefab: {fileID: 0}
   _lazerChargeDuration: 3

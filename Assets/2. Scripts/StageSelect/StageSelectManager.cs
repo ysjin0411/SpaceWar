@@ -243,18 +243,21 @@ public class StageSelectManager : MonoBehaviour
             .SetUpdate(true);
     }
 
+    // StageData에 미리 저장된 정보로 선택 화면을 갱신한다.
     private void RefreshStageInformation(StageData data)
     {
-        // 보스는 Stage 씬에서 자동 추출된 프리팹의 정보를 사용한다.
+        // 선택한 스테이지 이름을 표시한다.
         _stageNameText.text = data.StageName;
 
-        _midBossNameText.text = data.MidBossPrefab.BossName;
-        _midBossIcon.sprite = data.MidBossPrefab.BossIcon;
+        // 보스 프리팹을 거치지 않고 중간 보스 정보를 표시한다.
+        _midBossNameText.text = data.MidBossName;
+        _midBossIcon.sprite = data.MidBossIcon;
 
-        _finalBossNameText.text = data.FinalBossPrefab.BossName;
-        _finalBossIcon.sprite = data.FinalBossPrefab.BossIcon;
+        // 보스 프리팹을 거치지 않고 최종 보스 정보를 표시한다.
+        _finalBossNameText.text = data.FinalBossName;
+        _finalBossIcon.sprite = data.FinalBossIcon;
 
-        // 배열 순서가 아니라 저장 데이터의 StageIndex로 조회한다.
+        // 해당 스테이지의 최고 클리어 기록을 읽어 표시한다.
         float bestClearTime =
             SaveManager.Instance.GetBestClearTime(data.StageIndex);
 
@@ -469,14 +472,16 @@ public class StageSelectManager : MonoBehaviour
                 continue;
             }
 
-            // 입장 가능한 스테이지만 보스와 보스 아이콘을 검사한다.
-            if (data.MidBossPrefab == null ||
-                data.FinalBossPrefab == null ||
-                data.MidBossPrefab.BossIcon == null ||
-                data.FinalBossPrefab.BossIcon == null)
+            // 입장 가능한 스테이지는 보스 이름과 아이콘이 준비되어 있어야 한다.
+            if (string.IsNullOrWhiteSpace(data.MidBossName) ||
+                string.IsNullOrWhiteSpace(data.FinalBossName) ||
+                data.MidBossIcon == null ||
+                data.FinalBossIcon == null)
             {
+                // 자동 추출을 실행하지 않았거나 원본 보스 정보가 비어 있으면 알린다.
                 throw new InvalidOperationException(
-                    $"{data.name}: 보스 프리팹과 Boss Icon을 확인해주세요.");
+                    $"{data.name}: 보스 이름과 아이콘이 없습니다. " +
+                    "StageData에서 '씬에서 보스 정보 새로고침'을 실행해주세요.");
             }
         }
     }

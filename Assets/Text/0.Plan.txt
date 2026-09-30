@@ -45,7 +45,7 @@ UltimateItem, Wine / 0
 솔져 총알,수류탄,미사일본체,저격탄 / 10
 HitEffect, EnemyDeathEffect, UltimateExplosion / 11
 수류탄,미사일 폭발의 연기(explosionSmoke) / 19
-솔져, 워리어 캐릭터 렌더러 20
+솔져, 워리어 캐릭터 렌더러 100
 솔져 수류탄 예상 궤적 20
 솔져 지속 레이저 몸통 20
 수류탄,미사일,smallenemy 폭발의 충격파(ExplosionShockwave) / 20
@@ -120,3 +120,18 @@ DownToUp 아틀라스
 실드 임팩트
 상점 아이콘
 해머 기존 trail
+
+
+
+0930
+Lazer_Stage00_16 > Altas
+
+크루저 차지불렛 구체 안 이펙트 애니메이션
+
+해머(아마 소드도)의 히트박스 미일치
+
+트레져박스가 안나옴
+배터리 충전표시도 이상함
+에일리언 페이즈 교체때 하울링 안나옴
+
+에일리언2페한테 궁극기 피격 이펙트 안나옴
