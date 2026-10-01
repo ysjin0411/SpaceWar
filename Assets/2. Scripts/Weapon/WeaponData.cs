@@ -147,6 +147,37 @@ public class WeaponData : ScriptableObject
     [TextArea(2, 5)]
     [SerializeField] private string _upgradeSelectionInfo;
 
+    // 자이언트 소드와 해머의 1타 기본 데미지.
+    [SerializeField, Min(0f)]
+    private float _meleeFirstDamage = 30f;
+
+    // 자이언트 소드와 해머의 2타 기본 데미지.
+    [SerializeField, Min(0f)]
+    private float _meleeSecondDamage = 30f;
+
+    // 자이언트 소드와 해머의 3타 기본 데미지.
+    // 두 번 타격하는 동작이라면 각 타격에 이 값이 적용된다.
+    [SerializeField, Min(0f)]
+    private float _meleeThirdDamage = 30f;
+
+    // 연격 인덱스에 해당하는 기본 데미지를 반환한다.
+    // 인덱스 0은 1타, 1은 2타, 2는 3타다.
+    public float GetMeleeDamage(int comboIndex)
+    {
+        switch (comboIndex)
+        {
+            case 0:
+                return _meleeFirstDamage;
+            case 1:
+                return _meleeSecondDamage;
+            case 2:
+                return _meleeThirdDamage;
+            default:
+                throw new System.ArgumentOutOfRangeException(
+                    nameof(comboIndex));
+        }
+    }
+
 
     // 무기 기본 정보
     public string Id => _id;

@@ -119,6 +119,14 @@ public class WeaponDataEditor : Editor
         // 피해를 주는 무기는 기본 공격력을 사용한다.
         DrawProperty("_baseDamage");
 
+        // 자이언트 소드와 해머에서만 연격별 데미지를 표시한다.
+        if (isAttachedMelee)
+        {
+            DrawProperty("_meleeFirstDamage");
+            DrawProperty("_meleeSecondDamage");
+            DrawProperty("_meleeThirdDamage");
+        }
+
         if (isGrenade)
         {
             // 수류탄은 발사 쿨타임 대신 충전량과 충전 시간을 사용한다.

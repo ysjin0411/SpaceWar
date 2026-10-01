@@ -33,6 +33,16 @@ public class SpriteMeleeAttack : MonoBehaviour
         // 피해 판정을 시작하고 끝낼 정규화 시간.
         [Range(0f, 1f)] public float HitStart = 1f / 6f;
         [Range(0f, 1f)] public float HitEnd = 5f / 6f;
+
+        // 같은 공격 안에서 두 번째 타격을 허용한다.
+        // 회전 후 내려찍기가 있는 3타에서 사용한다.
+        public bool UseSecondHit;
+
+        // 두 번째 타격을 시작할 애니메이션 진행 비율.
+        // 이 시점부터 앞서 맞았던 적도 다시 한 번 맞을 수 있다.
+        [Range(0f, 1f)]
+        public float SecondHitStart = 0.8f;
+
         // 원본 애니메이션 순서와 동일한 여섯 프레임의 무기 판정.
         public HitPose[] HitPoses = new HitPose[6];
         // 내려찍기 등 특정 순간에 생성할 효과. 없으면 생성하지 않는다.
@@ -74,11 +84,18 @@ public class SpriteMeleeAttack : MonoBehaviour
     private bool _attackHeld;
     // 다음 타격 시작 시 확정할 최신 공격력이다.
     private float _requestedDamage;
+    // 현재 무기의 Config.
+    // 자동으로 다음 연격을 시작할 때도 같은 설정을 사용한다.
+    private WeaponData _requestedWeaponData;
+
     // 기본 쿨타임 / 현재 쿨타임. 1보다 크면 각 타격이 빨라진다.
     private float _requestedAttackSpeedMultiplier = 1f;
     private bool _isAttackActive;
     private bool _resetComboOnFinish;
     private bool _impactPlayed;
+    // 이번 공격에서 두 번째 타격으로 전환했는지 기록한다.
+    // 피격 기록이 매 프레임 초기화되는 것을 막는다.
+    private bool _secondHitStarted;
 
     [Header("Hitbox Gizmos")]
     // 끄면 플레이 중 히트박스 표시를 숨긴다.
@@ -124,17 +141,28 @@ public class SpriteMeleeAttack : MonoBehaviour
         if (_isAttackActive) _resetComboOnFinish = true;
     }
 
-    /// <summary>최신 공격 수치를 저장하고, 공격 가능한 상태라면 다음 타격을 시작한다.</summary>
-    public void BeginAttack(float damage, float attackSpeedMultiplier)
+    // 무기 Config와 최신 공격 수치를 저장하고 다음 연격을 시작한다.
+    public void BeginAttack(
+        WeaponData weaponData,
+        float damage,
+        float attackSpeedMultiplier)
     {
+        // 연격별 기본 데미지를 읽을 Config가 필요하다.
+        if (weaponData == null)
+            throw new ArgumentNullException(nameof(weaponData));
+
+        // 전달받은 현재 공격력과 공격속도가 유효한지 검사한다.
         if (!IsFinite(damage) || damage < 0f)
             throw new ArgumentOutOfRangeException(nameof(damage));
+
         if (!IsFinite(attackSpeedMultiplier) || attackSpeedMultiplier <= 0f)
             throw new ArgumentOutOfRangeException(nameof(attackSpeedMultiplier));
 
-        // Weapon이 매 프레임 전달한다. 진행 중인 타격은 그대로 두고 다음 타격에 반영한다.
+        // 진행 중인 타격은 유지하고, 다음 타격에 사용할 값을 갱신한다.
+        _requestedWeaponData = weaponData;
         _requestedDamage = damage;
         _requestedAttackSpeedMultiplier = attackSpeedMultiplier;
+
         if (!CanBeginAttack) return;
 
         ValidateComboSteps();
@@ -145,10 +173,20 @@ public class SpriteMeleeAttack : MonoBehaviour
 
         _currentComboIndex = _nextComboIndex;
         _currentAttackStateHash = Animator.StringToHash($"Base Layer.{step.StateName}");
-        _damage = damage;
+
+        // 현재 공격력에서 기존 기본 공격력을 빼서 강화 증가량만 구한다.
+        float bonusDamage = damage - weaponData.BaseDamage;
+
+        // Config의 해당 연격 데미지에 강화 증가량을 더한다.
+        _damage = Mathf.Max(
+            0f,
+            weaponData.GetMeleeDamage(_currentComboIndex) + bonusDamage);
+
         _previousNormalizedTime = 0f;
         _resetComboOnFinish = false;
         _impactPlayed = false;
+        // 새로운 공격을 시작할 때 두 번째 타격 전환 상태를 초기화한다.
+        _secondHitStarted = false;
         _hitTargets.Clear();
         _isAttackActive = true;
 
@@ -170,8 +208,19 @@ public class SpriteMeleeAttack : MonoBehaviour
                 !IsFinite(step.Duration) || step.Duration <= 0f || step.Clip.length <= 0f ||
                 !IsFinite(step.HitStart) || !IsFinite(step.HitEnd) ||
                 step.HitStart < 0f || step.HitEnd > 1f || step.HitStart >= step.HitEnd ||
-                step.HitPoses == null || step.HitPoses.Length != 6)
+                // 위치를 이어서 계산할 수 있도록 최소 2개는 필요하다.
+                step.HitPoses == null || step.HitPoses.Length < 2)
                 throw new InvalidOperationException($"{name}: 연격 시간, 클립, 여섯 Hit Poses를 확인하세요.");
+            // 두 번째 타격 시점이 실제 공격 판정 구간 안에 있는지 검사한다.
+            if (step.UseSecondHit &&
+                (!IsFinite(step.SecondHitStart) ||
+                 step.SecondHitStart <= step.HitStart ||
+                 step.SecondHitStart >= step.HitEnd))
+            {
+                throw new InvalidOperationException(
+                    $"{name}: Second Hit Start는 Hit Start보다 크고 Hit End보다 작아야 합니다.");
+            }
+
             if (!_animator.HasState(0, Animator.StringToHash($"Base Layer.{step.StateName}")))
                 throw new InvalidOperationException($"{name}: Animator에 {step.StateName} 상태가 없습니다.");
             if (!IsFinite(step.ImpactTime) || step.ImpactTime < 0f || step.ImpactTime > 1f ||
@@ -234,7 +283,21 @@ public class SpriteMeleeAttack : MonoBehaviour
             samples = Mathf.Max(samples, Mathf.CeilToInt(Mathf.Abs(Mathf.DeltaAngle(a0, a1)) / 5f));
             for (int i = 0; i <= samples && _isAttackActive; i++)
             {
+                // 이번에 검사할 궤적상의 애니메이션 진행 비율을 구한다.
                 float time = Mathf.Lerp(start, end, i / (float)samples);
+
+                // 내려찍기 구간에 처음 도달했을 때만 이전 피격 기록을 지운다.
+                // 회전 공격으로 맞았던 적도 내려찍기에 다시 맞을 수 있다.
+                if (step.UseSecondHit &&
+                    !_secondHitStarted &&
+                    time >= step.SecondHitStart)
+                {
+                    _secondHitStarted = true;
+                    _hitTargets.Clear();
+                }
+
+                // 현재 궤적 위치에 히트박스를 배치하고 피해를 적용한다.
+                // 두 번째 타격에서도 같은 적에 대한 중복 피해는 한 번으로 제한된다.
                 ApplyHitboxShape(time);
                 CollectAndApplyDamage();
             }
@@ -333,8 +396,16 @@ public class SpriteMeleeAttack : MonoBehaviour
 
         // 연속 공격 중에는 EndAttack이 Idle로 전환하지 않는다.
         EndAttack(false);
+
+        // 다음 연격에도 현재 무기의 Config와 최신 공격 수치를 전달한다.
         if (continueCombo)
-            BeginAttack(_requestedDamage, _requestedAttackSpeedMultiplier);
+        {
+            BeginAttack(
+                _requestedWeaponData,
+                _requestedDamage,
+                _requestedAttackSpeedMultiplier);
+        }
+
     }
 
     /// <summary>강제 취소 시 다음 공격을 1타로 초기화한다.</summary>

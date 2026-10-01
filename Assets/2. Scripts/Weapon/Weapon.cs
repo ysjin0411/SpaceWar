@@ -687,9 +687,9 @@ public class Weapon : MonoBehaviour
 
             float attackSpeedMultiplier = baseCooltime / currentCooltime;
 
-            // 공격 중에도 최신 수치를 전달한다. 중복 시작은 BeginAttack 내부에서 막는다.
-            // 전달된 수치는 다음 타격을 즉시 연결할 때 사용한다.
+            // 현재 무기의 Config, 강화가 반영된 공격력, 공격속도를 전달한다.
             meleeAttack.BeginAttack(
+                weapon.Data,
                 weapon.CurrentDamage,
                 attackSpeedMultiplier);
 

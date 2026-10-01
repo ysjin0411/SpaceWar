@@ -103,84 +103,312 @@ MonoBehaviour:
   - StateName: Attack
     Clip: {fileID: 7400000, guid: 860dcc7a36f941446a0fa3b882736a08, type: 2}
     Duration: 0.6
-    HitStart: 0.33333334
-    HitEnd: 1
+    HitStart: 0.41666666
+    HitEnd: 0.7083333
+    UseSecondHit: 0
+    SecondHitStart: 0.8
     HitPoses:
-    - Center: {x: 6.4311256, y: 6.9251256}
-      Angle: 45
-      Size: {x: 3.36, y: 11.1}
-    - Center: {x: -0.12100016, y: 11.849}
-      Angle: 90
-      Size: {x: 3.36, y: 11.1}
-    - Center: {x: 8.631125, y: 7.728126}
-      Angle: 45
-      Size: {x: 3.36, y: 11.1}
-    - Center: {x: 9.547763, y: -2.6257477}
-      Angle: -8
-      Size: {x: 3.36, y: 11.1}
-    - Center: {x: 8.751488, y: -5.0901556}
-      Angle: -24
-      Size: {x: 3.36, y: 11.1}
-    - Center: {x: 7.368666, y: -7.303133}
-      Angle: -40
-      Size: {x: 3.36, y: 11.1}
+    - Center: {x: 3.8446, y: 4.1847}
+      Angle: 138.301
+      Size: {x: 6.6774, y: 2.0167}
+    - Center: {x: 3.5286, y: 4.5021}
+      Angle: 144.793
+      Size: {x: 6.6882, y: 2.0591}
+    - Center: {x: 2.6329, y: 5.102}
+      Angle: 154.994
+      Size: {x: 6.6531, y: 2.0546}
+    - Center: {x: 1.238, y: 5.6582}
+      Angle: 168.997
+      Size: {x: 6.6627, y: 1.9989}
+    - Center: {x: -0.275, y: 5.9542}
+      Angle: 186.356
+      Size: {x: 6.6533, y: 2.0822}
+    - Center: {x: -1.5385, y: 5.8674}
+      Angle: 199.304
+      Size: {x: 6.6747, y: 2.0514}
+    - Center: {x: -2.2912, y: 5.7463}
+      Angle: 206.986
+      Size: {x: 6.6776, y: 2.0422}
+    - Center: {x: -2.4287, y: 5.6693}
+      Angle: 208.143
+      Size: {x: 6.6598, y: 2.0039}
+    - Center: {x: -2.6837, y: 5.6327}
+      Angle: 210.844
+      Size: {x: 6.6788, y: 2.128}
+    - Center: {x: -2.781, y: 5.3397}
+      Angle: 213.421
+      Size: {x: 6.6459, y: 2.0334}
+    - Center: {x: -2.6183, y: 5.2953}
+      Angle: 212.712
+      Size: {x: 6.6635, y: 2.0272}
+    - Center: {x: -0.6525, y: 5.7045}
+      Angle: 191.456
+      Size: {x: 6.6687, y: 2.064}
+    - Center: {x: 2.7067, y: 4.9258}
+      Angle: 154.715
+      Size: {x: 6.6877, y: 2.0198}
+    - Center: {x: 5.2723, y: 2.1959}
+      Angle: 116.63
+      Size: {x: 6.6723, y: 2.0751}
+    - Center: {x: 5.8459, y: -0.5728}
+      Angle: 86.752
+      Size: {x: 6.6545, y: 1.9877}
+    - Center: {x: 5.8349, y: -1.3484}
+      Angle: 79.17
+      Size: {x: 6.6541, y: 2.0431}
+    - Center: {x: 6.0022, y: -1.5284}
+      Angle: 78.686
+      Size: {x: 6.6397, y: 2.0347}
+    - Center: {x: 5.9216, y: -1.6347}
+      Angle: 76.932
+      Size: {x: 6.66, y: 2.152}
+    - Center: {x: 5.8196, y: -1.6514}
+      Angle: 76.375
+      Size: {x: 6.6755, y: 2.0271}
+    - Center: {x: 5.8342, y: -1.6235}
+      Angle: 77.573
+      Size: {x: 6.6822, y: 2.0589}
+    - Center: {x: 5.8292, y: -1.5395}
+      Angle: 78.023
+      Size: {x: 6.6626, y: 2.0299}
+    - Center: {x: 5.8281, y: -1.4685}
+      Angle: 78.937
+      Size: {x: 6.6705, y: 2.0301}
+    - Center: {x: 5.8242, y: -1.3874}
+      Angle: 79.007
+      Size: {x: 6.655, y: 2.0219}
+    - Center: {x: 5.8738, y: -1.3592}
+      Angle: 80.643
+      Size: {x: 6.6713, y: 2.1078}
     ImpactEffect: {fileID: 0}
     ImpactTime: 0.5
     ImpactOffset: {x: 0, y: 0}
   - StateName: Attack2
     Clip: {fileID: 7400000, guid: bc058656309b73c41a416cb050fe58c1, type: 2}
     Duration: 0.6
-    HitStart: 0.083333336
-    HitEnd: 0.75
+    HitStart: 0.25
+    HitEnd: 0.6785714
+    UseSecondHit: 0
+    SecondHitStart: 0.8
     HitPoses:
-    - Center: {x: 6.8161254, y: -7.9061255}
-      Angle: -45
-      Size: {x: 3.36, y: 11.1}
-    - Center: {x: 8.13745, y: -6.2449927}
-      Angle: -32
-      Size: {x: 3.36, y: 11.1}
-    - Center: {x: 9.198828, y: -3.8610997}
-      Angle: -16
-      Size: {x: 3.36, y: 11.1}
-    - Center: {x: 11.531, y: 0.53800046}
-      Angle: 0
-      Size: {x: 3.36, y: 11.1}
-    - Center: {x: -0.12100016, y: 11.849}
-      Angle: 90
-      Size: {x: 3.36, y: 11.1}
-    - Center: {x: -0.12100016, y: 11.849}
-      Angle: 90
-      Size: {x: 3.36, y: 11.1}
+    - Center: {x: 5.8738, y: -1.3592}
+      Angle: -99.357
+      Size: {x: 6.6713, y: 2.1078}
+    - Center: {x: 5.6971, y: 0.0124}
+      Angle: -85.772
+      Size: {x: 6.665, y: 1.9924}
+    - Center: {x: 3.9548, y: 0.663}
+      Angle: -75.686
+      Size: {x: 6.6853, y: 2.0067}
+    - Center: {x: 0.0498, y: 1.3365}
+      Angle: 7.739
+      Size: {x: 6.6833, y: 1.7616}
+    - Center: {x: -3.8428, y: 0.9452}
+      Angle: 79.177
+      Size: {x: 6.6784, y: 2.0378}
+    - Center: {x: -5.3619, y: 0.5195}
+      Angle: 89.656
+      Size: {x: 6.637, y: 2.0067}
+    - Center: {x: -5.5658, y: 0.3328}
+      Angle: 91.671
+      Size: {x: 6.6796, y: 2.0264}
+    - Center: {x: -5.7463, y: 0.2595}
+      Angle: 94.499
+      Size: {x: 6.6712, y: 2.0465}
+    - Center: {x: -5.545, y: 0.1228}
+      Angle: 94.563
+      Size: {x: 6.6447, y: 1.9788}
+    - Center: {x: -5.3495, y: 0.0412}
+      Angle: 96.644
+      Size: {x: 6.6836, y: 2.0025}
+    - Center: {x: -4.9036, y: -0.0926}
+      Angle: 97.525
+      Size: {x: 6.6748, y: 2.0329}
+    - Center: {x: -3.5227, y: -0.4153}
+      Angle: 104.235
+      Size: {x: 6.6858, y: 2.1124}
+    - Center: {x: -0.9997, y: -0.6726}
+      Angle: 128.176
+      Size: {x: 6.6772, y: 1.9704}
+    - Center: {x: 2.0816, y: -0.7749}
+      Angle: 55.434
+      Size: {x: 6.696, y: 1.9029}
+    - Center: {x: 4.294, y: -0.4177}
+      Angle: 77.712
+      Size: {x: 6.6603, y: 1.7969}
+    - Center: {x: 5.2183, y: -0.149}
+      Angle: 83.465
+      Size: {x: 6.6331, y: 1.8275}
+    - Center: {x: 5.4774, y: -0.0648}
+      Angle: 87.673
+      Size: {x: 6.6681, y: 1.9602}
+    - Center: {x: 5.8997, y: 0.2809}
+      Angle: 90.893
+      Size: {x: 6.6517, y: 1.8839}
+    - Center: {x: 5.44, y: 0.7351}
+      Angle: 93.591
+      Size: {x: 6.6523, y: 2.0082}
+    - Center: {x: 4.5396, y: 1.124}
+      Angle: 99.392
+      Size: {x: 6.6567, y: 2.0023}
+    - Center: {x: 3.8869, y: 1.2655}
+      Angle: 104.69
+      Size: {x: 6.6589, y: 2.0917}
+    - Center: {x: 3.4954, y: 1.3644}
+      Angle: 105.819
+      Size: {x: 6.6781, y: 2.1471}
+    - Center: {x: 2.3498, y: 1.5263}
+      Angle: 114.432
+      Size: {x: 6.6883, y: 2.1329}
+    - Center: {x: 0.6245, y: 1.7031}
+      Angle: 148.058
+      Size: {x: 6.6566, y: 2.0468}
+    - Center: {x: -1.4035, y: 1.6301}
+      Angle: 226.501
+      Size: {x: 6.6632, y: 2.1203}
+    - Center: {x: -2.9447, y: 1.4288}
+      Angle: 251.688
+      Size: {x: 6.676, y: 2.021}
+    - Center: {x: -3.9852, y: 1.2695}
+      Angle: 258.847
+      Size: {x: 6.6574, y: 2.0249}
+    - Center: {x: -4.3207, y: 1.1914}
+      Angle: 260.996
+      Size: {x: 6.6439, y: 2.03}
     ImpactEffect: {fileID: 0}
     ImpactTime: 0.5
     ImpactOffset: {x: 0, y: 0}
   - StateName: Attack3
     Clip: {fileID: 7400000, guid: 70c7826831d98fd43b3c3d9f5a499ffe, type: 2}
     Duration: 1.2
-    HitStart: 0.16666667
-    HitEnd: 0.9166667
+    HitStart: 0.175
+    HitEnd: 0.9
+    UseSecondHit: 1
+    SecondHitStart: 0.8
     HitPoses:
-    - Center: {x: 2.7886515, y: 9.677372}
-      Angle: 80
-      Size: {x: 3.36, y: 11.1}
-    - Center: {x: 7.631251, y: 10.632462}
-      Angle: 47.5
-      Size: {x: 3.36, y: 11.1}
-    - Center: {x: 7.7364683, y: 2.4487488}
-      Angle: -42.5
-      Size: {x: 3.36, y: 11.1}
-    - Center: {x: -7.631251, y: 3.80217}
-      Angle: -132.5
-      Size: {x: 3.36, y: 11.1}
-    - Center: {x: -7.736469, y: 12.71125}
-      Angle: -222.5
-      Size: {x: 3.36, y: 11.1}
-    - Center: {x: 7.626967, y: 9.115633}
-      Angle: 40
-      Size: {x: 3.36, y: 11.1}
+    - Center: {x: -4.3207, y: 1.1914}
+      Angle: -99.004
+      Size: {x: 6.6439, y: 2.03}
+    - Center: {x: -4.4356, y: 1.1183}
+      Angle: -99.304
+      Size: {x: 6.6964, y: 2.0987}
+    - Center: {x: -4.31, y: 1.0353}
+      Angle: -99.361
+      Size: {x: 6.6622, y: 2.0063}
+    - Center: {x: -4.455, y: 1.0413}
+      Angle: -99.281
+      Size: {x: 6.6963, y: 2.059}
+    - Center: {x: -4.4526, y: 1.0988}
+      Angle: -99.348
+      Size: {x: 6.662, y: 2.0595}
+    - Center: {x: -4.3257, y: 1.1581}
+      Angle: -99.28
+      Size: {x: 6.661, y: 2.0381}
+    - Center: {x: -4.2883, y: 1.6054}
+      Angle: -100.238
+      Size: {x: 6.6724, y: 2.0174}
+    - Center: {x: -4.4876, y: 2.4849}
+      Angle: -104.851
+      Size: {x: 6.6828, y: 2.0267}
+    - Center: {x: -4.4727, y: 3.7578}
+      Angle: -113.705
+      Size: {x: 6.6615, y: 2.0369}
+    - Center: {x: -3.8215, y: 5.213}
+      Angle: -127.82
+      Size: {x: 6.6714, y: 2.0201}
+    - Center: {x: -2.4798, y: 6.5098}
+      Angle: -144.769
+      Size: {x: 6.6652, y: 2.131}
+    - Center: {x: -0.6085, y: 7.3987}
+      Angle: -164.48
+      Size: {x: 6.6777, y: 2.1149}
+    - Center: {x: 1.587, y: 7.4919}
+      Angle: -186.849
+      Size: {x: 6.6636, y: 2.0934}
+    - Center: {x: 3.6579, y: 6.5128}
+      Angle: -210.072
+      Size: {x: 6.6845, y: 2.0385}
+    - Center: {x: 5.1458, y: 4.7344}
+      Angle: -235.594
+      Size: {x: 6.6707, y: 2.0605}
+    - Center: {x: 5.6437, y: 2.3655}
+      Angle: -261.684
+      Size: {x: 6.6681, y: 2.0242}
+    - Center: {x: 4.983, y: -0.0395}
+      Angle: -287.07
+      Size: {x: 6.6803, y: 2.086}
+    - Center: {x: 3.2783, y: -1.9122}
+      Angle: -314.098
+      Size: {x: 6.6637, y: 2.0769}
+    - Center: {x: 0.991, y: -2.9372}
+      Angle: -340.697
+      Size: {x: 6.6747, y: 2.1043}
+    - Center: {x: -1.4306, y: -2.7757}
+      Angle: -365.131
+      Size: {x: 6.6703, y: 1.9936}
+    - Center: {x: -3.5015, y: -1.9725}
+      Angle: -387.328
+      Size: {x: 6.6556, y: 2.14}
+    - Center: {x: -4.7866, y: -0.5332}
+      Angle: -407.403
+      Size: {x: 6.6786, y: 2.0115}
+    - Center: {x: -5.5946, y: 0.8295}
+      Angle: -425.692
+      Size: {x: 6.6631, y: 2.111}
+    - Center: {x: -5.6726, y: 2.0648}
+      Angle: -440.212
+      Size: {x: 6.6708, y: 2.0182}
+    - Center: {x: -5.6056, y: 2.861}
+      Angle: -449.743
+      Size: {x: 6.6833, y: 2.0931}
+    - Center: {x: -5.4296, y: 3.2009}
+      Angle: -458.325
+      Size: {x: 6.6962, y: 1.9738}
+    - Center: {x: -5.5123, y: 3.062}
+      Angle: -459.273
+      Size: {x: 6.6609, y: 2.0179}
+    - Center: {x: -5.3432, y: 2.6842}
+      Angle: -457.942
+      Size: {x: 6.6792, y: 2.0073}
+    - Center: {x: -5.3532, y: 2.3218}
+      Angle: -458.809
+      Size: {x: 6.6671, y: 2.02}
+    - Center: {x: -4.4568, y: 4.5247}
+      Angle: -483.431
+      Size: {x: 6.6538, y: 2.1254}
+    - Center: {x: -1.4015, y: 6.3511}
+      Angle: -522.782
+      Size: {x: 6.6699, y: 2.0144}
+    - Center: {x: 0.0732, y: 6.2156}
+      Angle: -536.312
+      Size: {x: 6.6664, y: 2.0643}
+    - Center: {x: 3.8225, y: 4.4001}
+      Angle: -582.06
+      Size: {x: 6.6742, y: 2.027}
+    - Center: {x: 5.7279, y: -0.3565}
+      Angle: -633.799
+      Size: {x: 6.6975, y: 2.0271}
+    - Center: {x: 4.7193, y: -3.6038}
+      Angle: -669.556
+      Size: {x: 6.6428, y: 2.1}
+    - Center: {x: 4.4462, y: -3.8949}
+      Angle: -673.338
+      Size: {x: 6.6356, y: 2.0153}
+    - Center: {x: 4.4113, y: -3.8863}
+      Angle: -674.159
+      Size: {x: 6.6655, y: 1.995}
+    - Center: {x: 4.4252, y: -3.8949}
+      Angle: -673.071
+      Size: {x: 6.6712, y: 2.0416}
+    - Center: {x: 4.4075, y: -3.8709}
+      Angle: -673.646
+      Size: {x: 6.6778, y: 1.9786}
+    - Center: {x: 4.4483, y: -3.915}
+      Angle: -673.271
+      Size: {x: 6.6658, y: 2.1459}
     ImpactEffect: {fileID: 4883868948727076705, guid: 6dbba5df4c6f2554191710040de597e6, type: 3}
-    ImpactTime: 0.9166667
-    ImpactOffset: {x: 10.5049305, y: 0.4125464}
+    ImpactTime: 0.875
+    ImpactOffset: {x: 2.7, y: -3.5}
   _enemyLayerMask:
     serializedVersion: 2
     m_Bits: 256
@@ -362,7 +590,7 @@ CapsuleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.3, y: 0.6}
+  m_Size: {x: 0.65, y: 1.4}
   m_Direction: 0
 --- !u!50 &2230558535362797252
 Rigidbody2D:
@@ -775,81 +1003,309 @@ MonoBehaviour:
   - StateName: Attack
     Clip: {fileID: 7400000, guid: 860dcc7a36f941446a0fa3b882736a08, type: 2}
     Duration: 0.5
-    HitStart: 0.33333334
-    HitEnd: 1
+    HitStart: 0.41666666
+    HitEnd: 0.7083333
+    UseSecondHit: 0
+    SecondHitStart: 0.8
     HitPoses:
-    - Center: {x: 4.2921276, y: 4.7861276}
-      Angle: 45
-      Size: {x: 9.58, y: 1.72}
-    - Center: {x: -0.12100004, y: 8.824}
-      Angle: 90
-      Size: {x: 9.58, y: 1.72}
-    - Center: {x: 6.4921274, y: 5.589128}
-      Angle: 45
-      Size: {x: 9.58, y: 1.72}
-    - Center: {x: 6.552202, y: -2.2047489}
-      Angle: -8
-      Size: {x: 9.58, y: 1.72}
-    - Center: {x: 5.988013, y: -3.8597772}
-      Angle: -24
-      Size: {x: 9.58, y: 1.72}
-    - Center: {x: 5.0513816, y: -5.3587008}
-      Angle: -40
-      Size: {x: 9.58, y: 1.72}
+    - Center: {x: 2.7253, y: 2.828}
+      Angle: -132.592
+      Size: {x: 7.1484, y: 1.1797}
+    - Center: {x: 2.5244, y: 3.0261}
+      Angle: -128.28
+      Size: {x: 7.1628, y: 1.1661}
+    - Center: {x: 1.923, y: 3.475}
+      Angle: -117.339
+      Size: {x: 7.1738, y: 1.1808}
+    - Center: {x: 0.9898, y: 3.9379}
+      Angle: -102.2
+      Size: {x: 7.1689, y: 1.2188}
+    - Center: {x: -0.0249, y: 4.0498}
+      Angle: -86.38
+      Size: {x: 7.3785, y: 1.203}
+    - Center: {x: -0.9041, y: 4.0948}
+      Angle: -73.309
+      Size: {x: 7.3973, y: 1.1715}
+    - Center: {x: -1.4083, y: 4.0907}
+      Angle: -65.601
+      Size: {x: 7.3899, y: 1.1631}
+    - Center: {x: -1.5192, y: 4.0381}
+      Angle: -64.321
+      Size: {x: 7.3506, y: 1.1611}
+    - Center: {x: -1.6974, y: 4.0614}
+      Angle: -61.384
+      Size: {x: 7.1353, y: 1.2167}
+    - Center: {x: -1.768, y: 3.9056}
+      Angle: -58.457
+      Size: {x: 7.1095, y: 1.1688}
+    - Center: {x: -1.6333, y: 3.844}
+      Angle: -59.383
+      Size: {x: 7.1415, y: 1.2025}
+    - Center: {x: -0.2382, y: 3.8697}
+      Angle: -81.11
+      Size: {x: 7.3713, y: 1.2184}
+    - Center: {x: 2.0118, y: 3.3338}
+      Angle: -117.641
+      Size: {x: 7.1674, y: 1.174}
+    - Center: {x: 3.6981, y: 1.3844}
+      Angle: -156.5
+      Size: {x: 7.1473, y: 1.1632}
+    - Center: {x: 4.1376, y: -0.5427}
+      Angle: -185.263
+      Size: {x: 7.1604, y: 1.203}
+    - Center: {x: 4.091, y: -1.0751}
+      Angle: -192.822
+      Size: {x: 7.1934, y: 1.1794}
+    - Center: {x: 4.1217, y: -1.1731}
+      Angle: -193.694
+      Size: {x: 7.1569, y: 1.1541}
+    - Center: {x: 4.1139, y: -1.2829}
+      Angle: -194.945
+      Size: {x: 7.1117, y: 1.1985}
+    - Center: {x: 4.098, y: -1.3072}
+      Angle: -195.6
+      Size: {x: 7.1675, y: 1.1985}
+    - Center: {x: 4.0967, y: -1.2909}
+      Angle: -195.322
+      Size: {x: 7.1591, y: 1.2058}
+    - Center: {x: 4.0827, y: -1.2215}
+      Angle: -194.518
+      Size: {x: 7.1654, y: 1.1882}
+    - Center: {x: 4.0923, y: -1.1565}
+      Angle: -193.659
+      Size: {x: 7.1255, y: 1.1884}
+    - Center: {x: 4.0967, y: -1.1144}
+      Angle: -192.867
+      Size: {x: 7.1824, y: 1.1871}
+    - Center: {x: 4.0979, y: -1.0893}
+      Angle: -192.653
+      Size: {x: 7.1748, y: 1.2186}
     ImpactEffect: {fileID: 0}
     ImpactTime: 0.5
     ImpactOffset: {x: 0, y: 0}
   - StateName: Attack2
     Clip: {fileID: 7400000, guid: bc058656309b73c41a416cb050fe58c1, type: 2}
     Duration: 0.5
-    HitStart: 0.083333336
-    HitEnd: 0.75
+    HitStart: 0.25
+    HitEnd: 0.6785714
+    UseSecondHit: 0
+    SecondHitStart: 0.8
     HitPoses:
-    - Center: {x: 4.6771274, y: -5.7671275}
-      Angle: -45
-      Size: {x: 9.58, y: 1.72}
-    - Center: {x: 5.572105, y: -4.641987}
-      Angle: -32
-      Size: {x: 9.58, y: 1.72}
-    - Center: {x: 6.2910113, y: -3.0272968}
-      Angle: -16
-      Size: {x: 9.58, y: 1.72}
-    - Center: {x: 8.506, y: 0.53800046}
-      Angle: 0
-      Size: {x: 9.58, y: 1.72}
-    - Center: {x: -0.12100004, y: 8.824}
-      Angle: 90
-      Size: {x: 9.58, y: 1.72}
-    - Center: {x: -0.12100004, y: 8.824}
-      Angle: 90
-      Size: {x: 9.58, y: 1.72}
+    - Center: {x: 4.0979, y: -1.0893}
+      Angle: 167.347
+      Size: {x: 7.1748, y: 1.2186}
+    - Center: {x: 4.021, y: -0.1834}
+      Angle: 182.322
+      Size: {x: 6.9404, y: 1.2024}
+    - Center: {x: 2.8192, y: 0.3039}
+      Angle: 192.369
+      Size: {x: 5.0313, y: 1.1882}
+    - Center: {x: 0.3122, y: 0.8981}
+      Angle: 238.559
+      Size: {x: 0.9981, y: 1.6107}
+    - Center: {x: -2.7115, y: 0.8241}
+      Angle: 165.237
+      Size: {x: 4.6798, y: 1.2465}
+    - Center: {x: -3.866, y: 0.555}
+      Angle: 176.596
+      Size: {x: 6.5772, y: 1.2005}
+    - Center: {x: -3.7383, y: 0.4302}
+      Angle: 179.261
+      Size: {x: 7.3199, y: 1.1999}
+    - Center: {x: -3.6087, y: 0.3047}
+      Angle: 182.757
+      Size: {x: 7.2684, y: 1.2287}
+    - Center: {x: -3.4295, y: 0.3047}
+      Angle: 185.191
+      Size: {x: 7.0226, y: 1.547}
+    - Center: {x: -3.2287, y: 0.2766}
+      Angle: 186.926
+      Size: {x: 6.8191, y: 1.4752}
+    - Center: {x: -2.9608, y: 0.1052}
+      Angle: 189.497
+      Size: {x: 6.5192, y: 1.383}
+    - Center: {x: -2.0605, y: -0.1556}
+      Angle: 196.475
+      Size: {x: 4.9271, y: 1.187}
+    - Center: {x: -0.3949, y: -0.348}
+      Angle: 231.106
+      Size: {x: 2.2603, y: 1.1094}
+    - Center: {x: 1.1351, y: -0.0494}
+      Angle: 153.215
+      Size: {x: 2.5576, y: 1.0915}
+    - Center: {x: 2.4655, y: -0.104}
+      Angle: 171.253
+      Size: {x: 4.8403, y: 1.4403}
+    - Center: {x: 3.2786, y: 0.0254}
+      Angle: 176.547
+      Size: {x: 5.6662, y: 1.4896}
+    - Center: {x: 3.2471, y: 0.0652}
+      Angle: 177.657
+      Size: {x: 6.1297, y: 1.4871}
+    - Center: {x: 3.5464, y: 0.2613}
+      Angle: 181.316
+      Size: {x: 6.8392, y: 1.4902}
+    - Center: {x: 3.8423, y: 0.5469}
+      Angle: 182.506
+      Size: {x: 6.7417, y: 1.2025}
+    - Center: {x: 3.2903, y: 0.807}
+      Angle: 188
+      Size: {x: 5.6126, y: 1.1875}
+    - Center: {x: 2.8967, y: 0.9546}
+      Angle: 191.199
+      Size: {x: 4.6941, y: 1.1546}
+    - Center: {x: 2.5509, y: 1.0008}
+      Angle: 193.082
+      Size: {x: 4.3034, y: 1.1974}
+    - Center: {x: 1.7259, y: 1.1364}
+      Angle: 201.143
+      Size: {x: 3.1477, y: 1.198}
+    - Center: {x: 0.4677, y: 1.2464}
+      Angle: 219.779
+      Size: {x: 1.5735, y: 1.4255}
+    - Center: {x: -1.2441, y: 1.2008}
+      Angle: 300.109
+      Size: {x: 1.8818, y: 0.8195}
+    - Center: {x: -2.2506, y: 1.2745}
+      Angle: 337.35
+      Size: {x: 3.5105, y: 1.1892}
+    - Center: {x: -3.0114, y: 1.159}
+      Angle: 346.273
+      Size: {x: 4.6612, y: 1.1546}
+    - Center: {x: -3.242, y: 1.107}
+      Angle: 348.516
+      Size: {x: 5.055, y: 1.219}
     ImpactEffect: {fileID: 0}
     ImpactTime: 0.5
     ImpactOffset: {x: 0, y: 0}
   - StateName: Attack3
     Clip: {fileID: 7400000, guid: 70c7826831d98fd43b3c3d9f5a499ffe, type: 2}
     Duration: 1
-    HitStart: 0.16666667
-    HitEnd: 0.9166667
+    HitStart: 0.175
+    HitEnd: 0.9
+    UseSecondHit: 1
+    SecondHitStart: 0.8
     HitPoses:
-    - Center: {x: 2.2633657, y: 6.698329}
-      Angle: 80
-      Size: {x: 9.58, y: 1.72}
-    - Center: {x: 5.5875907, y: 8.402198}
-      Angle: 47.5
-      Size: {x: 9.58, y: 1.72}
-    - Center: {x: 5.5062046, y: 4.3085747}
-      Angle: -42.5
-      Size: {x: 9.58, y: 1.72}
-    - Center: {x: -5.5875907, y: 6.032434}
-      Angle: -132.5
-      Size: {x: 9.58, y: 1.72}
-    - Center: {x: -5.5062046, y: 12.448863}
-      Angle: -222.5
-      Size: {x: 9.58, y: 1.72}
-    - Center: {x: 5.3096824, y: 7.1712008}
-      Angle: 40
-      Size: {x: 9.58, y: 1.72}
+    - Center: {x: -3.242, y: 1.107}
+      Angle: 168.516
+      Size: {x: 5.055, y: 1.219}
+    - Center: {x: -3.2438, y: 1.0147}
+      Angle: 168.287
+      Size: {x: 5.0549, y: 1.1827}
+    - Center: {x: -3.2392, y: 0.9564}
+      Angle: 168.256
+      Size: {x: 5.0549, y: 1.2189}
+    - Center: {x: -3.2438, y: 0.9347}
+      Angle: 168.287
+      Size: {x: 5.0549, y: 1.1827}
+    - Center: {x: -3.2401, y: 0.9944}
+      Angle: 168.405
+      Size: {x: 5.055, y: 1.2121}
+    - Center: {x: -3.2391, y: 1.0782}
+      Angle: 168.338
+      Size: {x: 5.055, y: 1.2092}
+    - Center: {x: -2.9192, y: 1.451}
+      Angle: 167.957
+      Size: {x: 5.7223, y: 1.1907}
+    - Center: {x: -3.0159, y: 2.1222}
+      Angle: 162.776
+      Size: {x: 6.2329, y: 1.1916}
+    - Center: {x: -2.8302, y: 3.0803}
+      Angle: 153.546
+      Size: {x: 6.9756, y: 1.1797}
+    - Center: {x: -2.3537, y: 4.1429}
+      Angle: 140.019
+      Size: {x: 7.3197, y: 1.1861}
+    - Center: {x: -1.4328, y: 5.0501}
+      Angle: 123.18
+      Size: {x: 7.1609, y: 1.3112}
+    - Center: {x: -0.0449, y: 5.5521}
+      Angle: 103.373
+      Size: {x: 7.3291, y: 1.1976}
+    - Center: {x: 1.4317, y: 5.557}
+      Angle: 81.368
+      Size: {x: 7.3159, y: 1.2122}
+    - Center: {x: 2.7551, y: 4.8935}
+      Angle: 57.38
+      Size: {x: 7.2957, y: 1.1829}
+    - Center: {x: 3.7097, y: 3.6851}
+      Angle: 32.087
+      Size: {x: 7.1518, y: 1.2243}
+    - Center: {x: 3.9194, y: 2.0702}
+      Angle: 5.841
+      Size: {x: 7.1929, y: 1.1724}
+    - Center: {x: 3.2245, y: 0.4931}
+      Angle: -20.691
+      Size: {x: 7.3228, y: 1.196}
+    - Center: {x: 1.971, y: -0.6795}
+      Angle: -47.17
+      Size: {x: 7.1508, y: 1.2068}
+    - Center: {x: 0.2875, y: -1.148}
+      Angle: -72.531
+      Size: {x: 7.3329, y: 1.2219}
+    - Center: {x: -1.3405, y: -0.9401}
+      Angle: -97.07
+      Size: {x: 7.3293, y: 1.1816}
+    - Center: {x: -2.5892, y: -0.269}
+      Angle: -119.77
+      Size: {x: 7.3044, y: 1.2911}
+    - Center: {x: -3.4557, y: 0.691}
+      Angle: -140.266
+      Size: {x: 7.3402, y: 1.2351}
+    - Center: {x: -3.9086, y: 1.6576}
+      Angle: -157.843
+      Size: {x: 7.164, y: 1.1904}
+    - Center: {x: -3.88, y: 2.4493}
+      Angle: -172.372
+      Size: {x: 7.3101, y: 1.212}
+    - Center: {x: -3.789, y: 2.8806}
+      Angle: -182.866
+      Size: {x: 7.1333, y: 1.2007}
+    - Center: {x: -3.6466, y: 3.0182}
+      Angle: -189.552
+      Size: {x: 7.1371, y: 1.1727}
+    - Center: {x: -3.5739, y: 2.7932}
+      Angle: -191.082
+      Size: {x: 7.3224, y: 1.1798}
+    - Center: {x: -3.568, y: 2.4613}
+      Angle: -191.208
+      Size: {x: 7.3223, y: 1.2113}
+    - Center: {x: -3.5696, y: 2.0955}
+      Angle: -191.063
+      Size: {x: 7.3225, y: 1.2114}
+    - Center: {x: -2.7817, y: 3.4471}
+      Angle: -216.183
+      Size: {x: 7.3855, y: 1.1922}
+    - Center: {x: -0.7775, y: 4.5923}
+      Angle: -253.925
+      Size: {x: 7.4186, y: 1.1984}
+    - Center: {x: 0.1999, y: 4.4237}
+      Angle: -269.044
+      Size: {x: 7.1597, y: 1.2005}
+    - Center: {x: 2.6215, y: 2.9453}
+      Angle: -313.038
+      Size: {x: 7.4081, y: 1.1974}
+    - Center: {x: 3.9778, y: -0.3119}
+      Angle: -365.478
+      Size: {x: 7.1646, y: 1.2029}
+    - Center: {x: 3.3166, y: -2.522}
+      Angle: -401.519
+      Size: {x: 7.1522, y: 1.1592}
+    - Center: {x: 3.0709, y: -2.6668}
+      Angle: -405.623
+      Size: {x: 7.3724, y: 1.1782}
+    - Center: {x: 3.1306, y: -2.7292}
+      Angle: -405.646
+      Size: {x: 7.1995, y: 1.1782}
+    - Center: {x: 3.097, y: -2.7225}
+      Angle: -405.672
+      Size: {x: 7.1427, y: 1.1987}
+    - Center: {x: 3.1045, y: -2.6929}
+      Angle: -405.479
+      Size: {x: 7.1757, y: 1.2348}
+    - Center: {x: 3.0271, y: -2.6312}
+      Angle: -405.421
+      Size: {x: 7.3725, y: 1.2063}
     ImpactEffect: {fileID: 0}
     ImpactTime: 0.5
     ImpactOffset: {x: 7.870477, y: 2.88}
