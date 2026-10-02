@@ -42,22 +42,8 @@ public class TownNpcServicePresenter : MonoBehaviour
     // 로딩 화면 전체를 켜고 끄는 패널.
     [SerializeField] private GameObject _loadingPanel;
 
-    // 점 개수를 바꾸며 로딩 중임을 표시하는 텍스트.
-    [SerializeField] private TMP_Text _loadingText;
-
-    // 씬 로딩 진행률을 표시하는 게이지 이미지.
-    [SerializeField] private UnityEngine.UI.Image _loadingFillImage;
-
-    // 점이 다음 개수로 바뀌는 간격.
-    [SerializeField, Min(0.05f)] private float _loadingDotInterval = 0.4f;
-
-    // 반복해서 사용할 문구를 미리 저장한다.
-    private readonly string[] _loadingMessages =
-    {
-    "불러오는 중.",
-    "불러오는 중..",
-    "불러오는 중..."
-};
+    // 로딩 문구와 게이지 표시를 담당하는 컴포넌트.
+    [SerializeField] private LoadingScreenUI _loadingUI;
 
     // 현재 조작을 잠근 Town 플레이어.
     private TownPlayerController _player;
@@ -89,25 +75,15 @@ public class TownNpcServicePresenter : MonoBehaviour
     // 필수 연결을 검사하고 창 입력과 씬 로딩 알림을 등록한다.
     private void Awake()
     {
-        // 로딩 UI의 필수 연결을 확인한다.
-        if (_loadingPanel == null ||
-            _loadingText == null ||
-            _loadingFillImage == null)
+        // 로딩 화면과 표시 담당 컴포넌트의 연결을 확인한다.
+        if (_loadingPanel == null || _loadingUI == null)
         {
             throw new MissingReferenceException(
-                "LoadingPanel, LoadingText, LoadingFillImage를 연결해주세요.");
+                "LoadingPanel과 LoadingUI를 연결해주세요.");
         }
 
-        // 게이지가 fillAmount로 채워질 수 있는 설정인지 확인한다.
-        if (_loadingFillImage.type != UnityEngine.UI.Image.Type.Filled)
-        {
-            throw new InvalidOperationException(
-                "로딩 게이지의 Image Type을 Filled로 설정해주세요.");
-        }
-
-        // 처음에는 로딩 화면을 숨기고 게이지를 비운다.
+        // Town에 처음 들어왔을 때 로딩 화면을 숨긴다.
         _loadingPanel.SetActive(false);
-        _loadingFillImage.fillAmount = 0f;
 
         if (_root == null || _screenRoot == null ||
             _titleText == null || _closeButton == null ||
@@ -563,8 +539,6 @@ public class TownNpcServicePresenter : MonoBehaviour
         startTime = Time.realtimeSinceStartup;
 
         // 로딩 화면을 처음 상태로 표시한다.
-        _loadingText.text = _loadingMessages[0];
-        _loadingFillImage.fillAmount = 0f;
         _loadingPanel.SetActive(true);
 
         // 로드 시작 전에 로딩 화면이 표시될 프레임을 준다.
@@ -616,55 +590,39 @@ public class TownNpcServicePresenter : MonoBehaviour
             yield break;
         }
 
-        // 점 애니메이션의 현재 위치와 누적 시간을 관리한다.
-        int dotIndex = 0;
-        float dotTimer = 0f;
-
-        // 잘못된 간격이 들어와도 반복 계산이 정상적으로 동작하게 한다.
-        float dotInterval = Mathf.Max(0.05f, _loadingDotInterval);
-
-        // 씬 활성화 전 로딩이 완료될 때까지 매 프레임 UI를 갱신한다.
+        // 활성화 준비가 끝날 때까지 실제 로딩 진행률을 전달한다.
+        // 문구 반복과 게이지 보간은 LoadingScreenUI.Update에서 처리한다.
         while (operation.progress < 0.9f)
         {
-            // 활성화 전 진행률 0~0.9를 게이지 범위 0~1로 변환한다.
-            _loadingFillImage.fillAmount =
-                Mathf.Clamp01(operation.progress / 0.9f);
-
-            // 게임 시간 배율과 관계없이 점 애니메이션 시간을 누적한다.
-            dotTimer += Time.unscaledDeltaTime;
-
-            if (dotTimer >= dotInterval)
-            {
-                // 지난 간격 수만큼 이동해 프레임 지연에도 주기를 유지한다.
-                int steps = Mathf.FloorToInt(dotTimer / dotInterval);
-                dotTimer -= steps * dotInterval;
-
-                // 점 하나 → 둘 → 셋 → 하나 순서로 반복한다.
-                dotIndex =
-                    (dotIndex + steps) % _loadingMessages.Length;
-
-                _loadingText.text = _loadingMessages[dotIndex];
-            }
-
-            // 다음 프레임에 진행률과 텍스트를 다시 갱신한다.
+            _loadingUI.SetProgress(operation.progress / 0.9f);
             yield return null;
         }
-        Debug.Log($"씬 활성화 준비 완료: {Time.realtimeSinceStartup - startTime}초");
 
+        // 기존 시작 시각을 기준으로 활성화 준비까지 걸린 시간을 기록한다.
+        Debug.Log(
+            $"씬 활성화 준비 완료: " +
+            $"{Time.realtimeSinceStartup - startTime}초");
 
-        // 씬 활성화 준비가 완료되면 게이지를 가득 채운다.
-        _loadingFillImage.fillAmount = 1f;
+        // 씬 활성화 준비가 끝났으므로 표시 목표를 100%로 설정한다.
+        _loadingUI.SetProgress(1f);
 
-        // 가득 찬 게이지가 표시될 프레임을 준다.
+        // 게이지가 목표값까지 부드럽게 채워질 때까지 기다린다.
+        // 이 동안 문구와 캐릭터 애니메이션도 계속 갱신될 수 있다.
+        while (!_loadingUI.IsFillComplete)
+        {
+            yield return null;
+        }
+
+        // 가득 찬 게이지를 표시할 프레임을 준다.
         yield return null;
 
         // 실제 씬 전환을 허용한다.
-        // Town이 제거될 때 로딩 화면도 함께 제거된다.
         operation.allowSceneActivation = true;
 
-        // 씬 전환 작업의 완료를 기다린다.
+        // Town이 제거될 때까지 로딩 UI는 별도의 Update로 갱신된다.
         yield return operation;
     }
+
 
     // 실패하거나 담당 오브젝트가 제거되면 출격 연출 상태를 복구한다.
     private void RestoreDeparture()

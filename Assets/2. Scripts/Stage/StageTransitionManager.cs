@@ -350,6 +350,16 @@ public class StageTransitionManager : MonoBehaviour
                 continue;
             }
 
+            // 풀링된 오브젝트는 파괴하지 않고 원래 풀에 반납한다.
+            if (target.TryGetComponent(out PoolObject poolObject))
+            {
+                // 이미 풀에서 대기 중이면 내부 검사에 의해 아무 작업도 하지 않는다.
+                poolObject.ReturnToPool();
+
+                // 아래의 비활성화와 Destroy 처리를 건너뛴다.
+                continue;
+            }
+
             // Destroy는 프레임 끝에 처리되므로 먼저 비활성화한다.
             // 같은 프레임의 추가 공격·충돌·표시를 즉시 중단한다.
             target.gameObject.SetActive(false);

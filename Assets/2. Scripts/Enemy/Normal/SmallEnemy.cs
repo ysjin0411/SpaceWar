@@ -143,6 +143,47 @@ public class SmallEnemy : Enemy
         _contactFilter.useTriggers = true;
     }
 
+    // 최초 등장과 풀에서 다시 꺼낼 때 이전 사용 상태를 초기화한다.
+    private void OnEnable()
+    {
+        // 새로운 패턴 정보를 받기 전에는 이동을 시작하지 않는다.
+        _isPatternInitialized = false;
+
+        // 이전에 자폭했던 상태를 해제한다.
+        _hasExploded = false;
+
+        // 이전 이동 단계를 지우고 상태별 경과 시간을 초기화한다.
+        _currentState = SmallEnemyState.Entering;
+        _stateTimer = 0f;
+
+        // 이전 돌진의 목표와 방향을 지운다.
+        _chargeTargetPosition = Vector2.zero;
+        _chargeDirection = Vector2.zero;
+
+        // 충돌 검사 목록에 남은 이전 대상의 참조를 지운다.
+        _contactOverlaps.Clear();
+        _contactHits.Clear();
+
+        // 이전 돌진 애니메이션을 끝내고 기본 상태로 되돌린다.
+        _animator.Rebind();
+        _animator.speed = 1f;
+        _animator.Update(0f);
+
+        // 자폭하면서 껐던 콜라이더를 다시 켠다.
+        _bodyCollider.enabled = true;
+    }
+
+    // 풀 반납이나 구간 전환으로 비활성화될 때 패턴 진행을 중단한다.
+    private void OnDisable()
+    {
+        // 이전 패턴이 초기화된 상태로 남지 않도록 한다.
+        _isPatternInitialized = false;
+
+        // 대기 중에는 이전 충돌 대상의 참조를 보관하지 않는다.
+        _contactOverlaps.Clear();
+        _contactHits.Clear();
+    }
+
 
     /// <summary>
     /// 매 프레임 입력과 경과 시간에 따른 상태를 갱신한다.
@@ -612,8 +653,8 @@ public class SmallEnemy : Enemy
             }
         }
 
-        // 자폭에는 기존처럼 처치 보상을 지급하지 않는다.
-        Destroy(gameObject);
+        // 자폭 피해와 이펙트 처리를 마친 뒤 보상 없이 퇴장한다.
+        Despawn();
     }
 
     /// <summary>

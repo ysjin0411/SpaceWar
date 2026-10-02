@@ -26,6 +26,15 @@ public abstract class Projectile : MonoBehaviour
     // 자체 폭발을 사용하는 Missile, Grenade는 비워 둔다.
     [SerializeField] private SpriteOneShotEffect _hitEffectPrefab;
 
+    // 이 투사체를 원래 풀로 반납하는 컴포넌트.
+    private PoolObject _poolObject;
+
+    // 이번 발사에서 남은 생존 시간.
+    private float _remainingLife;
+
+    // 수류탄 등이 변경한 중력을 다음 발사 때 복원하기 위한 값.
+    private float _defaultGravityScale;
+
     // 명중 위치 계산에 사용할 투사체 콜라이더다.
     protected Collider2D HitCollider { get; private set; }
 
@@ -57,6 +66,12 @@ public abstract class Projectile : MonoBehaviour
     {
         // 같은 오브젝트에 있는 Rigidbody2D를 가져온다.
         Body = GetComponent<Rigidbody2D>();
+
+        // 풀 반납에 사용할 컴포넌트를 최초 한 번 가져온다.
+        _poolObject = GetComponent<PoolObject>();
+
+        // 최초 프리팹의 중력을 저장한다.
+        _defaultGravityScale = Body.gravityScale;
 
         // Collider는 충돌 판정만 하므로 Trigger 상태여야 한다.
         Collider2D projectileCollider = GetComponent<Collider2D>();
@@ -100,11 +115,11 @@ public abstract class Projectile : MonoBehaviour
         // 자식 클래스가 초기화된 이후에만 움직이도록 표시한다.
         _isInitialized = true;
 
+        // 발사할 때마다 수명을 새로 시작한다.
+        _remainingLife = _lifeTime;
+
         // Missile의 타깃 탐색처럼 자식 전용 초기화 작업을 실행한다.
         OnInitialized();
-
-        // 화면 밖 판정을 놓쳐도 지정된 시간이 지나면 자동 제거한다.
-        Destroy(gameObject, _lifeTime);
     }
 
     /// <summary>
@@ -195,7 +210,63 @@ public abstract class Projectile : MonoBehaviour
 
         if (DestroyAfterHit)
         {
-            Destroy(gameObject);
+            // 충돌 처리가 끝난 투사체를 재사용할 수 있도록 반납한다.
+            ReturnToPool();
         }
+    }
+
+    // 풀에서 다시 꺼낼 때 이전 발사의 상태를 초기화한다.
+    protected virtual void OnEnable()
+    {
+        _isInitialized = false;
+        _isHitConsumed = false;
+        _remainingLife = 0f;
+
+        Direction = Vector2.zero;
+        HitPoint = Vector2.zero;
+
+        Body.linearVelocity = Vector2.zero;
+        Body.angularVelocity = 0f;
+        Body.gravityScale = _defaultGravityScale;
+
+        HitCollider.enabled = true;
+    }
+
+    // 초기화가 끝난 투사체의 수명을 계산한다.
+    protected virtual void Update()
+    {
+        if (!_isInitialized)
+        {
+            return;
+        }
+
+        _remainingLife -= Time.deltaTime;
+
+        if (_remainingLife <= 0f)
+        {
+            ReturnToPool();
+        }
+    }
+
+    // 충돌, 폭발, 수명 종료 시 공통으로 호출한다.
+    protected void ReturnToPool()
+    {
+        _isInitialized = false;
+        _isHitConsumed = true;
+        HitCollider.enabled = false;
+
+        _poolObject.ReturnToPool();
+    }
+
+    // 반납 시 이전 발사의 예약 작업과 물리 움직임을 정리한다.
+    protected virtual void OnDisable()
+    {
+        CancelInvoke();
+        StopAllCoroutines();
+
+        _isInitialized = false;
+
+        Body.linearVelocity = Vector2.zero;
+        Body.angularVelocity = 0f;
     }
 }

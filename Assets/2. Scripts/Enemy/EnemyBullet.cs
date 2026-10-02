@@ -19,6 +19,13 @@ public class EnemyBullet : MonoBehaviour
     // 총알의 앞쪽 위치를 표시하는 자식 Foward 오브젝트.
     [SerializeField] Transform _foward;
 
+    // 사용이 끝난 적 탄환을 원래 풀에 반납한다.
+    private PoolObject _poolObject;
+
+    // 보스가 변경한 값을 다음 발사에 남기지 않도록 기본값을 저장한다.
+    private float _defaultSpeed;
+    private float _defaultDamage;
+
     // 플레이어 몸과 실드만 검사하는 필터.
     ContactFilter2D _hitFilter;
 
@@ -27,7 +34,6 @@ public class EnemyBullet : MonoBehaviour
     readonly List<RaycastHit2D> _castHits = new();
 
     Vector2 _dir;
-    bool _hasExplicitDirection;
 
     // Destroy가 프레임 끝에 실행되더라도 중복 피해를 막는다.
     bool _consumed;
@@ -47,6 +53,11 @@ public class EnemyBullet : MonoBehaviour
         body.linearVelocity = Vector2.zero;
         body.angularVelocity = 0f;
 
+        // 프리팹 기본 설정과 반납 컴포넌트를 최초 한 번 저장한다.
+        _poolObject = GetComponent<PoolObject>();
+        _defaultSpeed = _speed;
+        _defaultDamage = _damage;
+
         int playerLayer = LayerMask.NameToLayer("Player");
         int shieldLayer = LayerMask.NameToLayer("PlayerShield");
 
@@ -64,40 +75,24 @@ public class EnemyBullet : MonoBehaviour
         _hitFilter.useTriggers = true;
     }
 
-    // 일반 적이 플레이어를 향해 발사할 때 사용한다.
-    /// <summary>
-    /// 일반 적이 플레이어를 향해 발사할 때 사용한다.
-    /// </summary>
+    // 일반 적은 현재 플레이어 위치를 기준으로 즉시 방향을 계산한다.
     public void Init(PlayerController playerController)
     {
         _playerController = playerController;
+
+        SetDirection();
     }
 
-    // 보스 패턴 등이 방향, 속도, 피해량을 직접 지정할 때 사용한다.
-    /// <summary>
-    /// 보스 패턴 등이 방향, 속도, 피해량을 직접 지정할 때 사용한다.
-    /// </summary>
+    // 보스 패턴은 전달받은 방향, 속도, 공격력을 적용한다.
     public void Init(Vector2 direction, float speed, float damage)
     {
         _dir = direction.normalized;
         _speed = speed;
         _damage = damage;
-        _hasExplicitDirection = true;
 
-        // 확정된 이동 방향을 향하도록 총알을 회전시킨다.
         RotateToDirection();
     }
 
-    /// <summary>
-    /// 초기화된 데이터를 화면과 실행 상태에 반영한다.
-    /// </summary>
-    private void Start()
-    {
-        if (!_hasExplicitDirection)
-        {
-            SetDirection();
-        }
-    }
 
     /// <summary>
     /// SetDirection 동작에 필요한 상태와 처리 흐름을 실행한다.
@@ -254,10 +249,7 @@ public class EnemyBullet : MonoBehaviour
         return true;
     }
 
-    // 한 번 사용된 총알의 판정을 즉시 제거한다.
-    /// <summary>
-    /// 한 번 사용된 총알의 판정을 즉시 제거한다.
-    /// </summary>
+    // 충돌하거나 화면을 벗어난 탄환을 한 번만 반납한다.
     private void Consume()
     {
         if (_consumed)
@@ -267,7 +259,8 @@ public class EnemyBullet : MonoBehaviour
 
         _consumed = true;
         _bulletCollider.enabled = false;
-        Destroy(gameObject);
+
+        _poolObject.ReturnToPool();
     }
 
     // 이미 겹친 대상은 현재 두 콜라이더로 명중 위치를 계산한다.
@@ -321,5 +314,21 @@ public class EnemyBullet : MonoBehaviour
 
         // 루트를 회전해 스프라이트와 박스 콜라이더를 함께 정렬한다.
         transform.Rotate(0f, 0f, angle, Space.World);
+    }
+
+    // 풀에서 꺼낼 때 이전 탄환의 상태를 초기화한다.
+    private void OnEnable()
+    {
+        _consumed = false;
+        _bulletCollider.enabled = true;
+
+        _playerController = null;
+        _dir = Vector2.zero;
+
+        _speed = _defaultSpeed;
+        _damage = _defaultDamage;
+
+        _overlaps.Clear();
+        _castHits.Clear();
     }
 }

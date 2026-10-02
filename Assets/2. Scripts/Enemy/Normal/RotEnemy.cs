@@ -84,6 +84,24 @@ public sealed class RotEnemy : Enemy
         }
     }
 
+    // 최초 등장과 풀에서 다시 꺼낼 때 패턴 초기화를 기다린다.
+    private void OnEnable()
+    {
+        // InitializeTwinPattern이 호출되기 전에는 이동과 발사를 막는다.
+        _initialized = false;
+
+        // 이전 공격의 진행 상태를 지운다.
+        _attackPlaying = false;
+        _firedThisAttack = false;
+
+        // 대기 애니메이션을 정상 속도로 처음부터 재생한다.
+        _animator.speed = 1f;
+        _animator.Play(IdleHash, 0, 0f);
+
+        // 대기 상태를 즉시 반영한다.
+        _animator.Update(0f);
+    }
+
     /// <summary>
     /// Twin 패턴의 도착 위치와 설정을 전달받는다.
     /// </summary>
@@ -352,10 +370,14 @@ public sealed class RotEnemy : Enemy
                 direction = radial;
             }
 
-            EnemyBullet bullet = Instantiate(
-                _settings.BulletPrefab,
+            // 설정된 탄환 프리팹의 풀에서 오브젝트를 꺼낸다.
+            GameObject bulletObject = ProjectilePoolManager.Instance.Spawn(
+                _settings.BulletPrefab.gameObject,
                 _firePoint.position,
                 Quaternion.identity);
+
+            // 꺼낸 오브젝트에서 이동과 충돌을 담당하는 컴포넌트를 가져온다.
+            EnemyBullet bullet = bulletObject.GetComponent<EnemyBullet>();
 
             bullet.Init(
                 direction,
@@ -381,10 +403,11 @@ public sealed class RotEnemy : Enemy
             Vector3.right * _settings.ExitSpeed * Time.deltaTime,
             Space.World);
 
+        // 설정된 퇴장 위치에 도착하면 공통 퇴장 처리를 호출한다.
         if (transform.position.x >= _settings.ExitX)
         {
-            // 퇴장은 처치가 아니므로 보상을 지급하지 않는다.
-            Destroy(gameObject);
+            // 처치가 아니므로 보상 없이 풀에 반납한다.
+            Despawn();
         }
     }
 

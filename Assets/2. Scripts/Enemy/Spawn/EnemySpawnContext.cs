@@ -57,8 +57,15 @@ public sealed class EnemySpawnContext
                 nameof(enemyPrefab));
         }
 
-        // 패턴이 지정한 위치와 회전값으로 적을 생성한다.
-        T spawnedEnemy = UnityEngine.Object.Instantiate(enemyPrefab, spawnPosition, spawnRotation);
+        // 요청한 적 프리팹의 풀에서 오브젝트를 꺼내 등장 위치에 배치한다.
+        GameObject enemyObject = ProjectilePoolManager.Instance.Spawn(
+            enemyPrefab.gameObject,
+            spawnPosition,
+            spawnRotation);
+
+        // 요청한 적 타입의 컴포넌트를 가져온다.
+        // T는 호출하는 패턴에 따라 FastEnemy, RotEnemy, SmallEnemy가 된다.
+        T spawnedEnemy = enemyObject.GetComponent<T>();
 
         // 모든 일반 적이 공통으로 사용하는 런타임 참조를 전달한다.
         spawnedEnemy.Init(PlayerController, GameManager);

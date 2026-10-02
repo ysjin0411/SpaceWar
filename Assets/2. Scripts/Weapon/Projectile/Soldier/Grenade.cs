@@ -72,6 +72,9 @@ public class Grenade : Projectile
     /// </summary>
     protected override void OnInitialized()
     {
+        // 이전 발사에서 이미 폭발했던 상태를 초기화한다.
+        _hasExploded = false;
+
         // 폭발 이펙트가 없으면 정상적인 수류탄 공격을 완성할 수 없다.
         if (_explosionEffectPrefab == null)
         {
@@ -210,9 +213,8 @@ public class Grenade : Projectile
         Body.linearVelocity = Vector2.zero;
         Body.angularVelocity = 0f;
 
-        // 수류탄 본체를 제거한다.
-        // 화면에 보이는 폭발은 SpriteExplosionEffect가 Tween으로 자연스럽게 사라진다.
-        Destroy(gameObject);
+        // 폭발 처리가 끝난 수류탄을 풀로 반납한다.
+        ReturnToPool();
     }
 
     /// <summary>

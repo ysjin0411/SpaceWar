@@ -82,6 +82,24 @@ public class FastEnemy : Enemy
         }
     }
 
+    // 최초 등장과 풀에서 다시 꺼낼 때 공격 상태를 초기화한다.
+    private void OnEnable()
+    {
+        // 이번 등장에서는 아직 발사하지 않은 상태로 되돌린다.
+        _isFired = false;
+
+        // 이전 공격의 애니메이션 이벤트가 발사로 이어지지 않도록 한다.
+        _attackPlaying = false;
+        _firedThisAttack = false;
+
+        // Animator를 초기 상태로 되돌리고 정상 재생 속도를 적용한다.
+        _animator.Rebind();
+        _animator.speed = 1f;
+
+        // 초기 애니메이션 상태를 즉시 화면에 반영한다.
+        _animator.Update(0f);
+    }
+
     private void Update()
     {
         // 이미 사망 처리된 적은 이동하거나 공격하지 않는다.
@@ -124,8 +142,8 @@ public class FastEnemy : Enemy
                 $"{name}의 FastEnemy에 PlayerController가 초기화되지 않았습니다.");
         }
 
-        // FirePoint 위치에서 적 총알 프리팹을 생성한다.
-        GameObject enemyBulletObject = Instantiate(
+        // 미리 준비된 풀에서 탄환을 꺼내 발사 위치에 활성화한다.
+        GameObject enemyBulletObject = ProjectilePoolManager.Instance.Spawn(
             _enemyBulletPrefab,
             _firePoint.position,
             Quaternion.identity);
@@ -133,8 +151,8 @@ public class FastEnemy : Enemy
         // 생성된 오브젝트에서 EnemyBullet 컴포넌트를 가져온다.
         if (!enemyBulletObject.TryGetComponent(out EnemyBullet enemyBullet))
         {
-            // 잘못 생성된 총알 오브젝트를 제거한다.
-            Destroy(enemyBulletObject);
+            // 탄환 컴포넌트가 잘못 설정된 경우 꺼낸 오브젝트를 풀에 반납한다.
+            enemyBulletObject.GetComponent<PoolObject>().ReturnToPool();
 
             // 프리팹 설정 오류를 확인할 수 있도록 예외를 발생시킨다.
             throw new MissingComponentException(
@@ -166,10 +184,10 @@ public class FastEnemy : Enemy
             _isFired = true;
         }
 
-        // 화면 왼쪽 경계를 완전히 벗어나면 보상 없이 제거한다.
+        // 왼쪽 화면 밖으로 나간 적을 퇴장시킨다.
         if (transform.position.x < -12f)
         {
-            Destroy(gameObject);
+            Despawn();
         }
     }
 
@@ -194,10 +212,10 @@ public class FastEnemy : Enemy
             _isFired = true;
         }
 
-        // 화면 위쪽 경계를 완전히 벗어나면 보상 없이 제거한다.
+        // 위쪽 화면 밖으로 나간 적을 퇴장시킨다.
         if (transform.position.y > 6f)
         {
-            Destroy(gameObject);
+            Despawn();
         }
     }
 

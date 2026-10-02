@@ -1,0 +1,284 @@
+fileFormatVersion: 2
+guid: e27c183818d87704bb5f30d0379195e4
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 5772535049285722172
+    second: IdListOpenButton_0
+  - first:
+      213: -3763788842743155085
+    second: IdListOpenButton_1
+  - first:
+      213: 730550207590673811
+    second: IdListOpenButton_2
+  - first:
+      213: 6360404886250972551
+    second: IdListOpenButton_3
+  - first:
+      213: 8618257961812659123
+    second: IdListOpenButton_4
+  - first:
+      213: 4956666452897112963
+    second: IdListOpenButton_5
+  - first:
+      213: -5702589858979620530
+    second: IdListOpenButton_6
+  - first:
+      213: 6192236357396601265
+    second: IdListOpenButton_7
+  - first:
+      213: -8417379663289146895
+    second: IdListOpenButton_8
+  - first:
+      213: -8961092854185234912
+    second: IdListOpenButton_9
+  - first:
+      213: 5676862830686911648
+    second: IdListOpenButton_10
+  - first:
+      213: -7871140863755800108
+    second: IdListOpenButton_11
+  - first:
+      213: -2662934377224975516
+    second: IdListOpenButton_12
+  - first:
+      213: -6765009825963401350
+    second: IdListOpenButton_13
+  - first:
+      213: 255355139065479822
+    second: IdListOpenButton_14
+  - first:
+      213: 1514812429968589752
+    second: IdListOpenButton_15
+  - first:
+      213: 417031554392997889
+    second: IdListOpenButton_16
+  - first:
+      213: -4039856251512254331
+    second: IdListOpenButton_17
+  - first:
+      213: 4940358414855630376
+    second: IdListOpenButton_18
+  - first:
+      213: 8243923345628624623
+    second: IdListOpenButton_19
+  - first:
+      213: -8429709537054215581
+    second: IdListOpenButton_20
+  - first:
+      213: 3881456621408603121
+    second: IdListOpenButton_21
+  - first:
+      213: -570869666336595209
+    second: IdListOpenButton_22
+  - first:
+      213: 2532870256702701323
+    second: IdListOpenButton_23
+  - first:
+      213: 1427977662981291177
+    second: IdListOpenButton_24
+  - first:
+      213: -3741823726843381810
+    second: IdListOpenButton_25
+  - first:
+      213: -7614465939729554924
+    second: IdListOpenButton_26
+  - first:
+      213: 1186360946124900346
+    second: IdListOpenButton_27
+  - first:
+      213: -3752169068448738830
+    second: IdListOpenButton_28
+  - first:
+      213: 8342451623824324984
+    second: IdListOpenButton_29
+  - first:
+      213: 7323912085760443871
+    second: IdListOpenButton_30
+  - first:
+      213: -6808859455929624833
+    second: IdListOpenButton_31
+  - first:
+      213: 1565926070737731513
+    second: IdListOpenButton_32
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: IdListOpenButton_0
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 233
+        width: 1824
+        height: 331
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c30ea2a0b0a2c1050800000000000000
+      internalID: 5772535049285722172
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 76db40816a939104890aa9e56ae5af68
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      IdListOpenButton_0: 5772535049285722172
+      IdListOpenButton_1: -3763788842743155085
+      IdListOpenButton_10: 5676862830686911648
+      IdListOpenButton_11: -7871140863755800108
+      IdListOpenButton_12: -2662934377224975516
+      IdListOpenButton_13: -6765009825963401350
+      IdListOpenButton_14: 255355139065479822
+      IdListOpenButton_15: 1514812429968589752
+      IdListOpenButton_16: 417031554392997889
+      IdListOpenButton_17: -4039856251512254331
+      IdListOpenButton_18: 4940358414855630376
+      IdListOpenButton_19: 8243923345628624623
+      IdListOpenButton_2: 730550207590673811
+      IdListOpenButton_20: -8429709537054215581
+      IdListOpenButton_21: 3881456621408603121
+      IdListOpenButton_22: -570869666336595209
+      IdListOpenButton_23: 2532870256702701323
+      IdListOpenButton_24: 1427977662981291177
+      IdListOpenButton_25: -3741823726843381810
+      IdListOpenButton_26: -7614465939729554924
+      IdListOpenButton_27: 1186360946124900346
+      IdListOpenButton_28: -3752169068448738830
+      IdListOpenButton_29: 8342451623824324984
+      IdListOpenButton_3: 6360404886250972551
+      IdListOpenButton_30: 7323912085760443871
+      IdListOpenButton_31: -6808859455929624833
+      IdListOpenButton_32: 1565926070737731513
+      IdListOpenButton_4: 8618257961812659123
+      IdListOpenButton_5: 4956666452897112963
+      IdListOpenButton_6: -5702589858979620530
+      IdListOpenButton_7: 6192236357396601265
+      IdListOpenButton_8: -8417379663289146895
+      IdListOpenButton_9: -8961092854185234912
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

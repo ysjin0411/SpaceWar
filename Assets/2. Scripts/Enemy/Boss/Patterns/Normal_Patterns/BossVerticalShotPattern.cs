@@ -195,10 +195,14 @@ public sealed class BossVerticalShotPattern : BossPattern
             context.Rigidbody.position.y,
             context.Boss.transform.position.z);
 
-        EnemyBullet bullet = Instantiate(
-            _bulletPrefab,
+        // 현재 보스 위치에 발사할 탄환을 풀에서 꺼낸다.
+        GameObject bulletObject = ProjectilePoolManager.Instance.Spawn(
+            _bulletPrefab.gameObject,
             spawnPosition,
             Quaternion.identity);
+
+        // 발사 정보를 설정할 탄환 컴포넌트를 가져온다.
+        EnemyBullet bullet = bulletObject.GetComponent<EnemyBullet>();
 
         // 플레이어 위치와 관계없이 왼쪽으로 발사한다.
         // 총알 속도와 피해량은 이 Config의 값을 사용한다.

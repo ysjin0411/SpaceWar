@@ -726,13 +726,13 @@ public class Weapon : MonoBehaviour
                 $"무기 '{weapon.Data.WeaponName}'에 공격 프리팹이 연결되지 않았습니다.");
         }
 
-        // FirePoint 위치에 현재 무기의 공격 프리팹을 생성한다.
-        GameObject attackObject = Instantiate(
+        // 현재 무기의 프리팹에 대응하는 풀에서 투사체를 꺼낸다.
+        GameObject attackObject = ProjectilePoolManager.Instance.Spawn(
             weapon.Data.ProjectilePrefab,
             _firePoint.position,
             _firePoint.rotation);
 
-        // 프리팹을 생성하는 무기 중 Lazer는 펄스 빔으로 초기화한다.
+        // 이번 발사의 공격력과 방향을 적용한다.
         InitializeProjectileAttack(attackObject, weapon);
 
         // 프리팹 생성과 초기화가 정상적으로 끝난 다음
@@ -740,9 +740,8 @@ public class Weapon : MonoBehaviour
         if (weapon.Data.UsesCharges &&
             !weapon.TryConsumeCharge())
         {
-            // 발사 직전에 충전량이 사라진 예외 상황에서는
-            // 이미 생성한 공격 오브젝트도 제거한다.
-            Destroy(attackObject);
+            // 발사를 완료하지 못한 투사체도 파괴하지 않고 반납한다.
+            attackObject.GetComponent<PoolObject>().ReturnToPool();
             return;
         }
 
@@ -792,8 +791,8 @@ public class Weapon : MonoBehaviour
         // 생성한 프리팹에서 Projectile 부모 컴포넌트를 찾는다.
         if (!attackObject.TryGetComponent(out Projectile projectile))
         {
-            // 잘못 생성된 공격 오브젝트를 제거한다.
-            Destroy(attackObject);
+            // 발사를 완료하지 못한 투사체도 파괴하지 않고 반납한다.
+            attackObject.GetComponent<PoolObject>().ReturnToPool();
 
             throw new MissingComponentException(
                 $"무기 '{weapon.Data.WeaponName}'은 Projectile 방식이지만 " +
@@ -808,7 +807,8 @@ public class Weapon : MonoBehaviour
         {
             if (_grenadeAimGuide == null)
             {
-                Destroy(attackObject);
+                // 발사를 완료하지 못한 투사체도 파괴하지 않고 반납한다.
+                attackObject.GetComponent<PoolObject>().ReturnToPool();
 
                 throw new InvalidOperationException(
                     $"{name}의 Weapon에 Grenade Aim Guide가 연결되지 않았습니다.");

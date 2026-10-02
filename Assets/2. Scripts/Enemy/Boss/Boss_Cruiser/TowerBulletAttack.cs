@@ -64,11 +64,14 @@ public sealed class TowerBulletAttack : TowerAttack
             Vector2 shotDirection =
                 Quaternion.Euler(0f, 0f, angle) * direction;
 
-            // 총알은 보스의 자식으로 만들지 않아 독립적으로 이동한다.
-            EnemyBullet bullet = Instantiate(
-                _bulletPrefab,
+            // 포탑의 탄환 프리팹에 해당하는 풀에서 오브젝트를 꺼낸다.
+            GameObject bulletObject = ProjectilePoolManager.Instance.Spawn(
+                _bulletPrefab.gameObject,
                 _firePoint.position,
                 Quaternion.identity);
+
+            // 탄환의 방향과 공격 정보를 설정할 컴포넌트를 가져온다.
+            EnemyBullet bullet = bulletObject.GetComponent<EnemyBullet>();
 
             // 기존 EnemyBullet의 방향 지정 초기화를 그대로 사용한다.
             bullet.Init(

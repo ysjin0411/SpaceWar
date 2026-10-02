@@ -39,11 +39,20 @@ public class LoginController : MonoBehaviour
     // 로그인한 사용자 ID를 표시할 텍스트.
     [SerializeField] TMP_Text _playerIdText;
 
+    // 저장된 ID 목록을 여는 버튼.
+    [SerializeField] UnityEngine.UI.Button _idListButton;
+
+    // 로그인한 사용자를 로그아웃시키는 버튼.
+    [SerializeField] UnityEngine.UI.Button _logoutButton;
+
     // 처리 중 중복 요청과 씬 이동을 막는 상태.
     bool _isProcessing;
 
     // 확인 창에 표시한 ID를 생성까지 동일하게 사용한다.
     string _requestedUserId = string.Empty;
+
+    // 저장된 사용자 선택 창이 열려 있는지 나타낸다.
+    bool _profileSelectionOpen;
 
     private void Start()
     {
@@ -57,7 +66,9 @@ public class LoginController : MonoBehaviour
             _levelIcon == null ||
             _levelText == null ||
             _loginCompletedText == null ||
-            _playerIdText == null)
+            _playerIdText == null ||
+            _idListButton == null ||
+            _logoutButton == null)
         {
             throw new MissingReferenceException(
                 "LoginController의 UI 참조를 모두 연결해주세요.");
@@ -254,6 +265,9 @@ public class LoginController : MonoBehaviour
             _levelText.text =
                 SaveManager.Instance.CurrentUserLevel.ToString();
         }
+
+        // 현재 상태에 맞춰 목록 버튼과 로그아웃 버튼을 갱신한다.
+        RefreshAccountButtons();
     }
 
     // 로그인 처리 중 입력 변경, 중복 클릭, 환경설정 이동을 막는다.
@@ -264,6 +278,9 @@ public class LoginController : MonoBehaviour
         _idInputField.interactable = !processing;
         _loginButton.interactable = !processing;
         _settingButton.interactable = !processing;
+
+        // 현재 상태에 맞춰 목록 버튼과 로그아웃 버튼을 갱신한다.
+        RefreshAccountButtons();
     }
 
     // 안내가 있으면 확인을 받은 뒤 입력창으로 돌아간다.
@@ -354,5 +371,152 @@ public class LoginController : MonoBehaviour
         {
             _loginButton.onClick.RemoveListener(RequestLogin);
         }
+    }
+
+    // 목록 창을 열 수 있는지 확인하고 뒤쪽 로그인 UI를 잠근다.
+    public bool TryBeginProfileSelection()
+    {
+        if (_isProcessing ||
+            _confirmationDialog.IsOpen ||
+            SaveManager.Instance.IsLoggedIn ||
+            _profileSelectionOpen)
+        {
+            return false;
+        }
+
+        _profileSelectionOpen = true;
+
+        // 기존 입력칸, 로그인 버튼, 환경설정 버튼을 잠근다.
+        SetProcessing(true);
+        _idInputField.DeactivateInputField();
+
+        return true;
+    }
+
+    // 목록 창이 닫히면 뒤쪽 UI의 잠금을 해제한다.
+    public void EndProfileSelection()
+    {
+        if (!_profileSelectionOpen)
+        {
+            return;
+        }
+
+        _profileSelectionOpen = false;
+        SetProcessing(false);
+
+        // 로그인하지 않고 창만 닫았다면 ID 입력으로 돌아간다.
+        if (!SaveManager.Instance.IsLoggedIn)
+        {
+            StartCoroutine(FocusInputAfterRelease());
+        }
+    }
+
+    // 목록에서 선택한 기존 사용자로 로그인한다.
+    public bool TryLoginSavedProfile(string userId, out string message)
+    {
+        message = string.Empty;
+
+        if (!_profileSelectionOpen ||
+            _confirmationDialog.IsOpen ||
+            SaveManager.Instance.IsLoggedIn)
+        {
+            message = "현재는 사용자 목록에서 로그인할 수 없습니다.";
+            return false;
+        }
+
+        try
+        {
+            // 실제 로그인 시점에 파일을 다시 읽고 기존 검증을 수행한다.
+            if (!SaveManager.Instance.TryLoadUser(userId))
+            {
+                // 목록을 연 후 파일이 삭제된 경우 새 사용자를 만들지 않는다.
+                message = "저장 파일이 없습니다. 창을 다시 열어 목록을 갱신해주세요.";
+                return false;
+            }
+        }
+        catch (Exception exception) when (IsFileOperationError(exception))
+        {
+            Debug.LogException(exception);
+            message = "저장 파일을 불러오지 못했습니다. 파일 상태를 확인해주세요.";
+            return false;
+        }
+
+        // 기존 로그인 완료 UI와 업적 확인 처리를 재사용한다.
+        CompleteLogin();
+        return true;
+    }
+
+    // 로그인 상태와 목록 창 상태에 따라 계정 버튼을 갱신한다.
+    private void RefreshAccountButtons()
+    {
+        bool loggedIn = SaveManager.Instance.IsLoggedIn;
+
+        // 로그인 전이면서 목록 창이 닫혀 있을 때만 표시한다.
+        _idListButton.gameObject.SetActive(
+            !loggedIn && !_profileSelectionOpen);
+
+        // 로그아웃 버튼은 로그인 상태에서만 표시한다.
+        _logoutButton.gameObject.SetActive(loggedIn);
+
+        // 로그인·로그아웃 처리 중에는 중복 클릭을 막는다.
+        _idListButton.interactable = !_isProcessing;
+        _logoutButton.interactable = !_isProcessing;
+    }
+
+    // 로그아웃 버튼에서 호출한다.
+    public void RequestLogout()
+    {
+        // 다른 처리나 안내창이 열려 있으면 요청을 받지 않는다.
+        if (_isProcessing ||
+            _profileSelectionOpen ||
+            _confirmationDialog.IsOpen ||
+            !SaveManager.Instance.IsLoggedIn)
+        {
+            return;
+        }
+
+        // 이전 로그인에서 기다리던 버튼 선택 코루틴을 정리한다.
+        StopAllCoroutines();
+        SetProcessing(true);
+
+        try
+        {
+            // 현재 데이터를 저장하고 로그인 상태를 해제한다.
+            SaveManager.Instance.Logout();
+        }
+        catch (Exception exception) when (IsFileOperationError(exception))
+        {
+            Debug.LogException(exception);
+
+            // 저장 실패 시 로그인 상태를 유지하고 안내한다.
+            _confirmationDialog.ShowNotice(
+                "저장에 실패하여 로그아웃하지 못했습니다.",
+                HandleLogoutFailureNoticeClosed);
+
+            return;
+        }
+
+        // 이전에 입력하거나 요청했던 ID를 비운다.
+        _requestedUserId = string.Empty;
+        _idInputField.SetTextWithoutNotify(string.Empty);
+
+        // 입력칸과 목록 버튼을 다시 표시하고 플레이 버튼을 잠근다.
+        SetProcessing(false);
+        RefreshLoginUI();
+
+        // 로그아웃 버튼의 선택을 해제한 뒤 ID 입력으로 돌아간다.
+        if (EventSystem.current != null)
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+        }
+
+        StartCoroutine(FocusInputAfterRelease());
+    }
+
+    // 로그아웃 실패 안내를 닫으면 현재 계정의 버튼을 다시 사용할 수 있다.
+    private void HandleLogoutFailureNoticeClosed()
+    {
+        SetProcessing(false);
+        StartCoroutine(SelectPlayAfterRelease());
     }
 }

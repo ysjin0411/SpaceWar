@@ -84,11 +84,14 @@ public sealed class BossCruiserBurstShotPattern : BossPattern
                 direction = Vector2.left;
             }
 
-            // 부모 없이 생성하여 발사 후 보스의 이동에 끌려가지 않게 한다.
-            EnemyBullet bullet = Instantiate(
-                _bulletPrefab,
+            // 연속 발사에 사용할 탄환을 풀에서 꺼내 현재 발사 위치에 배치한다.
+            GameObject bulletObject = ProjectilePoolManager.Instance.Spawn(
+                _bulletPrefab.gameObject,
                 spawnPosition,
                 Quaternion.identity);
+
+            // 이번 발사의 정보를 전달할 탄환 컴포넌트를 가져온다.
+            EnemyBullet bullet = bulletObject.GetComponent<EnemyBullet>();
 
             // 기존 EnemyBullet에 방향, 속도, 피해량을 전달한다.
             // 이동과 충돌 처리는 EnemyBullet이 담당한다.

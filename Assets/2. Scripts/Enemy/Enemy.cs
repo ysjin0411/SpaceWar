@@ -112,6 +112,12 @@ public abstract class Enemy : MonoBehaviour, IDamageable
             throw new ArgumentNullException(nameof(gameManager));
         }
 
+        // 다시 등장할 때 체력을 최대 체력으로 복구한다.
+        _currentHp = _maxHp;
+
+        // 이전 사용에서 죽었던 상태를 해제한다.
+        _isDead = false;
+
         // 현재 스테이지에서 생성된 플레이어를 저장한다.
         PlayerController = playerController;
 
@@ -204,8 +210,8 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         // 자식 클래스의 추가 사망 효과를 실행한다.
         OnDied();
 
-        // 모든 사망 처리가 끝난 적 오브젝트를 제거한다.
-        Destroy(gameObject);
+        // 사망 또는 충돌 처리가 끝난 적을 퇴장시킨다.
+        Despawn();
     }
 
 
@@ -256,7 +262,9 @@ public abstract class Enemy : MonoBehaviour, IDamageable
 
         // 몸박으로 제거될 때도 연출은 재생하되 처치 보상은 지급하지 않는다.
         SpawnDeathEffect();
-        Destroy(gameObject);
+
+        // 사망 또는 충돌 처리가 끝난 적을 퇴장시킨다.
+        Despawn();
     }
 
     /// <summary>
@@ -273,5 +281,27 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     /// </summary>
     public virtual void FinishAttackFromAnimation()
     {
+    }
+
+    // 사용이 끝난 적을 풀에 반납하거나, 풀링 대상이 아니면 제거한다.
+    // 자식 클래스에서도 화면 이탈이나 자폭 후 호출할 수 있다.
+    protected void Despawn()
+    {
+        // 퇴장 처리 중 추가 피해와 충돌 처리를 막는다.
+        _isDead = true;
+
+        // 이전 사용에서 예약한 작업이 남지 않도록 정리한다.
+        CancelInvoke();
+        StopAllCoroutines();
+
+        // 풀링 대상인 적은 원래 풀로 반납한다.
+        if (TryGetComponent(out PoolObject poolObject))
+        {
+            poolObject.ReturnToPool();
+            return;
+        }
+
+        // PoolObject가 없는 적은 기존 방식으로 제거한다.
+        Destroy(gameObject);
     }
 }

@@ -229,12 +229,14 @@ public sealed class BossDogSpiralShotPattern : BossPattern
                 Mathf.Cos(radians),
                 Mathf.Sin(radians));
 
-            // 총알은 보스의 자식으로 만들지 않는다.
-            // 발사 후 보스가 회전해도 총알은 독립적으로 직진한다.
-            EnemyBullet bullet = Instantiate(
-                _bulletPrefab,
+            // 나선형 발사에 사용할 탄환을 풀에서 꺼내 보스 위치에 배치한다.
+            GameObject bulletObject = ProjectilePoolManager.Instance.Spawn(
+                _bulletPrefab.gameObject,
                 spawnPosition,
                 Quaternion.identity);
+
+            // 각 탄환의 발사 정보를 설정할 컴포넌트를 가져온다.
+            EnemyBullet bullet = bulletObject.GetComponent<EnemyBullet>();
 
             // 이 Config의 속도와 피해량을 생성된 총알에 전달한다.
             bullet.Init(direction, _bulletSpeed, _bulletDamage);

@@ -2000,4 +2000,125 @@ public class SaveManager : MonoBehaviour
 
         return true;
     }
+
+    // 현재 로그인 데이터를 변경하지 않고 저장된 사용자 목록만 읽는다.
+    public List<SavedProfileInfo> GetSavedProfiles()
+    {
+        List<SavedProfileInfo> profiles = new List<SavedProfileInfo>();
+
+        // 기존 로그인 및 저장 기능과 동일한 폴더를 사용한다.
+        string directory = Path.Combine(
+            Application.persistentDataPath,
+            ProfileFolderName);
+
+        // 아직 저장한 사용자가 없다면 빈 목록을 반환한다.
+        if (!Directory.Exists(directory))
+        {
+            return profiles;
+        }
+
+        // Profiles 바로 아래의 JSON 파일만 가져온다.
+        string[] paths = Directory.GetFiles(
+            directory,
+            "*.json",
+            SearchOption.TopDirectoryOnly);
+
+        // 먼저 만들어진 저장 파일부터 읽도록 정렬한다.
+        Array.Sort(paths, (left, right) =>
+        {
+            // 수정 시간이 아닌 최초 파일 생성 시간을 비교한다.
+            int result = File.GetCreationTimeUtc(left)
+                .CompareTo(File.GetCreationTimeUtc(right));
+
+            // 생성 시간이 다르면 오래된 파일을 앞에 배치한다.
+            if (result != 0)
+            {
+                return result;
+            }
+
+            // 생성 시간이 같으면 파일명으로 순서를 일정하게 유지한다.
+            return string.CompareOrdinal(
+                Path.GetFileNameWithoutExtension(left),
+                Path.GetFileNameWithoutExtension(right));
+        });
+
+        foreach (string path in paths)
+        {
+            try
+            {
+                // 예: player01.json → player01
+                string fileId = Path.GetFileNameWithoutExtension(path);
+
+                // 기존 로그인 규칙으로 사용할 수 없는 파일명은 제외한다.
+                if (!TryValidateUserId(
+                        fileId,
+                        out string userId,
+                        out string validationMessage) ||
+                    !string.Equals(fileId, userId, StringComparison.Ordinal))
+                {
+                    Debug.LogWarning($"목록에서 제외한 파일: {path}");
+                    continue;
+                }
+
+                // 파일 내용은 임시 객체로 읽는다.
+                // _playerSaveData에 대입하거나 TryLoadUser를 호출하지 않는다.
+                string json = File.ReadAllText(path);
+
+                if (string.IsNullOrWhiteSpace(json))
+                {
+                    throw new InvalidDataException("저장 파일이 비어 있습니다.");
+                }
+
+                PlayerSaveData data =
+                    JsonUtility.FromJson<PlayerSaveData>(json);
+
+                // 목록에 표시할 정보와 기본 저장 구조를 확인한다.
+                if (data == null ||
+                    data.userLevel < 1 ||
+                    data.userExp < 0 ||
+                    data.characterLoadouts == null ||
+                    !string.Equals(data.userId, fileId, StringComparison.Ordinal))
+                {
+                    throw new InvalidDataException(
+                        "저장 정보가 잘못되었거나 파일명과 ID가 다릅니다.");
+                }
+
+                profiles.Add(new SavedProfileInfo(fileId, data.userLevel));
+            }
+            catch (Exception exception) when (
+                exception is IOException ||
+                exception is UnauthorizedAccessException ||
+                exception is ArgumentException ||
+                exception is System.Security.SecurityException)
+            {
+                // 한 파일이 손상되어도 나머지 사용자 목록은 표시한다.
+                Debug.LogWarning(
+                    $"사용자 목록에서 제외: {path}\n{exception.Message}");
+            }
+        }
+        return profiles;
+    }
+
+    // 현재 진행 상황을 저장한 뒤 로그인 상태를 해제한다.
+    public void Logout()
+    {
+        if (!IsLoggedIn)
+        {
+            return;
+        }
+
+        // 저장에 실패하면 아래 초기화를 실행하지 않고 예외를 전달한다.
+        // 따라서 저장 실패 시에는 기존 로그인 상태가 유지된다.
+        SaveToFile();
+
+        // 이후 다른 사용자의 파일에 잘못 저장하지 않도록 경로를 비운다.
+        _savePath = string.Empty;
+
+        // 메모리에 보관한 사용자 데이터를 초기화한다.
+        _playerSaveData = new PlayerSaveData();
+        IsLoggedIn = false;
+
+        // 사용자 상태를 표시하는 UI에 변경을 알린다.
+        NotifyUserStatusChanged();
+    }
 }
