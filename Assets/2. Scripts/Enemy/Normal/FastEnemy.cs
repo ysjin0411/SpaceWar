@@ -163,10 +163,7 @@ public class FastEnemy : Enemy
         enemyBullet.Init(PlayerController);
     }
 
-    /// <summary>
-    /// 화면 오른쪽에서 왼쪽으로 이동한다.
-    /// X 위치가 0 이하가 되면 총알을 한 번 발사한다.
-    /// </summary>
+    // 오른쪽에서 왼쪽으로 이동하며 지정 위치에서 공격을 시작한다.
     private void MoveRightToLeft()
     {
         // 월드 좌표 기준 왼쪽으로 이동한다.
@@ -174,27 +171,21 @@ public class FastEnemy : Enemy
             Vector2.left * _moveSpeed * Time.deltaTime,
             Space.World);
 
-        // 발사 위치에 도달했고 아직 발사하지 않았다면 총알을 발사한다.
+        // 공격 애니메이션만 시작한다.
+        // 실제 탄환은 FireFromAnimation에서 한 번 발사한다.
         if (transform.position.x <= 0f && !_isFired)
         {
             BeginAttack();
-            Fire();
-
-            // 같은 적이 여러 번 발사하지 않도록 상태를 저장한다.
-            _isFired = true;
         }
 
-        // 왼쪽 화면 밖으로 나간 적을 퇴장시킨다.
+        // 화면 밖으로 나가면 풀로 반납한다.
         if (transform.position.x < -12f)
         {
             Despawn();
         }
     }
 
-    /// <summary>
-    /// 화면 아래에서 위쪽으로 이동한다.
-    /// Y 위치가 0 이상이 되면 총알을 한 번 발사한다.
-    /// </summary>
+    // 아래에서 위로 이동하며 지정 위치에서 공격을 시작한다.
     private void MoveDownToUp()
     {
         // 월드 좌표 기준 위쪽으로 이동한다.
@@ -202,17 +193,14 @@ public class FastEnemy : Enemy
             Vector2.up * _moveSpeed * Time.deltaTime,
             Space.World);
 
-        // 발사 위치에 도달했고 아직 발사하지 않았다면 총알을 발사한다.
+        // 공격 애니메이션만 시작한다.
+        // 실제 탄환은 FireFromAnimation에서 한 번 발사한다.
         if (transform.position.y >= 0f && !_isFired)
         {
             BeginAttack();
-            Fire();
-
-            // 같은 적이 여러 번 발사하지 않도록 상태를 저장한다.
-            _isFired = true;
         }
 
-        // 위쪽 화면 밖으로 나간 적을 퇴장시킨다.
+        // 화면 밖으로 나가면 풀로 반납한다.
         if (transform.position.y > 6f)
         {
             Despawn();

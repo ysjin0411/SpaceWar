@@ -229,11 +229,14 @@ public sealed class BossCruiserSummonPattern : BossPattern
 
         Vector2 spread = settings.EndSpread * spreadRatio;
 
-        // 부모 없이 생성하여 출격 후 보스 이동에 끌려가지 않게 한다.
-        SmallEnemy enemy = Instantiate(
-            _enemyPrefab,
+        // SmallEnemy 풀에서 빌려 소환 위치에 활성화한다.
+        GameObject enemyObject = ProjectilePoolManager.Instance.Spawn(
+            _enemyPrefab.gameObject,
             spawnPosition,
             Quaternion.identity);
+
+        // 빌린 오브젝트의 적 컴포넌트를 가져온다.
+        SmallEnemy enemy = enemyObject.GetComponent<SmallEnemy>();
 
         cruiser.RegisterSummonedEnemy(enemy);
 

@@ -4,6 +4,23 @@ using System.Collections.Generic;
 
 public class Boss_Cruiser : BossEnemy
 {
+    // 크루저가 소환한 오브젝트와 당시 대여 번호를 보관한다.
+    private struct SummonedEnemyEntry
+    {
+        // 소환한 적의 풀 반납을 담당하는 컴포넌트.
+        public PoolObject Object;
+
+        // 소환 당시의 대여 번호. 이후 재사용되었는지 판단한다.
+        public ulong Version;
+
+        // 소환 시점의 오브젝트와 대여 번호를 저장한다.
+        public SummonedEnemyEntry(PoolObject poolObject, ulong version)
+        {
+            Object = poolObject;
+            Version = version;
+        }
+    }
+
     // 타워와 전투하는 단계와 본체와 전투하는 단계를 구분한다.
     public enum CruiserPhase
     {
@@ -38,9 +55,9 @@ public class Boss_Cruiser : BossEnemy
     [SerializeField] private Transform _summonPointB;
     [SerializeField] private Transform _summonPointC;
 
-    // 보스 처치 시 남은 소환 적을 정리하기 위한 목록.
-    private readonly List<SmallEnemy> _summonedEnemies =
-        new List<SmallEnemy>();
+    // 크루저가 소환한 적의 대여 정보를 보관한다.
+    private readonly List<SummonedEnemyEntry> _summonedEnemies =
+        new List<SummonedEnemyEntry>();
 
     // 같은 패턴 에셋을 여러 항목에 넣어도 각 항목을 한 번씩 실행한다.
     private bool[] _phase1Requested = Array.Empty<bool>();
@@ -570,11 +587,7 @@ public class Boss_Cruiser : BossEnemy
         return point;
     }
 
-    // 생성된 적은 패턴이 끝난 뒤에도 독립적으로 행동한다.
-    // 크루저는 보스 처치 시 정리할 수 있도록 참조만 보관한다.
-    /// <summary>
-    /// 크루저는 보스 처치 시 정리할 수 있도록 참조만 보관한다.
-    /// </summary>
+    // 크루저가 소환한 적의 현재 대여 정보를 등록한다.
     public void RegisterSummonedEnemy(SmallEnemy enemy)
     {
         if (enemy == null)
@@ -582,30 +595,55 @@ public class Boss_Cruiser : BossEnemy
             throw new ArgumentNullException(nameof(enemy));
         }
 
-        // 이미 자폭하거나 처치된 적의 참조를 정리한다.
-        _summonedEnemies.RemoveAll(item => item == null);
-        _summonedEnemies.Add(enemy);
+        // 적에게 붙은 PoolObject를 가져오고 대여 상태를 확인한다.
+        if (!enemy.TryGetComponent(out PoolObject poolObject) ||
+            !poolObject.IsBorrowed)
+        {
+            throw new InvalidOperationException(
+                $"{name}: 소환 적은 풀에서 대여한 상태여야 합니다.");
+        }
+
+        // 파괴·반납·재대여된 기록을 제거한다.
+        // 같은 오브젝트의 기존 기록도 제거하여 중복 등록을 막는다.
+        _summonedEnemies.RemoveAll(entry =>
+            entry.Object == null ||
+            !entry.Object.IsBorrowed ||
+            entry.Object.BorrowVersion != entry.Version ||
+            entry.Object == poolObject);
+
+        // 현재 오브젝트와 대여 번호를 구조체에 저장한다.
+        _summonedEnemies.Add(
+            new SummonedEnemyEntry(poolObject, poolObject.BorrowVersion));
     }
 
-    // 보스 처치 뒤 이동 연출에 소환 적의 공격이 남지 않도록 제거한다.
-    /// <summary>
-    /// 보스 처치 뒤 이동 연출에 소환 적의 공격이 남지 않도록 제거한다.
-    /// </summary>
+    // 크루저가 소환한 대여 건에 해당하는 적만 풀로 반납한다.
     private void ClearSummonedEnemies()
     {
-        foreach (SmallEnemy enemy in _summonedEnemies)
+        // 마지막 항목부터 꺼내며 목록이 빌 때까지 정리한다.
+        while (_summonedEnemies.Count > 0)
         {
-            if (enemy == null)
+            int lastIndex = _summonedEnemies.Count - 1;
+            SummonedEnemyEntry entry = _summonedEnemies[lastIndex];
+
+            // 반납으로 OnDisable이 호출되기 전에 기록부터 제거한다.
+            _summonedEnemies.RemoveAt(lastIndex);
+
+            // 이미 파괴되었거나 반납된 오브젝트는 건너뛴다.
+            if (entry.Object == null || !entry.Object.IsBorrowed)
             {
                 continue;
             }
 
-            // Destroy가 처리되기 전에도 이동과 충돌을 즉시 중단한다.
-            enemy.gameObject.SetActive(false);
-            Destroy(enemy.gameObject);
-        }
+            // 다른 대여 건으로 재사용된 오브젝트는 건드리지 않는다.
+            if (entry.Object.BorrowVersion != entry.Version)
+            {
+                continue;
+            }
 
-        _summonedEnemies.Clear();
+            // 처치 보상 없이 풀로 반납한다.
+            // 비활성화와 보관 위치 이동은 풀 매니저가 처리한다.
+            entry.Object.ReturnToPool();
+        }
     }
 
     // 보스의 체력이 0이 되는 시점에 호출된다.
@@ -617,4 +655,6 @@ public class Boss_Cruiser : BossEnemy
         ClearSummonedEnemies();
         base.OnBossDefeated();
     }
+
+
 }

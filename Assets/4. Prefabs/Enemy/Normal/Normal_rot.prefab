@@ -214,6 +214,7 @@ GameObject:
   - component: {fileID: 636532698536025731}
   - component: {fileID: 1528793276418901857}
   - component: {fileID: 3758209791310439026}
+  - component: {fileID: 3187893781940781847}
   m_Layer: 8
   m_Name: Normal_rot
   m_TagString: Untagged
@@ -357,3 +358,15 @@ MonoBehaviour:
   _deathEffectOffset: {x: 0, y: 0, z: 0}
   _firePoint: {fileID: 5398899518243365422}
   _animator: {fileID: 5597192801054440021}
+--- !u!114 &3187893781940781847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9200333248802534134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7356bcf0e7a9684f891111dd0c12f70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

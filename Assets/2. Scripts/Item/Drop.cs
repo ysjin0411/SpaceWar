@@ -27,7 +27,7 @@ public class Drop : MonoBehaviour
     private bool _isInitialized;
     private bool _hasDropped;
 
-    // 생성한 쪽에서 현재 스테이지의 관리자를 전달한다.
+    // 이번 사용에 필요한 게임 매니저와 드롭 상태를 초기화한다.
     public void Initialize(GameManager gameManager)
     {
         if (gameManager == null)
@@ -35,14 +35,20 @@ public class Drop : MonoBehaviour
             throw new ArgumentNullException(nameof(gameManager));
         }
 
+        // 설정 검증이 완료되기 전에는 드롭을 실행할 수 없게 한다.
+        _isInitialized = false;
+
+        // 이번 사용에서 드롭 처리를 담당할 게임 매니저를 연결한다.
         _gameManager = gameManager;
 
-        // 기존 확정 드랍 설정을 검사한다.
+        // 일반 드롭과 스테이지 드롭 설정을 검증한다.
         ValidateConfiguration();
-
-        // 스테이지 전용 확률 드랍 설정을 검사한다.
         ValidateStageDropConfiguration();
 
+        // 이전 사용에서 드롭했던 기록을 지워 다시 드롭할 수 있게 한다.
+        _hasDropped = false;
+
+        // 모든 준비가 끝난 뒤 드롭 실행을 허용한다.
         _isInitialized = true;
     }
 

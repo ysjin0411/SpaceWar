@@ -214,6 +214,7 @@ GameObject:
   - component: {fileID: 636532698536025731}
   - component: {fileID: 1528793276418901857}
   - component: {fileID: 4793083923432386981}
+  - component: {fileID: 8797135328921871370}
   m_Layer: 8
   m_Name: Normal_RightToLeft
   m_TagString: Untagged
@@ -361,3 +362,15 @@ MonoBehaviour:
   - _prefab: {fileID: 4012495091504343507, guid: 2f2fd5caed3b9a540866aa6a368269ad, type: 3}
     _dropChancePercent: 100
   _itemDropPoint: {fileID: 0}
+--- !u!114 &8797135328921871370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9200333248802534134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7356bcf0e7a9684f891111dd0c12f70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
