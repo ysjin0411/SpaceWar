@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cfa4cd078ba9f547a1a3f0b6125670e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _animator: {fileID: 1305466239479024905}
   _spriteRenderer: {fileID: 7902378613389138547}
   _spriteOuterRadiusRatio: 0.47
   _damageRadiusRatio: 0.3
@@ -187,7 +188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed8b1ae4e4e52b34ea557c1c11e076fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_CategoryHash: 0
-  m_labelHash: 0
+  m_CategoryHash: 4.1194874e-13
+  m_labelHash: 1.4428145e-24
   m_SpriteKey: 0
   m_SpriteHash: 541341460

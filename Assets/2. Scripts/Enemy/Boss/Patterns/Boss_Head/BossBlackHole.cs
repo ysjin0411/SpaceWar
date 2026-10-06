@@ -1,5 +1,4 @@
 using System;
-using DG.Tweening;
 using UnityEngine;
 
 /// <summary>
@@ -14,9 +13,6 @@ public struct BossBlackHoleSettings
     // 완전히 펼쳐진 크기에 대한 비행 중 크기의 비율이다.
     // 0.15면 최종 크기의 15%로 날아간다.
     [Range(0.01f, 1f)] public float FlightScaleRatio;
-
-    // 목적지에 도착한 후 원래 크기까지 확대되는 시간이다.
-    [Min(0.01f)] public float ExpandDuration;
 
     // 확대가 완료된 후 흡인과 피해를 유지하는 시간이다.
     [Min(0.01f)] public float ActiveDuration;
@@ -33,9 +29,6 @@ public struct BossBlackHoleSettings
 
     // 유지·소멸 중 초당 회전 각도다. 음수는 시계 방향이다.
     public float RotationSpeed;
-
-    // 흡인 종료 후 작아지고 투명해지는 시간이다.
-    [Min(0.01f)] public float FadeDuration;
 }
 
 /// <summary>
@@ -54,6 +47,21 @@ public sealed class BossBlackHole : MonoBehaviour
         Active,
         Fading
     }
+
+    // Renderer 자식에 붙어 있는 블랙홀 Animator다.
+    [SerializeField] Animator _animator;
+
+    // 등장 애니메이션 상태의 전체 경로다.
+    static readonly int AppearStateHash =
+        Animator.StringToHash("Base Layer.Boss_Head_BlackHole_Appear");
+
+    // 활성 애니메이션 상태의 전체 경로다.
+    static readonly int ActiveStateHash =
+        Animator.StringToHash("Base Layer.Boss_Head_BlackHole_Active");
+
+    // 소멸 애니메이션 상태의 전체 경로다.
+    static readonly int DisappearStateHash =
+        Animator.StringToHash("Base Layer.Boss_Head_BlackHole_Disappear");
 
     // 회전·크기·투명도 연출을 적용할 자식 SpriteRenderer다.
     [SerializeField] SpriteRenderer _spriteRenderer;
@@ -96,9 +104,6 @@ public sealed class BossBlackHole : MonoBehaviour
     // 재진입으로 피해 간격을 우회하지 않도록 다음 피해 시간을 보관한다.
     float _nextDamageTime;
 
-    // 소멸 연출을 정리할 때 사용하는 참조다.
-    Sequence _fadeSequence;
-
     // 스프라이트 중심을 실제 판정 중심으로 사용한다.
     private Vector2 RangeCenter =>
         _spriteRenderer.transform.TransformPoint(
@@ -136,6 +141,24 @@ public sealed class BossBlackHole : MonoBehaviour
         {
             throw new InvalidOperationException(
                 $"{name}: 루트의 바로 아래 자식 SpriteRenderer를 연결하세요.");
+        }
+
+        // 애니메이션이 SpriteRenderer와 같은 자식에서 재생되는지 검사한다.
+        if (_animator == null ||
+            _animator.runtimeAnimatorController == null ||
+            _animator.gameObject != _spriteRenderer.gameObject)
+        {
+            throw new InvalidOperationException(
+                $"{name}: Renderer 자식의 Animator와 Controller를 연결하세요.");
+        }
+
+        // 코드에서 재생할 상태가 실제 Controller에 존재하는지 검사한다.
+        if (!_animator.HasState(0, AppearStateHash) ||
+            !_animator.HasState(0, ActiveStateHash) ||
+            !_animator.HasState(0, DisappearStateHash))
+        {
+            throw new InvalidOperationException(
+                $"{name}: BlackHole의 Appear, Active, Disappear 상태를 확인하세요.");
         }
     }
 
@@ -183,11 +206,13 @@ public sealed class BossBlackHole : MonoBehaviour
         _elapsed = 0f;
         _nextDamageTime = 0f;
         _state = HoleState.Flying;
-}
 
-    /// <summary>
-    /// 매 프레임 입력과 경과 시간에 따른 상태를 갱신한다.
-    /// </summary>
+        // 이동 중에는 프리팹에 지정한 스프라이트를 작은 크기로 표시한다.
+        // 목적지에 도착하기 전에는 애니메이션을 재생하지 않는다.
+        _animator.enabled = false;
+    }
+
+    // 이동, 등장, 활성 유지, 소멸의 순서를 관리한다.
     private void Update()
     {
         if (_state == HoleState.None)
@@ -195,8 +220,7 @@ public sealed class BossBlackHole : MonoBehaviour
             return;
         }
 
-        // 확대가 완료된 뒤부터 회전한다.
-        // 소멸 중에도 기존처럼 회전을 이어간다.
+        // 기존처럼 활성 상태와 소멸 상태에서 회전한다.
         if (_state == HoleState.Active || _state == HoleState.Fading)
         {
             _spriteRenderer.transform.Rotate(
@@ -205,24 +229,30 @@ public sealed class BossBlackHole : MonoBehaviour
                 Space.Self);
         }
 
-        // 소멸은 기존 DOTween이 처리한다.
+        // Disappear를 끝까지 재생한 뒤 블랙홀을 삭제한다.
         if (_state == HoleState.Fading)
         {
+            if (HasAnimationFinished(DisappearStateHash))
+            {
+                _state = HoleState.None;
+                Destroy(gameObject);
+            }
+
             return;
         }
 
-        // 비행·확대 중이라도 보스가 사라지면 소멸한다.
+        // 보스가 사라지면 이동 또는 등장 중이라도 소멸을 시작한다.
         if (!IsOwnerAlive())
         {
             BeginFadeOut();
             return;
         }
 
-        _elapsed += Time.deltaTime;
-
         if (_state == HoleState.Flying)
         {
-            // 작은 크기를 유지한 채 목적지까지 이동한다.
+            // 작은 크기를 유지하며 목적지까지 이동한다.
+            _elapsed += Time.deltaTime;
+
             float ratio = Mathf.Clamp01(
                 _elapsed / _settings.TravelDuration);
 
@@ -231,10 +261,13 @@ public sealed class BossBlackHole : MonoBehaviour
 
             if (ratio >= 1f)
             {
-                // 도착하면 공격 대신 확대 단계로 넘어간다.
+                // 목적지에 도착한 순간부터 Appear를 재생한다.
                 transform.position = _destination;
                 _elapsed = 0f;
                 _state = HoleState.Expanding;
+
+                _animator.enabled = true;
+                _animator.Play(AppearStateHash, 0, 0f);
             }
 
             return;
@@ -242,10 +275,17 @@ public sealed class BossBlackHole : MonoBehaviour
 
         if (_state == HoleState.Expanding)
         {
-            // 목적지에 멈춘 상태에서 원래 크기로 부드럽게 확대한다.
-            float ratio = Mathf.Clamp01(
-                _elapsed / _settings.ExpandDuration);
+            AnimatorStateInfo animation =
+                _animator.GetCurrentAnimatorStateInfo(0);
 
+            // Play 요청이 Animator에 반영되기 전에는 기다린다.
+            if (animation.fullPathHash != AppearStateHash)
+            {
+                return;
+            }
+
+            // Appear의 재생 진행률에 맞춰 기존 확대 연출을 진행한다.
+            float ratio = Mathf.Clamp01(animation.normalizedTime);
             float easedRatio = Mathf.SmoothStep(0f, 1f, ratio);
 
             _spriteRenderer.transform.localScale = Vector3.Lerp(
@@ -253,24 +293,40 @@ public sealed class BossBlackHole : MonoBehaviour
                 _expandedLocalScale,
                 easedRatio);
 
-            if (ratio >= 1f)
+            if (animation.normalizedTime >= 1f)
             {
-                // 확대를 마친 시점부터 유지 시간과 공격을 시작한다.
+                // 등장 완료 후에만 활성 시간과 피해 판정을 시작한다.
                 _spriteRenderer.transform.localScale = _expandedLocalScale;
                 _elapsed = 0f;
                 _nextDamageTime = Time.time;
                 _state = HoleState.Active;
+
+                _animator.Play(ActiveStateHash, 0, 0f);
             }
 
             return;
         }
 
-        // 확대 시간은 Active Duration에 포함하지 않는다.
-        if (_state == HoleState.Active &&
-            _elapsed >= _settings.ActiveDuration)
+        if (_state == HoleState.Active)
         {
-            BeginFadeOut();
+            // 이동과 등장에 걸린 시간은 활성 유지 시간에 포함하지 않는다.
+            _elapsed += Time.deltaTime;
+
+            if (_elapsed >= _settings.ActiveDuration)
+            {
+                BeginFadeOut();
+            }
         }
+    }
+
+    // 지정한 상태가 실제로 재생 중이며 한 번의 재생을 마쳤는지 확인한다.
+    private bool HasAnimationFinished(int stateHash)
+    {
+        AnimatorStateInfo animation =
+            _animator.GetCurrentAnimatorStateInfo(0);
+
+        return animation.fullPathHash == stateHash &&
+               animation.normalizedTime >= 1f;
     }
 
     /// <summary>
@@ -353,11 +409,10 @@ public sealed class BossBlackHole : MonoBehaviour
         return false;
     }
 
-    /// <summary>
-    /// 흡인과 피해를 먼저 끄고 크기·투명도 소멸 연출을 시작한다.
-    /// </summary>
+    // 흡입과 피해를 중단하고 소멸 애니메이션을 시작한다.
     public void BeginFadeOut()
     {
+        // 소멸 중 반복 호출되어도 애니메이션을 처음부터 재생하지 않는다.
         if (_state == HoleState.Fading)
         {
             return;
@@ -366,30 +421,22 @@ public sealed class BossBlackHole : MonoBehaviour
         _state = HoleState.Fading;
         ReleasePull();
 
-        // 비활성 상태에서는 Tween 완료를 기다리지 않고 제거한다.
+        // 비활성 오브젝트는 애니메이션을 진행할 수 없으므로 정리한다.
         if (!isActiveAndEnabled)
         {
             Destroy(gameObject);
             return;
         }
 
-        _fadeSequence = DOTween.Sequence();
+        // 이동 중 패턴이 중단되었을 때도 소멸 애니메이션을 재생한다.
+        _animator.enabled = true;
+        _animator.Play(DisappearStateHash, 0, 0f);
+    }
 
-        _fadeSequence.Join(
-            _spriteRenderer.transform
-                .DOScale(Vector3.zero, _settings.FadeDuration)
-                .SetEase(Ease.InQuad));
-
-        _fadeSequence.Join(
-            _spriteRenderer
-                .DOFade(0f, _settings.FadeDuration)
-                .SetEase(Ease.InQuad));
-
-        _fadeSequence.OnComplete(() =>
-        {
-            _fadeSequence = null;
-            Destroy(gameObject);
-        });
+    // 오브젝트가 비활성화되어도 플레이어에게 흡입 속도가 남지 않게 한다.
+    private void OnDisable()
+    {
+        ReleasePull();
     }
 
     /// <summary>
@@ -411,21 +458,6 @@ public sealed class BossBlackHole : MonoBehaviour
         return _owner != null &&
                !_owner.IsDead &&
                _owner.isActiveAndEnabled;
-    }
-
-    /// <summary>
-    /// 비활성화 시 이벤트 연결과 실행 상태를 정리한다.
-    /// </summary>
-    private void OnDisable()
-    {
-        // 맵 교체 등으로 제거돼도 플레이어에게 흡인이 남지 않게 한다.
-        ReleasePull();
-
-        if (_fadeSequence != null)
-        {
-            _fadeSequence.Kill();
-            _fadeSequence = null;
-        }
     }
 
     /// <summary>

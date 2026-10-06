@@ -14294,7 +14294,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4096
   _moveSpeed: 15
-  _jumpSpeed: 30
+  _jumpSpeed: 20
   _dropSpeed: 3
   _groundCheckDistance: 0.05
   _maxSlopeAngle: 50

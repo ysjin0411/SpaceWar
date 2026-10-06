@@ -41,16 +41,12 @@ public sealed class BossHeadBlackHolePattern : BossPattern
         // 최종 크기의 15%로 비행한다.
         FlightScaleRatio = 0.15f,
 
-        // 도착 후 0.4초 동안 펼쳐진다.
-        ExpandDuration = 0.4f,
-
         // 펼쳐진 뒤 5초 동안 공격한다.
         ActiveDuration = 5f,
         PullSpeed = 2.5f,
         DamageInterval = 0.5f,
         Damage = 10,
         RotationSpeed = 90f,
-        FadeDuration = 0.5f
     };
 
     public override IEnumerator Execute(BossPatternContext context)
@@ -178,12 +174,10 @@ public sealed class BossHeadBlackHolePattern : BossPattern
             _settings.TravelDuration <= 0f ||
             _settings.FlightScaleRatio <= 0f ||
             _settings.FlightScaleRatio > 1f ||
-            _settings.ExpandDuration <= 0f ||
             _settings.ActiveDuration <= 0f ||
             _settings.PullSpeed < 0f ||
             _settings.DamageInterval <= 0f ||
-            _settings.Damage <= 0 ||
-            _settings.FadeDuration <= 0f)
+            _settings.Damage <= 0)
         {
             throw new InvalidOperationException(
                 $"{name}: 블랙홀 설정 수치를 확인하세요.");
