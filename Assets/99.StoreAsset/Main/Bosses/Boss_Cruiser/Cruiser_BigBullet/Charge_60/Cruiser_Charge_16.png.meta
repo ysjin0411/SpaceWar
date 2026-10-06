@@ -1,0 +1,1059 @@
+fileFormatVersion: 2
+guid: e3cdf2bd7c2ebfb44be0bb751413b465
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8914467620861237103
+    second: Cruiser_Charge_16_0
+  - first:
+      213: -7214955010393342200
+    second: Cruiser_Charge_16_1
+  - first:
+      213: -5783083727647241646
+    second: Cruiser_Charge_16_2
+  - first:
+      213: -4553149332226783430
+    second: Cruiser_Charge_16_3
+  - first:
+      213: 2418441990729364795
+    second: Cruiser_Charge_16_4
+  - first:
+      213: 4404280820372194722
+    second: Cruiser_Charge_16_5
+  - first:
+      213: -4578145820639348861
+    second: Cruiser_Charge_16_6
+  - first:
+      213: 75050113469809808
+    second: Cruiser_Charge_16_7
+  - first:
+      213: 3977552140196612394
+    second: Cruiser_Charge_16_8
+  - first:
+      213: -8570806761066605009
+    second: Cruiser_Charge_16_9
+  - first:
+      213: -4092454572173377754
+    second: Cruiser_Charge_16_10
+  - first:
+      213: 1170396596916700693
+    second: Cruiser_Charge_16_11
+  - first:
+      213: 3458100010654807407
+    second: Cruiser_Charge_16_12
+  - first:
+      213: 2363115406544933911
+    second: Cruiser_Charge_16_13
+  - first:
+      213: 8834612150717581060
+    second: Cruiser_Charge_16_14
+  - first:
+      213: -7045950077364033472
+    second: Cruiser_Charge_16_15
+  - first:
+      213: -8355530654155045348
+    second: Cruiser_Charge_16_16
+  - first:
+      213: -4938900431903497446
+    second: Cruiser_Charge_16_17
+  - first:
+      213: 5180379940717845517
+    second: Cruiser_Charge_16_18
+  - first:
+      213: 5494350690380094963
+    second: Cruiser_Charge_16_19
+  - first:
+      213: 5566696312816733436
+    second: Cruiser_Charge_16_20
+  - first:
+      213: -4407874429602122498
+    second: Cruiser_Charge_16_21
+  - first:
+      213: 7299227048746923906
+    second: Cruiser_Charge_16_22
+  - first:
+      213: 3685636436223515748
+    second: Cruiser_Charge_16_23
+  - first:
+      213: -625164822952021423
+    second: Cruiser_Charge_16_24
+  - first:
+      213: -7713639304055216046
+    second: Cruiser_Charge_16_25
+  - first:
+      213: -659228901960903794
+    second: Cruiser_Charge_16_26
+  - first:
+      213: -834966636051044514
+    second: Cruiser_Charge_16_27
+  - first:
+      213: -7163863260671006785
+    second: Cruiser_Charge_16_28
+  - first:
+      213: 3660552458055041205
+    second: Cruiser_Charge_16_29
+  - first:
+      213: 2501315995247143537
+    second: Cruiser_Charge_16_30
+  - first:
+      213: 3509362169050288736
+    second: Cruiser_Charge_16_31
+  - first:
+      213: 4519509833956771300
+    second: Cruiser_Charge_16_32
+  - first:
+      213: -8203701565657226798
+    second: Cruiser_Charge_16_33
+  - first:
+      213: -1040022685125569707
+    second: Cruiser_Charge_16_34
+  - first:
+      213: 4338212833948670965
+    second: Cruiser_Charge_16_35
+  - first:
+      213: 2428069691754356317
+    second: Cruiser_Charge_16_36
+  - first:
+      213: -2302809591052142520
+    second: Cruiser_Charge_16_37
+  - first:
+      213: 610752376175184153
+    second: Cruiser_Charge_16_38
+  - first:
+      213: -9160578144052259600
+    second: Cruiser_Charge_16_39
+  - first:
+      213: 7652695702829758211
+    second: Cruiser_Charge_16_40
+  - first:
+      213: 4817084865391410088
+    second: Cruiser_Charge_16_41
+  - first:
+      213: 2075381101987368074
+    second: Cruiser_Charge_16_42
+  - first:
+      213: -9071907987255180331
+    second: Cruiser_Charge_16_43
+  - first:
+      213: -7619004328655381926
+    second: Cruiser_Charge_16_44
+  - first:
+      213: -4871865545195846647
+    second: Cruiser_Charge_16_45
+  - first:
+      213: -3112354625872709380
+    second: Cruiser_Charge_16_46
+  - first:
+      213: -6193435741003710779
+    second: Cruiser_Charge_16_47
+  - first:
+      213: 2678499052359576426
+    second: Cruiser_Charge_16_48
+  - first:
+      213: -8336455398219848206
+    second: Cruiser_Charge_16_49
+  - first:
+      213: -1804456424079613946
+    second: Cruiser_Charge_16_50
+  - first:
+      213: 9089261990625081347
+    second: Cruiser_Charge_16_51
+  - first:
+      213: 3121708289060751263
+    second: Cruiser_Charge_16_52
+  - first:
+      213: -8455971392285662481
+    second: Cruiser_Charge_16_53
+  - first:
+      213: -3276908504323479171
+    second: Cruiser_Charge_16_54
+  - first:
+      213: 3469224677888710689
+    second: Cruiser_Charge_16_55
+  - first:
+      213: -4335118553569384208
+    second: Cruiser_Charge_16_56
+  - first:
+      213: 6078040892565008853
+    second: Cruiser_Charge_16_57
+  - first:
+      213: 4687921810392890145
+    second: Cruiser_Charge_16_58
+  - first:
+      213: -6829630477708173436
+    second: Cruiser_Charge_16_59
+  - first:
+      213: -7417292903266172489
+    second: Cruiser_Charge_16_60
+  - first:
+      213: 6903209487743172282
+    second: Cruiser_Charge_16_61
+  - first:
+      213: -2033407917043962556
+    second: Cruiser_Charge_16_62
+  - first:
+      213: 8507384781954803248
+    second: Cruiser_Charge_16_63
+  - first:
+      213: -6695365145193635224
+    second: Cruiser_Charge_16_64
+  - first:
+      213: 4168937772249083705
+    second: Cruiser_Charge_16_65
+  - first:
+      213: 8406500085236955224
+    second: Cruiser_Charge_16_66
+  - first:
+      213: 1586767030210357642
+    second: Cruiser_Charge_16_67
+  - first:
+      213: -4206326761054993699
+    second: Cruiser_Charge_16_68
+  - first:
+      213: -8762209342987213270
+    second: Cruiser_Charge_16_69
+  - first:
+      213: 5005601680414091807
+    second: Cruiser_Charge_16_70
+  - first:
+      213: -8905914371478490055
+    second: Cruiser_Charge_16_71
+  - first:
+      213: 8490791342012609954
+    second: Cruiser_Charge_16_72
+  - first:
+      213: -2023058395193781144
+    second: Cruiser_Charge_16_73
+  - first:
+      213: 6476257885674142870
+    second: Cruiser_Charge_16_74
+  - first:
+      213: -7338831416506839190
+    second: Cruiser_Charge_16_75
+  - first:
+      213: -5125712885338510386
+    second: Cruiser_Charge_16_76
+  - first:
+      213: 1416261271089112616
+    second: Cruiser_Charge_16_77
+  - first:
+      213: -3663624250510516221
+    second: Cruiser_Charge_16_78
+  - first:
+      213: 2814259663424575451
+    second: Cruiser_Charge_16_79
+  - first:
+      213: 4566403741050643123
+    second: Cruiser_Charge_16_80
+  - first:
+      213: 3052451121580917102
+    second: Cruiser_Charge_16_81
+  - first:
+      213: -5708440372689262495
+    second: Cruiser_Charge_16_82
+  - first:
+      213: 1060138637389086499
+    second: Cruiser_Charge_16_83
+  - first:
+      213: 9054667766993276870
+    second: Cruiser_Charge_16_84
+  - first:
+      213: -4140438611856048462
+    second: Cruiser_Charge_16_85
+  - first:
+      213: -950947156179786811
+    second: Cruiser_Charge_16_86
+  - first:
+      213: 5037315221579392545
+    second: Cruiser_Charge_16_87
+  - first:
+      213: -3355136982140927911
+    second: Cruiser_Charge_16_88
+  - first:
+      213: -8725485955525666692
+    second: Cruiser_Charge_16_89
+  - first:
+      213: 962898901254263779
+    second: Cruiser_Charge_16_90
+  - first:
+      213: -298461744190832958
+    second: Cruiser_Charge_16_91
+  - first:
+      213: -9108518566568497492
+    second: Cruiser_Charge_16_92
+  - first:
+      213: -1494882704790873414
+    second: Cruiser_Charge_16_93
+  - first:
+      213: -4948169286876349153
+    second: Cruiser_Charge_16_94
+  - first:
+      213: -7580802999561945835
+    second: Cruiser_Charge_16_95
+  - first:
+      213: -2222586008128945930
+    second: Cruiser_Charge_16_96
+  - first:
+      213: 7599849771728995314
+    second: Cruiser_Charge_16_97
+  - first:
+      213: -402759832103971222
+    second: Cruiser_Charge_16_98
+  - first:
+      213: 3982739197412499652
+    second: Cruiser_Charge_16_99
+  - first:
+      213: 2911111132583362021
+    second: Cruiser_Charge_16_100
+  - first:
+      213: 7831270119930278088
+    second: Cruiser_Charge_16_101
+  - first:
+      213: 3039773367797658447
+    second: Cruiser_Charge_16_102
+  - first:
+      213: 1049554274660364913
+    second: Cruiser_Charge_16_103
+  - first:
+      213: -7665122357895829949
+    second: Cruiser_Charge_16_104
+  - first:
+      213: -6112468044536124508
+    second: Cruiser_Charge_16_105
+  - first:
+      213: -7239022449343333751
+    second: Cruiser_Charge_16_106
+  - first:
+      213: -214807654901207496
+    second: Cruiser_Charge_16_107
+  - first:
+      213: -4056890670314062270
+    second: Cruiser_Charge_16_108
+  - first:
+      213: 7651423225327255271
+    second: Cruiser_Charge_16_109
+  - first:
+      213: -1959544791574966630
+    second: Cruiser_Charge_16_110
+  - first:
+      213: -9165621535472612511
+    second: Cruiser_Charge_16_111
+  - first:
+      213: -1798864963736485457
+    second: Cruiser_Charge_16_112
+  - first:
+      213: -6368780813842479296
+    second: Cruiser_Charge_16_113
+  - first:
+      213: -1092851391194464892
+    second: Cruiser_Charge_16_114
+  - first:
+      213: -7226728039983093284
+    second: Cruiser_Charge_16_115
+  - first:
+      213: 1752097284662576872
+    second: Cruiser_Charge_16_116
+  - first:
+      213: 8945960339741509920
+    second: Cruiser_Charge_16_117
+  - first:
+      213: 1880380381204731840
+    second: Cruiser_Charge_16_118
+  - first:
+      213: 1775527569473695722
+    second: Cruiser_Charge_16_119
+  - first:
+      213: -5428749157603867820
+    second: Cruiser_Charge_16_120
+  - first:
+      213: 1980914870972051639
+    second: Cruiser_Charge_16_121
+  - first:
+      213: -6480067265957638641
+    second: Cruiser_Charge_16_122
+  - first:
+      213: -6647037516635158425
+    second: Cruiser_Charge_16_123
+  - first:
+      213: 3260988929295126841
+    second: Cruiser_Charge_16_124
+  - first:
+      213: 8876532367034676418
+    second: Cruiser_Charge_16_125
+  - first:
+      213: -5172023939114151695
+    second: Cruiser_Charge_16_126
+  - first:
+      213: 3736482824948229720
+    second: Cruiser_Charge_16_127
+  - first:
+      213: 6143471228553748535
+    second: Cruiser_Charge_16_128
+  - first:
+      213: 7062551504367596045
+    second: Cruiser_Charge_16_129
+  - first:
+      213: -8049344817750259235
+    second: Cruiser_Charge_16_130
+  - first:
+      213: 1555820594249448773
+    second: Cruiser_Charge_16_131
+  - first:
+      213: 8922251481988597088
+    second: Cruiser_Charge_16_132
+  - first:
+      213: 6728659946576239250
+    second: Cruiser_Charge_16_133
+  - first:
+      213: -2024316531183082883
+    second: Cruiser_Charge_16_134
+  - first:
+      213: 7135073949595228426
+    second: Cruiser_Charge_16_135
+  - first:
+      213: 7602653530999488930
+    second: Cruiser_Charge_16_136
+  - first:
+      213: -8874644015413385959
+    second: Cruiser_Charge_16_137
+  - first:
+      213: 6152703746569548655
+    second: Cruiser_Charge_16_138
+  - first:
+      213: -8284369916677653983
+    second: Cruiser_Charge_16_139
+  - first:
+      213: -1897142074294026013
+    second: Cruiser_Charge_16_140
+  - first:
+      213: -1405377684116360933
+    second: Cruiser_Charge_16_141
+  - first:
+      213: 7852995728008994515
+    second: Cruiser_Charge_16_142
+  - first:
+      213: -1714073168185904542
+    second: Cruiser_Charge_16_143
+  - first:
+      213: -1685834980423464731
+    second: Cruiser_Charge_16_144
+  - first:
+      213: -4490737322106955897
+    second: Cruiser_Charge_16_145
+  - first:
+      213: 5118125261795334608
+    second: Cruiser_Charge_16_146
+  - first:
+      213: 327009268954038457
+    second: Cruiser_Charge_16_147
+  - first:
+      213: -2568927354879677276
+    second: Cruiser_Charge_16_148
+  - first:
+      213: 2521459317192011485
+    second: Cruiser_Charge_16_149
+  - first:
+      213: -3825159007807762537
+    second: Cruiser_Charge_16_150
+  - first:
+      213: -4065534642992797845
+    second: Cruiser_Charge_16_151
+  - first:
+      213: 2641592995024282468
+    second: Cruiser_Charge_16_152
+  - first:
+      213: 4111276179669069845
+    second: Cruiser_Charge_16_153
+  - first:
+      213: -4586953265796154065
+    second: Cruiser_Charge_16_154
+  - first:
+      213: 3847210119835240648
+    second: Cruiser_Charge_16_155
+  - first:
+      213: -4411619519466915420
+    second: Cruiser_Charge_16_156
+  - first:
+      213: -6802396093424394117
+    second: Cruiser_Charge_16_157
+  - first:
+      213: 7444685455667882392
+    second: Cruiser_Charge_16_158
+  - first:
+      213: -9045258118442402813
+    second: Cruiser_Charge_16_159
+  - first:
+      213: -821004988457768540
+    second: Cruiser_Charge_16_160
+  - first:
+      213: 1206263071914865610
+    second: Cruiser_Charge_16_161
+  - first:
+      213: 8774335626149298260
+    second: Cruiser_Charge_16_162
+  - first:
+      213: -2584595583593353920
+    second: Cruiser_Charge_16_163
+  - first:
+      213: -1959685464845916431
+    second: Cruiser_Charge_16_164
+  - first:
+      213: -2493959322439058058
+    second: Cruiser_Charge_16_165
+  - first:
+      213: -1268773122709780755
+    second: Cruiser_Charge_16_166
+  - first:
+      213: -2198467462246948661
+    second: Cruiser_Charge_16_167
+  - first:
+      213: -895149877907263085
+    second: Cruiser_Charge_16_168
+  - first:
+      213: 879687441115397515
+    second: Cruiser_Charge_16_169
+  - first:
+      213: 7232767756648905665
+    second: Cruiser_Charge_16_170
+  - first:
+      213: -2657852364189395145
+    second: Cruiser_Charge_16_171
+  - first:
+      213: 5078311174243209976
+    second: Cruiser_Charge_16_172
+  - first:
+      213: 9164367665159481174
+    second: Cruiser_Charge_16_173
+  - first:
+      213: -3657380986905417355
+    second: Cruiser_Charge_16_174
+  - first:
+      213: -3771852370842688645
+    second: Cruiser_Charge_16_175
+  - first:
+      213: -3024707707371365263
+    second: Cruiser_Charge_16_176
+  - first:
+      213: -6300522152320218609
+    second: Cruiser_Charge_16_177
+  - first:
+      213: -7015204551276665582
+    second: Cruiser_Charge_16_178
+  - first:
+      213: 876824108496411957
+    second: Cruiser_Charge_16_179
+  - first:
+      213: 4217649070862691768
+    second: Cruiser_Charge_16_180
+  - first:
+      213: -6759755788585402535
+    second: Cruiser_Charge_16_181
+  - first:
+      213: -434908983327797882
+    second: Cruiser_Charge_16_182
+  - first:
+      213: -6555104406742992079
+    second: Cruiser_Charge_16_183
+  - first:
+      213: -2379726530511462000
+    second: Cruiser_Charge_16_184
+  - first:
+      213: -3044116746789591848
+    second: Cruiser_Charge_16_185
+  - first:
+      213: -6505049767519272962
+    second: Cruiser_Charge_16_186
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 1024
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Cruiser_Charge_16_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 941
+        width: 313
+        height: 313
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 19828d00ee2794480800000000000000
+      internalID: -8914467620861237103
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cruiser_Charge_16_1
+      rect:
+        serializedVersion: 2
+        x: 313
+        y: 941
+        width: 313
+        height: 313
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 80f741ff4a45fdb90800000000000000
+      internalID: -7214955010393342200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cruiser_Charge_16_2
+      rect:
+        serializedVersion: 2
+        x: 626
+        y: 941
+        width: 313
+        height: 313
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 25a8e336dfb5ebfa0800000000000000
+      internalID: -5783083727647241646
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cruiser_Charge_16_3
+      rect:
+        serializedVersion: 2
+        x: 939
+        y: 941
+        width: 313
+        height: 313
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a37c0535ec6ffc0c0800000000000000
+      internalID: -4553149332226783430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cruiser_Charge_16_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 628
+        width: 313
+        height: 313
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b35ff475d28009120800000000000000
+      internalID: 2418441990729364795
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cruiser_Charge_16_5
+      rect:
+        serializedVersion: 2
+        x: 313
+        y: 628
+        width: 313
+        height: 313
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a5c95d32162f1d30800000000000000
+      internalID: 4404280820372194722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cruiser_Charge_16_6
+      rect:
+        serializedVersion: 2
+        x: 626
+        y: 628
+        width: 313
+        height: 313
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3873ad6d1a82770c0800000000000000
+      internalID: -4578145820639348861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cruiser_Charge_16_7
+      rect:
+        serializedVersion: 2
+        x: 939
+        y: 628
+        width: 313
+        height: 313
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09488b93ea1aa0100800000000000000
+      internalID: 75050113469809808
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cruiser_Charge_16_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 315
+        width: 313
+        height: 313
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a298308f89a133730800000000000000
+      internalID: 3977552140196612394
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cruiser_Charge_16_9
+      rect:
+        serializedVersion: 2
+        x: 313
+        y: 315
+        width: 313
+        height: 313
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f26db1039a06e0980800000000000000
+      internalID: -8570806761066605009
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cruiser_Charge_16_10
+      rect:
+        serializedVersion: 2
+        x: 626
+        y: 315
+        width: 313
+        height: 313
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62fbe26df3ea437c0800000000000000
+      internalID: -4092454572173377754
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cruiser_Charge_16_11
+      rect:
+        serializedVersion: 2
+        x: 939
+        y: 315
+        width: 313
+        height: 313
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 516cb8df0851e3010800000000000000
+      internalID: 1170396596916700693
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cruiser_Charge_16_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2
+        width: 313
+        height: 313
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f65badc43a3adff20800000000000000
+      internalID: 3458100010654807407
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cruiser_Charge_16_13
+      rect:
+        serializedVersion: 2
+        x: 313
+        y: 2
+        width: 313
+        height: 313
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7141d5221f87bc020800000000000000
+      internalID: 2363115406544933911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cruiser_Charge_16_14
+      rect:
+        serializedVersion: 2
+        x: 626
+        y: 2
+        width: 313
+        height: 313
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4070fdb71f8da9a70800000000000000
+      internalID: 8834612150717581060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cruiser_Charge_16_15
+      rect:
+        serializedVersion: 2
+        x: 939
+        y: 2
+        width: 313
+        height: 313
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 048a4955cb1c73e90800000000000000
+      internalID: -7045950077364033472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 445621ba6e8c19d4bb46d227b27d4b36
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Cruiser_Charge_16_0: -8914467620861237103
+      Cruiser_Charge_16_1: -7214955010393342200
+      Cruiser_Charge_16_10: -4092454572173377754
+      Cruiser_Charge_16_11: 1170396596916700693
+      Cruiser_Charge_16_12: 3458100010654807407
+      Cruiser_Charge_16_13: 2363115406544933911
+      Cruiser_Charge_16_14: 8834612150717581060
+      Cruiser_Charge_16_15: -7045950077364033472
+      Cruiser_Charge_16_2: -5783083727647241646
+      Cruiser_Charge_16_3: -4553149332226783430
+      Cruiser_Charge_16_4: 2418441990729364795
+      Cruiser_Charge_16_5: 4404280820372194722
+      Cruiser_Charge_16_6: -4578145820639348861
+      Cruiser_Charge_16_7: 75050113469809808
+      Cruiser_Charge_16_8: 3977552140196612394
+      Cruiser_Charge_16_9: -8570806761066605009
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

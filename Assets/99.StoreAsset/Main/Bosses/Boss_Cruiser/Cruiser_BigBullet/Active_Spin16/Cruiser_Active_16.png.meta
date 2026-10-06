@@ -1,0 +1,696 @@
+fileFormatVersion: 2
+guid: 03be789aeb8076c42840f801aad97015
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -5904274879167689732
+    second: Cruiser_Active_16_0
+  - first:
+      213: -6563609637351636046
+    second: Cruiser_Active_16_1
+  - first:
+      213: 1354477526260051833
+    second: Cruiser_Active_16_2
+  - first:
+      213: 5523448632928876223
+    second: Cruiser_Active_16_3
+  - first:
+      213: -2632038339507024452
+    second: Cruiser_Active_16_4
+  - first:
+      213: 5735660969815525933
+    second: Cruiser_Active_16_5
+  - first:
+      213: 8444129975590409495
+    second: Cruiser_Active_16_6
+  - first:
+      213: -3174448268418345105
+    second: Cruiser_Active_16_7
+  - first:
+      213: 1277033932823105626
+    second: Cruiser_Active_16_8
+  - first:
+      213: 6647588564959138447
+    second: Cruiser_Active_16_9
+  - first:
+      213: -8194305483116653313
+    second: Cruiser_Active_16_10
+  - first:
+      213: 4143970579492225838
+    second: Cruiser_Active_16_11
+  - first:
+      213: 7390863012686557489
+    second: Cruiser_Active_16_12
+  - first:
+      213: 7670462072735868724
+    second: Cruiser_Active_16_13
+  - first:
+      213: 4755747989215087162
+    second: Cruiser_Active_16_14
+  - first:
+      213: -6362676403894994754
+    second: Cruiser_Active_16_15
+  - first:
+      213: 3416930540733236743
+    second: Cruiser_Active_16_16
+  - first:
+      213: -4084084248817865226
+    second: Cruiser_Active_16_17
+  - first:
+      213: -5068814477051916028
+    second: Cruiser_Active_16_18
+  - first:
+      213: 5610337107011128107
+    second: Cruiser_Active_16_19
+  - first:
+      213: 1447475048806211991
+    second: Cruiser_Active_16_20
+  - first:
+      213: 2891732168032107125
+    second: Cruiser_Active_16_21
+  - first:
+      213: -1740927650151479799
+    second: Cruiser_Active_16_22
+  - first:
+      213: -3378478018045931718
+    second: Cruiser_Active_16_23
+  - first:
+      213: -643837351296773457
+    second: Cruiser_Active_16_24
+  - first:
+      213: 3440131237637530442
+    second: Cruiser_Active_16_25
+  - first:
+      213: -7412447673911509899
+    second: Cruiser_Active_16_26
+  - first:
+      213: 3289401186409317534
+    second: Cruiser_Active_16_27
+  - first:
+      213: -1018680788468927632
+    second: Cruiser_Active_16_28
+  - first:
+      213: -4673549239568951434
+    second: Cruiser_Active_16_29
+  - first:
+      213: 7323345250407255300
+    second: Cruiser_Active_16_30
+  - first:
+      213: -3968309899273774951
+    second: Cruiser_Active_16_31
+  - first:
+      213: 3619043537485838140
+    second: Cruiser_Active_16_32
+  - first:
+      213: 2476201976666078799
+    second: Cruiser_Active_16_33
+  - first:
+      213: 4198135141228518389
+    second: Cruiser_Active_16_34
+  - first:
+      213: -4893831511275845581
+    second: Cruiser_Active_16_35
+  - first:
+      213: -1157789998917710222
+    second: Cruiser_Active_16_36
+  - first:
+      213: -3789502971465016857
+    second: Cruiser_Active_16_37
+  - first:
+      213: -2074744843180431024
+    second: Cruiser_Active_16_38
+  - first:
+      213: 2346074378413636494
+    second: Cruiser_Active_16_39
+  - first:
+      213: -2415578716227502906
+    second: Cruiser_Active_16_40
+  - first:
+      213: -2773188358433827329
+    second: Cruiser_Active_16_41
+  - first:
+      213: 5263990913425350844
+    second: Cruiser_Active_16_42
+  - first:
+      213: 8522421339167940984
+    second: Cruiser_Active_16_43
+  - first:
+      213: -1293157710643307110
+    second: Cruiser_Active_16_44
+  - first:
+      213: -7647969610421364427
+    second: Cruiser_Active_16_45
+  - first:
+      213: 8072589414133362964
+    second: Cruiser_Active_16_46
+  - first:
+      213: -6266563337791163325
+    second: Cruiser_Active_16_47
+  - first:
+      213: -4262698036557352936
+    second: Cruiser_Active_16_48
+  - first:
+      213: -8727142857131447970
+    second: Cruiser_Active_16_49
+  - first:
+      213: -7021053013346540103
+    second: Cruiser_Active_16_50
+  - first:
+      213: 4676271160577880415
+    second: Cruiser_Active_16_51
+  - first:
+      213: -1404034923525379947
+    second: Cruiser_Active_16_52
+  - first:
+      213: -6213522881666891521
+    second: Cruiser_Active_16_53
+  - first:
+      213: -8641647112047313538
+    second: Cruiser_Active_16_54
+  - first:
+      213: 2608492338467166340
+    second: Cruiser_Active_16_55
+  - first:
+      213: 2061606081964763058
+    second: Cruiser_Active_16_56
+  - first:
+      213: -5389854746754817972
+    second: Cruiser_Active_16_57
+  - first:
+      213: -3313754391649661443
+    second: Cruiser_Active_16_58
+  - first:
+      213: 746642673764307499
+    second: Cruiser_Active_16_59
+  - first:
+      213: -5403543959905616505
+    second: Cruiser_Active_16_60
+  - first:
+      213: -280121992381403761
+    second: Cruiser_Active_16_61
+  - first:
+      213: -2175753268120655491
+    second: Cruiser_Active_16_62
+  - first:
+      213: 1233817635205011841
+    second: Cruiser_Active_16_63
+  - first:
+      213: 6368044873281819984
+    second: Cruiser_Active_16_64
+  - first:
+      213: 4682503418011331328
+    second: Cruiser_Active_16_65
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 1024
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Cruiser_Active_16_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 941
+        width: 313
+        height: 313
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cfb82f2974dcf0ea0800000000000000
+      internalID: -5904274879167689732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cruiser_Active_16_1
+      rect:
+        serializedVersion: 2
+        x: 313
+        y: 941
+        width: 313
+        height: 313
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b343517fcf59e4a0800000000000000
+      internalID: -6563609637351636046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cruiser_Active_16_2
+      rect:
+        serializedVersion: 2
+        x: 626
+        y: 941
+        width: 313
+        height: 313
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 97feaf042221cc210800000000000000
+      internalID: 1354477526260051833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cruiser_Active_16_3
+      rect:
+        serializedVersion: 2
+        x: 939
+        y: 941
+        width: 313
+        height: 313
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb6b7d4644b37ac40800000000000000
+      internalID: 5523448632928876223
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cruiser_Active_16_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 628
+        width: 313
+        height: 313
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cbd897a431f197bd0800000000000000
+      internalID: -2632038339507024452
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cruiser_Active_16_5
+      rect:
+        serializedVersion: 2
+        x: 313
+        y: 628
+        width: 313
+        height: 313
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2a4de16349299f40800000000000000
+      internalID: 5735660969815525933
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cruiser_Active_16_6
+      rect:
+        serializedVersion: 2
+        x: 626
+        y: 628
+        width: 313
+        height: 313
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7155b4059739f2570800000000000000
+      internalID: 8444129975590409495
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cruiser_Active_16_7
+      rect:
+        serializedVersion: 2
+        x: 939
+        y: 628
+        width: 313
+        height: 313
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f67121b6e1812f3d0800000000000000
+      internalID: -3174448268418345105
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cruiser_Active_16_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 315
+        width: 313
+        height: 313
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a509a0c889fe8b110800000000000000
+      internalID: 1277033932823105626
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cruiser_Active_16_9
+      rect:
+        serializedVersion: 2
+        x: 313
+        y: 315
+        width: 313
+        height: 313
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f829653549af04c50800000000000000
+      internalID: 6647588564959138447
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cruiser_Active_16_10
+      rect:
+        serializedVersion: 2
+        x: 626
+        y: 315
+        width: 313
+        height: 313
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff4dbc1149af74e80800000000000000
+      internalID: -8194305483116653313
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cruiser_Active_16_11
+      rect:
+        serializedVersion: 2
+        x: 939
+        y: 315
+        width: 313
+        height: 313
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e23cd4e4947528930800000000000000
+      internalID: 4143970579492225838
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cruiser_Active_16_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2
+        width: 313
+        height: 313
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 13171c660ce919660800000000000000
+      internalID: 7390863012686557489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cruiser_Active_16_13
+      rect:
+        serializedVersion: 2
+        x: 313
+        y: 2
+        width: 313
+        height: 313
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 43727848d94f27a60800000000000000
+      internalID: 7670462072735868724
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cruiser_Active_16_14
+      rect:
+        serializedVersion: 2
+        x: 626
+        y: 2
+        width: 313
+        height: 313
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3a8172699fcff140800000000000000
+      internalID: 4755747989215087162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cruiser_Active_16_15
+      rect:
+        serializedVersion: 2
+        x: 939
+        y: 2
+        width: 313
+        height: 313
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb83415858b33b7a0800000000000000
+      internalID: -6362676403894994754
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 93308160ca4981448b922aea8072d3ca
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Cruiser_Active_16_0: -5904274879167689732
+      Cruiser_Active_16_1: -6563609637351636046
+      Cruiser_Active_16_10: -8194305483116653313
+      Cruiser_Active_16_11: 4143970579492225838
+      Cruiser_Active_16_12: 7390863012686557489
+      Cruiser_Active_16_13: 7670462072735868724
+      Cruiser_Active_16_14: 4755747989215087162
+      Cruiser_Active_16_15: -6362676403894994754
+      Cruiser_Active_16_2: 1354477526260051833
+      Cruiser_Active_16_3: 5523448632928876223
+      Cruiser_Active_16_4: -2632038339507024452
+      Cruiser_Active_16_5: 5735660969815525933
+      Cruiser_Active_16_6: 8444129975590409495
+      Cruiser_Active_16_7: -3174448268418345105
+      Cruiser_Active_16_8: 1277033932823105626
+      Cruiser_Active_16_9: 6647588564959138447
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
