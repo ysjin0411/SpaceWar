@@ -1,47 +1,47 @@
-using System;
+ï»¿using System;
 using UnityEngine;
 
 /// <summary>
-/// ¾÷Àû ½½·ÔÀÌ È­¸é¿¡ Ç¥½ÃÇÒ ÇöÀç »óÅÂ´Ù.
+/// ì—…ì  ìŠ¬ë¡¯ì´ í™”ë©´ì— í‘œì‹œí•  í˜„ì¬ ìƒíƒœë‹¤.
 /// </summary>
 public enum AchievementState
 {
-    InProgress,       // ¾ÆÁ÷ Á¶°ÇÀ» ´Ş¼ºÇÏÁö ¸øÇÑ »óÅÂ
-    RewardAvailable, // Á¶°ÇÀ» ´Ş¼ºÇßÁö¸¸ º¸»óÀ» ¹ŞÁö ¾ÊÀº »óÅÂ
-    Completed        // º¸»ó±îÁö ¸ğµÎ ¹ŞÀº ÃÖÁ¾ ¿Ï·á »óÅÂ
+    InProgress,       // ì•„ì§ ì¡°ê±´ì„ ë‹¬ì„±í•˜ì§€ ëª»í•œ ìƒíƒœ
+    RewardAvailable, // ì¡°ê±´ì„ ë‹¬ì„±í–ˆì§€ë§Œ ë³´ìƒì„ ë°›ì§€ ì•Šì€ ìƒíƒœ
+    Completed        // ë³´ìƒê¹Œì§€ ëª¨ë‘ ë°›ì€ ìµœì¢… ì™„ë£Œ ìƒíƒœ
 }
 
 /// <summary>
-/// ÀúÀåµÈ ÇÃ·¹ÀÌ ±â·Ï°ú AchievementDataÀÇ Á¶°ÇÀ» ºñ±³ÇØ
-/// ¾÷Àû ´Ş¼º ¿©ºÎ¸¦ ÆÇÁ¤ÇÑ´Ù.
+/// ì €ì¥ëœ í”Œë ˆì´ ê¸°ë¡ê³¼ AchievementDataì˜ ì¡°ê±´ì„ ë¹„êµí•´
+/// ì—…ì  ë‹¬ì„± ì—¬ë¶€ë¥¼ íŒì •í•œë‹¤.
 /// </summary>
 [DefaultExecutionOrder(100)]
 public class AchievementManager : MonoBehaviour
 {
-    // ´Ù¸¥ ¾À¿¡¼­µµ ÇöÀç ¾÷Àû ½Ã½ºÅÛ¿¡ Á¢±ÙÇÏ±â À§ÇÑ ÀÎ½ºÅÏ½º´Ù.
+    // ë‹¤ë¥¸ ì”¬ì—ì„œë„ í˜„ì¬ ì—…ì  ì‹œìŠ¤í…œì— ì ‘ê·¼í•˜ê¸° ìœ„í•œ ì¸ìŠ¤í„´ìŠ¤ë‹¤.
     public static AchievementManager Instance
     {
         get;
         private set;
     }
 
-    [Header("¾÷Àû µ¥ÀÌÅÍ")]
+    [Header("ì—…ì  ë°ì´í„°")]
 
-    // °ÔÀÓ¿¡ Á¸ÀçÇÏ´Â ¸ğµç ¾÷Àû Config°¡ µî·ÏµÈ µ¥ÀÌÅÍº£ÀÌ½º´Ù.
+    // ê²Œì„ì— ì¡´ì¬í•˜ëŠ” ëª¨ë“  ì—…ì  Configê°€ ë“±ë¡ëœ ë°ì´í„°ë² ì´ìŠ¤ë‹¤.
     [SerializeField] AchievementDatabase _achievementDatabase;
 
-    // ÀÌÈÄ ¾÷ÀûÃ¢¿¡¼­ ÀüÃ¼ Config¸¦ ÀĞÀ» ¼ö ÀÖµµ·Ï °ø°³ÇÑ´Ù.
+    // ì´í›„ ì—…ì ì°½ì—ì„œ ì „ì²´ Configë¥¼ ì½ì„ ìˆ˜ ìˆë„ë¡ ê³µê°œí•œë‹¤.
     public AchievementDatabase Database =>
         _achievementDatabase;
 
-    // ¾÷Àû »óÅÂ°¡ º¯°æµÆÀ» ¶§ UI¿¡ ¾Ë¸®´Â ÀÌº¥Æ®´Ù.
+    // ì—…ì  ìƒíƒœê°€ ë³€ê²½ëì„ ë•Œ UIì— ì•Œë¦¬ëŠ” ì´ë²¤íŠ¸ë‹¤.
     public event Action AchievementStateChanged;
 
     private void Awake()
     {
-        // Áßº¹ ¸Å´ÏÀú°¡ »ı¼ºµÇ¸é »õ ÄÄÆ÷³ÍÆ®¸¸ Á¦°ÅÇÑ´Ù.
-        // GameRoot ÀÚÃ¼¸¦ Á¦°ÅÇÏ¸é ´Ù¸¥ Àü¿ª ½Ã½ºÅÛµµ »ç¶óÁö¹Ç·Î
-        // Destroy(gameObject)°¡ ¾Æ´Ï¶ó Destroy(this)¸¦ »ç¿ëÇÑ´Ù.
+        // ì¤‘ë³µ ë§¤ë‹ˆì €ê°€ ìƒì„±ë˜ë©´ ìƒˆ ì»´í¬ë„ŒíŠ¸ë§Œ ì œê±°í•œë‹¤.
+        // GameRoot ìì²´ë¥¼ ì œê±°í•˜ë©´ ë‹¤ë¥¸ ì „ì—­ ì‹œìŠ¤í…œë„ ì‚¬ë¼ì§€ë¯€ë¡œ
+        // Destroy(gameObject)ê°€ ì•„ë‹ˆë¼ Destroy(this)ë¥¼ ì‚¬ìš©í•œë‹¤.
         if (Instance != null &&
             Instance != this)
         {
@@ -49,40 +49,40 @@ public class AchievementManager : MonoBehaviour
             return;
         }
 
-        // ÇöÀç ÄÄÆ÷³ÍÆ®¸¦ Àü¿ª Á¢±Ù ÀÎ½ºÅÏ½º·Î µî·ÏÇÑ´Ù.
+        // í˜„ì¬ ì»´í¬ë„ŒíŠ¸ë¥¼ ì „ì—­ ì ‘ê·¼ ì¸ìŠ¤í„´ìŠ¤ë¡œ ë“±ë¡í•œë‹¤.
         Instance = this;
 
-        // Database°¡ ¾øÀ¸¸é ¾÷Àû Á¶°ÇÀ» È®ÀÎÇÒ ¼ö ¾ø´Ù.
+        // Databaseê°€ ì—†ìœ¼ë©´ ì—…ì  ì¡°ê±´ì„ í™•ì¸í•  ìˆ˜ ì—†ë‹¤.
         if (_achievementDatabase == null)
         {
             throw new InvalidOperationException(
-                $"{name}ÀÇ AchievementDatabase°¡ ¿¬°áµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+                $"{name}ì˜ AchievementDatabaseê°€ ì—°ê²°ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
         }
 
-        // SaveManager°¡ ¸ÕÀú ÃÊ±âÈ­µÅ ÀÖ¾î¾ß ÀúÀå ±â·ÏÀ» È®ÀÎÇÒ ¼ö ÀÖ´Ù.
+        // SaveManagerê°€ ë¨¼ì € ì´ˆê¸°í™”ë¼ ìˆì–´ì•¼ ì €ì¥ ê¸°ë¡ì„ í™•ì¸í•  ìˆ˜ ìˆë‹¤.
         if (SaveManager.Instance == null)
         {
             throw new InvalidOperationException(
-                "SaveManager°¡ ¾ø½À´Ï´Ù. Bootstrap ¾À ¼³Á¤À» È®ÀÎÇØÁÖ¼¼¿ä.");
+                "SaveManagerê°€ ì—†ìŠµë‹ˆë‹¤. Bootstrap ì”¬ ì„¤ì •ì„ í™•ì¸í•´ì£¼ì„¸ìš”.");
         }
     }
 
     /// <summary>
-    /// Database¿¡ µî·ÏµÈ ¸ğµç ¾÷Àû Á¶°ÇÀ» °Ë»çÇÑ´Ù.
-    /// »õ·Ó°Ô ´Ş¼ºµÈ ¾÷ÀûÀº Áï½Ã ÀúÀåÇÑ´Ù.
+    /// Databaseì— ë“±ë¡ëœ ëª¨ë“  ì—…ì  ì¡°ê±´ì„ ê²€ì‚¬í•œë‹¤.
+    /// ìƒˆë¡­ê²Œ ë‹¬ì„±ëœ ì—…ì ì€ ì¦‰ì‹œ ì €ì¥í•œë‹¤.
     /// </summary>
     public void EvaluateAllAchievements()
     {
-        // »ç¿ëÀÚ µ¥ÀÌÅÍ°¡ ¼±ÅÃµÇ±â Àü¿¡´Â ¾÷Àû ±â·ÏÀ» ¸¸µé°Å³ª Æò°¡ÇÏÁö ¾Ê´Â´Ù.
+        // ì‚¬ìš©ì ë°ì´í„°ê°€ ì„ íƒë˜ê¸° ì „ì—ëŠ” ì—…ì  ê¸°ë¡ì„ ë§Œë“¤ê±°ë‚˜ í‰ê°€í•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (!SaveManager.Instance.IsLoggedIn)
         {
             return;
         }
 
-        // ÀÌ¹ø °Ë»ç¿¡¼­ »õ·Ó°Ô ´Ş¼ºµÈ ¾÷ÀûÀÌ ÀÖ´ÂÁö ±â·ÏÇÑ´Ù.
+        // ì´ë²ˆ ê²€ì‚¬ì—ì„œ ìƒˆë¡­ê²Œ ë‹¬ì„±ëœ ì—…ì ì´ ìˆëŠ”ì§€ ê¸°ë¡í•œë‹¤.
         bool hasNewlyCompletedAchievement = false;
 
-        // Database µî·Ï ¼ø¼­´ë·Î ¸ğµç ¾÷ÀûÀ» °Ë»çÇÑ´Ù.
+        // Database ë“±ë¡ ìˆœì„œëŒ€ë¡œ ëª¨ë“  ì—…ì ì„ ê²€ì‚¬í•œë‹¤.
         for (int index = 0;
              index < _achievementDatabase.Count;
              index++)
@@ -90,7 +90,7 @@ public class AchievementManager : MonoBehaviour
             AchievementData achievementData =
                 _achievementDatabase.GetAchievementDataAt(index);
 
-            // ÀÌ¹Ì ´Ş¼ºÇÑ ¾÷ÀûÀº Á¶°ÇÀ» ´Ù½Ã °Ë»çÇÏÁö ¾Ê´Â´Ù.
+            // ì´ë¯¸ ë‹¬ì„±í•œ ì—…ì ì€ ì¡°ê±´ì„ ë‹¤ì‹œ ê²€ì‚¬í•˜ì§€ ì•ŠëŠ”ë‹¤.
             AchievementSaveData achievementRecord =
                 SaveManager.Instance.GetOrCreateAchievementRecord(
                     achievementData.Id);
@@ -100,13 +100,13 @@ public class AchievementManager : MonoBehaviour
                 continue;
             }
 
-            // ¾ÆÁ÷ Á¶°ÇÀ» ¸¸Á·ÇÏÁö ¾Ê¾Ò´Ù¸é ´ÙÀ½ ¾÷ÀûÀ¸·Î ³Ñ¾î°£´Ù.
+            // ì•„ì§ ì¡°ê±´ì„ ë§Œì¡±í•˜ì§€ ì•Šì•˜ë‹¤ë©´ ë‹¤ìŒ ì—…ì ìœ¼ë¡œ ë„˜ì–´ê°„ë‹¤.
             if (!IsConditionMet(achievementData))
             {
                 continue;
             }
 
-            // Á¶°ÇÀ» ¸¸Á·ÇßÀ¸¹Ç·Î ´Ş¼º »óÅÂ·Î ÀúÀåÇÑ´Ù.
+            // ì¡°ê±´ì„ ë§Œì¡±í–ˆìœ¼ë¯€ë¡œ ë‹¬ì„± ìƒíƒœë¡œ ì €ì¥í•œë‹¤.
             bool wasCompleted =
                 SaveManager.Instance.TryCompleteAchievement(
                     achievementData.Id);
@@ -117,92 +117,94 @@ public class AchievementManager : MonoBehaviour
             }
         }
 
-        // »õ·Ó°Ô ´Ş¼ºµÈ ¾÷ÀûÀÌ ÀÖÀ» ¶§¸¸ UI¿¡ º¯°æ »ç½ÇÀ» ¾Ë¸°´Ù.
+        // ìƒˆë¡­ê²Œ ë‹¬ì„±ëœ ì—…ì ì´ ìˆì„ ë•Œë§Œ UIì— ë³€ê²½ ì‚¬ì‹¤ì„ ì•Œë¦°ë‹¤.
         if (hasNewlyCompletedAchievement)
         {
+            GameAudio.Play(GameSound.AchievementUnlock);
             AchievementStateChanged?.Invoke();
         }
     }
 
     /// <summary>
-    /// ¾÷ÀûÀÇ ´Ş¼º ¹× º¸»ó ¼ö·É ±â·ÏÀ» È®ÀÎÇØ
-    /// UI¿¡¼­ »ç¿ëÇÒ ÇöÀç »óÅÂ¸¦ ¹İÈ¯ÇÑ´Ù.
+    /// ì—…ì ì˜ ë‹¬ì„± ë° ë³´ìƒ ìˆ˜ë ¹ ê¸°ë¡ì„ í™•ì¸í•´
+    /// UIì—ì„œ ì‚¬ìš©í•  í˜„ì¬ ìƒíƒœë¥¼ ë°˜í™˜í•œë‹¤.
     /// </summary>
-    /// <param name="achievementData">»óÅÂ¸¦ È®ÀÎÇÒ ¾÷Àû Config</param>
+    /// <param name="achievementData">ìƒíƒœë¥¼ í™•ì¸í•  ì—…ì  Config</param>
     public AchievementState GetAchievementState(
         AchievementData achievementData)
     {
-        // Config°¡ ¾øÀ¸¸é ¾î¶² ¾÷ÀûÀÎÁö È®ÀÎÇÒ ¼ö ¾ø´Ù.
+        // Configê°€ ì—†ìœ¼ë©´ ì–´ë–¤ ì—…ì ì¸ì§€ í™•ì¸í•  ìˆ˜ ì—†ë‹¤.
         if (achievementData == null)
         {
             throw new ArgumentNullException(
                 nameof(achievementData));
         }
 
-        // ÇØ´ç ¾÷ÀûÀÇ ÀúÀå ±â·ÏÀ» °¡Á®¿Â´Ù.
+        // í•´ë‹¹ ì—…ì ì˜ ì €ì¥ ê¸°ë¡ì„ ê°€ì ¸ì˜¨ë‹¤.
         AchievementSaveData achievementRecord =
             SaveManager.Instance.GetOrCreateAchievementRecord(
                 achievementData.Id);
 
-        // º¸»óÀ» ÀÌ¹Ì ¹Ş¾Ò´Ù¸é ÃÖÁ¾ ¿Ï·á »óÅÂ´Ù.
+        // ë³´ìƒì„ ì´ë¯¸ ë°›ì•˜ë‹¤ë©´ ìµœì¢… ì™„ë£Œ ìƒíƒœë‹¤.
         if (achievementRecord.isRewardClaimed)
         {
             return AchievementState.Completed;
         }
 
-        // Á¶°ÇÀº ´Ş¼ºÇßÁö¸¸ º¸»óÀ» ¹ŞÁö ¾Ê¾Ò´Ù¸é
-        // º¸»ó ¼ö·ÉÀÌ °¡´ÉÇÑ »óÅÂ´Ù.
+        // ì¡°ê±´ì€ ë‹¬ì„±í–ˆì§€ë§Œ ë³´ìƒì„ ë°›ì§€ ì•Šì•˜ë‹¤ë©´
+        // ë³´ìƒ ìˆ˜ë ¹ì´ ê°€ëŠ¥í•œ ìƒíƒœë‹¤.
         if (achievementRecord.isCompleted)
         {
             return AchievementState.RewardAvailable;
         }
 
-        // ¾ÆÁ÷ Á¶°ÇÀ» ´Ş¼ºÇÏÁö ¸øÇÑ ÁøÇà Áß »óÅÂ´Ù.
+        // ì•„ì§ ì¡°ê±´ì„ ë‹¬ì„±í•˜ì§€ ëª»í•œ ì§„í–‰ ì¤‘ ìƒíƒœë‹¤.
         return AchievementState.InProgress;
     }
 
     /// <summary>
-    /// ¾÷Àû ½½·ÔÀÇ º¸»ó¹Ş±â ¹öÆ°À¸·ÎºÎÅÍ º¸»ó ¼ö·ÉÀ» ¿äÃ»¹Ş´Â´Ù.
-    /// Áö±Ş ¼º°ø ½Ã ¾÷Àû UI ÀüÃ¼¿¡ »óÅÂ º¯°æÀ» ¾Ë¸°´Ù.
+    /// ì—…ì  ìŠ¬ë¡¯ì˜ ë³´ìƒë°›ê¸° ë²„íŠ¼ìœ¼ë¡œë¶€í„° ë³´ìƒ ìˆ˜ë ¹ì„ ìš”ì²­ë°›ëŠ”ë‹¤.
+    /// ì§€ê¸‰ ì„±ê³µ ì‹œ ì—…ì  UI ì „ì²´ì— ìƒíƒœ ë³€ê²½ì„ ì•Œë¦°ë‹¤.
     /// </summary>
-    /// <param name="achievementData">º¸»óÀ» ¹ŞÀ» ¾÷Àû Config</param>
-    /// <returns>º¸»ó ¼ö·É¿¡ ¼º°øÇß´Ù¸é true</returns>
+    /// <param name="achievementData">ë³´ìƒì„ ë°›ì„ ì—…ì  Config</param>
+    /// <returns>ë³´ìƒ ìˆ˜ë ¹ì— ì„±ê³µí–ˆë‹¤ë©´ true</returns>
     public bool TryClaimReward(
         AchievementData achievementData)
     {
-        // Config°¡ ¾øÀ¸¸é º¸»óÀ» Áö±ŞÇÒ ¼ö ¾ø´Ù.
+        // Configê°€ ì—†ìœ¼ë©´ ë³´ìƒì„ ì§€ê¸‰í•  ìˆ˜ ì—†ë‹¤.
         if (achievementData == null)
         {
             throw new ArgumentNullException(
                 nameof(achievementData));
         }
 
-        // SaveManager°¡ º¸»ó Áö±Ş°ú Áßº¹ ¼ö·É ¹æÁö¸¦ Ã³¸®ÇÑ´Ù.
+        // SaveManagerê°€ ë³´ìƒ ì§€ê¸‰ê³¼ ì¤‘ë³µ ìˆ˜ë ¹ ë°©ì§€ë¥¼ ì²˜ë¦¬í•œë‹¤.
         bool wasClaimed =
             SaveManager.Instance.TryClaimAchievementReward(
                 achievementData);
 
-        // ¼ö·ÉÇÒ ¼ö ¾ø´Â »óÅÂ¿´´Ù¸é UI¸¦ °»½ÅÇÏÁö ¾Ê´Â´Ù.
+        // ìˆ˜ë ¹í•  ìˆ˜ ì—†ëŠ” ìƒíƒœì˜€ë‹¤ë©´ UIë¥¼ ê°±ì‹ í•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (!wasClaimed)
         {
             return false;
         }
+        GameAudio.Play(GameSound.QuestReward); // ì‹¤ì œ ì—…ì  ë³´ìƒ ìˆ˜ë ¹.
 
-        // ½½·Ô »óÅÂ¿Í ¸ŞÀÎ¸Ş´º ¾Ë¸² ÀÌÆåÆ®°¡
-        // Áï½Ã ´Ù½Ã °è»êµÉ ¼ö ÀÖµµ·Ï ¾Ë¸°´Ù.
+        // ìŠ¬ë¡¯ ìƒíƒœì™€ ë©”ì¸ë©”ë‰´ ì•Œë¦¼ ì´í™íŠ¸ê°€
+        // ì¦‰ì‹œ ë‹¤ì‹œ ê³„ì‚°ë  ìˆ˜ ìˆë„ë¡ ì•Œë¦°ë‹¤.
         AchievementStateChanged?.Invoke();
 
         return true;
     }
 
     /// <summary>
-    /// ´Ş¼ºÇßÁö¸¸ ¾ÆÁ÷ º¸»óÀ» ¹ŞÁö ¾ÊÀº ¾÷ÀûÀÌ
-    /// ÇÏ³ª¶óµµ Á¸ÀçÇÏ´ÂÁö È®ÀÎÇÑ´Ù.
+    /// ë‹¬ì„±í–ˆì§€ë§Œ ì•„ì§ ë³´ìƒì„ ë°›ì§€ ì•Šì€ ì—…ì ì´
+    /// í•˜ë‚˜ë¼ë„ ì¡´ì¬í•˜ëŠ”ì§€ í™•ì¸í•œë‹¤.
     /// </summary>
-    /// <returns>¼ö·É °¡´ÉÇÑ ¾÷ÀûÀÌ ÀÖ´Ù¸é true</returns>
+    /// <returns>ìˆ˜ë ¹ ê°€ëŠ¥í•œ ì—…ì ì´ ìˆë‹¤ë©´ true</returns>
     public bool HasClaimableAchievement()
     {
-        // Database¿¡ µî·ÏµÈ ÀüÃ¼ ¾÷ÀûÀ» È®ÀÎÇÑ´Ù.
+        // Databaseì— ë“±ë¡ëœ ì „ì²´ ì—…ì ì„ í™•ì¸í•œë‹¤.
         for (int index = 0;
              index < _achievementDatabase.Count;
              index++)
@@ -214,7 +216,7 @@ public class AchievementManager : MonoBehaviour
                 SaveManager.Instance.GetOrCreateAchievementRecord(
                     achievementData.Id);
 
-            // ´Ş¼ºÇß°í ¾ÆÁ÷ º¸»óÀ» ¹ŞÁö ¾ÊÀº ¾÷ÀûÀ» Ã£¾Ò´Ù.
+            // ë‹¬ì„±í–ˆê³  ì•„ì§ ë³´ìƒì„ ë°›ì§€ ì•Šì€ ì—…ì ì„ ì°¾ì•˜ë‹¤.
             if (achievementRecord.isCompleted &&
                 !achievementRecord.isRewardClaimed)
             {
@@ -222,12 +224,12 @@ public class AchievementManager : MonoBehaviour
             }
         }
 
-        // ¸ğµç ¾÷ÀûÀ» È®ÀÎÇßÁö¸¸ ¼ö·É °¡´ÉÇÑ ¾÷ÀûÀÌ ¾ø´Ù.
+        // ëª¨ë“  ì—…ì ì„ í™•ì¸í–ˆì§€ë§Œ ìˆ˜ë ¹ ê°€ëŠ¥í•œ ì—…ì ì´ ì—†ë‹¤.
         return false;
     }
 
     /// <summary>
-    /// ÇÑ ¾÷ÀûÀÇ Á¶°Ç Á¾·ù¿¡ ¸ÂÃç ½ÇÁ¦ ÀúÀå µ¥ÀÌÅÍ¸¦ °Ë»çÇÑ´Ù.
+    /// í•œ ì—…ì ì˜ ì¡°ê±´ ì¢…ë¥˜ì— ë§ì¶° ì‹¤ì œ ì €ì¥ ë°ì´í„°ë¥¼ ê²€ì‚¬í•œë‹¤.
     /// </summary>
     private bool IsConditionMet(
         AchievementData achievementData)
@@ -246,53 +248,53 @@ public class AchievementManager : MonoBehaviour
                 throw new ArgumentOutOfRangeException(
                     nameof(achievementData.ConditionType),
                     achievementData.ConditionType,
-                    "Áö¿øÇÏÁö ¾Ê´Â ¾÷Àû Á¶°ÇÀÔ´Ï´Ù.");
+                    "ì§€ì›í•˜ì§€ ì•ŠëŠ” ì—…ì  ì¡°ê±´ì…ë‹ˆë‹¤.");
         }
     }
 
     /// <summary>
-    /// ÁöÁ¤ÇÑ ½ºÅ×ÀÌÁöÀÇ ÃÖ´Ü ±â·ÏÀÌ
-    /// ConfigÀÇ Á¦ÇÑ ½Ã°£ ÀÌ³»ÀÎÁö °Ë»çÇÑ´Ù.
+    /// ì§€ì •í•œ ìŠ¤í…Œì´ì§€ì˜ ìµœë‹¨ ê¸°ë¡ì´
+    /// Configì˜ ì œí•œ ì‹œê°„ ì´ë‚´ì¸ì§€ ê²€ì‚¬í•œë‹¤.
     /// </summary>
     private bool IsStageClearTimeConditionMet(
         AchievementData achievementData)
     {
-        // Config¿¡ ÁöÁ¤µÈ ½ºÅ×ÀÌÁöÀÇ ÃÖ´Ü ±â·ÏÀ» °¡Á®¿Â´Ù.
+        // Configì— ì§€ì •ëœ ìŠ¤í…Œì´ì§€ì˜ ìµœë‹¨ ê¸°ë¡ì„ ê°€ì ¸ì˜¨ë‹¤.
         float bestClearTime =
             SaveManager.Instance.GetBestClearTime(
                 achievementData.TargetStageIndex);
 
-        // -1Àº ¾ÆÁ÷ ÇØ´ç ½ºÅ×ÀÌÁö¸¦ Å¬¸®¾îÇÏÁö ¾Ê¾Ò´Ù´Â ÀÇ¹Ì´Ù.
+        // -1ì€ ì•„ì§ í•´ë‹¹ ìŠ¤í…Œì´ì§€ë¥¼ í´ë¦¬ì–´í•˜ì§€ ì•Šì•˜ë‹¤ëŠ” ì˜ë¯¸ë‹¤.
         if (bestClearTime <= 0f)
         {
             return false;
         }
 
-        // ÃÖ´Ü ±â·ÏÀÌ Á¦ÇÑ ½Ã°£ ÀÌÇÏ¶ó¸é Á¶°ÇÀ» ¸¸Á·ÇÑ´Ù.
+        // ìµœë‹¨ ê¸°ë¡ì´ ì œí•œ ì‹œê°„ ì´í•˜ë¼ë©´ ì¡°ê±´ì„ ë§Œì¡±í•œë‹¤.
         return bestClearTime <=
                achievementData.TargetClearTimeSeconds;
     }
 
     /// <summary>
-    /// ÁöÁ¤ÇÑ Ä³¸¯ÅÍÀÇ ÀúÀå ·¹º§ÀÌ
-    /// ConfigÀÇ ¸ñÇ¥ ·¹º§ ÀÌ»óÀÎÁö °Ë»çÇÑ´Ù.
+    /// ì§€ì •í•œ ìºë¦­í„°ì˜ ì €ì¥ ë ˆë²¨ì´
+    /// Configì˜ ëª©í‘œ ë ˆë²¨ ì´ìƒì¸ì§€ ê²€ì‚¬í•œë‹¤.
     /// </summary>
     private bool IsCharacterLevelConditionMet(
         AchievementData achievementData)
     {
-        // Config¿¡ ÁöÁ¤µÈ Ä³¸¯ÅÍÀÇ ÇöÀç ÀúÀå ·¹º§À» °¡Á®¿Â´Ù.
+        // Configì— ì§€ì •ëœ ìºë¦­í„°ì˜ í˜„ì¬ ì €ì¥ ë ˆë²¨ì„ ê°€ì ¸ì˜¨ë‹¤.
         int currentLevel =
             SaveManager.Instance.GetCharacterLevel(
                 achievementData.TargetCharacterId);
 
-        // ÇöÀç ·¹º§ÀÌ ¸ñÇ¥ ·¹º§ ÀÌ»óÀÌ¸é Á¶°ÇÀ» ¸¸Á·ÇÑ´Ù.
+        // í˜„ì¬ ë ˆë²¨ì´ ëª©í‘œ ë ˆë²¨ ì´ìƒì´ë©´ ì¡°ê±´ì„ ë§Œì¡±í•œë‹¤.
         return currentLevel >=
                achievementData.TargetCharacterLevel;
     }
 
     private void OnDestroy()
     {
-        // ÇöÀç µî·ÏµÈ ÀÎ½ºÅÏ½º ÀÚ½ÅÀÌ Á¦°ÅµÉ ¶§¸¸ ÂüÁ¶¸¦ ºñ¿î´Ù.
+        // í˜„ì¬ ë“±ë¡ëœ ì¸ìŠ¤í„´ìŠ¤ ìì‹ ì´ ì œê±°ë  ë•Œë§Œ ì°¸ì¡°ë¥¼ ë¹„ìš´ë‹¤.
         if (Instance == this)
         {
             Instance = null;

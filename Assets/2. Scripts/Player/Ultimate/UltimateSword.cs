@@ -1,37 +1,42 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-// ¿À¸¥ÂÊÀ¸·Î ÀÌµ¿ÇÏ¸ç ÀûÀ» °üÅëÇÏ´Â ÇÊ»ì±â °ËÀÌ´Ù.
+// ì˜¤ë¥¸ìª½ìœ¼ë¡œ ì´ë™í•˜ë‹¤ ì²« ì ì—ê²Œ í”¼í•´ì™€ íƒ€ê²© ì—°ì¶œì„ ë‚¨ê¸°ê³  ì‚¬ë¼ì§€ëŠ” ê²€ì´ë‹¤.
 public sealed class UltimateSword : MonoBehaviour
 {
-    // ÃÊ´ç ¿À¸¥ÂÊÀ¸·Î ÀÌµ¿ÇÏ´Â ¿ùµå °Å¸®´Ù.
+    // ì´ˆë‹¹ ì˜¤ë¥¸ìª½ìœ¼ë¡œ ì´ë™í•˜ëŠ” ì›”ë“œ ê±°ë¦¬ë‹¤.
     [SerializeField, Min(0.01f)] private float _moveSpeed = 30f;
 
-    // °Ë ÇÑ ¹ßÀÌ ´ë»ó ÇÏ³ª¿¡ ÁÖ´Â ÇÇÇØ·®ÀÌ´Ù.
+    // ê²€ í•œ ë°œì´ ëŒ€ìƒ í•˜ë‚˜ì— ì£¼ëŠ” í”¼í•´ëŸ‰ì´ë‹¤.
     [SerializeField, Min(0.01f)] private float _damage = 50f;
 
-    // »ı¼º ÈÄ ÀÚµ¿À¸·Î Á¦°ÅµÇ±â±îÁöÀÇ °ÔÀÓ ½Ã°£ÀÌ´Ù.
+    // ìƒì„± í›„ ìë™ìœ¼ë¡œ ì œê±°ë˜ê¸°ê¹Œì§€ì˜ ê²Œì„ ì‹œê°„ì´ë‹¤.
     [SerializeField, Min(0.01f)] private float _lifeTime = 2f;
 
-    // °Ë Áß½É¿¡ ¹èÄ¡ÇÒ ÇÇÇØ ÆÇÁ¤ÀÇ ³Êºñ¿Í ³ôÀÌ´Ù.
-    // ¿ùµå ´ÜÀ§ÀÌ¸ç ÀÌ¹ÌÁö Å©±â¿Í º°µµ·Î Á¶ÀıÇÑ´Ù.
+    // ê²€ ì¤‘ì‹¬ì— ë°°ì¹˜í•  í”¼í•´ íŒì •ì˜ ë„ˆë¹„ì™€ ë†’ì´ë‹¤.
+    // ì›”ë“œ ë‹¨ìœ„ì´ë©° ì´ë¯¸ì§€ í¬ê¸°ì™€ ë³„ë„ë¡œ ì¡°ì ˆí•œë‹¤.
     [SerializeField] private Vector2 _hitSize = new Vector2(2f, 0.35f);
 
-    // ÇÇÇØ¸¦ ¹ŞÀ» ÀûÀÇ Collider ·¹ÀÌ¾î´Ù.
+    // í”¼í•´ë¥¼ ë°›ì„ ì ì˜ Collider ë ˆì´ì–´ë‹¤.
     [SerializeField] private LayerMask _enemyLayers;
 
-    // ¸Å ÇÁ·¹ÀÓ ¹è¿­À» »õ·Î ¸¸µéÁö ¾Ê°í °Ë»ö °á°ú ¸ñ·ÏÀ» Àç»ç¿ëÇÑ´Ù.
+    // ëª…ì¤‘ í›„ ê²€ê³¼ ë…ë¦½ì ìœ¼ë¡œ ì¬ìƒí•˜ëŠ” íƒ€ê²© ì´í™íŠ¸ë‹¤.
+    [SerializeField] private SpriteOneShotEffect _hitEffectPrefab;
+
+    // ì‹œì‘ ìœ„ì¹˜ì—ì„œ ê²¹ì¹œ ëŒ€ìƒ ëª©ë¡ì„ ì¬ì‚¬ìš©í•œë‹¤.
     private readonly List<Collider2D> _hits = new List<Collider2D>();
 
-    // ÀÌ¹Ì ÇÇÇØ¸¦ ¹ŞÀº ´ë»óÀº ´Ù½Ã °ø°İÇÏÁö ¾Ê´Â´Ù.
-    private readonly HashSet<IDamageable> _damagedTargets =
-        new HashSet<IDamageable>();
+    // ì´ë™ ê²½ë¡œì˜ ì¶©ëŒ ê²°ê³¼ë¥¼ ì¬ì‚¬ìš©í•œë‹¤.
+    private readonly List<RaycastHit2D> _castHits = new List<RaycastHit2D>();
+
+    // ê²€ë§ˆë‹¤ ë…ë¦½ì ìœ¼ë¡œ ëª…ì¤‘ ì—¬ë¶€ë¥¼ ê´€ë¦¬í•œë‹¤.
+    private bool _hasHit;
 
     private ContactFilter2D _filter;
     private float _remainingTime;
 
-    // ÀÌÈÄ ¹ß»çÇÏ´Â ÂÊ¿¡¼­µµ ÇÁ¸®ÆÕ ¼³Á¤À» °Ë»çÇÒ ¼ö ÀÖ´Ù.
+    /// <summary>ë°œì‚¬ìê°€ ì‚¬ìš©í•  ìˆ˜ ìˆë„ë¡ ìˆ˜ì¹˜ì™€ í•„ìˆ˜ ì´í™íŠ¸ë¥¼ ê²€ì‚¬í•œë‹¤.</summary>
     public void ValidateConfiguration()
     {
         if (_moveSpeed <= 0f ||
@@ -39,18 +44,19 @@ public sealed class UltimateSword : MonoBehaviour
             _lifeTime <= 0f ||
             _hitSize.x <= 0f ||
             _hitSize.y <= 0f ||
-            _enemyLayers.value == 0)
+            _enemyLayers.value == 0 || _hitEffectPrefab == null)
         {
             throw new InvalidOperationException(
-                $"{name}: ÇÊ»ì±â °ËÀÇ ¼öÄ¡¿Í Enemy Layers¸¦ È®ÀÎÇØÁÖ¼¼¿ä.");
+                $"{name}: í•„ì‚´ê¸° ê²€ì˜ ìˆ˜ì¹˜, Enemy Layers, Hit Effect Prefabì„ í™•ì¸í•´ì£¼ì„¸ìš”.");
         }
     }
 
+    /// <summary>Triggerë¥¼ í¬í•¨í•œ ê²€ìƒ‰ ì¡°ê±´ê³¼ ìˆ˜ëª…ì„ ì´ˆê¸°í™”í•œë‹¤.</summary>
     private void Awake()
     {
         ValidateConfiguration();
 
-        // ÀûÀÌ Trigger Collider¸¦ »ç¿ëÇÏ´Â °æ¿ìµµ °Ë»çÇÑ´Ù.
+        // ì ì´ Trigger Colliderë¥¼ ì‚¬ìš©í•˜ëŠ” ê²½ìš°ë„ ê²€ì‚¬í•œë‹¤.
         _filter = new ContactFilter2D();
         _filter.SetLayerMask(_enemyLayers);
         _filter.useTriggers = true;
@@ -58,59 +64,71 @@ public sealed class UltimateSword : MonoBehaviour
         _remainingTime = _lifeTime;
     }
 
+    /// <summary>ì´ë™ ê²½ë¡œì˜ ì²« ì ì—ê²Œ ëª…ì¤‘í•˜ê±°ë‚˜ ìˆ˜ëª… ë™ì•ˆ ì´ë™í•œë‹¤.</summary>
     private void Update()
     {
-        if (Time.deltaTime <= 0f)
+        if (_hasHit || Time.deltaTime <= 0f)
         {
             return;
         }
 
-        // ¼ö¸íÀÌ ³¡³ª´Â ÇÁ·¹ÀÓ¿¡´Â ³²Àº ½Ã°£¸¸Å­¸¸ ÀÌµ¿ÇÑ´Ù.
+        // ìˆ˜ëª…ì´ ëë‚˜ëŠ” í”„ë ˆì„ì—ëŠ” ë‚¨ì€ ì‹œê°„ë§Œí¼ë§Œ ì´ë™í•œë‹¤.
         float stepTime = Mathf.Min(Time.deltaTime, _remainingTime);
         float distance = _moveSpeed * stepTime;
 
         Vector3 start = transform.position;
         Vector3 end = start + Vector3.right * distance;
 
-        // ¼öÆò ÀÌµ¿ ÀüÈÄÀÇ ÆÇÁ¤À» ÇÕÄ£ »ç°¢ÇüÀ¸·Î °æ·Î ÀüÃ¼¸¦ °Ë»çÇÑ´Ù.
-        Vector2 sweepCenter = (start + end) * 0.5f;
-        Vector2 sweepSize =
-            new Vector2(_hitSize.x + distance, _hitSize.y);
+        // Transformìœ¼ë¡œ ì´ë™í•œ ì ë„ í˜„ì¬ ìœ„ì¹˜ë¡œ ê²€ìƒ‰í•œë‹¤.
+        Physics2D.SyncTransforms();
 
+        // ìƒì„± ì‹œ ì´ë¯¸ ì ê³¼ ê²¹ì³¤ë‹¤ë©´ ì´ë™ ì „ ëª…ì¤‘ìœ¼ë¡œ ì²˜ë¦¬í•œë‹¤.
         _hits.Clear();
-
-        Physics2D.OverlapBox(
-            sweepCenter,
-            sweepSize,
-            0f,
-            _filter,
-            _hits);
-
+        Physics2D.OverlapBox(start, _hitSize, 0f, _filter, _hits);
+        IDamageable nearestTarget = null;
+        Vector2 nearestPoint = default;
+        float nearestDistance = float.PositiveInfinity;
         foreach (Collider2D hit in _hits)
         {
-            // ÇÇÇØ Ã³¸® µµÁß ½ºÅ×ÀÌÁö°¡ ³¡³ª °ø°İÀÌ Ãë¼ÒµÉ ¼ö ÀÖ´Ù.
-            if (!gameObject.activeInHierarchy)
+            // ì´ë¯¸ ê²¹ì¹œ ëŒ€ìƒë“¤ ì¤‘ ê²€ ì¤‘ì‹¬ì— ê°€ê¹Œìš´ ëŒ€ìƒì„ ì„ íƒí•œë‹¤.
+            if (hit == null) continue;
+            IDamageable target = hit.GetComponentInParent<IDamageable>();
+            if (target == null || target.IsDead) continue;
+            Vector2 point = hit.ClosestPoint(start);
+            float sqrDistance = (point - (Vector2)start).sqrMagnitude;
+            if (sqrDistance < nearestDistance)
             {
-                return;
+                nearestTarget = target;
+                nearestPoint = point;
+                nearestDistance = sqrDistance;
             }
+        }
+        if (nearestTarget != null)
+        {
+            HitAndDestroy(nearestTarget, nearestPoint);
+            return;
+        }
 
-            if (hit == null)
-            {
-                continue;
-            }
-
-            IDamageable target =
-                hit.GetComponentInParent<IDamageable>();
-
-            if (target == null || target.IsDead)
-            {
-                continue;
-            }
-
-            if (_damagedTargets.Add(target))
-            {
-                target.TakeHit(_damage);
-            }
+        // ì´ë™í•˜ëŠ” ì‚¬ê°í˜•ì„ ê²€ì‚¬í•´ ë¹ ë¥¸ ê²€ì´ ì ì„ ê±´ë„ˆë›°ì§€ ì•Šê²Œ í•œë‹¤.
+        _castHits.Clear();
+        Physics2D.BoxCast(start, _hitSize, 0f, Vector2.right, _filter, _castHits, distance);
+        nearestDistance = float.PositiveInfinity;
+        foreach (RaycastHit2D hit in _castHits)
+        {
+            // ê²€ìƒ‰ ê²°ê³¼ ìˆœì„œì— ì˜ì¡´í•˜ì§€ ì•Šê³  ì²« ì ‘ì´‰ ê±°ë¦¬ë¥¼ ë¹„êµí•œë‹¤.
+            if (hit.collider == null || hit.distance >= nearestDistance) continue;
+            IDamageable target = hit.collider.GetComponentInParent<IDamageable>();
+            if (target == null || target.IsDead) continue;
+            nearestTarget = target;
+            nearestPoint = hit.point;
+            nearestDistance = hit.distance;
+        }
+        if (nearestTarget != null)
+        {
+            // ê´€í†µí•œ ë ìœ„ì¹˜ ëŒ€ì‹  ìµœì´ˆ ì ‘ì´‰ ìœ„ì¹˜ê¹Œì§€ë§Œ ì´ë™í•œë‹¤.
+            transform.position = start + Vector3.right * nearestDistance;
+            HitAndDestroy(nearestTarget, nearestPoint);
+            return;
         }
 
         transform.position = end;
@@ -122,9 +140,30 @@ public sealed class UltimateSword : MonoBehaviour
         }
     }
 
+    /// <summary>ê²€ í•œ ë°œì˜ ëª…ì¤‘ì„ ì²˜ë¦¬í•˜ê³  ë…ë¦½ëœ ì´í™íŠ¸ë¥¼ ë‚¨ê¸´ë‹¤.</summary>
+    private void HitAndDestroy(IDamageable target, Vector2 hitPoint)
+    {
+        // Destroyê°€ ì§€ì—°ë˜ì–´ë„ ê°™ì€ ê²€ì˜ í”¼í•´ê°€ ë°˜ë³µë˜ì§€ ì•Šê²Œ í•œë‹¤.
+        if (_hasHit) return;
+        _hasHit = true;
+
+        // ê²€ì˜ í˜•ì œë¡œ ìƒì„±í•´ ê²€ì´ ì‚¬ë¼ì§„ í›„ì—ë„ ì¬ìƒí•œë‹¤.
+        // ê¶ê·¹ê¸° ì·¨ì†Œ ì‹œì—ëŠ” ê¸°ì¡´ ì‹¤í–‰ ë£¨íŠ¸ì™€ í•¨ê»˜ ì •ë¦¬ëœë‹¤.
+        Instantiate(_hitEffectPrefab,
+            new Vector3(hitPoint.x, hitPoint.y, transform.position.z),
+            Quaternion.identity, transform.parent);
+        GameAudio.Play(GameSound.UltimateSwordImpact);
+        target.TakeHit(_damage);
+
+        // ì¦‰ì‹œ ìˆ¨ê¸´ ë’¤ í”„ë ˆì„ ëì— ì œê±°í•œë‹¤.
+        gameObject.SetActive(false);
+        Destroy(gameObject);
+    }
+
+    /// <summary>ì„ íƒí•œ ê²€ì˜ ì‹¤ì œ íŒì • ì˜ì—­ì„ í‘œì‹œí•œë‹¤.</summary>
     private void OnDrawGizmosSelected()
     {
-        // Scene¿¡¼­ ¼±ÅÃÇÏ¸é ½ÇÁ¦ ÇÇÇØ ÆÇÁ¤ Å©±â¸¦ È®ÀÎÇÒ ¼ö ÀÖ´Ù.
+        // Sceneì—ì„œ ì„ íƒí•˜ë©´ ì‹¤ì œ í”¼í•´ íŒì • í¬ê¸°ë¥¼ í™•ì¸í•  ìˆ˜ ìˆë‹¤.
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireCube(
             transform.position,

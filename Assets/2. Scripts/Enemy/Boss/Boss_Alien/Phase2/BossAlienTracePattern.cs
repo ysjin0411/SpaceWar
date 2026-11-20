@@ -1,77 +1,77 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using UnityEngine;
 
-// ÇÃ·¹ÀÌ¾îÀÇ °ú°Å À§Ä¡¸¦ ±â·ÏÇÏ°í ±â·Ï ¼ø¼­´ë·Î °ø°İÇÑ´Ù.
-// ½ÇÇà »óÅÂ´Â Áö¿ª º¯¼ö¿¡ º¸°üÇÏ¿© °øÀ¯ ¿¡¼Â¿¡ ³²±âÁö ¾Ê´Â´Ù.
+// í”Œë ˆì´ì–´ì˜ ê³¼ê±° ìœ„ì¹˜ë¥¼ ê¸°ë¡í•˜ê³  ê¸°ë¡ ìˆœì„œëŒ€ë¡œ ê³µê²©í•œë‹¤.
+// ì‹¤í–‰ ìƒíƒœëŠ” ì§€ì—­ ë³€ìˆ˜ì— ë³´ê´€í•˜ì—¬ ê³µìœ  ì—ì…‹ì— ë‚¨ê¸°ì§€ ì•ŠëŠ”ë‹¤.
 [CreateAssetMenu(
     menuName = "Boss/Alien/Phase2/Trace Pattern",
     fileName = "BossAlienTracePattern")]
 public sealed class BossAlienTracePattern : BossPattern
 {
-    // ÀÌµ¿ ÈçÀûÀ» ±â·ÏÇÏ±â Àü¿¡ Ç¥½ÃÇÒ ½Ã½ºÅÛ °æ°í ¹®±¸´Ù.
+    // ì´ë™ í”ì ì„ ê¸°ë¡í•˜ê¸° ì „ì— í‘œì‹œí•  ì‹œìŠ¤í…œ ê²½ê³  ë¬¸êµ¬ë‹¤.
     [SerializeField, TextArea(2, 3)]
     private string _warningMessage =
-        "°æ°í! ÀÌµ¿ ÈçÀûÀÌ °¨ÁöµË´Ï´Ù. ±â·ÏµÈ À§Ä¡¿¡¼­ ¹ş¾î³ª½Ê½Ã¿À.";
+        "ê²½ê³ ! ì´ë™ í”ì ì´ ê°ì§€ë©ë‹ˆë‹¤. ê¸°ë¡ëœ ìœ„ì¹˜ì—ì„œ ë²—ì–´ë‚˜ì‹­ì‹œì˜¤.";
 
-    // ±â·ÏµÈ À§Ä¡ÀÇ ¿øÇü °ø°İ ¹üÀ§¸¦ Ç¥½ÃÇÑ´Ù.
+    // ê¸°ë¡ëœ ìœ„ì¹˜ì˜ ì›í˜• ê³µê²© ë²”ìœ„ë¥¼ í‘œì‹œí•œë‹¤.
     [SerializeField]
     private BossAlienTraceWarning _warningPrefab;
 
-    // Rise ¡æ Peak ¡æ Fade ¼ø¼­·Î Ç¥½ÃÇÒ ¹ßÅé È¿°ú´Ù.
+    // Rise â†’ Peak â†’ Fade ìˆœì„œë¡œ í‘œì‹œí•  ë°œí†± íš¨ê³¼ë‹¤.
     [SerializeField]
     private BossAlienTraceClaw _clawPrefab;
 
-    // ÇÑ ¹øÀÇ ÆĞÅÏ¿¡¼­ ±â·ÏÇÒ À§Ä¡ °³¼ö´Ù.
+    // í•œ ë²ˆì˜ íŒ¨í„´ì—ì„œ ê¸°ë¡í•  ìœ„ì¹˜ ê°œìˆ˜ë‹¤.
     [SerializeField, Min(1)]
     private int _recordCount = 6;
 
-    // °¢ À§Ä¡¿¡ Aim °æ°í¸¦ Ç¥½ÃÇÑ µÚ ¹ßÅéÀÌ ³ª¿À±â±îÁöÀÇ ½Ã°£ÀÌ´Ù.
-    // ¸ğµç ±â·ÏÀÌ ³¡³¯ ¶§±îÁö ±â´Ù¸®Áö ¾Ê°í, °¢ °æ°í¸¶´Ù µû·Î °è»êÇÑ´Ù.
+    // ê° ìœ„ì¹˜ì— Aim ê²½ê³ ë¥¼ í‘œì‹œí•œ ë’¤ ë°œí†±ì´ ë‚˜ì˜¤ê¸°ê¹Œì§€ì˜ ì‹œê°„ì´ë‹¤.
+    // ëª¨ë“  ê¸°ë¡ì´ ëë‚  ë•Œê¹Œì§€ ê¸°ë‹¤ë¦¬ì§€ ì•Šê³ , ê° ê²½ê³ ë§ˆë‹¤ ë”°ë¡œ ê³„ì‚°í•œë‹¤.
     [SerializeField, Min(0.01f)]
     private float _warningDuration = 0.2f;
 
-    // ´ÙÀ½ À§Ä¡¸¦ ±â·ÏÇÏ°í °æ°í¸¦ »ı¼ºÇÏ´Â °£°İÀÌ´Ù.
-    // °¢ °æ°í°¡ µ¿ÀÏÇÑ Áö¿¬ µÚ °ø°İÇÏ¹Ç·Î °ø°İ »çÀÌÀÇ °£°İµµ µÈ´Ù.
+    // ë‹¤ìŒ ìœ„ì¹˜ë¥¼ ê¸°ë¡í•˜ê³  ê²½ê³ ë¥¼ ìƒì„±í•˜ëŠ” ê°„ê²©ì´ë‹¤.
+    // ê° ê²½ê³ ê°€ ë™ì¼í•œ ì§€ì—° ë’¤ ê³µê²©í•˜ë¯€ë¡œ ê³µê²© ì‚¬ì´ì˜ ê°„ê²©ë„ ëœë‹¤.
     [SerializeField, Min(0.01f)]
     private float _strikeInterval = 0.3f;
 
-    // ¹ßÅéÀÌ ¿Ã¶ó¿À±â ½ÃÀÛÇÑ µÚ ÇÇÇØ ÆÇÁ¤±îÁöÀÇ ½Ã°£ÀÌ´Ù.
+    // ë°œí†±ì´ ì˜¬ë¼ì˜¤ê¸° ì‹œì‘í•œ ë’¤ í”¼í•´ íŒì •ê¹Œì§€ì˜ ì‹œê°„ì´ë‹¤.
     [SerializeField, Min(0.01f)]
     private float _riseDuration = 0.12f;
 
-    // ÇÇÇØ ÆÇÁ¤ ÈÄ ¿ÏÀüÈ÷ ¼ÚÀº ¸ğ½ÀÀ» À¯ÁöÇÏ´Â ½Ã°£ÀÌ´Ù.
+    // í”¼í•´ íŒì • í›„ ì™„ì „íˆ ì†Ÿì€ ëª¨ìŠµì„ ìœ ì§€í•˜ëŠ” ì‹œê°„ì´ë‹¤.
     [SerializeField, Min(0.01f)]
     private float _peakDuration = 0.18f;
 
-    // »ç¶óÁö´Â ÀÌ¹ÌÁö¸¦ À¯ÁöÇÏ´Â ½Ã°£ÀÌ´Ù.
+    // ì‚¬ë¼ì§€ëŠ” ì´ë¯¸ì§€ë¥¼ ìœ ì§€í•˜ëŠ” ì‹œê°„ì´ë‹¤.
     [SerializeField, Min(0.01f)]
     private float _fadeDuration = 0.15f;
 
-    // ¸ğµç ¹ßÅéÀÌ »ç¶óÁø µÚ º¸½º°¡ ½¬´Â ½Ã°£ÀÌ´Ù.
+    // ëª¨ë“  ë°œí†±ì´ ì‚¬ë¼ì§„ ë’¤ ë³´ìŠ¤ê°€ ì‰¬ëŠ” ì‹œê°„ì´ë‹¤.
     [SerializeField, Min(0.01f)]
     private float _recoveryDuration = 0.6f;
 
-    // °æ°í¿Í ½ÇÁ¦ ¿øÇü ÇÇÇØ ÆÇÁ¤¿¡ ÇÔ²² »ç¿ëÇÏ´Â ¹İ°æÀÌ´Ù.
+    // ê²½ê³ ì™€ ì‹¤ì œ ì›í˜• í”¼í•´ íŒì •ì— í•¨ê»˜ ì‚¬ìš©í•˜ëŠ” ë°˜ê²½ì´ë‹¤.
     [SerializeField, Min(0.01f)]
     private float _radius = 1.2f;
 
-    // °¢ ±â·Ï À§Ä¡¿¡¼­ ÇÑ ¹ø ¿äÃ»ÇÏ´Â ÇÇÇØ·®ÀÌ´Ù.
+    // ê° ê¸°ë¡ ìœ„ì¹˜ì—ì„œ í•œ ë²ˆ ìš”ì²­í•˜ëŠ” í”¼í•´ëŸ‰ì´ë‹¤.
     [SerializeField, Min(0)]
     private float _damage = 10;
 
     /// <summary>
-    /// Execute µ¿ÀÛ¿¡ ÇÊ¿äÇÑ »óÅÂ¿Í Ã³¸® Èå¸§À» ½ÇÇàÇÑ´Ù.
+    /// Execute ë™ì‘ì— í•„ìš”í•œ ìƒíƒœì™€ ì²˜ë¦¬ íë¦„ì„ ì‹¤í–‰í•œë‹¤.
     /// </summary>
     public override IEnumerator Execute(BossPatternContext context)
     {
-        // ¿¡ÀÏ¸®¾ğ º»Ã¼¿¡¼­¸¸ ½ÇÇàÇÒ ¼ö ÀÖ´Ù.
+        // ì—ì¼ë¦¬ì–¸ ë³¸ì²´ì—ì„œë§Œ ì‹¤í–‰í•  ìˆ˜ ìˆë‹¤.
         Boss_AlienBody boss = context.Boss as Boss_AlienBody;
 
         if (boss == null)
         {
             throw new InvalidOperationException(
-                $"{name}: Boss_AlienBody Àü¿ë ÆĞÅÏÀÔ´Ï´Ù.");
+                $"{name}: Boss_AlienBody ì „ìš© íŒ¨í„´ì…ë‹ˆë‹¤.");
         }
 
         if (!boss.CanRunPhaseTwoPattern)
@@ -79,7 +79,7 @@ public sealed class BossAlienTracePattern : BossPattern
 
         ValidateSettings();
 
-        // º»Ã¼ ÀÚ¼¼¿Í ÇÃ·¹ÀÌ¾îÀÇ ½ÇÁ¦ ¹°¸® ÁÂÇ¥¸¦ °¡Á®¿Â´Ù.
+        // ë³¸ì²´ ìì„¸ì™€ í”Œë ˆì´ì–´ì˜ ì‹¤ì œ ë¬¼ë¦¬ ì¢Œí‘œë¥¼ ê°€ì ¸ì˜¨ë‹¤.
         BossAlienPhaseTwoVisual visual =
             context.VisualTransform.GetComponent<BossAlienPhaseTwoVisual>();
 
@@ -89,56 +89,56 @@ public sealed class BossAlienTracePattern : BossPattern
         if (visual == null || targetBody == null)
         {
             throw new MissingComponentException(
-                $"{name}: º»Ã¼ Ç¥Çö ÄÄÆ÷³ÍÆ®¿Í ÇÃ·¹ÀÌ¾î Rigidbody2D¸¦ È®ÀÎÇÏ¼¼¿ä.");
+                $"{name}: ë³¸ì²´ í‘œí˜„ ì»´í¬ë„ŒíŠ¸ì™€ í”Œë ˆì´ì–´ Rigidbody2Dë¥¼ í™•ì¸í•˜ì„¸ìš”.");
         }
 
-        // ½ÇÇà Áß »ı¼ºÇÑ ¸ğµç ¿ÀºêÁ§Æ®¸¦ º¸°üÇÏ¿© Áß´Ü ½Ã¿¡µµ Á¤¸®ÇÑ´Ù.
+        // ì‹¤í–‰ ì¤‘ ìƒì„±í•œ ëª¨ë“  ì˜¤ë¸Œì íŠ¸ë¥¼ ë³´ê´€í•˜ì—¬ ì¤‘ë‹¨ ì‹œì—ë„ ì •ë¦¬í•œë‹¤.
         Vector2[] positions = new Vector2[_recordCount];
         BossAlienTraceWarning[] warnings =
             new BossAlienTraceWarning[_recordCount];
         BossAlienTraceClaw[] claws =
             new BossAlienTraceClaw[_recordCount];
 
-        // °¢ ¹ßÅéÀÇ ÁøÇà ´Ü°è´Ù.
-        // 0: »ı¼º Àü, 1: Rise, 2: Peak, 3: Fade, 4: Á¦°Å ¿Ï·á.
+        // ê° ë°œí†±ì˜ ì§„í–‰ ë‹¨ê³„ë‹¤.
+        // 0: ìƒì„± ì „, 1: Rise, 2: Peak, 3: Fade, 4: ì œê±° ì™„ë£Œ.
         int[] stages = new int[_recordCount];
         bool beganAction = false;
 
-        // ÀÌ¹ø ½ÇÇà¿¡¼­ ½Ã½ºÅÛ °æ°íÀÇ Á¡¸ê ¿Ï·á ¿©ºÎ¸¦ º¸°üÇÑ´Ù.
+        // ì´ë²ˆ ì‹¤í–‰ì—ì„œ ì‹œìŠ¤í…œ ê²½ê³ ì˜ ì ë©¸ ì™„ë£Œ ì—¬ë¶€ë¥¼ ë³´ê´€í•œë‹¤.
         bool dialogueCompleted = false;
 
-        // ÀÌ¹ø ÆĞÅÏÀÌ ½ÇÁ¦·Î ¿äÃ»ÇÑ °æ°í¸¸ Ãë¼ÒÇÏµµ·Ï ±â·ÏÇÑ´Ù.
+        // ì´ë²ˆ íŒ¨í„´ì´ ì‹¤ì œë¡œ ìš”ì²­í•œ ê²½ê³ ë§Œ ì·¨ì†Œí•˜ë„ë¡ ê¸°ë¡í•œë‹¤.
         bool dialogueRequested = false;
 
-        // ¿äÃ» Àü¿¡ ±¸µ¶ÇÏ°í, Á¾·á ¶Ç´Â Áß´Ü ½Ã °°Àº ÇÚµé·¯¸¦ ÇØÁ¦ÇÑ´Ù.
+        // ìš”ì²­ ì „ì— êµ¬ë…í•˜ê³ , ì¢…ë£Œ ë˜ëŠ” ì¤‘ë‹¨ ì‹œ ê°™ì€ í•¸ë“¤ëŸ¬ë¥¼ í•´ì œí•œë‹¤.
         Action onDialogueCompleted = () => dialogueCompleted = true;
 
         try
         {
-            // °æ°í¸¦ º¸¿©ÁÖ´Â µ¿¾È º»Ã¼ÀÇ ÀÌµ¿À» Á¤ÁöÇÑ´Ù.
+            // ê²½ê³ ë¥¼ ë³´ì—¬ì£¼ëŠ” ë™ì•ˆ ë³¸ì²´ì˜ ì´ë™ì„ ì •ì§€í•œë‹¤.
             context.Rigidbody.linearVelocity = Vector2.zero;
 
-            // °æ°í ¿äÃ» Àü¿¡ ¿Ï·á ÀÌº¥Æ®¸¦ ±¸µ¶ÇÏ¿© ½ÅÈ£¸¦ ³õÄ¡Áö ¾Ê´Â´Ù.
+            // ê²½ê³  ìš”ì²­ ì „ì— ì™„ë£Œ ì´ë²¤íŠ¸ë¥¼ êµ¬ë…í•˜ì—¬ ì‹ í˜¸ë¥¼ ë†“ì¹˜ì§€ ì•ŠëŠ”ë‹¤.
             boss.SystemDialogueCompleted += onDialogueCompleted;
             boss.RequestSystemDialogue(_warningMessage);
 
-            // ¿äÃ»ÀÌ ¼º°øÇÑ µÚ¿¡¸¸ ÀÌ¹ø ÆĞÅÏÀÇ °æ°í·Î ±â·ÏÇÑ´Ù.
+            // ìš”ì²­ì´ ì„±ê³µí•œ ë’¤ì—ë§Œ ì´ë²ˆ íŒ¨í„´ì˜ ê²½ê³ ë¡œ ê¸°ë¡í•œë‹¤.
             dialogueRequested = true;
 
-            // ½Ã½ºÅÛ °æ°íÀÇ Á¡¸êÀÌ ³¡³¯ ¶§±îÁö À§Ä¡ ±â·ÏÀ» ½ÃÀÛÇÏÁö ¾Ê´Â´Ù.
+            // ì‹œìŠ¤í…œ ê²½ê³ ì˜ ì ë©¸ì´ ëë‚  ë•Œê¹Œì§€ ìœ„ì¹˜ ê¸°ë¡ì„ ì‹œì‘í•˜ì§€ ì•ŠëŠ”ë‹¤.
             while (!dialogueCompleted)
             {
-                // °æ°í Áß ÀüÅõ°¡ ³¡³µ´Ù¸é ÆĞÅÏµµ Áß´ÜÇÑ´Ù.
+                // ê²½ê³  ì¤‘ ì „íˆ¬ê°€ ëë‚¬ë‹¤ë©´ íŒ¨í„´ë„ ì¤‘ë‹¨í•œë‹¤.
                 if (!CanContinue(boss))
                     yield break;
 
                 yield return null;
             }
 
-            // °æ°í°¡ ³¡³­ µÚ¿¡´Â ´Ù¸¥ ¸Ş½ÃÁöÀÇ ¿Ï·á ½ÅÈ£¸¦ ¹ŞÁö ¾Ê´Â´Ù.
+            // ê²½ê³ ê°€ ëë‚œ ë’¤ì—ëŠ” ë‹¤ë¥¸ ë©”ì‹œì§€ì˜ ì™„ë£Œ ì‹ í˜¸ë¥¼ ë°›ì§€ ì•ŠëŠ”ë‹¤.
             boss.SystemDialogueCompleted -= onDialogueCompleted;
 
-            // UI´Â ÀÏ½ÃÁ¤Áö Áß¿¡µµ Àç»ıµÇ¹Ç·Î °ø°İ ½ÃÀÛÀº º°µµ·Î ±â´Ù¸°´Ù.
+            // UIëŠ” ì¼ì‹œì •ì§€ ì¤‘ì—ë„ ì¬ìƒë˜ë¯€ë¡œ ê³µê²© ì‹œì‘ì€ ë³„ë„ë¡œ ê¸°ë‹¤ë¦°ë‹¤.
             while (CanContinue(boss) && Time.deltaTime <= 0f)
                 yield return null;
 
@@ -150,19 +150,20 @@ public sealed class BossAlienTracePattern : BossPattern
             if (!beganAction)
                 yield break;
 
-            // ÀÌÀü ÆĞÅÏ¿¡¼­ ³²¾ÒÀ» ¼ö ÀÖ´Â ¹°¸® ÀÌµ¿ ¼Óµµ¸¦ Á¦°ÅÇÑ´Ù.
+            // ì´ì „ íŒ¨í„´ì—ì„œ ë‚¨ì•˜ì„ ìˆ˜ ìˆëŠ” ë¬¼ë¦¬ ì´ë™ ì†ë„ë¥¼ ì œê±°í•œë‹¤.
             context.Rigidbody.linearVelocity = Vector2.zero;
 
-            // ¸ÕÀú ¼ÕÀ» ¶¥¿¡ ¹Ú´Â´Ù.
-            // °æ°í°¡ ¶á µÚ ±â´Ù¸®´Â ½Ã°£¿¡ »ğÀÔ ¾Ö´Ï¸ŞÀÌ¼ÇÀÌ Ãß°¡µÇÁö ¾Ê°Ô ÇÑ´Ù.
+            // ë¨¼ì € ì†ì„ ë•…ì— ë°•ëŠ”ë‹¤.
+            // ê²½ê³ ê°€ ëœ¬ ë’¤ ê¸°ë‹¤ë¦¬ëŠ” ì‹œê°„ì— ì‚½ì… ì• ë‹ˆë©”ì´ì…˜ì´ ì¶”ê°€ë˜ì§€ ì•Šê²Œ í•œë‹¤.
             if (!CanContinue(boss) ||
                 visual == null ||
                 !visual.PlayTraceInsert())
             {
                 yield break;
             }
+            GameAudio.Play(GameSound.AlienP2TraceInsert);
 
-            // ¼ÕÀ» ¹Ú´Â ¾Ö´Ï¸ŞÀÌ¼ÇÀÌ ³¡³¯ ¶§±îÁö ±â´Ù¸°´Ù.
+            // ì†ì„ ë°•ëŠ” ì• ë‹ˆë©”ì´ì…˜ì´ ëë‚  ë•Œê¹Œì§€ ê¸°ë‹¤ë¦°ë‹¤.
             while (true)
             {
                 if (!CanContinue(boss) ||
@@ -178,27 +179,27 @@ public sealed class BossAlienTracePattern : BossPattern
                 yield return null;
             }
 
-            // ÀÌµ¿ °æ·Î¸¦ ±â·ÏÇÏ°í °ø°İÇÏ´Â µ¿¾È ¼ÕÀ» ¹ÚÀº ÀÚ¼¼¸¦ À¯ÁöÇÑ´Ù.
+            // ì´ë™ ê²½ë¡œë¥¼ ê¸°ë¡í•˜ê³  ê³µê²©í•˜ëŠ” ë™ì•ˆ ì†ì„ ë°•ì€ ìì„¸ë¥¼ ìœ ì§€í•œë‹¤.
             if (!visual.PlayTraceHold())
                 yield break;
 
-            // °¢ °æ°í°¡ ½ÇÁ¦·Î »ı¼ºµÈ ½Ã°¢À» ÀúÀåÇÑ´Ù.
-            // ÇÁ·¹ÀÓÀÌ ´Ê¾îÁ®µµ »õ °æ°íÀÇ È¸ÇÇ ½Ã°£ÀÌ »ı·«µÇÁö ¾Ê°Ô ÇÑ´Ù.
+            // ê° ê²½ê³ ê°€ ì‹¤ì œë¡œ ìƒì„±ëœ ì‹œê°ì„ ì €ì¥í•œë‹¤.
+            // í”„ë ˆì„ì´ ëŠ¦ì–´ì ¸ë„ ìƒˆ ê²½ê³ ì˜ íšŒí”¼ ì‹œê°„ì´ ìƒëµë˜ì§€ ì•Šê²Œ í•œë‹¤.
             float[] warningTimes = new float[positions.Length];
 
-            // ±â·Ï°ú °ø°İÀÌ °øÀ¯ÇÏ´Â °ÔÀÓ ½Ã°£ÀÌ´Ù.
+            // ê¸°ë¡ê³¼ ê³µê²©ì´ ê³µìœ í•˜ëŠ” ê²Œì„ ì‹œê°„ì´ë‹¤.
             float elapsed = 0f;
 
-            // ´ÙÀ½ °æ°í¸¦ »ı¼ºÇÒ ½Ã°¢ÀÌ´Ù. Ã¹ °æ°í´Â Áï½Ã »ı¼ºÇÑ´Ù.
+            // ë‹¤ìŒ ê²½ê³ ë¥¼ ìƒì„±í•  ì‹œê°ì´ë‹¤. ì²« ê²½ê³ ëŠ” ì¦‰ì‹œ ìƒì„±í•œë‹¤.
             float nextRecordTime = 0f;
 
-            // ½ÇÁ¦·Î À§Ä¡¿Í °æ°í°¡ »ı¼ºµÈ °³¼ö´Ù.
+            // ì‹¤ì œë¡œ ìœ„ì¹˜ì™€ ê²½ê³ ê°€ ìƒì„±ëœ ê°œìˆ˜ë‹¤.
             int recordedCount = 0;
 
-            // »ç¶óÁö´Â µ¿ÀÛ±îÁö ¸ğµÎ ³¡³­ °ø°İÀÇ °³¼ö´Ù.
+            // ì‚¬ë¼ì§€ëŠ” ë™ì‘ê¹Œì§€ ëª¨ë‘ ëë‚œ ê³µê²©ì˜ ê°œìˆ˜ë‹¤.
             int completedCount = 0;
 
-            // °æ°í »ı¼º°ú ±âÁ¸ °æ°íÀÇ °ø°İ ÁøÇàÀ» ÇÔ²² Ã³¸®ÇÑ´Ù.
+            // ê²½ê³  ìƒì„±ê³¼ ê¸°ì¡´ ê²½ê³ ì˜ ê³µê²© ì§„í–‰ì„ í•¨ê»˜ ì²˜ë¦¬í•œë‹¤.
             while (completedCount < positions.Length)
             {
                 if (!CanContinue(boss) ||
@@ -208,56 +209,57 @@ public sealed class BossAlienTracePattern : BossPattern
                     yield break;
                 }
 
-                // ÀÏ½ÃÁ¤Áö Áß¿¡´Â ±â·Ï, »ı¼º, ÇÇÇØ Ã³¸®¸¦ ÁøÇàÇÏÁö ¾Ê´Â´Ù.
+                // ì¼ì‹œì •ì§€ ì¤‘ì—ëŠ” ê¸°ë¡, ìƒì„±, í”¼í•´ ì²˜ë¦¬ë¥¼ ì§„í–‰í•˜ì§€ ì•ŠëŠ”ë‹¤.
                 if (Time.deltaTime <= 0f)
                 {
                     yield return null;
                     continue;
                 }
 
-                // ÀÏÁ¤ °£°İ¸¶´Ù ÇÃ·¹ÀÌ¾îÀÇ ÇöÀç À§Ä¡¿¡ »õ °æ°í¸¦ »ı¼ºÇÑ´Ù.
-                // Áö³­ À§Ä¡¸¦ ÃßÃøÇØ¼­ Ã¤¿ìÁö ¾Ê°í ½ÇÁ¦ °üÃøÇÑ À§Ä¡¸¸ ±â·ÏÇÑ´Ù.
+                // ì¼ì • ê°„ê²©ë§ˆë‹¤ í”Œë ˆì´ì–´ì˜ í˜„ì¬ ìœ„ì¹˜ì— ìƒˆ ê²½ê³ ë¥¼ ìƒì„±í•œë‹¤.
+                // ì§€ë‚œ ìœ„ì¹˜ë¥¼ ì¶”ì¸¡í•´ì„œ ì±„ìš°ì§€ ì•Šê³  ì‹¤ì œ ê´€ì¸¡í•œ ìœ„ì¹˜ë§Œ ê¸°ë¡í•œë‹¤.
                 if (recordedCount < positions.Length &&
                     elapsed >= nextRecordTime)
                 {
                     int index = recordedCount;
 
-                    // ¿¹ÃøÇÏÁö ¾Ê°í ÇöÀç ¹°¸® ÁÂÇ¥¸¦ ÀúÀåÇÑ´Ù.
+                    // ì˜ˆì¸¡í•˜ì§€ ì•Šê³  í˜„ì¬ ë¬¼ë¦¬ ì¢Œí‘œë¥¼ ì €ì¥í•œë‹¤.
                     positions[index] = targetBody.position;
                     warningTimes[index] = elapsed;
 
-                    // Initialize´Â Aim ÀÌ¹ÌÁö¿Í »ö»óÀ¸·Î °æ°í¸¦ ½ÃÀÛÇÑ´Ù.
-                    // Trace Àü¿ë °æ°í´Â »ı¼º À§Ä¡¿¡¼­ Aim Ç¥½Ã¸¸ À¯ÁöÇÑ´Ù.
+                    // InitializeëŠ” Aim ì´ë¯¸ì§€ì™€ ìƒ‰ìƒìœ¼ë¡œ ê²½ê³ ë¥¼ ì‹œì‘í•œë‹¤.
+                    // Trace ì „ìš© ê²½ê³ ëŠ” ìƒì„± ìœ„ì¹˜ì—ì„œ Aim í‘œì‹œë§Œ ìœ ì§€í•œë‹¤.
                     warnings[index] = Instantiate(_warningPrefab);
                     warnings[index].Initialize(
                         boss, positions[index], _radius);
+                    GameAudio.Play(GameSound.AlienP2TraceWarning);
 
-                    // ÀÌÈÄ ÀÌ °æ°íÀÇ À§Ä¡´Â °»½ÅÇÏÁö ¾Ê´Â´Ù.
+                    // ì´í›„ ì´ ê²½ê³ ì˜ ìœ„ì¹˜ëŠ” ê°±ì‹ í•˜ì§€ ì•ŠëŠ”ë‹¤.
                     recordedCount++;
 
-                    // ÇÁ·¹ÀÓ Áö¿¬ ÈÄ ¿©·¯ °æ°í°¡ ÇÑ²¨¹ø¿¡ »ı±âÁö ¾Ê°Ô ÇÑ´Ù.
+                    // í”„ë ˆì„ ì§€ì—° í›„ ì—¬ëŸ¬ ê²½ê³ ê°€ í•œêº¼ë²ˆì— ìƒê¸°ì§€ ì•Šê²Œ í•œë‹¤.
                     nextRecordTime = elapsed + _strikeInterval;
                 }
 
-                // ÀÌ¹Ì »ı¼ºÇÑ °æ°íµéÀÇ °ø°İÀ» °¢°¢ ÁøÇàÇÑ´Ù.
+                // ì´ë¯¸ ìƒì„±í•œ ê²½ê³ ë“¤ì˜ ê³µê²©ì„ ê°ê° ì§„í–‰í•œë‹¤.
                 for (int i = 0; i < recordedCount; i++)
                 {
                     if (stages[i] == 4)
                         continue;
 
-                    // ÇÇÇØ¸¦ ÁÖ±â Àü °æ°í°¡ »ç¶óÁ³´Ù¸é º¸ÀÌÁö ¾Ê´Â °ø°İÀ» ¸·´Â´Ù.
+                    // í”¼í•´ë¥¼ ì£¼ê¸° ì „ ê²½ê³ ê°€ ì‚¬ë¼ì¡Œë‹¤ë©´ ë³´ì´ì§€ ì•ŠëŠ” ê³µê²©ì„ ë§‰ëŠ”ë‹¤.
                     if (stages[i] < 2 && warnings[i] == null)
                         yield break;
 
-                    // °¢ °æ°íÀÇ »ı¼º ½Ã°¢À¸·ÎºÎÅÍ ¹ßÅé »ı¼º ½ÃÁ¡À» °è»êÇÑ´Ù.
+                    // ê° ê²½ê³ ì˜ ìƒì„± ì‹œê°ìœ¼ë¡œë¶€í„° ë°œí†± ìƒì„± ì‹œì ì„ ê³„ì‚°í•œë‹¤.
                     float localTime =
                         elapsed - warningTimes[i] - _warningDuration;
 
-                    // ÀÌ °æ°íÀÇ ´ë±â ½Ã°£ÀÌ ¾ÆÁ÷ ³¡³ªÁö ¾Ê¾Ò´Ù.
+                    // ì´ ê²½ê³ ì˜ ëŒ€ê¸° ì‹œê°„ì´ ì•„ì§ ëë‚˜ì§€ ì•Šì•˜ë‹¤.
                     if (localTime < 0f)
                         continue;
 
-                    // °æ°í¸¦ »ı¼ºÇß´ø °íÁ¤ À§Ä¡¿¡¼­ ¹ßÅéÀÌ ¿Ã¶ó¿À±â ½ÃÀÛÇÑ´Ù.
+                    // ê²½ê³ ë¥¼ ìƒì„±í–ˆë˜ ê³ ì • ìœ„ì¹˜ì—ì„œ ë°œí†±ì´ ì˜¬ë¼ì˜¤ê¸° ì‹œì‘í•œë‹¤.
                     if (stages[i] == 0)
                     {
                         claws[i] = Instantiate(_clawPrefab);
@@ -265,30 +267,31 @@ public sealed class BossAlienTracePattern : BossPattern
                         stages[i] = 1;
                     }
 
-                    // °ø°İ È¿°ú°¡ »ç¶óÁ³´Ù¸é ÇÇÇØ Ã³¸®µµ Áß´ÜÇÑ´Ù.
+                    // ê³µê²© íš¨ê³¼ê°€ ì‚¬ë¼ì¡Œë‹¤ë©´ í”¼í•´ ì²˜ë¦¬ë„ ì¤‘ë‹¨í•œë‹¤.
                     if (claws[i] == null)
                         yield break;
 
-                    // ¹ßÅéÀÌ ¿ÏÀüÈ÷ ¼Ú´Â ¼ø°£ ÇÇÇØ¸¦ ÇÑ ¹ø Àû¿ëÇÑ´Ù.
+                    // ë°œí†±ì´ ì™„ì „íˆ ì†ŸëŠ” ìˆœê°„ í”¼í•´ë¥¼ í•œ ë²ˆ ì ìš©í•œë‹¤.
                     if (stages[i] == 1 && localTime >= _riseDuration)
                     {
                         claws[i].ShowPeak();
+                        GameAudio.Play(GameSound.AlienP2TraceStrike);
 
                         warnings[i].Remove();
                         warnings[i] = null;
 
-                        // ÇÇÇØ Ã³¸® Àü¿¡ ´Ü°è¸¦ ¹Ù²ã Áßº¹ ÇÇÇØ ¿äÃ»À» ¸·´Â´Ù.
+                        // í”¼í•´ ì²˜ë¦¬ ì „ì— ë‹¨ê³„ë¥¼ ë°”ê¿” ì¤‘ë³µ í”¼í•´ ìš”ì²­ì„ ë§‰ëŠ”ë‹¤.
                         stages[i] = 2;
 
                         BossAlienExplosionDamage.Apply(
                             positions[i], _radius, _damage);
 
-                        // ÀÌ¹ø °ø°İÀ¸·Î ÇÃ·¹ÀÌ¾î°¡ »ç¸ÁÇß´Ù¸é ÈÄ¼Ó Ã³¸®¸¦ ¸ØÃá´Ù.
+                        // ì´ë²ˆ ê³µê²©ìœ¼ë¡œ í”Œë ˆì´ì–´ê°€ ì‚¬ë§í–ˆë‹¤ë©´ í›„ì† ì²˜ë¦¬ë¥¼ ë©ˆì¶˜ë‹¤.
                         if (!CanContinue(boss))
                             yield break;
                     }
 
-                    // ¼Ú¾Æ ÀÖ´Â ½Ã°£ÀÌ Áö³ª¸é »ç¶óÁö´Â ¸ğ½ÀÀ» Ç¥½ÃÇÑ´Ù.
+                    // ì†Ÿì•„ ìˆëŠ” ì‹œê°„ì´ ì§€ë‚˜ë©´ ì‚¬ë¼ì§€ëŠ” ëª¨ìŠµì„ í‘œì‹œí•œë‹¤.
                     if (stages[i] == 2 &&
                         localTime >= _riseDuration + _peakDuration)
                     {
@@ -296,7 +299,7 @@ public sealed class BossAlienTracePattern : BossPattern
                         stages[i] = 3;
                     }
 
-                    // »ç¶óÁö´Â µ¿ÀÛ±îÁö ³¡³­ °ø°İÀ» Á¤¸®ÇÑ´Ù.
+                    // ì‚¬ë¼ì§€ëŠ” ë™ì‘ê¹Œì§€ ëë‚œ ê³µê²©ì„ ì •ë¦¬í•œë‹¤.
                     if (stages[i] == 3 &&
                         localTime >=
                         _riseDuration + _peakDuration + _fadeDuration)
@@ -308,25 +311,26 @@ public sealed class BossAlienTracePattern : BossPattern
                     }
                 }
 
-                // ´ÙÀ½ ÇÁ·¹ÀÓ±îÁö Èå¸¥ °ÔÀÓ ½Ã°£À» ¹İ¿µÇÑ´Ù.
+                // ë‹¤ìŒ í”„ë ˆì„ê¹Œì§€ íë¥¸ ê²Œì„ ì‹œê°„ì„ ë°˜ì˜í•œë‹¤.
                 yield return null;
                 elapsed += Time.deltaTime;
             }
 
-            // ¸ğµç Áö¸é ¹ßÅéÀÌ »ç¶óÁö¸é ¼ÕÀ» »©´Â µ¿ÀÛÀ» ½ÃÀÛÇÑ´Ù.
+            // ëª¨ë“  ì§€ë©´ ë°œí†±ì´ ì‚¬ë¼ì§€ë©´ ì†ì„ ë¹¼ëŠ” ë™ì‘ì„ ì‹œì‘í•œë‹¤.
             if (!CanContinue(boss) ||
                 visual == null ||
                 !visual.PlayTraceWithdraw())
             {
                 yield break;
             }
+            GameAudio.Play(GameSound.AlienP2TraceWithdraw);
 
-            // È¸¼ö ½Ã°£°ú ¼Õ »©±â ¾Ö´Ï¸ŞÀÌ¼ÇÀÌ ¸ğµÎ ³¡³¯ ¶§±îÁö ±â´Ù¸°´Ù.
+            // íšŒìˆ˜ ì‹œê°„ê³¼ ì† ë¹¼ê¸° ì• ë‹ˆë©”ì´ì…˜ì´ ëª¨ë‘ ëë‚  ë•Œê¹Œì§€ ê¸°ë‹¤ë¦°ë‹¤.
             float recoveryElapsed = 0f;
 
             while (true)
             {
-                // ÀüÅõ Áß´ÜÀÌ³ª ´Ù¸¥ ¾Ö´Ï¸ŞÀÌ¼ÇÀ¸·ÎÀÇ ÀüÈ¯À» È®ÀÎÇÑ´Ù.
+                // ì „íˆ¬ ì¤‘ë‹¨ì´ë‚˜ ë‹¤ë¥¸ ì• ë‹ˆë©”ì´ì…˜ìœ¼ë¡œì˜ ì „í™˜ì„ í™•ì¸í•œë‹¤.
                 if (!CanContinue(boss) ||
                     visual == null ||
                     !visual.TryGetTraceWithdrawProgress(out float progress))
@@ -334,7 +338,7 @@ public sealed class BossAlienTracePattern : BossPattern
                     yield break;
                 }
 
-                // ¼³Á¤ ½Ã°£ÀÌ Âª¾Æµµ ¼Õ »©±â µ¿ÀÛÀ» Áß°£¿¡ ÀÚ¸£Áö ¾Ê´Â´Ù.
+                // ì„¤ì • ì‹œê°„ì´ ì§§ì•„ë„ ì† ë¹¼ê¸° ë™ì‘ì„ ì¤‘ê°„ì— ìë¥´ì§€ ì•ŠëŠ”ë‹¤.
                 if (progress >= 1f && recoveryElapsed >= _recoveryDuration)
                     break;
 
@@ -346,18 +350,18 @@ public sealed class BossAlienTracePattern : BossPattern
         {
             if (boss != null)
             {
-                // Áß´ÜµÈ ÆĞÅÏÀÌ ÀÌÈÄ ¿Ï·á ½ÅÈ£¸¦ ¹ŞÁö ¾Êµµ·Ï ¸ÕÀú ±¸µ¶À» ÇØÁ¦ÇÑ´Ù.
+                // ì¤‘ë‹¨ëœ íŒ¨í„´ì´ ì´í›„ ì™„ë£Œ ì‹ í˜¸ë¥¼ ë°›ì§€ ì•Šë„ë¡ ë¨¼ì € êµ¬ë…ì„ í•´ì œí•œë‹¤.
                 boss.SystemDialogueCompleted -= onDialogueCompleted;
 
-                // ÀÌ¹ø ÆĞÅÏÀÇ °æ°í°¡ ¾ÆÁ÷ ÁøÇà ÁßÀÌ¸é UI ¿¬Ãâµµ Ãë¼ÒÇÑ´Ù.
-                // ÀÌ¹Ì Á¤»ó Á¾·áµÈ °æ°í¿¡´Â Ãë¼Ò ¿äÃ»À» º¸³»Áö ¾Ê´Â´Ù.
+                // ì´ë²ˆ íŒ¨í„´ì˜ ê²½ê³ ê°€ ì•„ì§ ì§„í–‰ ì¤‘ì´ë©´ UI ì—°ì¶œë„ ì·¨ì†Œí•œë‹¤.
+                // ì´ë¯¸ ì •ìƒ ì¢…ë£Œëœ ê²½ê³ ì—ëŠ” ì·¨ì†Œ ìš”ì²­ì„ ë³´ë‚´ì§€ ì•ŠëŠ”ë‹¤.
                 if (dialogueRequested && !dialogueCompleted)
                 {
                     boss.CancelSystemDialogue();
                 }
             }
 
-            // Á¤»ó Á¾·á, º¸½º »ç¸Á, ÆĞÅÏ Ãë¼Ò ¸ğµÎ °°Àº ¹æ½ÄÀ¸·Î Á¤¸®ÇÑ´Ù.
+            // ì •ìƒ ì¢…ë£Œ, ë³´ìŠ¤ ì‚¬ë§, íŒ¨í„´ ì·¨ì†Œ ëª¨ë‘ ê°™ì€ ë°©ì‹ìœ¼ë¡œ ì •ë¦¬í•œë‹¤.
             for (int i = 0; i < positions.Length; i++)
             {
                 if (warnings[i] != null)
@@ -370,38 +374,38 @@ public sealed class BossAlienTracePattern : BossPattern
             if (beganAction && context.Rigidbody != null)
                 context.Rigidbody.linearVelocity = Vector2.zero;
 
-            // »ç¸Á »óÅÂ¿¡¼­´Â Ç¥Çö ÄÄÆ÷³ÍÆ®°¡ Idle º¹±Í¸¦ ¸·´Â´Ù.
+            // ì‚¬ë§ ìƒíƒœì—ì„œëŠ” í‘œí˜„ ì»´í¬ë„ŒíŠ¸ê°€ Idle ë³µê·€ë¥¼ ë§‰ëŠ”ë‹¤.
             if (beganAction && visual != null)
                 visual.EndAction();
         }
     }
 
-    // º¸½º ¶Ç´Â ÇÃ·¹ÀÌ¾î°¡ ÀüÅõ¸¦ °è¼ÓÇÒ ¼ö ÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
+    // ë³´ìŠ¤ ë˜ëŠ” í”Œë ˆì´ì–´ê°€ ì „íˆ¬ë¥¼ ê³„ì†í•  ìˆ˜ ìˆëŠ”ì§€ í™•ì¸í•œë‹¤.
     /// <summary>
-    /// º¸½º ¶Ç´Â ÇÃ·¹ÀÌ¾î°¡ ÀüÅõ¸¦ °è¼ÓÇÒ ¼ö ÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
+    /// ë³´ìŠ¤ ë˜ëŠ” í”Œë ˆì´ì–´ê°€ ì „íˆ¬ë¥¼ ê³„ì†í•  ìˆ˜ ìˆëŠ”ì§€ í™•ì¸í•œë‹¤.
     /// </summary>
     private static bool CanContinue(Boss_AlienBody boss)
     {
         return boss != null && boss.CanRunPhaseTwoPattern;
     }
 
-    // ´©¶ôµÈ ÇÁ¸®ÆÕ°ú Àß¸øµÈ ¼³Á¤°ªÀ» ½ÇÇà Àü¿¡ È®ÀÎÇÑ´Ù.
+    // ëˆ„ë½ëœ í”„ë¦¬íŒ¹ê³¼ ì˜ëª»ëœ ì„¤ì •ê°’ì„ ì‹¤í–‰ ì „ì— í™•ì¸í•œë‹¤.
     /// <summary>
-    /// ´©¶ôµÈ ÇÁ¸®ÆÕ°ú Àß¸øµÈ ¼³Á¤°ªÀ» ½ÇÇà Àü¿¡ È®ÀÎÇÑ´Ù.
+    /// ëˆ„ë½ëœ í”„ë¦¬íŒ¹ê³¼ ì˜ëª»ëœ ì„¤ì •ê°’ì„ ì‹¤í–‰ ì „ì— í™•ì¸í•œë‹¤.
     /// </summary>
     private void ValidateSettings()
     {
-        // ¹®±¸ ´©¶ôÀ¸·Î °æ°í ¾øÀÌ Æ¯¼öÆĞÅÏÀÌ ½ÃÀÛµÇÁö ¾Êµµ·Ï È®ÀÎÇÑ´Ù.
+        // ë¬¸êµ¬ ëˆ„ë½ìœ¼ë¡œ ê²½ê³  ì—†ì´ íŠ¹ìˆ˜íŒ¨í„´ì´ ì‹œì‘ë˜ì§€ ì•Šë„ë¡ í™•ì¸í•œë‹¤.
         if (string.IsNullOrWhiteSpace(_warningMessage))
         {
             throw new InvalidOperationException(
-                $"{name}: Warning Message¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
+                $"{name}: Warning Messageë¥¼ ì…ë ¥í•˜ì„¸ìš”.");
         }
 
         if (_warningPrefab == null || _clawPrefab == null)
         {
             throw new InvalidOperationException(
-                $"{name}: Warning Prefab°ú Claw PrefabÀ» ¿¬°áÇÏ¼¼¿ä.");
+                $"{name}: Warning Prefabê³¼ Claw Prefabì„ ì—°ê²°í•˜ì„¸ìš”.");
         }
 
         if (_recordCount < 1 || _damage < 0 ||
@@ -414,13 +418,13 @@ public sealed class BossAlienTracePattern : BossPattern
             !IsPositiveFinite(_radius))
         {
             throw new InvalidOperationException(
-                $"{name}: °³¼ö, ½Ã°£, ¹İ°æ, ÇÇÇØ ¼³Á¤À» È®ÀÎÇÏ¼¼¿ä.");
+                $"{name}: ê°œìˆ˜, ì‹œê°„, ë°˜ê²½, í”¼í•´ ì„¤ì •ì„ í™•ì¸í•˜ì„¸ìš”.");
         }
     }
 
-    // ½Ã°£°ú ¹İ°æÀº 0º¸´Ù Å« À¯ÇÑÇÑ °ª¸¸ Çã¿ëÇÑ´Ù.
+    // ì‹œê°„ê³¼ ë°˜ê²½ì€ 0ë³´ë‹¤ í° ìœ í•œí•œ ê°’ë§Œ í—ˆìš©í•œë‹¤.
     /// <summary>
-    /// ½Ã°£°ú ¹İ°æÀº 0º¸´Ù Å« À¯ÇÑÇÑ °ª¸¸ Çã¿ëÇÑ´Ù.
+    /// ì‹œê°„ê³¼ ë°˜ê²½ì€ 0ë³´ë‹¤ í° ìœ í•œí•œ ê°’ë§Œ í—ˆìš©í•œë‹¤.
     /// </summary>
     private static bool IsPositiveFinite(float value)
     {

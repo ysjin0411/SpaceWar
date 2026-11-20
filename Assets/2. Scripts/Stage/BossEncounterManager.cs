@@ -1,102 +1,102 @@
-using System;
+ï»¿using System;
 using UnityEngine;
 using System.Collections;
 using DG.Tweening;
 /// <summary>
-/// ½ºÅ×ÀÌÁö ÆäÀÌÁî¿¡ ¸ÂÃç Áß°£º¸½º¿Í ÃÖÁ¾º¸½º¸¦ »ı¼ºÇÑ´Ù.
-/// »ı¼ºÇÑ º¸½º¿¡°Ô ÇöÀç ÇÃ·¹ÀÌ¾î¿Í GameManager¸¦ Àü´ŞÇÑ´Ù.
+/// ìŠ¤í…Œì´ì§€ í˜ì´ì¦ˆì— ë§ì¶° ì¤‘ê°„ë³´ìŠ¤ì™€ ìµœì¢…ë³´ìŠ¤ë¥¼ ìƒì„±í•œë‹¤.
+/// ìƒì„±í•œ ë³´ìŠ¤ì—ê²Œ í˜„ì¬ í”Œë ˆì´ì–´ì™€ GameManagerë¥¼ ì „ë‹¬í•œë‹¤.
 /// </summary>
 public class BossEncounterManager : MonoBehaviour
 {
-    [Header("½ºÅ×ÀÌÁö ÁøÇà Á¤º¸")]
-    [Tooltip("ÇöÀç ½ºÅ×ÀÌÁö ÆäÀÌÁî¸¦ °ü¸®ÇÏ´Â StageFlowManager")]
+    [Header("ìŠ¤í…Œì´ì§€ ì§„í–‰ ì •ë³´")]
+    [Tooltip("í˜„ì¬ ìŠ¤í…Œì´ì§€ í˜ì´ì¦ˆë¥¼ ê´€ë¦¬í•˜ëŠ” StageFlowManager")]
     [SerializeField] StageFlowManager _stageFlowManager;
 
-    [Header("º¸½º ÇÁ¸®ÆÕ")]
-    [Tooltip("Áß°£º¸½º ÀüÅõ¿¡¼­ »ı¼ºÇÒ º¸½º ÇÁ¸®ÆÕ")]
+    [Header("ë³´ìŠ¤ í”„ë¦¬íŒ¹")]
+    [Tooltip("ì¤‘ê°„ë³´ìŠ¤ ì „íˆ¬ì—ì„œ ìƒì„±í•  ë³´ìŠ¤ í”„ë¦¬íŒ¹")]
     [SerializeField] BossEnemy _midBossPrefab;
 
-    [Tooltip("ÃÖÁ¾º¸½º ÀüÅõ¿¡¼­ »ı¼ºÇÒ º¸½º ÇÁ¸®ÆÕ")]
+    [Tooltip("ìµœì¢…ë³´ìŠ¤ ì „íˆ¬ì—ì„œ ìƒì„±í•  ë³´ìŠ¤ í”„ë¦¬íŒ¹")]
     [SerializeField] BossEnemy _finalBossPrefab;
 
-    [Header("º¸½º »ı¼º À§Ä¡")]
-    [Tooltip("Áß°£º¸½º¸¦ »ı¼ºÇÒ À§Ä¡")]
+    [Header("ë³´ìŠ¤ ìƒì„± ìœ„ì¹˜")]
+    [Tooltip("ì¤‘ê°„ë³´ìŠ¤ë¥¼ ìƒì„±í•  ìœ„ì¹˜")]
     [SerializeField] Transform _midBossSpawnPoint;
 
-    [Tooltip("ÃÖÁ¾º¸½º¸¦ »ı¼ºÇÒ À§Ä¡")]
+    [Tooltip("ìµœì¢…ë³´ìŠ¤ë¥¼ ìƒì„±í•  ìœ„ì¹˜")]
     [SerializeField] Transform _finalBossSpawnPoint;
 
-    // ³«ÇÏ ¿¬Ãâ ÄÄÆ÷³ÍÆ®°¡ ºÙ¾î ÀÖ´Â °øÅë TreasureBox ÇÁ¸®ÆÕÀÌ´Ù.
-    // µî±Şº° ¿ÜÇü ÇÁ¸®ÆÕÀÌ ¾Æ´Ï¶ó °øÅë º»Ã¼¸¦ ¿¬°áÇÑ´Ù.
+    // ë‚™í•˜ ì—°ì¶œ ì»´í¬ë„ŒíŠ¸ê°€ ë¶™ì–´ ìˆëŠ” ê³µí†µ TreasureBox í”„ë¦¬íŒ¹ì´ë‹¤.
+    // ë“±ê¸‰ë³„ ì™¸í˜• í”„ë¦¬íŒ¹ì´ ì•„ë‹ˆë¼ ê³µí†µ ë³¸ì²´ë¥¼ ì—°ê²°í•œë‹¤.
     [SerializeField]
     TreasureBoxEntrance _treasureBoxPrefab;
 
-    // ¾À¿¡ ¹èÄ¡ÇÑ »óÀÚ ÂøÁö ÁöÁ¡ÀÌ´Ù.
+    // ì”¬ì— ë°°ì¹˜í•œ ìƒì ì°©ì§€ ì§€ì ì´ë‹¤.
     [SerializeField]
     Transform _treasureBoxPoint;
 
-    // Áß°£º¸½º Ã³Ä¡ ½Ã »óÀÚ°¡ µîÀåÇÒ È®·üÀÌ´Ù.
-    // 0Àº µîÀåÇÏÁö ¾ÊÀ½, 1Àº ¹İµå½Ã µîÀåÇÔÀ» ÀÇ¹ÌÇÑ´Ù.
+    // ì¤‘ê°„ë³´ìŠ¤ ì²˜ì¹˜ ì‹œ ìƒìê°€ ë“±ì¥í•  í™•ë¥ ì´ë‹¤.
+    // 0ì€ ë“±ì¥í•˜ì§€ ì•ŠìŒ, 1ì€ ë°˜ë“œì‹œ ë“±ì¥í•¨ì„ ì˜ë¯¸í•œë‹¤.
     [SerializeField, Range(0f, 1f)]
     float _midBossTreasureChance = 1f;
 
-    // ÃÖÁ¾º¸½º Ã³Ä¡ ½Ã »óÀÚ°¡ µîÀåÇÒ È®·üÀÌ´Ù.
+    // ìµœì¢…ë³´ìŠ¤ ì²˜ì¹˜ ì‹œ ìƒìê°€ ë“±ì¥í•  í™•ë¥ ì´ë‹¤.
     [SerializeField, Range(0f, 1f)]
     float _finalBossTreasureChance = 1f;
 
-    // ÇöÀç »ı¼ºµÈ °øÅë »óÀÚ º»Ã¼´Ù.
-    // ÀÌÈÄ º¸»ó Áö±Ş°ú ÁøÇà Àç°³¸¦ ¿¬°áÇÒ ¶§ »ç¿ëÇÑ´Ù.
+    // í˜„ì¬ ìƒì„±ëœ ê³µí†µ ìƒì ë³¸ì²´ë‹¤.
+    // ì´í›„ ë³´ìƒ ì§€ê¸‰ê³¼ ì§„í–‰ ì¬ê°œë¥¼ ì—°ê²°í•  ë•Œ ì‚¬ìš©í•œë‹¤.
     TreasureBox _currentTreasureBox;
 
-    // »óÀÚÀÇ ¸ğµç º¸»óÀ» È¹µæÇÑ µÚ ´ÙÀ½ ÁøÇà±îÁö ±â´Ù¸®´Â ½Ã°£ÀÌ´Ù.
+    // ìƒìì˜ ëª¨ë“  ë³´ìƒì„ íšë“í•œ ë’¤ ë‹¤ìŒ ì§„í–‰ê¹Œì§€ ê¸°ë‹¤ë¦¬ëŠ” ì‹œê°„ì´ë‹¤.
     [SerializeField, Min(0f)]
     float _treasureRewardWaitSeconds = 2f;
 
-    // º¸»ó È¹µæ ÈÄ ´ë±â°¡ ³¡³ª¸é »óÀÚ°¡ ¼­¼­È÷ »ç¶óÁö´Â ½Ã°£ÀÌ´Ù.
+    // ë³´ìƒ íšë“ í›„ ëŒ€ê¸°ê°€ ëë‚˜ë©´ ìƒìê°€ ì„œì„œíˆ ì‚¬ë¼ì§€ëŠ” ì‹œê°„ì´ë‹¤.
     [SerializeField, Min(0.01f)]
     float _treasureExitDuration = 0.5f;
 
-    // Áß°£º¸½º°¡ Ã³À½ »ı¼ºµÇ´Â È­¸é ¹Û À§Ä¡´Ù.
+    // ì¤‘ê°„ë³´ìŠ¤ê°€ ì²˜ìŒ ìƒì„±ë˜ëŠ” í™”ë©´ ë°– ìœ„ì¹˜ë‹¤.
     [SerializeField] private Transform _midBossEntrancePoint;
 
-    // ÃÖÁ¾º¸½º°¡ Ã³À½ »ı¼ºµÇ´Â È­¸é ¹Û À§Ä¡´Ù.
+    // ìµœì¢…ë³´ìŠ¤ê°€ ì²˜ìŒ ìƒì„±ë˜ëŠ” í™”ë©´ ë°– ìœ„ì¹˜ë‹¤.
     [SerializeField] private Transform _finalBossEntrancePoint;
 
-    // È­¸é ¹Û¿¡¼­ ±âÁ¸ ÀüÅõ À§Ä¡±îÁö ÀÌµ¿ÇÏ´Â ½Ã°£ÀÌ´Ù.
+    // í™”ë©´ ë°–ì—ì„œ ê¸°ì¡´ ì „íˆ¬ ìœ„ì¹˜ê¹Œì§€ ì´ë™í•˜ëŠ” ì‹œê°„ì´ë‹¤.
     [SerializeField, Min(0.1f)] private float _bossEntranceDuration = 2f;
 
-    // ÀÔÀå Áß ½ÇÆĞÇÏ°Å³ª ¾ÀÀ» ³ª°¡¸é ÀÌµ¿ ¿¬ÃâÀ» Ãë¼ÒÇÑ´Ù.
+    // ì…ì¥ ì¤‘ ì‹¤íŒ¨í•˜ê±°ë‚˜ ì”¬ì„ ë‚˜ê°€ë©´ ì´ë™ ì—°ì¶œì„ ì·¨ì†Œí•œë‹¤.
     private Tween _bossEntranceTween;
 
-    // ½ÇÆĞÇÏ°Å³ª »óÀÚ¸¦ Á¤¸®ÇÒ ¶§ ´ë±â¸¦ Ãë¼ÒÇÏ±â À§ÇØ º¸°üÇÑ´Ù.
+    // ì‹¤íŒ¨í•˜ê±°ë‚˜ ìƒìë¥¼ ì •ë¦¬í•  ë•Œ ëŒ€ê¸°ë¥¼ ì·¨ì†Œí•˜ê¸° ìœ„í•´ ë³´ê´€í•œë‹¤.
     Coroutine _treasureRewardWaitCoroutine;
 
 
-    // StageManager°¡ »ı¼ºÇÑ ÇöÀç ÇÃ·¹ÀÌ¾î
+    // StageManagerê°€ ìƒì„±í•œ í˜„ì¬ í”Œë ˆì´ì–´
     PlayerController _playerController;
 
-    // ÇöÀç ½ºÅ×ÀÌÁöÀÇ GameManager
+    // í˜„ì¬ ìŠ¤í…Œì´ì§€ì˜ GameManager
     GameManager _gameManager;
 
-    // ÇöÀç ÀüÅõ ÁßÀÎ º¸½º
+    // í˜„ì¬ ì „íˆ¬ ì¤‘ì¸ ë³´ìŠ¤
     BossEnemy _currentBoss;
 
-    // StageManager·ÎºÎÅÍ ÇÊ¿äÇÑ ÂüÁ¶¸¦ Àü´Ş¹Ş¾Ò´ÂÁö È®ÀÎÇÑ´Ù.
+    // StageManagerë¡œë¶€í„° í•„ìš”í•œ ì°¸ì¡°ë¥¼ ì „ë‹¬ë°›ì•˜ëŠ”ì§€ í™•ì¸í•œë‹¤.
     bool _isInitialized;
 
-    // ¿ÜºÎ¿¡¼­ ÇöÀç º¸½º¸¦ È®ÀÎÇÒ ¶§ »ç¿ëÇÑ´Ù.
+    // ì™¸ë¶€ì—ì„œ í˜„ì¬ ë³´ìŠ¤ë¥¼ í™•ì¸í•  ë•Œ ì‚¬ìš©í•œë‹¤.
     public BossEnemy CurrentBoss => _currentBoss;
 
-    // ¿¡µğÅÍ°¡ ÀÌ ¾À¿¡ µî·ÏµÈ º¸½º ¹èÁ¤À» ÀĞÀ» ¶§ »ç¿ëÇÑ´Ù.
-    // ½ÇÁ¦ ÀüÅõÀÇ »ı¼º ¹æ½ÄÀº ±âÁ¸ ±×´ë·Î À¯ÁöÇÑ´Ù.
+    // ì—ë””í„°ê°€ ì´ ì”¬ì— ë“±ë¡ëœ ë³´ìŠ¤ ë°°ì •ì„ ì½ì„ ë•Œ ì‚¬ìš©í•œë‹¤.
+    // ì‹¤ì œ ì „íˆ¬ì˜ ìƒì„± ë°©ì‹ì€ ê¸°ì¡´ ê·¸ëŒ€ë¡œ ìœ ì§€í•œë‹¤.
     public BossEnemy MidBossPrefab => _midBossPrefab;
     public BossEnemy FinalBossPrefab => _finalBossPrefab;
 
-    // »õ º¸½º°¡ »ı¼ºµÇ¾úÀ» ¶§ »ı¼ºµÈ º¸½º¸¦ UI¿¡ Àü´ŞÇÑ´Ù.
+    // ìƒˆ ë³´ìŠ¤ê°€ ìƒì„±ë˜ì—ˆì„ ë•Œ ìƒì„±ëœ ë³´ìŠ¤ë¥¼ UIì— ì „ë‹¬í•œë‹¤.
     public event Action<BossEnemy> BossSpawned;
 
-    // °°Àº º¸½ºÀü¿¡¼­ ÆäÀÌÁî ÇÁ¸®ÆÕÀÌ ±³Ã¼µÆÀ» ¶§ »õ º¸½º¸¦ ¾Ë¸°´Ù.
-    // UI´Â ÃÖÃÊ µîÀå ¿¬ÃâÀ» ¹İº¹ÇÏÁö ¾Ê°í ±¸µ¶ ´ë»ó¸¸ º¯°æÇÑ´Ù.
+    // ê°™ì€ ë³´ìŠ¤ì „ì—ì„œ í˜ì´ì¦ˆ í”„ë¦¬íŒ¹ì´ êµì²´ëì„ ë•Œ ìƒˆ ë³´ìŠ¤ë¥¼ ì•Œë¦°ë‹¤.
+    // UIëŠ” ìµœì´ˆ ë“±ì¥ ì—°ì¶œì„ ë°˜ë³µí•˜ì§€ ì•Šê³  êµ¬ë… ëŒ€ìƒë§Œ ë³€ê²½í•œë‹¤.
     public event Action<BossEnemy> BossReplaced;
 
     private void Awake()
@@ -104,64 +104,64 @@ public class BossEncounterManager : MonoBehaviour
         if (_stageFlowManager == null)
         {
             throw new InvalidOperationException(
-                $"{name}ÀÇ BossEncounterManager¿¡ StageFlowManager°¡ ¿¬°áµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+                $"{name}ì˜ BossEncounterManagerì— StageFlowManagerê°€ ì—°ê²°ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
         }
 
         if (_midBossPrefab == null)
         {
             throw new InvalidOperationException(
-                $"{name}ÀÇ BossEncounterManager¿¡ Mid Boss PrefabÀÌ ¿¬°áµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+                $"{name}ì˜ BossEncounterManagerì— Mid Boss Prefabì´ ì—°ê²°ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
         }
 
         if (_finalBossPrefab == null)
         {
             throw new InvalidOperationException(
-                $"{name}ÀÇ BossEncounterManager¿¡ Final Boss PrefabÀÌ ¿¬°áµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+                $"{name}ì˜ BossEncounterManagerì— Final Boss Prefabì´ ì—°ê²°ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
         }
 
         if (_midBossSpawnPoint == null)
         {
             throw new InvalidOperationException(
-                $"{name}ÀÇ BossEncounterManager¿¡ Mid Boss Spawn Point°¡ ¿¬°áµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+                $"{name}ì˜ BossEncounterManagerì— Mid Boss Spawn Pointê°€ ì—°ê²°ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
         }
 
         if (_finalBossSpawnPoint == null)
         {
             throw new InvalidOperationException(
-                $"{name}ÀÇ BossEncounterManager¿¡ Final Boss Spawn Point°¡ ¿¬°áµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+                $"{name}ì˜ BossEncounterManagerì— Final Boss Spawn Pointê°€ ì—°ê²°ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
         }
 
-        // »óÀÚ »ı¼º¿¡ ÇÊ¿äÇÑ ÂüÁ¶°¡ ºüÁ³´Ù¸é ½ÃÀÛÇÒ ¶§ ¹Ù·Î ¾Ë¸°´Ù.
+        // ìƒì ìƒì„±ì— í•„ìš”í•œ ì°¸ì¡°ê°€ ë¹ ì¡Œë‹¤ë©´ ì‹œì‘í•  ë•Œ ë°”ë¡œ ì•Œë¦°ë‹¤.
         if (_treasureBoxPrefab == null || _treasureBoxPoint == null)
         {
             throw new InvalidOperationException(
-                $"{name}: Treasure Box Prefab°ú Treasure Box Point¸¦ ¿¬°áÇÏ¼¼¿ä.");
+                $"{name}: Treasure Box Prefabê³¼ Treasure Box Pointë¥¼ ì—°ê²°í•˜ì„¸ìš”.");
         }
 
-        // ±âÁ¸ SpawnPoint´Â µµÂø À§Ä¡ÀÌ°í, EntrancePoint´Â È­¸é ¹Û ½ÃÀÛ À§Ä¡´Ù.
+        // ê¸°ì¡´ SpawnPointëŠ” ë„ì°© ìœ„ì¹˜ì´ê³ , EntrancePointëŠ” í™”ë©´ ë°– ì‹œì‘ ìœ„ì¹˜ë‹¤.
         if (_midBossEntrancePoint == null || _finalBossEntrancePoint == null)
         {
             throw new InvalidOperationException(
-                $"{name}: Áß°£º¸½º¿Í ÃÖÁ¾º¸½ºÀÇ Entrance Point¸¦ ¿¬°áÇÏ¼¼¿ä.");
+                $"{name}: ì¤‘ê°„ë³´ìŠ¤ì™€ ìµœì¢…ë³´ìŠ¤ì˜ Entrance Pointë¥¼ ì—°ê²°í•˜ì„¸ìš”.");
         }
 
         if (_bossEntranceDuration <= 0f)
         {
             throw new InvalidOperationException(
-                $"{name}: º¸½º ÀÔÀå ½Ã°£Àº 0º¸´Ù Ä¿¾ß ÇÕ´Ï´Ù.");
+                $"{name}: ë³´ìŠ¤ ì…ì¥ ì‹œê°„ì€ 0ë³´ë‹¤ ì»¤ì•¼ í•©ë‹ˆë‹¤.");
         }
     }
 
     private void OnEnable()
     {
-        // ½ºÅ×ÀÌÁöÀÇ º¸½ºÀü ½ÃÀÛ°ú Á¾·á¸¦ ¹Ş´Â´Ù.
+        // ìŠ¤í…Œì´ì§€ì˜ ë³´ìŠ¤ì „ ì‹œì‘ê³¼ ì¢…ë£Œë¥¼ ë°›ëŠ”ë‹¤.
         if (_stageFlowManager != null)
         {
             _stageFlowManager.PhaseChanged += HandlePhaseChanged;
         }
 
-        // °ü¸®ÀÚ°¡ ´Ù½Ã È°¼ºÈ­µÆ´Ù¸é ÀüÅõ ÁßÀÎ º¸½º¿¡ Àç¿¬°áÇÑ´Ù.
-        // ¾ÆÁ÷ ÀÔÀå ÁßÀÎ º¸½º´Â ÀÔÀå ¿Ï·á ½Ã ¿¬°áÇÑ´Ù.
+        // ê´€ë¦¬ìê°€ ë‹¤ì‹œ í™œì„±í™”ëë‹¤ë©´ ì „íˆ¬ ì¤‘ì¸ ë³´ìŠ¤ì— ì¬ì—°ê²°í•œë‹¤.
+        // ì•„ì§ ì…ì¥ ì¤‘ì¸ ë³´ìŠ¤ëŠ” ì…ì¥ ì™„ë£Œ ì‹œ ì—°ê²°í•œë‹¤.
         if (_currentBoss != null && _currentBoss.HasBattleStarted)
         {
             BindBossEvents(_currentBoss);
@@ -170,22 +170,22 @@ public class BossEncounterManager : MonoBehaviour
 
     private void OnDisable()
     {
-        // ºñÈ°¼ºÈ­µÈ °ü¸®ÀÚ°¡ ½ºÅ×ÀÌÁö º¯°æÀ» Ã³¸®ÇÏÁö ¾Ê°Ô ÇÑ´Ù.
+        // ë¹„í™œì„±í™”ëœ ê´€ë¦¬ìê°€ ìŠ¤í…Œì´ì§€ ë³€ê²½ì„ ì²˜ë¦¬í•˜ì§€ ì•Šê²Œ í•œë‹¤.
         if (_stageFlowManager != null)
         {
             _stageFlowManager.PhaseChanged -= HandlePhaseChanged;
         }
 
-        // º¸½º°¡ ³²¾Æ ÀÖ¾îµµ ºñÈ°¼ºÈ­µÈ °ü¸®ÀÚ·Î ¿äÃ»ÀÌ ¿ÀÁö ¾Ê°Ô ÇÑ´Ù.
+        // ë³´ìŠ¤ê°€ ë‚¨ì•„ ìˆì–´ë„ ë¹„í™œì„±í™”ëœ ê´€ë¦¬ìë¡œ ìš”ì²­ì´ ì˜¤ì§€ ì•Šê²Œ í•œë‹¤.
         UnbindBossEvents(_currentBoss);
 
-        // ÁøÇà ÁßÀÌ´ø ÃÖÃÊ ÀÔÀå ¿¬ÃâÀ» Ãë¼ÒÇÑ´Ù.
+        // ì§„í–‰ ì¤‘ì´ë˜ ìµœì´ˆ ì…ì¥ ì—°ì¶œì„ ì·¨ì†Œí•œë‹¤.
         CancelBossEntrance();
     }
 
     /// <summary>
-    /// StageManager°¡ ÇÃ·¹ÀÌ¾î »ı¼º ÈÄ È£ÃâÇÑ´Ù.
-    /// »ı¼ºµÉ º¸½º°¡ »ç¿ëÇÒ ÇöÀç ÇÃ·¹ÀÌ¾î¿Í GameManager¸¦ Àü´ŞÇÑ´Ù.
+    /// StageManagerê°€ í”Œë ˆì´ì–´ ìƒì„± í›„ í˜¸ì¶œí•œë‹¤.
+    /// ìƒì„±ë  ë³´ìŠ¤ê°€ ì‚¬ìš©í•  í˜„ì¬ í”Œë ˆì´ì–´ì™€ GameManagerë¥¼ ì „ë‹¬í•œë‹¤.
     /// </summary>
     public void Initialize(
         PlayerController playerController,
@@ -207,14 +207,14 @@ public class BossEncounterManager : MonoBehaviour
     }
 
     /// <summary>
-    /// º¸½º ÀüÅõ ÆäÀÌÁî°¡ ½ÃÀÛµÇ¸é ÇØ´ç º¸½º¸¦ »ı¼ºÇÑ´Ù.
+    /// ë³´ìŠ¤ ì „íˆ¬ í˜ì´ì¦ˆê°€ ì‹œì‘ë˜ë©´ í•´ë‹¹ ë³´ìŠ¤ë¥¼ ìƒì„±í•œë‹¤.
     /// </summary>
     private void HandlePhaseChanged(StagePhase phase)
     {
         switch (phase)
         {
             case StagePhase.MidBossBattle:
-                // È­¸é ¹Û ½ÃÀÛ À§Ä¡¿¡¼­ ±âÁ¸ Áß°£º¸½º À§Ä¡±îÁö ÀÔÀåÇÑ´Ù.
+                // í™”ë©´ ë°– ì‹œì‘ ìœ„ì¹˜ì—ì„œ ê¸°ì¡´ ì¤‘ê°„ë³´ìŠ¤ ìœ„ì¹˜ê¹Œì§€ ì…ì¥í•œë‹¤.
                 SpawnBoss(
                     _midBossPrefab,
                     _midBossSpawnPoint,
@@ -222,57 +222,59 @@ public class BossEncounterManager : MonoBehaviour
                 break;
 
             case StagePhase.FinalBossBattle:
-                // È­¸é ¹Û ½ÃÀÛ À§Ä¡¿¡¼­ ±âÁ¸ ÃÖÁ¾º¸½º À§Ä¡±îÁö ÀÔÀåÇÑ´Ù.
+                // í™”ë©´ ë°– ì‹œì‘ ìœ„ì¹˜ì—ì„œ ê¸°ì¡´ ìµœì¢…ë³´ìŠ¤ ìœ„ì¹˜ê¹Œì§€ ì…ì¥í•œë‹¤.
                 SpawnBoss(
                     _finalBossPrefab,
                     _finalBossSpawnPoint,
                     _finalBossEntrancePoint);
                 break;
 
-            // »óÀÚ ÁøÇà Áß ÇÃ·¹ÀÌ¾î°¡ Á×°Å³ª ½ºÅ×ÀÌÁö°¡ Á¾·áµÇ¸é »óÀÚ¸¦ Á¦°ÅÇÑ´Ù.
+            // ìƒì ì§„í–‰ ì¤‘ í”Œë ˆì´ì–´ê°€ ì£½ê±°ë‚˜ ìŠ¤í…Œì´ì§€ê°€ ì¢…ë£Œë˜ë©´ ìƒìë¥¼ ì œê±°í•œë‹¤.
             case StagePhase.Failed:
             case StagePhase.Cleared:
-                // ½ÇÆĞ ¶Ç´Â Á¾·á ½Ã ÀÔÀå ÁßÀÎ º¸½º°¡ µÚ´Ê°Ô ÀüÅõ¸¦ ½ÃÀÛÇÏÁö ¾Ê°Ô ÇÑ´Ù.
+                // ì‹¤íŒ¨ ë˜ëŠ” ì¢…ë£Œ ì‹œ ì…ì¥ ì¤‘ì¸ ë³´ìŠ¤ê°€ ë’¤ëŠ¦ê²Œ ì „íˆ¬ë¥¼ ì‹œì‘í•˜ì§€ ì•Šê²Œ í•œë‹¤.
                 CancelBossEntrance();
 
-                // ±âÁ¸ º¸¹°»óÀÚ Á¤¸®µµ À¯ÁöÇÑ´Ù.
+                // ê¸°ì¡´ ë³´ë¬¼ìƒì ì •ë¦¬ë„ ìœ ì§€í•œë‹¤.
                 ClearTreasureBox();
                 break;
         }
     }
 
-    // ÇöÀç º¸½ºÀÇ ÃÖÁ¾ Ã³Ä¡¿Í ÆäÀÌÁî ±³Ã¼ ¿äÃ»À» ÇÔ²² ±¸µ¶ÇÑ´Ù.
+    // í˜„ì¬ ë³´ìŠ¤ì˜ ìµœì¢… ì²˜ì¹˜ì™€ í˜ì´ì¦ˆ êµì²´ ìš”ì²­ì„ í•¨ê»˜ êµ¬ë…í•œë‹¤.
     private void BindBossEvents(BossEnemy boss)
     {
         if (boss == null)
             return;
 
-        // Àç¿¬°á ½Ã °°Àº ÇÔ¼ö°¡ Áßº¹ ±¸µ¶µÇÁö ¾Êµµ·Ï ¸ÕÀú ÇØÁ¦ÇÑ´Ù.
+        // ì¬ì—°ê²° ì‹œ ê°™ì€ í•¨ìˆ˜ê°€ ì¤‘ë³µ êµ¬ë…ë˜ì§€ ì•Šë„ë¡ ë¨¼ì € í•´ì œí•œë‹¤.
         UnbindBossEvents(boss);
 
         boss.Defeated += HandleBossDefeated;
+        boss.DeathAnimationCompleted += HandleBossDeathAnimationCompleted;
         boss.PhaseReplacementRequested += HandlePhaseReplacementRequested;
     }
 
-    // ÀÌÀü º¸½º³ª ºñÈ°¼ºÈ­µÈ °ü¸®ÀÚÀÇ ÀÌº¥Æ® ¿¬°áÀ» Á¤¸®ÇÑ´Ù.
+    // ì´ì „ ë³´ìŠ¤ë‚˜ ë¹„í™œì„±í™”ëœ ê´€ë¦¬ìì˜ ì´ë²¤íŠ¸ ì—°ê²°ì„ ì •ë¦¬í•œë‹¤.
     private void UnbindBossEvents(BossEnemy boss)
     {
         if (boss == null)
             return;
 
         boss.Defeated -= HandleBossDefeated;
+        boss.DeathAnimationCompleted -= HandleBossDeathAnimationCompleted;
         boss.PhaseReplacementRequested -= HandlePhaseReplacementRequested;
     }
 
-    // ÀÌÀü ÆäÀÌÁîÀÇ ¿¬ÃâÀÌ ³¡³ª¸é »õ ÇÁ¸®ÆÕÀ¸·Î ÀüÅõ ´ë»óÀ» ±³Ã¼ÇÑ´Ù.
+    // ì´ì „ í˜ì´ì¦ˆì˜ ì—°ì¶œì´ ëë‚˜ë©´ ìƒˆ í”„ë¦¬íŒ¹ìœ¼ë¡œ ì „íˆ¬ ëŒ€ìƒì„ êµì²´í•œë‹¤.
     private void HandlePhaseReplacementRequested(
         BossEnemy previousBoss,
         BossEnemy nextPhasePrefab,
         Vector3 spawnPosition,
         Quaternion spawnRotation)
     {
-        // ÇöÀç °ü¸® ÁßÀÎ »ì¾Æ ÀÖ´Â º¸½ºÀÇ ¿äÃ»¸¸ Ã³¸®ÇÑ´Ù.
-        // ±³Ã¼ ÈÄ ´Ê°Ô µµÂøÇÑ ÀÌÀü º¸½ºÀÇ ¿äÃ»Àº ¿©±â¼­ Á¦¿ÜµÈ´Ù.
+        // í˜„ì¬ ê´€ë¦¬ ì¤‘ì¸ ì‚´ì•„ ìˆëŠ” ë³´ìŠ¤ì˜ ìš”ì²­ë§Œ ì²˜ë¦¬í•œë‹¤.
+        // êµì²´ í›„ ëŠ¦ê²Œ ë„ì°©í•œ ì´ì „ ë³´ìŠ¤ì˜ ìš”ì²­ì€ ì—¬ê¸°ì„œ ì œì™¸ëœë‹¤.
         if (!isActiveAndEnabled ||
             !_isInitialized ||
             previousBoss == null ||
@@ -285,7 +287,7 @@ public class BossEncounterManager : MonoBehaviour
             return;
         }
 
-        // ½ÇÆĞÇÏ°Å³ª ³¡³­ º¸½ºÀü¿¡¼­´Â ´ÙÀ½ ÆäÀÌÁî¸¦ »ı¼ºÇÏÁö ¾Ê´Â´Ù.
+        // ì‹¤íŒ¨í•˜ê±°ë‚˜ ëë‚œ ë³´ìŠ¤ì „ì—ì„œëŠ” ë‹¤ìŒ í˜ì´ì¦ˆë¥¼ ìƒì„±í•˜ì§€ ì•ŠëŠ”ë‹¤.
         StagePhase phase = _stageFlowManager.CurrentPhase;
 
         if (phase != StagePhase.MidBossBattle &&
@@ -294,7 +296,7 @@ public class BossEncounterManager : MonoBehaviour
             return;
         }
 
-        // ÀüÈ¯ ¿¬Ãâ Áß ÇÃ·¹ÀÌ¾î°¡ »ç¸ÁÇÑ °æ¿ìµµ Á¦¿ÜÇÑ´Ù.
+        // ì „í™˜ ì—°ì¶œ ì¤‘ í”Œë ˆì´ì–´ê°€ ì‚¬ë§í•œ ê²½ìš°ë„ ì œì™¸í•œë‹¤.
         if (_playerController == null ||
             !_playerController.isActiveAndEnabled ||
             _playerController.IsDead)
@@ -302,14 +304,14 @@ public class BossEncounterManager : MonoBehaviour
             return;
         }
 
-        // Àß¸øµÈ ÇÁ¸®ÆÕ ÂüÁ¶¸¦ ¸íÈ®ÇÏ°Ô ¾Ë¸°´Ù.
+        // ì˜ëª»ëœ í”„ë¦¬íŒ¹ ì°¸ì¡°ë¥¼ ëª…í™•í•˜ê²Œ ì•Œë¦°ë‹¤.
         if (nextPhasePrefab == null)
         {
             throw new InvalidOperationException(
-                $"{name}: ´ÙÀ½ ÆäÀÌÁî ÇÁ¸®ÆÕÀÌ ¾ø½À´Ï´Ù.");
+                $"{name}: ë‹¤ìŒ í˜ì´ì¦ˆ í”„ë¦¬íŒ¹ì´ ì—†ìŠµë‹ˆë‹¤.");
         }
 
-        // ÃÖÃÊ ÀÔÀå ÀÌµ¿ ¾øÀÌ ÁöÁ¤µÈ À§Ä¡¿¡ ´ÙÀ½ ÆäÀÌÁî¸¦ »ı¼ºÇÑ´Ù.
+        // ìµœì´ˆ ì…ì¥ ì´ë™ ì—†ì´ ì§€ì •ëœ ìœ„ì¹˜ì— ë‹¤ìŒ í˜ì´ì¦ˆë¥¼ ìƒì„±í•œë‹¤.
         BossEnemy nextBoss = Instantiate(
             nextPhasePrefab,
             spawnPosition,
@@ -317,14 +319,14 @@ public class BossEncounterManager : MonoBehaviour
 
         Rigidbody2D nextBody = nextBoss.GetComponent<Rigidbody2D>();
 
-        // ¹°¸® Ãæµ¹Àº ÃÊ±âÈ­¿Í ¿ÜºÎ ÂüÁ¶ ±³Ã¼°¡ ³¡³­ µÚ Çã¿ëÇÑ´Ù.
-        // ÃÊ±âÈ­ ½ÇÆĞ ½Ã¿¡´Â »õ ¿ÀºêÁ§Æ®¸¦ Á¤¸®ÇÏ°í ÀÌÀü º¸½º¸¦ À¯ÁöÇÑ´Ù.
+        // ë¬¼ë¦¬ ì¶©ëŒì€ ì´ˆê¸°í™”ì™€ ì™¸ë¶€ ì°¸ì¡° êµì²´ê°€ ëë‚œ ë’¤ í—ˆìš©í•œë‹¤.
+        // ì´ˆê¸°í™” ì‹¤íŒ¨ ì‹œì—ëŠ” ìƒˆ ì˜¤ë¸Œì íŠ¸ë¥¼ ì •ë¦¬í•˜ê³  ì´ì „ ë³´ìŠ¤ë¥¼ ìœ ì§€í•œë‹¤.
         try
         {
             if (nextBody == null)
             {
                 throw new MissingComponentException(
-                    $"{nextBoss.name}: Rigidbody2D°¡ ¾ø½À´Ï´Ù.");
+                    $"{nextBoss.name}: Rigidbody2Dê°€ ì—†ìŠµë‹ˆë‹¤.");
             }
 
             nextBody.simulated = false;
@@ -336,27 +338,27 @@ public class BossEncounterManager : MonoBehaviour
         }
         catch
         {
-            // »ı¼ºµÈ º»Ã¼°¡ ºÒ¿ÏÀüÇÑ »óÅÂ·Î ¾À¿¡ ³²Áö ¾Ê°Ô ÇÑ´Ù.
+            // ìƒì„±ëœ ë³¸ì²´ê°€ ë¶ˆì™„ì „í•œ ìƒíƒœë¡œ ì”¬ì— ë‚¨ì§€ ì•Šê²Œ í•œë‹¤.
             nextBoss.gameObject.SetActive(false);
             Destroy(nextBoss.gameObject);
             throw;
         }
 
-        // ÁØºñµÈ º»Ã¼·Î °ü¸®ÀÚ ÂüÁ¶¿Í ÀÌº¥Æ® ¿¬°áÀ» ³Ñ±ä´Ù.
+        // ì¤€ë¹„ëœ ë³¸ì²´ë¡œ ê´€ë¦¬ì ì°¸ì¡°ì™€ ì´ë²¤íŠ¸ ì—°ê²°ì„ ë„˜ê¸´ë‹¤.
         UnbindBossEvents(previousBoss);
         _currentBoss = nextBoss;
         BindBossEvents(nextBoss);
 
-        // ÀÌÀü ·Îº¿Àº ÃÖÁ¾ »ç¸Á ÇÔ¼ö¸¦ È£ÃâÇÏÁö ¾Ê°í Á¦°ÅÇÑ´Ù.
-        // µû¶ó¼­ °æÇèÄ¡, µå·Ó, º¸½ºÀü Á¾·á ÀÌº¥Æ®°¡ ¹ß»ıÇÏÁö ¾Ê´Â´Ù.
+        // ì´ì „ ë¡œë´‡ì€ ìµœì¢… ì‚¬ë§ í•¨ìˆ˜ë¥¼ í˜¸ì¶œí•˜ì§€ ì•Šê³  ì œê±°í•œë‹¤.
+        // ë”°ë¼ì„œ ê²½í—˜ì¹˜, ë“œë¡­, ë³´ìŠ¤ì „ ì¢…ë£Œ ì´ë²¤íŠ¸ê°€ ë°œìƒí•˜ì§€ ì•ŠëŠ”ë‹¤.
         previousBoss.gameObject.SetActive(false);
         Destroy(previousBoss.gameObject);
 
-        // UI¿Í ´Ù¸¥ ½Ã½ºÅÛÀÌ »õ º¸½º·Î ±¸µ¶ ´ë»óÀ» º¯°æÇÏ°Ô ÇÑ´Ù.
-        // »õ º¸½º´Â ÀÌ¹Ì ÃÊ±âÈ­µÆÀ¸¹Ç·Î ÇöÀç Ã¼·ÂÀ» ¹Ù·Î ÀĞÀ» ¼ö ÀÖ´Ù.
+        // UIì™€ ë‹¤ë¥¸ ì‹œìŠ¤í…œì´ ìƒˆ ë³´ìŠ¤ë¡œ êµ¬ë… ëŒ€ìƒì„ ë³€ê²½í•˜ê²Œ í•œë‹¤.
+        // ìƒˆ ë³´ìŠ¤ëŠ” ì´ë¯¸ ì´ˆê¸°í™”ëìœ¼ë¯€ë¡œ í˜„ì¬ ì²´ë ¥ì„ ë°”ë¡œ ì½ì„ ìˆ˜ ìˆë‹¤.
         BossReplaced?.Invoke(nextBoss);
 
-        // ¾Ë¸² Ã³¸® Áß ÀüÅõ°¡ Áß´ÜµÆÀ¸¸é ¹°¸® Ãæµ¹À» Àç°³ÇÏÁö ¾Ê´Â´Ù.
+        // ì•Œë¦¼ ì²˜ë¦¬ ì¤‘ ì „íˆ¬ê°€ ì¤‘ë‹¨ëìœ¼ë©´ ë¬¼ë¦¬ ì¶©ëŒì„ ì¬ê°œí•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (isActiveAndEnabled &&
             _currentBoss == nextBoss &&
             nextBoss != null &&
@@ -379,44 +381,59 @@ public class BossEncounterManager : MonoBehaviour
         if (!_isInitialized)
         {
             throw new InvalidOperationException(
-                "BossEncounterManager°¡ ÃÊ±âÈ­µÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+                "BossEncounterManagerê°€ ì´ˆê¸°í™”ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
         }
 
-        // ÀÔÀå ÁßÀÎ º¸½ºµµ ÇöÀç º¸½º·Î Ãë±ŞÇÏ¿© Áßº¹ »ı¼ºÀ» ¸·´Â´Ù.
+        // ì…ì¥ ì¤‘ì¸ ë³´ìŠ¤ë„ í˜„ì¬ ë³´ìŠ¤ë¡œ ì·¨ê¸‰í•˜ì—¬ ì¤‘ë³µ ìƒì„±ì„ ë§‰ëŠ”ë‹¤.
         if (_currentBoss != null && !_currentBoss.IsDead)
         {
             return;
         }
 
-        // ±âÁ¸ SpawnPointÀÇ À§Ä¡¸¦ µµÂø À§Ä¡·Î º¸°üÇÑ´Ù.
+        // ê¸°ì¡´ SpawnPointì˜ ìœ„ì¹˜ë¥¼ ë„ì°© ìœ„ì¹˜ë¡œ ë³´ê´€í•œë‹¤.
         Vector3 destination = battlePoint.position;
 
-        // ¾î´À ÀüÅõ ´Ü°è¿¡¼­ ½ÃÀÛÇÑ ÀÔÀåÀÎÁö ±â·ÏÇÑ´Ù.
+        // ì–´ëŠ ì „íˆ¬ ë‹¨ê³„ì—ì„œ ì‹œì‘í•œ ì…ì¥ì¸ì§€ ê¸°ë¡í•œë‹¤.
         StagePhase entrancePhase = _stageFlowManager.CurrentPhase;
 
-        // º¸½º´Â È­¸é ¹Û¿¡¼­ »ı¼ºÇÑ´Ù.
+        // ë³´ìŠ¤ëŠ” í™”ë©´ ë°–ì—ì„œ ìƒì„±í•œë‹¤.
         BossEnemy enteringBoss = Instantiate(
             bossPrefab,
             entrancePoint.position,
             battlePoint.rotation);
 
+        // ì—ì¼ë¦¬ì–¸ì€ í™”ë©´ ì•ˆì˜ ì „íˆ¬ ë„ì°© ìœ„ì¹˜ì—ì„œ í˜ì´ì¦ˆ ì „í™˜ì„ ì¬ìƒí•œë‹¤.
+        if (enteringBoss is Boss_Alien alien)
+        {
+            alien.SetPhaseTransitionPosition(destination);
+        }
+
         _currentBoss = enteringBoss;
+
+        // í™”ë©´ ë°–ì—ì„œ ì§„ì…ì„ ì‹œì‘í•˜ëŠ” ìˆœê°„, ë³´ìŠ¤ë³„ ë“±ì¥ìŒì„ í•œ ë²ˆ ì¬ìƒí•œë‹¤.
+        // ì†Œìœ  ë³´ìŠ¤ê°€ ì œê±°ë˜ë©´ ì¤‘ë‹¨ë˜ì–´ ì·¨ì†Œëœ ì…ì¥ì˜ ì†Œë¦¬ê°€ ë‚¨ì§€ ì•ŠëŠ”ë‹¤.
+        if (enteringBoss is Boss_Head)
+            GameAudio.PlayOwned(GameSound.HeadIntro, enteringBoss);
+        else if (enteringBoss is Boss_Cruiser)
+            GameAudio.PlayOwned(GameSound.CruiserIntro, enteringBoss);
+        else if (enteringBoss is Boss_Alien)
+            GameAudio.PlayOwned(GameSound.AlienRobotIntro, enteringBoss);
 
         Rigidbody2D body = enteringBoss.GetComponent<Rigidbody2D>();
 
-        // ÀÔÀå Áß¿¡´Â ÀÚ½Ä Å¸¿ö¸¦ Æ÷ÇÔÇÑ ¹°¸® Ãæµ¹À» ºñÈ°¼ºÈ­ÇÑ´Ù.
-        // ColliderÀÇ °³º° enabled »óÅÂ´Â º¯°æÇÏÁö ¾Ê´Â´Ù.
+        // ì…ì¥ ì¤‘ì—ëŠ” ìì‹ íƒ€ì›Œë¥¼ í¬í•¨í•œ ë¬¼ë¦¬ ì¶©ëŒì„ ë¹„í™œì„±í™”í•œë‹¤.
+        // Colliderì˜ ê°œë³„ enabled ìƒíƒœëŠ” ë³€ê²½í•˜ì§€ ì•ŠëŠ”ë‹¤.
         body.simulated = false;
 
-        // Initialize¸¦ ¾ÆÁ÷ È£ÃâÇÏÁö ¾Ê¾ÒÀ¸¹Ç·Î
-        // º¸½º ÀÌµ¿°ú ÆĞÅÏ, Å©·çÀú Å¸¿öÀÇ °ø°İ ½Ã°£Àº ½ÃÀÛµÇÁö ¾Ê´Â´Ù.
+        // Initializeë¥¼ ì•„ì§ í˜¸ì¶œí•˜ì§€ ì•Šì•˜ìœ¼ë¯€ë¡œ
+        // ë³´ìŠ¤ ì´ë™ê³¼ íŒ¨í„´, í¬ë£¨ì € íƒ€ì›Œì˜ ê³µê²© ì‹œê°„ì€ ì‹œì‘ë˜ì§€ ì•ŠëŠ”ë‹¤.
         _bossEntranceTween = enteringBoss.transform
             .DOMove(destination, _bossEntranceDuration)
             .SetEase(Ease.OutSine)
             .SetLink(enteringBoss.gameObject)
             .OnComplete(() =>
             {
-                // ÀÔÀå µµÁß ÀüÅõ°¡ ³¡³µ°Å³ª ÇÃ·¹ÀÌ¾î°¡ Á×¾ú´Ù¸é ½ÃÀÛÇÏÁö ¾Ê´Â´Ù.
+                // ì…ì¥ ë„ì¤‘ ì „íˆ¬ê°€ ëë‚¬ê±°ë‚˜ í”Œë ˆì´ì–´ê°€ ì£½ì—ˆë‹¤ë©´ ì‹œì‘í•˜ì§€ ì•ŠëŠ”ë‹¤.
                 if (!isActiveAndEnabled ||
                     enteringBoss == null ||
                     _currentBoss != enteringBoss ||
@@ -429,81 +446,107 @@ public class BossEncounterManager : MonoBehaviour
 
                 _bossEntranceTween = null;
 
-                // Rigidbody À§Ä¡µµ µµÂø À§Ä¡·Î ¸ÂÃá´Ù.
-                // ÀÌÈÄ ÀÏ¹İ ÀÌµ¿ÀÇ ±âÁØÁ¡ÀÌ ÀÌ À§Ä¡°¡ µÈ´Ù.
+                // Rigidbody ìœ„ì¹˜ë„ ë„ì°© ìœ„ì¹˜ë¡œ ë§ì¶˜ë‹¤.
+                // ì´í›„ ì¼ë°˜ ì´ë™ì˜ ê¸°ì¤€ì ì´ ì´ ìœ„ì¹˜ê°€ ëœë‹¤.
                 body.position = new Vector2(
                     destination.x,
                     destination.y);
 
-                // ÃÖÃÊ º¸½ºµµ ÃÖÁ¾ Ã³Ä¡¿Í ÆäÀÌÁî ±³Ã¼ ¿äÃ»À» ¸ğµÎ ¿¬°áÇÑ´Ù.
+                // ìµœì´ˆ ë³´ìŠ¤ë„ ìµœì¢… ì²˜ì¹˜ì™€ í˜ì´ì¦ˆ êµì²´ ìš”ì²­ì„ ëª¨ë‘ ì—°ê²°í•œë‹¤.
                 BindBossEvents(enteringBoss);
 
-                // Ã¼·Â ÃÊ±â ¾Ë¸²À» ¹ŞÀ» ¼ö ÀÖµµ·Ï UI¸¦ ¸ÕÀú ¿¬°áÇÑ´Ù.
+                // ì²´ë ¥ ì´ˆê¸° ì•Œë¦¼ì„ ë°›ì„ ìˆ˜ ìˆë„ë¡ UIë¥¼ ë¨¼ì € ì—°ê²°í•œë‹¤.
                 if (BossSpawned != null)
                 {
                     BossSpawned.Invoke(enteringBoss);
                 }
 
-                // µµÂø ÈÄ¿¡¸¸ ÀÌµ¿°ú ÆĞÅÏ, Å¸¿öº° °ø°İ ½Ã°£À» ½ÃÀÛÇÑ´Ù.
+                // ë„ì°© í›„ì—ë§Œ ì´ë™ê³¼ íŒ¨í„´, íƒ€ì›Œë³„ ê³µê²© ì‹œê°„ì„ ì‹œì‘í•œë‹¤.
                 enteringBoss.Initialize(
                     _playerController,
                     _gameManager);
+                if (enteringBoss is Boss_Dog) GameAudio.Play(GameSound.DogIntroGrowl); // ì‹¤ì œ ì „íˆ¬ ì‹œì‘.
 
-                // °¢ ColliderÀÇ ±âÁ¸ È°¼º »óÅÂ¸¦ À¯ÁöÇÏ¸ç ¹°¸® Âü¿©¸¦ Àç°³ÇÑ´Ù.
-                // Å©·çÀúÀÇ 1ÆäÀÌÁî º»Ã¼ Collider´Â °è¼Ó ²¨Á® ÀÖ´Ù.
+                // ê° Colliderì˜ ê¸°ì¡´ í™œì„± ìƒíƒœë¥¼ ìœ ì§€í•˜ë©° ë¬¼ë¦¬ ì°¸ì—¬ë¥¼ ì¬ê°œí•œë‹¤.
+                // í¬ë£¨ì €ì˜ 1í˜ì´ì¦ˆ ë³¸ì²´ ColliderëŠ” ê³„ì† êº¼ì ¸ ìˆë‹¤.
                 body.simulated = true;
             });
     }
 
-    // º¸½º »ç¸Á ¾Ö´Ï¸ŞÀÌ¼ÇÀÌ ³¡³µÀ» ¶§ È£ÃâµÈ´Ù.
-    // »óÀÚ°¡ ³ª¿À¸é ´ÙÀ½ ´Ü°è·Î ³Ñ¾î°¡Áö ¾Ê°í º¸½º ÀüÅõ »óÅÂ¸¦ À¯ÁöÇÑ´Ù.
-    private void HandleBossDefeated(BossEnemy defeatedBoss)
+    /// <summary>
+    /// í˜„ì¬ ë³´ìŠ¤ì˜ ì‚¬ë§ ì—°ì¶œì´ ëë‚˜ë©´ ê°™ì€ ì”¬ì˜ ë‚¨ì€ ì¼ë°˜ ì ì„ ì •ë¦¬í•œë‹¤.
+    /// </summary>
+    private void HandleBossDeathAnimationCompleted(BossEnemy defeatedBoss)
     {
-        // ÇöÀç °ü¸® ÁßÀÎ º¸½ºÀÇ À¯È¿ÇÑ »ç¸Á ¾Ë¸²¸¸ Ã³¸®ÇÑ´Ù.
+        // êµì²´ëœ ì´ì „ ë³´ìŠ¤ë‚˜ ë‹¤ë¥¸ ì „íˆ¬ì˜ ì•Œë¦¼ì€ ì²˜ë¦¬í•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (defeatedBoss == null || defeatedBoss != _currentBoss)
         {
             return;
         }
 
-        // ÃÖÁ¾ Ã³Ä¡°¡ ¿Ï·áµÈ º¸½ºÀÇ ¸ğµç °ü¸®ÀÚ ±¸µ¶À» ÇØÁ¦ÇÑ´Ù.
+        // ë³´ìŠ¤ ì¢…ë£Œ ì‹œ í•œ ë²ˆë§Œ íƒìƒ‰í•˜ë©°, ë¹„í™œì„± í’€ ê°ì²´ì™€ ì •ë ¬ ë¹„ìš©ì„ ì œì™¸í•œë‹¤.
+        Enemy[] enemies = FindObjectsByType<Enemy>(
+            FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+
+        foreach (Enemy enemy in enemies)
+        {
+            // ë‹¤ë¥¸ ì”¬ì˜ ì ì€ ìœ ì§€í•˜ê³  í˜„ì¬ ì „íˆ¬ì— ë‚¨ì€ ì ë§Œ í­ë°œì‹œí‚¨ë‹¤.
+            if (enemy != null && enemy.gameObject.scene == defeatedBoss.gameObject.scene)
+            {
+                enemy.DefeatAfterBossDeath();
+            }
+        }
+    }
+
+    // ë³´ìŠ¤ ì‚¬ë§ ì—°ì¶œê³¼ ë“œë¡­ íšŒìˆ˜ê°€ ëë‚¬ì„ ë•Œ í˜¸ì¶œëœë‹¤.
+    // ìƒìê°€ ë‚˜ì˜¤ë©´ ë‹¤ìŒ ë‹¨ê³„ë¡œ ë„˜ì–´ê°€ì§€ ì•Šê³  ë³´ìŠ¤ ì „íˆ¬ ìƒíƒœë¥¼ ìœ ì§€í•œë‹¤.
+    private void HandleBossDefeated(BossEnemy defeatedBoss)
+    {
+        // í˜„ì¬ ê´€ë¦¬ ì¤‘ì¸ ë³´ìŠ¤ì˜ ìœ íš¨í•œ ì‚¬ë§ ì•Œë¦¼ë§Œ ì²˜ë¦¬í•œë‹¤.
+        if (defeatedBoss == null || defeatedBoss != _currentBoss)
+        {
+            return;
+        }
+
+        // ìµœì¢… ì²˜ì¹˜ê°€ ì™„ë£Œëœ ë³´ìŠ¤ì˜ ëª¨ë“  ê´€ë¦¬ì êµ¬ë…ì„ í•´ì œí•œë‹¤.
         UnbindBossEvents(defeatedBoss);
         _currentBoss = null;
 
         StagePhase phase = _stageFlowManager.CurrentPhase;
 
-        // ÇÃ·¹ÀÌ¾î »ç¸Á µîÀ¸·Î ÀÌ¹Ì ÀüÅõ°¡ ³¡³µ´Ù¸é »óÀÚ¸¦ »ı¼ºÇÏÁö ¾Ê´Â´Ù.
+        // í”Œë ˆì´ì–´ ì‚¬ë§ ë“±ìœ¼ë¡œ ì´ë¯¸ ì „íˆ¬ê°€ ëë‚¬ë‹¤ë©´ ìƒìë¥¼ ìƒì„±í•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (phase != StagePhase.MidBossBattle &&
             phase != StagePhase.FinalBossBattle)
         {
             return;
         }
 
-        // Ã³Ä¡ÇÑ º¸½º ±¸°£¿¡ ¸Â´Â µîÀå È®·üÀ» ¼±ÅÃÇÑ´Ù.
+        // ì²˜ì¹˜í•œ ë³´ìŠ¤ êµ¬ê°„ì— ë§ëŠ” ë“±ì¥ í™•ë¥ ì„ ì„ íƒí•œë‹¤.
         float chance = phase == StagePhase.MidBossBattle
             ? _midBossTreasureChance
             : _finalBossTreasureChance;
 
-        // »óÀÚ°¡ µîÀåÇß´Ù¸é º¸»ó Ã³¸®°¡ ³¡³¯ ¶§±îÁö ÁøÇàÀ» º¸·ùÇÑ´Ù.
+        // ìƒìê°€ ë“±ì¥í–ˆë‹¤ë©´ ë³´ìƒ ì²˜ë¦¬ê°€ ëë‚  ë•Œê¹Œì§€ ì§„í–‰ì„ ë³´ë¥˜í•œë‹¤.
         if (TrySpawnTreasureBox(chance))
         {
             return;
         }
 
-        // »óÀÚ°¡ ³ª¿ÀÁö ¾Ê¾Ò´Ù¸é ±âÁ¸ Èå¸§À¸·Î Áï½Ã ÁøÇàÇÑ´Ù.
+        // ìƒìê°€ ë‚˜ì˜¤ì§€ ì•Šì•˜ë‹¤ë©´ ê¸°ì¡´ íë¦„ìœ¼ë¡œ ì¦‰ì‹œ ì§„í–‰í•œë‹¤.
         _stageFlowManager.NotifyBossDefeated();
     }
 
-    // µîÀå È®·üÀ» ÆÇÁ¤ÇÏ°í ¼º°øÇÏ¸é »óÀÚ¸¦ »ı¼ºÇÑ´Ù.
-    // ¹İÈ¯°ªÀÌ trueÀÌ¸é »óÀÚ Ã³¸®°¡ ÁøÇà ÁßÀÌ¹Ç·Î »óÅÂ ÀüÈ¯À» º¸·ùÇÑ´Ù.
+    // ë“±ì¥ í™•ë¥ ì„ íŒì •í•˜ê³  ì„±ê³µí•˜ë©´ ìƒìë¥¼ ìƒì„±í•œë‹¤.
+    // ë°˜í™˜ê°’ì´ trueì´ë©´ ìƒì ì²˜ë¦¬ê°€ ì§„í–‰ ì¤‘ì´ë¯€ë¡œ ìƒíƒœ ì „í™˜ì„ ë³´ë¥˜í•œë‹¤.
     private bool TrySpawnTreasureBox(float chance)
     {
-        // ÀÌ¹Ì Ã³¸® ÁßÀÎ »óÀÚ°¡ ÀÖ´Ù¸é Ãß°¡ »ı¼ºÇÏÁö ¾Ê´Â´Ù.
+        // ì´ë¯¸ ì²˜ë¦¬ ì¤‘ì¸ ìƒìê°€ ìˆë‹¤ë©´ ì¶”ê°€ ìƒì„±í•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (_currentTreasureBox != null)
         {
             return true;
         }
 
-        // 0%´Â ¹İµå½Ã ½ÇÆĞÇÏ°í, 100%´Â ¹İµå½Ã ¼º°øÇÏµµ·Ï Ã³¸®ÇÑ´Ù.
+        // 0%ëŠ” ë°˜ë“œì‹œ ì‹¤íŒ¨í•˜ê³ , 100%ëŠ” ë°˜ë“œì‹œ ì„±ê³µí•˜ë„ë¡ ì²˜ë¦¬í•œë‹¤.
         if (chance <= 0f ||
             (chance < 1f && UnityEngine.Random.value >= chance))
         {
@@ -512,7 +555,7 @@ public class BossEncounterManager : MonoBehaviour
 
         Vector3 landingPosition = _treasureBoxPoint.position;
 
-        // µî±Şº° ¿ÜÇüÀÌ ¾Æ´Ñ °øÅë »óÀÚ º»Ã¼¸¦ »ı¼ºÇÑ´Ù.
+        // ë“±ê¸‰ë³„ ì™¸í˜•ì´ ì•„ë‹Œ ê³µí†µ ìƒì ë³¸ì²´ë¥¼ ìƒì„±í•œë‹¤.
         TreasureBoxEntrance entrance = Instantiate(
             _treasureBoxPrefab,
             landingPosition,
@@ -520,19 +563,19 @@ public class BossEncounterManager : MonoBehaviour
 
         _currentTreasureBox = entrance.GetComponent<TreasureBox>();
 
-        // ÃÖÁ¾ µî±Ş¿¡¼­ °³ºÀµÇ¸é ÇØ´ç µî±ŞÀÇ º¸»óÀ» Áö±ŞÇÑ´Ù.
+        // ìµœì¢… ë“±ê¸‰ì—ì„œ ê°œë´‰ë˜ë©´ í•´ë‹¹ ë“±ê¸‰ì˜ ë³´ìƒì„ ì§€ê¸‰í•œë‹¤.
         _currentTreasureBox.Opened += HandleTreasureBoxOpened;
 
-        // ¼³Á¤ ¿À·ù·Î ¿¬Ãâ ½ÃÀÛ¿¡ ½ÇÆĞÇÏ¸é »ı¼ºÇÑ º»Ã¼¸¦ Á¤¸®ÇÑ´Ù.
+        // ì„¤ì • ì˜¤ë¥˜ë¡œ ì—°ì¶œ ì‹œì‘ì— ì‹¤íŒ¨í•˜ë©´ ìƒì„±í•œ ë³¸ì²´ë¥¼ ì •ë¦¬í•œë‹¤.
         try
         {
-            // ³»ºÎ¿¡¼­ ÃÖÁ¾ µî±ŞÀ» ÇÑ ¹ø ÃßÃ·ÇÏ°í ³«ÇÏ¸¦ ½ÃÀÛÇÑ´Ù.
-            // µÎ ¹øÀÇ ¹İµ¿ÀÌ ³¡³ª¸é ÀÚµ¿À¸·Î ÇÇ°İÀÌ Çã¿ëµÈ´Ù.
+            // ë‚´ë¶€ì—ì„œ ìµœì¢… ë“±ê¸‰ì„ í•œ ë²ˆ ì¶”ì²¨í•˜ê³  ë‚™í•˜ë¥¼ ì‹œì‘í•œë‹¤.
+            // ë‘ ë²ˆì˜ ë°˜ë™ì´ ëë‚˜ë©´ ìë™ìœ¼ë¡œ í”¼ê²©ì´ í—ˆìš©ëœë‹¤.
             entrance.Play(landingPosition);
         }
         catch
         {
-            // µîÀå ½ÇÆĞ ½Ã °³ºÀ ÀÌº¥Æ® ¿¬°á°ú »ı¼ºµÈ »óÀÚ¸¦ ÇÔ²² Á¤¸®ÇÑ´Ù.
+            // ë“±ì¥ ì‹¤íŒ¨ ì‹œ ê°œë´‰ ì´ë²¤íŠ¸ ì—°ê²°ê³¼ ìƒì„±ëœ ìƒìë¥¼ í•¨ê»˜ ì •ë¦¬í•œë‹¤.
             ClearTreasureBox();
             throw;
         }
@@ -540,10 +583,10 @@ public class BossEncounterManager : MonoBehaviour
         return true;
     }
 
-    // »óÀÚ¿Í ¿¬°áµÈ °³ºÀ ÀÌº¥Æ® ¹× ´ÙÀ½ ÁøÇà ´ë±â¸¦ Á¤¸®ÇÑ´Ù.
+    // ìƒìì™€ ì—°ê²°ëœ ê°œë´‰ ì´ë²¤íŠ¸ ë° ë‹¤ìŒ ì§„í–‰ ëŒ€ê¸°ë¥¼ ì •ë¦¬í•œë‹¤.
     private void ClearTreasureBox()
     {
-        // ´ë±â Áß ½ÇÆĞÇß´Ù¸é ¿¹¾àµÈ ´ÙÀ½ ÁøÇàµµ Ãë¼ÒÇÑ´Ù.
+        // ëŒ€ê¸° ì¤‘ ì‹¤íŒ¨í–ˆë‹¤ë©´ ì˜ˆì•½ëœ ë‹¤ìŒ ì§„í–‰ë„ ì·¨ì†Œí•œë‹¤.
         if (_treasureRewardWaitCoroutine != null)
         {
             StopCoroutine(_treasureRewardWaitCoroutine);
@@ -555,14 +598,14 @@ public class BossEncounterManager : MonoBehaviour
             return;
         }
 
-        // »óÀÚ¸¦ Á¦°ÅÇÏ±â Àü¿¡ °³ºÀ ÀÌº¥Æ® ¿¬°áÀ» ÇØÁ¦ÇÑ´Ù.
+        // ìƒìë¥¼ ì œê±°í•˜ê¸° ì „ì— ê°œë´‰ ì´ë²¤íŠ¸ ì—°ê²°ì„ í•´ì œí•œë‹¤.
         _currentTreasureBox.Opened -= HandleTreasureBoxOpened;
 
         Destroy(_currentTreasureBox.gameObject);
         _currentTreasureBox = null;
     }
 
-    // ÃÖÁ¾ µî±ŞÀÇ º¸»ó ¸ñ·ÏÀ» ÀĞ°í °¢ Ç×¸ñÀÇ Count¸¸Å­ °ñµå¸¦ »ı¼ºÇÑ´Ù.
+    // ìµœì¢… ë“±ê¸‰ì˜ ë³´ìƒ ëª©ë¡ì„ ì½ê³  ê° í•­ëª©ì˜ Countë§Œí¼ ê³¨ë“œë¥¼ ìƒì„±í•œë‹¤.
     private void HandleTreasureBoxOpened(TreasureBoxGradeData gradeData)
     {
         if (_currentTreasureBox == null)
@@ -570,7 +613,7 @@ public class BossEncounterManager : MonoBehaviour
             return;
         }
 
-        // º¸»ó ÀÏºÎ¸¸ Áö±ŞÇÑ µÚ ¼³Á¤ ¿À·ù°¡ ¹ß»ıÇÏÁö ¾Êµµ·Ï ¸ÕÀú ÀüºÎ °Ë»çÇÑ´Ù.
+        // ë³´ìƒ ì¼ë¶€ë§Œ ì§€ê¸‰í•œ ë’¤ ì„¤ì • ì˜¤ë¥˜ê°€ ë°œìƒí•˜ì§€ ì•Šë„ë¡ ë¨¼ì € ì „ë¶€ ê²€ì‚¬í•œë‹¤.
         foreach (TreasureBoxRewardEntry reward in gradeData.Rewards)
         {
             if (reward == null ||
@@ -578,33 +621,33 @@ public class BossEncounterManager : MonoBehaviour
                 reward.Count < 1)
             {
                 throw new InvalidOperationException(
-                    $"{gradeData.name}: º¸»ó ÇÁ¸®ÆÕ°ú Count¸¦ È®ÀÎÇÏ¼¼¿ä.");
+                    $"{gradeData.name}: ë³´ìƒ í”„ë¦¬íŒ¹ê³¼ Countë¥¼ í™•ì¸í•˜ì„¸ìš”.");
             }
 
-            // º¸¹°»óÀÚ º¸»óÀÌ Money °è¿­ ÇÁ¸®ÆÕÀÎÁö °Ë»çÇÑ´Ù.
+            // ë³´ë¬¼ìƒì ë³´ìƒì´ Money ê³„ì—´ í”„ë¦¬íŒ¹ì¸ì§€ ê²€ì‚¬í•œë‹¤.
             if (!reward.RewardPrefab.TryGetComponent<Money>(out Money money))
             {
                 throw new InvalidOperationException(
-                    $"{gradeData.name}: {reward.RewardPrefab.name}¿¡ Money °è¿­ ÄÄÆ÷³ÍÆ®°¡ ¾ø½À´Ï´Ù.");
+                    $"{gradeData.name}: {reward.RewardPrefab.name}ì— Money ê³„ì—´ ì»´í¬ë„ŒíŠ¸ê°€ ì—†ìŠµë‹ˆë‹¤.");
             }
 
-            // »ı¼º Àü¿¡ ÇØ´ç ÀçÈ­ÀÇ ¸ñÀûÁö UI±îÁö È®ÀÎÇÑ´Ù.
+            // ìƒì„± ì „ì— í•´ë‹¹ ì¬í™”ì˜ ëª©ì ì§€ UIê¹Œì§€ í™•ì¸í•œë‹¤.
             _gameManager.GetMoneyUI(money.Type).ValidateConfiguration();
         }
 
-        // ÀÌ º¸»óÀ» ¹ß»ı½ÃÅ² »óÀÚ¸¦ ±â¾ïÇØ ÀÌÀü »óÀÚÀÇ ¿Ï·á ¾Ë¸²À» ±¸ºĞÇÑ´Ù.
+        // ì´ ë³´ìƒì„ ë°œìƒì‹œí‚¨ ìƒìë¥¼ ê¸°ì–µí•´ ì´ì „ ìƒìì˜ ì™„ë£Œ ì•Œë¦¼ì„ êµ¬ë¶„í•œë‹¤.
         TreasureBox openedBox = _currentTreasureBox;
 
-        // °°Àº »óÀÚÀÇ º¸»óÀ» ´Ù½Ã Áö±ŞÇÏÁö ¾Êµµ·Ï °³ºÀ ÀÌº¥Æ®¸¦ ÇØÁ¦ÇÑ´Ù.
+        // ê°™ì€ ìƒìì˜ ë³´ìƒì„ ë‹¤ì‹œ ì§€ê¸‰í•˜ì§€ ì•Šë„ë¡ ê°œë´‰ ì´ë²¤íŠ¸ë¥¼ í•´ì œí•œë‹¤.
         openedBox.Opened -= HandleTreasureBoxOpened;
 
-        // ÇöÀç µî±ŞÀÇ ¿­¸° »óÀÚ ³»ºÎ¸¦ °ñµå Ãâ¹ß À§Ä¡·Î »ç¿ëÇÑ´Ù.
+        // í˜„ì¬ ë“±ê¸‰ì˜ ì—´ë¦° ìƒì ë‚´ë¶€ë¥¼ ê³¨ë“œ ì¶œë°œ ìœ„ì¹˜ë¡œ ì‚¬ìš©í•œë‹¤.
         Vector3 rewardPosition = openedBox.RewardPosition;
 
-        // °¢ ¸®½ºÆ® Ç×¸ñÀº ÀÚ±â Count ÀüÃ¼¸¦ È¹µæÇßÀ» ¶§ ÇÑ ¹ø ¿Ï·áµÈ´Ù.
+        // ê° ë¦¬ìŠ¤íŠ¸ í•­ëª©ì€ ìê¸° Count ì „ì²´ë¥¼ íšë“í–ˆì„ ë•Œ í•œ ë²ˆ ì™„ë£Œëœë‹¤.
         int remainingRewardGroups = gradeData.Rewards.Count;
 
-        // º¸»óÀÌ ¾ø´Â µî±ŞÀº ±â´Ù¸± È¹µæ ¿¬Ãâµµ ¾ø´Ù.
+        // ë³´ìƒì´ ì—†ëŠ” ë“±ê¸‰ì€ ê¸°ë‹¤ë¦´ íšë“ ì—°ì¶œë„ ì—†ë‹¤.
         if (remainingRewardGroups == 0)
         {
             HandleTreasureRewardsCollected(openedBox);
@@ -613,17 +656,17 @@ public class BossEncounterManager : MonoBehaviour
 
         foreach (TreasureBoxRewardEntry reward in gradeData.Rewards)
         {
-            // °ñµå»Ó ¾Æ´Ï¶ó ¸ğµç Money ÀÚ½Ä ÇÁ¸®ÆÕÀ» ¹Ş´Â´Ù.
+            // ê³¨ë“œë¿ ì•„ë‹ˆë¼ ëª¨ë“  Money ìì‹ í”„ë¦¬íŒ¹ì„ ë°›ëŠ”ë‹¤.
             Money moneyPrefab = reward.RewardPrefab.GetComponent<Money>();
 
-            // ±âÁ¸ °ñµå »ı¼º °æ·Î¸¦ »ç¿ëÇØ ÆÛÁü, UI ÀÌµ¿, ±İ¾× ¹İ¿µÀ» Ã³¸®ÇÑ´Ù.
+            // ê¸°ì¡´ ê³¨ë“œ ìƒì„± ê²½ë¡œë¥¼ ì‚¬ìš©í•´ í¼ì§, UI ì´ë™, ê¸ˆì•¡ ë°˜ì˜ì„ ì²˜ë¦¬í•œë‹¤.
             _gameManager.SpawnMoney(
                 moneyPrefab,
                 rewardPosition,
                 reward.Count,
                 () =>
                 {
-                    // °ü¸®ÀÚ°¡ ÆÄ±«µÇ°Å³ª ÇØ´ç »óÀÚ°¡ Á¤¸®µÆ´Ù¸é ÁøÇàÇÏÁö ¾Ê´Â´Ù.
+                    // ê´€ë¦¬ìê°€ íŒŒê´´ë˜ê±°ë‚˜ í•´ë‹¹ ìƒìê°€ ì •ë¦¬ëë‹¤ë©´ ì§„í–‰í•˜ì§€ ì•ŠëŠ”ë‹¤.
                     if (this == null ||
                         openedBox == null ||
                         _currentTreasureBox != openedBox)
@@ -631,10 +674,10 @@ public class BossEncounterManager : MonoBehaviour
                         return;
                     }
 
-                    // ÇöÀç Ç×¸ñÀÇ °ñµå°¡ ÀüºÎ È¹µæµÇ¾úÀ¸¹Ç·Î ³²Àº Ç×¸ñ ¼ö¸¦ ÁÙÀÎ´Ù.
+                    // í˜„ì¬ í•­ëª©ì˜ ê³¨ë“œê°€ ì „ë¶€ íšë“ë˜ì—ˆìœ¼ë¯€ë¡œ ë‚¨ì€ í•­ëª© ìˆ˜ë¥¼ ì¤„ì¸ë‹¤.
                     remainingRewardGroups--;
 
-                    // ¸ñ·ÏÀÇ ¸ğµç Ç×¸ñÀ» È¹µæÇÑ µÚ¿¡¸¸ ´ÙÀ½ Ã³¸®¸¦ ½ÃÀÛÇÑ´Ù.
+                    // ëª©ë¡ì˜ ëª¨ë“  í•­ëª©ì„ íšë“í•œ ë’¤ì—ë§Œ ë‹¤ìŒ ì²˜ë¦¬ë¥¼ ì‹œì‘í•œë‹¤.
                     if (remainingRewardGroups == 0)
                     {
                         HandleTreasureRewardsCollected(openedBox);
@@ -643,7 +686,7 @@ public class BossEncounterManager : MonoBehaviour
         }
     }
 
-    // ¸ğµç º¸»óÀÌ ½ÇÁ¦ ±İ¾×¿¡ ¹İ¿µµÈ µÚ ´ë±â¸¦ ½ÃÀÛÇÑ´Ù.
+    // ëª¨ë“  ë³´ìƒì´ ì‹¤ì œ ê¸ˆì•¡ì— ë°˜ì˜ëœ ë’¤ ëŒ€ê¸°ë¥¼ ì‹œì‘í•œë‹¤.
     private void HandleTreasureRewardsCollected(TreasureBox openedBox)
     {
         if (openedBox == null ||
@@ -653,7 +696,7 @@ public class BossEncounterManager : MonoBehaviour
             return;
         }
 
-        // ÀÌ¹Ì ½ÇÆĞÇÏ°Å³ª Å¬¸®¾îÇß´Ù¸é ´ÙÀ½ ÁøÇàÀ» ¿¹¾àÇÏÁö ¾Ê´Â´Ù.
+        // ì´ë¯¸ ì‹¤íŒ¨í•˜ê±°ë‚˜ í´ë¦¬ì–´í–ˆë‹¤ë©´ ë‹¤ìŒ ì§„í–‰ì„ ì˜ˆì•½í•˜ì§€ ì•ŠëŠ”ë‹¤.
         StagePhase phase = _stageFlowManager.CurrentPhase;
 
         if (phase != StagePhase.MidBossBattle &&
@@ -666,15 +709,15 @@ public class BossEncounterManager : MonoBehaviour
             StartCoroutine(WaitAfterTreasureRewards(openedBox, phase));
     }
 
-    // º¸»ó È¹µæ ÈÄ ´ë±âÇÏ°í, »óÀÚÀÇ ÅğÀå±îÁö ³¡³½ µÚ ´ÙÀ½ ´Ü°è·Î ÁøÇàÇÑ´Ù.
+    // ë³´ìƒ íšë“ í›„ ëŒ€ê¸°í•˜ê³ , ìƒìì˜ í‡´ì¥ê¹Œì§€ ëë‚¸ ë’¤ ë‹¤ìŒ ë‹¨ê³„ë¡œ ì§„í–‰í•œë‹¤.
     private IEnumerator WaitAfterTreasureRewards(
         TreasureBox openedBox,
         StagePhase rewardPhase)
     {
-        // ¸¶Áö¸· °ñµå¸¦ È¹µæÇÑ ½ÃÁ¡ºÎÅÍ ¼³Á¤ÇÑ ½Ã°£¸¸Å­ ±â´Ù¸°´Ù.
+        // ë§ˆì§€ë§‰ ê³¨ë“œë¥¼ íšë“í•œ ì‹œì ë¶€í„° ì„¤ì •í•œ ì‹œê°„ë§Œí¼ ê¸°ë‹¤ë¦°ë‹¤.
         yield return new WaitForSeconds(_treasureRewardWaitSeconds);
 
-        // ±â´Ù¸®´Â µ¿¾È ½ÇÆĞÇÏ°Å³ª »óÀÚ°¡ Á¤¸®µÆ´Ù¸é Á¾·áÇÑ´Ù.
+        // ê¸°ë‹¤ë¦¬ëŠ” ë™ì•ˆ ì‹¤íŒ¨í•˜ê±°ë‚˜ ìƒìê°€ ì •ë¦¬ëë‹¤ë©´ ì¢…ë£Œí•œë‹¤.
         if (openedBox == null ||
             _currentTreasureBox != openedBox ||
             _stageFlowManager.CurrentPhase != rewardPhase)
@@ -683,11 +726,11 @@ public class BossEncounterManager : MonoBehaviour
             yield break;
         }
 
-        // »óÀÚ¿Í È¿°ú°¡ ¿ÏÀüÈ÷ »ç¶óÁú ¶§±îÁö ±â´Ù¸°´Ù.
-        // ÀÌ µ¿¾È¿¡µµ º¸½º ÀüÅõ »óÅÂ¸¦ À¯ÁöÇØ °á°úÃ¢ÀÌ ¸ÕÀú ¶ßÁö ¾Ê°Ô ÇÑ´Ù.
+        // ìƒìì™€ íš¨ê³¼ê°€ ì™„ì „íˆ ì‚¬ë¼ì§ˆ ë•Œê¹Œì§€ ê¸°ë‹¤ë¦°ë‹¤.
+        // ì´ ë™ì•ˆì—ë„ ë³´ìŠ¤ ì „íˆ¬ ìƒíƒœë¥¼ ìœ ì§€í•´ ê²°ê³¼ì°½ì´ ë¨¼ì € ëœ¨ì§€ ì•Šê²Œ í•œë‹¤.
         yield return openedBox.PlayExit(_treasureExitDuration);
 
-        // ÅğÀå Áß¿¡µµ ½ÇÆĞ³ª »óÀÚ Á¤¸®°¡ ¹ß»ıÇÒ ¼ö ÀÖÀ¸¹Ç·Î ´Ù½Ã È®ÀÎÇÑ´Ù.
+        // í‡´ì¥ ì¤‘ì—ë„ ì‹¤íŒ¨ë‚˜ ìƒì ì •ë¦¬ê°€ ë°œìƒí•  ìˆ˜ ìˆìœ¼ë¯€ë¡œ ë‹¤ì‹œ í™•ì¸í•œë‹¤.
         if (openedBox == null ||
             _currentTreasureBox != openedBox ||
             _stageFlowManager.CurrentPhase != rewardPhase)
@@ -696,25 +739,25 @@ public class BossEncounterManager : MonoBehaviour
             yield break;
         }
 
-        // Á¤¸® ÇÔ¼ö°¡ ÇöÀç ÄÚ·çÆ¾À» Áß´ÜÇÏÁö ¾Êµµ·Ï ÂüÁ¶¸¦ ¸ÕÀú ºñ¿î´Ù.
+        // ì •ë¦¬ í•¨ìˆ˜ê°€ í˜„ì¬ ì½”ë£¨í‹´ì„ ì¤‘ë‹¨í•˜ì§€ ì•Šë„ë¡ ì°¸ì¡°ë¥¼ ë¨¼ì € ë¹„ìš´ë‹¤.
         _treasureRewardWaitCoroutine = null;
 
-        // È­¸é¿¡¼­ ¿ÏÀüÈ÷ »ç¶óÁø »óÀÚ ¿ÀºêÁ§Æ®¸¦ Á¦°ÅÇÑ´Ù.
+        // í™”ë©´ì—ì„œ ì™„ì „íˆ ì‚¬ë¼ì§„ ìƒì ì˜¤ë¸Œì íŠ¸ë¥¼ ì œê±°í•œë‹¤.
         ClearTreasureBox();
 
-        // Áß°£º¸½º´Â ÀÌµ¿ ¿¬Ãâ, ÃÖÁ¾º¸½º´Â Å¬¸®¾î¿Í °á°úÃ¢À¸·Î ÀÌ¾îÁø´Ù.
+        // ì¤‘ê°„ë³´ìŠ¤ëŠ” ì´ë™ ì—°ì¶œ, ìµœì¢…ë³´ìŠ¤ëŠ” í´ë¦¬ì–´ì™€ ê²°ê³¼ì°½ìœ¼ë¡œ ì´ì–´ì§„ë‹¤.
         _stageFlowManager.NotifyBossDefeated();
     }
 
     private void CancelBossEntrance()
     {
-        // ÀÌ¹Ì ÀÔÀåÀ» ³¡³» ÀüÅõ ÁßÀÌ¶ó¸é ÀÌ ÇÔ¼ö¿¡¼­ Á¦°ÅÇÏÁö ¾Ê´Â´Ù.
+        // ì´ë¯¸ ì…ì¥ì„ ëë‚´ ì „íˆ¬ ì¤‘ì´ë¼ë©´ ì´ í•¨ìˆ˜ì—ì„œ ì œê±°í•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (_bossEntranceTween == null)
         {
             return;
         }
 
-        // ¿Ï·á Äİ¹éÀ» ½ÇÇàÇÏÁö ¾Ê°í ÀÔÀå ÀÌµ¿À» Ãë¼ÒÇÑ´Ù.
+        // ì™„ë£Œ ì½œë°±ì„ ì‹¤í–‰í•˜ì§€ ì•Šê³  ì…ì¥ ì´ë™ì„ ì·¨ì†Œí•œë‹¤.
         _bossEntranceTween.Kill();
         _bossEntranceTween = null;
 
@@ -723,7 +766,7 @@ public class BossEncounterManager : MonoBehaviour
             return;
         }
 
-        // ÀÔÀå ÁßÀÌ´ø º¸½º´Â Ã³Ä¡ º¸»ó ¾øÀÌ Á¤¸®ÇÑ´Ù.
+        // ì…ì¥ ì¤‘ì´ë˜ ë³´ìŠ¤ëŠ” ì²˜ì¹˜ ë³´ìƒ ì—†ì´ ì •ë¦¬í•œë‹¤.
         BossEnemy cancelledBoss = _currentBoss;
         _currentBoss = null;
 

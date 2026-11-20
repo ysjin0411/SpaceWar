@@ -24,9 +24,9 @@ MonoBehaviour:
     TravelDuration: 1
     FlightScaleRatio: 0.01
     ExpandDuration: 0.5
-    ActiveDuration: 5
-    PullSpeed: 2.5
-    DamageInterval: 0.5
-    Damage: 10
-    RotationSpeed: 270
     FadeDuration: 0.5
+    ActiveDuration: 4.5
+    PullSpeed: 2.3
+    DamageInterval: 0.6
+    Damage: 6
+    RotationSpeed: 270

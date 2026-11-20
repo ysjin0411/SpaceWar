@@ -81,6 +81,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 5
+  _shieldImpactPrefab: {fileID: 6958360815067828877, guid: 0afae8a6a5f9c3b4f9b4bdb5d3fa393d, type: 3}
   _playerController: {fileID: 0}
   _damage: 20
   _foward: {fileID: 8897941259992274734}

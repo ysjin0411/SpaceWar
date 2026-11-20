@@ -29,5 +29,5 @@ MonoBehaviour:
   _chargeWarningBlinkDuration: 0.5
   _chargeWarningBlinkCount: 4
   _chargeDuration: 1.7
-  _chargeDamage: 80
+  _chargeDamage: 35
   _returnToSpawnDuration: 0.35

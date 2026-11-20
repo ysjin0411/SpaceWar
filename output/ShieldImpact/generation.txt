@@ -1,0 +1,4 @@
+Generation: built-in image_gen, transparent_background=true
+Final asset: Assets/99.StoreAsset/Main/Character/Warrior/2.Shield/Shield_Effect/BulletShieldImpact.png
+Prompt:
+One isolated small pixel art energy shield bullet impact VFX sprite, centered on a truly transparent square canvas. Compact white four-point contact flash surrounded by six sharp cyan and electric blue short shards, crisp chunky pixels, restrained sci-fi game sprite palette. No backdrop, no scene, no text, no grid, NO sprite sheet. Flat 2D pixel art, no gradients or blurry glow. Shape occupies central 70% canvas with ample transparent margins on all sides. Readable at tiny 48x48 display. This single sprite will be animated with a fast scale and alpha fade over 0.22 seconds in Unity.

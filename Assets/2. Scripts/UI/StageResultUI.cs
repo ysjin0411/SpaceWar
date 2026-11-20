@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using TMPro;
 using UnityEngine;
 using DG.Tweening;
@@ -7,143 +7,143 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 /// <summary>
-/// ½ºÅ×ÀÌÁö Å¬¸®¾î °á°ú¸¦ È­¸é¿¡ Ç¥½ÃÇÏ°í °ÔÀÓÀ» Á¤ÁöÇÑ´Ù.
+/// ìŠ¤í…Œì´ì§€ í´ë¦¬ì–´ ê²°ê³¼ë¥¼ í™”ë©´ì— í‘œì‹œí•˜ê³  ê²Œì„ì„ ì •ì§€í•œë‹¤.
 /// </summary>
 public class StageResultUI : MonoBehaviour
 {
-    [Header("½ºÅ×ÀÌÁö ½Ã½ºÅÛ")]
+    [Header("ìŠ¤í…Œì´ì§€ ì‹œìŠ¤í…œ")]
 
-    // Å¬¸®¾î ÆäÀÌÁî¿Í Å¬¸®¾î ½Ã°£À» Á¦°øÇÏ´Â °ü¸®ÀÚ
+    // í´ë¦¬ì–´ í˜ì´ì¦ˆì™€ í´ë¦¬ì–´ ì‹œê°„ì„ ì œê³µí•˜ëŠ” ê´€ë¦¬ì
     [SerializeField] StageFlowManager _stageFlowManager;
 
-    // ÀÌ¹ø ½ºÅ×ÀÌÁöÀÇ °æÇèÄ¡¿Í °ñµå È¹µæ·®À» Á¦°øÇÏ´Â °ü¸®ÀÚ
+    // ì´ë²ˆ ìŠ¤í…Œì´ì§€ì˜ ê²½í—˜ì¹˜ì™€ ê³¨ë“œ íšë“ëŸ‰ì„ ì œê³µí•˜ëŠ” ê´€ë¦¬ì
     [SerializeField] GameManager _gameManager;
 
-    [Header("°á°úÃ¢")]
+    [Header("ê²°ê³¼ì°½")]
 
-    // Å¬¸®¾î Àü¿¡´Â ºñÈ°¼ºÈ­ÇÏ°í Å¬¸®¾î ÈÄ È°¼ºÈ­ÇÒ ÆĞ³Î
+    // í´ë¦¬ì–´ ì „ì—ëŠ” ë¹„í™œì„±í™”í•˜ê³  í´ë¦¬ì–´ í›„ í™œì„±í™”í•  íŒ¨ë„
     [SerializeField] GameObject _resultPanel;
 
-    // ¾îµÎ¿î ¹è°æÀ» Á¦¿ÜÇÏ°í ³«ÇÏ ¾Ö´Ï¸ŞÀÌ¼ÇÀ» Àû¿ëÇÒ ½ÇÁ¦ °á°úÃ¢
+    // ì–´ë‘ìš´ ë°°ê²½ì„ ì œì™¸í•˜ê³  ë‚™í•˜ ì• ë‹ˆë©”ì´ì…˜ì„ ì ìš©í•  ì‹¤ì œ ê²°ê³¼ì°½
     [SerializeField] RectTransform _resultWindow;
 
-    // °á°úÃ¢ÀÌ ¿ø·¡ À§Ä¡º¸´Ù À§¿¡¼­ ½ÃÀÛÇÏ´Â °Å¸®
+    // ê²°ê³¼ì°½ì´ ì›ë˜ ìœ„ì¹˜ë³´ë‹¤ ìœ„ì—ì„œ ì‹œì‘í•˜ëŠ” ê±°ë¦¬
     [Min(0f)]
     [SerializeField] float _dropStartOffsetY = 900f;
 
-    // °á°úÃ¢ÀÌ ¿ø·¡ À§Ä¡±îÁö ¶³¾îÁö´Â µ¥ °É¸®´Â ½Ã°£
+    // ê²°ê³¼ì°½ì´ ì›ë˜ ìœ„ì¹˜ê¹Œì§€ ë–¨ì–´ì§€ëŠ” ë° ê±¸ë¦¬ëŠ” ì‹œê°„
     [Min(0.01f)]
     [SerializeField] float _dropDuration = 0.65f;
 
-    // °á°úÃ¢ÀÌ ÃÖÁ¾ÀûÀ¸·Î µµÂøÇØ¾ß ÇÏ´Â ¿ø·¡ À§Ä¡
+    // ê²°ê³¼ì°½ì´ ìµœì¢…ì ìœ¼ë¡œ ë„ì°©í•´ì•¼ í•˜ëŠ” ì›ë˜ ìœ„ì¹˜
     Vector2 _resultWindowRestPosition;
 
-    // ÇöÀç Àç»ı ÁßÀÎ °á°úÃ¢ ³«ÇÏ ¾Ö´Ï¸ŞÀÌ¼Ç
+    // í˜„ì¬ ì¬ìƒ ì¤‘ì¸ ê²°ê³¼ì°½ ë‚™í•˜ ì• ë‹ˆë©”ì´ì…˜
     Tween _resultWindowTween;
 
-    // ¹öÆ°ÀÌ ¿©·¯ ¹ø ´­·Á ¾À ÀÌµ¿ÀÌ Áßº¹ ½ÇÇàµÇ´Â °ÍÀ» ¹æÁöÇÑ´Ù.
+    // ë²„íŠ¼ì´ ì—¬ëŸ¬ ë²ˆ ëˆŒë ¤ ì”¬ ì´ë™ì´ ì¤‘ë³µ ì‹¤í–‰ë˜ëŠ” ê²ƒì„ ë°©ì§€í•œë‹¤.
     bool _isChangingScene;
 
-    // ÀÌ¹ø ½ºÅ×ÀÌÁö¿¡¼­ È¹µæÇÑ °æÇèÄ¡¸¦ Ç¥½ÃÇÑ´Ù.
+    // ì´ë²ˆ ìŠ¤í…Œì´ì§€ì—ì„œ íšë“í•œ ê²½í—˜ì¹˜ë¥¼ í‘œì‹œí•œë‹¤.
     [SerializeField] TMP_Text _experienceValueText;
 
-    // ÀÌ¹ø ½ºÅ×ÀÌÁö¿¡¼­ È¹µæÇÑ °ñµå¸¦ Ç¥½ÃÇÑ´Ù.
+    // ì´ë²ˆ ìŠ¤í…Œì´ì§€ì—ì„œ íšë“í•œ ê³¨ë“œë¥¼ í‘œì‹œí•œë‹¤.
     [SerializeField] TMP_Text _goldValueText;
 
-    // ÀÌ¹ø ½ºÅ×ÀÌÁöÀÇ Å¬¸®¾î ½Ã°£À» Ç¥½ÃÇÑ´Ù.
+    // ì´ë²ˆ ìŠ¤í…Œì´ì§€ì˜ í´ë¦¬ì–´ ì‹œê°„ì„ í‘œì‹œí•œë‹¤.
     [SerializeField] TMP_Text _clearTimeValueText;
 
-    // ¼º°ø¡¤½ÇÆĞ¿¡ ¸ÂÃç ¹®±¸¸¦ ¹Ù²Ü °á°úÃ¢ »ó´Ü ÅØ½ºÆ®
+    // ì„±ê³µÂ·ì‹¤íŒ¨ì— ë§ì¶° ë¬¸êµ¬ë¥¼ ë°”ê¿€ ê²°ê³¼ì°½ ìƒë‹¨ í…ìŠ¤íŠ¸
     [SerializeField] TMP_Text _resultTitleText;
 
-    // ½ÇÆĞ ½Ã ¼û±æ Clear Time ¼³¸í ÅØ½ºÆ®
+    // ì‹¤íŒ¨ ì‹œ ìˆ¨ê¸¸ Clear Time ì„¤ëª… í…ìŠ¤íŠ¸
     [SerializeField] TMP_Text _clearTimeLabelText;
 
-    // ½ÇÆĞÇßÀ» ¶§¸¸ Ç¥½ÃÇÒ Restart ¹öÆ° ¿ÀºêÁ§Æ®
+    // ì‹¤íŒ¨í–ˆì„ ë•Œë§Œ í‘œì‹œí•  Restart ë²„íŠ¼ ì˜¤ë¸Œì íŠ¸
     [SerializeField] GameObject _restartButton;
 
-    // °á°úÃ¢¿¡¼­ Ã¹ ¹æÇâÅ° ÀÔ·ÂÀ¸·Î ¼±ÅÃÇÒ StageSelect ¹öÆ°
+    // ê²°ê³¼ì°½ì—ì„œ ì²« ë°©í–¥í‚¤ ì…ë ¥ìœ¼ë¡œ ì„ íƒí•  StageSelect ë²„íŠ¼
     [SerializeField] Button _stageSelectButton;
 
-    // ÀÌ¹ø ½ºÅ×ÀÌÁö¿¡¼­ È¹µæÇÑ User °æÇèÄ¡¸¦ Ç¥½ÃÇÑ´Ù.
+    // ì´ë²ˆ ìŠ¤í…Œì´ì§€ì—ì„œ íšë“í•œ User ê²½í—˜ì¹˜ë¥¼ í‘œì‹œí•œë‹¤.
     [SerializeField] private TMP_Text _userExperienceValueText;
 
-    // °á°úÃ¢ÀÌ Áßº¹À¸·Î ¿­¸®´Â °ÍÀ» ¹æÁöÇÑ´Ù.
+    // ê²°ê³¼ì°½ì´ ì¤‘ë³µìœ¼ë¡œ ì—´ë¦¬ëŠ” ê²ƒì„ ë°©ì§€í•œë‹¤.
     bool _isResultShown;
 
     private void Awake()
     {
-        // Å°º¸µå·Î Ã³À½ ¼±ÅÃÇÒ ¹öÆ°ÀÌ ¿¬°áµÇ¾î ÀÖ¾î¾ß ÇÑ´Ù.
+        // í‚¤ë³´ë“œë¡œ ì²˜ìŒ ì„ íƒí•  ë²„íŠ¼ì´ ì—°ê²°ë˜ì–´ ìˆì–´ì•¼ í•œë‹¤.
         if (_stageSelectButton == null)
         {
             throw new InvalidOperationException(
-                $"{name}¿¡ StageSelect ButtonÀÌ ¿¬°áµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+                $"{name}ì— StageSelect Buttonì´ ì—°ê²°ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
         }
 
-        // ¼º°ø¡¤½ÇÆĞ¿¡ µû¶ó º¯°æÇÒ UI ¿¬°áÀ» È®ÀÎÇÑ´Ù.
+        // ì„±ê³µÂ·ì‹¤íŒ¨ì— ë”°ë¼ ë³€ê²½í•  UI ì—°ê²°ì„ í™•ì¸í•œë‹¤.
         if (_resultTitleText == null ||
             _clearTimeLabelText == null ||
             _restartButton == null)
         {
             throw new InvalidOperationException(
-                $"{name}ÀÇ °á°ú Á¦¸ñ, ½Ã°£ ¶óº§, Restart ¹öÆ° ¿¬°áÀ» È®ÀÎÇØÁÖ¼¼¿ä.");
+                $"{name}ì˜ ê²°ê³¼ ì œëª©, ì‹œê°„ ë¼ë²¨, Restart ë²„íŠ¼ ì—°ê²°ì„ í™•ì¸í•´ì£¼ì„¸ìš”.");
         }
 
         if (_stageFlowManager == null)
         {
             throw new InvalidOperationException(
-                $"{name}ÀÇ StageFlowManager°¡ ¿¬°áµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+                $"{name}ì˜ StageFlowManagerê°€ ì—°ê²°ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
         }
 
         if (_gameManager == null)
         {
             throw new InvalidOperationException(
-                $"{name}ÀÇ GameManager°¡ ¿¬°áµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+                $"{name}ì˜ GameManagerê°€ ì—°ê²°ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
         }
 
         if (_resultPanel == null)
         {
             throw new InvalidOperationException(
-                $"{name}ÀÇ ResultPanelÀÌ ¿¬°áµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+                $"{name}ì˜ ResultPanelì´ ì—°ê²°ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
         }
 
-        // °á°úÃ¢¿¡¼­ »ç¿ëÇÏ´Â ¸ğµç ¼öÄ¡ ÅØ½ºÆ®ÀÇ ¿¬°áÀ» È®ÀÎÇÑ´Ù.
+        // ê²°ê³¼ì°½ì—ì„œ ì‚¬ìš©í•˜ëŠ” ëª¨ë“  ìˆ˜ì¹˜ í…ìŠ¤íŠ¸ì˜ ì—°ê²°ì„ í™•ì¸í•œë‹¤.
         if (_experienceValueText == null ||
             _goldValueText == null ||
             _userExperienceValueText == null ||
             _clearTimeValueText == null)
         {
             throw new InvalidOperationException(
-                $"{name}ÀÇ °á°ú ÅØ½ºÆ®°¡ ¸ğµÎ ¿¬°áµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+                $"{name}ì˜ ê²°ê³¼ í…ìŠ¤íŠ¸ê°€ ëª¨ë‘ ì—°ê²°ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
         }
 
         if (_resultWindow == null)
         {
             throw new InvalidOperationException(
-                $"{name}¿¡ ResultWindow°¡ ¿¬°áµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+                $"{name}ì— ResultWindowê°€ ì—°ê²°ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
         }
 
-        // ÀÎ½ºÆåÅÍ¿¡¼­ ¹èÄ¡ÇÑ °á°úÃ¢ÀÇ Áß¾Ó À§Ä¡¸¦ ³«ÇÏ ¾Ö´Ï¸ŞÀÌ¼Ç µµÂøÁ¡À¸·Î ÀúÀåÇÑ´Ù.
+        // ì¸ìŠ¤í™í„°ì—ì„œ ë°°ì¹˜í•œ ê²°ê³¼ì°½ì˜ ì¤‘ì•™ ìœ„ì¹˜ë¥¼ ë‚™í•˜ ì• ë‹ˆë©”ì´ì…˜ ë„ì°©ì ìœ¼ë¡œ ì €ì¥í•œë‹¤.
         _resultWindowRestPosition =
             _resultWindow.anchoredPosition;
 
-        // ½ºÅ×ÀÌÁö ½ÃÀÛ ½Ã¿¡´Â °á°úÃ¢À» ¼û±ä´Ù.
+        // ìŠ¤í…Œì´ì§€ ì‹œì‘ ì‹œì—ëŠ” ê²°ê³¼ì°½ì„ ìˆ¨ê¸´ë‹¤.
         _resultPanel.SetActive(false);
         _isResultShown = false;
 
-        // ¾ÆÁ÷ StageSelect·Î ÀÌµ¿ ÁßÀÎ »óÅÂ°¡ ¾Æ´Ï´Ù.
+        // ì•„ì§ StageSelectë¡œ ì´ë™ ì¤‘ì¸ ìƒíƒœê°€ ì•„ë‹ˆë‹¤.
         _isChangingScene = false;
     }
 
     private void OnEnable()
     {
-        // ½ºÅ×ÀÌÁö ÆäÀÌÁî°¡ º¯°æµÉ ¶§ °á°úÃ¢ Ç¥½Ã ¿©ºÎ¸¦ È®ÀÎÇÑ´Ù.
+        // ìŠ¤í…Œì´ì§€ í˜ì´ì¦ˆê°€ ë³€ê²½ë  ë•Œ ê²°ê³¼ì°½ í‘œì‹œ ì—¬ë¶€ë¥¼ í™•ì¸í•œë‹¤.
         _stageFlowManager.PhaseChanged += HandlePhaseChanged;
     }
 
     private void OnDisable()
     {
-        // ÆÄ±«µÈ UIÀÇ ÇÔ¼ö°¡ È£ÃâµÇÁö ¾Êµµ·Ï ÀÌº¥Æ® ¿¬°áÀ» ÇØÁ¦ÇÑ´Ù.
+        // íŒŒê´´ëœ UIì˜ í•¨ìˆ˜ê°€ í˜¸ì¶œë˜ì§€ ì•Šë„ë¡ ì´ë²¤íŠ¸ ì—°ê²°ì„ í•´ì œí•œë‹¤.
         if (_stageFlowManager != null)
         {
             _stageFlowManager.PhaseChanged -= HandlePhaseChanged;
@@ -151,13 +151,13 @@ public class StageResultUI : MonoBehaviour
     }
 
     /// <summary>
-    /// °á°úÃ¢¿¡¼­ ¼±ÅÃµÈ ¹öÆ°ÀÌ ¾øÀ¸¸é Ã¹ ¹æÇâÅ° ÀÔ·ÂÀ¸·Î
-    /// StageSelect ¹öÆ°À» ¼±ÅÃÇÑ´Ù.
-    /// ÀÌÈÄ ÀÌµ¿°ú È®Á¤Àº EventSystem¿¡ ¸Ã±ä´Ù.
+    /// ê²°ê³¼ì°½ì—ì„œ ì„ íƒëœ ë²„íŠ¼ì´ ì—†ìœ¼ë©´ ì²« ë°©í–¥í‚¤ ì…ë ¥ìœ¼ë¡œ
+    /// StageSelect ë²„íŠ¼ì„ ì„ íƒí•œë‹¤.
+    /// ì´í›„ ì´ë™ê³¼ í™•ì •ì€ EventSystemì— ë§¡ê¸´ë‹¤.
     /// </summary>
     private void LateUpdate()
     {
-        // °á°úÃ¢ÀÌ ¿­·Á ÀÖ°í ¾À ÀÌµ¿À» ½ÃÀÛÇÏÁö ¾ÊÀº »óÅÂ¿¡¼­¸¸ Ã³¸®ÇÑ´Ù.
+        // ê²°ê³¼ì°½ì´ ì—´ë ¤ ìˆê³  ì”¬ ì´ë™ì„ ì‹œì‘í•˜ì§€ ì•Šì€ ìƒíƒœì—ì„œë§Œ ì²˜ë¦¬í•œë‹¤.
         if (!_isResultShown ||
             _isChangingScene ||
             !_resultPanel.activeInHierarchy ||
@@ -169,8 +169,8 @@ public class StageResultUI : MonoBehaviour
         GameObject selected =
             EventSystem.current.currentSelectedGameObject;
 
-        // °á°úÃ¢ ³»ºÎÀÇ À¯È¿ÇÑ ¹öÆ°ÀÌ ÀÌ¹Ì ¼±ÅÃµÇ¾î ÀÖÀ¸¸é À¯ÁöÇÑ´Ù.
-        // µû¶ó¼­ ¸Å¹ø StageSelect ¹öÆ°À¸·Î ¼±ÅÃÀÌ µÇµ¹¾Æ°¡Áö ¾Ê´Â´Ù.
+        // ê²°ê³¼ì°½ ë‚´ë¶€ì˜ ìœ íš¨í•œ ë²„íŠ¼ì´ ì´ë¯¸ ì„ íƒë˜ì–´ ìˆìœ¼ë©´ ìœ ì§€í•œë‹¤.
+        // ë”°ë¼ì„œ ë§¤ë²ˆ StageSelect ë²„íŠ¼ìœ¼ë¡œ ì„ íƒì´ ë˜ëŒì•„ê°€ì§€ ì•ŠëŠ”ë‹¤.
         if (selected != null &&
             selected.transform.IsChildOf(_resultPanel.transform))
         {
@@ -184,7 +184,7 @@ public class StageResultUI : MonoBehaviour
             }
         }
 
-        // À§¡¤¾Æ·¡¡¤¿ŞÂÊ¡¤¿À¸¥ÂÊ Áß ÇÏ³ª¸¦ Ã³À½ ´©¸£¸é ±âº» ¹öÆ°À» ¼±ÅÃÇÑ´Ù.
+        // ìœ„Â·ì•„ë˜Â·ì™¼ìª½Â·ì˜¤ë¥¸ìª½ ì¤‘ í•˜ë‚˜ë¥¼ ì²˜ìŒ ëˆ„ë¥´ë©´ ê¸°ë³¸ ë²„íŠ¼ì„ ì„ íƒí•œë‹¤.
         bool arrowPressed =
             Input.GetKeyDown(KeyCode.UpArrow) ||
             Input.GetKeyDown(KeyCode.DownArrow) ||
@@ -196,20 +196,20 @@ public class StageResultUI : MonoBehaviour
             return;
         }
 
-        // Å¬¸¯ÇÒ ¼ö ÀÖ´Â »óÅÂÀÇ ¹öÆ°¸¸ ¼±ÅÃÇÑ´Ù.
+        // í´ë¦­í•  ìˆ˜ ìˆëŠ” ìƒíƒœì˜ ë²„íŠ¼ë§Œ ì„ íƒí•œë‹¤.
         if (!_stageSelectButton.IsActive() ||
             !_stageSelectButton.IsInteractable())
         {
             return;
         }
 
-        // EventSystemÀÇ ¹æÇâÅ° Ã³¸®°¡ ³¡³­ µÚ ±âº» ¼±ÅÃÀ» ¼³Á¤ÇÑ´Ù.
-        // Ã¹ ÀÔ·Â¿¡´Â ÀÌ ¹öÆ°À» ¼±ÅÃÇÏ°í, ´ÙÀ½ ÀÔ·ÂºÎÅÍ NavigationÀ» µû¸¥´Ù.
+        // EventSystemì˜ ë°©í–¥í‚¤ ì²˜ë¦¬ê°€ ëë‚œ ë’¤ ê¸°ë³¸ ì„ íƒì„ ì„¤ì •í•œë‹¤.
+        // ì²« ì…ë ¥ì—ëŠ” ì´ ë²„íŠ¼ì„ ì„ íƒí•˜ê³ , ë‹¤ìŒ ì…ë ¥ë¶€í„° Navigationì„ ë”°ë¥¸ë‹¤.
         _stageSelectButton.Select();
     }
 
     /// <summary>
-    /// Å¬¸®¾î ¶Ç´Â ½ÇÆĞ°¡ È®Á¤µÇ¸é °á°úÃ¢À» ÇÑ ¹ø Ç¥½ÃÇÑ´Ù.
+    /// í´ë¦¬ì–´ ë˜ëŠ” ì‹¤íŒ¨ê°€ í™•ì •ë˜ë©´ ê²°ê³¼ì°½ì„ í•œ ë²ˆ í‘œì‹œí•œë‹¤.
     /// </summary>
     private void HandlePhaseChanged(StagePhase phase)
     {
@@ -228,19 +228,19 @@ public class StageResultUI : MonoBehaviour
     }
 
     /// <summary>
-    /// °á°ú Á¾·ù¿¡ ¸Â´Â ¹®±¸¿Í È¹µæ·®À» Ç¥½ÃÇÑ´Ù.
-    /// Å¬¸®¾î ±â·ÏÀº ¼º°øÇßÀ» ¶§¸¸ ÀúÀåÇÑ´Ù.
+    /// ê²°ê³¼ ì¢…ë¥˜ì— ë§ëŠ” ë¬¸êµ¬ì™€ íšë“ëŸ‰ì„ í‘œì‹œí•œë‹¤.
+    /// í´ë¦¬ì–´ ê¸°ë¡ì€ ì„±ê³µí–ˆì„ ë•Œë§Œ ì €ì¥í•œë‹¤.
     /// </summary>
     private void ShowResult(bool isCleared)
     {
         _isResultShown = true;
 
-        // °á°úÃ¢ÀÌ ¿­¸° µ¿¾È ÀüÅõ¸¦ Á¤ÁöÇÑ´Ù.
+        // ê²°ê³¼ì°½ì´ ì—´ë¦° ë™ì•ˆ ì „íˆ¬ë¥¼ ì •ì§€í•œë‹¤.
         Time.timeScale = 0f;
 
         float clearTime = _stageFlowManager.StageElapsedTime;
 
-        // ½ÇÆĞÇÑ ÆÇÀÇ ½Ã°£Àº Å¬¸®¾î ±â·Ï¿¡ ÀúÀåÇÏÁö ¾Ê´Â´Ù.
+        // ì‹¤íŒ¨í•œ íŒì˜ ì‹œê°„ì€ í´ë¦¬ì–´ ê¸°ë¡ì— ì €ì¥í•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (isCleared)
         {
             if (SaveManager.Instance == null ||
@@ -248,7 +248,7 @@ public class StageResultUI : MonoBehaviour
                 AchievementManager.Instance == null)
             {
                 throw new InvalidOperationException(
-                    "Å¬¸®¾î ±â·Ï ÀúÀå¿¡ ÇÊ¿äÇÑ ¸Å´ÏÀú°¡ ¾ø½À´Ï´Ù.");
+                    "í´ë¦¬ì–´ ê¸°ë¡ ì €ì¥ì— í•„ìš”í•œ ë§¤ë‹ˆì €ê°€ ì—†ìŠµë‹ˆë‹¤.");
             }
 
             int selectedStageIndex =
@@ -257,36 +257,36 @@ public class StageResultUI : MonoBehaviour
             if (selectedStageIndex < 0)
             {
                 throw new InvalidOperationException(
-                    "¼±ÅÃµÈ ½ºÅ×ÀÌÁö ÀÎµ¦½º°¡ ¾ø½À´Ï´Ù.");
+                    "ì„ íƒëœ ìŠ¤í…Œì´ì§€ ì¸ë±ìŠ¤ê°€ ì—†ìŠµë‹ˆë‹¤.");
             }
 
-            // ±âÁ¸ ÃÖ´Ü Å¬¸®¾î ±â·Ï ÀúÀåÀ» À¯ÁöÇÑ´Ù.
+            // ê¸°ì¡´ ìµœë‹¨ í´ë¦¬ì–´ ê¸°ë¡ ì €ì¥ì„ ìœ ì§€í•œë‹¤.
             SaveManager.Instance.TryUpdateBestClearTime(
                 selectedStageIndex,
                 clearTime);
 
-            // °»½ÅµÈ Å¬¸®¾î ±â·Ï¿¡ µû¸¥ ¾÷ÀûÀ» °Ë»çÇÑ´Ù.
+            // ê°±ì‹ ëœ í´ë¦¬ì–´ ê¸°ë¡ì— ë”°ë¥¸ ì—…ì ì„ ê²€ì‚¬í•œë‹¤.
             AchievementManager.Instance.EvaluateAllAchievements();
         }
 
-        // °°Àº °á°úÃ¢¿¡¼­ Á¦¸ñ¸¸ º¯°æÇÑ´Ù.
+        // ê°™ì€ ê²°ê³¼ì°½ì—ì„œ ì œëª©ë§Œ ë³€ê²½í•œë‹¤.
         _resultTitleText.text =
             isCleared ? "Stage Clear" : "Stage Failed";
 
-        // ½ÇÁ¦·Î Áö±ŞµÈ ÀÌ¹ø ÆÇÀÇ È¹µæ·®¸¸ Ç¥½ÃÇÑ´Ù.
-        // ¿©±â¼­ °æÇèÄ¡³ª °ñµå¸¦ ´Ù½Ã Áö±ŞÇÏÁö ¾Ê´Â´Ù.
+        // ì‹¤ì œë¡œ ì§€ê¸‰ëœ ì´ë²ˆ íŒì˜ íšë“ëŸ‰ë§Œ í‘œì‹œí•œë‹¤.
+        // ì—¬ê¸°ì„œ ê²½í—˜ì¹˜ë‚˜ ê³¨ë“œë¥¼ ë‹¤ì‹œ ì§€ê¸‰í•˜ì§€ ì•ŠëŠ”ë‹¤.
         _experienceValueText.text =
             _gameManager.StageEarnedExperience.ToString("N0");
 
         _goldValueText.text =
             _gameManager.StageEarnedGold.ToString("N0");
 
-        // ÀÌ¹Ì Áö±ŞµÈ User °æÇèÄ¡¸¦ +¼ıÀÚ Çü½ÄÀ¸·Î Ç¥½ÃÇÑ´Ù.
-        // °á°úÃ¢¿¡¼­´Â °æÇèÄ¡¸¦ ´Ù½Ã Áö±ŞÇÏÁö ¾Ê´Â´Ù.
+        // ì´ë¯¸ ì§€ê¸‰ëœ User ê²½í—˜ì¹˜ë¥¼ +ìˆ«ì í˜•ì‹ìœ¼ë¡œ í‘œì‹œí•œë‹¤.
+        // ê²°ê³¼ì°½ì—ì„œëŠ” ê²½í—˜ì¹˜ë¥¼ ë‹¤ì‹œ ì§€ê¸‰í•˜ì§€ ì•ŠëŠ”ë‹¤.
         _userExperienceValueText.text =
             $"+{_gameManager.StageEarnedUserExperience:N0}";
 
-        // ½ÇÆĞÇÑ ÆÇ¿¡¼­´Â Å¬¸®¾î ½Ã°£ Ç×¸ñÀ» ¼û±ä´Ù.
+        // ì‹¤íŒ¨í•œ íŒì—ì„œëŠ” í´ë¦¬ì–´ ì‹œê°„ í•­ëª©ì„ ìˆ¨ê¸´ë‹¤.
         _clearTimeLabelText.gameObject.SetActive(isCleared);
         _clearTimeValueText.gameObject.SetActive(isCleared);
 
@@ -300,27 +300,27 @@ public class StageResultUI : MonoBehaviour
                 $"{minutes:00}:{seconds:00}";
         }
 
-        // Restart´Â ½ÇÆĞ °á°ú¿¡¼­¸¸ Ç¥½ÃÇÑ´Ù.
+        // RestartëŠ” ì‹¤íŒ¨ ê²°ê³¼ì—ì„œë§Œ í‘œì‹œí•œë‹¤.
         _restartButton.SetActive(!isCleared);
 
-        // ÀÌÀü °á°úÃ¢ ¿¬ÃâÀÌ ³²¾Æ ÀÖ´Ù¸é Á¤¸®ÇÑ´Ù.
+        // ì´ì „ ê²°ê³¼ì°½ ì—°ì¶œì´ ë‚¨ì•„ ìˆë‹¤ë©´ ì •ë¦¬í•œë‹¤.
         if (_resultWindowTween != null)
         {
             _resultWindowTween.Kill();
             _resultWindowTween = null;
         }
 
-        // ±âÁ¸Ã³·³ È­¸é À§¿¡¼­ °á°úÃ¢ÀÌ ³»·Á¿À°Ô ÇÑ´Ù.
+        // ê¸°ì¡´ì²˜ëŸ¼ í™”ë©´ ìœ„ì—ì„œ ê²°ê³¼ì°½ì´ ë‚´ë ¤ì˜¤ê²Œ í•œë‹¤.
         _resultWindow.anchoredPosition =
             _resultWindowRestPosition +
             Vector2.up * _dropStartOffsetY;
 
         _resultPanel.SetActive(true);
 
-        // °°Àº CanvasÀÇ ÀÏ¹İ HUDº¸´Ù ¾Õ¿¡ Ç¥½ÃÇÑ´Ù.
+        // ê°™ì€ Canvasì˜ ì¼ë°˜ HUDë³´ë‹¤ ì•ì— í‘œì‹œí•œë‹¤.
         _resultPanel.transform.SetAsLastSibling();
 
-        // ÀÌÀü¿¡ ¼±ÅÃÇß´ø HUD ¹öÆ°ÀÇ ¼±ÅÃÀ» ÇØÁ¦ÇÑ´Ù.
+        // ì´ì „ì— ì„ íƒí–ˆë˜ HUD ë²„íŠ¼ì˜ ì„ íƒì„ í•´ì œí•œë‹¤.
         if (UnityEngine.EventSystems.EventSystem.current != null)
         {
             UnityEngine.EventSystems.EventSystem.current
@@ -332,7 +332,7 @@ public class StageResultUI : MonoBehaviour
                 _resultWindowRestPosition,
                 _dropDuration)
             .SetEase(Ease.OutBounce)
-            // °ÔÀÓÀÌ Á¤ÁöÇØµµ °á°úÃ¢ ¿¬ÃâÀº ÁøÇàÇÑ´Ù.
+            // ê²Œì„ì´ ì •ì§€í•´ë„ ê²°ê³¼ì°½ ì—°ì¶œì€ ì§„í–‰í•œë‹¤.
             .SetUpdate(true)
             .OnComplete(() =>
             {
@@ -341,72 +341,74 @@ public class StageResultUI : MonoBehaviour
     }
 
     /// <summary>
-    /// °á°úÃ¢¿¡¼­ StageSelect ¾ÀÀ¸·Î µ¹¾Æ°£´Ù.
-    /// BackToTownButtonÀÇ OnClick¿¡ ¿¬°áÇÑ´Ù.
+    /// ê²°ê³¼ì°½ì—ì„œ StageSelect ì”¬ìœ¼ë¡œ ëŒì•„ê°„ë‹¤.
+    /// BackToTownButtonì˜ OnClickì— ì—°ê²°í•œë‹¤.
     /// </summary>
     public void BackToTown()
     {
-        // ºü¸¥ ¿¬¼Ó Å¬¸¯À¸·Î ¾À ÀÌµ¿ÀÌ Áßº¹ ½ÇÇàµÇÁö ¾Êµµ·Ï ÇÑ´Ù.
+        // ë¹ ë¥¸ ì—°ì† í´ë¦­ìœ¼ë¡œ ì”¬ ì´ë™ì´ ì¤‘ë³µ ì‹¤í–‰ë˜ì§€ ì•Šë„ë¡ í•œë‹¤.
         if (_isChangingScene)
         {
             return;
         }
 
         _isChangingScene = true;
+        GameAudio.Play(GameSound.UiBack);
 
-        // ³²¾Æ ÀÖ´Â °á°úÃ¢ ¿¬ÃâÀ» Á¤¸®ÇÑ´Ù.
+        // ë‚¨ì•„ ìˆëŠ” ê²°ê³¼ì°½ ì—°ì¶œì„ ì •ë¦¬í•œë‹¤.
         if (_resultWindowTween != null)
         {
             _resultWindowTween.Kill();
         }
         _resultWindowTween = null;
 
-        // ´ÙÀ½ ¾À±îÁö Á¤Áö »óÅÂ°¡ ÀÌ¾îÁöÁö ¾Êµµ·Ï °ÔÀÓ ½Ã°£À» º¹±¸ÇÑ´Ù.
+        // ë‹¤ìŒ ì”¬ê¹Œì§€ ì •ì§€ ìƒíƒœê°€ ì´ì–´ì§€ì§€ ì•Šë„ë¡ ê²Œì„ ì‹œê°„ì„ ë³µêµ¬í•œë‹¤.
         Time.timeScale = 1f;
 
-        // ÇöÀç ½ºÅ×ÀÌÁö¿Í Ä³¸¯ÅÍ ¼±ÅÃ Á¤º¸¸¦ ÃÊ±âÈ­ÇÑ´Ù.
-        // ÃÖ´Ü ±â·ÏÀº SaveManager¿¡ ÀúÀåµÇ¾î ÀÖÀ¸¹Ç·Î »èÁ¦µÇÁö ¾Ê´Â´Ù.
+        // í˜„ì¬ ìŠ¤í…Œì´ì§€ì™€ ìºë¦­í„° ì„ íƒ ì •ë³´ë¥¼ ì´ˆê¸°í™”í•œë‹¤.
+        // ìµœë‹¨ ê¸°ë¡ì€ SaveManagerì— ì €ì¥ë˜ì–´ ìˆìœ¼ë¯€ë¡œ ì‚­ì œë˜ì§€ ì•ŠëŠ”ë‹¤.
         if (GameSessionManager.Instance != null)
         {
             GameSessionManager.Instance.ResetSelection();
         }
 
-        // ÀüÅõ¸¦ Á¾·áÇÏ°í NPC ¼­ºñ½º¸¦ ÀÌ¿ëÇÏ´Â TownÀ¸·Î µ¹¾Æ°£´Ù.
+        // ì „íˆ¬ë¥¼ ì¢…ë£Œí•˜ê³  NPC ì„œë¹„ìŠ¤ë¥¼ ì´ìš©í•˜ëŠ” Townìœ¼ë¡œ ëŒì•„ê°„ë‹¤.
         SceneManager.LoadScene("Town");
     }
 
     /// <summary>
-    /// Ä³¸¯ÅÍ¿Í ½ºÅ×ÀÌÁö ¼±ÅÃÀ» À¯ÁöÇÑ Ã¤ ÇöÀç ÆÇÀ» ´Ù½Ã ½ÃÀÛÇÑ´Ù.
+    /// ìºë¦­í„°ì™€ ìŠ¤í…Œì´ì§€ ì„ íƒì„ ìœ ì§€í•œ ì±„ í˜„ì¬ íŒì„ ë‹¤ì‹œ ì‹œì‘í•œë‹¤.
     /// </summary>
     public void RestartStage()
     {
-        // °á°ú°¡ Ç¥½ÃµÇÁö ¾Ê¾Ò°Å³ª ÀÌ¹Ì ÀÌµ¿ ÁßÀÌ¸é ¹«½ÃÇÑ´Ù.
+        // ê²°ê³¼ê°€ í‘œì‹œë˜ì§€ ì•Šì•˜ê±°ë‚˜ ì´ë¯¸ ì´ë™ ì¤‘ì´ë©´ ë¬´ì‹œí•œë‹¤.
         if (!_isResultShown || _isChangingScene)
         {
             return;
         }
 
         _isChangingScene = true;
+        GameAudio.Play(GameSound.UiConfirm);
 
-        // ÇöÀç °á°úÃ¢ ¿¬ÃâÀ» Á¤¸®ÇÑ´Ù.
+        // í˜„ì¬ ê²°ê³¼ì°½ ì—°ì¶œì„ ì •ë¦¬í•œë‹¤.
         if (_resultWindowTween != null)
         {
             _resultWindowTween.Kill();
             _resultWindowTween = null;
         }
 
-        // ´ÙÀ½ ÆÇÀÌ Á¤Áö »óÅÂ·Î ½ÃÀÛÇÏÁö ¾Ê°Ô ÇÑ´Ù.
+        // ë‹¤ìŒ íŒì´ ì •ì§€ ìƒíƒœë¡œ ì‹œì‘í•˜ì§€ ì•Šê²Œ í•œë‹¤.
         Time.timeScale = 1f;
 
-        // ResetSelectionÀº È£ÃâÇÏÁö ¾Ê´Â´Ù.
-        // ÇöÀç ¼±ÅÃÇÑ Ä³¸¯ÅÍ¿Í ½ºÅ×ÀÌÁö Á¤º¸°¡ Àç½ÃÀÛ¿¡ ÇÊ¿äÇÏ´Ù.
+        // ResetSelectionì€ í˜¸ì¶œí•˜ì§€ ì•ŠëŠ”ë‹¤.
+        // í˜„ì¬ ì„ íƒí•œ ìºë¦­í„°ì™€ ìŠ¤í…Œì´ì§€ ì •ë³´ê°€ ì¬ì‹œì‘ì— í•„ìš”í•˜ë‹¤.
         string scenePath = gameObject.scene.path;
         SceneManager.LoadScene(scenePath);
     }
 
     private void OnDestroy()
     {
-        // ³²¾Æ ÀÖ´Â °á°úÃ¢ ¿¬ÃâÀ» Á¤¸®ÇÑ´Ù.
+        // ë‚¨ì•„ ìˆëŠ” ê²°ê³¼ì°½ ì—°ì¶œì„ ì •ë¦¬í•œë‹¤.
         if (_resultWindowTween != null)
         {
             _resultWindowTween.Kill();

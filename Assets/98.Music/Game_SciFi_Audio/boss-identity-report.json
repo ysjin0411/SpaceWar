@@ -1,0 +1,74 @@
+[
+  {
+    "file": "07_Bosses/Dog/dog_death.wav",
+    "seconds": 1.7,
+    "loop": false,
+    "rms": 0.30369546504376865,
+    "boundaryJump": 0,
+    "maxAdjacentDelta": 0.5334943891894981
+  },
+  {
+    "file": "07_Bosses/Alien/alien_death.wav",
+    "seconds": 2.6,
+    "loop": false,
+    "rms": 0.3276317303567167,
+    "boundaryJump": 0,
+    "maxAdjacentDelta": 0.7587346814725514
+  },
+  {
+    "file": "07_Bosses/Head/head_death.wav",
+    "seconds": 2.1,
+    "loop": false,
+    "rms": 0.532054661691276,
+    "boundaryJump": 0,
+    "maxAdjacentDelta": 0.40208229892916214
+  },
+  {
+    "file": "07_Bosses/Cruiser/cruiser_death_explosion.wav",
+    "seconds": 3.4,
+    "loop": false,
+    "rms": 0.28281388799110085,
+    "boundaryJump": 0,
+    "maxAdjacentDelta": 0.6328390541771346
+  },
+  {
+    "file": "07_Bosses/Head/head_blackhole_loop.wav",
+    "seconds": 4,
+    "loop": true,
+    "rms": 0.35697063577821464,
+    "boundaryJump": 0.003239038905175101,
+    "maxAdjacentDelta": 0.3765628753629707
+  },
+  {
+    "file": "07_Bosses/Cruiser/cruiser_minion_launch.wav",
+    "seconds": 0.22,
+    "loop": false,
+    "rms": 0.4018524408101548,
+    "boundaryJump": 0,
+    "maxAdjacentDelta": 1.2717185806670583
+  },
+  {
+    "file": "07_Bosses/Head/head_intro.wav",
+    "seconds": 1.6,
+    "loop": false,
+    "rms": 0.4420938162066238,
+    "boundaryJump": 0,
+    "maxAdjacentDelta": 0.1784432386888378
+  },
+  {
+    "file": "07_Bosses/Cruiser/cruiser_intro.wav",
+    "seconds": 2.2,
+    "loop": false,
+    "rms": 0.4153449021655596,
+    "boundaryJump": 0,
+    "maxAdjacentDelta": 0.09226875742768802
+  },
+  {
+    "file": "07_Bosses/Alien/alien_robot_intro.wav",
+    "seconds": 2,
+    "loop": false,
+    "rms": 0.3024614947649568,
+    "boundaryJump": 0,
+    "maxAdjacentDelta": 0.44086604296588605
+  }
+]

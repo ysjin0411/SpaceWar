@@ -1,57 +1,57 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using DG.Tweening;
 using UnityEngine;
 
 /// <summary>
-/// ½Ã½ºÅÛ °æ°í ÈÄ °ÔÀÓÀ» Á¤ÁöÇÏ°í Á¤½Å È¥¶õ UI¸¦ ½ÇÇàÇÑ´Ù.
-/// ½ÇÆĞ ½Ã ÇÇÇØ¿Í È­¸é Èçµé¸², ½ÇÆĞ ¾Ë¸²À» Ã³¸®ÇÑ´Ù.
+/// ì‹œìŠ¤í…œ ê²½ê³  í›„ ê²Œì„ì„ ì •ì§€í•˜ê³  ì •ì‹  í˜¼ë€ UIë¥¼ ì‹¤í–‰í•œë‹¤.
+/// ì‹¤íŒ¨ ì‹œ í”¼í•´ì™€ í™”ë©´ í”ë“¤ë¦¼, ì‹¤íŒ¨ ì•Œë¦¼ì„ ì²˜ë¦¬í•œë‹¤.
 /// </summary>
 [CreateAssetMenu(
     fileName = "BossHeadConfusionPattern",
     menuName = "BossPattern/Head/Mental Confusion")]
 public sealed class BossHeadConfusionPattern : BossPattern
 {
-    // ÆĞÅÏ ½ÃÀÛ Àü¿¡ Ç¥½ÃÇÒ ½Ã½ºÅÛ ¾Ë¸²ÀÌ´Ù.
+    // íŒ¨í„´ ì‹œì‘ ì „ì— í‘œì‹œí•  ì‹œìŠ¤í…œ ì•Œë¦¼ì´ë‹¤.
     [TextArea]
-    [SerializeField] string _startMessage = "Á¤½Å °£¼· °¨Áö! ÀÔ·Â¿¡ ÁıÁßÇÏ¼¼¿ä.";
+    [SerializeField] string _startMessage = "ì •ì‹  ê°„ì„­ ê°ì§€! ì…ë ¥ì— ì§‘ì¤‘í•˜ì„¸ìš”.";
 
-    // ÆĞÅÏ ½ÇÆĞ ½Ã È­¸é Èçµé¸²°ú ÇÔ²² Ç¥½ÃÇÒ ¾Ë¸²ÀÌ´Ù.
+    // íŒ¨í„´ ì‹¤íŒ¨ ì‹œ í™”ë©´ í”ë“¤ë¦¼ê³¼ í•¨ê»˜ í‘œì‹œí•  ì•Œë¦¼ì´ë‹¤.
     [TextArea]
-    [SerializeField] string _failureMessage = "Á¤½Å ¹æ¾î ½ÇÆĞ! Ãæ°İÀÌ ¹ß»ıÇÕ´Ï´Ù.";
+    [SerializeField] string _failureMessage = "ì •ì‹  ë°©ì–´ ì‹¤íŒ¨! ì¶©ê²©ì´ ë°œìƒí•©ë‹ˆë‹¤.";
 
-    // Å° ÀÔ·Â È­¸é ÀüÃ¼°¡ µé¾î ÀÖ´Â ÇÁ¸®ÆÕÀÌ´Ù.
+    // í‚¤ ì…ë ¥ í™”ë©´ ì „ì²´ê°€ ë“¤ì–´ ìˆëŠ” í”„ë¦¬íŒ¹ì´ë‹¤.
     [SerializeField] MentalConfusionUI _uiPrefab;
 
-    // ÀÌ¹ø ÆĞÅÏ¿¡¼­ ¸ÂÇô¾ß ÇÒ ¾ËÆÄºª °³¼ö´Ù.
+    // ì´ë²ˆ íŒ¨í„´ì—ì„œ ë§í˜€ì•¼ í•  ì•ŒíŒŒë²³ ê°œìˆ˜ë‹¤.
     [Min(1)]
     [SerializeField] int _keyCount = 10;
 
-    // ¾ËÆÄºªÀ» ÃßÃ·ÇÒ ¸ñ·ÏÀÌ´Ù. Áßº¹ ¹®ÀÚ¸¦ ³ÖÁö ¾Ê´Â´Ù.
+    // ì•ŒíŒŒë²³ì„ ì¶”ì²¨í•  ëª©ë¡ì´ë‹¤. ì¤‘ë³µ ë¬¸ìë¥¼ ë„£ì§€ ì•ŠëŠ”ë‹¤.
     [SerializeField] string _keyPool = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-    // ¸ğµç ¾ËÆÄºªÀ» ÀÔ·ÂÇØ¾ß ÇÏ´Â Á¦ÇÑ ½Ã°£ÀÌ´Ù.
+    // ëª¨ë“  ì•ŒíŒŒë²³ì„ ì…ë ¥í•´ì•¼ í•˜ëŠ” ì œí•œ ì‹œê°„ì´ë‹¤.
     [Min(0.01f)]
     [SerializeField] float _timeLimit = 8f;
 
-    // ¿À´äÀ» ÀÔ·ÂÇÒ ¶§ ÇÏ³ª¾¿ Â÷°¨ÇÒ Life´Ù.
+    // ì˜¤ë‹µì„ ì…ë ¥í•  ë•Œ í•˜ë‚˜ì”© ì°¨ê°í•  Lifeë‹¤.
     [Min(1)]
     [SerializeField] int _lifeCount = 3;
 
-    // ½Ã°£ ÃÊ°ú ¶Ç´Â Life ¼ÒÁø ½Ã ÇÑ ¹ø Àû¿ëÇÒ ÇÇÇØ·®ÀÌ´Ù.
+    // ì‹œê°„ ì´ˆê³¼ ë˜ëŠ” Life ì†Œì§„ ì‹œ í•œ ë²ˆ ì ìš©í•  í”¼í•´ëŸ‰ì´ë‹¤.
     [Min(1)]
     [SerializeField] float _failureDamage = 20;
 
-    // ½ÇÆĞ ½Ã Ä«¸Ş¶ó°¡ Èçµé¸®´Â ½Ã°£ÀÌ´Ù.
+    // ì‹¤íŒ¨ ì‹œ ì¹´ë©”ë¼ê°€ í”ë“¤ë¦¬ëŠ” ì‹œê°„ì´ë‹¤.
     [Min(0.01f)]
     [SerializeField] float _shakeDuration = 0.3f;
 
-    // Ä«¸Ş¶ó Èçµé¸²ÀÇ ¿ùµå ÁÂÇ¥ Å©±â´Ù.
+    // ì¹´ë©”ë¼ í”ë“¤ë¦¼ì˜ ì›”ë“œ ì¢Œí‘œ í¬ê¸°ë‹¤.
     [Min(0f)]
     [SerializeField] float _shakeStrength = 0.12f;
 
     /// <summary>
-    /// Execute µ¿ÀÛ¿¡ ÇÊ¿äÇÑ »óÅÂ¿Í Ã³¸® Èå¸§À» ½ÇÇàÇÑ´Ù.
+    /// Execute ë™ì‘ì— í•„ìš”í•œ ìƒíƒœì™€ ì²˜ë¦¬ íë¦„ì„ ì‹¤í–‰í•œë‹¤.
     /// </summary>
     public override IEnumerator Execute(BossPatternContext context)
     {
@@ -64,7 +64,7 @@ public sealed class BossHeadConfusionPattern : BossPattern
         if (gameCamera == null)
         {
             throw new InvalidOperationException(
-                $"{name}: MainCamera ÅÂ±×°¡ ÀÖ´Â Ä«¸Ş¶ó°¡ ÇÊ¿äÇÕ´Ï´Ù.");
+                $"{name}: MainCamera íƒœê·¸ê°€ ìˆëŠ” ì¹´ë©”ë¼ê°€ í•„ìš”í•©ë‹ˆë‹¤.");
         }
 
         MentalConfusionUI ui = null;
@@ -77,13 +77,13 @@ public sealed class BossHeadConfusionPattern : BossPattern
         float previousTimeScale = 1f;
         Vector3 cameraPosition = Vector3.zero;
 
-        // ±âÁ¸ ½Ã½ºÅÛ ¾Ë¸² ¿Ï·á ÀÌº¥Æ®¸¦ Àç»ç¿ëÇÑ´Ù.
+        // ê¸°ì¡´ ì‹œìŠ¤í…œ ì•Œë¦¼ ì™„ë£Œ ì´ë²¤íŠ¸ë¥¼ ì¬ì‚¬ìš©í•œë‹¤.
         Action onDialogueCompleted = () => dialogueCompleted = true;
         boss.SystemDialogueCompleted += onDialogueCompleted;
 
         try
         {
-            // ÀÌ¹Ì ÀÏ½ÃÁ¤Áö³ª Áõ°­ ÁßÀÌ¶ó¸é Á¾·áµÉ ¶§±îÁö ±â´Ù¸°´Ù.
+            // ì´ë¯¸ ì¼ì‹œì •ì§€ë‚˜ ì¦ê°• ì¤‘ì´ë¼ë©´ ì¢…ë£Œë  ë•Œê¹Œì§€ ê¸°ë‹¤ë¦°ë‹¤.
             while (CanContinue(boss, player) &&
                    (Time.timeScale <= 0f || !player.CanControl))
             {
@@ -95,7 +95,7 @@ public sealed class BossHeadConfusionPattern : BossPattern
                 yield break;
             }
 
-            // ½ÃÀÛ °æ°í°¡ ³¡³­ ´ÙÀ½ ÀÔ·Â ÆĞÅÏÀ¸·Î ³Ñ¾î°£´Ù.
+            // ì‹œì‘ ê²½ê³ ê°€ ëë‚œ ë‹¤ìŒ ì…ë ¥ íŒ¨í„´ìœ¼ë¡œ ë„˜ì–´ê°„ë‹¤.
             boss.RequestSystemDialogue(_startMessage);
 
             while (CanContinue(boss, player) && !dialogueCompleted)
@@ -108,7 +108,7 @@ public sealed class BossHeadConfusionPattern : BossPattern
                 yield break;
             }
 
-            // °æ°í µµÁß ´Ù¸¥ ÀÏ½ÃÁ¤Áö°¡ ¿­·È´Ù¸é ¸ÕÀú ±â´Ù¸°´Ù.
+            // ê²½ê³  ë„ì¤‘ ë‹¤ë¥¸ ì¼ì‹œì •ì§€ê°€ ì—´ë ¸ë‹¤ë©´ ë¨¼ì € ê¸°ë‹¤ë¦°ë‹¤.
             while (CanContinue(boss, player) &&
                    (Time.timeScale <= 0f || !player.CanControl))
             {
@@ -120,14 +120,15 @@ public sealed class BossHeadConfusionPattern : BossPattern
                 yield break;
             }
 
-            // ±âÁ¸ °ÔÀÓ ¼Óµµ¸¦ º¸°üÇÏ°í ÀüÅõ ½Ã°£À» ¸ØÃá´Ù.
+            // ê¸°ì¡´ ê²Œì„ ì†ë„ë¥¼ ë³´ê´€í•˜ê³  ì „íˆ¬ ì‹œê°„ì„ ë©ˆì¶˜ë‹¤.
             previousTimeScale = Time.timeScale;
             ownsPause = true;
             Time.timeScale = 0f;
 
-            // UI´Â unscaledDeltaTime°ú µ¶¸³ TweenÀ¸·Î °è¼Ó ÁøÇàÇÑ´Ù.
+            // UIëŠ” unscaledDeltaTimeê³¼ ë…ë¦½ Tweenìœ¼ë¡œ ê³„ì† ì§„í–‰í•œë‹¤.
             ui = Instantiate(_uiPrefab);
             ui.Begin(CreateSequence(), _timeLimit, _lifeCount);
+            GameAudio.Play(GameSound.HeadConfusion); // timeScale=0ì—ì„œë„ ì¬ìƒí•˜ëŠ” UI ì—°ì¶œìŒ.
 
             while (CanContinue(boss, player) &&
                    ui != null &&
@@ -137,7 +138,7 @@ public sealed class BossHeadConfusionPattern : BossPattern
                 yield return null;
             }
 
-            // UI Á¦°Å³ª º¸½º¡¤ÇÃ·¹ÀÌ¾î Á¦°Å´Â ½ÇÆĞ ÇÇÇØ ¾øÀÌ Ãë¼ÒÇÑ´Ù.
+            // UI ì œê±°ë‚˜ ë³´ìŠ¤Â·í”Œë ˆì´ì–´ ì œê±°ëŠ” ì‹¤íŒ¨ í”¼í•´ ì—†ì´ ì·¨ì†Œí•œë‹¤.
             if (!CanContinue(boss, player) ||
                 ui == null ||
                 !ui.isActiveAndEnabled ||
@@ -148,22 +149,22 @@ public sealed class BossHeadConfusionPattern : BossPattern
 
             bool failed = ui.Result == ConfusionResult.Failed;
 
-            // ¸¶Áö¸· Å° ¿¬Ãâ±îÁö ¿Ï·áµÈ ÀÔ·Â È­¸éÀ» ´İ´Â´Ù.
+            // ë§ˆì§€ë§‰ í‚¤ ì—°ì¶œê¹Œì§€ ì™„ë£Œëœ ì…ë ¥ í™”ë©´ì„ ë‹«ëŠ”ë‹¤.
             ui.gameObject.SetActive(false);
             Destroy(ui.gameObject);
             ui = null;
 
             if (!failed)
             {
-                // ¼º°øÀº finally¿¡¼­ °ÔÀÓÀ» Àç°³ÇÑ µÚ ÀÏ¹İ ¸ğµå·Î º¹±ÍÇÑ´Ù.
+                // ì„±ê³µì€ finallyì—ì„œ ê²Œì„ì„ ì¬ê°œí•œ ë’¤ ì¼ë°˜ ëª¨ë“œë¡œ ë³µê·€í•œë‹¤.
                 yield break;
             }
 
-            // ±âÁ¸ ÇÇ°İ ·ÎÁ÷À¸·Î ½ÇÆĞ ÇÇÇØ¸¦ ÇÑ ¹ø Àû¿ëÇÑ´Ù.
-            // °ÔÀÓ ½Ã°£Àº °è¼Ó Á¤ÁöµÇ¾î ÀÖ¾î ÀûµéÀÇ °ø°İÀº ÁøÇàµÇÁö ¾Ê´Â´Ù.
+            // ê¸°ì¡´ í”¼ê²© ë¡œì§ìœ¼ë¡œ ì‹¤íŒ¨ í”¼í•´ë¥¼ í•œ ë²ˆ ì ìš©í•œë‹¤.
+            // ê²Œì„ ì‹œê°„ì€ ê³„ì† ì •ì§€ë˜ì–´ ìˆì–´ ì ë“¤ì˜ ê³µê²©ì€ ì§„í–‰ë˜ì§€ ì•ŠëŠ”ë‹¤.
             player.TakeHit(_failureDamage);
 
-            // Ä«¸Ş¶ó ¿øÀ§Ä¡¸¦ º¸°üÇØ Áß´ÜµÇ´õ¶óµµ Á¤È®ÇÏ°Ô º¹¿øÇÑ´Ù.
+            // ì¹´ë©”ë¼ ì›ìœ„ì¹˜ë¥¼ ë³´ê´€í•´ ì¤‘ë‹¨ë˜ë”ë¼ë„ ì •í™•í•˜ê²Œ ë³µì›í•œë‹¤.
             cameraPosition = gameCamera.transform.localPosition;
             cameraMoved = true;
 
@@ -177,12 +178,12 @@ public sealed class BossHeadConfusionPattern : BossPattern
                     true)
                 .SetUpdate(true);
 
-            // ÇÇÇØ¿Í È­¸é Èçµé¸²¿¡ ¸ÂÃç µÎ ¹øÂ° ½Ã½ºÅÛ ¾Ë¸²À» Ç¥½ÃÇÑ´Ù.
+            // í”¼í•´ì™€ í™”ë©´ í”ë“¤ë¦¼ì— ë§ì¶° ë‘ ë²ˆì§¸ ì‹œìŠ¤í…œ ì•Œë¦¼ì„ í‘œì‹œí•œë‹¤.
             dialogueCompleted = false;
             boss.RequestSystemDialogue(_failureMessage);
 
-            // Ä¡¸íÀûÀÎ ÇÇÇØ¿©µµ ½ÇÆĞ ¿¬ÃâÀº ³¡±îÁö º¸¿©ÁØ´Ù.
-            // »ç¸Á ½Ã °ÔÀÓ ½Ã°£Àº finally¿¡¼­µµ Àç°³ÇÏÁö ¾Ê´Â´Ù.
+            // ì¹˜ëª…ì ì¸ í”¼í•´ì—¬ë„ ì‹¤íŒ¨ ì—°ì¶œì€ ëê¹Œì§€ ë³´ì—¬ì¤€ë‹¤.
+            // ì‚¬ë§ ì‹œ ê²Œì„ ì‹œê°„ì€ finallyì—ì„œë„ ì¬ê°œí•˜ì§€ ì•ŠëŠ”ë‹¤.
             while (IsBossAlive(boss) &&
                    (!dialogueCompleted ||
                     (shake != null &&
@@ -194,7 +195,7 @@ public sealed class BossHeadConfusionPattern : BossPattern
         }
         finally
         {
-            // Á¤»ó Á¾·á¿Í Áß´Ü ¸ğµÎ °°Àº Á¤¸® °æ·Î¸¦ »ç¿ëÇÑ´Ù.
+            // ì •ìƒ ì¢…ë£Œì™€ ì¤‘ë‹¨ ëª¨ë‘ ê°™ì€ ì •ë¦¬ ê²½ë¡œë¥¼ ì‚¬ìš©í•œë‹¤.
             if (boss != null)
             {
                 boss.SystemDialogueCompleted -= onDialogueCompleted;
@@ -216,8 +217,8 @@ public sealed class BossHeadConfusionPattern : BossPattern
                 Destroy(ui.gameObject);
             }
 
-            // ÀÌ ÆĞÅÏÀÌ Á÷Á¢ Á¤ÁöÇÑ °æ¿ì¿¡¸¸ ½Ã°£À» º¹±¸ÇÑ´Ù.
-            // ½ÇÆĞ ÇÇÇØ·Î ÇÃ·¹ÀÌ¾î°¡ Á×¾ú´Ù¸é »ç¸Á Á¤Áö¸¦ À¯ÁöÇÑ´Ù.
+            // ì´ íŒ¨í„´ì´ ì§ì ‘ ì •ì§€í•œ ê²½ìš°ì—ë§Œ ì‹œê°„ì„ ë³µêµ¬í•œë‹¤.
+            // ì‹¤íŒ¨ í”¼í•´ë¡œ í”Œë ˆì´ì–´ê°€ ì£½ì—ˆë‹¤ë©´ ì‚¬ë§ ì •ì§€ë¥¼ ìœ ì§€í•œë‹¤.
             if (ownsPause)
             {
                 Time.timeScale =
@@ -229,8 +230,8 @@ public sealed class BossHeadConfusionPattern : BossPattern
     }
 
     /// <summary>
-    /// ¼³Á¤ÇÑ ÈÄº¸¿¡¼­ ÀÌ¹ø ÆĞÅÏÀÇ ¾ËÆÄºª ¹®ÀÚ¿­À» ÃßÃ·ÇÑ´Ù.
-    /// °°Àº ¾ËÆÄºªÀÌ ¿¬¼ÓÀ¸·Î ³ª¿À´Â °Íµµ Çã¿ëÇÑ´Ù.
+    /// ì„¤ì •í•œ í›„ë³´ì—ì„œ ì´ë²ˆ íŒ¨í„´ì˜ ì•ŒíŒŒë²³ ë¬¸ìì—´ì„ ì¶”ì²¨í•œë‹¤.
+    /// ê°™ì€ ì•ŒíŒŒë²³ì´ ì—°ì†ìœ¼ë¡œ ë‚˜ì˜¤ëŠ” ê²ƒë„ í—ˆìš©í•œë‹¤.
     /// </summary>
     private string CreateSequence()
     {
@@ -247,7 +248,7 @@ public sealed class BossHeadConfusionPattern : BossPattern
     }
 
     /// <summary>
-    /// ÀÔ·Â ÆĞÅÏÀ» °è¼Ó ÁøÇàÇÒ ¼ö ÀÖ´Â »óÅÂÀÎÁö È®ÀÎÇÑ´Ù.
+    /// ì…ë ¥ íŒ¨í„´ì„ ê³„ì† ì§„í–‰í•  ìˆ˜ ìˆëŠ” ìƒíƒœì¸ì§€ í™•ì¸í•œë‹¤.
     /// </summary>
     private static bool CanContinue(
         BossEnemy boss,
@@ -260,7 +261,7 @@ public sealed class BossHeadConfusionPattern : BossPattern
     }
 
     /// <summary>
-    /// IsBossAlive µ¿ÀÛ¿¡ ÇÊ¿äÇÑ »óÅÂ¿Í Ã³¸® Èå¸§À» ½ÇÇàÇÑ´Ù.
+    /// IsBossAlive ë™ì‘ì— í•„ìš”í•œ ìƒíƒœì™€ ì²˜ë¦¬ íë¦„ì„ ì‹¤í–‰í•œë‹¤.
     /// </summary>
     private static bool IsBossAlive(BossEnemy boss)
     {
@@ -270,7 +271,7 @@ public sealed class BossHeadConfusionPattern : BossPattern
     }
 
     /// <summary>
-    /// ¿¬°á°ú ÆĞÅÏ ¼³Á¤À» ½ÇÇà Àü¿¡ È®ÀÎÇÑ´Ù.
+    /// ì—°ê²°ê³¼ íŒ¨í„´ ì„¤ì •ì„ ì‹¤í–‰ ì „ì— í™•ì¸í•œë‹¤.
     /// </summary>
     private void ValidateSettings(BossPatternContext context)
     {
@@ -283,7 +284,7 @@ public sealed class BossHeadConfusionPattern : BossPattern
             string.IsNullOrWhiteSpace(_keyPool))
         {
             throw new InvalidOperationException(
-                $"{name}: È°¼ºÈ­µÈ UI ÇÁ¸®ÆÕ°ú ¾Ë¸²¡¤Å° ¸ñ·ÏÀ» È®ÀÎÇÏ¼¼¿ä.");
+                $"{name}: í™œì„±í™”ëœ UI í”„ë¦¬íŒ¹ê³¼ ì•Œë¦¼Â·í‚¤ ëª©ë¡ì„ í™•ì¸í•˜ì„¸ìš”.");
         }
 
         if (!PauseRandomMovement ||
@@ -295,10 +296,10 @@ public sealed class BossHeadConfusionPattern : BossPattern
             _shakeStrength < 0f)
         {
             throw new InvalidOperationException(
-                $"{name}: Pause Random Movement¿Í ÆĞÅÏ ¼öÄ¡¸¦ È®ÀÎÇÏ¼¼¿ä.");
+                $"{name}: Pause Random Movementì™€ íŒ¨í„´ ìˆ˜ì¹˜ë¥¼ í™•ì¸í•˜ì„¸ìš”.");
         }
 
-        // ÈÄº¸°¡ Áßº¹µÇ¸é Æ¯Á¤ ¾ËÆÄºªÀÇ ÃßÃ· È®·üÀÌ ³ô¾ÆÁö¹Ç·Î ¸·´Â´Ù.
+        // í›„ë³´ê°€ ì¤‘ë³µë˜ë©´ íŠ¹ì • ì•ŒíŒŒë²³ì˜ ì¶”ì²¨ í™•ë¥ ì´ ë†’ì•„ì§€ë¯€ë¡œ ë§‰ëŠ”ë‹¤.
         string pool = _keyPool.ToUpperInvariant();
 
         for (int i = 0; i < pool.Length; i++)
@@ -308,7 +309,7 @@ public sealed class BossHeadConfusionPattern : BossPattern
                 pool.IndexOf(pool[i]) != i)
             {
                 throw new InvalidOperationException(
-                    $"{name}: Key PoolÀº Áßº¹ ¾ø´Â A~Z·Î ÀÔ·ÂÇÏ¼¼¿ä.");
+                    $"{name}: Key Poolì€ ì¤‘ë³µ ì—†ëŠ” A~Zë¡œ ì…ë ¥í•˜ì„¸ìš”.");
             }
         }
     }

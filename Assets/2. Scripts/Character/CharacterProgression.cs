@@ -1,22 +1,22 @@
-using System;
+ï»¿using System;
 using UnityEngine;
 
 public class CharacterProgression : MonoBehaviour
 {
-    // ÇöÀç ¼±ÅÃÇÑ Ä³¸¯ÅÍÀÇ ¿µ±¸ ÀúÀå µ¥ÀÌÅÍ
+    // í˜„ì¬ ì„ íƒí•œ ìºë¦­í„°ì˜ ì˜êµ¬ ì €ì¥ ë°ì´í„°
     CharacterLoadoutSaveData _characterSaveData;
 
-    [Header("·±Å¸ÀÓ ¼ºÀå µ¥ÀÌÅÍ")]
-    [Tooltip("ÇöÀç Ä³¸¯ÅÍ ·¹º§")]
+    [Header("ëŸ°íƒ€ì„ ì„±ì¥ ë°ì´í„°")]
+    [Tooltip("í˜„ì¬ ìºë¦­í„° ë ˆë²¨")]
     [SerializeField] int _currentLevel;
 
-    [Tooltip("ÇöÀç °æÇèÄ¡")]
+    [Tooltip("í˜„ì¬ ê²½í—˜ì¹˜")]
     [SerializeField] int _currentExp;
 
-    [Tooltip("´ÙÀ½ ·¹º§±îÁö ÇÊ¿äÇÑ ÀüÃ¼ °æÇèÄ¡")]
+    [Tooltip("ë‹¤ìŒ ë ˆë²¨ê¹Œì§€ í•„ìš”í•œ ì „ì²´ ê²½í—˜ì¹˜")]
     [SerializeField] int _requiredExp;
 
-    [Tooltip("·¹º§¾÷±îÁö ³²Àº °æÇèÄ¡")]
+    [Tooltip("ë ˆë²¨ì—…ê¹Œì§€ ë‚¨ì€ ê²½í—˜ì¹˜")]
     [SerializeField] int _remainingExp;
 
     public int CurrentLevel => _currentLevel;
@@ -24,21 +24,21 @@ public class CharacterProgression : MonoBehaviour
     public int RequiredExp => _requiredExp;
     public int RemainingExp => _remainingExp;
 
-    // ·¹º§, ÇöÀç °æÇèÄ¡, ÇÊ¿ä °æÇèÄ¡°¡ º¯°æµÆÀ» ¶§ ¾Ë¸°´Ù.
+    // ë ˆë²¨, í˜„ì¬ ê²½í—˜ì¹˜, í•„ìš” ê²½í—˜ì¹˜ê°€ ë³€ê²½ëì„ ë•Œ ì•Œë¦°ë‹¤.
     public event Action<int, int, int> OnProgressChanged;
 
-    // ·¹º§ÀÌ ¿Ã¶úÀ» ¶§ ¾Ë¸°´Ù.
+    // ë ˆë²¨ì´ ì˜¬ëì„ ë•Œ ì•Œë¦°ë‹¤.
     public event Action<int> OnLevelUp;
 
     /// <summary>
-    /// ¼±ÅÃÇÑ Ä³¸¯ÅÍÀÇ ÀúÀå µ¥ÀÌÅÍ¸¦ ·±Å¸ÀÓ µ¥ÀÌÅÍ·Î ºÒ·¯¿Â´Ù.
+    /// ì„ íƒí•œ ìºë¦­í„°ì˜ ì €ì¥ ë°ì´í„°ë¥¼ ëŸ°íƒ€ì„ ë°ì´í„°ë¡œ ë¶ˆëŸ¬ì˜¨ë‹¤.
     /// </summary>
     public void Initialize(string characterId)
     {
         _characterSaveData =
             SaveManager.Instance.GetOrCreateCharacterLoadout(characterId);
 
-        // JSON¿¡ ÀúÀåµÈ ¿µ±¸ µ¥ÀÌÅÍ¸¦ ·±Å¸ÀÓ µ¥ÀÌÅÍ·Î º¹»çÇÑ´Ù.
+        // JSONì— ì €ì¥ëœ ì˜êµ¬ ë°ì´í„°ë¥¼ ëŸ°íƒ€ì„ ë°ì´í„°ë¡œ ë³µì‚¬í•œë‹¤.
         _currentLevel = _characterSaveData.level;
         _currentExp = _characterSaveData.currentExp;
 
@@ -47,60 +47,61 @@ public class CharacterProgression : MonoBehaviour
     }
 
     /// <summary>
-    /// ÇöÀç Ä³¸¯ÅÍ¿¡°Ô °æÇèÄ¡¸¦ Áö±ŞÇÑ´Ù.
+    /// í˜„ì¬ ìºë¦­í„°ì—ê²Œ ê²½í—˜ì¹˜ë¥¼ ì§€ê¸‰í•œë‹¤.
     /// </summary>
     public void AddExp(int amount)
     {
-        // 0 ÀÌÇÏÀÇ °æÇèÄ¡´Â Àû¿ëÇÏÁö ¾Ê´Â´Ù.
+        // 0 ì´í•˜ì˜ ê²½í—˜ì¹˜ëŠ” ì ìš©í•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (amount <= 0)
         {
             return;
         }
 
-        // ÀÌ¹ø °æÇèÄ¡ Áö±ŞÀ¸·Î ·¹º§ÀÌ ¿Ã¶ú´ÂÁö ±â·ÏÇÑ´Ù.
+        // ì´ë²ˆ ê²½í—˜ì¹˜ ì§€ê¸‰ìœ¼ë¡œ ë ˆë²¨ì´ ì˜¬ëëŠ”ì§€ ê¸°ë¡í•œë‹¤.
         bool didLevelUp = false;
 
-        // ÇöÀç °æÇèÄ¡¿¡ È¹µæ °æÇèÄ¡¸¦ ´õÇÑ´Ù.
+        // í˜„ì¬ ê²½í—˜ì¹˜ì— íšë“ ê²½í—˜ì¹˜ë¥¼ ë”í•œë‹¤.
         _currentExp += amount;
 
-        // ¸¹Àº °æÇèÄ¡¸¦ ÇÑ ¹ø¿¡ ¹Ş¾Æ
-        // ¿©·¯ ·¹º§ÀÌ ¿À¸£´Â °æ¿ìµµ ¸ğµÎ Ã³¸®ÇÑ´Ù.
+        // ë§ì€ ê²½í—˜ì¹˜ë¥¼ í•œ ë²ˆì— ë°›ì•„
+        // ì—¬ëŸ¬ ë ˆë²¨ì´ ì˜¤ë¥´ëŠ” ê²½ìš°ë„ ëª¨ë‘ ì²˜ë¦¬í•œë‹¤.
         while (_currentExp >= GetRequiredExp(_currentLevel))
         {
-            // ÇöÀç ·¹º§¾÷¿¡ ÇÊ¿äÇÑ °æÇèÄ¡¸¦ °¡Á®¿Â´Ù.
+            // í˜„ì¬ ë ˆë²¨ì—…ì— í•„ìš”í•œ ê²½í—˜ì¹˜ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
             int levelUpExp =
                 GetRequiredExp(_currentLevel);
 
-            // »ç¿ëÇÑ °æÇèÄ¡¸¦ Â÷°¨ÇÏ°í ·¹º§À» Áõ°¡½ÃÅ²´Ù.
+            // ì‚¬ìš©í•œ ê²½í—˜ì¹˜ë¥¼ ì°¨ê°í•˜ê³  ë ˆë²¨ì„ ì¦ê°€ì‹œí‚¨ë‹¤.
             _currentExp -= levelUpExp;
             _currentLevel++;
 
-            // ÀÌ¹ø °æÇèÄ¡ Áö±ŞÀ¸·Î ·¹º§ÀÌ ¿Ã¶ú´Ù°í ±â·ÏÇÑ´Ù.
+            // ì´ë²ˆ ê²½í—˜ì¹˜ ì§€ê¸‰ìœ¼ë¡œ ë ˆë²¨ì´ ì˜¬ëë‹¤ê³  ê¸°ë¡í•œë‹¤.
             didLevelUp = true;
 
-            // ·¹º§¾÷À» ±¸µ¶ ÁßÀÎ UI¿Í ½Ã½ºÅÛ¿¡ ¾Ë¸°´Ù.
+            // ë ˆë²¨ì—…ì„ êµ¬ë… ì¤‘ì¸ UIì™€ ì‹œìŠ¤í…œì— ì•Œë¦°ë‹¤.
             OnLevelUp?.Invoke(_currentLevel);
         }
 
-        // ·¹º§¾÷ °è»ê ÈÄ °æÇèÄ¡ °ü·Ã °ªÀ» ´Ù½Ã °è»êÇÑ´Ù.
+        // ë ˆë²¨ì—… ê³„ì‚° í›„ ê²½í—˜ì¹˜ ê´€ë ¨ ê°’ì„ ë‹¤ì‹œ ê³„ì‚°í•œë‹¤.
         UpdateCalculatedExp();
 
-        // ·±Å¸ÀÓ °á°ú¸¦ ¿µ±¸ ÀúÀå µ¥ÀÌÅÍ¿¡ ¹İ¿µÇÑ´Ù.
+        // ëŸ°íƒ€ì„ ê²°ê³¼ë¥¼ ì˜êµ¬ ì €ì¥ ë°ì´í„°ì— ë°˜ì˜í•œë‹¤.
         ApplyToSaveData();
 
-        // °æÇèÄ¡ UI¿¡ º¯°æµÈ °ªÀ» ¾Ë¸°´Ù.
+        // ê²½í—˜ì¹˜ UIì— ë³€ê²½ëœ ê°’ì„ ì•Œë¦°ë‹¤.
         NotifyProgressChanged();
 
-        // º¯°æµÈ ·¹º§°ú °æÇèÄ¡¸¦ JSON¿¡ ¸ÕÀú ÀúÀåÇÑ´Ù.
+        // ë³€ê²½ëœ ë ˆë²¨ê³¼ ê²½í—˜ì¹˜ë¥¼ JSONì— ë¨¼ì € ì €ì¥í•œë‹¤.
         SaveManager.Instance.SaveToFile();
 
-        // ½ÇÁ¦·Î ·¹º§ÀÌ ¿À¸¥ °æ¿ì¿¡¸¸ ·¹º§ ¾÷ÀûÀ» °Ë»çÇÑ´Ù.
+        // ì‹¤ì œë¡œ ë ˆë²¨ì´ ì˜¤ë¥¸ ê²½ìš°ì—ë§Œ ë ˆë²¨ ì—…ì ì„ ê²€ì‚¬í•œë‹¤.
         if (didLevelUp)
         {
+            GameAudio.Play(GameSound.LevelUp); // ì—¬ëŸ¬ ë ˆë²¨ ìƒìŠ¹ë„ í•œ ë²ˆ ì•Œë¦¼.
             if (AchievementManager.Instance == null)
             {
                 throw new InvalidOperationException(
-                    "AchievementManager°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
+                    "AchievementManagerê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
             }
 
             AchievementManager.Instance.EvaluateAllAchievements();
@@ -108,7 +109,7 @@ public class CharacterProgression : MonoBehaviour
     }
 
     /// <summary>
-    /// ÇØ´ç ·¹º§¿¡¼­ ´ÙÀ½ ·¹º§±îÁö ÇÊ¿äÇÑ °æÇèÄ¡¸¦ ¹İÈ¯ÇÑ´Ù.
+    /// í•´ë‹¹ ë ˆë²¨ì—ì„œ ë‹¤ìŒ ë ˆë²¨ê¹Œì§€ í•„ìš”í•œ ê²½í—˜ì¹˜ë¥¼ ë°˜í™˜í•œë‹¤.
     /// </summary>
     private int GetRequiredExp(int level)
     {
@@ -116,7 +117,7 @@ public class CharacterProgression : MonoBehaviour
     }
 
     /// <summary>
-    /// ÇöÀç ·¹º§À» ±âÁØÀ¸·Î ÆÄ»ıµÇ´Â °æÇèÄ¡ °ªÀ» °è»êÇÑ´Ù.
+    /// í˜„ì¬ ë ˆë²¨ì„ ê¸°ì¤€ìœ¼ë¡œ íŒŒìƒë˜ëŠ” ê²½í—˜ì¹˜ ê°’ì„ ê³„ì‚°í•œë‹¤.
     /// </summary>
     private void UpdateCalculatedExp()
     {
@@ -125,7 +126,7 @@ public class CharacterProgression : MonoBehaviour
     }
 
     /// <summary>
-    /// ·±Å¸ÀÓ ¼ºÀå µ¥ÀÌÅÍ¸¦ JSON¿¡ ÀúÀåÇÒ µ¥ÀÌÅÍ¿¡ ¹İ¿µÇÑ´Ù.
+    /// ëŸ°íƒ€ì„ ì„±ì¥ ë°ì´í„°ë¥¼ JSONì— ì €ì¥í•  ë°ì´í„°ì— ë°˜ì˜í•œë‹¤.
     /// </summary>
     private void ApplyToSaveData()
     {

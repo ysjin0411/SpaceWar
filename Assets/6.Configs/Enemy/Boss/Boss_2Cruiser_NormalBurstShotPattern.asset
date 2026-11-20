@@ -17,4 +17,4 @@ MonoBehaviour:
   _shotCount: 3
   _shotInterval: 0.2
   _bulletSpeed: 5
-  _bulletDamage: 20
+  _bulletDamage: 12

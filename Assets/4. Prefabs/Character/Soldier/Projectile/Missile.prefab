@@ -288,6 +288,7 @@ MonoBehaviour:
   _lifeTime: 5
   _damage: 10
   _hitEffectPrefab: {fileID: 0}
+  _impactSound: 0
   _rotationSpeed: 360
   _targetSearchRadius: 15
   _explosionRadius: 1.5

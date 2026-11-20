@@ -1,44 +1,44 @@
-using System;
+ï»¿using System;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-// ¸ğµç ÀçÈ­ ÇÁ¸®ÆÕÀÌ °øÀ¯ÇÏ´Â ±İ¾×°ú ÀÌµ¿¡¤È¸¼ö ¿¬ÃâÀÌ´Ù.
+// ëª¨ë“  ì¬í™” í”„ë¦¬íŒ¹ì´ ê³µìœ í•˜ëŠ” ê¸ˆì•¡ê³¼ ì´ë™Â·íšŒìˆ˜ ì—°ì¶œì´ë‹¤.
 public abstract class Money : MonoBehaviour
 {
-    // ÀçÈ­ ÇÁ¸®ÆÕ ÇÑ °³¸¦ È¸¼öÇßÀ» ¶§ Áö±ŞÇÒ ±İ¾×ÀÌ´Ù.
-    // ±âÁ¸ GoldÀÇ ±İ¾× ¼³Á¤À» ÀÌ¾î¹Ş´Â´Ù.
+    // ì¬í™” í”„ë¦¬íŒ¹ í•œ ê°œë¥¼ íšŒìˆ˜í–ˆì„ ë•Œ ì§€ê¸‰í•  ê¸ˆì•¡ì´ë‹¤.
+    // ê¸°ì¡´ Goldì˜ ê¸ˆì•¡ ì„¤ì •ì„ ì´ì–´ë°›ëŠ”ë‹¤.
     [FormerlySerializedAs("_goldAmount")]
     [SerializeField, Min(1)] private int _amount = 10;
 
-    // »ı¼º À§Ä¡¿¡¼­ ÁÖº¯À¸·Î ÆÛÁö´Â ½Ã°£ÀÌ´Ù.
+    // ìƒì„± ìœ„ì¹˜ì—ì„œ ì£¼ë³€ìœ¼ë¡œ í¼ì§€ëŠ” ì‹œê°„ì´ë‹¤.
     [SerializeField, Min(0.05f)]
     private float _spreadDuration = 0.25f;
 
-    // ÆÛÁø À§Ä¡¿¡¼­ Àá½Ã ¸Ó¹«¸£´Â ½Ã°£ÀÌ´Ù.
+    // í¼ì§„ ìœ„ì¹˜ì—ì„œ ì ì‹œ ë¨¸ë¬´ë¥´ëŠ” ì‹œê°„ì´ë‹¤.
     [SerializeField, Min(0f)]
     private float _spreadWaitDuration = 0.1f;
 
-    // µµÂø UI·Î ÀÌµ¿ÇÏ´Â ¼Óµµ´Ù.
+    // ë„ì°© UIë¡œ ì´ë™í•˜ëŠ” ì†ë„ë‹¤.
     [SerializeField, Min(0.1f)]
     private float _collectSpeed = 1000f;
 
-    // Áö±Ş°ú UI Ç¥½Ã¸¦ ´ã´çÇÏ´Â ÇØ´ç ÀçÈ­ÀÇ ¼öÁı UI´Ù.
+    // ì§€ê¸‰ê³¼ UI í‘œì‹œë¥¼ ë‹´ë‹¹í•˜ëŠ” í•´ë‹¹ ì¬í™”ì˜ ìˆ˜ì§‘ UIë‹¤.
     private MoneyUI _moneyUI;
 
-    // ÀÌ ÀçÈ­ ÇÑ °³ÀÇ È¸¼ö°¡ ³¡³µÀ» ¶§ ½ÇÇàÇÒ ÇÔ¼ö´Ù.
+    // ì´ ì¬í™” í•œ ê°œì˜ íšŒìˆ˜ê°€ ëë‚¬ì„ ë•Œ ì‹¤í–‰í•  í•¨ìˆ˜ë‹¤.
     private Action _onCollected;
 
-    // °°Àº ÀçÈ­¸¦ Áßº¹ Áö±ŞÇÏÁö ¾Êµµ·Ï °ü¸®ÇÑ´Ù.
+    // ê°™ì€ ì¬í™”ë¥¼ ì¤‘ë³µ ì§€ê¸‰í•˜ì§€ ì•Šë„ë¡ ê´€ë¦¬í•œë‹¤.
     private bool _isCollected;
 
-    // ÀÚ½Ä Å¬·¡½º°¡ ÀÚ½ÅÀÌ ¾î¶² ÀçÈ­ÀÎÁö ÁöÁ¤ÇÑ´Ù.
+    // ìì‹ í´ë˜ìŠ¤ê°€ ìì‹ ì´ ì–´ë–¤ ì¬í™”ì¸ì§€ ì§€ì •í•œë‹¤.
     public abstract MoneyType Type { get; }
 
-    // µå·Ó ¼³Á¤ °ËÁõ¿¡¼­ ÇÑ °³ÀÇ Áö±Ş ±İ¾×À» È®ÀÎÇÑ´Ù.
+    // ë“œë¡­ ì„¤ì • ê²€ì¦ì—ì„œ í•œ ê°œì˜ ì§€ê¸‰ ê¸ˆì•¡ì„ í™•ì¸í•œë‹¤.
     public int Amount => _amount;
 
-    // »ı¼ºµÈ ÀçÈ­¿¡ ¸ñÀûÁö¿Í È¸¼ö ¿Ï·á ÇÔ¼ö¸¦ Àü´ŞÇÑ´Ù.
+    // ìƒì„±ëœ ì¬í™”ì— ëª©ì ì§€ì™€ íšŒìˆ˜ ì™„ë£Œ í•¨ìˆ˜ë¥¼ ì „ë‹¬í•œë‹¤.
     public void Initialize(
         Vector3 spreadPosition,
         RectTransform target,
@@ -47,19 +47,19 @@ public abstract class Money : MonoBehaviour
     {
         if (target == null || moneyUI == null)
         {
-            throw new ArgumentException("ÀçÈ­ÀÇ µµÂø UI°¡ ¾ø½À´Ï´Ù.");
+            throw new ArgumentException("ì¬í™”ì˜ ë„ì°© UIê°€ ì—†ìŠµë‹ˆë‹¤.");
         }
 
         if (moneyUI.Type != Type)
         {
             throw new InvalidOperationException(
-                $"{name}: ÀçÈ­ Á¾·ù¿Í ¼öÁı UIÀÇ Á¾·ù°¡ ´Ù¸¨´Ï´Ù.");
+                $"{name}: ì¬í™” ì¢…ë¥˜ì™€ ìˆ˜ì§‘ UIì˜ ì¢…ë¥˜ê°€ ë‹¤ë¦…ë‹ˆë‹¤.");
         }
 
         if (_amount <= 0)
         {
             throw new InvalidOperationException(
-                $"{name}: ÀçÈ­ ±İ¾×Àº 1 ÀÌ»óÀÌ¾î¾ß ÇÕ´Ï´Ù.");
+                $"{name}: ì¬í™” ê¸ˆì•¡ì€ 1 ì´ìƒì´ì–´ì•¼ í•©ë‹ˆë‹¤.");
         }
 
         _moneyUI = moneyUI;
@@ -69,7 +69,7 @@ public abstract class Money : MonoBehaviour
         PlayCollectAnimation(spreadPosition, target);
     }
 
-    // ¸ğµç ÀçÈ­°¡ µ¿ÀÏÇÑ ÆÛÁü¡¤´ë±â¡¤È¸¼ö ¿¬ÃâÀ» »ç¿ëÇÑ´Ù.
+    // ëª¨ë“  ì¬í™”ê°€ ë™ì¼í•œ í¼ì§Â·ëŒ€ê¸°Â·íšŒìˆ˜ ì—°ì¶œì„ ì‚¬ìš©í•œë‹¤.
     private void PlayCollectAnimation(
         Vector3 spreadPosition,
         RectTransform target)
@@ -84,7 +84,7 @@ public abstract class Money : MonoBehaviour
         Sequence sequence = DOTween.Sequence();
         sequence.SetLink(gameObject);
 
-        // »ı¼º À§Ä¡¿¡¼­ ¹Ù±ùÂÊÀ¸·Î ÆÛÁø´Ù.
+        // ìƒì„± ìœ„ì¹˜ì—ì„œ ë°”ê¹¥ìª½ìœ¼ë¡œ í¼ì§„ë‹¤.
         sequence.Append(
             transform.DOMove(spreadPosition, _spreadDuration)
                 .SetEase(Ease.OutQuad));
@@ -95,7 +95,7 @@ public abstract class Money : MonoBehaviour
 
         sequence.AppendInterval(_spreadWaitDuration);
 
-        // ÀçÈ­º°·Î Àü´Ş¹ŞÀº UI À§Ä¡·Î ÀÌµ¿ÇÑ´Ù.
+        // ì¬í™”ë³„ë¡œ ì „ë‹¬ë°›ì€ UI ìœ„ì¹˜ë¡œ ì´ë™í•œë‹¤.
         sequence.Append(
             transform.DOMove(target.position, collectDuration)
                 .SetEase(Ease.Linear));
@@ -107,7 +107,7 @@ public abstract class Money : MonoBehaviour
         sequence.OnComplete(CollectAndDestroy);
     }
 
-    // µµÂøÇÑ ÀçÈ­¸¦ Áö±ŞÇÑ µÚ È¸¼ö ¿Ï·á¸¦ ¾Ë¸°´Ù.
+    // ë„ì°©í•œ ì¬í™”ë¥¼ ì§€ê¸‰í•œ ë’¤ íšŒìˆ˜ ì™„ë£Œë¥¼ ì•Œë¦°ë‹¤.
     private void CollectAndDestroy()
     {
         if (_isCollected)
@@ -117,7 +117,7 @@ public abstract class Money : MonoBehaviour
 
         _isCollected = true;
 
-        // ½ÇÁ¦ Áö±Ş ¹æ½ÄÀº ÇØ´ç ÀçÈ­ UIÀÇ ±¸ÇöÀ» »ç¿ëÇÑ´Ù.
+        // ì‹¤ì œ ì§€ê¸‰ ë°©ì‹ì€ í•´ë‹¹ ì¬í™” UIì˜ êµ¬í˜„ì„ ì‚¬ìš©í•œë‹¤.
         _moneyUI.CollectMoney(_amount);
 
         Action completed = _onCollected;

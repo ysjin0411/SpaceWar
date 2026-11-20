@@ -1,82 +1,85 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
-// ¸¶À» Ä³¸¯ÅÍ´Â ¸öÃ¼ ÇÏ³ª¿Í Ä¸½¶ Ãæµ¹Ã¼ ÇÏ³ª·Î ÀÌµ¿ÇÑ´Ù.
+// ë§ˆì„ ìºë¦­í„°ëŠ” ëª¸ì²´ í•˜ë‚˜ì™€ ìº¡ìŠ ì¶©ëŒì²´ í•˜ë‚˜ë¡œ ì´ë™í•œë‹¤.
 [RequireComponent(typeof(Rigidbody2D), typeof(CapsuleCollider2D))]
 public class TownPlayerController : MonoBehaviour
 {
-    // ÀÚ½Ä VisualÀÇ SpriteRenderer. ÀÌµ¿ ¹æÇâ¿¡ µû¶ó ±×¸²À» µÚÁı´Â´Ù.
+    // ìì‹ Visualì˜ SpriteRenderer. ì´ë™ ë°©í–¥ì— ë”°ë¼ ê·¸ë¦¼ì„ ë’¤ì§‘ëŠ”ë‹¤.
     [SerializeField] private SpriteRenderer _visual;
 
-    // Visual¿¡ ÀÖ´Â Animator.
-    // ÀÌµ¿ ¼Óµµ¿Í Á¢Áö »óÅÂ¸¦ ¾Ö´Ï¸ŞÀÌ¼Ç¿¡ Àü´ŞÇÑ´Ù.
+    // Visualì— ìˆëŠ” Animator.
+    // ì´ë™ ì†ë„ì™€ ì ‘ì§€ ìƒíƒœë¥¼ ì• ë‹ˆë©”ì´ì…˜ì— ì „ë‹¬í•œë‹¤.
     [SerializeField] private Animator _animator;
 
-    // ÂøÁöÇÒ ¼ö ÀÖ´Â ·¹ÀÌ¾î. TownGround¿Í TownPlatformÀ» ÇÔ²² ÁöÁ¤ÇÑ´Ù.
+    // ì°©ì§€í•  ìˆ˜ ìˆëŠ” ë ˆì´ì–´. TownGroundì™€ TownPlatformì„ í•¨ê»˜ ì§€ì •í•œë‹¤.
     [SerializeField] private LayerMask _groundLayers;
 
-    // ¾Æ·¡Á¡ÇÁ·Î Åë°úÇÒ ¼ö ÀÖ´Â ·¹ÀÌ¾î. TownPlatform¸¸ ÁöÁ¤ÇÑ´Ù.
+    // ì•„ë˜ì í”„ë¡œ í†µê³¼í•  ìˆ˜ ìˆëŠ” ë ˆì´ì–´. TownPlatformë§Œ ì§€ì •í•œë‹¤.
     [SerializeField] private LayerMask _dropThroughLayers;
 
-    // ÃÊ´ç ÁÂ¿ì ÀÌµ¿ °Å¸®.
+    // ì´ˆë‹¹ ì¢Œìš° ì´ë™ ê±°ë¦¬.
     [SerializeField] private float _moveSpeed = 5f;
 
-    // Á¡ÇÁ ¼ø°£ÀÇ À§ÂÊ ¼Óµµ.
+    // ì í”„ ìˆœê°„ì˜ ìœ„ìª½ ì†ë„.
     [SerializeField] private float _jumpSpeed = 10f;
 
-    // ¾Æ·¡Á¡ÇÁ¸¦ ½ÃÀÛÇÒ ¶§ÀÇ ¾Æ·¡ÂÊ ¼Ó·Â.
+    // ì•„ë˜ì í”„ë¥¼ ì‹œì‘í•  ë•Œì˜ ì•„ë˜ìª½ ì†ë ¥.
     [SerializeField] private float _dropSpeed = 3f;
 
-    // ¹ß¹ØÀÇ ¹Ù´ÚÀ» °Ë»çÇÒ °Å¸®.
+    // ë°œë°‘ì˜ ë°”ë‹¥ì„ ê²€ì‚¬í•  ê±°ë¦¬.
     [SerializeField] private float _groundCheckDistance = 0.05f;
 
-    // °É¾î¼­ ¿Ã¶ó°¥ ¼ö ÀÖ´Â ÃÖ´ë °æ»ç°¢. ÇöÀç °è´ÜÀº ¾à 45µµ´Ù.
+    // ê±¸ì–´ì„œ ì˜¬ë¼ê°ˆ ìˆ˜ ìˆëŠ” ìµœëŒ€ ê²½ì‚¬ê°. í˜„ì¬ ê³„ë‹¨ì€ ì•½ 45ë„ë‹¤.
     [SerializeField, Range(0f, 80f)]
     private float _maxSlopeAngle = 50f;
 
-    // ¸ö ÀüÃ¼°¡ ¹ßÆÇ ¾Æ·¡·Î ºüÁø µÚ Ãæµ¹À» º¹±¸ÇÏ±â À§ÇÑ ¿©À¯ °Å¸®.
+    // ëª¸ ì „ì²´ê°€ ë°œíŒ ì•„ë˜ë¡œ ë¹ ì§„ ë’¤ ì¶©ëŒì„ ë³µêµ¬í•˜ê¸° ìœ„í•œ ì—¬ìœ  ê±°ë¦¬.
     [SerializeField] private float _dropClearance = 0.05f;
 
-    // ½ÇÁ¦ ÀÌµ¿°ú Ãæµ¹¿¡ »ç¿ëÇÏ´Â ÄÄÆ÷³ÍÆ®.
+    // ì‹¤ì œ ì´ë™ê³¼ ì¶©ëŒì— ì‚¬ìš©í•˜ëŠ” ì»´í¬ë„ŒíŠ¸.
     private Rigidbody2D _body;
     private CapsuleCollider2D _bodyCollider;
 
-    // ¹Ù´Ú °Ë»ç Á¶°Ç°ú °á°ú ¹è¿­À» Àç»ç¿ëÇÑ´Ù.
+    // ë°”ë‹¥ ê²€ì‚¬ ì¡°ê±´ê³¼ ê²°ê³¼ ë°°ì—´ì„ ì¬ì‚¬ìš©í•œë‹¤.
     private ContactFilter2D _groundFilter;
     private readonly RaycastHit2D[] _groundHits = new RaycastHit2D[16];
 
-    // ½ÇÁ¦ ¹°¸® Á¢ÃËÀ» ÀúÀåÇÑ´Ù.
-    // ¹è¿­À» Àç»ç¿ëÇØ¼­ ¹Ù´Ú °Ë»ç¸¶´Ù »õ ¹è¿­À» ¸¸µéÁö ¾Ê´Â´Ù.
+    // ì‹¤ì œ ë¬¼ë¦¬ ì ‘ì´‰ì„ ì €ì¥í•œë‹¤.
+    // ë°°ì—´ì„ ì¬ì‚¬ìš©í•´ì„œ ë°”ë‹¥ ê²€ì‚¬ë§ˆë‹¤ ìƒˆ ë°°ì—´ì„ ë§Œë“¤ì§€ ì•ŠëŠ”ë‹¤.
     private readonly ContactPoint2D[] _groundContacts =
         new ContactPoint2D[16];
 
-    // ÇöÀç ¹ß¹ØÀÇ ¹Ù´Ú°ú ¾Æ·¡Á¡ÇÁ·Î Åë°ú ÁßÀÎ ¹ßÆÇ.
+    // í˜„ì¬ ë°œë°‘ì˜ ë°”ë‹¥ê³¼ ì•„ë˜ì í”„ë¡œ í†µê³¼ ì¤‘ì¸ ë°œíŒ.
     private Collider2D _groundCollider;
     private Collider2D _ignoredPlatform;
 
-    // ÇöÀç ¹Ù´ÚÀÇ ¼öÁ÷ ¹æÇâ. ÀÌ °ªÀ¸·Î °æ»ç¸éÀÇ ÀÌµ¿ ¹æÇâÀ» ±¸ÇÑ´Ù.
+    // í˜„ì¬ ë°”ë‹¥ì˜ ìˆ˜ì§ ë°©í–¥. ì´ ê°’ìœ¼ë¡œ ê²½ì‚¬ë©´ì˜ ì´ë™ ë°©í–¥ì„ êµ¬í•œë‹¤.
     private Vector2 _groundNormal = Vector2.up;
 
-    // °øÁß¿¡ ÀÖ°Å³ª ½ºÅ©¸³Æ®°¡ ²¨Áö¸é º¹¿øÇÒ ¿ø·¡ Áß·Â°ª.
+    // ê³µì¤‘ì— ìˆê±°ë‚˜ ìŠ¤í¬ë¦½íŠ¸ê°€ êº¼ì§€ë©´ ë³µì›í•  ì›ë˜ ì¤‘ë ¥ê°’.
     private float _defaultGravityScale;
 
-    // ½ÇÁ¦ Á¡ÇÁ·Î »ó½ÂÇÏ´Â »óÅÂ¿Í °è´ÜÀ» °É¾î ¿Ã¶ó°¡´Â »óÅÂ¸¦ ±¸ºĞÇÑ´Ù.
+    // ì‹¤ì œ ì í”„ë¡œ ìƒìŠ¹í•˜ëŠ” ìƒíƒœì™€ ê³„ë‹¨ì„ ê±¸ì–´ ì˜¬ë¼ê°€ëŠ” ìƒíƒœë¥¼ êµ¬ë¶„í•œë‹¤.
     private bool _isJumpAscending;
 
-    // Update¿¡¼­ ÀĞ°í FixedUpdate¿¡¼­ »ç¿ëÇÒ ÀÔ·Â.
+    // Updateì—ì„œ ì½ê³  FixedUpdateì—ì„œ ì‚¬ìš©í•  ì…ë ¥.
     private float _horizontalInput;
     private bool _jumpRequested;
     private bool _dropRequested;
 
-    // ÀÌÈÄ NPC ´ëÈ­Ã¢¿¡¼­ Á¶ÀÛÀ» Àá±Û ¶§ »ç¿ëÇÑ´Ù.
+    // ì´í›„ NPC ëŒ€í™”ì°½ì—ì„œ ì¡°ì‘ì„ ì ê¸€ ë•Œ ì‚¬ìš©í•œë‹¤.
     private bool _canControl = true;
+    // ì‹¤ì œ ì ‘ì§€ì™€ ì´ë™ ì •ë³´ë¥¼ ì „ë‹¬ë°›ëŠ” ë°œì†Œë¦¬ ì¬ìƒê¸°.
+    [SerializeField] private TownMovementAudio _movementAudio;
 
-    // ÀÌµ¿¿¡ ÇÊ¿äÇÑ ÄÄÆ÷³ÍÆ®¿Í ¾Ö´Ï¸ŞÀÌ¼Ç ¿¬°áÀ» È®ÀÎÇÑ´Ù.
+    // ì´ë™ì— í•„ìš”í•œ ì»´í¬ë„ŒíŠ¸ì™€ ì• ë‹ˆë©”ì´ì…˜ ì—°ê²°ì„ í™•ì¸í•œë‹¤.
     private void Awake()
     {
         _body = GetComponent<Rigidbody2D>();
         _bodyCollider = GetComponent<CapsuleCollider2D>();
+        if (_movementAudio == null) throw new MissingReferenceException("TownMovementAudioë¥¼ ì—°ê²°í•˜ì„¸ìš”.");
 
-        // °øÁß¿¡¼­ »ç¿ëÇÒ ¿ø·¡ Áß·Â°ªÀ» º¸°üÇÑ´Ù.
+        // ê³µì¤‘ì—ì„œ ì‚¬ìš©í•  ì›ë˜ ì¤‘ë ¥ê°’ì„ ë³´ê´€í•œë‹¤.
         _defaultGravityScale = _body.gravityScale;
 
         if (_visual == null ||
@@ -84,20 +87,20 @@ public class TownPlayerController : MonoBehaviour
             _animator.runtimeAnimatorController == null)
         {
             Debug.LogError(
-                "TownPlayerControllerÀÇ Visual, Animator, Animator Controller¸¦ ¿¬°áÇØÁÖ¼¼¿ä.",
+                "TownPlayerControllerì˜ Visual, Animator, Animator Controllerë¥¼ ì—°ê²°í•´ì£¼ì„¸ìš”.",
                 this);
 
             enabled = false;
             return;
         }
 
-        // ÁöÁ¤ÇÑ ÁöÇü ·¹ÀÌ¾î¸¸ ¹Ù´Ú °Ë»ç¿¡ Æ÷ÇÔÇÑ´Ù.
+        // ì§€ì •í•œ ì§€í˜• ë ˆì´ì–´ë§Œ ë°”ë‹¥ ê²€ì‚¬ì— í¬í•¨í•œë‹¤.
         _groundFilter = new ContactFilter2D();
         _groundFilter.SetLayerMask(_groundLayers);
         _groundFilter.useTriggers = false;
     }
 
-    // ¹öÆ°À» ´©¸¥ ¼ø°£À» ³õÄ¡Áö ¾Êµµ·Ï ÀÔ·ÂÀº Update¿¡¼­ ÀĞ´Â´Ù.
+    // ë²„íŠ¼ì„ ëˆ„ë¥¸ ìˆœê°„ì„ ë†“ì¹˜ì§€ ì•Šë„ë¡ ì…ë ¥ì€ Updateì—ì„œ ì½ëŠ”ë‹¤.
     private void Update()
     {
         if (!_canControl || Time.timeScale == 0f)
@@ -117,14 +120,14 @@ public class TownPlayerController : MonoBehaviour
         {
             _jumpRequested = true;
 
-            // C¸¦ ´©¸¥ ¼ø°£ ¾Æ·¡ ¹æÇâµµ ´©¸£°í ÀÖ¾ú´ÂÁö ÀúÀåÇÑ´Ù.
+            // Cë¥¼ ëˆ„ë¥¸ ìˆœê°„ ì•„ë˜ ë°©í–¥ë„ ëˆ„ë¥´ê³  ìˆì—ˆëŠ”ì§€ ì €ì¥í•œë‹¤.
             _dropRequested =
                 Input.GetKey(KeyCode.S) ||
                 Input.GetKey(KeyCode.DownArrow);
         }
     }
 
-    // ¹Ù´Ú »óÅÂ¿¡ ¸ÂÃç ÀÌµ¿, Á¡ÇÁ, ¾Æ·¡Á¡ÇÁ¸¦ Ã³¸®ÇÑ´Ù.
+    // ë°”ë‹¥ ìƒíƒœì— ë§ì¶° ì´ë™, ì í”„, ì•„ë˜ì í”„ë¥¼ ì²˜ë¦¬í•œë‹¤.
     private void FixedUpdate()
     {
         RestoreCollisionAfterPassing();
@@ -137,18 +140,18 @@ public class TownPlayerController : MonoBehaviour
 
         if (_groundCollider != null)
         {
-            // ¹Ù´Ú ¹ı¼±À» 90µµ µ¹·Á ¿À¸¥ÂÊÀ» ÇâÇÏ´Â Ç¥¸é ¹æÇâÀ» ¸¸µç´Ù.
-            // ÆòÁö¿¡¼­´Â (1, 0), °è´Ü¿¡¼­´Â °æ»ç¸¦ µû¶ó°¡´Â ¹æÇâÀÌ µÈ´Ù.
+            // ë°”ë‹¥ ë²•ì„ ì„ 90ë„ ëŒë ¤ ì˜¤ë¥¸ìª½ì„ í–¥í•˜ëŠ” í‘œë©´ ë°©í–¥ì„ ë§Œë“ ë‹¤.
+            // í‰ì§€ì—ì„œëŠ” (1, 0), ê³„ë‹¨ì—ì„œëŠ” ê²½ì‚¬ë¥¼ ë”°ë¼ê°€ëŠ” ë°©í–¥ì´ ëœë‹¤.
             Vector2 groundDirection =
                 new Vector2(_groundNormal.y, -_groundNormal.x);
 
-            // Ç¥¸éÀ» µû¶ó ÀÏÁ¤ÇÑ ¼Óµµ·Î ÀÌµ¿ÇÑ´Ù.
-            // ÀÔ·ÂÀÌ ¾øÀ¸¸é X¿Í Y¼Óµµ°¡ ¸ğµÎ 0ÀÌ µÈ´Ù.
+            // í‘œë©´ì„ ë”°ë¼ ì¼ì •í•œ ì†ë„ë¡œ ì´ë™í•œë‹¤.
+            // ì…ë ¥ì´ ì—†ìœ¼ë©´ Xì™€ Yì†ë„ê°€ ëª¨ë‘ 0ì´ ëœë‹¤.
             velocity = groundDirection * horizontalSpeed;
         }
         else
         {
-            // °øÁß¿¡¼­´Â ÁÂ¿ì¸¸ Á¶ÀıÇÏ°í Á¡ÇÁ¡¤³«ÇÏ Y¼Óµµ´Â À¯ÁöÇÑ´Ù.
+            // ê³µì¤‘ì—ì„œëŠ” ì¢Œìš°ë§Œ ì¡°ì ˆí•˜ê³  ì í”„Â·ë‚™í•˜ Yì†ë„ëŠ” ìœ ì§€í•œë‹¤.
             velocity.x = horizontalSpeed;
         }
 
@@ -158,7 +161,7 @@ public class TownPlayerController : MonoBehaviour
         {
             if (_dropRequested)
             {
-                // ¾Æ·¡Á¡ÇÁ °¡´ÉÇÑ ¹ßÆÇ¿¡¼­¸¸ Ãæµ¹À» Àá½Ã ¹«½ÃÇÑ´Ù.
+                // ì•„ë˜ì í”„ ê°€ëŠ¥í•œ ë°œíŒì—ì„œë§Œ ì¶©ëŒì„ ì ì‹œ ë¬´ì‹œí•œë‹¤.
                 if (_ignoredPlatform == null &&
                     IsDropThroughPlatform(_groundCollider))
                 {
@@ -174,52 +177,54 @@ public class TownPlayerController : MonoBehaviour
             }
             else
             {
-                // ÀÏ¹İ Á¡ÇÁ´Â °æ»ç¿Í °ü°è¾øÀÌ À§ÂÊÀ¸·Î Ãâ¹ßÇÑ´Ù.
+                // ì¼ë°˜ ì í”„ëŠ” ê²½ì‚¬ì™€ ê´€ê³„ì—†ì´ ìœ„ìª½ìœ¼ë¡œ ì¶œë°œí•œë‹¤.
                 velocity = new Vector2(horizontalSpeed, _jumpSpeed);
                 _groundCollider = null;
                 _isJumpAscending = true;
+                _movementAudio.PlayJump();
             }
         }
 
-        // ¹Ù´Ú¿¡¼­´Â Áß·Â¿¡ ÀÇÇÑ °æ»ç¸é ¹Ì²ô·¯ÁüÀ» ¸·´Â´Ù.
-        // Á¡ÇÁ¡¤¾Æ·¡Á¡ÇÁ¡¤³«ÇÏ Áß¿¡´Â ¿ø·¡ Áß·ÂÀ» Áï½Ã º¹¿øÇÑ´Ù.
+        // ë°”ë‹¥ì—ì„œëŠ” ì¤‘ë ¥ì— ì˜í•œ ê²½ì‚¬ë©´ ë¯¸ë„ëŸ¬ì§ì„ ë§‰ëŠ”ë‹¤.
+        // ì í”„Â·ì•„ë˜ì í”„Â·ë‚™í•˜ ì¤‘ì—ëŠ” ì›ë˜ ì¤‘ë ¥ì„ ì¦‰ì‹œ ë³µì›í•œë‹¤.
         _body.gravityScale =
             _groundCollider != null ? 0f : _defaultGravityScale;
 
         _body.linearVelocity = velocity;
 
-        // ÀÔ·Â ÇÑ ¹øÀ» ¿©·¯ ¹°¸® ÇÁ·¹ÀÓ¿¡¼­ Áßº¹ Ã³¸®ÇÏÁö ¾Ê´Â´Ù.
+        // ì…ë ¥ í•œ ë²ˆì„ ì—¬ëŸ¬ ë¬¼ë¦¬ í”„ë ˆì„ì—ì„œ ì¤‘ë³µ ì²˜ë¦¬í•˜ì§€ ì•ŠëŠ”ë‹¤.
         _jumpRequested = false;
         _dropRequested = false;
 
-        // ÀÌµ¿°ú Á¡ÇÁ °è»ê °á°ú¸¦ ¾Ö´Ï¸ŞÀÌ¼Ç¿¡ ¹İ¿µÇÑ´Ù.
+        // ì´ë™ê³¼ ì í”„ ê³„ì‚° ê²°ê³¼ë¥¼ ì• ë‹ˆë©”ì´ì…˜ì— ë°˜ì˜í•œë‹¤.
         UpdateAnimation();
+        _movementAudio.Tick(_groundCollider != null, _canControl && Mathf.Abs(horizontalSpeed) > 0.01f, Time.fixedDeltaTime);
     }
 
-    // ÀÌµ¿ °è»êÀÌ ³¡³­ »óÅÂ¸¦ Animator¿¡ Àü´ŞÇÑ´Ù.
+    // ì´ë™ ê³„ì‚°ì´ ëë‚œ ìƒíƒœë¥¼ Animatorì— ì „ë‹¬í•œë‹¤.
     private void UpdateAnimation()
     {
-        // ÁÂ¿ì ¹æÇâ°ú °ü°è¾øÀÌ ¼ÓµµÀÇ Å©±â¸¸ Àü´ŞÇÑ´Ù.
-        // ´ëÈ­ µîÀ¸·Î Á¶ÀÛÀÌ Àá±â¸é ÀÌµ¿ ¾Ö´Ï¸ŞÀÌ¼ÇÀ» ¸ØÃá´Ù.
+        // ì¢Œìš° ë°©í–¥ê³¼ ê´€ê³„ì—†ì´ ì†ë„ì˜ í¬ê¸°ë§Œ ì „ë‹¬í•œë‹¤.
+        // ëŒ€í™” ë“±ìœ¼ë¡œ ì¡°ì‘ì´ ì ê¸°ë©´ ì´ë™ ì• ë‹ˆë©”ì´ì…˜ì„ ë©ˆì¶˜ë‹¤.
         float moveSpeed = _canControl
             ? Mathf.Abs(_body.linearVelocity.x)
             : 0f;
 
         _animator.SetFloat("MoveSpeed", moveSpeed);
 
-        // Á¡ÇÁ¿Í ¾Æ·¡Á¡ÇÁ¸¦ ½ÃÀÛÇÏ¸é groundCollider°¡ ºñ¿öÁö¹Ç·Î
-        // °°Àº ¹°¸® ÇÁ·¹ÀÓ¿¡ °øÁß »óÅÂ¸¦ Àü´ŞÇÒ ¼ö ÀÖ´Ù.
+        // ì í”„ì™€ ì•„ë˜ì í”„ë¥¼ ì‹œì‘í•˜ë©´ groundColliderê°€ ë¹„ì›Œì§€ë¯€ë¡œ
+        // ê°™ì€ ë¬¼ë¦¬ í”„ë ˆì„ì— ê³µì¤‘ ìƒíƒœë¥¼ ì „ë‹¬í•  ìˆ˜ ìˆë‹¤.
         _animator.SetBool("IsGrounded", _groundCollider != null);
     }
 
-    // ½ÇÁ¦·Î ¹ßÀ» ¹ŞÄ¡´Â Á¢ÃËÀ» ¸ÕÀú Ã£´Â´Ù.
-    // Á¢ÃËÀÌ ¾ø´Ù¸é ¹Ù·Î ¾Æ·¡ÀÇ °¡±î¿î ¹Ù´ÚÀ» °Ë»çÇÑ´Ù.
+    // ì‹¤ì œë¡œ ë°œì„ ë°›ì¹˜ëŠ” ì ‘ì´‰ì„ ë¨¼ì € ì°¾ëŠ”ë‹¤.
+    // ì ‘ì´‰ì´ ì—†ë‹¤ë©´ ë°”ë¡œ ì•„ë˜ì˜ ê°€ê¹Œìš´ ë°”ë‹¥ì„ ê²€ì‚¬í•œë‹¤.
     private void FindGround()
     {
         _groundCollider = null;
         _groundNormal = Vector2.up;
 
-        // Á¡ÇÁ »ó½Â Áß¿¡´Â °¡±î¿î ¹Ù´Ú¿¡ ´Ù½Ã ºÙÁö ¾Ê´Â´Ù.
+        // ì í”„ ìƒìŠ¹ ì¤‘ì—ëŠ” ê°€ê¹Œìš´ ë°”ë‹¥ì— ë‹¤ì‹œ ë¶™ì§€ ì•ŠëŠ”ë‹¤.
         if (_isJumpAscending)
         {
             if (_body.linearVelocity.y > 0f)
@@ -235,8 +240,8 @@ public class TownPlayerController : MonoBehaviour
 
         Bounds bounds = _bodyCollider.bounds;
 
-        // Ä¸½¶ ¾Æ·¡ÂÊÀÇ µÕ±Ù ºÎºĞ¿¡¼­ ¹ß»ıÇÑ Á¢ÃË±îÁö¸¸
-        // ¹ß¹ØÀÇ Á¢ÃËÀ¸·Î ÀÎÁ¤ÇÑ´Ù.
+        // ìº¡ìŠ ì•„ë˜ìª½ì˜ ë‘¥ê·¼ ë¶€ë¶„ì—ì„œ ë°œìƒí•œ ì ‘ì´‰ê¹Œì§€ë§Œ
+        // ë°œë°‘ì˜ ì ‘ì´‰ìœ¼ë¡œ ì¸ì •í•œë‹¤.
         float maximumGroundPointY =
             bounds.min.y + bounds.extents.x + _groundCheckDistance;
 
@@ -249,13 +254,13 @@ public class TownPlayerController : MonoBehaviour
         {
             ContactPoint2D contact = _groundContacts[i];
 
-            // Effector µî¿¡ ÀÇÇØ ½ÇÁ¦ Ãæµ¹ÀÌ ²¨Áø Á¢ÃËÀº Á¦¿ÜÇÑ´Ù.
+            // Effector ë“±ì— ì˜í•´ ì‹¤ì œ ì¶©ëŒì´ êº¼ì§„ ì ‘ì´‰ì€ ì œì™¸í•œë‹¤.
             if (!contact.enabled)
             {
                 continue;
             }
 
-            // Á¢ÃËÇÑ µÎ Äİ¶óÀÌ´õ Áß Ä³¸¯ÅÍ°¡ ¾Æ´Ñ ÂÊÀ» Ã£´Â´Ù.
+            // ì ‘ì´‰í•œ ë‘ ì½œë¼ì´ë” ì¤‘ ìºë¦­í„°ê°€ ì•„ë‹Œ ìª½ì„ ì°¾ëŠ”ë‹¤.
             Collider2D ground = contact.collider;
 
             if (ground == _bodyCollider)
@@ -268,14 +273,14 @@ public class TownPlayerController : MonoBehaviour
                 continue;
             }
 
-            // º®, ÃµÀå, ¸ö À§ÂÊ¿¡¼­ ¹ß»ıÇÑ Á¢ÃËÀº ¹Ù´ÚÀÌ ¾Æ´Ï´Ù.
+            // ë²½, ì²œì¥, ëª¸ ìœ„ìª½ì—ì„œ ë°œìƒí•œ ì ‘ì´‰ì€ ë°”ë‹¥ì´ ì•„ë‹ˆë‹¤.
             if (contact.normal.y < minimumNormalY ||
                 contact.point.y > maximumGroundPointY)
             {
                 continue;
             }
 
-            // ¿©·¯ ¸éÀÌ µ¿½Ã¿¡ ¹ŞÄ¡°í ÀÖ´Ù¸é ´õ ÆòÆòÇÑ ¸éÀ» ¼±ÅÃÇÑ´Ù.
+            // ì—¬ëŸ¬ ë©´ì´ ë™ì‹œì— ë°›ì¹˜ê³  ìˆë‹¤ë©´ ë” í‰í‰í•œ ë©´ì„ ì„ íƒí•œë‹¤.
             if (contact.normal.y > bestNormalY)
             {
                 bestNormalY = contact.normal.y;
@@ -284,7 +289,7 @@ public class TownPlayerController : MonoBehaviour
             }
         }
 
-        // ½ÇÁ¦·Î ¹ßÀ» ¹ŞÄ¡´Â ¹Ù´ÚÀ» Ã£¾Ò´Ù¸é Cast·Î µ¤¾î¾²Áö ¾Ê´Â´Ù.
+        // ì‹¤ì œë¡œ ë°œì„ ë°›ì¹˜ëŠ” ë°”ë‹¥ì„ ì°¾ì•˜ë‹¤ë©´ Castë¡œ ë®ì–´ì“°ì§€ ì•ŠëŠ”ë‹¤.
         if (_groundCollider != null)
         {
             return;
@@ -308,8 +313,8 @@ public class TownPlayerController : MonoBehaviour
                 continue;
             }
 
-            // ½ÃÀÛºÎÅÍ °ãÄ¡°Å³ª °Å¸®°¡ 0ÀÎ °á°ú´Â
-            // ½ÇÁ¦ Á¢ÃË °Ë»ç¿¡¼­¸¸ ÆÇ´ÜÇÑ´Ù.
+            // ì‹œì‘ë¶€í„° ê²¹ì¹˜ê±°ë‚˜ ê±°ë¦¬ê°€ 0ì¸ ê²°ê³¼ëŠ”
+            // ì‹¤ì œ ì ‘ì´‰ ê²€ì‚¬ì—ì„œë§Œ íŒë‹¨í•œë‹¤.
             if (hit.distance <= 0f)
             {
                 continue;
@@ -321,7 +326,7 @@ public class TownPlayerController : MonoBehaviour
                 continue;
             }
 
-            // ¸ö°ú °ãÄ£ °è´ÜÀ» °¡±î¿î ¹Ù´ÚÀ¸·Î ¿ÀÀÎÇÏÁö ¾Ê´Â´Ù.
+            // ëª¸ê³¼ ê²¹ì¹œ ê³„ë‹¨ì„ ê°€ê¹Œìš´ ë°”ë‹¥ìœ¼ë¡œ ì˜¤ì¸í•˜ì§€ ì•ŠëŠ”ë‹¤.
             ColliderDistance2D separation =
                 _bodyCollider.Distance(hit.collider);
 
@@ -339,7 +344,7 @@ public class TownPlayerController : MonoBehaviour
         }
     }
 
-    // ·¹ÀÌ¾î¿Í Effector ¼³Á¤À» ¸ğµÎ È®ÀÎÇÑ´Ù.
+    // ë ˆì´ì–´ì™€ Effector ì„¤ì •ì„ ëª¨ë‘ í™•ì¸í•œë‹¤.
     private bool IsDropThroughPlatform(Collider2D platform)
     {
         int layerBit = 1 << platform.gameObject.layer;
@@ -358,7 +363,7 @@ public class TownPlayerController : MonoBehaviour
                effector.useOneWay;
     }
 
-    // ÆòÆòÇÑ ¹ßÆÇ°ú °æ»çÁø °è´Ü ¸ğµÎ ½ÇÁ¦ Ç¥¸éÀ» Åë°úÇÏ¸é Ãæµ¹À» º¹¿øÇÑ´Ù.
+    // í‰í‰í•œ ë°œíŒê³¼ ê²½ì‚¬ì§„ ê³„ë‹¨ ëª¨ë‘ ì‹¤ì œ í‘œë©´ì„ í†µê³¼í•˜ë©´ ì¶©ëŒì„ ë³µì›í•œë‹¤.
     private void RestoreCollisionAfterPassing()
     {
         if (_ignoredPlatform == null)
@@ -366,32 +371,32 @@ public class TownPlayerController : MonoBehaviour
             return;
         }
 
-        // Åë°ú ÁßÀÌ´ø ¹ßÆÇÀÌ ²¨Á³´Ù¸é ¹«½Ã »óÅÂ¸¦ Á¤¸®ÇÑ´Ù.
+        // í†µê³¼ ì¤‘ì´ë˜ ë°œíŒì´ êº¼ì¡Œë‹¤ë©´ ë¬´ì‹œ ìƒíƒœë¥¼ ì •ë¦¬í•œë‹¤.
         if (!_ignoredPlatform.isActiveAndEnabled)
         {
             RestoreIgnoredCollision();
             return;
         }
 
-        // A´Â Ä³¸¯ÅÍ, B´Â Åë°ú ÁßÀÎ ¹ßÆÇÀÌ´Ù.
+        // AëŠ” ìºë¦­í„°, BëŠ” í†µê³¼ ì¤‘ì¸ ë°œíŒì´ë‹¤.
         ColliderDistance2D separation =
             _bodyCollider.Distance(_ignoredPlatform);
 
-        // À¯È¿ÇÏÁö ¾ÊÀº °Ë»ç °á°ú·Î Ãæµ¹À» º¹¿øÇÏÁö ¾Ê´Â´Ù.
+        // ìœ íš¨í•˜ì§€ ì•Šì€ ê²€ì‚¬ ê²°ê³¼ë¡œ ì¶©ëŒì„ ë³µì›í•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (!separation.isValid)
         {
             return;
         }
 
-        // ¾ÆÁ÷ Ç¥¸é°ú °ãÃÄ ÀÖ°Å³ª ÃæºĞÈ÷ ¶³¾îÁöÁö ¾Ê¾Ò´Ù¸é ±â´Ù¸°´Ù.
+        // ì•„ì§ í‘œë©´ê³¼ ê²¹ì³ ìˆê±°ë‚˜ ì¶©ë¶„íˆ ë–¨ì–´ì§€ì§€ ì•Šì•˜ë‹¤ë©´ ê¸°ë‹¤ë¦°ë‹¤.
         if (separation.isOverlapped ||
             separation.distance <= _dropClearance)
         {
             return;
         }
 
-        // Ä³¸¯ÅÍ ÂÊ ÃÖ±ÙÁ¢ ÁöÁ¡ÀÌ ¹ßÆÇ ÂÊ ÁöÁ¡º¸´Ù ¾Æ·¡¿¡ ÀÖ¾î¾ß ÇÑ´Ù.
-        // ¾Æ·¡Á¡ÇÁ Á÷Àü, ¾ÆÁ÷ ¹ßÆÇ À§¿¡ ÀÖÀ» ¶§ º¹¿øµÇ´Â °ÍÀ» ¸·´Â´Ù.
+        // ìºë¦­í„° ìª½ ìµœê·¼ì ‘ ì§€ì ì´ ë°œíŒ ìª½ ì§€ì ë³´ë‹¤ ì•„ë˜ì— ìˆì–´ì•¼ í•œë‹¤.
+        // ì•„ë˜ì í”„ ì§ì „, ì•„ì§ ë°œíŒ ìœ„ì— ìˆì„ ë•Œ ë³µì›ë˜ëŠ” ê²ƒì„ ë§‰ëŠ”ë‹¤.
         bool passedBelow =
             separation.pointA.y < separation.pointB.y;
 
@@ -401,7 +406,7 @@ public class TownPlayerController : MonoBehaviour
         }
     }
 
-    // Åë°úÇÏ´ø ¹ßÆÇ°úÀÇ Ãæµ¹À» ¿ø·¡´ë·Î µÇµ¹¸°´Ù.
+    // í†µê³¼í•˜ë˜ ë°œíŒê³¼ì˜ ì¶©ëŒì„ ì›ë˜ëŒ€ë¡œ ë˜ëŒë¦°ë‹¤.
     private void RestoreIgnoredCollision()
     {
         if (_bodyCollider != null && _ignoredPlatform != null)
@@ -413,10 +418,10 @@ public class TownPlayerController : MonoBehaviour
         _ignoredPlatform = null;
     }
 
-    // ´Ù¸¥ ±â´É¿¡¼­ ÇöÀç ÇÃ·¹ÀÌ¾î°¡ Á¶ÀÛ °¡´ÉÇÑ »óÅÂÀÎÁö È®ÀÎÇÑ´Ù.
+    // ë‹¤ë¥¸ ê¸°ëŠ¥ì—ì„œ í˜„ì¬ í”Œë ˆì´ì–´ê°€ ì¡°ì‘ ê°€ëŠ¥í•œ ìƒíƒœì¸ì§€ í™•ì¸í•œë‹¤.
     public bool CanControl => _canControl;
 
-    // ´ëÈ­Ã¢ µî¿¡¼­ ÀÔ·ÂÀ» Àá°¡µµ Áß·ÂÀº °è¼Ó Àû¿ëµÇ°Ô ÇÑ´Ù.
+    // ëŒ€í™”ì°½ ë“±ì—ì„œ ì…ë ¥ì„ ì ê°€ë„ ì¤‘ë ¥ì€ ê³„ì† ì ìš©ë˜ê²Œ í•œë‹¤.
     public void SetControlEnabled(bool canControl)
     {
         _canControl = canControl;
@@ -430,7 +435,7 @@ public class TownPlayerController : MonoBehaviour
         }
     }
 
-    // ÀÌÀü ÇÁ·¹ÀÓÀÇ ÀÔ·ÂÀÌ ³ªÁß¿¡ ½ÇÇàµÇÁö ¾Êµµ·Ï ºñ¿î´Ù.
+    // ì´ì „ í”„ë ˆì„ì˜ ì…ë ¥ì´ ë‚˜ì¤‘ì— ì‹¤í–‰ë˜ì§€ ì•Šë„ë¡ ë¹„ìš´ë‹¤.
     private void ClearInput()
     {
         _horizontalInput = 0f;
@@ -438,7 +443,7 @@ public class TownPlayerController : MonoBehaviour
         _dropRequested = false;
     }
 
-    // ºñÈ°¼ºÈ­ÇÒ ¶§ Ãæµ¹ ¹«½Ã »óÅÂ, ÀÔ·Â, Áß·Â ¼³Á¤À» Á¤¸®ÇÑ´Ù.
+    // ë¹„í™œì„±í™”í•  ë•Œ ì¶©ëŒ ë¬´ì‹œ ìƒíƒœ, ì…ë ¥, ì¤‘ë ¥ ì„¤ì •ì„ ì •ë¦¬í•œë‹¤.
     private void OnDisable()
     {
         RestoreIgnoredCollision();
@@ -448,7 +453,7 @@ public class TownPlayerController : MonoBehaviour
         _groundNormal = Vector2.up;
         _isJumpAscending = false;
 
-        // ¹Ù´Ú¿¡¼­ ²¨Á³´õ¶óµµ ¿ø·¡ Áß·ÂÀ¸·Î µ¹·Á³õ´Â´Ù.
+        // ë°”ë‹¥ì—ì„œ êº¼ì¡Œë”ë¼ë„ ì›ë˜ ì¤‘ë ¥ìœ¼ë¡œ ëŒë ¤ë†“ëŠ”ë‹¤.
         if (_body != null)
         {
             _body.gravityScale = _defaultGravityScale;

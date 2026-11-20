@@ -1,75 +1,75 @@
-using System;
+ï»¿using System;
 using UnityEngine;
 
 /// <summary>
-/// Stage°¡ ÁøÇàµÇ´Â µ¿¾È ¹«±â¸¶´Ù ´Ş¶óÁö´Â ÇöÀç »óÅÂ¸¦ º¸°üÇÑ´Ù.
-/// °ø°İ·Â, °ø°İ ÄğÅ¸ÀÓ, ÃæÀüÇü ¹«±âÀÇ º¸À¯·®°ú ÃæÀü ½Ã°£À» °ü¸®ÇÑ´Ù.
+/// Stageê°€ ì§„í–‰ë˜ëŠ” ë™ì•ˆ ë¬´ê¸°ë§ˆë‹¤ ë‹¬ë¼ì§€ëŠ” í˜„ì¬ ìƒíƒœë¥¼ ë³´ê´€í•œë‹¤.
+/// ê³µê²©ë ¥, ê³µê²© ì¿¨íƒ€ì„, ì¶©ì „í˜• ë¬´ê¸°ì˜ ë³´ìœ ëŸ‰ê³¼ ì¶©ì „ ì‹œê°„ì„ ê´€ë¦¬í•œë‹¤.
 /// </summary>
 [System.Serializable]
 public class WeaponRuntimeState
 {
-    [Header("·±Å¸ÀÓ µ¥ÀÌÅÍ")]
+    [Header("ëŸ°íƒ€ì„ ë°ì´í„°")]
 
-    [SerializeField] WeaponData _data;           // ÀÌ ·±Å¸ÀÓ »óÅÂ°¡ »ç¿ëÇÏ´Â ¿øº» ¹«±â µ¥ÀÌÅÍ
-    [SerializeField] float _currentDamage;         // Áõ°­ÀÌ Àû¿ëµÈ ÇöÀç °ø°İ·Â
-    [SerializeField] float _currentCooltime;     // Áõ°­ÀÌ Àû¿ëµÈ ÇöÀç °ø°İ ÄğÅ¸ÀÓ
+    [SerializeField] WeaponData _data;           // ì´ ëŸ°íƒ€ì„ ìƒíƒœê°€ ì‚¬ìš©í•˜ëŠ” ì›ë³¸ ë¬´ê¸° ë°ì´í„°
+    [SerializeField] float _currentDamage;         // ì¦ê°•ì´ ì ìš©ëœ í˜„ì¬ ê³µê²©ë ¥
+    [SerializeField] float _currentCooltime;     // ì¦ê°•ì´ ì ìš©ëœ í˜„ì¬ ê³µê²© ì¿¨íƒ€ì„
 
-    [Header("ÃæÀüÇü ¹«±â ·±Å¸ÀÓ µ¥ÀÌÅÍ")]
+    [Header("ì¶©ì „í˜• ë¬´ê¸° ëŸ°íƒ€ì„ ë°ì´í„°")]
 
-    [SerializeField] int _currentChargeCount;    // ÇöÀç º¸À¯ÇÏ°í ÀÖ´Â ¼ö·ùÅº °³¼ö
-    [SerializeField] float _chargeRecoveryTimer; // ´ÙÀ½ ¼ö·ùÅº ÇÑ °³¸¦ ÃæÀüÇÏ¸ç ´©ÀûÇÑ ½Ã°£
-    [SerializeField] float _currentChargeRecoveryTime; // °­È­°¡ Àû¿ëµÈ ÇöÀç 1°³ ÃæÀü ½Ã°£
+    [SerializeField] int _currentChargeCount;    // í˜„ì¬ ë³´ìœ í•˜ê³  ìˆëŠ” ìˆ˜ë¥˜íƒ„ ê°œìˆ˜
+    [SerializeField] float _chargeRecoveryTimer; // ë‹¤ìŒ ìˆ˜ë¥˜íƒ„ í•œ ê°œë¥¼ ì¶©ì „í•˜ë©° ëˆ„ì í•œ ì‹œê°„
+    [SerializeField] float _currentChargeRecoveryTime; // ê°•í™”ê°€ ì ìš©ëœ í˜„ì¬ 1ê°œ ì¶©ì „ ì‹œê°„
 
-    [Header("½Çµå ·±Å¸ÀÓ »óÅÂ")]
+    [Header("ì‹¤ë“œ ëŸ°íƒ€ì„ ìƒíƒœ")]
 
-    // ÀüÅõ Áß ³²¾Æ ÀÖ´Â ½Çµå Ã¼·Â.
-    // ÀÚ¿¬È¸º¹À» ºÎµå·´°Ô °è»êÇÏ±â À§ÇØ ¼Ò¼öÁ¡±îÁö º¸°üÇÑ´Ù.
+    // ì „íˆ¬ ì¤‘ ë‚¨ì•„ ìˆëŠ” ì‹¤ë“œ ì²´ë ¥.
+    // ìì—°íšŒë³µì„ ë¶€ë“œëŸ½ê²Œ ê³„ì‚°í•˜ê¸° ìœ„í•´ ì†Œìˆ˜ì ê¹Œì§€ ë³´ê´€í•œë‹¤.
     [SerializeField] float _currentShieldHealth;
 
-    // ¿¬»ç Áõ°­ÀÌ ¹İ¿µµÈ ÃÊ´ç ÀÚ¿¬È¸º¹·®.
+    // ì—°ì‚¬ ì¦ê°•ì´ ë°˜ì˜ëœ ì´ˆë‹¹ ìì—°íšŒë³µëŸ‰.
     [SerializeField] float _currentShieldRecoveryPerSecond;
 
-    // ÇöÀç ½Çµå Ã¼·Â.
+    // í˜„ì¬ ì‹¤ë“œ ì²´ë ¥.
     public float CurrentShieldHealth => _currentShieldHealth;
 
-    // ÃÖ´ë Ã¼·ÂÀº ¿øº» WeaponData¿¡¼­ °¡Á®¿Â´Ù.
+    // ìµœëŒ€ ì²´ë ¥ì€ ì›ë³¸ WeaponDataì—ì„œ ê°€ì ¸ì˜¨ë‹¤.
     public float MaximumShieldHealth =>
         _data.IsShield ? _data.ShieldMaxHealth : 0f;
 
-    // Áõ°­ÀÌ ¹İ¿µµÈ ÃÊ´ç ÀÚ¿¬È¸º¹·®.
+    // ì¦ê°•ì´ ë°˜ì˜ëœ ì´ˆë‹¹ ìì—°íšŒë³µëŸ‰.
     public float CurrentShieldRecoveryPerSecond =>
         _currentShieldRecoveryPerSecond;
 
-    // ½Çµå°¡ ÇÑ ¹øÀÌ¶óµµ °ø°İÀ» ¸·À» ¼ö ÀÖ´Â »óÅÂÀÎÁö È®ÀÎÇÑ´Ù.
+    // ì‹¤ë“œê°€ í•œ ë²ˆì´ë¼ë„ ê³µê²©ì„ ë§‰ì„ ìˆ˜ ìˆëŠ” ìƒíƒœì¸ì§€ í™•ì¸í•œë‹¤.
     public bool HasShieldHealth =>
         _data.IsShield && _currentShieldHealth > 0f;
 
-    // UI °ÔÀÌÁö¿¡ »ç¿ëÇÒ 0~1 ¹üÀ§ÀÇ ³²Àº Ã¼·Â ºñÀ².
+    // UI ê²Œì´ì§€ì— ì‚¬ìš©í•  0~1 ë²”ìœ„ì˜ ë‚¨ì€ ì²´ë ¥ ë¹„ìœ¨.
     public float ShieldHealthRatio =>
         MaximumShieldHealth > 0f
             ? Mathf.Clamp01(_currentShieldHealth / MaximumShieldHealth)
             : 0f;
 
     public WeaponData Data => _data;
-    // ¹«±âº° ·±Å¸ÀÓ °ªÀÌ¹Ç·Î ´Ù¸¥ ½½·ÔÀÇ ·¹ÀÌÀú¿Í Áõ°­ È½¼ö¸¦ °øÀ¯ÇÏÁö ¾Ê´Â´Ù.
+    // ë¬´ê¸°ë³„ ëŸ°íƒ€ì„ ê°’ì´ë¯€ë¡œ ë‹¤ë¥¸ ìŠ¬ë¡¯ì˜ ë ˆì´ì €ì™€ ì¦ê°• íšŸìˆ˜ë¥¼ ê³µìœ í•˜ì§€ ì•ŠëŠ”ë‹¤.
     [SerializeField] float _currentLazerHitsPerSecond;
     public float CurrentLazerHitsPerSecond => _currentLazerHitsPerSecond;
     public float CurrentDamage => _currentDamage;
     public float CurrentCooltime => _currentCooltime;
 
-    // °­È­°¡ Àû¿ëµÈ ÇöÀç ¼ö·ùÅº 1°³ ÃæÀü ½Ã°£ÀÌ´Ù.
+    // ê°•í™”ê°€ ì ìš©ëœ í˜„ì¬ ìˆ˜ë¥˜íƒ„ 1ê°œ ì¶©ì „ ì‹œê°„ì´ë‹¤.
     public float CurrentChargeRecoveryTime =>
         _currentChargeRecoveryTime;
 
-    // ÇöÀç º¸À¯ÇÏ°í ÀÖ´Â ÃæÀü °³¼ö´Ù.
+    // í˜„ì¬ ë³´ìœ í•˜ê³  ìˆëŠ” ì¶©ì „ ê°œìˆ˜ë‹¤.
     public int CurrentChargeCount => _currentChargeCount;
 
-    // ÇöÀç ¼ö·ùÅºÀ» ÇÑ °³ ÀÌ»ó »ç¿ëÇÒ ¼ö ÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
+    // í˜„ì¬ ìˆ˜ë¥˜íƒ„ì„ í•œ ê°œ ì´ìƒ ì‚¬ìš©í•  ìˆ˜ ìˆëŠ”ì§€ í™•ì¸í•œë‹¤.
     public bool HasAvailableCharge =>
         !_data.UsesCharges || _currentChargeCount > 0;
 
-    // ´ÙÀ½ ¼ö·ùÅº ÇÑ °³°¡ ÃæÀüµÉ ¶§±îÁö ³²Àº ½Ã°£ÀÌ´Ù.
-    // ÃÖ´ë ¼ÒÁö·®¿¡ µµ´ŞÇÑ µ¿¾È¿¡´Â 0À» ¹İÈ¯ÇÑ´Ù.
+    // ë‹¤ìŒ ìˆ˜ë¥˜íƒ„ í•œ ê°œê°€ ì¶©ì „ë  ë•Œê¹Œì§€ ë‚¨ì€ ì‹œê°„ì´ë‹¤.
+    // ìµœëŒ€ ì†Œì§€ëŸ‰ì— ë„ë‹¬í•œ ë™ì•ˆì—ëŠ” 0ì„ ë°˜í™˜í•œë‹¤.
     public float ChargeRecoveryRemaining
     {
         get
@@ -87,8 +87,8 @@ public class WeaponRuntimeState
         }
     }
 
-    // ÃæÀü ÁøÇàµµ¸¦ 0ºÎÅÍ 1 »çÀÌÀÇ °ªÀ¸·Î ¹İÈ¯ÇÑ´Ù.
-    // ³ªÁß¿¡ UIÀÇ Radial 360 Image¿¡ »ç¿ëÇÑ´Ù.
+    // ì¶©ì „ ì§„í–‰ë„ë¥¼ 0ë¶€í„° 1 ì‚¬ì´ì˜ ê°’ìœ¼ë¡œ ë°˜í™˜í•œë‹¤.
+    // ë‚˜ì¤‘ì— UIì˜ Radial 360 Imageì— ì‚¬ìš©í•œë‹¤.
     public float ChargeRecoveryProgress
     {
         get
@@ -106,65 +106,65 @@ public class WeaponRuntimeState
     }
 
     /// <summary>
-    /// WeaponRuntimeState Ã³¸®¿¡¼­ º¯°æµÈ ÀüÅõ ¼öÄ¡¿Í »óÅÂ¸¦ ¹İ¿µÇÑ´Ù.
+    /// WeaponRuntimeState ì²˜ë¦¬ì—ì„œ ë³€ê²½ëœ ì „íˆ¬ ìˆ˜ì¹˜ì™€ ìƒíƒœë¥¼ ë°˜ì˜í•œë‹¤.
     /// </summary>
     public WeaponRuntimeState(WeaponData data)
     {
-        // ·±Å¸ÀÓ »óÅÂ´Â ¹İµå½Ã ¿øº» WeaponData¸¦ °¡Áö°í ½ÃÀÛÇØ¾ß ÇÑ´Ù.
+        // ëŸ°íƒ€ì„ ìƒíƒœëŠ” ë°˜ë“œì‹œ ì›ë³¸ WeaponDataë¥¼ ê°€ì§€ê³  ì‹œì‘í•´ì•¼ í•œë‹¤.
         if (data == null)
         {
             throw new ArgumentNullException(
                 nameof(data),
-                "WeaponRuntimeState¸¦ »ı¼ºÇÏ·Á¸é WeaponData°¡ ÇÊ¿äÇÕ´Ï´Ù.");
+                "WeaponRuntimeStateë¥¼ ìƒì„±í•˜ë ¤ë©´ WeaponDataê°€ í•„ìš”í•©ë‹ˆë‹¤.");
         }
 
-        // ¿øº» ¹«±â µ¥ÀÌÅÍ¸¦ ÀúÀåÇÑ´Ù.
+        // ì›ë³¸ ë¬´ê¸° ë°ì´í„°ë¥¼ ì €ì¥í•œë‹¤.
         _data = data;
 
-        // ÀüÅõ ½ÃÀÛ ½Ã ±âº» °ø°İ·Â°ú ±âº» °ø°İ ÄğÅ¸ÀÓÀ» »ç¿ëÇÑ´Ù.
+        // ì „íˆ¬ ì‹œì‘ ì‹œ ê¸°ë³¸ ê³µê²©ë ¥ê³¼ ê¸°ë³¸ ê³µê²© ì¿¨íƒ€ì„ì„ ì‚¬ìš©í•œë‹¤.
         _currentDamage = data.BaseDamage;
         _currentLazerHitsPerSecond = data.LazerHitsPerSecond;
         _currentCooltime = data.BaseCooltime;
 
-        // Stage ½ÃÀÛ ½Ã WeaponData¿¡ ¼³Á¤µÈ ±âº» ÃæÀü ½Ã°£À» »ç¿ëÇÑ´Ù.
-        // ÀÌÈÄ Grenade ¿¬»ç °­È­¸¦ ¹ŞÀ¸¸é ÀÌ °ªÀÌ °¨¼ÒÇÑ´Ù.
+        // Stage ì‹œì‘ ì‹œ WeaponDataì— ì„¤ì •ëœ ê¸°ë³¸ ì¶©ì „ ì‹œê°„ì„ ì‚¬ìš©í•œë‹¤.
+        // ì´í›„ Grenade ì—°ì‚¬ ê°•í™”ë¥¼ ë°›ìœ¼ë©´ ì´ ê°’ì´ ê°ì†Œí•œë‹¤.
         _currentChargeRecoveryTime =
             data.ChargeRecoveryTime;
 
-        // ÃæÀüÇü ¹«±â´Â Stage ½ÃÀÛ ½Ã ÃÖ´ë ¼ÒÁö·®À» °¡Áö°í ½ÃÀÛÇÑ´Ù.
-        // ÀÏ¹İ ¹«±â´Â MaximumChargeCount°¡ 0ÀÌ¹Ç·Î ÇöÀç ÃæÀü·®µµ 0ÀÌ´Ù.
+        // ì¶©ì „í˜• ë¬´ê¸°ëŠ” Stage ì‹œì‘ ì‹œ ìµœëŒ€ ì†Œì§€ëŸ‰ì„ ê°€ì§€ê³  ì‹œì‘í•œë‹¤.
+        // ì¼ë°˜ ë¬´ê¸°ëŠ” MaximumChargeCountê°€ 0ì´ë¯€ë¡œ í˜„ì¬ ì¶©ì „ëŸ‰ë„ 0ì´ë‹¤.
         _currentChargeCount = data.UsesCharges
             ? data.MaximumChargeCount
             : 0;
 
-        // ÃÖ´ë ¼ÒÁö·®À¸·Î ½ÃÀÛÇÏ¹Ç·Î ÃæÀü ÁßÀÎ ½Ã°£Àº ¾ø´Ù.
+        // ìµœëŒ€ ì†Œì§€ëŸ‰ìœ¼ë¡œ ì‹œì‘í•˜ë¯€ë¡œ ì¶©ì „ ì¤‘ì¸ ì‹œê°„ì€ ì—†ë‹¤.
         _chargeRecoveryTimer = 0f;
 
-        // ½Çµå´Â ÀüÅõ ½ÃÀÛ ½Ã ÃÖ´ë Ã¼·ÂÀ¸·Î ½ÃÀÛÇÑ´Ù.
-        // ´Ù¸¥ ¹«±â´Â ½Çµå Ã¼·ÂÀ» »ç¿ëÇÏÁö ¾Ê´Â´Ù.
+        // ì‹¤ë“œëŠ” ì „íˆ¬ ì‹œì‘ ì‹œ ìµœëŒ€ ì²´ë ¥ìœ¼ë¡œ ì‹œì‘í•œë‹¤.
+        // ë‹¤ë¥¸ ë¬´ê¸°ëŠ” ì‹¤ë“œ ì²´ë ¥ì„ ì‚¬ìš©í•˜ì§€ ì•ŠëŠ”ë‹¤.
         _currentShieldHealth = data.IsShield
             ? data.ShieldMaxHealth
             : 0f;
 
-        // ±âº» ÀÚ¿¬È¸º¹·®À» ÀüÅõ¿ë °ªÀ¸·Î °¡Á®¿Â´Ù.
+        // ê¸°ë³¸ ìì—°íšŒë³µëŸ‰ì„ ì „íˆ¬ìš© ê°’ìœ¼ë¡œ ê°€ì ¸ì˜¨ë‹¤.
         _currentShieldRecoveryPerSecond = data.IsShield
             ? data.ShieldRecoveryPerSecond
             : 0f;
     }
 
     /// <summary>
-    /// ÀåÂø ÁßÀÎ ÃæÀüÇü ¹«±âÀÇ ÃæÀü ½Ã°£À» ÁøÇàÇÑ´Ù.
-    /// ÇöÀç ¼±ÅÃÇÑ ¹«±â°¡ ¾Æ´Ï¾îµµ WeaponÀÌ ÀÌ ¸Ş¼­µå¸¦ È£ÃâÇÑ´Ù.
+    /// ì¥ì°© ì¤‘ì¸ ì¶©ì „í˜• ë¬´ê¸°ì˜ ì¶©ì „ ì‹œê°„ì„ ì§„í–‰í•œë‹¤.
+    /// í˜„ì¬ ì„ íƒí•œ ë¬´ê¸°ê°€ ì•„ë‹ˆì–´ë„ Weaponì´ ì´ ë©”ì„œë“œë¥¼ í˜¸ì¶œí•œë‹¤.
     /// </summary>
     public void UpdateChargeRecovery(float deltaTime)
     {
-        // ÀÏ¹İ ¹«±â´Â ÃæÀü·®À» »ç¿ëÇÏÁö ¾Ê´Â´Ù.
+        // ì¼ë°˜ ë¬´ê¸°ëŠ” ì¶©ì „ëŸ‰ì„ ì‚¬ìš©í•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (!_data.UsesCharges)
         {
             return;
         }
 
-        // ÃÖ´ë ¼ÒÁö·®ÀÌ¸é ÃæÀü Å¸ÀÌ¸Ó¸¦ ÁøÇàÇÏÁö ¾Ê´Â´Ù.
+        // ìµœëŒ€ ì†Œì§€ëŸ‰ì´ë©´ ì¶©ì „ íƒ€ì´ë¨¸ë¥¼ ì§„í–‰í•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (_currentChargeCount >= _data.MaximumChargeCount)
         {
             _currentChargeCount = _data.MaximumChargeCount;
@@ -172,22 +172,22 @@ public class WeaponRuntimeState
             return;
         }
 
-        // StageÀÇ Time.deltaTimeÀ» ÃæÀü ½Ã°£¿¡ ´©ÀûÇÑ´Ù.
+        // Stageì˜ Time.deltaTimeì„ ì¶©ì „ ì‹œê°„ì— ëˆ„ì í•œë‹¤.
         _chargeRecoveryTimer += deltaTime;
 
-        // ÇÁ·¹ÀÓ Áö¿¬ µîÀ¸·Î ÃæÀü ½Ã°£ÀÌ ¿©·¯ ¹ø Áö³µÀ» °æ¿ìµµ Ã³¸®ÇÑ´Ù.
+        // í”„ë ˆì„ ì§€ì—° ë“±ìœ¼ë¡œ ì¶©ì „ ì‹œê°„ì´ ì—¬ëŸ¬ ë²ˆ ì§€ë‚¬ì„ ê²½ìš°ë„ ì²˜ë¦¬í•œë‹¤.
         while (_chargeRecoveryTimer >= _currentChargeRecoveryTime &&
                _currentChargeCount < _data.MaximumChargeCount)
         {
-            // ÇöÀç °­È­ »óÅÂÀÇ ÃæÀü ½Ã°£¸¸Å­ »ç¿ëÇÑ´Ù.
+            // í˜„ì¬ ê°•í™” ìƒíƒœì˜ ì¶©ì „ ì‹œê°„ë§Œí¼ ì‚¬ìš©í•œë‹¤.
             _chargeRecoveryTimer -=
                 _currentChargeRecoveryTime;
 
             _currentChargeCount++;
         }
 
-        // ¸¶Áö¸· ÇÑ °³°¡ ÃæÀüµÇ¾î ÃÖ´ë ¼ÒÁö·®¿¡ µµ´ŞÇÏ¸é
-        // ´õ ÀÌ»ó ´ÙÀ½ ÃæÀüÀ» °è»êÇÏÁö ¾Êµµ·Ï Å¸ÀÌ¸Ó¸¦ ºñ¿î´Ù.
+        // ë§ˆì§€ë§‰ í•œ ê°œê°€ ì¶©ì „ë˜ì–´ ìµœëŒ€ ì†Œì§€ëŸ‰ì— ë„ë‹¬í•˜ë©´
+        // ë” ì´ìƒ ë‹¤ìŒ ì¶©ì „ì„ ê³„ì‚°í•˜ì§€ ì•Šë„ë¡ íƒ€ì´ë¨¸ë¥¼ ë¹„ìš´ë‹¤.
         if (_currentChargeCount >= _data.MaximumChargeCount)
         {
             _currentChargeCount = _data.MaximumChargeCount;
@@ -196,28 +196,28 @@ public class WeaponRuntimeState
     }
 
     /// <summary>
-    /// ÃæÀüÇü ¹«±âÀÇ º¸À¯·®À» ÇÑ °³ ¼ÒºñÇÑ´Ù.
-    /// º¸À¯·®ÀÌ ¾øÀ¸¸é false¸¦ ¹İÈ¯ÇÏ¿© °ø°İÀ» ¸·´Â´Ù.
+    /// ì¶©ì „í˜• ë¬´ê¸°ì˜ ë³´ìœ ëŸ‰ì„ í•œ ê°œ ì†Œë¹„í•œë‹¤.
+    /// ë³´ìœ ëŸ‰ì´ ì—†ìœ¼ë©´ falseë¥¼ ë°˜í™˜í•˜ì—¬ ê³µê²©ì„ ë§‰ëŠ”ë‹¤.
     /// </summary>
     public bool TryConsumeCharge()
     {
-        // ÀÏ¹İ ¹«±â´Â ÃæÀü·® °Ë»ç¸¦ Åë°ú½ÃÅ²´Ù.
+        // ì¼ë°˜ ë¬´ê¸°ëŠ” ì¶©ì „ëŸ‰ ê²€ì‚¬ë¥¼ í†µê³¼ì‹œí‚¨ë‹¤.
         if (!_data.UsesCharges)
         {
             return true;
         }
 
-        // ÇöÀç »ç¿ëÇÒ ¼ö ÀÖ´Â ¼ö·ùÅºÀÌ ¾ø´Ù.
+        // í˜„ì¬ ì‚¬ìš©í•  ìˆ˜ ìˆëŠ” ìˆ˜ë¥˜íƒ„ì´ ì—†ë‹¤.
         if (_currentChargeCount <= 0)
         {
             return false;
         }
 
-        // ¼ö·ùÅº ÇÑ °³¸¦ »ç¿ëÇÑ´Ù.
+        // ìˆ˜ë¥˜íƒ„ í•œ ê°œë¥¼ ì‚¬ìš©í•œë‹¤.
         _currentChargeCount--;
 
-        // ÃÖ´ë ¼ÒÁö »óÅÂ¿¡¼­ Ã³À½ »ç¿ëÇÑ °æ¿ì
-        // 0ÃÊºÎÅÍ ´ÙÀ½ ¼ö·ùÅº ÃæÀüÀÌ ½ÃÀÛµÈ´Ù.
+        // ìµœëŒ€ ì†Œì§€ ìƒíƒœì—ì„œ ì²˜ìŒ ì‚¬ìš©í•œ ê²½ìš°
+        // 0ì´ˆë¶€í„° ë‹¤ìŒ ìˆ˜ë¥˜íƒ„ ì¶©ì „ì´ ì‹œì‘ëœë‹¤.
         if (_currentChargeCount == _data.MaximumChargeCount - 1)
         {
             _chargeRecoveryTimer = 0f;
@@ -226,13 +226,13 @@ public class WeaponRuntimeState
         return true;
     }
 
-    // ÀåÂøµÈ ½ÇµåÀÇ ÀÚ¿¬È¸º¹À» ÁøÇàÇÑ´Ù.
+    // ì¥ì°©ëœ ì‹¤ë“œì˜ ìì—°íšŒë³µì„ ì§„í–‰í•œë‹¤.
     /// <summary>
-    /// ÀåÂøµÈ ½ÇµåÀÇ ÀÚ¿¬È¸º¹À» ÁøÇàÇÑ´Ù.
+    /// ì¥ì°©ëœ ì‹¤ë“œì˜ ìì—°íšŒë³µì„ ì§„í–‰í•œë‹¤.
     /// </summary>
     public void UpdateShieldRecovery(float deltaTime)
     {
-        // ½Çµå°¡ ¾Æ´Ï°Å³ª ½Ã°£ÀÌ Èå¸£Áö ¾ÊÀ¸¸é Ã³¸®ÇÏÁö ¾Ê´Â´Ù.
+        // ì‹¤ë“œê°€ ì•„ë‹ˆê±°ë‚˜ ì‹œê°„ì´ íë¥´ì§€ ì•Šìœ¼ë©´ ì²˜ë¦¬í•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (!_data.IsShield ||
             deltaTime <= 0f ||
             _currentShieldRecoveryPerSecond <= 0f)
@@ -240,14 +240,14 @@ public class WeaponRuntimeState
             return;
         }
 
-        // ÃÊ´ç È¸º¹·®¿¡ ÀÌ¹ø ÇÁ·¹ÀÓÀÇ °æ°ú ½Ã°£À» °öÇÑ´Ù.
+        // ì´ˆë‹¹ íšŒë³µëŸ‰ì— ì´ë²ˆ í”„ë ˆì„ì˜ ê²½ê³¼ ì‹œê°„ì„ ê³±í•œë‹¤.
         RestoreShieldHealth(
             _currentShieldRecoveryPerSecond * deltaTime);
     }
 
-    // ÀÚ¿¬È¸º¹°ú Áõ°­ È¸º¹ÀÌ ÇÔ²² »ç¿ëÇÏ´Â Ã¼·Â È¸º¹ ÇÔ¼ö.
+    // ìì—°íšŒë³µê³¼ ì¦ê°• íšŒë³µì´ í•¨ê»˜ ì‚¬ìš©í•˜ëŠ” ì²´ë ¥ íšŒë³µ í•¨ìˆ˜.
     /// <summary>
-    /// ÀÚ¿¬È¸º¹°ú Áõ°­ È¸º¹ÀÌ ÇÔ²² »ç¿ëÇÏ´Â Ã¼·Â È¸º¹ ÇÔ¼ö.
+    /// ìì—°íšŒë³µê³¼ ì¦ê°• íšŒë³µì´ í•¨ê»˜ ì‚¬ìš©í•˜ëŠ” ì²´ë ¥ íšŒë³µ í•¨ìˆ˜.
     /// </summary>
     public void RestoreShieldHealth(float amount)
     {
@@ -256,28 +256,28 @@ public class WeaponRuntimeState
             return;
         }
 
-        // È¸º¹ÇØµµ ÃÖ´ë Ã¼·ÂÀ» ³ÑÁö ¾Ê°Ô Á¦ÇÑÇÑ´Ù.
+        // íšŒë³µí•´ë„ ìµœëŒ€ ì²´ë ¥ì„ ë„˜ì§€ ì•Šê²Œ ì œí•œí•œë‹¤.
         _currentShieldHealth = Mathf.Clamp(
             _currentShieldHealth + amount,
             0f,
             MaximumShieldHealth);
     }
 
-    // ½Çµå°¡ °ø°İÀ» ¸·¾ÒÀ» ¶§ Ã¼·ÂÀ» ¼Ò¸ğÇÑ´Ù.
-    // true´Â ÀÌ¹ø °ø°İÀ» ½Çµå°¡ ¹Ş¾Æ³Â´Ù´Â ¶æÀÌ´Ù.
+    // ì‹¤ë“œê°€ ê³µê²©ì„ ë§‰ì•˜ì„ ë•Œ ì²´ë ¥ì„ ì†Œëª¨í•œë‹¤.
+    // trueëŠ” ì´ë²ˆ ê³µê²©ì„ ì‹¤ë“œê°€ ë°›ì•„ëƒˆë‹¤ëŠ” ëœ»ì´ë‹¤.
     /// <summary>
-    /// true´Â ÀÌ¹ø °ø°İÀ» ½Çµå°¡ ¹Ş¾Æ³Â´Ù´Â ¶æÀÌ´Ù.
+    /// trueëŠ” ì´ë²ˆ ê³µê²©ì„ ì‹¤ë“œê°€ ë°›ì•„ëƒˆë‹¤ëŠ” ëœ»ì´ë‹¤.
     /// </summary>
     public bool TryAbsorbShieldDamage(float damage)
     {
-        // ÀÌ¹Ì Ã¼·ÂÀÌ ¾ø°Å³ª Àß¸øµÈ ÇÇÇØ·®ÀÌ¸é ¸·Áö ¾Ê´Â´Ù.
+        // ì´ë¯¸ ì²´ë ¥ì´ ì—†ê±°ë‚˜ ì˜ëª»ëœ í”¼í•´ëŸ‰ì´ë©´ ë§‰ì§€ ì•ŠëŠ”ë‹¤.
         if (!HasShieldHealth || damage < 0f)
         {
             return false;
         }
 
-        // ³²Àº Ã¼·Âº¸´Ù Å« °ø°İÀ» ¸·À¸¸é Ã¼·ÂÀº 0ÀÌ µÈ´Ù.
-        // ÀÌ¹ø¿¡ ¸·¾Æ³½ °ø°İÀÇ ÃÊ°ú ÇÇÇØ´Â ÇÃ·¹ÀÌ¾î¿¡°Ô ³Ñ±âÁö ¾Ê´Â´Ù.
+        // ë‚¨ì€ ì²´ë ¥ë³´ë‹¤ í° ê³µê²©ì„ ë§‰ìœ¼ë©´ ì²´ë ¥ì€ 0ì´ ëœë‹¤.
+        // ì´ë²ˆì— ë§‰ì•„ë‚¸ ê³µê²©ì˜ ì´ˆê³¼ í”¼í•´ëŠ” í”Œë ˆì´ì–´ì—ê²Œ ë„˜ê¸°ì§€ ì•ŠëŠ”ë‹¤.
         _currentShieldHealth = Mathf.Max(
             0f,
             _currentShieldHealth - damage);
@@ -285,42 +285,45 @@ public class WeaponRuntimeState
         return true;
     }
 
-    // °ø°İ·Â Áõ°­À» ¹«±â Á¾·ù¿¡ ¸Â°Ô Àû¿ëÇÑ´Ù.
+    // ê³µê²©ë ¥ ì¦ê°•ì„ ë¬´ê¸° ì¢…ë¥˜ì— ë§ê²Œ ì ìš©í•œë‹¤.
     /// <summary>
-    /// ¼Ò¼öÁ¡ °ø°İ·Â Áõ°­À» ÇöÀç ¹«±â °ø°İ·Â¿¡ ´õÇÑ´Ù.
+    /// ê¸°ë³¸ ê³µê²©ë ¥ì˜ ì¼ì • ë¹„ìœ¨ì„ ë”í•´ ë¬´ê¸°ë³„ ê³µê²© ì†ë„ì— ì¹˜ìš°ì¹˜ì§€ ì•Šê²Œ ì„±ì¥ì‹œí‚µë‹ˆë‹¤.
     /// </summary>
-    public void AddDamage(float value)
+    public void AddDamageRatio(float value)
     {
         if (_data.IsShield)
         {
-            // ½Çµå´Â °ø°İ·ÂÀ» ¿Ã¸®´Â ´ë½Å ¼³Á¤µÈ ¾ç¸¸Å­ Ã¼·ÂÀ» È¸º¹ÇÑ´Ù.
-            // ÃÖ´ë Ã¼·Â ÀÚÃ¼´Â Áõ°¡ÇÏÁö ¾Ê´Â´Ù.
+            // ì‹¤ë“œëŠ” ê³µê²©ë ¥ì„ ì˜¬ë¦¬ëŠ” ëŒ€ì‹  ì„¤ì •ëœ ì–‘ë§Œí¼ ì²´ë ¥ì„ íšŒë³µí•œë‹¤.
+            // ìµœëŒ€ ì²´ë ¥ ìì²´ëŠ” ì¦ê°€í•˜ì§€ ì•ŠëŠ”ë‹¤.
             RestoreShieldHealth(_data.ShieldRepairAmount);
             return;
         }
 
-        // ´Ù¸¥ ¹«±â´Â ±âÁ¸Ã³·³ Àü´Ş¹ŞÀº °ø°İ·Â Áõ°¡·®À» Àû¿ëÇÑ´Ù.
+        // 0.15ëŠ” ê¸°ë³¸ ê³µê²©ë ¥ì˜ 15%ì´ë©° ì¤‘ì²©ì€ í•©ì‚°í•œë‹¤.
         if (value > 0)
         {
-            _currentDamage += value;
+            _currentDamage += _data.BaseDamage * value;
         }
     }
 
     /// <summary>
-    /// ¹«±â Á¾·ù¿¡ ¸Â´Â ¿¬»ç °­È­¸¦ Àû¿ëÇÑ´Ù.
-    /// Grenade´Â ÃæÀü ¼Óµµ°¡ »¡¶óÁö°í,
-    /// ´Ù¸¥ ¹«±â´Â ±âÁ¸ °ø°İ ÄğÅ¸ÀÓÀÌ °¨¼ÒÇÑ´Ù.
+    /// ë¬´ê¸° ì¢…ë¥˜ì— ë§ëŠ” ì—°ì‚¬ ê°•í™”ë¥¼ ì ìš©í•œë‹¤.
+    /// GrenadeëŠ” ì¶©ì „ ì†ë„ê°€ ë¹¨ë¼ì§€ê³ ,
+    /// ë‹¤ë¥¸ ë¬´ê¸°ëŠ” ê¸°ì¡´ ê³µê²© ì¿¨íƒ€ì„ì´ ê°ì†Œí•œë‹¤.
     /// </summary>
     public void AddFireRate()
     {
-        // ·¹ÀÌÀú´Â ÃÊ´ç Å¸°İ È½¼ö¸¦ ´Ã¸®¸ç ÃæÀü ½Ã°£Àº ±×´ë·Î À¯ÁöÇÑ´Ù.
+        // ë ˆì´ì €ëŠ” ì´ˆë‹¹ íƒ€ê²© íšŸìˆ˜ë¥¼ ëŠ˜ë¦¬ë©° ì¶©ì „ ì‹œê°„ì€ ê·¸ëŒ€ë¡œ ìœ ì§€í•œë‹¤.
         if (_data.Type == WeaponType.Lazer)
         {
-            _currentLazerHitsPerSecond += _data.LazerHitsPerSecondUpgrade;
+            // íƒ€ê²© ë¹ˆë„ê°€ ì§€ë‚˜ì¹˜ê²Œ ì¦ê°€í•˜ì§€ ì•Šë„ë¡ ê¸°ë³¸ì˜ 1.5ë°°ë¡œ ì œí•œí•œë‹¤.
+            _currentLazerHitsPerSecond = Mathf.Min(
+                _currentLazerHitsPerSecond + _data.LazerHitsPerSecondUpgrade,
+                _data.LazerHitsPerSecond * 1.5f);
             return;
         }
 
-        // ½Çµå´Â °ø°İ ÄğÅ¸ÀÓ ´ë½Å ÃÊ´ç ÀÚ¿¬È¸º¹·®À» Áõ°¡½ÃÅ²´Ù.
+        // ì‹¤ë“œëŠ” ê³µê²© ì¿¨íƒ€ì„ ëŒ€ì‹  ì´ˆë‹¹ ìì—°íšŒë³µëŸ‰ì„ ì¦ê°€ì‹œí‚¨ë‹¤.
         if (_data.IsShield)
         {
             _currentShieldRecoveryPerSecond +=
@@ -329,15 +332,15 @@ public class WeaponRuntimeState
             return;
         }
 
-        // GrenadeÀÇ ¿¬»ç °­È­´Â ÅõÃ´ °£°İ ´ë½Å
-        // ¼ö·ùÅº ÇÑ °³°¡ È¸º¹µÇ´Â ½Ã°£À» °¨¼Ò½ÃÅ²´Ù.
+        // Grenadeì˜ ì—°ì‚¬ ê°•í™”ëŠ” íˆ¬ì²™ ê°„ê²© ëŒ€ì‹ 
+        // ìˆ˜ë¥˜íƒ„ í•œ ê°œê°€ íšŒë³µë˜ëŠ” ì‹œê°„ì„ ê°ì†Œì‹œí‚¨ë‹¤.
         if (_data.Type == WeaponType.Grenade)
         {
             _currentChargeRecoveryTime -=
                 _data.ChargeRecoveryUpgradeValue;
 
-            // ¿©·¯ ¹ø °­È­ÇØµµ Grenade¿¡ ¼³Á¤µÈ
-            // ÃÖ¼Ò ÃæÀü ½Ã°£º¸´Ù Âª¾ÆÁöÁö ¾Ê°Ô Á¦ÇÑÇÑ´Ù.
+            // ì—¬ëŸ¬ ë²ˆ ê°•í™”í•´ë„ Grenadeì— ì„¤ì •ëœ
+            // ìµœì†Œ ì¶©ì „ ì‹œê°„ë³´ë‹¤ ì§§ì•„ì§€ì§€ ì•Šê²Œ ì œí•œí•œë‹¤.
             _currentChargeRecoveryTime = Mathf.Max(
                 _currentChargeRecoveryTime,
                 _data.MinimumChargeRecoveryTime);
@@ -345,11 +348,11 @@ public class WeaponRuntimeState
             return;
         }
 
-        // Grenade ÀÌ¿ÜÀÇ ¹«±â´Â ±âÁ¸Ã³·³ °ø°İ ÄğÅ¸ÀÓÀ» °¨¼Ò½ÃÅ²´Ù.
+        // Grenade ì´ì™¸ì˜ ë¬´ê¸°ëŠ” ê¸°ì¡´ì²˜ëŸ¼ ê³µê²© ì¿¨íƒ€ì„ì„ ê°ì†Œì‹œí‚¨ë‹¤.
         _currentCooltime -=
             _data.FireRateUpgradeValue;
 
-        // ÀÏ¹İ ¹«±âÀÇ ÃÖ¼Ò °ø°İ ÄğÅ¸ÀÓº¸´Ù ÀÛ¾ÆÁöÁö ¾Ê°Ô Á¦ÇÑÇÑ´Ù.
+        // ì¼ë°˜ ë¬´ê¸°ì˜ ìµœì†Œ ê³µê²© ì¿¨íƒ€ì„ë³´ë‹¤ ì‘ì•„ì§€ì§€ ì•Šê²Œ ì œí•œí•œë‹¤.
         _currentCooltime = Mathf.Max(
             _currentCooltime,
             _data.MinimumCooltime);

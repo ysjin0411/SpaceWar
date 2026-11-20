@@ -1,30 +1,30 @@
-using System;
+ï»¿using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-// È­¸é ¿ŞÂÊ ¹ÛÀÇ ¹«ÀÛÀ§ ³ôÀÌ¿¡¼­ ÇÊ»ì±â °ËÀ» ¿¬¼Ó »ı¼ºÇÑ´Ù.
+// í™”ë©´ ì™¼ìª½ ë°–ì˜ ë¬´ì‘ìœ„ ë†’ì´ì—ì„œ í•„ì‚´ê¸° ê²€ì„ ì—°ì† ìƒì„±í•œë‹¤.
 public sealed class WarriorUltimate : UltimateAbility
 {
-    // ¿À¸¥ÂÊ ÀÌµ¿°ú °üÅë ÇÇÇØ¸¦ ´ã´çÇÏ´Â °Ë ÇÁ¸®ÆÕÀÌ´Ù.
+    // ì˜¤ë¥¸ìª½ ì´ë™ê³¼ ê´€í†µ í”¼í•´ë¥¼ ë‹´ë‹¹í•˜ëŠ” ê²€ í”„ë¦¬íŒ¹ì´ë‹¤.
     [SerializeField] private UltimateSword _swordPrefab;
 
-    // ÇÊ»ì±â ÇÑ ¹ø¿¡ ¹ß»çÇÒ ÃÑ °Ë °³¼ö´Ù.
+    // í•„ì‚´ê¸° í•œ ë²ˆì— ë°œì‚¬í•  ì´ ê²€ ê°œìˆ˜ë‹¤.
     [SerializeField, Min(1)] private int _swordCount = 40;
 
-    // ÀüÃ¼ °ËÀ» ³ª´©¾î ¹ß»çÇÏ´Â °ÔÀÓ ½Ã°£ÀÌ´Ù.
+    // ì „ì²´ ê²€ì„ ë‚˜ëˆ„ì–´ ë°œì‚¬í•˜ëŠ” ê²Œì„ ì‹œê°„ì´ë‹¤.
     [SerializeField, Min(0.01f)] private float _fireDuration = 3f;
 
-    // °ËÀÌ »ı¼ºµÇ´Â ¼¼·Î ±¸°£ÀÇ Áß½ÉÀ» È­¸é ºñÀ²·Î ÁöÁ¤ÇÑ´Ù.
-    // X: 0Àº È­¸é ¿ŞÂÊ, À½¼ö´Â È­¸é ¿ŞÂÊ ¹Ù±ùÀÌ´Ù.
-    // Y: 0Àº È­¸é ¾Æ·¡, 0.5´Â Áß¾Ó, 1Àº È­¸é À§´Ù.
+    // ê²€ì´ ìƒì„±ë˜ëŠ” ì„¸ë¡œ êµ¬ê°„ì˜ ì¤‘ì‹¬ì„ í™”ë©´ ë¹„ìœ¨ë¡œ ì§€ì •í•œë‹¤.
+    // X: 0ì€ í™”ë©´ ì™¼ìª½, ìŒìˆ˜ëŠ” í™”ë©´ ì™¼ìª½ ë°”ê¹¥ì´ë‹¤.
+    // Y: 0ì€ í™”ë©´ ì•„ë˜, 0.5ëŠ” ì¤‘ì•™, 1ì€ í™”ë©´ ìœ„ë‹¤.
     [SerializeField]
     private Vector2 _spawnLineCenterViewport =
         new Vector2(-0.15f, 0.5f);
 
-    // »ı¼ºµÈ °ËµéÀ» ¹­´Â´Ù. Ä³¸¯ÅÍ ÀÌµ¿¿¡´Â ¿µÇâÀ» ¹ŞÁö ¾Ê´Â´Ù.
+    // ìƒì„±ëœ ê²€ë“¤ì„ ë¬¶ëŠ”ë‹¤. ìºë¦­í„° ì´ë™ì—ëŠ” ì˜í–¥ì„ ë°›ì§€ ì•ŠëŠ”ë‹¤.
     private Transform _runtimeRoot;
 
-    // »ç¿ë ¼ø°£ÀÇ È­¸éÀ» ±âÁØÀ¸·Î °íÁ¤ÇÑ »ı¼º ¼±ºĞÀÌ´Ù.
+    // ì‚¬ìš© ìˆœê°„ì˜ í™”ë©´ì„ ê¸°ì¤€ìœ¼ë¡œ ê³ ì •í•œ ìƒì„± ì„ ë¶„ì´ë‹¤.
     private float _spawnX;
     private float _minY;
     private float _maxY;
@@ -32,7 +32,7 @@ public sealed class WarriorUltimate : UltimateAbility
     private float _elapsed;
     private int _spawnedCount;
 
-    // ¹ß»ç°¡ ³¡³ªµµ ³²Àº °ËÀÌ »ç¶óÁú ¶§±îÁö ½ÇÇà ÁßÀ¸·Î Ãë±ŞÇÑ´Ù.
+    // ë°œì‚¬ê°€ ëë‚˜ë„ ë‚¨ì€ ê²€ì´ ì‚¬ë¼ì§ˆ ë•Œê¹Œì§€ ì‹¤í–‰ ì¤‘ìœ¼ë¡œ ì·¨ê¸‰í•œë‹¤.
     public override bool IsRunning => _runtimeRoot != null;
 
     public override void ValidateConfiguration()
@@ -42,10 +42,10 @@ public sealed class WarriorUltimate : UltimateAbility
             _fireDuration <= 0f)
         {
             throw new InvalidOperationException(
-                $"{name}: ¿ö¸®¾î ÇÊ»ì±â ¼³Á¤À» È®ÀÎÇØÁÖ¼¼¿ä.");
+                $"{name}: ì›Œë¦¬ì–´ í•„ì‚´ê¸° ì„¤ì •ì„ í™•ì¸í•´ì£¼ì„¸ìš”.");
         }
 
-        // ÇöÀç °Ë ÇÁ¸®ÆÕÀº ·çÆ®¿¡ SpriteRenderer¸¦ »ç¿ëÇÏ´Â ±¸Á¶´Ù.
+        // í˜„ì¬ ê²€ í”„ë¦¬íŒ¹ì€ ë£¨íŠ¸ì— SpriteRendererë¥¼ ì‚¬ìš©í•˜ëŠ” êµ¬ì¡°ë‹¤.
         SpriteRenderer renderer =
             _swordPrefab.GetComponent<SpriteRenderer>();
 
@@ -54,7 +54,7 @@ public sealed class WarriorUltimate : UltimateAbility
             _swordPrefab.transform.localScale.x <= 0f)
         {
             throw new InvalidOperationException(
-                "°Ë ÇÁ¸®ÆÕ ·çÆ®ÀÇ SpriteRenderer¿Í ¾ç¼ö X ScaleÀ» È®ÀÎÇØÁÖ¼¼¿ä.");
+                "ê²€ í”„ë¦¬íŒ¹ ë£¨íŠ¸ì˜ SpriteRendererì™€ ì–‘ìˆ˜ X Scaleì„ í™•ì¸í•´ì£¼ì„¸ìš”.");
         }
 
         _swordPrefab.ValidateConfiguration();
@@ -74,8 +74,8 @@ public sealed class WarriorUltimate : UltimateAbility
 
         ValidateConfiguration();
 
-        // Áß½É¿¡¼­ È­¸é ³ôÀÌÀÇ Àı¹İ¾¿ ³»·Á°¡°í ¿Ã¶ó°£ ÁöÁ¡À» ±¸ÇÑ´Ù.
-        // µû¶ó¼­ Áß½ÉÀ» ¿Å°Üµµ ¼¼·Î ±¸°£ÀÇ ±æÀÌ´Â È­¸é ³ôÀÌ¸¦ À¯ÁöÇÑ´Ù.
+        // ì¤‘ì‹¬ì—ì„œ í™”ë©´ ë†’ì´ì˜ ì ˆë°˜ì”© ë‚´ë ¤ê°€ê³  ì˜¬ë¼ê°„ ì§€ì ì„ êµ¬í•œë‹¤.
+        // ë”°ë¼ì„œ ì¤‘ì‹¬ì„ ì˜®ê²¨ë„ ì„¸ë¡œ êµ¬ê°„ì˜ ê¸¸ì´ëŠ” í™”ë©´ ë†’ì´ë¥¼ ìœ ì§€í•œë‹¤.
         Vector3 bottom = GetWorldPoint(
             worldCamera,
             new Vector2(
@@ -88,7 +88,7 @@ public sealed class WarriorUltimate : UltimateAbility
                 _spawnLineCenterViewport.x,
                 _spawnLineCenterViewport.y + 0.5f));
 
-        // »ç¿ë ¼ø°£ÀÇ À§Ä¡¸¦ ÀúÀåÇÏ¿© ¹ß»ç Áß¿¡´Â ±¸°£À» °íÁ¤ÇÑ´Ù.
+        // ì‚¬ìš© ìˆœê°„ì˜ ìœ„ì¹˜ë¥¼ ì €ì¥í•˜ì—¬ ë°œì‚¬ ì¤‘ì—ëŠ” êµ¬ê°„ì„ ê³ ì •í•œë‹¤.
         _spawnX = bottom.x;
         _minY = Mathf.Min(bottom.y, top.y);
         _maxY = Mathf.Max(bottom.y, top.y);
@@ -103,6 +103,7 @@ public sealed class WarriorUltimate : UltimateAbility
         _runtimeRoot = rootObject.transform;
         _elapsed = 0f;
         _spawnedCount = 0;
+        GameAudio.Play(GameSound.UltimateWarriorCast); // ê¶ê·¹ê¸° í™œì„±í™” ìŠ¹ì¸.
 
         return true;
     }
@@ -116,10 +117,10 @@ public sealed class WarriorUltimate : UltimateAbility
 
         _elapsed += Time.deltaTime;
 
-        // ÃÑ ¹ß»ç ½Ã°£°ú °³¼ö·Î °¢ °ËÀÇ ¹ß»ç °£°İÀ» °è»êÇÑ´Ù.
+        // ì´ ë°œì‚¬ ì‹œê°„ê³¼ ê°œìˆ˜ë¡œ ê° ê²€ì˜ ë°œì‚¬ ê°„ê²©ì„ ê³„ì‚°í•œë‹¤.
         float interval = _fireDuration / _swordCount;
 
-        // ÇÁ·¹ÀÓÀÌ ´Ê¾îÁ®µµ ¿¹Á¤µÈ ¹ß»ç¸¦ ´©¶ôÇÏÁö ¾Ê´Â´Ù.
+        // í”„ë ˆì„ì´ ëŠ¦ì–´ì ¸ë„ ì˜ˆì •ëœ ë°œì‚¬ë¥¼ ëˆ„ë½í•˜ì§€ ì•ŠëŠ”ë‹¤.
         while (_spawnedCount < _swordCount &&
                _elapsed >= _spawnedCount * interval)
         {
@@ -134,10 +135,11 @@ public sealed class WarriorUltimate : UltimateAbility
                 Quaternion.identity,
                 _runtimeRoot);
 
+            GameAudio.Play(GameSound.UltimateSwordDrop); // ìˆ˜í‰ ê²€ í•œ ë°œ ìƒì„±.
             _spawnedCount++;
         }
 
-        // ¹ß»ç ½Ã°£ÀÌ ³¡³ª°í ¸ğµç °ËÀÌ Á¦°ÅµÇ¸é ½ÇÇàÀ» Á¾·áÇÑ´Ù.
+        // ë°œì‚¬ ì‹œê°„ì´ ëë‚˜ê³  ëª¨ë“  ê²€ì´ ì œê±°ë˜ë©´ ì‹¤í–‰ì„ ì¢…ë£Œí•œë‹¤.
         if (_elapsed >= _fireDuration &&
             _spawnedCount >= _swordCount &&
             _runtimeRoot.childCount == 0)
@@ -146,7 +148,7 @@ public sealed class WarriorUltimate : UltimateAbility
         }
     }
 
-    // È­¸é ÁÂÇ¥¸¦ Z=0ÀÎ ÀüÅõ Æò¸éÀÇ ¿ùµå ÁÂÇ¥·Î ¹Ù²Û´Ù.
+    // í™”ë©´ ì¢Œí‘œë¥¼ Z=0ì¸ ì „íˆ¬ í‰ë©´ì˜ ì›”ë“œ ì¢Œí‘œë¡œ ë°”ê¾¼ë‹¤.
     private static Vector3 GetWorldPoint(
         Camera camera,
         Vector2 viewport)
@@ -160,7 +162,7 @@ public sealed class WarriorUltimate : UltimateAbility
         if (!plane.Raycast(ray, out distance))
         {
             throw new InvalidOperationException(
-                "ÇÊ»ì±â Ä«¸Ş¶ó°¡ °ÔÀÓÀÇ XY Æò¸éÀ» ¹Ù¶óº¸µµ·Ï ¼³Á¤ÇØÁÖ¼¼¿ä.");
+                "í•„ì‚´ê¸° ì¹´ë©”ë¼ê°€ ê²Œì„ì˜ XY í‰ë©´ì„ ë°”ë¼ë³´ë„ë¡ ì„¤ì •í•´ì£¼ì„¸ìš”.");
         }
 
         return ray.GetPoint(distance);
@@ -173,7 +175,7 @@ public sealed class WarriorUltimate : UltimateAbility
             return;
         }
 
-        // »ç¸Á¡¤Å¬¸®¾î¡¤±¸°£ ÀÌµ¿ ½Ã ³²Àº °ËÀÇ ÇÇÇØ ÆÇÁ¤µµ Áï½Ã ¸ØÃá´Ù.
+        // ì‚¬ë§Â·í´ë¦¬ì–´Â·êµ¬ê°„ ì´ë™ ì‹œ ë‚¨ì€ ê²€ì˜ í”¼í•´ íŒì •ë„ ì¦‰ì‹œ ë©ˆì¶˜ë‹¤.
         _runtimeRoot.gameObject.SetActive(false);
         Destroy(_runtimeRoot.gameObject);
         _runtimeRoot = null;

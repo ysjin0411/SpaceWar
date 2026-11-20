@@ -23,5 +23,5 @@ MonoBehaviour:
   _wallPadding: 0.2
   _jumpHeight: 2.5
   _flightDuration: 0.7
-  _landingDamage: 20
+  _landingDamage: 24
   _landingContactLocal: {x: -2.144, y: -5.5896}

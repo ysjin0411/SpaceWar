@@ -1,0 +1,310 @@
+게임 전체 SF 사운드 팩 — 사용 안내
+
+현재 프로젝트를 읽고 제작한 직접 합성 PCM WAV 파일입니다. 사람/동물 녹음이나 생성형 음악 서비스의 출력은 사용하지 않았습니다.
+프로젝트 파일은 수정하지 않았고 Unity에 자동으로 연결하지 않았습니다.
+실제 청음과 게임 내 믹싱은 수행하지 않았습니다. WAV 헤더·샘플 값·클리핑·루프 경계를 수치로 검사했습니다.
+
+1. 파일 구성
+01_BGM: 11개 반복 음악. Town 포함, 보스별 테마 포함.
+02_Ambience: Town의 작은 환기 배경음.
+03_Town_UI: Town 상호작용·창·이동·장비·퀘스트 소리.
+04_Menu_UI: MainMenu 로그인·입력음, 캐릭터/스테이지 선택, 업적, 일시정지.
+05_Weapons: 병사 5종, 전사 4종, 무기 교체.
+06_Combat: 피격·처치·아이템·레벨업·보물상자·궁극기·결과.
+07_Bosses: Dog, Head, Cruiser, Alien 전용 패턴.
+00_Previews: 청취용 모음. 실제 게임에서는 사용하지 마세요.
+
+2. 씬별 음악
+1.MainMenu: mainmenu_signal_loop. 기존 BGM을 유지해도 됩니다. 동시에 두 곡을 재생하지 마세요.
+Town: town_bgm_orbital_rest_loop + 필요하면 town_ambience_ventilation_loop를 작게.
+EquipmentManage / CharacterSelect: preparation_terminal_loop (독립 씬일 때).
+StageSelect: stage_select_navigation_loop (독립 씬일 때).
+TownNpcServicePresenter는 서비스를 Additive로 불러오므로 Town 위에서 열 때는 Town BGM 하나를 유지하는 편이 자연스럽습니다.
+Stage1: stage1_frontier_loop → boss_dog_pursuit_loop → 일반 전투 → boss_head_distortion_loop.
+Stage2: stage2_biomechanical_loop → boss_cruiser_siege_loop → 일반 전투 → boss_alien_phase1_loop → 하울링 → boss_alien_phase2_loop.
+Stage3Data는 존재하지만 Stage3 씬은 현재 파일 목록에 없어서 별도의 Stage3 음악은 제작하지 않았습니다.
+
+3. 에일리언 2페이즈 하울링
+근거: Alien_PhaseTransition.anim, m_StopTime=5, m_SampleRate=24.
+HowlFX는 0초에 Clear 스프라이트, 4.2083335초부터 Alien_HowlFX_001. Animator 상태 기본 speed=1.
+선택 A: alien_transition_full_5s.wav를 전환 시작에 1회 재생. 4.208333초에서 강한 하울링이 시작되고 5초에 종료.
+선택 B: alien_howl_sync_0p792s.wav를 4.208333초의 하울링 이펙트 시작에 1회 재생.
+선택 C: alien_howl_extended_2p4s.wav는 더 긴 하울링+잔향 대안. 이펙트 시작에 재생하면 전환 이후에도 남으므로 보스 교체에 파괴되지 않는 재생기에서 재생.
+A/B/C는 대안입니다. 동시에 겹쳐 재생하지 마세요. 전환 속도 또는 Time.timeScale을 변경하면 타이밍을 다시 맞춰야 합니다.
+전환 도중 중단될 때 긴 소리가 남지 않도록 별도 AudioSource로 정지 가능하게 관리하세요.
+
+4. 재생 방식
+BGM은 Mixer의 BGM 그룹, 효과음은 SFX 그룹으로 보냅니다. 환경음도 현재 두 그룹 구조에서는 SFX.
+파일명 *_loop.wav는 유지 재생용입니다. 상황 종료 시 Stop하거나 페이드아웃하세요.
+레이저: laser_start → laser_sustain_loop → 최대 출력 때 laser_max_charge_loop로 교체 → laser_stop.
+레이저 루프 두 개를 동시에 켜지 마세요. 지속음은 PlayOneShot 반복 호출이 아니라 전용 AudioSource의 Loop로 관리하세요.
+기타 짧은 효과음: Loop Off / Play On Awake Off / PlayOneShot으로 해당 이벤트에 1회.
+실제로 피해가 들어간 시점에 hit, 실제 발사에 fire. 버튼 눌림만으로 성공/보상음을 내지 마세요.
+근접 무기의 swing은 공격 타이밍, hit는 명중에 맞춥니다. 여러 적을 동시에 때릴 때 재생 개수를 제한하세요.
+발소리는 지상 이동 중에만 3종을 번갈아 재생. 점프 중/대화 중에는 중지.
+병사 궁극기는 코드 기본값상 30발이므로 폭발 소리 30개를 그대로 겹치지 말고 가까운 타격을 묶거나 동시 재생 수를 제한하세요.
+경험치·골드·총알 명중은 빈도가 높으므로 작은 볼륨과 재생 간격 제한을 적용하세요.
+충전/예고 파일 중 안내에 시간 기준이라고 적힌 것은 현재 패턴 지속시간에 맞춰 시작·종료 또는 별도 루프화를 조정해야 합니다.
+
+5. 시작 볼륨 예시 (게임 청음 후 조절)
+BGM AudioSource 0.30~0.45, UI 0.45~0.70, 일반 무기 0.40~0.65, 보스 하울링 0.65~0.85, Town 환경음 0.15~0.30.
+파일 피크에 여유를 두었지만 여러 소리가 겹치면 총 출력은 커집니다. 최종 밸런스는 실제 게임에서 확인하세요.
+
+6. 형식 및 가져오기
+새 파일: 44.1kHz / 16bit PCM, BGM·환경음 스테레오, 효과음 모노.
+기존 MainMenu에서 가져온 3개는 48kHz / 16bit PCM 모노이며 정상입니다.
+압축을 푼 뒤 원하는 WAV 파일만 Unity Project 창으로 가져오세요. .wav 확장자를 유지하세요.
+00_Previews, generate_audio.cjs, JSON, 안내문은 Assets에 넣을 필요 없습니다.
+클립 자체에 루프 플래그가 기록되는 것은 아닙니다. Unity AudioSource의 Loop를 설정해야 합니다.
+
+7. 전체 파일과 용도
+03_Town_UI/ui_button_click.wav | 0.090초 | Town: ui_button_click.wav
+03_Town_UI/ui_window_open.wav | 0.220초 | Town: ui_window_open.wav
+03_Town_UI/ui_window_close.wav | 0.180초 | Town: ui_window_close.wav
+03_Town_UI/npc_dialogue_open.wav | 0.270초 | Town: npc_dialogue_open.wav
+03_Town_UI/npc_dialogue_next.wav | 0.065초 | Town: npc_dialogue_next.wav
+03_Town_UI/npc_dialogue_close.wav | 0.200초 | Town: npc_dialogue_close.wav
+03_Town_UI/player_footstep_01.wav | 0.140초 | Town: player_footstep_01.wav
+03_Town_UI/player_footstep_02.wav | 0.140초 | Town: player_footstep_02.wav
+03_Town_UI/player_footstep_03.wav | 0.140초 | Town: player_footstep_03.wav
+03_Town_UI/player_jump.wav | 0.190초 | Town: player_jump.wav
+03_Town_UI/player_land.wav | 0.220초 | Town: player_land.wav
+03_Town_UI/quest_accept.wav | 0.340초 | Town: quest_accept.wav
+03_Town_UI/quest_reward.wav | 0.800초 | Town: quest_reward.wav
+03_Town_UI/equipment_equip.wav | 0.240초 | Town: equipment_equip.wav
+03_Town_UI/equipment_unequip.wav | 0.190초 | Town: equipment_unequip.wav
+03_Town_UI/stage_depart.wav | 0.900초 | Town: stage_depart.wav
+03_Town_UI/ui_action_denied.wav | 0.250초 | Town: ui_action_denied.wav
+01_BGM/town_bgm_orbital_rest_loop.wav | 42.667초 | LOOP | Town: town_bgm_orbital_rest_loop.wav
+02_Ambience/town_ambience_ventilation_loop.wav | 12.000초 | LOOP | Town: town_ambience_ventilation_loop.wav
+04_Menu_UI/ui_typing.wav | 0.038초 | 기존 MainMenu 효과음 재사용
+04_Menu_UI/ui_login_success.wav | 0.440초 | 기존 MainMenu 효과음 재사용
+04_Menu_UI/ui_login_failure.wav | 0.320초 | 기존 MainMenu 효과음 재사용
+04_Menu_UI/ui_focus.wav | 0.055초 | 키보드 UI 선택 이동
+04_Menu_UI/ui_confirm.wav | 0.290초 | 캐릭터·스테이지 선택 확정
+04_Menu_UI/ui_back.wav | 0.240초 | 뒤로 이동
+04_Menu_UI/ui_locked.wav | 0.260초 | 잠긴 항목·조건 미충족
+04_Menu_UI/character_soldier_select.wav | 0.360초 | 병사 선택
+04_Menu_UI/character_warrior_select.wav | 0.470초 | 전사 선택
+04_Menu_UI/equipment_upgrade_success.wav | 0.520초 | 장비 강화 성공
+04_Menu_UI/achievement_unlock.wav | 0.755초 | 업적 달성
+04_Menu_UI/inventory_item_select.wav | 0.075초 | 인벤토리 아이템 선택
+04_Menu_UI/stage_select_change.wav | 0.165초 | 스테이지 선택 변경
+04_Menu_UI/pause_open.wav | 0.245초 | 일시정지
+04_Menu_UI/pause_resume.wav | 0.245초 | 일시정지 해제
+05_Weapons/Soldier/bullet_fire_01.wav | 0.160초 | 기본 총알 발사 변형 1
+05_Weapons/Soldier/bullet_fire_02.wav | 0.170초 | 기본 총알 발사 변형 2
+05_Weapons/Soldier/bullet_fire_03.wav | 0.180초 | 기본 총알 발사 변형 3
+05_Weapons/Soldier/bullet_hit.wav | 0.120초 | 총알 명중
+05_Weapons/Soldier/laser_start.wav | 0.250초 | 지속 레이저 시작
+05_Weapons/Soldier/laser_sustain_loop.wav | 2.000초 | LOOP | 지속 레이저 유지: 발사 중에만 Loop
+05_Weapons/Soldier/laser_max_charge_loop.wav | 2.000초 | LOOP | 최대 출력 레이저 유지: 기본 루프와 교체
+05_Weapons/Soldier/laser_stop.wav | 0.240초 | 레이저 종료
+05_Weapons/Soldier/missile_launch.wav | 0.420초 | 미사일 발사
+05_Weapons/Soldier/missile_explosion.wav | 0.950초 | 미사일 폭발
+05_Weapons/Soldier/grenade_throw.wav | 0.210초 | 수류탄 투척
+05_Weapons/Soldier/grenade_bounce.wav | 0.150초 | 수류탄 바닥 접촉
+05_Weapons/Soldier/grenade_explosion.wav | 0.720초 | 수류탄 폭발
+05_Weapons/Soldier/sniper_fire.wav | 0.580초 | 저격총 강한 단발
+05_Weapons/Soldier/sniper_hit.wav | 0.200초 | 저격탄 명중
+05_Weapons/Warrior/giant_sword_swing_01.wav | 0.270초 | 대검 1타
+05_Weapons/Warrior/giant_sword_swing_02.wav | 0.315초 | 대검 2타
+05_Weapons/Warrior/giant_sword_swing_03.wav | 0.360초 | 대검 3타
+05_Weapons/Warrior/giant_sword_hit.wav | 0.260초 | 대검 명중
+05_Weapons/Warrior/slash_wave_launch.wav | 0.380초 | 참격 파동 발사
+05_Weapons/Warrior/slash_wave_hit.wav | 0.220초 | 참격 파동 명중
+05_Weapons/Warrior/hammer_swing_01.wav | 0.300초 | 해머 1타 휘두름
+05_Weapons/Warrior/hammer_swing_02.wav | 0.340초 | 해머 2타 휘두름
+05_Weapons/Warrior/hammer_swing_03.wav | 0.380초 | 해머 3타 휘두름
+05_Weapons/Warrior/hammer_hit.wav | 0.400초 | 해머 일반 명중
+05_Weapons/Warrior/hammer_finisher.wav | 0.700초 | 해머 마지막 타격
+05_Weapons/Warrior/shield_raise.wav | 0.235초 | 방패 전개
+05_Weapons/Warrior/shield_block.wav | 0.290초 | 방패 방어 성공
+05_Weapons/Warrior/shield_break.wav | 0.650초 | 방패 파괴
+05_Weapons/Warrior/shield_recover.wav | 0.440초 | 방패 회복 완료
+05_Weapons/weapon_switch.wav | 0.155초 | 무기 교체
+06_Combat/player_hurt.wav | 0.230초 | 플레이어 피격: 음성 없음
+06_Combat/player_death.wav | 1.150초 | 플레이어 사망 에너지 소멸
+06_Combat/enemy_hit_01.wav | 0.120초 | 일반 적 피격 1
+06_Combat/enemy_hit_02.wav | 0.140초 | 일반 적 피격 2
+06_Combat/enemy_hit_03.wav | 0.160초 | 일반 적 피격 3
+06_Combat/enemy_death.wav | 0.300초 | 일반 적 처치
+06_Combat/enemy_suicide_explosion.wav | 0.550초 | 자폭 적 폭발
+06_Combat/pickup_gold.wav | 0.155초 | 골드 획득
+06_Combat/pickup_experience.wav | 0.085초 | 경험치 획득
+06_Combat/pickup_ultimate.wav | 0.290초 | 궁극기 충전 아이템
+06_Combat/level_up.wav | 0.590초 | 레벨업
+06_Combat/upgrade_select.wav | 0.380초 | 업그레이드 선택 확정
+06_Combat/ultimate_ready.wav | 0.650초 | 궁극기 사용 가능
+06_Combat/treasure_appear.wav | 0.520초 | 보물상자 등장
+06_Combat/treasure_charge.wav | 1.000초 | 상자 개봉 충전 1초 기준: 실제 진행 시간에 맞춰 조절
+06_Combat/treasure_open.wav | 0.830초 | 상자 개봉 성공
+06_Combat/ultimate_warrior_cast.wav | 0.750초 | 전사 궁극기 시작
+06_Combat/ultimate_sword_drop.wav | 0.360초 | 궁극기 검 한 발 낙하: 재생 빈도 제한
+06_Combat/ultimate_sword_impact.wav | 0.520초 | 궁극기 검 착지
+06_Combat/ultimate_soldier_launch.wav | 1.200초 | 병사 궁극기 미사일 상승 1.2초 기본값
+06_Combat/ultimate_bombard_impact.wav | 0.680초 | 병사 궁극기 폭격 1발: 전체 30발 동시 재생 금지
+06_Combat/stage_clear.wav | 1.620초 | 스테이지 클리어
+06_Combat/stage_failed.wav | 1.290초 | 스테이지 실패
+06_Combat/boss_warning.wav | 0.660초 | 보스 등장 알림
+07_Bosses/Dog/dog_intro_growl.wav | 1.250초 | Dog 등장: 합성 괴수 으르렁
+07_Bosses/Dog/dog_charge.wav | 0.650초 | Dog 돌진 시작
+07_Bosses/Dog/dog_spiral_shot.wav | 0.160초 | Dog 나선탄 발사 묶음
+07_Bosses/Dog/dog_impact.wav | 0.550초 | Dog 충돌
+07_Bosses/Head/head_laser_charge.wav | 1.000초 | Head 레이저 예고: 실제 예고 시간에 맞춤
+07_Bosses/Head/head_laser_loop.wav | 2.000초 | LOOP | Head 레이저 유지
+07_Bosses/Head/head_confusion.wav | 0.800초 | Head 혼란 발동
+07_Bosses/Head/head_blackhole_loop.wav | 4.000초 | LOOP | Head 블랙홀 존재 중 유지
+07_Bosses/Head/head_blackhole_collapse.wav | 0.850초 | 블랙홀 소멸
+07_Bosses/Cruiser/cruiser_turret_fire.wav | 0.280초 | Cruiser 포탑 발사
+07_Bosses/Cruiser/cruiser_bigshot_charge.wav | 1.250초 | Cruiser 대형탄 충전: 실제 패턴 시간에 맞춤
+07_Bosses/Cruiser/cruiser_bigshot_fire.wav | 0.850초 | Cruiser 대형탄 발사
+07_Bosses/Cruiser/cruiser_summon.wav | 0.690초 | Cruiser 소환 신호
+07_Bosses/Cruiser/cruiser_transition_3p5s.wav | 3.500초 | Cruiser 3.5초 전환 애니메이션용
+07_Bosses/Cruiser/cruiser_death_explosion.wav | 3.500초 | Cruiser 파괴: 3.5초 잔향
+07_Bosses/Alien/alien_missile_open.wav | 0.450초 | Alien 미사일 발사구 열림
+07_Bosses/Alien/alien_missile_launch.wav | 0.400초 | Alien 미사일 발사
+07_Bosses/Alien/alien_barrage_blast.wav | 0.720초 | Alien 탄막 폭발
+07_Bosses/Alien/alien_grab_prepare.wav | 0.750초 | Alien 잡기 준비
+07_Bosses/Alien/alien_grab_catch.wav | 0.280초 | Alien 잡기 성공
+07_Bosses/Alien/alien_grab_throw.wav | 0.400초 | Alien 던지기
+07_Bosses/Alien/alien_resonance_charge.wav | 1.200초 | Alien 공명 준비: 실제 패턴 시간에 맞춤
+07_Bosses/Alien/alien_resonance_wave.wav | 1.300초 | Alien 공명 파동 1회
+07_Bosses/Alien/alien_p2_leap.wav | 0.600초 | Alien 2페이즈 도약
+07_Bosses/Alien/alien_p2_land.wav | 0.850초 | Alien 2페이즈 도약 착지
+07_Bosses/Alien/alien_p2_claw_01.wav | 0.260초 | Alien 2페이즈 콤보 1타
+07_Bosses/Alien/alien_p2_claw_02.wav | 0.310초 | Alien 2페이즈 콤보 2타
+07_Bosses/Alien/alien_p2_claw_03.wav | 0.360초 | Alien 2페이즈 콤보 3타
+07_Bosses/Alien/alien_p2_trace_insert.wav | 0.450초 | Alien 추적 발톱 삽입
+07_Bosses/Alien/alien_p2_trace_warning.wav | 0.600초 | Alien 추적 공격 예고
+07_Bosses/Alien/alien_p2_trace_strike.wav | 0.480초 | Alien 추적 발톱 타격
+07_Bosses/Alien/alien_p2_trace_withdraw.wav | 0.400초 | Alien 추적 발톱 회수
+07_Bosses/Alien/alien_death.wav | 2.300초 | Alien 최종 사망
+07_Bosses/Alien/alien_transition_full_5s.wav | 5.000초 | 전환 시작에 1회. 4.208333초에 하울링 폭발, 5초 종료. Animator speed=1 기준
+07_Bosses/Alien/alien_howl_sync_0p792s.wav | 0.792초 | HowlFX 첫 프레임에 재생하는 단독 하울링. full_5s와 중복 재생하지 않음
+07_Bosses/Alien/alien_howl_extended_2p4s.wav | 2.400초 | 긴 잔향 대안. 4.208초에 시작하면 전환 후까지 지속되므로 별도 유지 재생기 필요
+01_BGM/mainmenu_signal_loop.wav | 45.714초 | LOOP | MainMenu 대체 BGM: 기존 음악과 택일
+01_BGM/preparation_terminal_loop.wav | 40.000초 | LOOP | EquipmentManage·CharacterSelect 단독 실행용. Town 추가 씬에서는 Town BGM 유지 권장
+01_BGM/stage_select_navigation_loop.wav | 38.400초 | LOOP | StageSelect 단독 실행용. Town 위에서 열면 Town BGM 유지
+01_BGM/stage1_frontier_loop.wav | 34.286초 | LOOP | Stage1 일반 전투
+01_BGM/stage2_biomechanical_loop.wav | 32.000초 | LOOP | Stage2 일반 전투
+01_BGM/boss_dog_pursuit_loop.wav | 30.000초 | LOOP | Stage1 중간 보스 Dog
+01_BGM/boss_head_distortion_loop.wav | 34.286초 | LOOP | Stage1 최종 보스 Head
+01_BGM/boss_cruiser_siege_loop.wav | 32.000초 | LOOP | Stage2 중간 보스 Cruiser
+01_BGM/boss_alien_phase1_loop.wav | 35.556초 | LOOP | Stage2 Alien 1페이즈
+01_BGM/boss_alien_phase2_loop.wav | 29.091초 | LOOP | Stage2 Alien 2페이즈: 하울링 후 시작
+00_Previews/ui_preview.wav | 7.880초 | 청취용 모음: 게임 연결 금지
+00_Previews/weapons_preview.wav | 20.195초 | 청취용 모음: 게임 연결 금지
+00_Previews/combat_preview.wav | 22.630초 | 청취용 모음: 게임 연결 금지
+00_Previews/bosses_preview.wav | 38.290초 | 청취용 모음: 게임 연결 금지
+00_Previews/howl_preview.wav | 9.242초 | 청취용 모음: 게임 연결 금지
+
+8. 미리듣기 순서
+UI
+1. 04_Menu_UI/ui_focus.wav
+2. 04_Menu_UI/ui_confirm.wav
+3. 04_Menu_UI/ui_back.wav
+4. 04_Menu_UI/ui_locked.wav
+5. 04_Menu_UI/character_soldier_select.wav
+6. 04_Menu_UI/character_warrior_select.wav
+7. 04_Menu_UI/equipment_upgrade_success.wav
+8. 04_Menu_UI/achievement_unlock.wav
+9. 04_Menu_UI/inventory_item_select.wav
+10. 04_Menu_UI/stage_select_change.wav
+11. 04_Menu_UI/pause_open.wav
+12. 04_Menu_UI/pause_resume.wav
+
+Weapons
+1. 05_Weapons/Soldier/bullet_fire_01.wav
+2. 05_Weapons/Soldier/bullet_fire_02.wav
+3. 05_Weapons/Soldier/bullet_fire_03.wav
+4. 05_Weapons/Soldier/bullet_hit.wav
+5. 05_Weapons/Soldier/laser_start.wav
+6. 05_Weapons/Soldier/laser_stop.wav
+7. 05_Weapons/Soldier/missile_launch.wav
+8. 05_Weapons/Soldier/missile_explosion.wav
+9. 05_Weapons/Soldier/grenade_throw.wav
+10. 05_Weapons/Soldier/grenade_bounce.wav
+11. 05_Weapons/Soldier/grenade_explosion.wav
+12. 05_Weapons/Soldier/sniper_fire.wav
+13. 05_Weapons/Soldier/sniper_hit.wav
+14. 05_Weapons/Warrior/giant_sword_swing_01.wav
+15. 05_Weapons/Warrior/giant_sword_swing_02.wav
+16. 05_Weapons/Warrior/giant_sword_swing_03.wav
+17. 05_Weapons/Warrior/giant_sword_hit.wav
+18. 05_Weapons/Warrior/slash_wave_launch.wav
+19. 05_Weapons/Warrior/slash_wave_hit.wav
+20. 05_Weapons/Warrior/hammer_swing_01.wav
+21. 05_Weapons/Warrior/hammer_swing_02.wav
+22. 05_Weapons/Warrior/hammer_swing_03.wav
+23. 05_Weapons/Warrior/hammer_hit.wav
+24. 05_Weapons/Warrior/hammer_finisher.wav
+25. 05_Weapons/Warrior/shield_raise.wav
+26. 05_Weapons/Warrior/shield_block.wav
+27. 05_Weapons/Warrior/shield_break.wav
+28. 05_Weapons/Warrior/shield_recover.wav
+29. 05_Weapons/weapon_switch.wav
+
+Combat
+1. 06_Combat/player_hurt.wav
+2. 06_Combat/player_death.wav
+3. 06_Combat/enemy_hit_01.wav
+4. 06_Combat/enemy_hit_02.wav
+5. 06_Combat/enemy_hit_03.wav
+6. 06_Combat/enemy_death.wav
+7. 06_Combat/enemy_suicide_explosion.wav
+8. 06_Combat/pickup_gold.wav
+9. 06_Combat/pickup_experience.wav
+10. 06_Combat/pickup_ultimate.wav
+11. 06_Combat/level_up.wav
+12. 06_Combat/upgrade_select.wav
+13. 06_Combat/ultimate_ready.wav
+14. 06_Combat/treasure_appear.wav
+15. 06_Combat/treasure_charge.wav
+16. 06_Combat/treasure_open.wav
+17. 06_Combat/ultimate_warrior_cast.wav
+18. 06_Combat/ultimate_sword_drop.wav
+19. 06_Combat/ultimate_sword_impact.wav
+20. 06_Combat/ultimate_soldier_launch.wav
+21. 06_Combat/ultimate_bombard_impact.wav
+22. 06_Combat/stage_clear.wav
+23. 06_Combat/stage_failed.wav
+24. 06_Combat/boss_warning.wav
+
+Bosses
+1. 07_Bosses/Dog/dog_intro_growl.wav
+2. 07_Bosses/Dog/dog_charge.wav
+3. 07_Bosses/Dog/dog_spiral_shot.wav
+4. 07_Bosses/Dog/dog_impact.wav
+5. 07_Bosses/Head/head_laser_charge.wav
+6. 07_Bosses/Head/head_confusion.wav
+7. 07_Bosses/Head/head_blackhole_collapse.wav
+8. 07_Bosses/Cruiser/cruiser_turret_fire.wav
+9. 07_Bosses/Cruiser/cruiser_bigshot_charge.wav
+10. 07_Bosses/Cruiser/cruiser_bigshot_fire.wav
+11. 07_Bosses/Cruiser/cruiser_summon.wav
+12. 07_Bosses/Cruiser/cruiser_transition_3p5s.wav
+13. 07_Bosses/Cruiser/cruiser_death_explosion.wav
+14. 07_Bosses/Alien/alien_missile_open.wav
+15. 07_Bosses/Alien/alien_missile_launch.wav
+16. 07_Bosses/Alien/alien_barrage_blast.wav
+17. 07_Bosses/Alien/alien_grab_prepare.wav
+18. 07_Bosses/Alien/alien_grab_catch.wav
+19. 07_Bosses/Alien/alien_grab_throw.wav
+20. 07_Bosses/Alien/alien_resonance_charge.wav
+21. 07_Bosses/Alien/alien_resonance_wave.wav
+22. 07_Bosses/Alien/alien_p2_leap.wav
+23. 07_Bosses/Alien/alien_p2_land.wav
+24. 07_Bosses/Alien/alien_p2_claw_01.wav
+25. 07_Bosses/Alien/alien_p2_claw_02.wav
+26. 07_Bosses/Alien/alien_p2_claw_03.wav
+27. 07_Bosses/Alien/alien_p2_trace_insert.wav
+28. 07_Bosses/Alien/alien_p2_trace_warning.wav
+29. 07_Bosses/Alien/alien_p2_trace_strike.wav
+30. 07_Bosses/Alien/alien_p2_trace_withdraw.wav
+31. 07_Bosses/Alien/alien_death.wav
+
+Howl
+1. 07_Bosses/Alien/alien_transition_full_5s.wav
+2. 07_Bosses/Alien/alien_howl_sync_0p792s.wav
+3. 07_Bosses/Alien/alien_howl_extended_2p4s.wav

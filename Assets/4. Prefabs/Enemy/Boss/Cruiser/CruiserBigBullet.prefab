@@ -85,9 +85,9 @@ MonoBehaviour:
   _growDuration: 2
   _holdDuration: 1
   _speed: 12
-  _lifeDuration: 20
-  _damageInterval: 0.25
-  _damage: 10
+  _lifeDuration: 7
+  _damageInterval: 0.6
+  _damage: 8
 --- !u!50 &3464008184041811648
 Rigidbody2D:
   serializedVersion: 5

@@ -1,126 +1,129 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
 /// <summary>
-/// º¸½º FirePoint¿¡¼­ È­¸é ¹ÛÀ¸·Î »¸´Â ·¹ÀÌÀú´Ù.
-/// ¹æÇâ¿¡ µû¶ó ±æÀÌ¿Í Ãæµ¹ ¹üÀ§¸¦ °»½ÅÇÏ°í Á¾·á ½Ã ¼­¼­È÷ »ç¶óÁø´Ù.
+/// ë³´ìŠ¤ FirePointì—ì„œ í™”ë©´ ë°–ìœ¼ë¡œ ë»—ëŠ” ë ˆì´ì €ë‹¤.
+/// ë°©í–¥ì— ë”°ë¼ ê¸¸ì´ì™€ ì¶©ëŒ ë²”ìœ„ë¥¼ ê°±ì‹ í•˜ê³  ì¢…ë£Œ ì‹œ ì„œì„œíˆ ì‚¬ë¼ì§„ë‹¤.
 /// </summary>
 [RequireComponent(typeof(BoxCollider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
 public sealed class BossLaserBeam : MonoBehaviour
 {
-    // ·¹ÀÌÀú ±×¸²À» Ç¥½ÃÇÏ´Â ÀÚ½Ä SpriteRenderer.
+    // ë¹” ìˆ˜ëª…ê³¼ í•¨ê»˜ ìœ ì§€í•  ë°˜ë³µìŒ.
+    private GameAudio.Handle _beamAudio;
+
+    // ë ˆì´ì € ê·¸ë¦¼ì„ í‘œì‹œí•˜ëŠ” ìì‹ SpriteRenderer.
     [SerializeField] SpriteRenderer _beamRenderer;
 
-    // ¼ø¼­´ë·Î ¹İº¹ Àç»ıÇÒ ·¹ÀÌÀú ½ºÇÁ¶óÀÌÆ® 4Àå.
+    // ìˆœì„œëŒ€ë¡œ ë°˜ë³µ ì¬ìƒí•  ë ˆì´ì € ìŠ¤í”„ë¼ì´íŠ¸ 4ì¥.
     [SerializeField] Sprite[] _animationFrames = new Sprite[4];
 
-    // 1ÃÊ µ¿¾È Àç»ıÇÏ´Â ÇÁ·¹ÀÓ ¼ö.
+    // 1ì´ˆ ë™ì•ˆ ì¬ìƒí•˜ëŠ” í”„ë ˆì„ ìˆ˜.
     [SerializeField, Min(0.1f)] float _animationFps = 12f;
 
-    // ½ÇÁ¦ ½ÃÀÛ À§Ä¡¿Í È­¸é ¹Û ³¡ À§Ä¡¸¦ Ç¥½ÃÇÏ´Â ÀÚ½Ä Transform.
+    // ì‹¤ì œ ì‹œì‘ ìœ„ì¹˜ì™€ í™”ë©´ ë°– ë ìœ„ì¹˜ë¥¼ í‘œì‹œí•˜ëŠ” ìì‹ Transform.
     [SerializeField] Transform _startPoint;
     [SerializeField] Transform _endPoint;
 
-    // ½ÇÁ¦ ÇÇÇØ ÆÇÁ¤ÀÇ ±½±â. °æ°í ¹üÀ§µµ ÀÌ °ªÀ» »ç¿ëÇÑ´Ù.
+    // ì‹¤ì œ í”¼í•´ íŒì •ì˜ êµµê¸°. ê²½ê³  ë²”ìœ„ë„ ì´ ê°’ì„ ì‚¬ìš©í•œë‹¤.
     [SerializeField, Min(0.01f)] float _damageWidth = 0.5f;
 
-    // ÇÇÇØ ±½±â¿¡ ´ëÇÑ ½ºÇÁ¶óÀÌÆ® ÀüÃ¼ ³ôÀÌÀÇ ¹èÀ².
-    // ½ºÇÁ¶óÀÌÆ®ÀÇ Åõ¸í ¿©¹é°ú ¹Ù±ù Àü±â È¿°ú±îÁö Æ÷ÇÔÇÑ´Ù.
+    // í”¼í•´ êµµê¸°ì— ëŒ€í•œ ìŠ¤í”„ë¼ì´íŠ¸ ì „ì²´ ë†’ì´ì˜ ë°°ìœ¨.
+    // ìŠ¤í”„ë¼ì´íŠ¸ì˜ íˆ¬ëª… ì—¬ë°±ê³¼ ë°”ê¹¥ ì „ê¸° íš¨ê³¼ê¹Œì§€ í¬í•¨í•œë‹¤.
     [SerializeField, Min(1f)] float _visualWidthMultiplier = 3f;
 
-    // ±×¸²¿¡ °öÇÒ »ö»ó. ¿øº» »ö»óÀ» »ç¿ëÇÏ·Á¸é Èò»öÀ¸·Î µĞ´Ù.
+    // ê·¸ë¦¼ì— ê³±í•  ìƒ‰ìƒ. ì›ë³¸ ìƒ‰ìƒì„ ì‚¬ìš©í•˜ë ¤ë©´ í°ìƒ‰ìœ¼ë¡œ ë‘”ë‹¤.
     [SerializeField] Color _beamColor = Color.white;
 
-    // È­¸é ¹Ù±ùÀ¸·Î Ãß°¡ ¿¬ÀåÇÒ °Å¸®.
+    // í™”ë©´ ë°”ê¹¥ìœ¼ë¡œ ì¶”ê°€ ì—°ì¥í•  ê±°ë¦¬.
     [SerializeField, Min(0.1f)] float _outsideMargin = 1f;
 
-    // °ø°İ Á¾·á ÈÄ ºûÀÌ ¿ÏÀüÈ÷ »ç¶óÁö´Â ½Ã°£.
+    // ê³µê²© ì¢…ë£Œ í›„ ë¹›ì´ ì™„ì „íˆ ì‚¬ë¼ì§€ëŠ” ì‹œê°„.
     [SerializeField, Min(0.01f)] float _fadeOutDuration = 0.3f;
 
-    // °°Àº ÇÃ·¹ÀÌ¾î¿¡°Ô ¿¬¼ÓÀ¸·Î ÇÇÇØ¸¦ ÁÖ´Â ÃÖ¼Ò °£°İ.
+    // ê°™ì€ í”Œë ˆì´ì–´ì—ê²Œ ì—°ì†ìœ¼ë¡œ í”¼í•´ë¥¼ ì£¼ëŠ” ìµœì†Œ ê°„ê²©.
     [SerializeField, Min(0.01f)] float _damageInterval = 0.2f;
 
-    // ÇöÀç ·¹ÀÌÀú¸¦ »ç¿ëÇÏ´Â º¸½º´Ù.
+    // í˜„ì¬ ë ˆì´ì €ë¥¼ ì‚¬ìš©í•˜ëŠ” ë³´ìŠ¤ë‹¤.
     BossEnemy _owner;
 
-    // ÇöÀç º¸½ºÀÇ ½ÇÁ¦ ¹ß»ç À§Ä¡´Ù.
+    // í˜„ì¬ ë³´ìŠ¤ì˜ ì‹¤ì œ ë°œì‚¬ ìœ„ì¹˜ë‹¤.
     Transform _firePoint;
 
-    // °ÔÀÓ È­¸éÀÇ ¹üÀ§¸¦ °è»êÇÒ Ä«¸Ş¶ó´Ù.
+    // ê²Œì„ í™”ë©´ì˜ ë²”ìœ„ë¥¼ ê³„ì‚°í•  ì¹´ë©”ë¼ë‹¤.
     Camera _battleCamera;
 
-    // ÇöÀç ¹ß»ç ¹æÇâÀÌ´Ù.
+    // í˜„ì¬ ë°œì‚¬ ë°©í–¥ì´ë‹¤.
     Vector2 _direction;
 
-    // ÀÌ¹ø °ø°İÀÇ ÇÇÇØ·®ÀÌ´Ù.
+    // ì´ë²ˆ ê³µê²©ì˜ í”¼í•´ëŸ‰ì´ë‹¤.
     float _damage;
 
-    // ·¹ÀÌÀúÀÇ ½ÇÁ¦ Ãæµ¹ ¹üÀ§´Ù.
+    // ë ˆì´ì €ì˜ ì‹¤ì œ ì¶©ëŒ ë²”ìœ„ë‹¤.
     BoxCollider2D _damageCollider;
 
-    // ÃÊ±âÈ­°¡ ¿Ï·áµÇ¾ú´ÂÁö È®ÀÎÇÑ´Ù.
+    // ì´ˆê¸°í™”ê°€ ì™„ë£Œë˜ì—ˆëŠ”ì§€ í™•ì¸í•œë‹¤.
     bool _initialized;
 
-    // ÇöÀç ÇÇÇØ¸¦ ÁÙ ¼ö ÀÖ´Â »óÅÂÀÎÁö È®ÀÎÇÑ´Ù.
+    // í˜„ì¬ í”¼í•´ë¥¼ ì¤„ ìˆ˜ ìˆëŠ” ìƒíƒœì¸ì§€ í™•ì¸í•œë‹¤.
     bool _isAttacking;
 
-    // Á¾·á ¿¬ÃâÀ» Áßº¹ ½ÇÇàÇÏÁö ¾Êµµ·Ï ±â·ÏÇÑ´Ù.
+    // ì¢…ë£Œ ì—°ì¶œì„ ì¤‘ë³µ ì‹¤í–‰í•˜ì§€ ì•Šë„ë¡ ê¸°ë¡í•œë‹¤.
     bool _isFading;
 
-    // ÇöÀç ·¹ÀÌÀúÀÇ ±½±â¿Í Åõ¸íµµ ºñÀ²ÀÌ´Ù.
+    // í˜„ì¬ ë ˆì´ì €ì˜ êµµê¸°ì™€ íˆ¬ëª…ë„ ë¹„ìœ¨ì´ë‹¤.
     float _visibility = 1f;
 
-    // ÇöÀç ½ÃÀÛÁ¡ºÎÅÍ ³¡Á¡±îÁöÀÇ ·¹ÀÌÀú ±æÀÌ.
+    // í˜„ì¬ ì‹œì‘ì ë¶€í„° ëì ê¹Œì§€ì˜ ë ˆì´ì € ê¸¸ì´.
     float _beamLength;
 
-    // ÇöÀç Ç¥½ÃÇÏ´Â ¾Ö´Ï¸ŞÀÌ¼Ç ÇÁ·¹ÀÓ.
+    // í˜„ì¬ í‘œì‹œí•˜ëŠ” ì• ë‹ˆë©”ì´ì…˜ í”„ë ˆì„.
     int _animationFrameIndex;
 
-    // ´ÙÀ½ ÇÁ·¹ÀÓÀ¸·Î ³Ñ¾î°¡±â À§ÇØ ´©ÀûÇÑ ½Ã°£.
+    // ë‹¤ìŒ í”„ë ˆì„ìœ¼ë¡œ ë„˜ì–´ê°€ê¸° ìœ„í•´ ëˆ„ì í•œ ì‹œê°„.
     float _animationTimer;
 
-    // Á¾·á ¿¬ÃâÀ» Á¤¸®ÇÏ±â À§ÇÑ Tween ÂüÁ¶´Ù.
+    // ì¢…ë£Œ ì—°ì¶œì„ ì •ë¦¬í•˜ê¸° ìœ„í•œ Tween ì°¸ì¡°ë‹¤.
     Tween _fadeTween;
 
-    // ¿©·¯ Collider°¡ ÀÖ´Â ÇÃ·¹ÀÌ¾îµµ ÇÇÇØ °£°İÀ» °øÀ¯ÇÑ´Ù.
+    // ì—¬ëŸ¬ Colliderê°€ ìˆëŠ” í”Œë ˆì´ì–´ë„ í”¼í•´ ê°„ê²©ì„ ê³µìœ í•œë‹¤.
     readonly Dictionary<PlayerController, float> _nextDamageTimes =
         new Dictionary<PlayerController, float>();
 
-    // °æ°í ¹üÀ§ »ı¼º ½Ã »ç¿ëÇÒ ½ÇÁ¦ ÇÇÇØ ±½±â´Ù.
+    // ê²½ê³  ë²”ìœ„ ìƒì„± ì‹œ ì‚¬ìš©í•  ì‹¤ì œ í”¼í•´ êµµê¸°ë‹¤.
     public float DamageWidth => _damageWidth;
 
-    // ÆĞÅÏÀÌ Á¾·á ¿¬Ãâ ¿Ï·á¸¦ ±â´Ù¸± ¶§ »ç¿ëÇÑ´Ù.
+    // íŒ¨í„´ì´ ì¢…ë£Œ ì—°ì¶œ ì™„ë£Œë¥¼ ê¸°ë‹¤ë¦´ ë•Œ ì‚¬ìš©í•œë‹¤.
     public bool IsFading => _isFading;
 
     /// <summary>
-    /// ÄÄÆ÷³ÍÆ® ÂüÁ¶¿Í ÃÊ±â ½ÇÇà »óÅÂ¸¦ ÁØºñÇÑ´Ù.
+    /// ì»´í¬ë„ŒíŠ¸ ì°¸ì¡°ì™€ ì´ˆê¸° ì‹¤í–‰ ìƒíƒœë¥¼ ì¤€ë¹„í•œë‹¤.
     /// </summary>
     private void Awake()
     {
-        // ÇÊ¼ö ÇÁ¸®ÆÕ ¿¬°áÀ» °Ë»çÇÑ´Ù.
+        // í•„ìˆ˜ í”„ë¦¬íŒ¹ ì—°ê²°ì„ ê²€ì‚¬í•œë‹¤.
         if (_beamRenderer == null ||
             _startPoint == null ||
             _endPoint == null)
         {
             throw new InvalidOperationException(
-                $"{name}: Beam Renderer, StartPoint, EndPoint¸¦ ¿¬°áÇÏ¼¼¿ä.");
+                $"{name}: Beam Renderer, StartPoint, EndPointë¥¼ ì—°ê²°í•˜ì„¸ìš”.");
         }
 
-        // ±×¸²¸¸ È®´ëÇØ¾ß ÇÏ¹Ç·Î Renderer´Â ·çÆ®ÀÇ Á÷Á¢ÀûÀÎ ÀÚ½ÄÀ¸·Î µĞ´Ù.
+        // ê·¸ë¦¼ë§Œ í™•ëŒ€í•´ì•¼ í•˜ë¯€ë¡œ RendererëŠ” ë£¨íŠ¸ì˜ ì§ì ‘ì ì¸ ìì‹ìœ¼ë¡œ ë‘”ë‹¤.
         if (_beamRenderer.transform.parent != transform)
         {
             throw new InvalidOperationException(
-                $"{name}: Beam Renderer´Â ·¹ÀÌÀú ·çÆ®ÀÇ Á÷Á¢ÀûÀÎ ÀÚ½ÄÀÌ¾î¾ß ÇÕ´Ï´Ù.");
+                $"{name}: Beam RendererëŠ” ë ˆì´ì € ë£¨íŠ¸ì˜ ì§ì ‘ì ì¸ ìì‹ì´ì–´ì•¼ í•©ë‹ˆë‹¤.");
         }
 
         if (_animationFrames == null || _animationFrames.Length != 4)
         {
             throw new InvalidOperationException(
-                $"{name}: Animation Frames¿¡ ·¹ÀÌÀú 4ÄÆÀ» ¿¬°áÇÏ¼¼¿ä.");
+                $"{name}: Animation Framesì— ë ˆì´ì € 4ì»·ì„ ì—°ê²°í•˜ì„¸ìš”.");
         }
 
         for (int i = 0; i < _animationFrames.Length; i++)
@@ -130,25 +133,25 @@ public sealed class BossLaserBeam : MonoBehaviour
             if (frame == null)
             {
                 throw new InvalidOperationException(
-                    $"{name}: Animation FramesÀÇ {i}¹øÀÌ ºñ¾î ÀÖ½À´Ï´Ù.");
+                    $"{name}: Animation Framesì˜ {i}ë²ˆì´ ë¹„ì–´ ìˆìŠµë‹ˆë‹¤.");
             }
 
-            // Áß½ÉÁ¡À» ±âÁØÀ¸·Î ±æÀÌ¸¦ ´Ã¸®¹Ç·Î ¸ğµç ÇÁ·¹ÀÓÀÇ PivotÀ» °Ë»çÇÑ´Ù.
+            // ì¤‘ì‹¬ì ì„ ê¸°ì¤€ìœ¼ë¡œ ê¸¸ì´ë¥¼ ëŠ˜ë¦¬ë¯€ë¡œ ëª¨ë“  í”„ë ˆì„ì˜ Pivotì„ ê²€ì‚¬í•œë‹¤.
             Vector2 centerPivot = frame.rect.size * 0.5f;
 
             if ((frame.pivot - centerPivot).sqrMagnitude > 0.01f)
             {
                 throw new InvalidOperationException(
-                    $"{frame.name}: Sprite PivotÀ» Center·Î ¼³Á¤ÇÏ¼¼¿ä.");
+                    $"{frame.name}: Sprite Pivotì„ Centerë¡œ ì„¤ì •í•˜ì„¸ìš”.");
             }
 
-            // ÇÁ·¹ÀÓ¸¶´Ù ´Ù¸¥ Å©±â¸¦ Àß¸ø ¿¬°áÇÏ´Â °ÍÀ» ¹æÁöÇÑ´Ù.
+            // í”„ë ˆì„ë§ˆë‹¤ ë‹¤ë¥¸ í¬ê¸°ë¥¼ ì˜ëª» ì—°ê²°í•˜ëŠ” ê²ƒì„ ë°©ì§€í•œë‹¤.
             if (i > 0 &&
                 (frame.rect.size - _animationFrames[0].rect.size)
                     .sqrMagnitude > 0.01f)
             {
                 throw new InvalidOperationException(
-                    $"{name}: ·¹ÀÌÀú 4ÄÆÀÇ Rect Å©±â¸¦ µ¿ÀÏÇÏ°Ô ¸ÂÃçÁÖ¼¼¿ä.");
+                    $"{name}: ë ˆì´ì € 4ì»·ì˜ Rect í¬ê¸°ë¥¼ ë™ì¼í•˜ê²Œ ë§ì¶°ì£¼ì„¸ìš”.");
             }
         }
 
@@ -156,12 +159,12 @@ public sealed class BossLaserBeam : MonoBehaviour
         _damageCollider.isTrigger = true;
         _damageCollider.enabled = false;
 
-        // ±âÁ¸Ã³·³ µ¶¸³µÈ Kinematic ·¹ÀÌÀú·Î Ãæµ¹À» Ã³¸®ÇÑ´Ù.
+        // ê¸°ì¡´ì²˜ëŸ¼ ë…ë¦½ëœ Kinematic ë ˆì´ì €ë¡œ ì¶©ëŒì„ ì²˜ë¦¬í•œë‹¤.
         Rigidbody2D body = GetComponent<Rigidbody2D>();
         body.bodyType = RigidbodyType2D.Kinematic;
         body.gravityScale = 0f;
 
-        // ·çÆ®°¡ À§Ä¡¿Í È¸ÀüÀ» ´ã´çÇÏ°í ÀÚ½ÄÀº ±×¸² Å©±â¸¸ ´ã´çÇÑ´Ù.
+        // ë£¨íŠ¸ê°€ ìœ„ì¹˜ì™€ íšŒì „ì„ ë‹´ë‹¹í•˜ê³  ìì‹ì€ ê·¸ë¦¼ í¬ê¸°ë§Œ ë‹´ë‹¹í•œë‹¤.
         _beamRenderer.transform.localPosition = Vector3.zero;
         _beamRenderer.transform.localRotation = Quaternion.identity;
         _beamRenderer.drawMode = SpriteDrawMode.Simple;
@@ -169,12 +172,12 @@ public sealed class BossLaserBeam : MonoBehaviour
         _beamRenderer.flipY = false;
         _beamRenderer.sprite = _animationFrames[0];
 
-        // Initialize°¡ È£ÃâµÇ±â Àü¿¡´Â º¸ÀÌÁö ¾Ê´Â´Ù.
+        // Initializeê°€ í˜¸ì¶œë˜ê¸° ì „ì—ëŠ” ë³´ì´ì§€ ì•ŠëŠ”ë‹¤.
         SetVisibility(0f);
     }
 
     /// <summary>
-    /// ÆĞÅÏÀÌ ·¹ÀÌÀú¸¦ »ı¼ºÇÑ Á÷ÈÄ È£ÃâÇÑ´Ù.
+    /// íŒ¨í„´ì´ ë ˆì´ì €ë¥¼ ìƒì„±í•œ ì§í›„ í˜¸ì¶œí•œë‹¤.
     /// </summary>
     public void Initialize(
         BossEnemy owner,
@@ -186,17 +189,17 @@ public sealed class BossLaserBeam : MonoBehaviour
         if (owner == null || firePoint == null || battleCamera == null)
         {
             throw new ArgumentException(
-                "·¹ÀÌÀúÀÇ º¸½º, FirePoint, Ä«¸Ş¶ó¸¦ Àü´ŞÇÏ¼¼¿ä.");
+                "ë ˆì´ì €ì˜ ë³´ìŠ¤, FirePoint, ì¹´ë©”ë¼ë¥¼ ì „ë‹¬í•˜ì„¸ìš”.");
         }
 
-        // ÇöÀç ÇÁ·ÎÁ§Æ®ÀÇ XY Æò¸éÀ» ¹Ù¶óº¸´Â Á÷±³ Ä«¸Ş¶ó¸¦ »ç¿ëÇÑ´Ù.
+        // í˜„ì¬ í”„ë¡œì íŠ¸ì˜ XY í‰ë©´ì„ ë°”ë¼ë³´ëŠ” ì§êµ ì¹´ë©”ë¼ë¥¼ ì‚¬ìš©í•œë‹¤.
         if (!battleCamera.orthographic ||
             Mathf.Abs(Vector3.Dot(
                 battleCamera.transform.forward,
                 Vector3.forward)) < 0.9999f)
         {
             throw new InvalidOperationException(
-                "º¸½º ·¹ÀÌÀú´Â XY Æò¸éÀ» ¹Ù¶óº¸´Â Á÷±³ Ä«¸Ş¶ó°¡ ÇÊ¿äÇÕ´Ï´Ù.");
+                "ë³´ìŠ¤ ë ˆì´ì €ëŠ” XY í‰ë©´ì„ ë°”ë¼ë³´ëŠ” ì§êµ ì¹´ë©”ë¼ê°€ í•„ìš”í•©ë‹ˆë‹¤.");
         }
 
         if (damage <= 0)
@@ -209,7 +212,7 @@ public sealed class BossLaserBeam : MonoBehaviour
         _battleCamera = battleCamera;
         _damage = damage;
 
-        // Äİ¶óÀÌ´õ Å©±â¸¦ ¿ùµå ±æÀÌ¿Í ÀÏÄ¡½ÃÅ°±â À§ÇØ µ¶¸³ ¹èÄ¡ÇÑ´Ù.
+        // ì½œë¼ì´ë” í¬ê¸°ë¥¼ ì›”ë“œ ê¸¸ì´ì™€ ì¼ì¹˜ì‹œí‚¤ê¸° ìœ„í•´ ë…ë¦½ ë°°ì¹˜í•œë‹¤.
         transform.SetParent(null);
         transform.localScale = Vector3.one;
 
@@ -220,7 +223,7 @@ public sealed class BossLaserBeam : MonoBehaviour
         _isAttacking = true;
         _isFading = false;
 
-        // »õ °ø°İÀº Ã¹ ¹øÂ° ÇÁ·¹ÀÓºÎÅÍ Àç»ıÇÑ´Ù.
+        // ìƒˆ ê³µê²©ì€ ì²« ë²ˆì§¸ í”„ë ˆì„ë¶€í„° ì¬ìƒí•œë‹¤.
         _animationFrameIndex = 0;
         _animationTimer = 0f;
         _beamRenderer.sprite = _animationFrames[0];
@@ -229,20 +232,22 @@ public sealed class BossLaserBeam : MonoBehaviour
         SetVisibility(1f);
 
         _damageCollider.enabled = true;
+        GameAudio.Stop(_beamAudio);
+        _beamAudio = GameAudio.PlayOwned(GameSound.HeadLaserLoop, this, true);
     }
 
     /// <summary>
-    /// ÆĞÅÏÀÌ È¸Àü °¢µµ¿¡ ¸ÂÃç ¸Å ÇÁ·¹ÀÓ ¹ß»ç ¹æÇâÀ» Àü´ŞÇÑ´Ù.
+    /// íŒ¨í„´ì´ íšŒì „ ê°ë„ì— ë§ì¶° ë§¤ í”„ë ˆì„ ë°œì‚¬ ë°©í–¥ì„ ì „ë‹¬í•œë‹¤.
     /// </summary>
     public void SetDirection(Vector2 direction)
     {
         if (direction.sqrMagnitude < 0.000001f)
         {
             throw new ArgumentException(
-                "·¹ÀÌÀú ¹ß»ç ¹æÇâÀº 0º¤ÅÍÀÏ ¼ö ¾ø½À´Ï´Ù.");
+                "ë ˆì´ì € ë°œì‚¬ ë°©í–¥ì€ 0ë²¡í„°ì¼ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
         }
 
-        // Á¾·á ¿¬Ãâ Áß¿¡´Â ¸¶Áö¸· ¹ß»ç ¹æÇâÀ» À¯ÁöÇÑ´Ù.
+        // ì¢…ë£Œ ì—°ì¶œ ì¤‘ì—ëŠ” ë§ˆì§€ë§‰ ë°œì‚¬ ë°©í–¥ì„ ìœ ì§€í•œë‹¤.
         if (_isFading)
         {
             return;
@@ -252,7 +257,7 @@ public sealed class BossLaserBeam : MonoBehaviour
     }
 
     /// <summary>
-    /// ÇÁ·¹ÀÓÀÇ ÀÌµ¿ °á°ú¿¡ ¸ÂÃç ÈÄ¼Ó »óÅÂ¸¦ °»½ÅÇÑ´Ù.
+    /// í”„ë ˆì„ì˜ ì´ë™ ê²°ê³¼ì— ë§ì¶° í›„ì† ìƒíƒœë¥¼ ê°±ì‹ í•œë‹¤.
     /// </summary>
     private void LateUpdate()
     {
@@ -261,16 +266,16 @@ public sealed class BossLaserBeam : MonoBehaviour
             return;
         }
 
-        // °ø°İ Áß°ú ¼Ò¸ê ¿¬Ãâ Áß ¸ğµÎ ¾Ö´Ï¸ŞÀÌ¼ÇÀ» Àç»ıÇÑ´Ù.
+        // ê³µê²© ì¤‘ê³¼ ì†Œë©¸ ì—°ì¶œ ì¤‘ ëª¨ë‘ ì• ë‹ˆë©”ì´ì…˜ì„ ì¬ìƒí•œë‹¤.
         UpdateAnimation();
 
-        // ¼Ò¸ê Áß¿¡´Â ¸¶Áö¸· À§Ä¡¿Í ¹æÇâÀ» À¯ÁöÇÑ´Ù.
+        // ì†Œë©¸ ì¤‘ì—ëŠ” ë§ˆì§€ë§‰ ìœ„ì¹˜ì™€ ë°©í–¥ì„ ìœ ì§€í•œë‹¤.
         if (_isFading)
         {
             return;
         }
 
-        // º¸½º°¡ »ç¸ÁÇÏ°Å³ª Á¦°ÅµÇ¸é ÇÇÇØ¸¦ ¸ØÃß°í ¼Ò¸êÇÑ´Ù.
+        // ë³´ìŠ¤ê°€ ì‚¬ë§í•˜ê±°ë‚˜ ì œê±°ë˜ë©´ í”¼í•´ë¥¼ ë©ˆì¶”ê³  ì†Œë©¸í•œë‹¤.
         if (_owner == null || _owner.IsDead ||
             !_owner.isActiveAndEnabled ||
             _firePoint == null || _battleCamera == null)
@@ -283,11 +288,11 @@ public sealed class BossLaserBeam : MonoBehaviour
     }
 
     /// <summary>
-    /// UpdateAnimation µ¿ÀÛ¿¡ ÇÊ¿äÇÑ »óÅÂ¿Í Ã³¸® Èå¸§À» ½ÇÇàÇÑ´Ù.
+    /// UpdateAnimation ë™ì‘ì— í•„ìš”í•œ ìƒíƒœì™€ ì²˜ë¦¬ íë¦„ì„ ì‹¤í–‰í•œë‹¤.
     /// </summary>
     private void UpdateAnimation()
     {
-        // °ÔÀÓÀÌ ÀÏ½ÃÁ¤ÁöµÇ¸é ·¹ÀÌÀú ¾Ö´Ï¸ŞÀÌ¼Çµµ ÇÔ²² ¸ØÃá´Ù.
+        // ê²Œì„ì´ ì¼ì‹œì •ì§€ë˜ë©´ ë ˆì´ì € ì• ë‹ˆë©”ì´ì…˜ë„ í•¨ê»˜ ë©ˆì¶˜ë‹¤.
         _animationTimer += Time.deltaTime;
 
         float frameDuration = 1f / Mathf.Max(0.1f, _animationFps);
@@ -298,31 +303,31 @@ public sealed class BossLaserBeam : MonoBehaviour
             return;
         }
 
-        // ÇÁ·¹ÀÓÀÌ Áö¿¬µÅµµ ½ÇÁ¦ °æ°ú ½Ã°£¿¡ ¸ÂÃç Àç»ıÇÑ´Ù.
+        // í”„ë ˆì„ì´ ì§€ì—°ë¼ë„ ì‹¤ì œ ê²½ê³¼ ì‹œê°„ì— ë§ì¶° ì¬ìƒí•œë‹¤.
         _animationTimer -= steps * frameDuration;
         _animationFrameIndex =
             (_animationFrameIndex + steps) % _animationFrames.Length;
 
         _beamRenderer.sprite = _animationFrames[_animationFrameIndex];
 
-        // ÇÁ·¹ÀÓ ±³Ã¼ ÈÄ¿¡µµ ÇöÀç ±æÀÌ¿Í ¼Ò¸ê ºñÀ²À» À¯ÁöÇÑ´Ù.
+        // í”„ë ˆì„ êµì²´ í›„ì—ë„ í˜„ì¬ ê¸¸ì´ì™€ ì†Œë©¸ ë¹„ìœ¨ì„ ìœ ì§€í•œë‹¤.
         UpdateSpriteAppearance();
     }
 
     /// <summary>
-    /// È­¸éÀÇ ¸ğµç ¸ğ¼­¸®º¸´Ù ¹ß»ç ¹æÇâ»ó ¹Ù±ùÂÊ¿¡ ³¡Á¡À» ¹èÄ¡ÇÑ´Ù.
-    /// ¹æÇâ°ú ½ÃÀÛ À§Ä¡°¡ ¹Ù²î¸é ÇÊ¿äÇÑ ±æÀÌµµ ÇÔ²² º¯ÇÑ´Ù.
+    /// í™”ë©´ì˜ ëª¨ë“  ëª¨ì„œë¦¬ë³´ë‹¤ ë°œì‚¬ ë°©í–¥ìƒ ë°”ê¹¥ìª½ì— ëì ì„ ë°°ì¹˜í•œë‹¤.
+    /// ë°©í–¥ê³¼ ì‹œì‘ ìœ„ì¹˜ê°€ ë°”ë€Œë©´ í•„ìš”í•œ ê¸¸ì´ë„ í•¨ê»˜ ë³€í•œë‹¤.
     /// </summary>
     private Vector3 CalculateEndPosition(Vector3 origin)
     {
-        // ViewportToWorldPoint¿¡ Àü´ŞÇÒ Ä«¸Ş¶ó ±âÁØ ±íÀÌ´Ù.
+        // ViewportToWorldPointì— ì „ë‹¬í•  ì¹´ë©”ë¼ ê¸°ì¤€ ê¹Šì´ë‹¤.
         float depth = Vector3.Dot(
             origin - _battleCamera.transform.position,
             _battleCamera.transform.forward);
 
         float length = 0f;
 
-        // °¢ ¸ğ¼­¸®¸¦ ¹ß»ç ¹æÇâ¿¡ Åõ¿µÇØ È­¸é ÀüÃ¼¸¦ ³Ñ´Â ±æÀÌ¸¦ ±¸ÇÑ´Ù.
+        // ê° ëª¨ì„œë¦¬ë¥¼ ë°œì‚¬ ë°©í–¥ì— íˆ¬ì˜í•´ í™”ë©´ ì „ì²´ë¥¼ ë„˜ëŠ” ê¸¸ì´ë¥¼ êµ¬í•œë‹¤.
         for (int y = 0; y <= 1; y++)
         {
             for (int x = 0; x <= 1; x++)
@@ -338,14 +343,14 @@ public sealed class BossLaserBeam : MonoBehaviour
             }
         }
 
-        // Àü±â È¿°ú±îÁö È­¸é ¹ÛÀ¸·Î ³ª°¡µµ·Ï ¿©À¯ ±æÀÌ¸¦ ´õÇÑ´Ù.
+        // ì „ê¸° íš¨ê³¼ê¹Œì§€ í™”ë©´ ë°–ìœ¼ë¡œ ë‚˜ê°€ë„ë¡ ì—¬ìœ  ê¸¸ì´ë¥¼ ë”í•œë‹¤.
         length += _outsideMargin + _damageWidth * _visualWidthMultiplier;
 
         return origin + (Vector3)(_direction * length);
     }
 
     /// <summary>
-    /// UpdateGeometry µ¿ÀÛ¿¡ ÇÊ¿äÇÑ »óÅÂ¿Í Ã³¸® Èå¸§À» ½ÇÇàÇÑ´Ù.
+    /// UpdateGeometry ë™ì‘ì— í•„ìš”í•œ ìƒíƒœì™€ ì²˜ë¦¬ íë¦„ì„ ì‹¤í–‰í•œë‹¤.
     /// </summary>
     private void UpdateGeometry()
     {
@@ -357,44 +362,44 @@ public sealed class BossLaserBeam : MonoBehaviour
         float angle =
             Mathf.Atan2(_direction.y, _direction.x) * Mathf.Rad2Deg;
 
-        // ·çÆ®¸¦ ±¸°£ÀÇ Áß¾Ó¿¡ ¹èÄ¡ÇÏ°í XÃàÀ» ¹ß»ç ¹æÇâÀ¸·Î ¸ÂÃá´Ù.
+        // ë£¨íŠ¸ë¥¼ êµ¬ê°„ì˜ ì¤‘ì•™ì— ë°°ì¹˜í•˜ê³  Xì¶•ì„ ë°œì‚¬ ë°©í–¥ìœ¼ë¡œ ë§ì¶˜ë‹¤.
         transform.SetPositionAndRotation(
             (start + end) * 0.5f,
             Quaternion.Euler(0f, 0f, angle));
 
-        // ½ÇÁ¦ °è»êÇÑ ½ÃÀÛÁ¡°ú ³¡Á¡À» Ç¥½ÃÇÑ´Ù.
+        // ì‹¤ì œ ê³„ì‚°í•œ ì‹œì‘ì ê³¼ ëì ì„ í‘œì‹œí•œë‹¤.
         _startPoint.position = start;
         _endPoint.position = end;
 
-        // ÇÇÇØ ÆÇÁ¤Àº ±âÁ¸°ú °°Àº ±æÀÌ¿Í ±½±â¸¦ »ç¿ëÇÑ´Ù.
+        // í”¼í•´ íŒì •ì€ ê¸°ì¡´ê³¼ ê°™ì€ ê¸¸ì´ì™€ êµµê¸°ë¥¼ ì‚¬ìš©í•œë‹¤.
         _damageCollider.offset = Vector2.zero;
         _damageCollider.size =
             new Vector2(_beamLength, _damageWidth);
 
-        // ±×¸²µµ °°Àº ½ÃÀÛÁ¡°ú ³¡Á¡ »çÀÌ¿¡ ¸ÂÃá´Ù.
+        // ê·¸ë¦¼ë„ ê°™ì€ ì‹œì‘ì ê³¼ ëì  ì‚¬ì´ì— ë§ì¶˜ë‹¤.
         UpdateSpriteAppearance();
     }
 
     /// <summary>
-    /// OnTriggerEnter2D µ¿ÀÛ¿¡ ÇÊ¿äÇÑ »óÅÂ¿Í Ã³¸® Èå¸§À» ½ÇÇàÇÑ´Ù.
+    /// OnTriggerEnter2D ë™ì‘ì— í•„ìš”í•œ ìƒíƒœì™€ ì²˜ë¦¬ íë¦„ì„ ì‹¤í–‰í•œë‹¤.
     /// </summary>
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // Ã³À½ ·¹ÀÌÀú¿¡ ´êÀº ¼ø°£¿¡µµ ÇÇÇØ¸¦ Ã³¸®ÇÑ´Ù.
+        // ì²˜ìŒ ë ˆì´ì €ì— ë‹¿ì€ ìˆœê°„ì—ë„ í”¼í•´ë¥¼ ì²˜ë¦¬í•œë‹¤.
         TryDamage(other);
     }
 
     /// <summary>
-    /// OnTriggerStay2D µ¿ÀÛ¿¡ ÇÊ¿äÇÑ »óÅÂ¿Í Ã³¸® Èå¸§À» ½ÇÇàÇÑ´Ù.
+    /// OnTriggerStay2D ë™ì‘ì— í•„ìš”í•œ ìƒíƒœì™€ ì²˜ë¦¬ íë¦„ì„ ì‹¤í–‰í•œë‹¤.
     /// </summary>
     private void OnTriggerStay2D(Collider2D other)
     {
-        // °è¼Ó ´ê¾Æ ÀÖÀ¸¸é ¼³Á¤ÇÑ °£°İÀ¸·Î ÇÇÇØ¸¦ Ã³¸®ÇÑ´Ù.
+        // ê³„ì† ë‹¿ì•„ ìˆìœ¼ë©´ ì„¤ì •í•œ ê°„ê²©ìœ¼ë¡œ í”¼í•´ë¥¼ ì²˜ë¦¬í•œë‹¤.
         TryDamage(other);
     }
 
     /// <summary>
-    /// ÇÃ·¹ÀÌ¾î¿¡°Ô¸¸ ÇÇÇØ¸¦ ÁÖ°í Áßº¹ ColliderÀÇ ¿¬¼Ó ÇÇÇØ¸¦ ¸·´Â´Ù.
+    /// í”Œë ˆì´ì–´ì—ê²Œë§Œ í”¼í•´ë¥¼ ì£¼ê³  ì¤‘ë³µ Colliderì˜ ì—°ì† í”¼í•´ë¥¼ ë§‰ëŠ”ë‹¤.
     /// </summary>
     private void TryDamage(Collider2D other)
     {
@@ -403,7 +408,7 @@ public sealed class BossLaserBeam : MonoBehaviour
             return;
         }
 
-        // ¹°¸® Ã³¸® ½ÃÁ¡¿¡µµ º¸½º »ıÁ¸ ¿©ºÎ¸¦ È®ÀÎÇÑ´Ù.
+        // ë¬¼ë¦¬ ì²˜ë¦¬ ì‹œì ì—ë„ ë³´ìŠ¤ ìƒì¡´ ì—¬ë¶€ë¥¼ í™•ì¸í•œë‹¤.
         if (_owner == null || _owner.IsDead ||
             !_owner.isActiveAndEnabled)
         {
@@ -426,11 +431,12 @@ public sealed class BossLaserBeam : MonoBehaviour
         }
 
         _nextDamageTimes[player] = Time.time + _damageInterval;
-        player.TakeHit(_damage);
+        // í”¼í•´ì™€ ë¬´ì  ê·œì¹™ì€ ìœ ì§€í•˜ê³  ì§€ì† ì ‘ì´‰ì˜ í™”ë©´ ë°˜ì‘ë§Œ ì•½í•˜ê²Œ í•œë‹¤.
+        player.TakeHit(_damage, true);
     }
 
     /// <summary>
-    /// ÇÇÇØ¸¦ Áï½Ã ²ô°í ¸¶Áö¸· À§Ä¡¿¡¼­ ºûÀ» ¼­¼­È÷ ¾ø¾Ø´Ù.
+    /// í”¼í•´ë¥¼ ì¦‰ì‹œ ë„ê³  ë§ˆì§€ë§‰ ìœ„ì¹˜ì—ì„œ ë¹›ì„ ì„œì„œíˆ ì—†ì•¤ë‹¤.
     /// </summary>
     public void BeginFadeOut()
     {
@@ -441,9 +447,10 @@ public sealed class BossLaserBeam : MonoBehaviour
 
         _isAttacking = false;
         _isFading = true;
+        GameAudio.Stop(_beamAudio); // ë¹” ê³µê²© ì¢…ë£Œ.
         _damageCollider.enabled = false;
 
-        // ÀÌÈÄ À§Ä¡ °»½ÅÀ» ¸ØÃç ¸¶Áö¸· ·¹ÀÌÀú ¸ğ¾çÀ» À¯ÁöÇÑ´Ù.
+        // ì´í›„ ìœ„ì¹˜ ê°±ì‹ ì„ ë©ˆì¶° ë§ˆì§€ë§‰ ë ˆì´ì € ëª¨ì–‘ì„ ìœ ì§€í•œë‹¤.
         _fadeTween = DOVirtual.Float(
                 _visibility,
                 0f,
@@ -458,13 +465,13 @@ public sealed class BossLaserBeam : MonoBehaviour
     }
 
     /// <summary>
-    /// º¸½º ÆĞÅÏÀÌ ¼Ò¸ê ¿¬Ãâ ¿Ï·á±îÁö ±â´Ù¸± ¶§ »ç¿ëÇÑ´Ù.
+    /// ë³´ìŠ¤ íŒ¨í„´ì´ ì†Œë©¸ ì—°ì¶œ ì™„ë£Œê¹Œì§€ ê¸°ë‹¤ë¦´ ë•Œ ì‚¬ìš©í•œë‹¤.
     /// </summary>
     public IEnumerator FadeOutAndWait()
     {
         BeginFadeOut();
 
-        // Tween ¿Ï·á ÈÄ ½ÇÁ¦ ¿ÀºêÁ§Æ®°¡ Á¦°ÅµÉ ¶§±îÁö ±â´Ù¸°´Ù.
+        // Tween ì™„ë£Œ í›„ ì‹¤ì œ ì˜¤ë¸Œì íŠ¸ê°€ ì œê±°ë  ë•Œê¹Œì§€ ê¸°ë‹¤ë¦°ë‹¤.
         while (this != null)
         {
             yield return null;
@@ -472,28 +479,28 @@ public sealed class BossLaserBeam : MonoBehaviour
     }
 
     /// <summary>
-    /// SetVisibility µ¿ÀÛ¿¡ ÇÊ¿äÇÑ »óÅÂ¿Í Ã³¸® Èå¸§À» ½ÇÇàÇÑ´Ù.
+    /// SetVisibility ë™ì‘ì— í•„ìš”í•œ ìƒíƒœì™€ ì²˜ë¦¬ íë¦„ì„ ì‹¤í–‰í•œë‹¤.
     /// </summary>
     private void SetVisibility(float ratio)
     {
-        // ±âÁ¸ DOTweenÀÌ Àü´ŞÇÏ´Â ¼Ò¸ê ºñÀ²À» »ç¿ëÇÑ´Ù.
+        // ê¸°ì¡´ DOTweenì´ ì „ë‹¬í•˜ëŠ” ì†Œë©¸ ë¹„ìœ¨ì„ ì‚¬ìš©í•œë‹¤.
         _visibility = Mathf.Clamp01(ratio);
         UpdateSpriteAppearance();
     }
 
     /// <summary>
-    /// UpdateSpriteAppearance µ¿ÀÛ¿¡ ÇÊ¿äÇÑ »óÅÂ¿Í Ã³¸® Èå¸§À» ½ÇÇàÇÑ´Ù.
+    /// UpdateSpriteAppearance ë™ì‘ì— í•„ìš”í•œ ìƒíƒœì™€ ì²˜ë¦¬ íë¦„ì„ ì‹¤í–‰í•œë‹¤.
     /// </summary>
     private void UpdateSpriteAppearance()
     {
         Sprite sprite = _beamRenderer.sprite;
 
-        // ½ºÇÁ¶óÀÌÆ® ¿øº» Å©±â¸¦ Unity ´ÜÀ§·Î º¯È¯ÇÑ´Ù.
+        // ìŠ¤í”„ë¼ì´íŠ¸ ì›ë³¸ í¬ê¸°ë¥¼ Unity ë‹¨ìœ„ë¡œ ë³€í™˜í•œë‹¤.
         float originalWidth = sprite.rect.width / sprite.pixelsPerUnit;
         float originalHeight = sprite.rect.height / sprite.pixelsPerUnit;
 
-        // °¡·Î´Â ½ÇÁ¦ ·¹ÀÌÀú ±æÀÌ, ¼¼·Î´Â ±×¸²ÀÇ Ç¥½Ã ±½±â¿¡ ¸ÂÃá´Ù.
-        // ¼Ò¸êÇÒ ¶§ °¡·Î ±æÀÌ´Â À¯ÁöÇÏ°í ±½±â¸¸ ÁÙÀÎ´Ù.
+        // ê°€ë¡œëŠ” ì‹¤ì œ ë ˆì´ì € ê¸¸ì´, ì„¸ë¡œëŠ” ê·¸ë¦¼ì˜ í‘œì‹œ êµµê¸°ì— ë§ì¶˜ë‹¤.
+        // ì†Œë©¸í•  ë•Œ ê°€ë¡œ ê¸¸ì´ëŠ” ìœ ì§€í•˜ê³  êµµê¸°ë§Œ ì¤„ì¸ë‹¤.
         float visualHeight =
             _damageWidth * _visualWidthMultiplier * _visibility;
 
@@ -502,18 +509,19 @@ public sealed class BossLaserBeam : MonoBehaviour
             visualHeight / originalHeight,
             1f);
 
-        // ±½±â°¡ ÁÙ¾îµå´Â µ¿½Ã¿¡ Åõ¸íÇØÁø´Ù.
+        // êµµê¸°ê°€ ì¤„ì–´ë“œëŠ” ë™ì‹œì— íˆ¬ëª…í•´ì§„ë‹¤.
         Color color = _beamColor;
         color.a *= _visibility;
         _beamRenderer.color = color;
     }
 
     /// <summary>
-    /// ºñÈ°¼ºÈ­ ½Ã ÀÌº¥Æ® ¿¬°á°ú ½ÇÇà »óÅÂ¸¦ Á¤¸®ÇÑ´Ù.
+    /// ë¹„í™œì„±í™” ì‹œ ì´ë²¤íŠ¸ ì—°ê²°ê³¼ ì‹¤í–‰ ìƒíƒœë¥¼ ì •ë¦¬í•œë‹¤.
     /// </summary>
     private void OnDisable()
     {
-        // ºñÈ°¼ºÈ­µÈ ·¹ÀÌÀú°¡ ÇÇÇØ³ª TweenÀ» À¯ÁöÇÏÁö ¾Ê°Ô ÇÑ´Ù.
+        GameAudio.Stop(_beamAudio);
+        // ë¹„í™œì„±í™”ëœ ë ˆì´ì €ê°€ í”¼í•´ë‚˜ Tweenì„ ìœ ì§€í•˜ì§€ ì•Šê²Œ í•œë‹¤.
         _isAttacking = false;
 
         if (_damageCollider != null)

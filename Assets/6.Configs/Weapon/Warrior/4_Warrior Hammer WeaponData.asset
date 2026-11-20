@@ -26,7 +26,7 @@ MonoBehaviour:
   _playerSpriteLibrary: {fileID: 7108339969198208228, guid: b8bba38b484082e4bb421a21b09df8d2, type: 3}
   _characterSelectPreviewScale: 3.5
   _characterSelectPreviewOffset: {x: -40, y: 10}
-  _baseDamage: 30
+  _baseDamage: 50
   _baseCooltime: 1
   _maximumChargeCount: 0
   _chargeRecoveryTime: 5
@@ -36,13 +36,18 @@ MonoBehaviour:
   _shieldRecoveryPerSecond: 5
   _shieldRepairAmount: 100
   _shieldRecoveryUpgradeValue: 1
-  _price: 1000
-  _requiredCharacterLevel: 5
+  _price: 900
+  _requiredCharacterLevel: 3
   _isInitiallyOwned: 0
-  _fireRateUpgradeValue: 0.01
-  _minimumCooltime: 0.05
-  _info: "\uAC70\uB300 \uD574\uBA38."
-  _upgradeSelectionInfo: "Hammer\uB97C \uAC15\uD654\uD55C\uB2E4."
-  _weaponMoveSpeed: 8
+  _fireRateUpgradeValue: 0.06
+  _minimumCooltime: 0.65
+  _info: "\uAC15\uD55C \uB9C8\uBB34\uB9AC \uB0B4\uB824\uCC0D\uAE30. \uC5F0\uACA9
+    \uAE30\uBCF8 \uD53C\uD574\uB294 50, 60, 100\uC785\uB2C8\uB2E4."
+  _damageUpgradeSelectionInfo: "공격력 증강은 모든 연격의 기본 피해를 15%씩 높입니다."
+  _fireRateUpgradeSelectionInfo: "연사 강화는 공격 동작을 빠르게 합니다."
+  _meleeFirstDamage: 50
+  _meleeSecondDamage: 60
+  _meleeThirdDamage: 100
+  _weaponMoveSpeed: 5.8
   _lazerHitsPerSecond: 10
   _lazerHitsPerSecondUpgrade: 1

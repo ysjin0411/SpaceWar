@@ -1,36 +1,38 @@
-using System;
+ï»¿using System;
 using UnityEngine;
 
 /// <summary>
-/// ½Çµå Àü°³, À¯Áö, ÇØÁ¦¿Í ¹æ¾î ÆÇÁ¤ ¹× ½Ã°¢ È¿°ú¸¦ °ü¸®ÇÑ´Ù.
+/// ì‹¤ë“œ ì „ê°œ, ìœ ì§€, í•´ì œì™€ ë°©ì–´ íŒì • ë° ì‹œê° íš¨ê³¼ë¥¼ ê´€ë¦¬í•œë‹¤.
 /// </summary>
 public class Shield : MonoBehaviour
 {
-    // Ä³¸¯ÅÍ RendererÀÇ ¾Ö´Ï¸ŞÀÌÅÍ¿Í ½ºÇÁ¶óÀÌÆ® ·»´õ·¯.
+    // ìºë¦­í„° Rendererì˜ ì• ë‹ˆë©”ì´í„°ì™€ ìŠ¤í”„ë¼ì´íŠ¸ ë Œë”ëŸ¬.
     [SerializeField] private Animator _animator;
     [SerializeField] private SpriteRenderer _spriteRenderer;
-    // ¿ÏÀüÈ÷ ÆîÄ¡°Å³ª ¿ÏÀüÈ÷ Á¢´Â µ¥ °É¸®´Â ½Ã°£.
+    // ì™„ì „íˆ í¼ì¹˜ê±°ë‚˜ ì™„ì „íˆ ì ‘ëŠ” ë° ê±¸ë¦¬ëŠ” ì‹œê°„.
     [SerializeField, Min(0.01f)] private float _raiseDuration = 0.2f;
     [SerializeField, Min(0.01f)] private float _lowerDuration = 0.12f;
-    // À¯Áö ¾Ö´Ï¸ŞÀÌ¼Ç ÇÑ ¹ÙÄûÀÇ Àç»ı ½Ã°£.
+    // ìœ ì§€ ì• ë‹ˆë©”ì´ì…˜ í•œ ë°”í€´ì˜ ì¬ìƒ ì‹œê°„.
     [SerializeField, Min(0.01f)] private float _guardCycleDuration = 0.5f;
-    // ShieldGuard ¿ÀºêÁ§Æ®¿¡ ºÎÂøµÈ ½ÇÁ¦ ¹æ¾î ÆÇÁ¤.
+    // ShieldGuard ì˜¤ë¸Œì íŠ¸ì— ë¶€ì°©ëœ ì‹¤ì œ ë°©ì–´ íŒì •.
     [SerializeField] private PolygonCollider2D _guardCollider;
-    // ÆîÄ£ ¹æÆĞ ÆÇ±İ ¿µ¿ª¸¸ ³ªÅ¸³»´Â Renderer ·ÎÄÃ ÁÂÇ¥.
-    // Ä³¸¯ÅÍ³ª Àü¹æ ¹ß±¤ ¿µ¿ªÀº ¹æ¾î ÆÇÁ¤¿¡ Æ÷ÇÔÇÏÁö ¾Ê´Â´Ù.
+    // í¼ì¹œ ë°©íŒ¨ íŒê¸ˆ ì˜ì—­ë§Œ ë‚˜íƒ€ë‚´ëŠ” Renderer ë¡œì»¬ ì¢Œí‘œ.
+    // ìºë¦­í„°ë‚˜ ì „ë°© ë°œê´‘ ì˜ì—­ì€ ë°©ì–´ íŒì •ì— í¬í•¨í•˜ì§€ ì•ŠëŠ”ë‹¤.
     [SerializeField]
     private Vector2[] _guardOutline =
     {
-        new Vector2(2.5f, 8.4f), new Vector2(3.3f, 8.8f),
-        new Vector2(6.2f, 7.8f), new Vector2(6.2f, -2.8f),
-        new Vector2(4.8f, -4.4f), new Vector2(2.5f, -2.8f)
+        new Vector2(0.80f, 6.05f), new Vector2(1.46f, 6.72f),
+        new Vector2(1.83f, 6.72f), new Vector2(2.70f, 5.80f),
+        new Vector2(3.92f, 5.96f), new Vector2(4.52f, 5.35f),
+        new Vector2(4.52f, -3.90f), new Vector2(3.12f, -6.28f),
+        new Vector2(0.88f, -4.16f)
     };
-    // ¹æÆĞ¸¦ ÆîÄ¥ ¶§ ÇÑ ¹ø Àç»ıÇÒ È¿°ú.
+    // ë°©íŒ¨ë¥¼ í¼ì¹  ë•Œ í•œ ë²ˆ ì¬ìƒí•  íš¨ê³¼.
     [SerializeField] private SpriteOneShotEffect _deployEffectPrefab;
-    // ¹æÆĞ À¯Áö Áß ¹İº¹ Àç»ıÇÒ È¿°ú. Animator°¡ Æ÷ÇÔµÈ ÇÁ¸®ÆÕÀÌ´Ù.
+    // ë°©íŒ¨ ìœ ì§€ ì¤‘ ë°˜ë³µ ì¬ìƒí•  íš¨ê³¼. Animatorê°€ í¬í•¨ëœ í”„ë¦¬íŒ¹ì´ë‹¤.
     [SerializeField] private GameObject _guardEffectPrefab;
-    // ½ÇÁ¦ ¹æ¾î ¼º°ø ½Ã ¹æÆĞ Àü¸é¿¡ Àç»ıÇÒ È¿°ú.
-    // ÃÖ½Å v4´Â º»Ã¼¿Í µ¿ÀÏÇÑ Äµ¹ö½º/ÇÇ¹şÀ¸·Î Á¤·ÄµÈ ÀüÃ¼ ¹æÆĞ È¿°ú´Ù.
+    // ì‹¤ì œ ë°©ì–´ ì„±ê³µ ì‹œ ë°©íŒ¨ ì „ë©´ì— ì¬ìƒí•  íš¨ê³¼.
+    // ìµœì‹  v4ëŠ” ë³¸ì²´ì™€ ë™ì¼í•œ ìº”ë²„ìŠ¤/í”¼ë²—ìœ¼ë¡œ ì •ë ¬ëœ ì „ì²´ ë°©íŒ¨ íš¨ê³¼ë‹¤.
     [SerializeField] private SpriteOneShotEffect _hitEffectPrefab;
 
     private enum ShieldPose { Idle, Raising, Holding, Lowering }
@@ -52,30 +54,30 @@ public class Shield : MonoBehaviour
     private static readonly int LowerStateHash = Animator.StringToHash("Base Layer.ShieldLower");
     private static readonly int IdleStateHash = Animator.StringToHash("Base Layer.Idle");
 
-    // ¿ÏÀüÈ÷ ÆîÄ£ »óÅÂÀÌ°í ¹æÆĞ Ã¼·ÂÀÌ ³²¾Æ ÀÖÀ» ¶§¸¸ ¹æ¾îÇÒ ¼ö ÀÖ´Ù.
+    // ì™„ì „íˆ í¼ì¹œ ìƒíƒœì´ê³  ë°©íŒ¨ ì²´ë ¥ì´ ë‚¨ì•„ ìˆì„ ë•Œë§Œ ë°©ì–´í•  ìˆ˜ ìˆë‹¤.
     public bool IsGuarding => isActiveAndEnabled && Time.timeScale > 0f &&
         _ownsAnimation && _pose == ShieldPose.Holding &&
         _weapon != null && _weapon.HasShieldHealth;
 
-    /// <summary>¹æ¾î ÆÇÁ¤¿¡ ÇÊ¿äÇÑ ÂüÁ¶¿Í ÁÂÇ¥¸¦ ÃÊ±âÈ­ÇÑ´Ù.</summary>
+    /// <summary>ë°©ì–´ íŒì •ì— í•„ìš”í•œ ì°¸ì¡°ì™€ ì¢Œí‘œë¥¼ ì´ˆê¸°í™”í•œë‹¤.</summary>
     private void Awake()
     {
         if (_animator == null || _spriteRenderer == null || _guardCollider == null)
-            throw new MissingReferenceException($"{name}: Animator, Renderer, Guard Collider¸¦ ¿¬°áÇÏ¼¼¿ä.");
+            throw new MissingReferenceException($"{name}: Animator, Renderer, Guard Colliderë¥¼ ì—°ê²°í•˜ì„¸ìš”.");
         if (_guardCollider.gameObject != gameObject)
-            throw new InvalidOperationException($"{name}: Guard Collider´Â Shield¿Í °°Àº ¿ÀºêÁ§Æ®¿¡ ÀÖ¾î¾ß ÇÕ´Ï´Ù.");
+            throw new InvalidOperationException($"{name}: Guard ColliderëŠ” Shieldì™€ ê°™ì€ ì˜¤ë¸Œì íŠ¸ì— ìˆì–´ì•¼ í•©ë‹ˆë‹¤.");
         int layer = LayerMask.NameToLayer("PlayerShield");
         if (layer < 0 || gameObject.layer != layer)
-            throw new InvalidOperationException($"{name}: ShieldGuard ·¹ÀÌ¾î¸¦ PlayerShield·Î ¼³Á¤ÇÏ¼¼¿ä.");
+            throw new InvalidOperationException($"{name}: ShieldGuard ë ˆì´ì–´ë¥¼ PlayerShieldë¡œ ì„¤ì •í•˜ì„¸ìš”.");
         if (_guardOutline == null || _guardOutline.Length < 3)
-            throw new InvalidOperationException($"{name}: ¹æÆĞ ÆÇÁ¤¿¡´Â ÃÖ¼Ò ¼¼ Á¡ÀÌ ÇÊ¿äÇÕ´Ï´Ù.");
+            throw new InvalidOperationException($"{name}: ë°©íŒ¨ íŒì •ì—ëŠ” ìµœì†Œ ì„¸ ì ì´ í•„ìš”í•©ë‹ˆë‹¤.");
         if (!ValidDuration(_raiseDuration) || !ValidDuration(_lowerDuration) ||
             !ValidDuration(_guardCycleDuration))
-            throw new InvalidOperationException($"{name}: ½Çµå Àç»ı ½Ã°£Àº À¯È¿ÇÑ ¾ç¼ö¿©¾ß ÇÕ´Ï´Ù.");
+            throw new InvalidOperationException($"{name}: ì‹¤ë“œ ì¬ìƒ ì‹œê°„ì€ ìœ íš¨í•œ ì–‘ìˆ˜ì—¬ì•¼ í•©ë‹ˆë‹¤.");
         foreach (Vector2 point in _guardOutline)
             if (float.IsNaN(point.x) || float.IsNaN(point.y) ||
                 float.IsInfinity(point.x) || float.IsInfinity(point.y))
-                throw new InvalidOperationException($"{name}: Guard Outline ÁÂÇ¥°¡ ¿Ã¹Ù¸£Áö ¾Ê½À´Ï´Ù.");
+                throw new InvalidOperationException($"{name}: Guard Outline ì¢Œí‘œê°€ ì˜¬ë°”ë¥´ì§€ ì•ŠìŠµë‹ˆë‹¤.");
         _colliderPoints = new Vector2[_guardOutline.Length];
         _guardCollider.enabled = false;
         _guardCollider.isTrigger = true;
@@ -83,7 +85,7 @@ public class Shield : MonoBehaviour
         _guardCollider.pathCount = 1;
     }
 
-    /// <summary>ÇöÀç ÀÔ·Â¿¡ µû¶ó ¹æÆĞ Àü°³À²°ú ¾Ö´Ï¸ŞÀÌ¼ÇÀ» ÁøÇàÇÑ´Ù.</summary>
+    /// <summary>í˜„ì¬ ì…ë ¥ì— ë”°ë¼ ë°©íŒ¨ ì „ê°œìœ¨ê³¼ ì• ë‹ˆë©”ì´ì…˜ì„ ì§„í–‰í•œë‹¤.</summary>
     public void Tick(WeaponRuntimeState weapon, bool isHeld, float deltaTime)
     {
         if (!isActiveAndEnabled || Time.timeScale <= 0f) return;
@@ -97,7 +99,7 @@ public class Shield : MonoBehaviour
             CancelGuard();
             _weapon = weapon;
         }
-        // Ã¼·ÂÀÌ ¼ÒÁøµÇ¸é Å°¸¦ ÇÑ ¹ø ³õ±â Àü±îÁö ÀÚµ¿ ÀçÀü°³ÇÏÁö ¾Ê´Â´Ù.
+        // ì²´ë ¥ì´ ì†Œì§„ë˜ë©´ í‚¤ë¥¼ í•œ ë²ˆ ë†“ê¸° ì „ê¹Œì§€ ìë™ ì¬ì „ê°œí•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (!isHeld) _requiresRelease = false;
         else if (!_weapon.HasShieldHealth) _requiresRelease = true;
         bool wantsGuard = isHeld && !_requiresRelease && _weapon.HasShieldHealth;
@@ -119,7 +121,7 @@ public class Shield : MonoBehaviour
                 ShowAttackPose(_poseTime / _guardCycleDuration);
                 break;
             case ShieldPose.Lowering:
-                // Àü°³ µµÁß ³õ¾Ò´Ù¸é ±× Å©±âºÎÅÍ Á¢´Â´Ù. Á¢±â°¡ ³¡³­ µÚ ÀçÀü°³ÇÑ´Ù.
+                // ì „ê°œ ë„ì¤‘ ë†“ì•˜ë‹¤ë©´ ê·¸ í¬ê¸°ë¶€í„° ì ‘ëŠ”ë‹¤. ì ‘ê¸°ê°€ ëë‚œ ë’¤ ì¬ì „ê°œí•œë‹¤.
                 _extension = Mathf.MoveTowards(_extension, 0f, dt / _lowerDuration);
                 ShowAttackPose(1f - _extension);
                 if (_extension <= 0f) ReturnToIdle();
@@ -127,14 +129,15 @@ public class Shield : MonoBehaviour
         }
     }
 
-    /// <summary>½Çµå »óÅÂ ÀÌ¸§À» È®ÀÎÇÑ µÚ Àü°³ ¾Ö´Ï¸ŞÀÌ¼ÇÀ» ½ÃÀÛÇÑ´Ù.</summary>
+    /// <summary>ì‹¤ë“œ ìƒíƒœ ì´ë¦„ì„ í™•ì¸í•œ ë’¤ ì „ê°œ ì• ë‹ˆë©”ì´ì…˜ì„ ì‹œì‘í•œë‹¤.</summary>
     private void BeginRaising()
     {
         if (!_animator.HasState(0, DeployStateHash) || !_animator.HasState(0, GuardStateHash) ||
             !_animator.HasState(0, LowerStateHash))
-            throw new InvalidOperationException($"{name}: ShieldDeploy, ShieldGuard, ShieldLower »óÅÂ°¡ ÇÊ¿äÇÕ´Ï´Ù.");
+            throw new InvalidOperationException($"{name}: ShieldDeploy, ShieldGuard, ShieldLower ìƒíƒœê°€ í•„ìš”í•©ë‹ˆë‹¤.");
         _ownsAnimation = true;
         _pose = ShieldPose.Raising;
+        GameAudio.Play(GameSound.ShieldRaise); // ë°©íŒ¨ ì „ê°œê°€ ì‹œì‘ëœ ì‹œì .
         _poseTime = 0f;
         _extension = 0f;
         ShowAttackPose(0f);
@@ -146,7 +149,7 @@ public class Shield : MonoBehaviour
         }
     }
 
-    /// <summary>Àü°³ ¿Ï·á ÈÄ ¹æ¾î »óÅÂ¿Í À¯Áö È¿°ú¸¦ ½ÃÀÛÇÑ´Ù.</summary>
+    /// <summary>ì „ê°œ ì™„ë£Œ í›„ ë°©ì–´ ìƒíƒœì™€ ìœ ì§€ íš¨ê³¼ë¥¼ ì‹œì‘í•œë‹¤.</summary>
     private void BeginHolding()
     {
         _pose = ShieldPose.Holding;
@@ -162,26 +165,26 @@ public class Shield : MonoBehaviour
         UpdateGuardCollider();
     }
 
-    /// <summary>ÇöÀç ¹æÆĞ »óÅÂÀÇ ÁöÁ¤ ½ÃÁ¡À» Ç¥½ÃÇÑ´Ù.</summary>
+    /// <summary>í˜„ì¬ ë°©íŒ¨ ìƒíƒœì˜ ì§€ì • ì‹œì ì„ í‘œì‹œí•œë‹¤.</summary>
     private void ShowAttackPose(float normalizedTime)
     {
         int state = _pose == ShieldPose.Holding ? GuardStateHash :
             _pose == ShieldPose.Lowering ? LowerStateHash : DeployStateHash;
-        // Tick¿¡¼­ ½Ã°£À» ÁøÇàÇÏ¹Ç·Î ±âº» ·¹ÀÌ¾îÀÇ ÀÚµ¿ Àç»ı¸¸ Á¤ÁöÇÑ´Ù.
+        // Tickì—ì„œ ì‹œê°„ì„ ì§„í–‰í•˜ë¯€ë¡œ ê¸°ë³¸ ë ˆì´ì–´ì˜ ìë™ ì¬ìƒë§Œ ì •ì§€í•œë‹¤.
         _animator.SetBool(AttackHash, true);
         _animator.SetFloat(AttackSpeedHash, 0f);
         _animator.Play(state, 0, Mathf.Min(Mathf.Clamp01(normalizedTime), 0.99999f));
         _animator.Update(0f);
     }
 
-    /// <summary>º»Ã¼ÀÇ ¹İÀü°ú ÀÌµ¿À» ÆÇÁ¤°ú È¿°ú¿¡ ¹İ¿µÇÑ´Ù.</summary>
+    /// <summary>ë³¸ì²´ì˜ ë°˜ì „ê³¼ ì´ë™ì„ íŒì •ê³¼ íš¨ê³¼ì— ë°˜ì˜í•œë‹¤.</summary>
     private void LateUpdate()
     {
         UpdateGuardCollider();
         if (_deployEffect != null) AlignEffect(_deployEffect.gameObject);
         if (_guardEffect != null) AlignEffect(_guardEffect);
         if (_blockEffect != null) AlignEffect(_blockEffect.gameObject);
-        // À¯Áö È¿°úµµ º»Ã¼ À¯Áö ÁÖ±â¿Í °°Àº ÁøÇà·ü·Î Ç¥½ÃÇÑ´Ù.
+        // ìœ ì§€ íš¨ê³¼ë„ ë³¸ì²´ ìœ ì§€ ì£¼ê¸°ì™€ ê°™ì€ ì§„í–‰ë¥ ë¡œ í‘œì‹œí•œë‹¤.
         if (_guardEffect != null && _pose == ShieldPose.Holding)
         {
             Animator effectAnimator = _guardEffect.GetComponent<Animator>();
@@ -194,7 +197,7 @@ public class Shield : MonoBehaviour
         }
     }
 
-    /// <summary>¿ÏÀüÈ÷ ÆîÄ£ ¹æÆĞ ¿µ¿ª¿¡¸¸ ¹æ¾î Collider¸¦ È°¼ºÈ­ÇÑ´Ù.</summary>
+    /// <summary>ì™„ì „íˆ í¼ì¹œ ë°©íŒ¨ ì˜ì—­ì—ë§Œ ë°©ì–´ Colliderë¥¼ í™œì„±í™”í•œë‹¤.</summary>
     private void UpdateGuardCollider()
     {
         if (_guardCollider == null) return;
@@ -213,7 +216,7 @@ public class Shield : MonoBehaviour
         _guardCollider.enabled = true;
     }
 
-    /// <summary>¹æ¾î ¼º°ø ½Ã ¹æÆĞ Ã¼·ÂÀ» ¼Ò¸ğÇÏ°í º°µµ ÇÇ°İ È¿°ú¸¦ Àç»ıÇÑ´Ù.</summary>
+    /// <summary>ë°©ì–´ ì„±ê³µ ì‹œ ë°©íŒ¨ ì²´ë ¥ì„ ì†Œëª¨í•˜ê³  ë³„ë„ í”¼ê²© íš¨ê³¼ë¥¼ ì¬ìƒí•œë‹¤.</summary>
     public bool TryBlockDamage(float damage, Vector2 hitPoint)
     {
         if (!IsGuarding || !_guardCollider.enabled ||
@@ -221,8 +224,9 @@ public class Shield : MonoBehaviour
             return false;
         if (float.IsNaN(damage) || float.IsInfinity(damage) || damage <= 0f) return false;
         if (!_weapon.TryAbsorbShieldDamage(damage)) return false;
-        // hitPoint¸¦ ¹Ş´Â ±âÁ¸ API´Â À¯ÁöÇÑ´Ù. v4 È¿°ú´Â ¹æÆĞ ÀüÃ¼¿¡ Á¤·ÄµÈ ÀÌ¹ÌÁöÀÌ¹Ç·Î
-        // Á¢ÃËÁ¡¿¡ ÀÌ¹ÌÁö Áß½ÉÀ» ³õÁö ¾Ê°í º»Ã¼ÀÇ µ¿ÀÏÇÑ ÇÇ¹ş¿¡ ¹èÄ¡ÇÑ´Ù.
+        GameAudio.Play(_weapon.HasShieldHealth ? GameSound.ShieldBlock : GameSound.ShieldBreak); // ë°©ì–´ ê²°ê³¼ì— ë”°ë¼ ì„ íƒ.
+        // hitPointë¥¼ ë°›ëŠ” ê¸°ì¡´ APIëŠ” ìœ ì§€í•œë‹¤. v4 íš¨ê³¼ëŠ” ë°©íŒ¨ ì „ì²´ì— ì •ë ¬ëœ ì´ë¯¸ì§€ì´ë¯€ë¡œ
+        // ì ‘ì´‰ì ì— ì´ë¯¸ì§€ ì¤‘ì‹¬ì„ ë†“ì§€ ì•Šê³  ë³¸ì²´ì˜ ë™ì¼í•œ í”¼ë²—ì— ë°°ì¹˜í•œë‹¤.
         if (_hitEffectPrefab != null)
         {
             if (_blockEffect != null) Destroy(_blockEffect.gameObject);
@@ -238,7 +242,7 @@ public class Shield : MonoBehaviour
         return true;
     }
 
-    /// <summary>ÇöÀç Å©±â¸¦ À¯ÁöÇÑ Ã¤ ¹æ¾î¸¦ ÇØÁ¦ÇÏ°í Á¢±â ½ÃÀÛÇÑ´Ù.</summary>
+    /// <summary>í˜„ì¬ í¬ê¸°ë¥¼ ìœ ì§€í•œ ì±„ ë°©ì–´ë¥¼ í•´ì œí•˜ê³  ì ‘ê¸° ì‹œì‘í•œë‹¤.</summary>
     private void BeginLowering()
     {
         _guardCollider.enabled = false;
@@ -248,12 +252,27 @@ public class Shield : MonoBehaviour
         ShowAttackPose(1f - _extension);
     }
 
-    /// <summary>°øÅë Äµ¹ö½º·Î Á¦ÀÛµÈ È¿°ú¸¦ º»Ã¼¿Í °°Àº À§Ä¡¿Í ¹İÀüÀ¸·Î Á¤·ÄÇÑ´Ù.</summary>
+    /// <summary>ì ‘ì´‰ ì§€ì  íš¨ê³¼ê°€ ë°©íŒ¨ ë³¸ì²´ì™€ ì „ì²´ ë°©ì–´ íš¨ê³¼ë³´ë‹¤ ì•ì— ë³´ì´ê²Œ í•œë‹¤.</summary>
+    public void ConfigureProjectileImpactSorting(SpriteRenderer impactRenderer)
+    {
+        // ë°©íŒ¨ì˜ ì‹¤ì œ ë Œë”ëŸ¬ëŠ” í˜•ì œ ì˜¤ë¸Œì íŠ¸ì— ìˆìœ¼ë¯€ë¡œ ì—°ê²°ëœ ì°¸ì¡°ë¥¼ ì‚¬ìš©í•œë‹¤.
+        impactRenderer.sortingLayerID = _spriteRenderer.sortingLayerID;
+        // ì „ì²´ ë°©ì–´ íš¨ê³¼ê°€ ë³¸ì²´ + 1ì´ë¯€ë¡œ ì ‘ì´‰ ì„¬ê´‘ì€ ê·¸ë³´ë‹¤ í•œ ë‹¨ê³„ ì•ì— ë‘”ë‹¤.
+        impactRenderer.sortingOrder = _spriteRenderer.sortingOrder + 2;
+    }
+
+    /// <summary>ê³µí†µ ìº”ë²„ìŠ¤ë¡œ ì œì‘ëœ íš¨ê³¼ë¥¼ ë³¸ì²´ì™€ ê°™ì€ ìœ„ì¹˜ì™€ ë°˜ì „ìœ¼ë¡œ ì •ë ¬í•œë‹¤.</summary>
     private void AlignEffect(GameObject effect)
     {
-        effect.transform.localPosition = Vector3.zero;
+        // íš¨ê³¼ë§ˆë‹¤ ë‹¤ë¥¸ ì›ë³¸ ìº”ë²„ìŠ¤ì™€ ì¤‘ì‹¬ì ì„ í”„ë¦¬íŒ¹ì˜ ë°°ì¹˜ê°’ìœ¼ë¡œ ë³´ì •í•œë‹¤.
+        Transform source = _deployEffect != null && effect == _deployEffect.gameObject ? _deployEffectPrefab.transform :
+            _blockEffect != null && effect == _blockEffect.gameObject ? _hitEffectPrefab.transform : _guardEffectPrefab.transform;
+        Vector3 offset = source.localPosition;
+        if (_spriteRenderer.flipX) offset.x = -offset.x;
+        if (_spriteRenderer.flipY) offset.y = -offset.y;
+        effect.transform.localPosition = offset;
         effect.transform.localRotation = Quaternion.identity;
-        effect.transform.localScale = Vector3.one;
+        effect.transform.localScale = source.localScale;
         SpriteRenderer renderer = effect.GetComponent<SpriteRenderer>();
         if (renderer == null) return;
         renderer.flipX = _spriteRenderer.flipX;
@@ -262,7 +281,7 @@ public class Shield : MonoBehaviour
         renderer.sortingOrder = _spriteRenderer.sortingOrder + 1;
     }
 
-    /// <summary>½Çµå¿¡ ¿¬°áµÈ Àü°³ ¹× À¯Áö È¿°ú¸¦ Á¤¸®ÇÑ´Ù.</summary>
+    /// <summary>ì‹¤ë“œì— ì—°ê²°ëœ ì „ê°œ ë° ìœ ì§€ íš¨ê³¼ë¥¼ ì •ë¦¬í•œë‹¤.</summary>
     private void StopEffects(bool includeBlock = true)
     {
         if (_deployEffect != null) Destroy(_deployEffect.gameObject);
@@ -273,7 +292,7 @@ public class Shield : MonoBehaviour
         if (includeBlock) _blockEffect = null;
     }
 
-    /// <summary>±âº» ÀÚ¼¼·Î µ¹¾Æ°¡°í ½Çµå°¡ »ç¿ëÇÑ ¾Ö´Ï¸ŞÀÌ¼Ç Á¦¾î¸¦ ÇØÁ¦ÇÑ´Ù.</summary>
+    /// <summary>ê¸°ë³¸ ìì„¸ë¡œ ëŒì•„ê°€ê³  ì‹¤ë“œê°€ ì‚¬ìš©í•œ ì• ë‹ˆë©”ì´ì…˜ ì œì–´ë¥¼ í•´ì œí•œë‹¤.</summary>
     private void ReturnToIdle()
     {
         _pose = ShieldPose.Idle;
@@ -290,7 +309,7 @@ public class Shield : MonoBehaviour
         _ownsAnimation = false;
     }
 
-    /// <summary>¹«±â ±³Ã¼³ª Á¦¾î ºÒ°¡ »óÅÂ¿¡¼­ Áï½Ã ½Çµå¸¦ ÇØÁ¦ÇÑ´Ù.</summary>
+    /// <summary>ë¬´ê¸° êµì²´ë‚˜ ì œì–´ ë¶ˆê°€ ìƒíƒœì—ì„œ ì¦‰ì‹œ ì‹¤ë“œë¥¼ í•´ì œí•œë‹¤.</summary>
     public void CancelGuard()
     {
         ReturnToIdle();
@@ -298,13 +317,13 @@ public class Shield : MonoBehaviour
         _requiresRelease = false;
     }
 
-    /// <summary>Àç»ı ½Ã°£ÀÌ 0º¸´Ù Å« À¯ÇÑÇÑ °ªÀÎÁö °Ë»çÇÑ´Ù.</summary>
+    /// <summary>ì¬ìƒ ì‹œê°„ì´ 0ë³´ë‹¤ í° ìœ í•œí•œ ê°’ì¸ì§€ ê²€ì‚¬í•œë‹¤.</summary>
     private static bool ValidDuration(float value)
     {
         return !float.IsNaN(value) && !float.IsInfinity(value) && value > 0f;
     }
 
-    /// <summary>ºñÈ°¼ºÈ­ ½Ã ³²Àº ¹æ¾î ÆÇÁ¤°ú È¿°ú¸¦ Á¤¸®ÇÑ´Ù.</summary>
+    /// <summary>ë¹„í™œì„±í™” ì‹œ ë‚¨ì€ ë°©ì–´ íŒì •ê³¼ íš¨ê³¼ë¥¼ ì •ë¦¬í•œë‹¤.</summary>
     private void OnDisable()
     {
         CancelGuard();

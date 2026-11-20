@@ -16,10 +16,10 @@ MonoBehaviour:
   _startMessage: "\uC815\uC2E0 \uAC04\uC12D \uAC10\uC9C0! \uC785\uB825\uC5D0 \uC9D1\uC911\uD558\uC138\uC694."
   _failureMessage: "\uC815\uC2E0 \uBC29\uC5B4 \uC2E4\uD328! \uCDA9\uACA9\uC774 \uBC1C\uC0DD\uD569\uB2C8\uB2E4."
   _uiPrefab: {fileID: 5773517554393276316, guid: d03df7a7fe8999a4b915b0e627756a44, type: 3}
-  _keyCount: 12
+  _keyCount: 8
   _keyPool: QWERTASDFGZXCVB
-  _timeLimit: 8
+  _timeLimit: 9
   _lifeCount: 3
-  _failureDamage: 50
+  _failureDamage: 25
   _shakeDuration: 0.4
   _shakeStrength: 0.5

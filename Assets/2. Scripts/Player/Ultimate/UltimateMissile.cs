@@ -1,52 +1,52 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-// ÁöÁ¤µÈ ¿ùµå ÁÂÇ¥±îÁö Á÷¼± ÀÌµ¿ÇÑ µÚ Æø¹ßÇÏ´Â ÇÊ»ì±â ¹Ì»çÀÏÀÌ´Ù.
+// ì§€ì •ëœ ì›”ë“œ ì¢Œí‘œê¹Œì§€ ì§ì„  ì´ë™í•œ ë’¤ í­ë°œí•˜ëŠ” í•„ì‚´ê¸° ë¯¸ì‚¬ì¼ì´ë‹¤.
 public sealed class UltimateMissile : MonoBehaviour
 {
-    // ¹Ì»çÀÏÀÇ ÃÊ´ç ÀÌµ¿ °Å¸®´Ù.
+    // ë¯¸ì‚¬ì¼ì˜ ì´ˆë‹¹ ì´ë™ ê±°ë¦¬ë‹¤.
     [SerializeField, Min(0.01f)]
     private float _moveSpeed = 30f;
 
-    // Æø¹ß ÇÑ ¹øÀ¸·Î ´ë»ó ÇÏ³ª¿¡ Àü´ŞÇÒ ÇÇÇØ·®ÀÌ´Ù.
+    // í­ë°œ í•œ ë²ˆìœ¼ë¡œ ëŒ€ìƒ í•˜ë‚˜ì— ì „ë‹¬í•  í”¼í•´ëŸ‰ì´ë‹¤.
     [SerializeField, Min(0.01f)]
     private float _damage = 50f;
 
-    // µµÂø ÁÂÇ¥¸¦ Áß½ÉÀ¸·Î ÇÇÇØ¸¦ ÁÙ ¹İ°æÀÌ´Ù.
+    // ë„ì°© ì¢Œí‘œë¥¼ ì¤‘ì‹¬ìœ¼ë¡œ í”¼í•´ë¥¼ ì¤„ ë°˜ê²½ì´ë‹¤.
     [SerializeField, Min(0.01f)]
     private float _explosionRadius = 1.2f;
 
-    // ÀÏ¹İ Àû°ú º¸½ºÀÇ ÇÇ°İ Collider°¡ »ç¿ëÇÏ´Â ·¹ÀÌ¾î´Ù.
+    // ì¼ë°˜ ì ê³¼ ë³´ìŠ¤ì˜ í”¼ê²© Colliderê°€ ì‚¬ìš©í•˜ëŠ” ë ˆì´ì–´ë‹¤.
     [SerializeField] private LayerMask _enemyLayers;
 
-    // ÀÏ¹İ ¸ó½ºÅÍÀÇ »ç¸Á Æø¹ßÀ» º¹Á¦ÇÏ¿© È®´ëÇÑ ÇÁ¸®ÆÕÀÌ´Ù.
+    // ì¼ë°˜ ëª¬ìŠ¤í„°ì˜ ì‚¬ë§ í­ë°œì„ ë³µì œí•˜ì—¬ í™•ëŒ€í•œ í”„ë¦¬íŒ¹ì´ë‹¤.
     [SerializeField] private SpriteOneShotEffect _explosionPrefab;
 
-    // ÀÌµ¿ °æ·Î¿¡ ³²±æ µ¶¸³ÀûÀÎ ¿¬±â ÇÁ¸®ÆÕÀÌ´Ù.
+    // ì´ë™ ê²½ë¡œì— ë‚¨ê¸¸ ë…ë¦½ì ì¸ ì—°ê¸° í”„ë¦¬íŒ¹ì´ë‹¤.
     [SerializeField] private SpriteOneShotEffect _smokePrefab;
 
-    // ¿¬±â¸¦ ¹èÄ¡ÇÒ ¿ùµå °Å¸® °£°İÀÌ´Ù.
+    // ì—°ê¸°ë¥¼ ë°°ì¹˜í•  ì›”ë“œ ê±°ë¦¬ ê°„ê²©ì´ë‹¤.
     [SerializeField, Min(0.01f)]
     private float _smokeSpacing = 0.4f;
 
-    // °¢°¢ÀÇ ¿¬±â°¡ »ı¼º ÈÄ ³²¾Æ ÀÖ´Â °ÔÀÓ ½Ã°£ÀÌ´Ù.
+    // ê°ê°ì˜ ì—°ê¸°ê°€ ìƒì„± í›„ ë‚¨ì•„ ìˆëŠ” ê²Œì„ ì‹œê°„ì´ë‹¤.
     [SerializeField, Min(0.01f)]
     private float _smokeDuration = 2f;
 
-    // ¸ñÇ¥ À§Ä¡´Â ¹ß»çÇÒ ¶§ ÇÑ ¹ø °áÁ¤ÇÑ´Ù.
+    // ëª©í‘œ ìœ„ì¹˜ëŠ” ë°œì‚¬í•  ë•Œ í•œ ë²ˆ ê²°ì •í•œë‹¤.
     private Vector3 _targetPosition;
 
-    // ¿¬±â´Â ¹Ì»çÀÏÀÇ ÀÚ½ÄÀÌ ¾Æ´Ñ ÇÊ»ì±â ½ÇÇà ·çÆ®¿¡ »ı¼ºÇÑ´Ù.
+    // ì—°ê¸°ëŠ” ë¯¸ì‚¬ì¼ì˜ ìì‹ì´ ì•„ë‹Œ í•„ì‚´ê¸° ì‹¤í–‰ ë£¨íŠ¸ì— ìƒì„±í•œë‹¤.
     private Transform _effectRoot;
 
-    // Á÷Àü¿¡ ¿¬±â¸¦ ¹èÄ¡ÇÑ À§Ä¡´Ù.
+    // ì§ì „ì— ì—°ê¸°ë¥¼ ë°°ì¹˜í•œ ìœ„ì¹˜ë‹¤.
     private Vector3 _lastSmokePosition;
 
     private bool _isInitialized;
     private bool _hasExploded;
 
-    // ÇÏ³ªÀÇ Àû¿¡ Collider°¡ ¿©·¯ °³ ÀÖ¾îµµ ÇÑ ¹ø¸¸ ÇÇÇØ¸¦ ÁØ´Ù.
+    // í•˜ë‚˜ì˜ ì ì— Colliderê°€ ì—¬ëŸ¬ ê°œ ìˆì–´ë„ í•œ ë²ˆë§Œ í”¼í•´ë¥¼ ì¤€ë‹¤.
     private readonly HashSet<IDamageable> _damagedTargets =
         new HashSet<IDamageable>();
 
@@ -62,11 +62,11 @@ public sealed class UltimateMissile : MonoBehaviour
             _smokePrefab == null)
         {
             throw new InvalidOperationException(
-                $"{name}: ÇÊ»ì±â ¹Ì»çÀÏÀÇ ¼öÄ¡¿Í ÇÁ¸®ÆÕÀ» È®ÀÎÇØÁÖ¼¼¿ä.");
+                $"{name}: í•„ì‚´ê¸° ë¯¸ì‚¬ì¼ì˜ ìˆ˜ì¹˜ì™€ í”„ë¦¬íŒ¹ì„ í™•ì¸í•´ì£¼ì„¸ìš”.");
         }
     }
 
-    // »ı¼º Á÷ÈÄ ¹ß»çÀÚ°¡ ¸ñÇ¥ À§Ä¡¿Í ¿¬Ãâ ·çÆ®¸¦ Àü´ŞÇÑ´Ù.
+    // ìƒì„± ì§í›„ ë°œì‚¬ìê°€ ëª©í‘œ ìœ„ì¹˜ì™€ ì—°ì¶œ ë£¨íŠ¸ë¥¼ ì „ë‹¬í•œë‹¤.
     public void Initialize(Vector3 targetPosition, Transform effectRoot)
     {
         if (effectRoot == null)
@@ -80,7 +80,7 @@ public sealed class UltimateMissile : MonoBehaviour
 
         Vector3 direction = _targetPosition - transform.position;
 
-        // ¿øº» ÀÌ¹ÌÁö°¡ ¿À¸¥ÂÊÀ» ¹Ù¶óº¸´Â °ÍÀ» ±âÁØÀ¸·Î È¸ÀüÇÑ´Ù.
+        // ì›ë³¸ ì´ë¯¸ì§€ê°€ ì˜¤ë¥¸ìª½ì„ ë°”ë¼ë³´ëŠ” ê²ƒì„ ê¸°ì¤€ìœ¼ë¡œ íšŒì „í•œë‹¤.
         if (direction.sqrMagnitude > 0.000001f)
         {
             float angle =
@@ -106,7 +106,7 @@ public sealed class UltimateMissile : MonoBehaviour
             _targetPosition,
             _moveSpeed * Time.deltaTime);
 
-        // ºü¸£°Ô ÀÌµ¿ÇØµµ ÇÁ·¹ÀÓ »çÀÌÀÇ °æ·Î¿¡ ¿¬±â¸¦ Ã¤¿î´Ù.
+        // ë¹ ë¥´ê²Œ ì´ë™í•´ë„ í”„ë ˆì„ ì‚¬ì´ì˜ ê²½ë¡œì— ì—°ê¸°ë¥¼ ì±„ìš´ë‹¤.
         LeaveSmoke(nextPosition);
 
         transform.position = nextPosition;
@@ -117,7 +117,7 @@ public sealed class UltimateMissile : MonoBehaviour
         }
     }
 
-    // ¸¶Áö¸· ¿¬±â À§Ä¡ºÎÅÍ ÇöÀç À§Ä¡±îÁö ÀÏÁ¤ °£°İÀ¸·Î ¹èÄ¡ÇÑ´Ù.
+    // ë§ˆì§€ë§‰ ì—°ê¸° ìœ„ì¹˜ë¶€í„° í˜„ì¬ ìœ„ì¹˜ê¹Œì§€ ì¼ì • ê°„ê²©ìœ¼ë¡œ ë°°ì¹˜í•œë‹¤.
     private void LeaveSmoke(Vector3 endPosition)
     {
         Vector3 offset = endPosition - _lastSmokePosition;
@@ -140,7 +140,7 @@ public sealed class UltimateMissile : MonoBehaviour
                 Quaternion.identity,
                 _effectRoot);
 
-            // ±âÁ¸ ¿¬±â ÇÁ·¹ÀÓÀ» ÁöÁ¤ÇÑ ÀüÃ¼ ½Ã°£¿¡ ¸ÂÃç Àç»ıÇÑ´Ù.
+            // ê¸°ì¡´ ì—°ê¸° í”„ë ˆì„ì„ ì§€ì •í•œ ì „ì²´ ì‹œê°„ì— ë§ì¶° ì¬ìƒí•œë‹¤.
             smoke.SetPlaybackDuration(_smokeDuration);
 
             distance -= _smokeSpacing;
@@ -150,9 +150,10 @@ public sealed class UltimateMissile : MonoBehaviour
     private void Explode()
     {
         _hasExploded = true;
+        GameAudio.Play(GameSound.UltimateBombardImpact); // ì‹¤ì œ í­ë°œ ì‹œì‘.
 
-        // ÇÇÇØ·Î ½ºÅ×ÀÌÁö°¡ ³¡³ª´õ¶óµµ ÇÔ²² Á¤¸®ÇÒ ¼ö ÀÖµµ·Ï
-        // Æø¹ß ¿¬Ãâµµ ÇÊ»ì±â ½ÇÇà ·çÆ®¿¡ ¼Ò¼Ó½ÃÅ²´Ù.
+        // í”¼í•´ë¡œ ìŠ¤í…Œì´ì§€ê°€ ëë‚˜ë”ë¼ë„ í•¨ê»˜ ì •ë¦¬í•  ìˆ˜ ìˆë„ë¡
+        // í­ë°œ ì—°ì¶œë„ í•„ì‚´ê¸° ì‹¤í–‰ ë£¨íŠ¸ì— ì†Œì†ì‹œí‚¨ë‹¤.
         Instantiate(
             _explosionPrefab,
             _targetPosition,
@@ -166,7 +167,7 @@ public sealed class UltimateMissile : MonoBehaviour
 
         foreach (Collider2D hit in hits)
         {
-            // ¾Õ¼± ÇÇÇØ Ã³¸®·Î Å¬¸®¾îµÇ¾î ÇÊ»ì±â°¡ Ãë¼ÒµÆÀ» ¼ö ÀÖ´Ù.
+            // ì•ì„  í”¼í•´ ì²˜ë¦¬ë¡œ í´ë¦¬ì–´ë˜ì–´ í•„ì‚´ê¸°ê°€ ì·¨ì†Œëì„ ìˆ˜ ìˆë‹¤.
             if (!gameObject.activeInHierarchy)
             {
                 break;
@@ -192,7 +193,7 @@ public sealed class UltimateMissile : MonoBehaviour
             target.TakeHit(_damage);
         }
 
-        // ¿¬±â¿Í Æø¹ßÀº º°µµ ÇüÁ¦ ¿ÀºêÁ§Æ®¶ó °è¼Ó Àç»ıµÈ´Ù.
+        // ì—°ê¸°ì™€ í­ë°œì€ ë³„ë„ í˜•ì œ ì˜¤ë¸Œì íŠ¸ë¼ ê³„ì† ì¬ìƒëœë‹¤.
         Destroy(gameObject);
     }
 }

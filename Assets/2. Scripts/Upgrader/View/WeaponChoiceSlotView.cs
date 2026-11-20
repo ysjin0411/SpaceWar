@@ -27,7 +27,8 @@ public class WeaponChoiceSlotView : SelectableSlotView
     /// <param name="weaponData">표시할 장착 무기 데이터</param>
     public void Bind(
         int slotIndex,
-        WeaponData weaponData)
+        WeaponData weaponData,
+        UpgradeType upgradeType)
     {
         if (weaponData == null)
         {
@@ -46,7 +47,7 @@ public class WeaponChoiceSlotView : SelectableSlotView
 
         // 일반 무기 설명이 아니라 증강 대상 선택 전용 문구를 표시한다.
         _infoText.text =
-            weaponData.UpgradeSelectionInfo;
+            weaponData.GetUpgradeSelectionInfo(upgradeType);
 
         // 공통 Button 이벤트와 선택 표시를 초기화한다.
         InitializeSelectable(slotIndex);

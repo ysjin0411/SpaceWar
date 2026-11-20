@@ -1,162 +1,164 @@
-using System;
+ï»¿using System;
 using UnityEngine;
 
 /// <summary>
-/// ¸ğµç ÇÃ·¹ÀÌ¾î Åõ»çÃ¼°¡ °øÅëÀ¸·Î »ç¿ëÇÏ´Â ºÎ¸ğ Å¬·¡½º.
-/// °ø°İ·Â ÃÊ±âÈ­, ÀÌµ¿ ¹æÇâ, ¼ö¸í, Àû Ãæµ¹ Ã³¸®
-/// ½ÇÁ¦ ÀÌµ¿ ¹æ½ÄÀº ÀÚ½Ä Å¬·¡½º°¡ ±¸ÇöÇÑ´Ù.
+/// ëª¨ë“  í”Œë ˆì´ì–´ íˆ¬ì‚¬ì²´ê°€ ê³µí†µìœ¼ë¡œ ì‚¬ìš©í•˜ëŠ” ë¶€ëª¨ í´ë˜ìŠ¤.
+/// ê³µê²©ë ¥ ì´ˆê¸°í™”, ì´ë™ ë°©í–¥, ìˆ˜ëª…, ì  ì¶©ëŒ ì²˜ë¦¬
+/// ì‹¤ì œ ì´ë™ ë°©ì‹ì€ ìì‹ í´ë˜ìŠ¤ê°€ êµ¬í˜„í•œë‹¤.
 /// </summary>
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Collider2D))]
 public abstract class Projectile : MonoBehaviour
 {
-    [Header("Åõ»çÃ¼ °øÅë ·±Å¸ÀÓ µ¥ÀÌÅÍ")]
-    [Tooltip("ÇöÀç Åõ»çÃ¼ÀÇ ÀÌµ¿¼Óµµ")]
+    [Header("íˆ¬ì‚¬ì²´ ê³µí†µ ëŸ°íƒ€ì„ ë°ì´í„°")]
+    [Tooltip("í˜„ì¬ íˆ¬ì‚¬ì²´ì˜ ì´ë™ì†ë„")]
     [SerializeField] float _moveSpeed = 10f;
 
-    [Tooltip("»ı¼ºµÈ Åõ»çÃ¼°¡ ÀÚµ¿À¸·Î Á¦°ÅµÇ±â±îÁöÀÇ ½Ã°£")]
+    [Tooltip("ìƒì„±ëœ íˆ¬ì‚¬ì²´ê°€ ìë™ìœ¼ë¡œ ì œê±°ë˜ê¸°ê¹Œì§€ì˜ ì‹œê°„")]
     [Min(0.1f)]
     [SerializeField] float _lifeTime = 5f;
 
-    [Tooltip("Weapon¿¡¼­ Àü´Ş¹ŞÀº ÇöÀç °ø°İ·Â")]
+    [Tooltip("Weaponì—ì„œ ì „ë‹¬ë°›ì€ í˜„ì¬ ê³µê²©ë ¥")]
     [SerializeField] float _damage;
 
-    // Á÷Á¢ ¸íÁßÇÒ ¶§ »ı¼ºÇÒ ÀÌÆåÆ®´Ù.
-    // Bullet, Slash, Sniper ÇÁ¸®ÆÕ¿¡ °øÅë HitEffect¸¦ ¿¬°áÇÑ´Ù.
-    // ÀÚÃ¼ Æø¹ßÀ» »ç¿ëÇÏ´Â Missile, Grenade´Â ºñ¿ö µĞ´Ù.
+    // ì§ì ‘ ëª…ì¤‘í•  ë•Œ ìƒì„±í•  ì´í™íŠ¸ë‹¤.
+    // Bullet, Slash, Sniper í”„ë¦¬íŒ¹ì— ê³µí†µ HitEffectë¥¼ ì—°ê²°í•œë‹¤.
+    // ìì²´ í­ë°œì„ ì‚¬ìš©í•˜ëŠ” Missile, GrenadeëŠ” ë¹„ì›Œ ë‘”ë‹¤.
     [SerializeField] private SpriteOneShotEffect _hitEffectPrefab;
+    // ì§ì ‘ ëª…ì¤‘í•  ë•Œ ì¬ìƒí•  ì†Œë¦¬. ë²”ìœ„ í­ë°œ íˆ¬ì‚¬ì²´ëŠ” Noneìœ¼ë¡œ ë‘”ë‹¤.
+    [SerializeField] private GameSound _impactSound;
 
-    // ÀÌ Åõ»çÃ¼¸¦ ¿ø·¡ Ç®·Î ¹İ³³ÇÏ´Â ÄÄÆ÷³ÍÆ®.
+    // ì´ íˆ¬ì‚¬ì²´ë¥¼ ì›ë˜ í’€ë¡œ ë°˜ë‚©í•˜ëŠ” ì»´í¬ë„ŒíŠ¸.
     private PoolObject _poolObject;
 
-    // ÀÌ¹ø ¹ß»ç¿¡¼­ ³²Àº »ıÁ¸ ½Ã°£.
+    // ì´ë²ˆ ë°œì‚¬ì—ì„œ ë‚¨ì€ ìƒì¡´ ì‹œê°„.
     private float _remainingLife;
 
-    // ¼ö·ùÅº µîÀÌ º¯°æÇÑ Áß·ÂÀ» ´ÙÀ½ ¹ß»ç ¶§ º¹¿øÇÏ±â À§ÇÑ °ª.
+    // ìˆ˜ë¥˜íƒ„ ë“±ì´ ë³€ê²½í•œ ì¤‘ë ¥ì„ ë‹¤ìŒ ë°œì‚¬ ë•Œ ë³µì›í•˜ê¸° ìœ„í•œ ê°’.
     private float _defaultGravityScale;
 
-    // ¸íÁß À§Ä¡ °è»ê¿¡ »ç¿ëÇÒ Åõ»çÃ¼ Äİ¶óÀÌ´õ´Ù.
+    // ëª…ì¤‘ ìœ„ì¹˜ ê³„ì‚°ì— ì‚¬ìš©í•  íˆ¬ì‚¬ì²´ ì½œë¼ì´ë”ë‹¤.
     protected Collider2D HitCollider { get; private set; }
 
-    // ÀÌ¹ø ¸íÁßÀÇ ¿ùµå À§Ä¡´Ù.
+    // ì´ë²ˆ ëª…ì¤‘ì˜ ì›”ë“œ ìœ„ì¹˜ë‹¤.
     protected Vector2 HitPoint { get; set; }
 
-    // Á¦°Å ¿¹¾à ÈÄ °°Àº ÇÁ·¹ÀÓ¿¡ Áßº¹ ¸íÁßÇÏ´Â °ÍÀ» ¹æÁöÇÑ´Ù.
+    // ì œê±° ì˜ˆì•½ í›„ ê°™ì€ í”„ë ˆì„ì— ì¤‘ë³µ ëª…ì¤‘í•˜ëŠ” ê²ƒì„ ë°©ì§€í•œë‹¤.
     private bool _isHitConsumed;
 
-    // ÀÚ½Ä Å¬·¡½º°¡ ÇöÀç Rigidbody2D¸¦ »ç¿ëÇÒ ¼ö ÀÖ°Ô Á¦°øÇÑ´Ù.
+    // ìì‹ í´ë˜ìŠ¤ê°€ í˜„ì¬ Rigidbody2Dë¥¼ ì‚¬ìš©í•  ìˆ˜ ìˆê²Œ ì œê³µí•œë‹¤.
     protected Rigidbody2D Body { get; private set; }
 
-    // ÀÚ½Ä Å¬·¡½º°¡ ÇöÀç ÀÌµ¿¼Óµµ¸¦ ÀĞÀ» ¼ö ÀÖ°Ô Á¦°øÇÑ´Ù.
+    // ìì‹ í´ë˜ìŠ¤ê°€ í˜„ì¬ ì´ë™ì†ë„ë¥¼ ì½ì„ ìˆ˜ ìˆê²Œ ì œê³µí•œë‹¤.
     protected float MoveSpeed => _moveSpeed;
 
-    // ÀÚ½Ä Å¬·¡½º°¡ ÇöÀç °ø°İ·ÂÀ» ÀĞÀ» ¼ö ÀÖ°Ô Á¦°øÇÑ´Ù.
+    // ìì‹ í´ë˜ìŠ¤ê°€ í˜„ì¬ ê³µê²©ë ¥ì„ ì½ì„ ìˆ˜ ìˆê²Œ ì œê³µí•œë‹¤.
     protected float Damage => _damage;
 
-    // ÀÚ½Ä Å¬·¡½º°¡ ÇöÀç ÁøÇà ¹æÇâÀ» ÀĞ°Å³ª º¯°æÇÒ ¼ö ÀÖ°Ô Á¦°øÇÑ´Ù.
+    // ìì‹ í´ë˜ìŠ¤ê°€ í˜„ì¬ ì§„í–‰ ë°©í–¥ì„ ì½ê±°ë‚˜ ë³€ê²½í•  ìˆ˜ ìˆê²Œ ì œê³µí•œë‹¤.
     protected Vector2 Direction { get; set; }
 
-    // Weapon¿¡¼­ Á¤»óÀûÀ¸·Î ÃÊ±âÈ­µÆ´ÂÁö ÀúÀåÇÑ´Ù.
+    // Weaponì—ì„œ ì •ìƒì ìœ¼ë¡œ ì´ˆê¸°í™”ëëŠ”ì§€ ì €ì¥í•œë‹¤.
     bool _isInitialized;
 
     /// <summary>
-    /// ÄÄÆ÷³ÍÆ® ÂüÁ¶¿Í ÃÊ±â ½ÇÇà »óÅÂ¸¦ ÁØºñÇÑ´Ù.
+    /// ì»´í¬ë„ŒíŠ¸ ì°¸ì¡°ì™€ ì´ˆê¸° ì‹¤í–‰ ìƒíƒœë¥¼ ì¤€ë¹„í•œë‹¤.
     /// </summary>
     protected virtual void Awake()
     {
-        // °°Àº ¿ÀºêÁ§Æ®¿¡ ÀÖ´Â Rigidbody2D¸¦ °¡Á®¿Â´Ù.
+        // ê°™ì€ ì˜¤ë¸Œì íŠ¸ì— ìˆëŠ” Rigidbody2Dë¥¼ ê°€ì ¸ì˜¨ë‹¤.
         Body = GetComponent<Rigidbody2D>();
 
-        // Ç® ¹İ³³¿¡ »ç¿ëÇÒ ÄÄÆ÷³ÍÆ®¸¦ ÃÖÃÊ ÇÑ ¹ø °¡Á®¿Â´Ù.
+        // í’€ ë°˜ë‚©ì— ì‚¬ìš©í•  ì»´í¬ë„ŒíŠ¸ë¥¼ ìµœì´ˆ í•œ ë²ˆ ê°€ì ¸ì˜¨ë‹¤.
         _poolObject = GetComponent<PoolObject>();
 
-        // ÃÖÃÊ ÇÁ¸®ÆÕÀÇ Áß·ÂÀ» ÀúÀåÇÑ´Ù.
+        // ìµœì´ˆ í”„ë¦¬íŒ¹ì˜ ì¤‘ë ¥ì„ ì €ì¥í•œë‹¤.
         _defaultGravityScale = Body.gravityScale;
 
-        // Collider´Â Ãæµ¹ ÆÇÁ¤¸¸ ÇÏ¹Ç·Î Trigger »óÅÂ¿©¾ß ÇÑ´Ù.
+        // ColliderëŠ” ì¶©ëŒ íŒì •ë§Œ í•˜ë¯€ë¡œ Trigger ìƒíƒœì—¬ì•¼ í•œë‹¤.
         Collider2D projectileCollider = GetComponent<Collider2D>();
 
         if (!projectileCollider.isTrigger)
         {
             throw new InvalidOperationException(
-                $"{name}ÀÇ Collider2D´Â Is Trigger°¡ Ã¼Å©µÇ¾î¾ß ÇÕ´Ï´Ù.");
+                $"{name}ì˜ Collider2DëŠ” Is Triggerê°€ ì²´í¬ë˜ì–´ì•¼ í•©ë‹ˆë‹¤.");
         }
 
-        // ÀÚ½Ä Åõ»çÃ¼µµ °°Àº Äİ¶óÀÌ´õ¸¦ ÀÌ¿ëÇØ ¸íÁß À§Ä¡¸¦ °è»êÇÑ´Ù.
+        // ìì‹ íˆ¬ì‚¬ì²´ë„ ê°™ì€ ì½œë¼ì´ë”ë¥¼ ì´ìš©í•´ ëª…ì¤‘ ìœ„ì¹˜ë¥¼ ê³„ì‚°í•œë‹¤.
         HitCollider = GetComponent<Collider2D>();
     }
 
     /// <summary>
-    /// WeaponÀÌ Åõ»çÃ¼¸¦ »ı¼ºÇÑ Á÷ÈÄ È£ÃâÇÑ´Ù.
+    /// Weaponì´ íˆ¬ì‚¬ì²´ë¥¼ ìƒì„±í•œ ì§í›„ í˜¸ì¶œí•œë‹¤.
     /// </summary>
     public void Initialize(float damage, Vector2 direction)
     {
-        // 0 ÀÌÇÏ °ø°İ·ÂÀº Á¤»óÀûÀÎ Åõ»çÃ¼ °ø°İ·ÂÀÌ ¾Æ´Ï´Ù.
+        // 0 ì´í•˜ ê³µê²©ë ¥ì€ ì •ìƒì ì¸ íˆ¬ì‚¬ì²´ ê³µê²©ë ¥ì´ ì•„ë‹ˆë‹¤.
         if (damage <= 0)
         {
             throw new ArgumentOutOfRangeException(
                 nameof(damage),
                 damage,
-                "Åõ»çÃ¼ °ø°İ·ÂÀº 0º¸´Ù Ä¿¾ß ÇÕ´Ï´Ù.");
+                "íˆ¬ì‚¬ì²´ ê³µê²©ë ¥ì€ 0ë³´ë‹¤ ì»¤ì•¼ í•©ë‹ˆë‹¤.");
         }
 
-        // ¹æÇâÀÌ ¾ø´Â °æ¿ì FirePointÀÇ ¿À¸¥ÂÊ ¹æÇâÀ» »ç¿ëÇÑ´Ù.
+        // ë°©í–¥ì´ ì—†ëŠ” ê²½ìš° FirePointì˜ ì˜¤ë¥¸ìª½ ë°©í–¥ì„ ì‚¬ìš©í•œë‹¤.
         if (direction.sqrMagnitude <= Mathf.Epsilon)
         {
             direction = transform.right;
         }
 
-        // WeaponRuntimeStateÀÇ ÇöÀç °ø°İ·ÂÀ» ÀúÀåÇÑ´Ù.
+        // WeaponRuntimeStateì˜ í˜„ì¬ ê³µê²©ë ¥ì„ ì €ì¥í•œë‹¤.
         _damage = damage;
 
-        // ¼Óµµ°¡ ´Ş¶óÁöÁö ¾Êµµ·Ï ¹æÇâ º¤ÅÍ¸¦ Á¤±ÔÈ­ÇÑ´Ù.
+        // ì†ë„ê°€ ë‹¬ë¼ì§€ì§€ ì•Šë„ë¡ ë°©í–¥ ë²¡í„°ë¥¼ ì •ê·œí™”í•œë‹¤.
         Direction = direction.normalized;
 
-        // ÀÚ½Ä Å¬·¡½º°¡ ÃÊ±âÈ­µÈ ÀÌÈÄ¿¡¸¸ ¿òÁ÷ÀÌµµ·Ï Ç¥½ÃÇÑ´Ù.
+        // ìì‹ í´ë˜ìŠ¤ê°€ ì´ˆê¸°í™”ëœ ì´í›„ì—ë§Œ ì›€ì§ì´ë„ë¡ í‘œì‹œí•œë‹¤.
         _isInitialized = true;
 
-        // ¹ß»çÇÒ ¶§¸¶´Ù ¼ö¸íÀ» »õ·Î ½ÃÀÛÇÑ´Ù.
+        // ë°œì‚¬í•  ë•Œë§ˆë‹¤ ìˆ˜ëª…ì„ ìƒˆë¡œ ì‹œì‘í•œë‹¤.
         _remainingLife = _lifeTime;
 
-        // MissileÀÇ Å¸±ê Å½»öÃ³·³ ÀÚ½Ä Àü¿ë ÃÊ±âÈ­ ÀÛ¾÷À» ½ÇÇàÇÑ´Ù.
+        // Missileì˜ íƒ€ê¹ƒ íƒìƒ‰ì²˜ëŸ¼ ìì‹ ì „ìš© ì´ˆê¸°í™” ì‘ì—…ì„ ì‹¤í–‰í•œë‹¤.
         OnInitialized();
     }
 
     /// <summary>
-    /// ¹°¸® °»½Å ÁÖ±â¿¡ ¸ÂÃç ÀÌµ¿°ú Ãæµ¹ Ã³¸®¸¦ ¼öÇàÇÑ´Ù.
+    /// ë¬¼ë¦¬ ê°±ì‹  ì£¼ê¸°ì— ë§ì¶° ì´ë™ê³¼ ì¶©ëŒ ì²˜ë¦¬ë¥¼ ìˆ˜í–‰í•œë‹¤.
     /// </summary>
     protected virtual void FixedUpdate()
     {
-        // WeaponÀÌ ÃÊ±âÈ­ÇÏ±â Àü¿¡´Â ¿òÁ÷ÀÌÁö ¾Ê´Â´Ù.
+        // Weaponì´ ì´ˆê¸°í™”í•˜ê¸° ì „ì—ëŠ” ì›€ì§ì´ì§€ ì•ŠëŠ”ë‹¤.
         if (!_isInitialized)
         {
             Body.linearVelocity = Vector2.zero;
             return;
         }
 
-        // ½ÇÁ¦ ÀÌµ¿ ¹æ½ÄÀº °¢ ÀÚ½Ä Å¬·¡½º°¡ ±¸ÇöÇÑ´Ù.
+        // ì‹¤ì œ ì´ë™ ë°©ì‹ì€ ê° ìì‹ í´ë˜ìŠ¤ê°€ êµ¬í˜„í•œë‹¤.
         MoveProjectile();
     }
 
     /// <summary>
-    /// Åõ»çÃ¼ Á¾·ùº° ÀÌµ¿ ¹æ½ÄÀ» ÀÚ½Ä Å¬·¡½º°¡ ±¸ÇöÇÑ´Ù.
+    /// íˆ¬ì‚¬ì²´ ì¢…ë¥˜ë³„ ì´ë™ ë°©ì‹ì„ ìì‹ í´ë˜ìŠ¤ê°€ êµ¬í˜„í•œë‹¤.
     /// </summary>
     protected abstract void MoveProjectile();
 
     /// <summary>
-    /// Initialize°¡ ³¡³­ Á÷ÈÄ ÇÊ¿äÇÑ ÀÚ½Ä Àü¿ë ÀÛ¾÷.
-    /// ÇÊ¿äÇÑ ÀÚ½Ä¸¸ ÀçÁ¤ÀÇÇÑ´Ù.
+    /// Initializeê°€ ëë‚œ ì§í›„ í•„ìš”í•œ ìì‹ ì „ìš© ì‘ì—….
+    /// í•„ìš”í•œ ìì‹ë§Œ ì¬ì •ì˜í•œë‹¤.
     /// </summary>
     protected virtual void OnInitialized()
     {
     }
 
     /// <summary>
-    /// HandleTargetHit µ¿ÀÛ¿¡ ÇÊ¿äÇÑ »óÅÂ¿Í Ã³¸® Èå¸§À» ½ÇÇàÇÑ´Ù.
+    /// HandleTargetHit ë™ì‘ì— í•„ìš”í•œ ìƒíƒœì™€ ì²˜ë¦¬ íë¦„ì„ ì‹¤í–‰í•œë‹¤.
     /// </summary>
     protected virtual void HandleTargetHit(IDamageable target)
     {
-        // ´ë»óÀÌ Á×¾îµµ ÀÌÆåÆ®°¡ ³²µµ·Ï µ¶¸³ ¿ÀºêÁ§Æ®·Î ¸ÕÀú »ı¼ºÇÑ´Ù.
+        // ëŒ€ìƒì´ ì£½ì–´ë„ ì´í™íŠ¸ê°€ ë‚¨ë„ë¡ ë…ë¦½ ì˜¤ë¸Œì íŠ¸ë¡œ ë¨¼ì € ìƒì„±í•œë‹¤.
         if (_hitEffectPrefab != null)
         {
             Instantiate(
@@ -165,28 +167,29 @@ public abstract class Projectile : MonoBehaviour
                 Quaternion.identity);
         }
 
-        // ±âÁ¸ °ø°İ·ÂÀ» Àû¿ëÇÑ´Ù.
+        // ê¸°ì¡´ ê³µê²©ë ¥ì„ ì ìš©í•œë‹¤.
+        GameAudio.Play(_impactSound); // ìœ íš¨í•œ ì ‘ì´‰ë§ˆë‹¤ ì¹´íƒˆë¡œê·¸ ì œí•œì„ ì ìš©í•œë‹¤.
         target.TakeHit(_damage);
     }
 
     /// <summary>
-    /// ¸íÁßÇÑ µÚ Åõ»çÃ¼¸¦ Á¦°ÅÇÒÁö °áÁ¤ÇÑ´Ù.
-    /// Bullet°ú MissileÀº true, °üÅë Laser´Â false¸¦ »ç¿ëÇÑ´Ù.
+    /// ëª…ì¤‘í•œ ë’¤ íˆ¬ì‚¬ì²´ë¥¼ ì œê±°í• ì§€ ê²°ì •í•œë‹¤.
+    /// Bulletê³¼ Missileì€ true, ê´€í†µ LaserëŠ” falseë¥¼ ì‚¬ìš©í•œë‹¤.
     /// </summary>
     protected virtual bool DestroyAfterHit => true;
 
     /// <summary>
-    /// OnTriggerEnter2D µ¿ÀÛ¿¡ ÇÊ¿äÇÑ »óÅÂ¿Í Ã³¸® Èå¸§À» ½ÇÇàÇÑ´Ù.
+    /// OnTriggerEnter2D ë™ì‘ì— í•„ìš”í•œ ìƒíƒœì™€ ì²˜ë¦¬ íë¦„ì„ ì‹¤í–‰í•œë‹¤.
     /// </summary>
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
-        // ¾ÆÁ÷ ÃÊ±âÈ­µÇÁö ¾Ê¾Ò°Å³ª ÀÌ¹Ì ¼ÒºñµÈ Åõ»çÃ¼´Â Ã³¸®ÇÏÁö ¾Ê´Â´Ù.
+        // ì•„ì§ ì´ˆê¸°í™”ë˜ì§€ ì•Šì•˜ê±°ë‚˜ ì´ë¯¸ ì†Œë¹„ëœ íˆ¬ì‚¬ì²´ëŠ” ì²˜ë¦¬í•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (!_isInitialized || _isHitConsumed)
         {
             return;
         }
 
-        // °ø°İ °¡´ÉÇÑ ´ë»óÀ» °øÅë ÀÎÅÍÆäÀÌ½º·Î Ã£´Â´Ù.
+        // ê³µê²© ê°€ëŠ¥í•œ ëŒ€ìƒì„ ê³µí†µ ì¸í„°í˜ì´ìŠ¤ë¡œ ì°¾ëŠ”ë‹¤.
         IDamageable target =
             collision.GetComponentInParent<IDamageable>();
 
@@ -195,27 +198,27 @@ public abstract class Projectile : MonoBehaviour
             return;
         }
 
-        // ÇÇÇØ Ã³¸®·Î ´ë»óÀÌ Á¦°ÅµÇ±â Àü¿¡ ¸ÂÀº À§Ä¡¸¦ ÀúÀåÇÑ´Ù.
+        // í”¼í•´ ì²˜ë¦¬ë¡œ ëŒ€ìƒì´ ì œê±°ë˜ê¸° ì „ì— ë§ì€ ìœ„ì¹˜ë¥¼ ì €ì¥í•œë‹¤.
         HitPoint = HitEffectUtility.GetSurfacePoint(
             HitCollider, collision);
 
         if (DestroyAfterHit)
         {
-            // Destroy°¡ ½ÇÇàµÇ±â Àü¿¡µµ Ãß°¡ ¸íÁßÀ» ¸·´Â´Ù.
+            // Destroyê°€ ì‹¤í–‰ë˜ê¸° ì „ì—ë„ ì¶”ê°€ ëª…ì¤‘ì„ ë§‰ëŠ”ë‹¤.
             _isHitConsumed = true;
         }
 
-        // ÀÚ½Ä Åõ»çÃ¼¿¡ ¸Â´Â Å¸°İ Ã³¸®¸¦ ½ÇÇàÇÑ´Ù.
+        // ìì‹ íˆ¬ì‚¬ì²´ì— ë§ëŠ” íƒ€ê²© ì²˜ë¦¬ë¥¼ ì‹¤í–‰í•œë‹¤.
         HandleTargetHit(target);
 
         if (DestroyAfterHit)
         {
-            // Ãæµ¹ Ã³¸®°¡ ³¡³­ Åõ»çÃ¼¸¦ Àç»ç¿ëÇÒ ¼ö ÀÖµµ·Ï ¹İ³³ÇÑ´Ù.
+            // ì¶©ëŒ ì²˜ë¦¬ê°€ ëë‚œ íˆ¬ì‚¬ì²´ë¥¼ ì¬ì‚¬ìš©í•  ìˆ˜ ìˆë„ë¡ ë°˜ë‚©í•œë‹¤.
             ReturnToPool();
         }
     }
 
-    // Ç®¿¡¼­ ´Ù½Ã ²¨³¾ ¶§ ÀÌÀü ¹ß»çÀÇ »óÅÂ¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+    // í’€ì—ì„œ ë‹¤ì‹œ êº¼ë‚¼ ë•Œ ì´ì „ ë°œì‚¬ì˜ ìƒíƒœë¥¼ ì´ˆê¸°í™”í•œë‹¤.
     protected virtual void OnEnable()
     {
         _isInitialized = false;
@@ -232,7 +235,7 @@ public abstract class Projectile : MonoBehaviour
         HitCollider.enabled = true;
     }
 
-    // ÃÊ±âÈ­°¡ ³¡³­ Åõ»çÃ¼ÀÇ ¼ö¸íÀ» °è»êÇÑ´Ù.
+    // ì´ˆê¸°í™”ê°€ ëë‚œ íˆ¬ì‚¬ì²´ì˜ ìˆ˜ëª…ì„ ê³„ì‚°í•œë‹¤.
     protected virtual void Update()
     {
         if (!_isInitialized)
@@ -248,7 +251,7 @@ public abstract class Projectile : MonoBehaviour
         }
     }
 
-    // Ãæµ¹, Æø¹ß, ¼ö¸í Á¾·á ½Ã °øÅëÀ¸·Î È£ÃâÇÑ´Ù.
+    // ì¶©ëŒ, í­ë°œ, ìˆ˜ëª… ì¢…ë£Œ ì‹œ ê³µí†µìœ¼ë¡œ í˜¸ì¶œí•œë‹¤.
     protected void ReturnToPool()
     {
         _isInitialized = false;
@@ -258,7 +261,7 @@ public abstract class Projectile : MonoBehaviour
         _poolObject.ReturnToPool();
     }
 
-    // ¹İ³³ ½Ã ÀÌÀü ¹ß»çÀÇ ¿¹¾à ÀÛ¾÷°ú ¹°¸® ¿òÁ÷ÀÓÀ» Á¤¸®ÇÑ´Ù.
+    // ë°˜ë‚© ì‹œ ì´ì „ ë°œì‚¬ì˜ ì˜ˆì•½ ì‘ì—…ê³¼ ë¬¼ë¦¬ ì›€ì§ì„ì„ ì •ë¦¬í•œë‹¤.
     protected virtual void OnDisable()
     {
         CancelInvoke();

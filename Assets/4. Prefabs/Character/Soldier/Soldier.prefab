@@ -232,7 +232,7 @@ MonoBehaviour:
     y: 0.1
     width: 0.8
     height: 0.6
-  _missileCount: 40
+  _missileCount: 24
   _bombardDuration: 3
 --- !u!50 &2230558535362797252
 Rigidbody2D:

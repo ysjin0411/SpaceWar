@@ -1,39 +1,39 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using UnityEngine;
 
-// ÃßÀû ÈÄ °¢ Å¸°İ¸¶´Ù Á¶ÁØ, ¹æÇâ °íÁ¤, °ø°İ, È¸º¹À» ½ÇÇàÇÑ´Ù.
+// ì¶”ì  í›„ ê° íƒ€ê²©ë§ˆë‹¤ ì¡°ì¤€, ë°©í–¥ ê³ ì •, ê³µê²©, íšŒë³µì„ ì‹¤í–‰í•œë‹¤.
 [CreateAssetMenu(
     menuName = "Boss/Alien/Phase2/Combo Pattern",
     fileName = "BossAlienComboPattern")]
 public sealed class BossAlienComboPattern : BossPattern
 {
-    // ÃßÀû ¹× ¼¼ Å¸°İÀÇ ÀÚ¼¼, ½Ã°£, ÇÇÇØ ¼³Á¤ÀÌ´Ù.
+    // ì¶”ì  ë° ì„¸ íƒ€ê²©ì˜ ìì„¸, ì‹œê°„, í”¼í•´ ì„¤ì •ì´ë‹¤.
     [SerializeField]
     private BossAlienComboConfig _config;
 
-    // Á¶ÁØ°ú ½ÇÁ¦ °ø°İ ¹üÀ§¸¦ Ç¥½ÃÇÒ °æ°í ÇÁ¸®ÆÕÀÌ´Ù.
+    // ì¡°ì¤€ê³¼ ì‹¤ì œ ê³µê²© ë²”ìœ„ë¥¼ í‘œì‹œí•  ê²½ê³  í”„ë¦¬íŒ¹ì´ë‹¤.
     [SerializeField]
     private BossAlienComboWarning _warningPrefab;
 
-    // Å¸°İ ¼ø°£¿¡ »ı¼ºÇÒ ½Ã°¢ È¿°ú ÇÁ¸®ÆÕÀÌ´Ù.
+    // íƒ€ê²© ìˆœê°„ì— ìƒì„±í•  ì‹œê° íš¨ê³¼ í”„ë¦¬íŒ¹ì´ë‹¤.
     [SerializeField]
     private BossAlienComboEffect _effectPrefab;
 
-    // Ã¹ ¹øÂ° ÇÒÄû±â ÀÌÆåÆ®ÀÇ ÀÌ¹ÌÁö 9ÀåÀ» ¹øÈ£ ¼ø¼­´ë·Î µî·ÏÇÑ´Ù.
+    // ì²« ë²ˆì§¸ í• í€´ê¸° ì´í™íŠ¸ì˜ ì´ë¯¸ì§€ 9ì¥ì„ ë²ˆí˜¸ ìˆœì„œëŒ€ë¡œ ë“±ë¡í•œë‹¤.
     [SerializeField]
     private Sprite[] _slashAFrames = Array.Empty<Sprite>();
 
-    // µÎ ¹øÂ° ÇÒÄû±â ÀÌÆåÆ®ÀÇ ÀÌ¹ÌÁö 9ÀåÀ» ¹øÈ£ ¼ø¼­´ë·Î µî·ÏÇÑ´Ù.
+    // ë‘ ë²ˆì§¸ í• í€´ê¸° ì´í™íŠ¸ì˜ ì´ë¯¸ì§€ 9ì¥ì„ ë²ˆí˜¸ ìˆœì„œëŒ€ë¡œ ë“±ë¡í•œë‹¤.
     [SerializeField]
     private Sprite[] _slashBFrames = Array.Empty<Sprite>();
 
-    // ¸¶Áö¸· ³»·ÁÂï±â ÀÌÆåÆ®ÀÇ ÀÌ¹ÌÁö 12ÀåÀ» ¹øÈ£ ¼ø¼­´ë·Î µî·ÏÇÑ´Ù.
+    // ë§ˆì§€ë§‰ ë‚´ë ¤ì°ê¸° ì´í™íŠ¸ì˜ ì´ë¯¸ì§€ 12ì¥ì„ ë²ˆí˜¸ ìˆœì„œëŒ€ë¡œ ë“±ë¡í•œë‹¤.
     [SerializeField]
     private Sprite[] _slamFrames = Array.Empty<Sprite>();
 
-    // °ø°İ Áß Ç¥½ÃµÇ´Â ÀÚ¼¼¿¡ ¸ÂÃç ¼ÕÀÇ ·ÎÄÃ À§Ä¡¸¦ ¹İÈ¯ÇÑ´Ù.
-    // Á¦ÀÛ ÀÚ·áÀÇ 2048¡¿2048 ÀÌ¹ÌÁö ÁÂÇ¥¸¦ ±âÁØÀ¸·Î ÇÑ´Ù.
+    // ê³µê²© ì¤‘ í‘œì‹œë˜ëŠ” ìì„¸ì— ë§ì¶° ì†ì˜ ë¡œì»¬ ìœ„ì¹˜ë¥¼ ë°˜í™˜í•œë‹¤.
+    // ì œì‘ ìë£Œì˜ 2048Ã—2048 ì´ë¯¸ì§€ ì¢Œí‘œë¥¼ ê¸°ì¤€ìœ¼ë¡œ í•œë‹¤.
     private static Vector2 GetComboHandLocalPosition(
         int strikeIndex,
         float hitProgress)
@@ -43,21 +43,21 @@ public sealed class BossAlienComboPattern : BossPattern
         switch (strikeIndex)
         {
             case 0:
-                // Ã¹ 0.05ÃÊ´Â ¼ÕÀ» »¸°í, ÀÌÈÄ¿¡´Â ÇÒÄû´Â ÀÚ¼¼´Ù.
+                // ì²« 0.05ì´ˆëŠ” ì†ì„ ë»—ê³ , ì´í›„ì—ëŠ” í• í€´ëŠ” ìì„¸ë‹¤.
                 pixelPosition = hitProgress < 1f / 3f
                     ? new Vector2(380f, 950f)
                     : new Vector2(590f, 1190f);
                 break;
 
             case 1:
-                // Ã¹ 0.05ÃÊ´Â ÇÒÄû±â, ÀÌÈÄ¿¡´Â ¹İ´ë¼Õ ¿Ã·ÁÄ¡±â´Ù.
+                // ì²« 0.05ì´ˆëŠ” í• í€´ê¸°, ì´í›„ì—ëŠ” ë°˜ëŒ€ì† ì˜¬ë ¤ì¹˜ê¸°ë‹¤.
                 pixelPosition = hitProgress < 1f / 3f
                     ? new Vector2(660f, 1080f)
                     : new Vector2(500f, 700f);
                 break;
 
             case 2:
-                // Ã¹ 0.05ÃÊ´Â ³»·ÁÂï´Â Áß°£ ÀÚ¼¼, ÀÌÈÄ¿¡´Â Á¢ÃË ÀÚ¼¼´Ù.
+                // ì²« 0.05ì´ˆëŠ” ë‚´ë ¤ì°ëŠ” ì¤‘ê°„ ìì„¸, ì´í›„ì—ëŠ” ì ‘ì´‰ ìì„¸ë‹¤.
                 pixelPosition = hitProgress < 0.25f
                     ? new Vector2(640f, 1150f)
                     : new Vector2(620f, 1490f);
@@ -67,7 +67,7 @@ public sealed class BossAlienComboPattern : BossPattern
                 throw new ArgumentOutOfRangeException(nameof(strikeIndex));
         }
 
-        // ÀÌ¹ÌÁö ¿ŞÂÊ À§ ±âÁØ ÁÂÇ¥¸¦ Áß¾Ó Pivot, PPU 100 ±âÁØÀ¸·Î º¯È¯ÇÑ´Ù.
+        // ì´ë¯¸ì§€ ì™¼ìª½ ìœ„ ê¸°ì¤€ ì¢Œí‘œë¥¼ ì¤‘ì•™ Pivot, PPU 100 ê¸°ì¤€ìœ¼ë¡œ ë³€í™˜í•œë‹¤.
         return new Vector2(
             (pixelPosition.x - 1024f) / 100f,
             (1024f - pixelPosition.y) / 100f);
@@ -75,13 +75,13 @@ public sealed class BossAlienComboPattern : BossPattern
 
     public override IEnumerator Execute(BossPatternContext context)
     {
-        // º»Ã¼ Àü¿ë ÆĞÅÏÀÌ¸ç ½ÇÇà Àü¿¡ ¼³Á¤À» °Ë»çÇÑ´Ù.
+        // ë³¸ì²´ ì „ìš© íŒ¨í„´ì´ë©° ì‹¤í–‰ ì „ì— ì„¤ì •ì„ ê²€ì‚¬í•œë‹¤.
         Boss_AlienBody boss = context.Boss as Boss_AlienBody;
 
         if (boss == null)
         {
             throw new InvalidOperationException(
-                $"{name}: Boss_AlienBody Àü¿ë ÆĞÅÏÀÔ´Ï´Ù.");
+                $"{name}: Boss_AlienBody ì „ìš© íŒ¨í„´ì…ë‹ˆë‹¤.");
         }
 
         ValidateConfig();
@@ -98,22 +98,22 @@ public sealed class BossAlienComboPattern : BossPattern
         if (visual == null || renderer == null)
         {
             throw new MissingComponentException(
-                $"{name}: BodyVisualÀÇ Ç¥Çö ÄÄÆ÷³ÍÆ®¸¦ È®ÀÎÇÏ¼¼¿ä.");
+                $"{name}: BodyVisualì˜ í‘œí˜„ ì»´í¬ë„ŒíŠ¸ë¥¼ í™•ì¸í•˜ì„¸ìš”.");
         }
 
-        // ½ÇÇà »óÅÂ´Â °øÀ¯ ¼³Á¤ ¿¡¼Â¿¡ ÀúÀåÇÏÁö ¾Ê´Â´Ù.
+        // ì‹¤í–‰ ìƒíƒœëŠ” ê³µìœ  ì„¤ì • ì—ì…‹ì— ì €ì¥í•˜ì§€ ì•ŠëŠ”ë‹¤.
         BossAlienComboWarning warning = null;
-        // ÇöÀç Å¸°İÀÇ È¿°ú¸¦ º¸°üÇÏ¿© Á¤»ó Á¾·á¿Í Áß´Ü ½Ã Á¦°ÅÇÑ´Ù.
+        // í˜„ì¬ íƒ€ê²©ì˜ íš¨ê³¼ë¥¼ ë³´ê´€í•˜ì—¬ ì •ìƒ ì¢…ë£Œì™€ ì¤‘ë‹¨ ì‹œ ì œê±°í•œë‹¤.
         BossAlienComboEffect effect = null;
         bool beganAction = false;
         bool originalFlipX = renderer.flipX;
 
-        // ÇÃ·¹ÀÌ¾î¿Í À§Ä¡°¡ °ãÄ¡¸é ¸¶Áö¸· À¯È¿ÇÑ ¹æÇâÀ» »ç¿ëÇÑ´Ù.
+        // í”Œë ˆì´ì–´ì™€ ìœ„ì¹˜ê°€ ê²¹ì¹˜ë©´ ë§ˆì§€ë§‰ ìœ íš¨í•œ ë°©í–¥ì„ ì‚¬ìš©í•œë‹¤.
         Vector2 direction = originalFlipX ? Vector2.right : Vector2.left;
 
         try
         {
-            // ÃßÀû ÀÌµ¿µµ º¸½º ·çÆ®°¡ ÀüÅõ ¿µ¿ª ¹ÛÀ¸·Î ³ª°¡Áö ¾Ê°Ô ÇÑ´Ù.
+            // ì¶”ì  ì´ë™ë„ ë³´ìŠ¤ ë£¨íŠ¸ê°€ ì „íˆ¬ ì˜ì—­ ë°–ìœ¼ë¡œ ë‚˜ê°€ì§€ ì•Šê²Œ í•œë‹¤.
             Rect area = boss.GetBattleArea();
             float padding = _config.WallPadding;
 
@@ -121,43 +121,43 @@ public sealed class BossAlienComboPattern : BossPattern
                 area.height < padding * 2f)
             {
                 throw new InvalidOperationException(
-                    $"{name}: ÀüÅõ ¿µ¿ª¿¡ ºñÇØ Wall PaddingÀÌ Å®´Ï´Ù.");
+                    $"{name}: ì „íˆ¬ ì˜ì—­ì— ë¹„í•´ Wall Paddingì´ í½ë‹ˆë‹¤.");
             }
 
-            // °¢ ÃßÀû¿¡¼­ ¹°¸® ÀÌµ¿ÀÌ ¹İ¿µµÈ µÚ ÇöÀç °Å¸®¸¦ È®ÀÎÇÑ´Ù.
+            // ê° ì¶”ì ì—ì„œ ë¬¼ë¦¬ ì´ë™ì´ ë°˜ì˜ëœ ë’¤ í˜„ì¬ ê±°ë¦¬ë¥¼ í™•ì¸í•œë‹¤.
             WaitForFixedUpdate waitForPhysics = new WaitForFixedUpdate();
 
-            // ÇöÀç 3¿¬°İ °ø°İ Å¬¸³ÀÇ ÀüÃ¼ ±æÀÌ´Ù.
+            // í˜„ì¬ 3ì—°ê²© ê³µê²© í´ë¦½ì˜ ì „ì²´ ê¸¸ì´ë‹¤.
             const float comboClipDuration = 69f / 20f;
 
-            // ÀüÃ¼ °ø°İ Å¬¸³¿¡¼­ ÀÌ¹ø Å¸°İÀÇ ÁØºñ µ¿ÀÛÀÌ ½ÃÀÛµÇ´Â ½Ã°¢ÀÌ´Ù.
-            // ÃßÀû ½Ã°£Àº °ø°İ Å¬¸³ ½Ã°£¿¡ Æ÷ÇÔÇÏÁö ¾Ê´Â´Ù.
+            // ì „ì²´ ê³µê²© í´ë¦½ì—ì„œ ì´ë²ˆ íƒ€ê²©ì˜ ì¤€ë¹„ ë™ì‘ì´ ì‹œì‘ë˜ëŠ” ì‹œê°ì´ë‹¤.
+            // ì¶”ì  ì‹œê°„ì€ ê³µê²© í´ë¦½ ì‹œê°„ì— í¬í•¨í•˜ì§€ ì•ŠëŠ”ë‹¤.
             float strikeStartTime = 0f;
 
-            // °¢ Å¸°İÀº º°µµÀÇ °æ°í¿Í ÇÇÇØ ±â·ÏÀ» »ç¿ëÇÑ´Ù.
+            // ê° íƒ€ê²©ì€ ë³„ë„ì˜ ê²½ê³ ì™€ í”¼í•´ ê¸°ë¡ì„ ì‚¬ìš©í•œë‹¤.
             for (int i = 0; i < _config.StrikeCount; i++)
             {
-                // ÀüÅõ°¡ Á¾·áµÆ´Ù¸é ´ÙÀ½ Å¸°İÀ» ½ÃÀÛÇÏÁö ¾Ê´Â´Ù.
+                // ì „íˆ¬ê°€ ì¢…ë£Œëë‹¤ë©´ ë‹¤ìŒ íƒ€ê²©ì„ ì‹œì‘í•˜ì§€ ì•ŠëŠ”ë‹¤.
                 if (!CanContinue(boss))
                     yield break;
 
-                // ÀÌ¹ø Å¸°İÀÇ ÀÌµ¿ ¼Óµµ, ´Ş¸®±â ¹è¼Ó, °ø°İ ¼³Á¤À» °¡Á®¿Â´Ù.
+                // ì´ë²ˆ íƒ€ê²©ì˜ ì´ë™ ì†ë„, ë‹¬ë¦¬ê¸° ë°°ì†, ê³µê²© ì„¤ì •ì„ ê°€ì ¸ì˜¨ë‹¤.
                 BossAlienComboConfig.StrikeSettings strike =
                     _config.GetStrike(i);
 
-                // Ã¹ Å¸°İ»Ó ¾Æ´Ï¶ó µÎ ¹øÂ°¿Í ¼¼ ¹øÂ° Å¸°İµµ ÃßÀûÀ¸·Î ½ÃÀÛÇÑ´Ù.
+                // ì²« íƒ€ê²©ë¿ ì•„ë‹ˆë¼ ë‘ ë²ˆì§¸ì™€ ì„¸ ë²ˆì§¸ íƒ€ê²©ë„ ì¶”ì ìœ¼ë¡œ ì‹œì‘í•œë‹¤.
                 if (!visual.BeginComboChase(strike.ChaseAnimationSpeed))
                     yield break;
 
-                // Áß°£¿¡ Á¾·áµÇ´õ¶óµµ finally¿¡¼­ ¾Ö´Ï¸ŞÀÌ¼ÇÀ» Á¤¸®ÇÑ´Ù.
+                // ì¤‘ê°„ì— ì¢…ë£Œë˜ë”ë¼ë„ finallyì—ì„œ ì• ë‹ˆë©”ì´ì…˜ì„ ì •ë¦¬í•œë‹¤.
                 beganAction = true;
 
-                // ÃßÀû Á¦ÇÑ ½Ã°£Àº Å¸°İ¸¶´Ù »õ·Î °è»êÇÑ´Ù.
+                // ì¶”ì  ì œí•œ ì‹œê°„ì€ íƒ€ê²©ë§ˆë‹¤ ìƒˆë¡œ ê³„ì‚°í•œë‹¤.
                 float chaseElapsed = 0f;
 
                 while (true)
                 {
-                    // ÀÌÀü MovePositionÀÌ ¹°¸®¿¡ ¹İ¿µµÈ À§Ä¡¿¡¼­ ÆÇ´ÜÇÑ´Ù.
+                    // ì´ì „ MovePositionì´ ë¬¼ë¦¬ì— ë°˜ì˜ëœ ìœ„ì¹˜ì—ì„œ íŒë‹¨í•œë‹¤.
                     yield return waitForPhysics;
 
                     if (!CanContinue(boss))
@@ -169,33 +169,33 @@ public sealed class BossAlienComboPattern : BossPattern
 
                     float distance = delta.magnitude;
 
-                    // ¸Å ¹°¸® ÁÖ±â¸¶´Ù ÇöÀç ÇÃ·¹ÀÌ¾î À§Ä¡¸¦ ÇâÇØ ÃßÀûÇÑ´Ù.
-                    // À§Ä¡°¡ °ãÄ¡¸é ¸¶Áö¸·À¸·Î »ç¿ëÇÑ ¹æÇâÀ» À¯ÁöÇÑ´Ù.
+                    // ë§¤ ë¬¼ë¦¬ ì£¼ê¸°ë§ˆë‹¤ í˜„ì¬ í”Œë ˆì´ì–´ ìœ„ì¹˜ë¥¼ í–¥í•´ ì¶”ì í•œë‹¤.
+                    // ìœ„ì¹˜ê°€ ê²¹ì¹˜ë©´ ë§ˆì§€ë§‰ìœ¼ë¡œ ì‚¬ìš©í•œ ë°©í–¥ì„ ìœ ì§€í•œë‹¤.
                     if (delta.sqrMagnitude > 0.0001f)
                     {
                         direction = delta.normalized;
                         FaceDirection(renderer, direction);
                     }
 
-                    // R °Å¸® ¾È¿¡ ½ÇÁ¦·Î Á¢±ÙÇßÀ» ¶§¸¸ °ø°İ ÁØºñ·Î ³Ñ¾î°£´Ù.
-                    // ÀÛÀº Çã¿ë ¿ÀÂ÷·Î °Å¸® °æ°è¿¡¼­ÀÇ ¼Ò¼öÁ¡ ¿ÀÂ÷¸¦ Ã³¸®ÇÑ´Ù.
+                    // R ê±°ë¦¬ ì•ˆì— ì‹¤ì œë¡œ ì ‘ê·¼í–ˆì„ ë•Œë§Œ ê³µê²© ì¤€ë¹„ë¡œ ë„˜ì–´ê°„ë‹¤.
+                    // ì‘ì€ í—ˆìš© ì˜¤ì°¨ë¡œ ê±°ë¦¬ ê²½ê³„ì—ì„œì˜ ì†Œìˆ˜ì  ì˜¤ì°¨ë¥¼ ì²˜ë¦¬í•œë‹¤.
                     if (distance <= _config.StopDistance + 0.001f)
                         break;
 
-                    // Á¦ÇÑ ½Ã°£ µ¿¾È Á¢±ÙÇÏÁö ¸øÇß´Ù¸é ÄŞº¸¸¦ Á¾·áÇÑ´Ù.
-                    // ¸Ö¸® ¶³¾îÁø »óÅÂ¿¡¼­ Çã°øÀ» °ø°İÇÏÁö ¾Ê´Â´Ù.
+                    // ì œí•œ ì‹œê°„ ë™ì•ˆ ì ‘ê·¼í•˜ì§€ ëª»í–ˆë‹¤ë©´ ì½¤ë³´ë¥¼ ì¢…ë£Œí•œë‹¤.
+                    // ë©€ë¦¬ ë–¨ì–´ì§„ ìƒíƒœì—ì„œ í—ˆê³µì„ ê³µê²©í•˜ì§€ ì•ŠëŠ”ë‹¤.
                     if (chaseElapsed >= _config.MaxChaseDuration)
                         yield break;
 
-                    // °¢ Å¸°İ¿¡ ¼³Á¤ÇÑ N, M, Z ¼Óµµ·Î ÀÌµ¿ÇÑ´Ù.
-                    // ÀÌ¹ø ÀÌµ¿À¸·Î R °Å¸®º¸´Ù ¾ÈÂÊ±îÁö Áö³ªÄ¡Áö ¾Ê°Ô Á¦ÇÑÇÑ´Ù.
+                    // ê° íƒ€ê²©ì— ì„¤ì •í•œ N, M, Z ì†ë„ë¡œ ì´ë™í•œë‹¤.
+                    // ì´ë²ˆ ì´ë™ìœ¼ë¡œ R ê±°ë¦¬ë³´ë‹¤ ì•ˆìª½ê¹Œì§€ ì§€ë‚˜ì¹˜ì§€ ì•Šê²Œ ì œí•œí•œë‹¤.
                     float travel = Mathf.Min(
                         strike.ChaseSpeed * Time.fixedDeltaTime,
                         distance - _config.StopDistance);
 
                     Vector2 next = position + direction * travel;
 
-                    // º¸½º ·çÆ®°¡ ÀüÅõ ¿µ¿ª ¹ÛÀ¸·Î ³ª°¡Áö ¾Ê°Ô Á¦ÇÑÇÑ´Ù.
+                    // ë³´ìŠ¤ ë£¨íŠ¸ê°€ ì „íˆ¬ ì˜ì—­ ë°–ìœ¼ë¡œ ë‚˜ê°€ì§€ ì•Šê²Œ ì œí•œí•œë‹¤.
                     next.x = Mathf.Clamp(
                         next.x,
                         area.xMin + padding,
@@ -210,15 +210,15 @@ public sealed class BossAlienComboPattern : BossPattern
                     chaseElapsed += Time.fixedDeltaTime;
                 }
 
-                // Á¢±Ù ¿Ï·á ÈÄ¿¡´Â Á¦ÀÚ¸®¿¡¼­ °æ°í¿Í °ø°İ µ¿ÀÛÀ» ÁøÇàÇÑ´Ù.
+                // ì ‘ê·¼ ì™„ë£Œ í›„ì—ëŠ” ì œìë¦¬ì—ì„œ ê²½ê³ ì™€ ê³µê²© ë™ì‘ì„ ì§„í–‰í•œë‹¤.
                 context.Rigidbody.linearVelocity = Vector2.zero;
 
-                // ÀÌ¹ø Å¸°İÀÇ ½ÃÀÛ À§Ä¡¸¦ ¸ÕÀú º¸°üÇÑ´Ù.
-                // ´ÙÀ½ Å¸°İ ½Ã°£À» °è»êÇÑ µÚ¿¡µµ ÀÌ °ªÀ¸·Î ¿Ã¹Ù¸¥ ÀÚ¼¼¸¦ Àç»ıÇÑ´Ù.
+                // ì´ë²ˆ íƒ€ê²©ì˜ ì‹œì‘ ìœ„ì¹˜ë¥¼ ë¨¼ì € ë³´ê´€í•œë‹¤.
+                // ë‹¤ìŒ íƒ€ê²© ì‹œê°„ì„ ê³„ì‚°í•œ ë’¤ì—ë„ ì´ ê°’ìœ¼ë¡œ ì˜¬ë°”ë¥¸ ìì„¸ë¥¼ ì¬ìƒí•œë‹¤.
                 float attackClipStart = strikeStartTime / comboClipDuration;
 
-                // ±âÁ¸ °ø°İ Å¬¸³ÀÇ ÁØºñ¡¤Å¸°İ¡¤È¸º¹ ½ÃÁ¡À» À¯ÁöÇÑ´Ù.
-                // ÀÌÁ¦ ÁØºñ ½Ã°£ µ¿¾È¿¡´Â ÀÌµ¿ÇÏ°Å³ª ÀçÁ¶ÁØÇÏÁö ¾Ê´Â´Ù.
+                // ê¸°ì¡´ ê³µê²© í´ë¦½ì˜ ì¤€ë¹„Â·íƒ€ê²©Â·íšŒë³µ ì‹œì ì„ ìœ ì§€í•œë‹¤.
+                // ì´ì œ ì¤€ë¹„ ì‹œê°„ ë™ì•ˆì—ëŠ” ì´ë™í•˜ê±°ë‚˜ ì¬ì¡°ì¤€í•˜ì§€ ì•ŠëŠ”ë‹¤.
                 float attackStartTime =
                     strikeStartTime + strike.AimDuration + strike.LockDuration;
 
@@ -228,26 +228,26 @@ public sealed class BossAlienComboPattern : BossPattern
                 float recoveryEndTime =
                     attackEndTime + strike.RecoveryDuration;
 
-                // ´ÙÀ½ ¹İº¹¿¡¼­ »ç¿ëÇÒ ´ÙÀ½ Å¸°İÀÇ ½ÃÀÛ ½Ã°¢ÀÌ´Ù.
+                // ë‹¤ìŒ ë°˜ë³µì—ì„œ ì‚¬ìš©í•  ë‹¤ìŒ íƒ€ê²©ì˜ ì‹œì‘ ì‹œê°ì´ë‹¤.
                 strikeStartTime = recoveryEndTime;
 
-                // 1Å¸´Â 1Å¸ ÁØºñ, 2Å¸´Â 2Å¸ ÁØºñ, 3Å¸´Â 3Å¸ ÁØºñºÎÅÍ Àç»ıÇÑ´Ù.
+                // 1íƒ€ëŠ” 1íƒ€ ì¤€ë¹„, 2íƒ€ëŠ” 2íƒ€ ì¤€ë¹„, 3íƒ€ëŠ” 3íƒ€ ì¤€ë¹„ë¶€í„° ì¬ìƒí•œë‹¤.
                 if (!visual.PlayComboAttack(attackClipStart))
                     yield break;
 
-                // Á¢±Ù ¿Ï·á ½ÃÁ¡ÀÇ ÇÃ·¹ÀÌ¾î À§Ä¡¸¦ ÀÌ¹ø °ø°İ Áß½ÉÀ¸·Î °íÁ¤ÇÑ´Ù.
-                // °æ°í ÀÌÈÄ ÇÃ·¹ÀÌ¾î°¡ ÀÌµ¿ÇØµµ ´Ù½Ã µû¶ó°¡Áö ¾Ê´Â´Ù.
+                // ì ‘ê·¼ ì™„ë£Œ ì‹œì ì˜ í”Œë ˆì´ì–´ ìœ„ì¹˜ë¥¼ ì´ë²ˆ ê³µê²© ì¤‘ì‹¬ìœ¼ë¡œ ê³ ì •í•œë‹¤.
+                // ê²½ê³  ì´í›„ í”Œë ˆì´ì–´ê°€ ì´ë™í•´ë„ ë‹¤ì‹œ ë”°ë¼ê°€ì§€ ì•ŠëŠ”ë‹¤.
                 Vector2 center = context.TargetPlayer.transform.position;
 
-                // º»Ã¼¿Í °°Àº È¸Àü ±âÁØÀ¸·Î »ç°¢Çü °æ°í¸¦ Ç¥½ÃÇÑ´Ù.
+                // ë³¸ì²´ì™€ ê°™ì€ íšŒì „ ê¸°ì¤€ìœ¼ë¡œ ì‚¬ê°í˜• ê²½ê³ ë¥¼ í‘œì‹œí•œë‹¤.
                 float angle = context.VisualTransform.eulerAngles.z;
 
-                // °æ°í¿Í ½ÇÁ¦ ÇÇÇØ ÆÇÁ¤ÀÌ µ¿ÀÏÇÑ °íÁ¤ ÁÂÇ¥¸¦ »ç¿ëÇÑ´Ù.
+                // ê²½ê³ ì™€ ì‹¤ì œ í”¼í•´ íŒì •ì´ ë™ì¼í•œ ê³ ì • ì¢Œí‘œë¥¼ ì‚¬ìš©í•œë‹¤.
                 warning = UnityEngine.Object.Instantiate(_warningPrefab);
                 warning.Initialize(boss, center, strike.HitboxSize, angle);
                 warning.LockAim();
 
-                // ¹æÇâÀ» °íÁ¤ÇÑ Ã¤ ½ÇÁ¦ °ø°İ ÀÌ¹ÌÁö°¡ ½ÃÀÛµÇ´Â ½ÃÁ¡±îÁö ±â´Ù¸°´Ù.
+                // ë°©í–¥ì„ ê³ ì •í•œ ì±„ ì‹¤ì œ ê³µê²© ì´ë¯¸ì§€ê°€ ì‹œì‘ë˜ëŠ” ì‹œì ê¹Œì§€ ê¸°ë‹¤ë¦°ë‹¤.
                 while (true)
                 {
                     if (!CanContinue(boss) || warning == null)
@@ -261,7 +261,7 @@ public sealed class BossAlienComboPattern : BossPattern
                     if (animationTime >= attackStartTime)
                         break;
 
-                    // ÀÌ ±¸°£¿¡¼­´Â ¹æÇâ°ú °æ°í À§Ä¡¸¦ °»½ÅÇÏÁö ¾Ê´Â´Ù.
+                    // ì´ êµ¬ê°„ì—ì„œëŠ” ë°©í–¥ê³¼ ê²½ê³  ìœ„ì¹˜ë¥¼ ê°±ì‹ í•˜ì§€ ì•ŠëŠ”ë‹¤.
                     yield return null;
                 }
 
@@ -270,7 +270,7 @@ public sealed class BossAlienComboPattern : BossPattern
 
                 warning.ShowAttack();
 
-                // ÇöÀç Å¸°İ¿¡ »ç¿ëÇÒ ÀÌÆåÆ® ÀÌ¹ÌÁö ¸ñ·ÏÀ» ¼±ÅÃÇÑ´Ù.
+                // í˜„ì¬ íƒ€ê²©ì— ì‚¬ìš©í•  ì´í™íŠ¸ ì´ë¯¸ì§€ ëª©ë¡ì„ ì„ íƒí•œë‹¤.
                 Sprite[] effectFrames;
 
                 switch (i)
@@ -289,14 +289,16 @@ public sealed class BossAlienComboPattern : BossPattern
 
                     default:
                         throw new InvalidOperationException(
-                            $"{name}: »õ Combo ÀÌÆåÆ®´Â 3Å¸ ±¸¼ºÀÔ´Ï´Ù.");
+                            $"{name}: ìƒˆ Combo ì´í™íŠ¸ëŠ” 3íƒ€ êµ¬ì„±ì…ë‹ˆë‹¤.");
                 }
 
-                // Á¦ÀÛ ¹Ì¸®º¸±âÀÇ º»Ã¼ ´ëºñ ÀÌÆåÆ® Å©±â¸¦ Âü°íÇÑ ÃÊ±â ºñÀ²ÀÌ´Ù.
-                // º¸½ºÀÇ ½ÇÁ¦ ScaleÀº SetHandPose¿¡¼­ º°µµ·Î ¹İ¿µÇÑ´Ù.
+                // ì œì‘ ë¯¸ë¦¬ë³´ê¸°ì˜ ë³¸ì²´ ëŒ€ë¹„ ì´í™íŠ¸ í¬ê¸°ë¥¼ ì°¸ê³ í•œ ì´ˆê¸° ë¹„ìœ¨ì´ë‹¤.
+                // ë³´ìŠ¤ì˜ ì‹¤ì œ Scaleì€ SetHandPoseì—ì„œ ë³„ë„ë¡œ ë°˜ì˜í•œë‹¤.
+                // ê²½ê³ ê°€ ëë‚˜ê³  ì‹¤ì œ íƒ€ê²©ì´ ì‹œì‘ë  ë•Œ ì¢…ë¥˜ë³„ë¡œ ì„ íƒí•œë‹¤.
+                GameAudio.Play((GameSound)((int)GameSound.AlienP2Claw01 + i));
                 const float effectScaleRatio = 0.85f;
 
-                // »õ ÀÌÆåÆ®¸¦ ¸¸µé°í Ã¹ °ø°İ ÀÚ¼¼ÀÇ ¼Õ ¾Õ¿¡ ¹èÄ¡ÇÑ´Ù.
+                // ìƒˆ ì´í™íŠ¸ë¥¼ ë§Œë“¤ê³  ì²« ê³µê²© ìì„¸ì˜ ì† ì•ì— ë°°ì¹˜í•œë‹¤.
                 if (_effectPrefab != null)
                 {
                     effect = UnityEngine.Object.Instantiate(_effectPrefab);
@@ -309,7 +311,7 @@ public sealed class BossAlienComboPattern : BossPattern
                         renderer.flipY,
                         effectScaleRatio);
 
-                    // ¼Õµ¿ÀÛ À§Ä¡¸¦ ¼³Á¤ÇÑ Á÷ÈÄ, ÀÌ¹ø °æ°íÀÇ °íÁ¤ Áß½ÉÀ¸·Î º¸Á¤ÇÑ´Ù.
+                    // ì†ë™ì‘ ìœ„ì¹˜ë¥¼ ì„¤ì •í•œ ì§í›„, ì´ë²ˆ ê²½ê³ ì˜ ê³ ì • ì¤‘ì‹¬ìœ¼ë¡œ ë³´ì •í•œë‹¤.
                     AlignEffectToAttackCenter(
                         effect,
                         context.VisualTransform,
@@ -318,7 +320,7 @@ public sealed class BossAlienComboPattern : BossPattern
                         warning.Center);
                 }
 
-                // °æ°í°¡ È®Á¤ÇÑ ÁÂÇ¥, Å©±â, °¢µµ·Î ½ÇÁ¦ ÆÇÁ¤À» ¸¸µç´Ù.
+                // ê²½ê³ ê°€ í™•ì •í•œ ì¢Œí‘œ, í¬ê¸°, ê°ë„ë¡œ ì‹¤ì œ íŒì •ì„ ë§Œë“ ë‹¤.
                 BossAlienComboHitbox hitbox = new BossAlienComboHitbox(
                     context.TargetPlayer,
                     warning.Center,
@@ -326,7 +328,7 @@ public sealed class BossAlienComboPattern : BossPattern
                     warning.Angle,
                     strike.Damage);
 
-                // °ø°İ ÀÌ¹ÌÁö°¡ Àç»ıµÇ´Â ±¸°£¿¡¼­¸¸ ÇÇÇØ¸¦ °Ë»çÇÑ´Ù.
+                // ê³µê²© ì´ë¯¸ì§€ê°€ ì¬ìƒë˜ëŠ” êµ¬ê°„ì—ì„œë§Œ í”¼í•´ë¥¼ ê²€ì‚¬í•œë‹¤.
                 while (true)
                 {
                     if (!CanContinue(boss) || warning == null)
@@ -337,14 +339,14 @@ public sealed class BossAlienComboPattern : BossPattern
 
                     float animationTime = progress * comboClipDuration;
 
-                    // ¾Ö´Ï¸ŞÀÌ¼ÇÀÌ È¸¼ö µ¿ÀÛ¿¡ µé¾î°¡¸é ÇÇÇØ °Ë»ç¸¦ Á¾·áÇÑ´Ù.
+                    // ì• ë‹ˆë©”ì´ì…˜ì´ íšŒìˆ˜ ë™ì‘ì— ë“¤ì–´ê°€ë©´ í”¼í•´ ê²€ì‚¬ë¥¼ ì¢…ë£Œí•œë‹¤.
                     if (animationTime >= attackEndTime)
                         break;
 
-                    // ÀÏ½ÃÁ¤Áö Áß¿¡´Â ÇÇÇØ °Ë»ç¿Í È¿°ú ÁøÇàÀ» ¸ØÃá´Ù.
+                    // ì¼ì‹œì •ì§€ ì¤‘ì—ëŠ” í”¼í•´ ê²€ì‚¬ì™€ íš¨ê³¼ ì§„í–‰ì„ ë©ˆì¶˜ë‹¤.
                     if (Time.deltaTime > 0f)
                     {
-                        // ÀÌ¹ø Å¸°İÀÇ °ø°İ ±¸°£ ¾È¿¡¼­ ÁøÇà·üÀ» °è»êÇÑ´Ù.
+                        // ì´ë²ˆ íƒ€ê²©ì˜ ê³µê²© êµ¬ê°„ ì•ˆì—ì„œ ì§„í–‰ë¥ ì„ ê³„ì‚°í•œë‹¤.
                         float hitProgress = Mathf.InverseLerp(
                             attackStartTime,
                             attackEndTime,
@@ -352,12 +354,12 @@ public sealed class BossAlienComboPattern : BossPattern
 
                         if (effect != null)
                         {
-                            // °ø°İ ÁøÇà·ü¿¡ ¸Â´Â ¼Õ À§Ä¡¸¦ ¼±ÅÃÇÑ´Ù.
+                            // ê³µê²© ì§„í–‰ë¥ ì— ë§ëŠ” ì† ìœ„ì¹˜ë¥¼ ì„ íƒí•œë‹¤.
                             Vector2 handLocal =
                                 GetComboHandLocalPosition(i, hitProgress);
 
-                            // º»Ã¼ÀÇ ¼Õµ¿ÀÛ°ú ÁÂ¿ì ¹İÀüÀ» µû¶ó ÀÌÆåÆ®¸¦ ¹èÄ¡ÇÑ´Ù.
-                            // ÇÃ·¹ÀÌ¾î À§Ä¡¸¦ ´Ù½Ã Á¶ÁØÇÏ´Â Ã³¸®´Â ÇÏÁö ¾Ê´Â´Ù.
+                            // ë³¸ì²´ì˜ ì†ë™ì‘ê³¼ ì¢Œìš° ë°˜ì „ì„ ë”°ë¼ ì´í™íŠ¸ë¥¼ ë°°ì¹˜í•œë‹¤.
+                            // í”Œë ˆì´ì–´ ìœ„ì¹˜ë¥¼ ë‹¤ì‹œ ì¡°ì¤€í•˜ëŠ” ì²˜ë¦¬ëŠ” í•˜ì§€ ì•ŠëŠ”ë‹¤.
                             effect.SetHandPose(
                                 context.VisualTransform,
                                 handLocal,
@@ -365,7 +367,7 @@ public sealed class BossAlienComboPattern : BossPattern
                                 renderer.flipY,
                                 effectScaleRatio);
 
-                            // ¼Õµ¿ÀÛ À§Ä¡¸¦ ¼³Á¤ÇÑ Á÷ÈÄ, ÀÌ¹ø °æ°íÀÇ °íÁ¤ Áß½ÉÀ¸·Î º¸Á¤ÇÑ´Ù.
+                            // ì†ë™ì‘ ìœ„ì¹˜ë¥¼ ì„¤ì •í•œ ì§í›„, ì´ë²ˆ ê²½ê³ ì˜ ê³ ì • ì¤‘ì‹¬ìœ¼ë¡œ ë³´ì •í•œë‹¤.
                             AlignEffectToAttackCenter(
                                 effect,
                                 context.VisualTransform,
@@ -373,11 +375,11 @@ public sealed class BossAlienComboPattern : BossPattern
                                 i,
                                 warning.Center);
 
-                            // °°Àº ÁøÇà·ü·Î ÀÌÆåÆ® ÀÌ¹ÌÁöµµ ±³Ã¼ÇÑ´Ù.
+                            // ê°™ì€ ì§„í–‰ë¥ ë¡œ ì´í™íŠ¸ ì´ë¯¸ì§€ë„ êµì²´í•œë‹¤.
                             effect.SetProgress(hitProgress);
                         }
 
-                        // ±âÁ¸ Hitbox°¡ °°Àº Å¸°İÀÇ Áßº¹ ÇÇÇØ¸¦ ¸·´Â´Ù.
+                        // ê¸°ì¡´ Hitboxê°€ ê°™ì€ íƒ€ê²©ì˜ ì¤‘ë³µ í”¼í•´ë¥¼ ë§‰ëŠ”ë‹¤.
                         hitbox.Tick();
                     }
 
@@ -387,18 +389,18 @@ public sealed class BossAlienComboPattern : BossPattern
                 if (!CanContinue(boss) || warning == null)
                     yield break;
 
-                // °ø°İ ±¸°£ÀÌ ³¡³ª¸é ¹üÀ§ Ç¥½Ã¿Í ÇÇÇØ °Ë»ç¸¦ Á¾·áÇÑ´Ù.
+                // ê³µê²© êµ¬ê°„ì´ ëë‚˜ë©´ ë²”ìœ„ í‘œì‹œì™€ í”¼í•´ ê²€ì‚¬ë¥¼ ì¢…ë£Œí•œë‹¤.
                 warning.Remove();
                 warning = null;
-                // ÀÌ¹ø Å¸°İÀÇ È¿°ú¸¦ Áö¿ì°í ´ÙÀ½ Å¸°İÀ» ÁØºñÇÑ´Ù.
+                // ì´ë²ˆ íƒ€ê²©ì˜ íš¨ê³¼ë¥¼ ì§€ìš°ê³  ë‹¤ìŒ íƒ€ê²©ì„ ì¤€ë¹„í•œë‹¤.
                 if (effect != null)
                 {
                     effect.Remove();
                     effect = null;
                 }
 
-                // È¸¼ö µ¿ÀÛÀÌ ³¡³ª´Â ¾Ö´Ï¸ŞÀÌ¼Ç ½ÃÁ¡±îÁö ±â´Ù¸°´Ù.
-                // È¸¼ö Áß¿¡´Â °ø°İ ¹æÇâÀ» °»½ÅÇÏÁö ¾Ê´Â´Ù.
+                // íšŒìˆ˜ ë™ì‘ì´ ëë‚˜ëŠ” ì• ë‹ˆë©”ì´ì…˜ ì‹œì ê¹Œì§€ ê¸°ë‹¤ë¦°ë‹¤.
+                // íšŒìˆ˜ ì¤‘ì—ëŠ” ê³µê²© ë°©í–¥ì„ ê°±ì‹ í•˜ì§€ ì•ŠëŠ”ë‹¤.
                 while (true)
                 {
                     if (!CanContinue(boss))
@@ -409,8 +411,8 @@ public sealed class BossAlienComboPattern : BossPattern
 
                     float animationTime = progress * comboClipDuration;
 
-                    // Å¬¸³ Á¾·áµµ ÇÔ²² È®ÀÎÇØ ¸¶Áö¸· Å¸°İÀÇ ¼Ò¼öÁ¡ ¿ÀÂ÷·Î
-                    // È¸¼ö ´ë±â°¡ ³¡³ªÁö ¾Ê´Â »óÈ²À» ¹æÁöÇÑ´Ù.
+                    // í´ë¦½ ì¢…ë£Œë„ í•¨ê»˜ í™•ì¸í•´ ë§ˆì§€ë§‰ íƒ€ê²©ì˜ ì†Œìˆ˜ì  ì˜¤ì°¨ë¡œ
+                    // íšŒìˆ˜ ëŒ€ê¸°ê°€ ëë‚˜ì§€ ì•ŠëŠ” ìƒí™©ì„ ë°©ì§€í•œë‹¤.
                     if (progress >= 1f || animationTime >= recoveryEndTime)
                         break;
 
@@ -421,32 +423,32 @@ public sealed class BossAlienComboPattern : BossPattern
 
         finally
         {
-            // °ø°İ µµÁß »ç¸ÁÇÏ°Å³ª ºñÈ°¼ºÈ­µÅµµ È¿°ú°¡ ³²Áö ¾Ê°Ô ÇÑ´Ù.
+            // ê³µê²© ë„ì¤‘ ì‚¬ë§í•˜ê±°ë‚˜ ë¹„í™œì„±í™”ë¼ë„ íš¨ê³¼ê°€ ë‚¨ì§€ ì•Šê²Œ í•œë‹¤.
             if (effect != null)
             {
                 effect.Remove();
                 effect = null;
             }
 
-            // Á¤»ó Á¾·á, »ç¸Á, ÆĞÅÏ Ãë¼Ò ¸ğµÎ ³²Àº °æ°í¸¦ Á¦°ÅÇÑ´Ù.
+            // ì •ìƒ ì¢…ë£Œ, ì‚¬ë§, íŒ¨í„´ ì·¨ì†Œ ëª¨ë‘ ë‚¨ì€ ê²½ê³ ë¥¼ ì œê±°í•œë‹¤.
             if (warning != null)
             {
                 warning.Remove();
             }
 
-            // ÃßÀû ÀÌµ¿ÀÇ ¼Óµµ°¡ ³²Áö ¾Ê°Ô ÇÑ´Ù.
+            // ì¶”ì  ì´ë™ì˜ ì†ë„ê°€ ë‚¨ì§€ ì•Šê²Œ í•œë‹¤.
             if (context.Rigidbody != null)
             {
                 context.Rigidbody.linearVelocity = Vector2.zero;
             }
 
-            // ÆĞÅÏ ÁøÀÔ ÀüÀÇ ÁÂ¿ì Ç¥½Ã »óÅÂ¸¦ º¹¿øÇÑ´Ù.
+            // íŒ¨í„´ ì§„ì… ì „ì˜ ì¢Œìš° í‘œì‹œ ìƒíƒœë¥¼ ë³µì›í•œë‹¤.
             if (renderer != null)
             {
                 renderer.flipX = originalFlipX;
             }
 
-            // »ì¾Æ ÀÖ´Â °æ¿ì Idle·Î º¹±ÍÇÏ°í, »ç¸Á ¿¬ÃâÀº µ¤¾î¾²Áö ¾Ê´Â´Ù.
+            // ì‚´ì•„ ìˆëŠ” ê²½ìš° Idleë¡œ ë³µê·€í•˜ê³ , ì‚¬ë§ ì—°ì¶œì€ ë®ì–´ì“°ì§€ ì•ŠëŠ”ë‹¤.
             if (beganAction && visual != null)
             {
                 visual.EndAction();
@@ -454,8 +456,8 @@ public sealed class BossAlienComboPattern : BossPattern
         }
     }
 
-    // ±âÁ¸ ÀÌÆåÆ®ÀÇ ÈÖµÎ¸£´Â ¿òÁ÷ÀÓÀº À¯ÁöÇÏ¸é¼­,
-    // ±× ¿òÁ÷ÀÓÀÇ ±âÁØ Áß½ÉÀ» °íÁ¤µÈ °ø°İ Áß½ÉÀ¸·Î ¿Å±ä´Ù.
+    // ê¸°ì¡´ ì´í™íŠ¸ì˜ íœ˜ë‘ë¥´ëŠ” ì›€ì§ì„ì€ ìœ ì§€í•˜ë©´ì„œ,
+    // ê·¸ ì›€ì§ì„ì˜ ê¸°ì¤€ ì¤‘ì‹¬ì„ ê³ ì •ëœ ê³µê²© ì¤‘ì‹¬ìœ¼ë¡œ ì˜®ê¸´ë‹¤.
     private static void AlignEffectToAttackCenter(
         BossAlienComboEffect effect,
         Transform bodyVisual,
@@ -463,19 +465,19 @@ public sealed class BossAlienComboPattern : BossPattern
         int strikeIndex,
         Vector2 attackCenter)
     {
-        // ±âÁ¸ ¼Õµ¿ÀÛÀÌ ±âÁØÀ¸·Î »ï´ø °ø°İ Áß½ÉÀÌ´Ù.
+        // ê¸°ì¡´ ì†ë™ì‘ì´ ê¸°ì¤€ìœ¼ë¡œ ì‚¼ë˜ ê³µê²© ì¤‘ì‹¬ì´ë‹¤.
         Vector2 originalCenter = GetComboAttackCenter(
             bodyVisual, renderer, strikeIndex);
 
-        // »õ °ø°İ Áß½É°ú ±âÁ¸ Áß½É »çÀÌÀÇ Â÷ÀÌ¸¸Å­ º¸Á¤ÇÑ´Ù.
+        // ìƒˆ ê³µê²© ì¤‘ì‹¬ê³¼ ê¸°ì¡´ ì¤‘ì‹¬ ì‚¬ì´ì˜ ì°¨ì´ë§Œí¼ ë³´ì •í•œë‹¤.
         Vector2 offset = attackCenter - originalCenter;
 
-        // SetHandPose Á÷ÈÄ È£ÃâÇØ¾ß À§Ä¡ º¸Á¤ÀÌ ¸Å¹ø ´©ÀûµÇÁö ¾Ê´Â´Ù.
+        // SetHandPose ì§í›„ í˜¸ì¶œí•´ì•¼ ìœ„ì¹˜ ë³´ì •ì´ ë§¤ë²ˆ ëˆ„ì ë˜ì§€ ì•ŠëŠ”ë‹¤.
         effect.transform.position +=
             new Vector3(offset.x, offset.y, 0f);
     }
 
-    // ÀÌ¹ø Å¸°İÀÇ ¼Õµ¿ÀÛ ½ÃÀÛÁ¡°ú ³¡Á¡ »çÀÌ¸¦ °æ°í¡¤ÇÇÇØ ¿µ¿ªÀÇ Áß½ÉÀ¸·Î »ç¿ëÇÑ´Ù.
+    // ì´ë²ˆ íƒ€ê²©ì˜ ì†ë™ì‘ ì‹œì‘ì ê³¼ ëì  ì‚¬ì´ë¥¼ ê²½ê³ Â·í”¼í•´ ì˜ì—­ì˜ ì¤‘ì‹¬ìœ¼ë¡œ ì‚¬ìš©í•œë‹¤.
     private static Vector2 GetComboAttackCenter(
         Transform bodyVisual,
         SpriteRenderer renderer,
@@ -484,23 +486,23 @@ public sealed class BossAlienComboPattern : BossPattern
         Vector2 startHand = GetComboHandLocalPosition(strikeIndex, 0f);
         Vector2 endHand = GetComboHandLocalPosition(strikeIndex, 1f);
 
-        // ¼Õµ¿ÀÛÀÇ Áß°£ À§Ä¡¿¡ ÀÌÆåÆ®¿Í µ¿ÀÏÇÑ ¾ÕÂÊ ¿©À¯ °Å¸®¸¦ Àû¿ëÇÑ´Ù.
+        // ì†ë™ì‘ì˜ ì¤‘ê°„ ìœ„ì¹˜ì— ì´í™íŠ¸ì™€ ë™ì¼í•œ ì•ìª½ ì—¬ìœ  ê±°ë¦¬ë¥¼ ì ìš©í•œë‹¤.
         Vector2 localCenter = (startHand + endHand) * 0.5f;
         localCenter.x -= 1.5f;
 
-        // º»Ã¼°¡ ¹İÀüµÇ¸é °æ°í¿Í ÇÇÇØ Áß½Éµµ ÇÔ²² ¹İÀüÇÑ´Ù.
+        // ë³¸ì²´ê°€ ë°˜ì „ë˜ë©´ ê²½ê³ ì™€ í”¼í•´ ì¤‘ì‹¬ë„ í•¨ê»˜ ë°˜ì „í•œë‹¤.
         if (renderer.flipX)
             localCenter.x = -localCenter.x;
 
         if (renderer.flipY)
             localCenter.y = -localCenter.y;
 
-        // º»Ã¼ À§Ä¡¿Í ScaleÀ» ¹İ¿µÇÑ ¿ùµå ÁÂÇ¥¸¦ ¹İÈ¯ÇÑ´Ù.
+        // ë³¸ì²´ ìœ„ì¹˜ì™€ Scaleì„ ë°˜ì˜í•œ ì›”ë“œ ì¢Œí‘œë¥¼ ë°˜í™˜í•œë‹¤.
         return bodyVisual.TransformPoint(
             new Vector3(localCenter.x, localCenter.y, 0f));
     }
 
-    // ÇÃ·¹ÀÌ¾î¿Í º¸½º°¡ °ãÄ¡¸é ÀÌÀü ¹æÇâÀ» À¯ÁöÇÑ´Ù.
+    // í”Œë ˆì´ì–´ì™€ ë³´ìŠ¤ê°€ ê²¹ì¹˜ë©´ ì´ì „ ë°©í–¥ì„ ìœ ì§€í•œë‹¤.
     private static Vector2 GetDirection(
         BossPatternContext context,
         Vector2 fallback)
@@ -513,8 +515,8 @@ public sealed class BossAlienComboPattern : BossPattern
             : fallback;
     }
 
-    // ÇöÀç ½ºÇÁ¶óÀÌÆ®ÀÇ ±âº» ¹æÇâÀº ¿ŞÂÊÀÌ´Ù.
-    // »óÇÏ °ø°İ¿¡¼­µµ Ä³¸¯ÅÍ¸¦ ´¯È÷Áö ¾Ê°í ÁÂ¿ì ¹İÀü¸¸ »ç¿ëÇÑ´Ù.
+    // í˜„ì¬ ìŠ¤í”„ë¼ì´íŠ¸ì˜ ê¸°ë³¸ ë°©í–¥ì€ ì™¼ìª½ì´ë‹¤.
+    // ìƒí•˜ ê³µê²©ì—ì„œë„ ìºë¦­í„°ë¥¼ ëˆ•íˆì§€ ì•Šê³  ì¢Œìš° ë°˜ì „ë§Œ ì‚¬ìš©í•œë‹¤.
     private static void FaceDirection(
         SpriteRenderer renderer,
         Vector2 direction)
@@ -525,39 +527,39 @@ public sealed class BossAlienComboPattern : BossPattern
         }
     }
 
-    // ÇÃ·¹ÀÌ¾î »ç¸Á°ú º»Ã¼ ºñÈ°¼ºÈ­¸¦ Æ÷ÇÔÇÑ ½ÇÇà Á¶°ÇÀÌ´Ù.
+    // í”Œë ˆì´ì–´ ì‚¬ë§ê³¼ ë³¸ì²´ ë¹„í™œì„±í™”ë¥¼ í¬í•¨í•œ ì‹¤í–‰ ì¡°ê±´ì´ë‹¤.
     private static bool CanContinue(Boss_AlienBody boss)
     {
         return boss != null && boss.CanRunPhaseTwoPattern;
     }
-    // °øÅë ¼³Á¤°ú °¢ Å¸°İÀÇ ¼³Á¤À» ½ÇÇà Àü¿¡ °Ë»çÇÑ´Ù.
+    // ê³µí†µ ì„¤ì •ê³¼ ê° íƒ€ê²©ì˜ ì„¤ì •ì„ ì‹¤í–‰ ì „ì— ê²€ì‚¬í•œë‹¤.
     private void ValidateConfig()
     {
-        // ÆĞÅÏ ½ÇÇà¿¡ ÇÊ¿äÇÑ ¿¡¼Â ¿¬°áÀ» È®ÀÎÇÑ´Ù.
+        // íŒ¨í„´ ì‹¤í–‰ì— í•„ìš”í•œ ì—ì…‹ ì—°ê²°ì„ í™•ì¸í•œë‹¤.
         if (_config == null || _warningPrefab == null)
         {
             throw new InvalidOperationException(
-                $"{name}: Config¿Í Warning PrefabÀ» ¿¬°áÇÏ¼¼¿ä.");
+                $"{name}: Configì™€ Warning Prefabì„ ì—°ê²°í•˜ì„¸ìš”.");
         }
 
-        // ÃßÀû ½Ã°£, Á¤Áö °Å¸®, º® ¿©¹éÀº °øÅë ¼³Á¤¿¡¼­ °Ë»çÇÑ´Ù.
-        // ÀÌµ¿ ¼Óµµ´Â Å¸°İº° ¼³Á¤À¸·Î ¿Å°åÀ¸¹Ç·Î ¿©±â¼­ °Ë»çÇÏÁö ¾Ê´Â´Ù.
+        // ì¶”ì  ì‹œê°„, ì •ì§€ ê±°ë¦¬, ë²½ ì—¬ë°±ì€ ê³µí†µ ì„¤ì •ì—ì„œ ê²€ì‚¬í•œë‹¤.
+        // ì´ë™ ì†ë„ëŠ” íƒ€ê²©ë³„ ì„¤ì •ìœ¼ë¡œ ì˜®ê²¼ìœ¼ë¯€ë¡œ ì—¬ê¸°ì„œ ê²€ì‚¬í•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (_config.StrikeCount != 3 ||
             !Valid(_config.MaxChaseDuration, 0.01f) ||
             !Valid(_config.StopDistance, 0f) ||
             !Valid(_config.WallPadding, 0f))
         {
             throw new InvalidOperationException(
-                $"{name}: ÃßÀû ¼³Á¤°ú Strikes 3°³¸¦ È®ÀÎÇÏ¼¼¿ä.");
+                $"{name}: ì¶”ì  ì„¤ì •ê³¼ Strikes 3ê°œë¥¼ í™•ì¸í•˜ì„¸ìš”.");
         }
 
-        // ¼¼ Å¸°İ °¢°¢ÀÇ ÀÌµ¿ ¼Óµµ¿Í °ø°İ ¼³Á¤À» °Ë»çÇÑ´Ù.
+        // ì„¸ íƒ€ê²© ê°ê°ì˜ ì´ë™ ì†ë„ì™€ ê³µê²© ì„¤ì •ì„ ê²€ì‚¬í•œë‹¤.
         for (int i = 0; i < _config.StrikeCount; i++)
         {
             BossAlienComboConfig.StrikeSettings strike =
                 _config.GetStrike(i);
 
-            // ¼³Á¤ÀÌ ¾øÀ¸¸é µÚÀÇ ÇÁ·ÎÆÛÆ¼¿¡ Á¢±ÙÇÏÁö ¾Ê´Â´Ù.
+            // ì„¤ì •ì´ ì—†ìœ¼ë©´ ë’¤ì˜ í”„ë¡œí¼í‹°ì— ì ‘ê·¼í•˜ì§€ ì•ŠëŠ”ë‹¤.
             if (strike == null ||
                 !Valid(strike.ChaseSpeed, 0.01f) ||
                 !Valid(strike.ChaseAnimationSpeed, 0.01f) ||
@@ -570,12 +572,12 @@ public sealed class BossAlienComboPattern : BossPattern
                 !Valid(strike.Damage, 0f))
             {
                 throw new InvalidOperationException(
-                    $"{name}: StrikesÀÇ {i + 1}¹øÂ° ¼³Á¤À» È®ÀÎÇÏ¼¼¿ä.");
+                    $"{name}: Strikesì˜ {i + 1}ë²ˆì§¸ ì„¤ì •ì„ í™•ì¸í•˜ì„¸ìš”.");
             }
         }
     }
 
-    // À¯ÇÑÇÑ ¼ıÀÚÀÌ¸ç ÁöÁ¤ÇÑ ÃÖ¼Ú°ª ÀÌ»óÀÎÁö È®ÀÎÇÑ´Ù.
+    // ìœ í•œí•œ ìˆ«ìì´ë©° ì§€ì •í•œ ìµœì†Ÿê°’ ì´ìƒì¸ì§€ í™•ì¸í•œë‹¤.
     private static bool Valid(float value, float minimum)
     {
         return !float.IsNaN(value) &&

@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using DG.Tweening;
 using TMPro;
@@ -7,82 +7,82 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-// Town ¼­ºñ½º Ã¢¿¡¼­ ½ºÅ×ÀÌÁö¡¤Ä³¸¯ÅÍ ¼±ÅÃ°ú Ãâ°İ ¼ø¼­¸¦ °ü¸®ÇÑ´Ù.
+// Town ì„œë¹„ìŠ¤ ì°½ì—ì„œ ìŠ¤í…Œì´ì§€Â·ìºë¦­í„° ì„ íƒê³¼ ì¶œê²© ìˆœì„œë¥¼ ê´€ë¦¬í•œë‹¤.
 public class TownNpcServicePresenter : MonoBehaviour
 {
-    // ±âÁ¸ NpcServiceRootÀÇ CanvasGroup.
+    // ê¸°ì¡´ NpcServiceRootì˜ CanvasGroup.
     [SerializeField] private CanvasGroup _root;
 
-    // ±âÁ¸ ContentViewport ¾Æ·¡ÀÇ ScreenRoot.
+    // ê¸°ì¡´ ContentViewport ì•„ë˜ì˜ ScreenRoot.
     [SerializeField] private RectTransform _screenRoot;
 
-    // ±âÁ¸ Ã¢ÀÇ Á¦¸ñ°ú ´İ±â ¹öÆ°.
+    // ê¸°ì¡´ ì°½ì˜ ì œëª©ê³¼ ë‹«ê¸° ë²„íŠ¼.
     [SerializeField] private TMP_Text _titleText;
     [SerializeField] private Button _closeButton;
 
-    // ¼­ºñ½º ÀÌ¿ë Áß ÀÔ·ÂÀ» Â÷´ÜÇÒ ±âÁ¸ Town CanvasÀÇ CanvasGroup.
+    // ì„œë¹„ìŠ¤ ì´ìš© ì¤‘ ì…ë ¥ì„ ì°¨ë‹¨í•  ê¸°ì¡´ Town Canvasì˜ CanvasGroup.
     [SerializeField] private CanvasGroup _townUiGroup;
 
-    // Ãß°¡ ¾À¿¡¼­µµ À¯ÁöÇØ¼­ »ç¿ëÇÒ TownÀÇ EventSystem.
+    // ì¶”ê°€ ì”¬ì—ì„œë„ ìœ ì§€í•´ì„œ ì‚¬ìš©í•  Townì˜ EventSystem.
     [SerializeField] private EventSystem _townEventSystem;
 
-    // Ãâ°İ ¿¬Ãâ¿¡¼­ À§·Î ÀÌµ¿½ÃÅ³ TownPlayerÀÇ Visual.
+    // ì¶œê²© ì—°ì¶œì—ì„œ ìœ„ë¡œ ì´ë™ì‹œí‚¬ TownPlayerì˜ Visual.
     [SerializeField] private SpriteRenderer _playerVisual;
 
-    // Ãâ°İ Áß TownPlayer º»Ã¼°¡ ¿òÁ÷ÀÌÁö ¾Ê°Ô ÇÒ Rigidbody2D.
+    // ì¶œê²© ì¤‘ TownPlayer ë³¸ì²´ê°€ ì›€ì§ì´ì§€ ì•Šê²Œ í•  Rigidbody2D.
     [SerializeField] private Rigidbody2D _playerBody;
 
-    // Ã¢ÀÌ ³ªÅ¸³ª°Å³ª »ç¶óÁö´Â ½Ã°£.
+    // ì°½ì´ ë‚˜íƒ€ë‚˜ê±°ë‚˜ ì‚¬ë¼ì§€ëŠ” ì‹œê°„.
     [SerializeField, Min(0.01f)] private float _windowDuration = 0.2f;
 
-    // Ä³¸¯ÅÍ°¡ À§·Î ÀÌµ¿ÇÏ¸é¼­ »ç¶óÁö´Â ½Ã°£°ú °Å¸®.
+    // ìºë¦­í„°ê°€ ìœ„ë¡œ ì´ë™í•˜ë©´ì„œ ì‚¬ë¼ì§€ëŠ” ì‹œê°„ê³¼ ê±°ë¦¬.
     [SerializeField, Min(0.01f)] private float _departureDuration = 0.8f;
     [SerializeField, Min(0.1f)] private float _departureHeight = 10f;
 
-    // ·Îµù È­¸é ÀüÃ¼¸¦ ÄÑ°í ²ô´Â ÆĞ³Î.
+    // ë¡œë”© í™”ë©´ ì „ì²´ë¥¼ ì¼œê³  ë„ëŠ” íŒ¨ë„.
     [SerializeField] private GameObject _loadingPanel;
 
-    // ·Îµù ¹®±¸¿Í °ÔÀÌÁö Ç¥½Ã¸¦ ´ã´çÇÏ´Â ÄÄÆ÷³ÍÆ®.
+    // ë¡œë”© ë¬¸êµ¬ì™€ ê²Œì´ì§€ í‘œì‹œë¥¼ ë‹´ë‹¹í•˜ëŠ” ì»´í¬ë„ŒíŠ¸.
     [SerializeField] private LoadingScreenUI _loadingUI;
 
-    // ÇöÀç Á¶ÀÛÀ» Àá±Ù Town ÇÃ·¹ÀÌ¾î.
+    // í˜„ì¬ ì¡°ì‘ì„ ì ê·¼ Town í”Œë ˆì´ì–´.
     private TownPlayerController _player;
 
-    // ÇöÀç Ã¢¿¡ Ç¥½Ã ÁßÀÎ Ãß°¡ ¾À°ú ¿¬°á ÄÄÆ÷³ÍÆ®.
+    // í˜„ì¬ ì°½ì— í‘œì‹œ ì¤‘ì¸ ì¶”ê°€ ì”¬ê³¼ ì—°ê²° ì»´í¬ë„ŒíŠ¸.
     private Scene _pageScene;
     private NpcServiceScenePage _page;
 
-    // ·Îµù ÁßÀÎ ¾ÀÀ» ±¸ºĞÇÏ°í ¿¬°á ½ÇÆĞ¸¦ Àü´ŞÇÑ´Ù.
+    // ë¡œë”© ì¤‘ì¸ ì”¬ì„ êµ¬ë¶„í•˜ê³  ì—°ê²° ì‹¤íŒ¨ë¥¼ ì „ë‹¬í•œë‹¤.
     private string _loadingSceneName = string.Empty;
     private Exception _mountError;
 
-    // Áßº¹ ÀüÈ¯°ú Ãâ°İ Áß ´İ±â ÀÔ·ÂÀ» ¸·´Â´Ù.
+    // ì¤‘ë³µ ì „í™˜ê³¼ ì¶œê²© ì¤‘ ë‹«ê¸° ì…ë ¥ì„ ë§‰ëŠ”ë‹¤.
     private bool _busy;
 
-    // ¼­ºñ½º ÀÌ¿ë Àü Town UIÀÇ ÀÔ·Â ¼³Á¤.
+    // ì„œë¹„ìŠ¤ ì´ìš© ì „ Town UIì˜ ì…ë ¥ ì„¤ì •.
     private bool _previousInteractable;
     private bool _previousBlocksRaycasts;
 
-    // Ãâ°İ ½ÇÆĞ ½Ã º¹±¸ÇÒ Ä³¸¯ÅÍ Ç¥½Ã¡¤¹°¸® »óÅÂ.
+    // ì¶œê²© ì‹¤íŒ¨ ì‹œ ë³µêµ¬í•  ìºë¦­í„° í‘œì‹œÂ·ë¬¼ë¦¬ ìƒíƒœ.
     private Vector3 _visualPosition;
     private Color _visualColor;
     private bool _previousSimulated;
     private bool _departing;
 
-    // ¿ÜºÎ¿¡¼­ ¼­ºñ½º ÀÌ¿ë ¿©ºÎ¸¦ È®ÀÎÇÑ´Ù.
+    // ì™¸ë¶€ì—ì„œ ì„œë¹„ìŠ¤ ì´ìš© ì—¬ë¶€ë¥¼ í™•ì¸í•œë‹¤.
     public bool IsOpen { get; private set; }
 
-    // ÇÊ¼ö ¿¬°áÀ» °Ë»çÇÏ°í Ã¢ ÀÔ·Â°ú ¾À ·Îµù ¾Ë¸²À» µî·ÏÇÑ´Ù.
+    // í•„ìˆ˜ ì—°ê²°ì„ ê²€ì‚¬í•˜ê³  ì°½ ì…ë ¥ê³¼ ì”¬ ë¡œë”© ì•Œë¦¼ì„ ë“±ë¡í•œë‹¤.
     private void Awake()
     {
-        // ·Îµù È­¸é°ú Ç¥½Ã ´ã´ç ÄÄÆ÷³ÍÆ®ÀÇ ¿¬°áÀ» È®ÀÎÇÑ´Ù.
+        // ë¡œë”© í™”ë©´ê³¼ í‘œì‹œ ë‹´ë‹¹ ì»´í¬ë„ŒíŠ¸ì˜ ì—°ê²°ì„ í™•ì¸í•œë‹¤.
         if (_loadingPanel == null || _loadingUI == null)
         {
             throw new MissingReferenceException(
-                "LoadingPanel°ú LoadingUI¸¦ ¿¬°áÇØÁÖ¼¼¿ä.");
+                "LoadingPanelê³¼ LoadingUIë¥¼ ì—°ê²°í•´ì£¼ì„¸ìš”.");
         }
 
-        // Town¿¡ Ã³À½ µé¾î¿ÔÀ» ¶§ ·Îµù È­¸éÀ» ¼û±ä´Ù.
+        // Townì— ì²˜ìŒ ë“¤ì–´ì™”ì„ ë•Œ ë¡œë”© í™”ë©´ì„ ìˆ¨ê¸´ë‹¤.
         _loadingPanel.SetActive(false);
 
         if (_root == null || _screenRoot == null ||
@@ -91,7 +91,7 @@ public class TownNpcServicePresenter : MonoBehaviour
             _playerVisual == null || _playerBody == null)
         {
             throw new MissingReferenceException(
-                "TownStageServicePresenterÀÇ Inspector ¿¬°áÀ» È®ÀÎÇØÁÖ¼¼¿ä.");
+                "TownStageServicePresenterì˜ Inspector ì—°ê²°ì„ í™•ì¸í•´ì£¼ì„¸ìš”.");
         }
 
         _closeButton.onClick.AddListener(RequestClose);
@@ -101,7 +101,7 @@ public class TownNpcServicePresenter : MonoBehaviour
         _root.gameObject.SetActive(false);
     }
 
-    // NPC Á¾·ù¿¡ µû¶ó Ã¹ È­¸é°ú Ä³¸¯ÅÍ ¼±ÅÃ ¸ñÀûÀ» °áÁ¤ÇÑ´Ù.
+    // NPC ì¢…ë¥˜ì— ë”°ë¼ ì²« í™”ë©´ê³¼ ìºë¦­í„° ì„ íƒ ëª©ì ì„ ê²°ì •í•œë‹¤.
     public bool TryOpen(
         NpcActionType actionType,
         TownPlayerController player)
@@ -115,7 +115,7 @@ public class TownNpcServicePresenter : MonoBehaviour
             return false;
         }
 
-        // ÀÌ Ã¢Àº ½ºÅ×ÀÌÁö Ãâ°İ°ú »óÁ¡ ÀÌ¿ëÀ» Áö¿øÇÑ´Ù.
+        // ì´ ì°½ì€ ìŠ¤í…Œì´ì§€ ì¶œê²©ê³¼ ìƒì  ì´ìš©ì„ ì§€ì›í•œë‹¤.
         if (actionType != NpcActionType.Stage &&
             actionType != NpcActionType.Shop)
         {
@@ -124,32 +124,32 @@ public class TownNpcServicePresenter : MonoBehaviour
 
         bool isShop = actionType == NpcActionType.Shop;
 
-        // µÎ ¼­ºñ½º°¡ °øÅëÀ¸·Î ¾²´Â Ä³¸¯ÅÍ ¼±ÅÃ ¾À°ú
-        // °¢ ¼­ºñ½ºÀÇ Àü¿ë ¾ÀÀÌ µî·ÏµÇ¾î ÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
+        // ë‘ ì„œë¹„ìŠ¤ê°€ ê³µí†µìœ¼ë¡œ ì“°ëŠ” ìºë¦­í„° ì„ íƒ ì”¬ê³¼
+        // ê° ì„œë¹„ìŠ¤ì˜ ì „ìš© ì”¬ì´ ë“±ë¡ë˜ì–´ ìˆëŠ”ì§€ í™•ì¸í•œë‹¤.
         string serviceScene = isShop ? "EquipmentManage" : "StageSelect";
 
         if (!Application.CanStreamedLevelBeLoaded("CharacterSelect") ||
             !Application.CanStreamedLevelBeLoaded(serviceScene))
         {
             Debug.LogError(
-                $"CharacterSelect¿Í {serviceScene}ÀÇ ºôµå ¾À µî·ÏÀ» È®ÀÎÇØÁÖ¼¼¿ä.",
+                $"CharacterSelectì™€ {serviceScene}ì˜ ë¹Œë“œ ì”¬ ë“±ë¡ì„ í™•ì¸í•´ì£¼ì„¸ìš”.",
                 this);
             return false;
         }
 
         GameSessionManager session = GameSessionManager.Instance;
 
-        // ÀÌÀü ¼­ºñ½º ÀÌ¿ë¿¡¼­ ³²Àº ¼±ÅÃ Á¤º¸¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+        // ì´ì „ ì„œë¹„ìŠ¤ ì´ìš©ì—ì„œ ë‚¨ì€ ì„ íƒ ì •ë³´ë¥¼ ì´ˆê¸°í™”í•œë‹¤.
         session.ResetSelection();
 
         if (isShop)
         {
-            // »óÁ¡¿¡¼­´Â Àåºñ¸¦ ±¸¸ÅÇÏ°í ÀåÂøÇÒ Ä³¸¯ÅÍºÎÅÍ ¼±ÅÃÇÑ´Ù.
+            // ìƒì ì—ì„œëŠ” ì¥ë¹„ë¥¼ êµ¬ë§¤í•˜ê³  ì¥ì°©í•  ìºë¦­í„°ë¶€í„° ì„ íƒí•œë‹¤.
             session.BeginCharacterSelection(
                 CharacterSelectPurpose.LoadoutEdit);
         }
 
-        // Ã¢À» »ç¿ëÇÏ´Â µ¿¾È Town Ä³¸¯ÅÍ¿Í ±âº» UI ÀÔ·ÂÀ» ¸·´Â´Ù.
+        // ì°½ì„ ì‚¬ìš©í•˜ëŠ” ë™ì•ˆ Town ìºë¦­í„°ì™€ ê¸°ë³¸ UI ì…ë ¥ì„ ë§‰ëŠ”ë‹¤.
         _player = player;
         _player.SetControlEnabled(false);
 
@@ -161,15 +161,15 @@ public class TownNpcServicePresenter : MonoBehaviour
         IsOpen = true;
         _root.gameObject.SetActive(true);
 
-        // °°Àº Ã¢ ¾È¿¡¼­ ¼­ºñ½ºº° Ã¹ È­¸éÀ» ºÒ·¯¿Â´Ù.
+        // ê°™ì€ ì°½ ì•ˆì—ì„œ ì„œë¹„ìŠ¤ë³„ ì²« í™”ë©´ì„ ë¶ˆëŸ¬ì˜¨ë‹¤.
         string firstScene = isShop ? "CharacterSelect" : "StageSelect";
-        string title = isShop ? "»óÁ¡ - Ä³¸¯ÅÍ ¼±ÅÃ" : "½ºÅ×ÀÌÁö ¼±ÅÃ";
+        string title = isShop ? "ìƒì  - ìºë¦­í„° ì„ íƒ" : "ìŠ¤í…Œì´ì§€ ì„ íƒ";
 
         StartCoroutine(ChangePage(firstScene, title));
         return true;
     }
 
-    // ·Îµù¡¤Ãâ°İ ÁßÀÌ ¾Æ´Ò ¶§¸¸ Esc·Î ´İ´Â´Ù.
+    // ë¡œë”©Â·ì¶œê²© ì¤‘ì´ ì•„ë‹ ë•Œë§Œ Escë¡œ ë‹«ëŠ”ë‹¤.
     private void Update()
     {
         if (IsOpen && !_busy && Input.GetKeyDown(KeyCode.Escape))
@@ -178,7 +178,7 @@ public class TownNpcServicePresenter : MonoBehaviour
         }
     }
 
-    // Ã¢°ú ³»ºÎ È­¸éÀÇ Å¬¸¯ °¡´É ¿©ºÎ¸¦ ÇÔ²² ¹Ù²Û´Ù.
+    // ì°½ê³¼ ë‚´ë¶€ í™”ë©´ì˜ í´ë¦­ ê°€ëŠ¥ ì—¬ë¶€ë¥¼ í•¨ê»˜ ë°”ê¾¼ë‹¤.
     private void SetBusy(bool busy)
     {
         _busy = busy;
@@ -186,7 +186,7 @@ public class TownNpcServicePresenter : MonoBehaviour
         _closeButton.interactable = !busy;
     }
 
-    // ÇöÀç ¼±ÅÃ ¸ñÀûÀ» À¯ÁöÇÏ¸é¼­ °øÅë Ä³¸¯ÅÍ ¼±ÅÃ È­¸éÀ» ¿¬´Ù.
+    // í˜„ì¬ ì„ íƒ ëª©ì ì„ ìœ ì§€í•˜ë©´ì„œ ê³µí†µ ìºë¦­í„° ì„ íƒ í™”ë©´ì„ ì—°ë‹¤.
     private void RequestCharacterSelection()
     {
         if (!IsOpen || _busy)
@@ -198,12 +198,12 @@ public class TownNpcServicePresenter : MonoBehaviour
             GameSessionManager.Instance.CurrentCharacterSelectPurpose ==
             CharacterSelectPurpose.LoadoutEdit;
 
-        string title = isShop ? "»óÁ¡ - Ä³¸¯ÅÍ ¼±ÅÃ" : "Ä³¸¯ÅÍ ¼±ÅÃ";
+        string title = isShop ? "ìƒì  - ìºë¦­í„° ì„ íƒ" : "ìºë¦­í„° ì„ íƒ";
 
         StartCoroutine(ChangePage("CharacterSelect", title));
     }
 
-    // »óÁ¡¿¡¼­ Ä³¸¯ÅÍ¸¦ ¼±ÅÃÇÏ¸é °°Àº Ã¢ ¾È¿¡ ±¸¸Å¡¤ÀåÂø È­¸éÀ» ¿¬´Ù.
+    // ìƒì ì—ì„œ ìºë¦­í„°ë¥¼ ì„ íƒí•˜ë©´ ê°™ì€ ì°½ ì•ˆì— êµ¬ë§¤Â·ì¥ì°© í™”ë©´ì„ ì—°ë‹¤.
     private void RequestEquipment()
     {
         if (!IsOpen || _busy)
@@ -211,26 +211,26 @@ public class TownNpcServicePresenter : MonoBehaviour
             return;
         }
 
-        StartCoroutine(ChangePage("EquipmentManage", "»óÁ¡"));
+        StartCoroutine(ChangePage("EquipmentManage", "ìƒì "));
     }
 
-    // Ä³¸¯ÅÍ ¼±ÅÃ È­¸éÀÇ µÚ·Î °¡±â´Â Ã¢ ³»ºÎÀÇ ½ºÅ×ÀÌÁö ¼±ÅÃÀ¸·Î ¿¬°áÇÑ´Ù.
+    // ìºë¦­í„° ì„ íƒ í™”ë©´ì˜ ë’¤ë¡œ ê°€ê¸°ëŠ” ì°½ ë‚´ë¶€ì˜ ìŠ¤í…Œì´ì§€ ì„ íƒìœ¼ë¡œ ì—°ê²°í•œë‹¤.
     private void RequestStageSelection()
     {
         if (IsOpen && !_busy)
         {
-            StartCoroutine(ChangePage("StageSelect", "½ºÅ×ÀÌÁö ¼±ÅÃ"));
+            StartCoroutine(ChangePage("StageSelect", "ìŠ¤í…Œì´ì§€ ì„ íƒ"));
         }
     }
 
-    // Ãß°¡ ¾ÀÀ» ±³Ã¼ÇÑ´Ù. TownÀº °è¼Ó À¯ÁöÇÑ´Ù.
+    // ì¶”ê°€ ì”¬ì„ êµì²´í•œë‹¤. Townì€ ê³„ì† ìœ ì§€í•œë‹¤.
     private IEnumerator ChangePage(string sceneName, string title)
     {
         
         SetBusy(true);
-        _titleText.text = "ºÒ·¯¿À´Â Áß¡¦";
+        _titleText.text = "ë¶ˆëŸ¬ì˜¤ëŠ” ì¤‘â€¦";
 
-        // ·Îµù Áß Å°º¸µå ¼±ÅÃÀÌ ÀÌÀü ¹öÆ°¿¡ ³²Áö ¾Ê°Ô ÇÑ´Ù.
+        // ë¡œë”© ì¤‘ í‚¤ë³´ë“œ ì„ íƒì´ ì´ì „ ë²„íŠ¼ì— ë‚¨ì§€ ì•Šê²Œ í•œë‹¤.
         _townEventSystem.SetSelectedGameObject(null);
 
         yield return UnloadPage();
@@ -268,11 +268,11 @@ public class TownNpcServicePresenter : MonoBehaviour
             else
             {
                 Debug.LogError(
-                    $"{sceneName}ÀÇ NpcServiceScenePage ¿¬°áÀ» È®ÀÎÇØÁÖ¼¼¿ä.",
+                    $"{sceneName}ì˜ NpcServiceScenePage ì—°ê²°ì„ í™•ì¸í•´ì£¼ì„¸ìš”.",
                     this);
             }
 
-            // ½ÇÆĞÇÑ Ãß°¡ ¾À°ú ÀÔ·Â Àá±İÀ» Á¤¸®ÇÑ´Ù.
+            // ì‹¤íŒ¨í•œ ì¶”ê°€ ì”¬ê³¼ ì…ë ¥ ì ê¸ˆì„ ì •ë¦¬í•œë‹¤.
             yield return CloseRoutine();
 
 
@@ -280,6 +280,10 @@ public class TownNpcServicePresenter : MonoBehaviour
         }
 
         _titleText.text = title;
+        // ë¡œë“œ ì„±ê³µí•œ ì„œë¹„ìŠ¤ í™”ë©´ì˜ ìŒì•…ìœ¼ë¡œ êµì²´í•˜ê³  ì°½ í‘œì‹œìŒì„ ë‚¸ë‹¤.
+        GameAudio.PushMusic(this, sceneName == "StageSelect"
+            ? GameSound.StageSelectNavigationLoop : GameSound.PreparationTerminalLoop);
+        GameAudio.Play(GameSound.UiWindowOpen);
 
         yield return _root
             .DOFade(1f, _windowDuration)
@@ -290,7 +294,7 @@ public class TownNpcServicePresenter : MonoBehaviour
         SetBusy(false);
     }
 
-    // Ãß°¡ ¾ÀÀÇ Start°¡ ½ÇÇàµÇ±â Àü¿¡ È­¸é°ú ÀüÈ¯ ÀÌº¥Æ®¸¦ ¿¬°áÇÑ´Ù.
+    // ì¶”ê°€ ì”¬ì˜ Startê°€ ì‹¤í–‰ë˜ê¸° ì „ì— í™”ë©´ê³¼ ì „í™˜ ì´ë²¤íŠ¸ë¥¼ ì—°ê²°í•œë‹¤.
     private void HandleSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if (!IsOpen ||
@@ -319,7 +323,7 @@ public class TownNpcServicePresenter : MonoBehaviour
             if (_page == null)
             {
                 throw new InvalidOperationException(
-                    $"{scene.name}ÀÇ Manager¿¡ NpcServiceScenePage°¡ ¾ø½À´Ï´Ù.");
+                    $"{scene.name}ì˜ Managerì— NpcServiceScenePageê°€ ì—†ìŠµë‹ˆë‹¤.");
             }
 
             _page.Attach(_screenRoot, _townEventSystem);
@@ -332,7 +336,7 @@ public class TownNpcServicePresenter : MonoBehaviour
                 if (stage == null)
                 {
                     throw new MissingComponentException(
-                        "NpcServiceScenePage¸¦ StageSelectManager¿Í °°Àº ¿ÀºêÁ§Æ®¿¡ ºÙ¿©ÁÖ¼¼¿ä.");
+                        "NpcServiceScenePageë¥¼ StageSelectManagerì™€ ê°™ì€ ì˜¤ë¸Œì íŠ¸ì— ë¶™ì—¬ì£¼ì„¸ìš”.");
                 }
 
                 stage.CharacterSelectionRequested +=
@@ -340,14 +344,14 @@ public class TownNpcServicePresenter : MonoBehaviour
             }
             else if (scene.name == "CharacterSelect")
             {
-                // °øÅë Ä³¸¯ÅÍ ¼±ÅÃ È­¸éÀÇ ÀüÅõ¡¤»óÁ¡ ¿äÃ»À» ¿¬°áÇÑ´Ù.
+                // ê³µí†µ ìºë¦­í„° ì„ íƒ í™”ë©´ì˜ ì „íˆ¬Â·ìƒì  ìš”ì²­ì„ ì—°ê²°í•œë‹¤.
                 CharacterSelectScreen character =
                     _page.GetComponent<CharacterSelectScreen>();
 
                 if (character == null)
                 {
                     throw new MissingComponentException(
-                        "NpcServiceScenePage¿Í CharacterSelectScreenÀ» °°Àº ¿ÀºêÁ§Æ®¿¡ ºÙ¿©ÁÖ¼¼¿ä.");
+                        "NpcServiceScenePageì™€ CharacterSelectScreenì„ ê°™ì€ ì˜¤ë¸Œì íŠ¸ì— ë¶™ì—¬ì£¼ì„¸ìš”.");
                 }
 
                 character.StageSelectionRequested += RequestStageSelection;
@@ -357,23 +361,23 @@ public class TownNpcServicePresenter : MonoBehaviour
             }
             else if (scene.name == "EquipmentManage")
             {
-                // ±¸¸Å¡¤ÀåÂø È­¸é¿¡¼­ ´Ù¸¥ Ä³¸¯ÅÍ¸¦ ¼±ÅÃÇÒ ¼ö ÀÖµµ·Ï ¿¬°áÇÑ´Ù.
+                // êµ¬ë§¤Â·ì¥ì°© í™”ë©´ì—ì„œ ë‹¤ë¥¸ ìºë¦­í„°ë¥¼ ì„ íƒí•  ìˆ˜ ìˆë„ë¡ ì—°ê²°í•œë‹¤.
                 EquipmentManager equipment =
                     _page.GetComponent<EquipmentManager>();
 
                 if (equipment == null)
                 {
                     throw new MissingComponentException(
-                        "NpcServiceScenePage¿Í EquipmentManager¸¦ °°Àº ¿ÀºêÁ§Æ®¿¡ ºÙ¿©ÁÖ¼¼¿ä.");
+                        "NpcServiceScenePageì™€ EquipmentManagerë¥¼ ê°™ì€ ì˜¤ë¸Œì íŠ¸ì— ë¶™ì—¬ì£¼ì„¸ìš”.");
                 }
 
                 equipment.CharacterSelectionRequested += RequestCharacterSelection;
             }
             else
             {
-                // Áö¿øÇÏÁö ¾Ê´Â ¾ÀÀ» Àß¸ø ¿¬°áÇßÀ» ¶§ ¿øÀÎÀ» ¸íÈ®ÇÏ°Ô ¾Ë¸°´Ù.
+                // ì§€ì›í•˜ì§€ ì•ŠëŠ” ì”¬ì„ ì˜ëª» ì—°ê²°í–ˆì„ ë•Œ ì›ì¸ì„ ëª…í™•í•˜ê²Œ ì•Œë¦°ë‹¤.
                 throw new InvalidOperationException(
-                    $"Áö¿øÇÏÁö ¾Ê´Â NPC ¼­ºñ½º ¾ÀÀÔ´Ï´Ù: {scene.name}");
+                    $"ì§€ì›í•˜ì§€ ì•ŠëŠ” NPC ì„œë¹„ìŠ¤ ì”¬ì…ë‹ˆë‹¤: {scene.name}");
             }
         }
         catch (Exception exception)
@@ -382,7 +386,7 @@ public class TownNpcServicePresenter : MonoBehaviour
         }
     }
 
-    // È­¸éÀ» Á¦°ÅÇÏ°í, ¼ÒÀ¯ÇÑ Ãß°¡ ¾À¸¸ ³»¸°´Ù.
+    // í™”ë©´ì„ ì œê±°í•˜ê³ , ì†Œìœ í•œ ì¶”ê°€ ì”¬ë§Œ ë‚´ë¦°ë‹¤.
     private IEnumerator UnloadPage()
     {
         if (_page != null)
@@ -401,14 +405,14 @@ public class TownNpcServicePresenter : MonoBehaviour
 
             if (character != null)
             {
-                // Ä³¸¯ÅÍ ¼±ÅÃ È­¸éÀÌ »ç¶óÁö±â Àü¿¡ ¸ğµç È­¸é ÀüÈ¯ ¿¬°áÀ» ÇØÁ¦ÇÑ´Ù.
+                // ìºë¦­í„° ì„ íƒ í™”ë©´ì´ ì‚¬ë¼ì§€ê¸° ì „ì— ëª¨ë“  í™”ë©´ ì „í™˜ ì—°ê²°ì„ í•´ì œí•œë‹¤.
                 character.StageSelectionRequested -= RequestStageSelection;
                 character.DepartureRequested -= RequestDeparture;
                 character.EquipmentRequested -= RequestEquipment;
                 character.CloseRequested -= RequestClose;
             }
 
-            // ±¸¸Å¡¤ÀåÂø È­¸éÀÇ º¹±Í ÀÌº¥Æ®µµ È­¸é Á¦°Å Àü¿¡ ÇØÁ¦ÇÑ´Ù.
+            // êµ¬ë§¤Â·ì¥ì°© í™”ë©´ì˜ ë³µê·€ ì´ë²¤íŠ¸ë„ í™”ë©´ ì œê±° ì „ì— í•´ì œí•œë‹¤.
             EquipmentManager equipment =
                 _page.GetComponent<EquipmentManager>();
 
@@ -435,7 +439,7 @@ public class TownNpcServicePresenter : MonoBehaviour
         _pageScene = default;
     }
 
-    // ´İ±â ¹öÆ°°ú ½ºÅ×ÀÌÁö È­¸éÀÇ µÚ·Î °¡±â¸¦ Ã³¸®ÇÑ´Ù.
+    // ë‹«ê¸° ë²„íŠ¼ê³¼ ìŠ¤í…Œì´ì§€ í™”ë©´ì˜ ë’¤ë¡œ ê°€ê¸°ë¥¼ ì²˜ë¦¬í•œë‹¤.
     public void RequestClose()
     {
         if (!IsOpen || _busy)
@@ -443,10 +447,11 @@ public class TownNpcServicePresenter : MonoBehaviour
             return;
         }
 
+        GameAudio.Play(GameSound.UiWindowClose); // ì‚¬ìš©ìê°€ ì‹¤ì œë¡œ ë‹«ëŠ” ê²½ìš°ë§Œ ì•Œë¦¼.
         StartCoroutine(CloseRoutine());
     }
 
-    // Ãë¼ÒÇÏ¸é ¼±ÅÃ È­¸éÀ» Á¤¸®ÇÏ°í Town Á¶ÀÛÀ» º¹±¸ÇÑ´Ù.
+    // ì·¨ì†Œí•˜ë©´ ì„ íƒ í™”ë©´ì„ ì •ë¦¬í•˜ê³  Town ì¡°ì‘ì„ ë³µêµ¬í•œë‹¤.
     private IEnumerator CloseRoutine()
     {
         SetBusy(true);
@@ -469,7 +474,7 @@ public class TownNpcServicePresenter : MonoBehaviour
         RestoreTown();
     }
 
-    // Ä³¸¯ÅÍ ¼±ÅÃ ÈÄ ¸ñÀûÁö¸¦ È®ÀÎÇÏ°í Ãâ°İ ¼ø¼­¸¦ ½ÃÀÛÇÑ´Ù.
+    // ìºë¦­í„° ì„ íƒ í›„ ëª©ì ì§€ë¥¼ í™•ì¸í•˜ê³  ì¶œê²© ìˆœì„œë¥¼ ì‹œì‘í•œë‹¤.
     private void RequestDeparture(string destination)
     {
         if (!IsOpen || _busy)
@@ -480,7 +485,7 @@ public class TownNpcServicePresenter : MonoBehaviour
         if (!Application.CanStreamedLevelBeLoaded(destination))
         {
             Debug.LogError(
-                $"ºôµå ¾À ¸ñ·Ï¿¡ {destination}ÀÌ ¾ø½À´Ï´Ù.", this);
+                $"ë¹Œë“œ ì”¬ ëª©ë¡ì— {destination}ì´ ì—†ìŠµë‹ˆë‹¤.", this);
             RequestClose();
             return;
         }
@@ -488,13 +493,13 @@ public class TownNpcServicePresenter : MonoBehaviour
         StartCoroutine(Depart(destination));
     }
 
-    // Ã¢ ´İ±â ¡æ ¼±ÅÃ ¾À Á¤¸® ¡æ Ä³¸¯ÅÍ »ó½Â¡¤¼Ò¸ê ¡æ ÀüÅõ ¾À ÁøÀÔ.
+    // ì°½ ë‹«ê¸° â†’ ì„ íƒ ì”¬ ì •ë¦¬ â†’ ìºë¦­í„° ìƒìŠ¹Â·ì†Œë©¸ â†’ ì „íˆ¬ ì”¬ ì§„ì….
     private IEnumerator Depart(string destination)
     {
         SetBusy(true);
 
         float startTime = Time.realtimeSinceStartup;
-        Debug.Log($"½ºÅ×ÀÌÁö ·Îµå ½ÃÀÛ: {startTime}");
+        Debug.Log($"ìŠ¤í…Œì´ì§€ ë¡œë“œ ì‹œì‘: {startTime}");
 
         yield return _root
             .DOFade(0f, _windowDuration)
@@ -502,22 +507,23 @@ public class TownNpcServicePresenter : MonoBehaviour
             .SetLink(gameObject)
             .WaitForCompletion();
 
-        Debug.Log($"¿¬Ãâ ¿Ï·á: {Time.realtimeSinceStartup - startTime}");
+        Debug.Log($"ì—°ì¶œ ì™„ë£Œ: {Time.realtimeSinceStartup - startTime}");
         startTime = Time.realtimeSinceStartup;
 
         _root.gameObject.SetActive(false);
         yield return UnloadPage();
 
-        Debug.Log($"UI ¾À ¾ğ·Îµå: {Time.realtimeSinceStartup - startTime}");
+        Debug.Log($"UI ì”¬ ì–¸ë¡œë“œ: {Time.realtimeSinceStartup - startTime}");
         startTime = Time.realtimeSinceStartup;
 
-        // º»Ã¼ À§Ä¡´Â À¯ÁöÇÏ¿© Town Ä«¸Ş¶ó°¡ À§·Î µû¶ó°¡Áö ¾Ê°Ô ÇÑ´Ù.
+        // ë³¸ì²´ ìœ„ì¹˜ëŠ” ìœ ì§€í•˜ì—¬ Town ì¹´ë©”ë¼ê°€ ìœ„ë¡œ ë”°ë¼ê°€ì§€ ì•Šê²Œ í•œë‹¤.
         _visualPosition = _playerVisual.transform.localPosition;
         _visualColor = _playerVisual.color;
         _previousSimulated = _playerBody.simulated;
         _departing = true;
         _playerBody.simulated = false;
 
+        GameAudio.Play(GameSound.StageDepart); // ì‹¤ì œ ì¶œë°œ ì—°ì¶œ ì‹œì‘.
         Sequence departure = DOTween.Sequence();
 
         departure.Join(
@@ -532,16 +538,16 @@ public class TownNpcServicePresenter : MonoBehaviour
         departure.SetUpdate(true);
         departure.SetLink(gameObject);
 
-        // Ä³¸¯ÅÍÀÇ Ãâ¹ß ¿¬ÃâÀÌ ³¡³¯ ¶§±îÁö ±â´Ù¸°´Ù.
+        // ìºë¦­í„°ì˜ ì¶œë°œ ì—°ì¶œì´ ëë‚  ë•Œê¹Œì§€ ê¸°ë‹¤ë¦°ë‹¤.
         yield return departure.WaitForCompletion();
 
-        Debug.Log($"Ä³¸¯ÅÍ ¿¬Ãâ ¿Ï·á: {Time.realtimeSinceStartup - startTime}");
+        Debug.Log($"ìºë¦­í„° ì—°ì¶œ ì™„ë£Œ: {Time.realtimeSinceStartup - startTime}");
         startTime = Time.realtimeSinceStartup;
 
-        // ·Îµù È­¸éÀ» Ã³À½ »óÅÂ·Î Ç¥½ÃÇÑ´Ù.
+        // ë¡œë”© í™”ë©´ì„ ì²˜ìŒ ìƒíƒœë¡œ í‘œì‹œí•œë‹¤.
         _loadingPanel.SetActive(true);
 
-        // ·Îµå ½ÃÀÛ Àü¿¡ ·Îµù È­¸éÀÌ Ç¥½ÃµÉ ÇÁ·¹ÀÓÀ» ÁØ´Ù.
+        // ë¡œë“œ ì‹œì‘ ì „ì— ë¡œë”© í™”ë©´ì´ í‘œì‹œë  í”„ë ˆì„ì„ ì¤€ë‹¤.
         yield return null;
 
         AsyncOperation operation = null;
@@ -549,82 +555,82 @@ public class TownNpcServicePresenter : MonoBehaviour
         try
         {
 
-            // ¸ñÀûÁö ½ºÅ×ÀÌÁö¸¦ ºñµ¿±â·Î ºÒ·¯¿Â´Ù.
+            // ëª©ì ì§€ ìŠ¤í…Œì´ì§€ë¥¼ ë¹„ë™ê¸°ë¡œ ë¶ˆëŸ¬ì˜¨ë‹¤.
             operation = SceneManager.LoadSceneAsync(
                 destination, LoadSceneMode.Single);
 
             if (operation != null)
             {
-                // Ãß°¡: ·ÎµùÀÌ ¿Ï·áµÇ¸é ½ÇÇàÇÒ ·Î±×¸¦ ¹Ì¸® µî·ÏÇÑ´Ù.
+                // ì¶”ê°€: ë¡œë”©ì´ ì™„ë£Œë˜ë©´ ì‹¤í–‰í•  ë¡œê·¸ë¥¼ ë¯¸ë¦¬ ë“±ë¡í•œë‹¤.
                 operation.completed += completedOperation =>
                 {
-                    Debug.Log($"¾À ·Îµå ¿Ï·á: {Time.realtimeSinceStartup - startTime}");
+                    Debug.Log($"ì”¬ ë¡œë“œ ì™„ë£Œ: {Time.realtimeSinceStartup - startTime}");
                 };
 
-                // °ÔÀÌÁö°¡ °¡µæ Âù ¸ğ½ÀÀ» Ç¥½ÃÇÑ µÚ ¾ÀÀ» ÀüÈ¯ÇÑ´Ù.
+                // ê²Œì´ì§€ê°€ ê°€ë“ ì°¬ ëª¨ìŠµì„ í‘œì‹œí•œ ë’¤ ì”¬ì„ ì „í™˜í•œë‹¤.
                 operation.allowSceneActivation = false;
             }
         }
         catch (Exception exception)
         {
-            // ¾À ·Îµå¸¦ ½ÃÀÛÇÏÁö ¸øÇÑ ¿øÀÎÀ» ±â·ÏÇÑ´Ù.
+            // ì”¬ ë¡œë“œë¥¼ ì‹œì‘í•˜ì§€ ëª»í•œ ì›ì¸ì„ ê¸°ë¡í•œë‹¤.
             Debug.LogException(exception, this);
         }
 
         if (operation == null)
         {
-            // ·Îµå¸¦ ½ÃÀÛÇÏÁö ¸øÇß´Ù¸é ·Îµù È­¸éÀ» ¼û±ä´Ù.
+            // ë¡œë“œë¥¼ ì‹œì‘í•˜ì§€ ëª»í–ˆë‹¤ë©´ ë¡œë”© í™”ë©´ì„ ìˆ¨ê¸´ë‹¤.
             _loadingPanel.SetActive(false);
 
-            // Ãâ¹ß ¿¬Ãâ·Î ¹Ù²ï Ä³¸¯ÅÍ »óÅÂ¸¦ º¹±¸ÇÑ´Ù.
+            // ì¶œë°œ ì—°ì¶œë¡œ ë°”ë€ ìºë¦­í„° ìƒíƒœë¥¼ ë³µêµ¬í•œë‹¤.
             RestoreDeparture();
 
             if (GameSessionManager.Instance != null)
             {
-                // ½ÇÆĞÇÑ Ãâ¹ßÀÇ ¼±ÅÃ Á¤º¸¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+                // ì‹¤íŒ¨í•œ ì¶œë°œì˜ ì„ íƒ ì •ë³´ë¥¼ ì´ˆê¸°í™”í•œë‹¤.
                 GameSessionManager.Instance.ResetSelection();
             }
 
-            // TownÀÇ UI¿Í ÇÃ·¹ÀÌ¾î Á¶ÀÛÀ» º¹±¸ÇÑ´Ù.
+            // Townì˜ UIì™€ í”Œë ˆì´ì–´ ì¡°ì‘ì„ ë³µêµ¬í•œë‹¤.
             RestoreTown();
             yield break;
         }
 
-        // È°¼ºÈ­ ÁØºñ°¡ ³¡³¯ ¶§±îÁö ½ÇÁ¦ ·Îµù ÁøÇà·üÀ» Àü´ŞÇÑ´Ù.
-        // ¹®±¸ ¹İº¹°ú °ÔÀÌÁö º¸°£Àº LoadingScreenUI.Update¿¡¼­ Ã³¸®ÇÑ´Ù.
+        // í™œì„±í™” ì¤€ë¹„ê°€ ëë‚  ë•Œê¹Œì§€ ì‹¤ì œ ë¡œë”© ì§„í–‰ë¥ ì„ ì „ë‹¬í•œë‹¤.
+        // ë¬¸êµ¬ ë°˜ë³µê³¼ ê²Œì´ì§€ ë³´ê°„ì€ LoadingScreenUI.Updateì—ì„œ ì²˜ë¦¬í•œë‹¤.
         while (operation.progress < 0.9f)
         {
             _loadingUI.SetProgress(operation.progress / 0.9f);
             yield return null;
         }
 
-        // ±âÁ¸ ½ÃÀÛ ½Ã°¢À» ±âÁØÀ¸·Î È°¼ºÈ­ ÁØºñ±îÁö °É¸° ½Ã°£À» ±â·ÏÇÑ´Ù.
+        // ê¸°ì¡´ ì‹œì‘ ì‹œê°ì„ ê¸°ì¤€ìœ¼ë¡œ í™œì„±í™” ì¤€ë¹„ê¹Œì§€ ê±¸ë¦° ì‹œê°„ì„ ê¸°ë¡í•œë‹¤.
         Debug.Log(
-            $"¾À È°¼ºÈ­ ÁØºñ ¿Ï·á: " +
-            $"{Time.realtimeSinceStartup - startTime}ÃÊ");
+            $"ì”¬ í™œì„±í™” ì¤€ë¹„ ì™„ë£Œ: " +
+            $"{Time.realtimeSinceStartup - startTime}ì´ˆ");
 
-        // ¾À È°¼ºÈ­ ÁØºñ°¡ ³¡³µÀ¸¹Ç·Î Ç¥½Ã ¸ñÇ¥¸¦ 100%·Î ¼³Á¤ÇÑ´Ù.
+        // ì”¬ í™œì„±í™” ì¤€ë¹„ê°€ ëë‚¬ìœ¼ë¯€ë¡œ í‘œì‹œ ëª©í‘œë¥¼ 100%ë¡œ ì„¤ì •í•œë‹¤.
         _loadingUI.SetProgress(1f);
 
-        // °ÔÀÌÁö°¡ ¸ñÇ¥°ª±îÁö ºÎµå·´°Ô Ã¤¿öÁú ¶§±îÁö ±â´Ù¸°´Ù.
-        // ÀÌ µ¿¾È ¹®±¸¿Í Ä³¸¯ÅÍ ¾Ö´Ï¸ŞÀÌ¼Çµµ °è¼Ó °»½ÅµÉ ¼ö ÀÖ´Ù.
+        // ê²Œì´ì§€ê°€ ëª©í‘œê°’ê¹Œì§€ ë¶€ë“œëŸ½ê²Œ ì±„ì›Œì§ˆ ë•Œê¹Œì§€ ê¸°ë‹¤ë¦°ë‹¤.
+        // ì´ ë™ì•ˆ ë¬¸êµ¬ì™€ ìºë¦­í„° ì• ë‹ˆë©”ì´ì…˜ë„ ê³„ì† ê°±ì‹ ë  ìˆ˜ ìˆë‹¤.
         while (!_loadingUI.IsFillComplete)
         {
             yield return null;
         }
 
-        // °¡µæ Âù °ÔÀÌÁö¸¦ Ç¥½ÃÇÒ ÇÁ·¹ÀÓÀ» ÁØ´Ù.
+        // ê°€ë“ ì°¬ ê²Œì´ì§€ë¥¼ í‘œì‹œí•  í”„ë ˆì„ì„ ì¤€ë‹¤.
         yield return null;
 
-        // ½ÇÁ¦ ¾À ÀüÈ¯À» Çã¿ëÇÑ´Ù.
+        // ì‹¤ì œ ì”¬ ì „í™˜ì„ í—ˆìš©í•œë‹¤.
         operation.allowSceneActivation = true;
 
-        // TownÀÌ Á¦°ÅµÉ ¶§±îÁö ·Îµù UI´Â º°µµÀÇ Update·Î °»½ÅµÈ´Ù.
+        // Townì´ ì œê±°ë  ë•Œê¹Œì§€ ë¡œë”© UIëŠ” ë³„ë„ì˜ Updateë¡œ ê°±ì‹ ëœë‹¤.
         yield return operation;
     }
 
 
-    // ½ÇÆĞÇÏ°Å³ª ´ã´ç ¿ÀºêÁ§Æ®°¡ Á¦°ÅµÇ¸é Ãâ°İ ¿¬Ãâ »óÅÂ¸¦ º¹±¸ÇÑ´Ù.
+    // ì‹¤íŒ¨í•˜ê±°ë‚˜ ë‹´ë‹¹ ì˜¤ë¸Œì íŠ¸ê°€ ì œê±°ë˜ë©´ ì¶œê²© ì—°ì¶œ ìƒíƒœë¥¼ ë³µêµ¬í•œë‹¤.
     private void RestoreDeparture()
     {
         if (!_departing)
@@ -646,9 +652,11 @@ public class TownNpcServicePresenter : MonoBehaviour
         }
     }
 
-    // Ã¢ÀÌ ´İÈù µÚ¿¡¸¸ ±âÁ¸ UI¿Í ÇÃ·¹ÀÌ¾î Á¶ÀÛÀ» º¹±¸ÇÑ´Ù.
+    // ì°½ì´ ë‹«íŒ ë’¤ì—ë§Œ ê¸°ì¡´ UIì™€ í”Œë ˆì´ì–´ ì¡°ì‘ì„ ë³µêµ¬í•œë‹¤.
     private void RestoreTown()
     {
+        // í™”ë©´ì„ ë‹«ê±°ë‚˜ ë¡œë“œì— ì‹¤íŒ¨í•˜ë©´ Town ìŒì•…ìœ¼ë¡œ ë³µê·€í•œë‹¤.
+        GameAudio.PopMusic(this);
         if (_townUiGroup != null)
         {
             _townUiGroup.interactable = _previousInteractable;
@@ -665,7 +673,7 @@ public class TownNpcServicePresenter : MonoBehaviour
         _busy = false;
     }
 
-    // TownÀÌ ÀüÅõ ¾ÀÀ¸·Î ±³Ã¼µÉ ¶§ Àü¿ª ÀÌº¥Æ® ¿¬°áÀ» ÇØÁ¦ÇÑ´Ù.
+    // Townì´ ì „íˆ¬ ì”¬ìœ¼ë¡œ êµì²´ë  ë•Œ ì „ì—­ ì´ë²¤íŠ¸ ì—°ê²°ì„ í•´ì œí•œë‹¤.
     private void OnDestroy()
     {
         SceneManager.sceneLoaded -= HandleSceneLoaded;

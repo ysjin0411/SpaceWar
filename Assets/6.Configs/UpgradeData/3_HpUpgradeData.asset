@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: hp_upgrade
   _name: "\uCCB4\uB825\uAC15\uD654"
-  _info: "\uCD5C\uB300\uCCB4\uB825\uC744 \uC99D\uAC00\uC2DC\uD0A4\uACE0, \uCCB4\uB825\uC744
-    \uD68C\uBCF5\uC2DC\uD0A8\uB2E4."
+  _info: "\uCD5C\uB300 \uCCB4\uB825\uC774 15 \uC99D\uAC00\uD558\uACE0 \uCCB4\uB825\uC744
+    \uBAA8\uB450 \uD68C\uBCF5\uD569\uB2C8\uB2E4."
   _icon: {fileID: 21300000, guid: a38de2af0ebcd1d438398af9491043ac, type: 3}
   _type: 3
   _target: 0
-  _value: 20
+  _value: 15

@@ -61,7 +61,8 @@ public class WeaponDataEditor : Editor
 
         // 모든 무기가 공유하는 UI 설명.
         DrawProperty("_info");
-        DrawProperty("_upgradeSelectionInfo");
+        DrawProperty("_damageUpgradeSelectionInfo");
+        DrawProperty("_fireRateUpgradeSelectionInfo");
 
         // 변경 내용을 저장한다.
         // SerializedProperty를 사용하므로 Undo도 지원한다.

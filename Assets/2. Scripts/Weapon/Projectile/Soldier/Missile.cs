@@ -1,37 +1,37 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// °¡Àå °¡±î¿î ÀûÀ» ÃßÀûÇÏ°í,
-/// Àû¿¡°Ô ¸íÁßÇÏ¸é ÁÖº¯ Àû¿¡°Ô ¹üÀ§ ÇÇÇØ¸¦ ÁÖ´Â ¹Ì»çÀÏ.
+/// ê°€ì¥ ê°€ê¹Œìš´ ì ì„ ì¶”ì í•˜ê³ ,
+/// ì ì—ê²Œ ëª…ì¤‘í•˜ë©´ ì£¼ë³€ ì ì—ê²Œ ë²”ìœ„ í”¼í•´ë¥¼ ì£¼ëŠ” ë¯¸ì‚¬ì¼.
 /// </summary>
 public class Missile : Projectile
 {
-    [Header("¹Ì»çÀÏ ÃßÀû ¼³Á¤")]
-    [Tooltip("¹Ì»çÀÏÀÌ ÃÊ´ç È¸ÀüÇÒ ¼ö ÀÖ´Â °¢µµ")]
+    [Header("ë¯¸ì‚¬ì¼ ì¶”ì  ì„¤ì •")]
+    [Tooltip("ë¯¸ì‚¬ì¼ì´ ì´ˆë‹¹ íšŒì „í•  ìˆ˜ ìˆëŠ” ê°ë„")]
     [Min(0f)]
     [SerializeField] float _rotationSpeed = 360f;
 
-    [Tooltip("¹Ì»çÀÏÀÌ ÀÚµ¿À¸·Î ÀûÀ» Ã£´Â ÃÖ´ë °Å¸®")]
+    [Tooltip("ë¯¸ì‚¬ì¼ì´ ìë™ìœ¼ë¡œ ì ì„ ì°¾ëŠ” ìµœëŒ€ ê±°ë¦¬")]
     [Min(0f)]
     [SerializeField] float _targetSearchRadius = 15f;
 
-    [Header("¹Ì»çÀÏ Æø¹ß ¼³Á¤")]
-    [Tooltip("¹Ì»çÀÏÀÌ ¸íÁßÇßÀ» ¶§ ÇÇÇØ¸¦ ÁÖ´Â Æø¹ß ¹üÀ§")]
+    [Header("ë¯¸ì‚¬ì¼ í­ë°œ ì„¤ì •")]
+    [Tooltip("ë¯¸ì‚¬ì¼ì´ ëª…ì¤‘í–ˆì„ ë•Œ í”¼í•´ë¥¼ ì£¼ëŠ” í­ë°œ ë²”ìœ„")]
     [Min(0f)]
     [SerializeField] float _explosionRadius = 1.5f;
 
-    [Tooltip("Enemy ·¹ÀÌ¾î¸¸ ¼±ÅÃÇÑ´Ù.")]
+    [Tooltip("Enemy ë ˆì´ì–´ë§Œ ì„ íƒí•œë‹¤.")]
     [SerializeField] LayerMask _enemyLayerMask;
-    // Àû¿¡°Ô ¸íÁßÇßÀ» ¶§ »ı¼ºÇÒ µ¶¸³ÀûÀÎ Æø¹ß ÀÌÆåÆ® ÇÁ¸®ÆÕÀÌ´Ù.
+    // ì ì—ê²Œ ëª…ì¤‘í–ˆì„ ë•Œ ìƒì„±í•  ë…ë¦½ì ì¸ í­ë°œ ì´í™íŠ¸ í”„ë¦¬íŒ¹ì´ë‹¤.
     [SerializeField] SpriteExplosionEffect _explosionEffectPrefab;
 
-    // ÇöÀç ¹Ì»çÀÏÀÌ ÃßÀûÇÏ°í ÀÖ´Â ´ë»óÀÇ Transform
+    // í˜„ì¬ ë¯¸ì‚¬ì¼ì´ ì¶”ì í•˜ê³  ìˆëŠ” ëŒ€ìƒì˜ Transform
     Transform _target;
 
     /// <summary>
-    /// Weapon¿¡¼­ °ø°İ·Â°ú ¹ß»ç ¹æÇâÀ» ¹ŞÀº Á÷ÈÄ ½ÇÇàµÈ´Ù.
-    /// ¹Ì»çÀÏÀÌ Ã³À½ ÃßÀûÇÒ ÀûÀ» Ã£´Â´Ù.
+    /// Weaponì—ì„œ ê³µê²©ë ¥ê³¼ ë°œì‚¬ ë°©í–¥ì„ ë°›ì€ ì§í›„ ì‹¤í–‰ëœë‹¤.
+    /// ë¯¸ì‚¬ì¼ì´ ì²˜ìŒ ì¶”ì í•  ì ì„ ì°¾ëŠ”ë‹¤.
     /// </summary>
     protected override void OnInitialized()
     {
@@ -39,43 +39,43 @@ public class Missile : Projectile
     }
 
     /// <summary>
-    /// ProjectileÀÇ FixedUpdate¿¡¼­ °è¼Ó È£ÃâµÈ´Ù.
-    /// ÀûÀ» ÇâÇØ ¹æÇâÀ» È¸Àü½ÃÅ°°í ¹Ì»çÀÏÀ» ÀÌµ¿½ÃÅ²´Ù.
+    /// Projectileì˜ FixedUpdateì—ì„œ ê³„ì† í˜¸ì¶œëœë‹¤.
+    /// ì ì„ í–¥í•´ ë°©í–¥ì„ íšŒì „ì‹œí‚¤ê³  ë¯¸ì‚¬ì¼ì„ ì´ë™ì‹œí‚¨ë‹¤.
     /// </summary>
     protected override void MoveProjectile()
     {
-        // ÃßÀû ÁßÀÎ ÀûÀÌ Á×°Å³ª »ç¶óÁ³´Ù¸é »õ·Î¿î ÀûÀ» Ã£´Â´Ù.
+        // ì¶”ì  ì¤‘ì¸ ì ì´ ì£½ê±°ë‚˜ ì‚¬ë¼ì¡Œë‹¤ë©´ ìƒˆë¡œìš´ ì ì„ ì°¾ëŠ”ë‹¤.
         if (_target == null)
         {
             FindNearestEnemy();
         }
 
-        // ÃßÀûÇÒ ÀûÀÌ ÀÖ´Ù¸é ÇØ´ç ÀûÀ» ÇâÇØ ¹æÇâÀ» È¸ÀüÇÑ´Ù.
+        // ì¶”ì í•  ì ì´ ìˆë‹¤ë©´ í•´ë‹¹ ì ì„ í–¥í•´ ë°©í–¥ì„ íšŒì „í•œë‹¤.
         if (_target != null)
         {
             RotateTowardsTarget();
         }
 
-        // ÇöÀç ÁøÇà ¹æÇâÀ¸·Î ¹Ì»çÀÏÀ» ÀÌµ¿½ÃÅ²´Ù.
+        // í˜„ì¬ ì§„í–‰ ë°©í–¥ìœ¼ë¡œ ë¯¸ì‚¬ì¼ì„ ì´ë™ì‹œí‚¨ë‹¤.
         Body.linearVelocity = Direction * MoveSpeed;
     }
 
     /// <summary>
-    /// Å½»ö ¹üÀ§ ¾È¿¡¼­ °¡Àå °¡±î¿î IDamageable ´ë»óÀ» Ã£´Â´Ù.
-    /// ÀÏ¹İ Àû°ú º¸½º¸¦ ¸ğµÎ Å½»öÇÑ´Ù.
+    /// íƒìƒ‰ ë²”ìœ„ ì•ˆì—ì„œ ê°€ì¥ ê°€ê¹Œìš´ IDamageable ëŒ€ìƒì„ ì°¾ëŠ”ë‹¤.
+    /// ì¼ë°˜ ì ê³¼ ë³´ìŠ¤ë¥¼ ëª¨ë‘ íƒìƒ‰í•œë‹¤.
     /// </summary>
     private void FindNearestEnemy()
     {
-        // ¾ÆÁ÷ ÃßÀû ´ë»óÀÌ ¾ø´Ù´Â ¶æÀ¸·Î nullÀ» ³Ö´Â´Ù.
+        // ì•„ì§ ì¶”ì  ëŒ€ìƒì´ ì—†ë‹¤ëŠ” ëœ»ìœ¼ë¡œ nullì„ ë„£ëŠ”ë‹¤.
         _target = null;
 
-        // Å½»ö ¹üÀ§ ¾È¿¡ ÀÖ´Â Enemy ·¹ÀÌ¾îÀÇ Collider¸¦ °¡Á®¿Â´Ù.
+        // íƒìƒ‰ ë²”ìœ„ ì•ˆì— ìˆëŠ” Enemy ë ˆì´ì–´ì˜ Colliderë¥¼ ê°€ì ¸ì˜¨ë‹¤.
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(
             transform.position,
             _targetSearchRadius,
             _enemyLayerMask);
 
-        // ÇÏ³ªÀÇ ÀûÀÌ ¿©·¯ Collider¸¦ °¡Á³À» ¶§ Áßº¹ °Ë»çÇÏÁö ¾Ê´Â´Ù.
+        // í•˜ë‚˜ì˜ ì ì´ ì—¬ëŸ¬ Colliderë¥¼ ê°€ì¡Œì„ ë•Œ ì¤‘ë³µ ê²€ì‚¬í•˜ì§€ ì•ŠëŠ”ë‹¤.
         HashSet<IDamageable> checkedTargets =
             new HashSet<IDamageable>();
 
@@ -84,7 +84,7 @@ public class Missile : Projectile
 
         foreach (Collider2D hitCollider in hitColliders)
         {
-            // Collider ¶Ç´Â ºÎ¸ğ¿¡¼­ ÇÇÇØ¸¦ ¹ŞÀ» ´ë»óÀ» Ã£´Â´Ù.
+            // Collider ë˜ëŠ” ë¶€ëª¨ì—ì„œ í”¼í•´ë¥¼ ë°›ì„ ëŒ€ìƒì„ ì°¾ëŠ”ë‹¤.
             IDamageable target =
                 hitCollider.GetComponentInParent<IDamageable>();
 
@@ -93,7 +93,7 @@ public class Missile : Projectile
                 continue;
             }
 
-            // °°Àº ´ë»óÀÇ ´Ù¸¥ Collider¶ó¸é ´Ù½Ã °Ë»çÇÏÁö ¾Ê´Â´Ù.
+            // ê°™ì€ ëŒ€ìƒì˜ ë‹¤ë¥¸ Colliderë¼ë©´ ë‹¤ì‹œ ê²€ì‚¬í•˜ì§€ ì•ŠëŠ”ë‹¤.
             if (!checkedTargets.Add(target))
             {
                 continue;
@@ -122,55 +122,55 @@ public class Missile : Projectile
     }
 
     /// <summary>
-    /// ¹Ì»çÀÏÀÇ ÁøÇà ¹æÇâÀ» ÃßÀû ´ë»ó ÂÊÀ¸·Î ¼­¼­È÷ È¸Àü½ÃÅ²´Ù.
+    /// ë¯¸ì‚¬ì¼ì˜ ì§„í–‰ ë°©í–¥ì„ ì¶”ì  ëŒ€ìƒ ìª½ìœ¼ë¡œ ì„œì„œíˆ íšŒì „ì‹œí‚¨ë‹¤.
     /// </summary>
     private void RotateTowardsTarget()
     {
-        // ÇöÀç À§Ä¡¿¡¼­ ÃßÀû ´ë»ó±îÁöÀÇ ¹æÇâÀ» ±¸ÇÑ´Ù.
+        // í˜„ì¬ ìœ„ì¹˜ì—ì„œ ì¶”ì  ëŒ€ìƒê¹Œì§€ì˜ ë°©í–¥ì„ êµ¬í•œë‹¤.
         Vector2 targetDirection =
             (Vector2)(_target.position - transform.position);
 
-        // Àû°ú ¹Ì»çÀÏÀÇ À§Ä¡°¡ ¿ÏÀüÈ÷ °°´Ù¸é È¸ÀüÇÏÁö ¾Ê´Â´Ù.
+        // ì ê³¼ ë¯¸ì‚¬ì¼ì˜ ìœ„ì¹˜ê°€ ì™„ì „íˆ ê°™ë‹¤ë©´ íšŒì „í•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (targetDirection.sqrMagnitude <= Mathf.Epsilon)
         {
             return;
         }
 
-        // ¹æÇâ º¤ÅÍÀÇ ±æÀÌ¸¦ 1·Î ¸¸µé¾î ¹æÇâ Á¤º¸¸¸ »ç¿ëÇÑ´Ù.
+        // ë°©í–¥ ë²¡í„°ì˜ ê¸¸ì´ë¥¼ 1ë¡œ ë§Œë“¤ì–´ ë°©í–¥ ì •ë³´ë§Œ ì‚¬ìš©í•œë‹¤.
         targetDirection.Normalize();
 
-        // ÇöÀç ÁøÇà ¹æÇâÀ» °¢µµ·Î º¯È¯ÇÑ´Ù.
+        // í˜„ì¬ ì§„í–‰ ë°©í–¥ì„ ê°ë„ë¡œ ë³€í™˜í•œë‹¤.
         float currentAngle =
             Mathf.Atan2(Direction.y, Direction.x) * Mathf.Rad2Deg;
 
-        // ÀûÀÌ ÀÖ´Â ¹æÇâÀ» °¢µµ·Î º¯È¯ÇÑ´Ù.
+        // ì ì´ ìˆëŠ” ë°©í–¥ì„ ê°ë„ë¡œ ë³€í™˜í•œë‹¤.
         float targetAngle =
             Mathf.Atan2(targetDirection.y, targetDirection.x) *
             Mathf.Rad2Deg;
 
-        // ÇÑ ¹°¸® ÇÁ·¹ÀÓ µ¿¾È È¸ÀüÇÒ ¼ö ÀÖ´Â ÃÖ´ë °¢µµ¸¦ °è»êÇÑ´Ù.
+        // í•œ ë¬¼ë¦¬ í”„ë ˆì„ ë™ì•ˆ íšŒì „í•  ìˆ˜ ìˆëŠ” ìµœëŒ€ ê°ë„ë¥¼ ê³„ì‚°í•œë‹¤.
         float maxRotation =
             _rotationSpeed * Time.fixedDeltaTime;
 
-        // Àû ¹æÇâÀ» ÇâÇØ Á¦ÇÑµÈ ¼Óµµ·Î °¢µµ¸¦ º¯°æÇÑ´Ù.
+        // ì  ë°©í–¥ì„ í–¥í•´ ì œí•œëœ ì†ë„ë¡œ ê°ë„ë¥¼ ë³€ê²½í•œë‹¤.
         float nextAngle = Mathf.MoveTowardsAngle(
             currentAngle,
             targetAngle,
             maxRotation);
 
-        // °è»êÇÑ °¢µµ¸¦ ´Ù½Ã ¹æÇâ º¤ÅÍ·Î º¯È¯ÇÑ´Ù.
+        // ê³„ì‚°í•œ ê°ë„ë¥¼ ë‹¤ì‹œ ë°©í–¥ ë²¡í„°ë¡œ ë³€í™˜í•œë‹¤.
         float nextAngleRadians = nextAngle * Mathf.Deg2Rad;
 
         Direction = new Vector2(
             Mathf.Cos(nextAngleRadians),
             Mathf.Sin(nextAngleRadians));
 
-        // ¹Ì»çÀÏ ÀÌ¹ÌÁöµµ ½ÇÁ¦ ÁøÇà ¹æÇâÀ» ¹Ù¶óº¸°Ô È¸ÀüÇÑ´Ù.
+        // ë¯¸ì‚¬ì¼ ì´ë¯¸ì§€ë„ ì‹¤ì œ ì§„í–‰ ë°©í–¥ì„ ë°”ë¼ë³´ê²Œ íšŒì „í•œë‹¤.
         Body.SetRotation(nextAngle);
     }
 
     /// <summary>
-    /// ¹Ì»çÀÏÀÌ ´ë»ó¿¡°Ô ¸íÁßÇÏ¸é ÁÖº¯ÀÇ ÀÏ¹İ Àû°ú º¸½º¿¡°Ô ¹üÀ§ ÇÇÇØ¸¦ ÁØ´Ù.
+    /// ë¯¸ì‚¬ì¼ì´ ëŒ€ìƒì—ê²Œ ëª…ì¤‘í•˜ë©´ ì£¼ë³€ì˜ ì¼ë°˜ ì ê³¼ ë³´ìŠ¤ì—ê²Œ ë²”ìœ„ í”¼í•´ë¥¼ ì¤€ë‹¤.
     /// </summary>
     protected override void HandleTargetHit(IDamageable hitTarget)
     {
@@ -181,6 +181,7 @@ public class Missile : Projectile
             return;
         }
 
+        GameAudio.Play(GameSound.MissileExplosion); // í”¼ê²© ëŒ€ìƒ ìˆ˜ì™€ ë¬´ê´€í•˜ê²Œ í­ë°œë‹¹ í•œ ë²ˆ.
         Vector2 explosionPosition = hitTransform.position;
 
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(
@@ -188,7 +189,7 @@ public class Missile : Projectile
             _explosionRadius,
             _enemyLayerMask);
 
-        // ÇÏ³ªÀÇ ´ë»óÀÌ ¿©·¯ Collider¸¦ °¡Á®µµ ÇÇÇØ´Â ÇÑ ¹ø¸¸ Àû¿ëÇÑ´Ù.
+        // í•˜ë‚˜ì˜ ëŒ€ìƒì´ ì—¬ëŸ¬ Colliderë¥¼ ê°€ì ¸ë„ í”¼í•´ëŠ” í•œ ë²ˆë§Œ ì ìš©í•œë‹¤.
         HashSet<IDamageable> damagedTargets =
             new HashSet<IDamageable>();
 
@@ -210,8 +211,8 @@ public class Missile : Projectile
             target.TakeHit(Damage);
         }
 
-        // ¹Ì»çÀÏ ¿ÀºêÁ§Æ®¿Í º°°³·Î Æø¹ß ÀÌÆåÆ®¸¦ »ı¼ºÇÑ´Ù.
-        // ¹Ì»çÀÏÀÌ ¹Ù·Î Á¦°ÅµÇ¾îµµ Æø¹ß ¿¬ÃâÀº ³¡±îÁö Àç»ıµÈ´Ù.
+        // ë¯¸ì‚¬ì¼ ì˜¤ë¸Œì íŠ¸ì™€ ë³„ê°œë¡œ í­ë°œ ì´í™íŠ¸ë¥¼ ìƒì„±í•œë‹¤.
+        // ë¯¸ì‚¬ì¼ì´ ë°”ë¡œ ì œê±°ë˜ì–´ë„ í­ë°œ ì—°ì¶œì€ ëê¹Œì§€ ì¬ìƒëœë‹¤.
         SpriteExplosionEffect explosionEffect =
             Instantiate(
                 _explosionEffectPrefab,
@@ -222,18 +223,18 @@ public class Missile : Projectile
     }
 
     /// <summary>
-    /// Scene ºä¿¡¼­ Å½»ö ¹üÀ§¿Í Æø¹ß ¹üÀ§¸¦ È®ÀÎÇÒ ¼ö ÀÖ°Ô Ç¥½ÃÇÑ´Ù.
-    /// °ÔÀÓ ½ÇÇà °á°ú¿¡´Â ³ªÅ¸³ªÁö ¾Ê´Â´Ù.
+    /// Scene ë·°ì—ì„œ íƒìƒ‰ ë²”ìœ„ì™€ í­ë°œ ë²”ìœ„ë¥¼ í™•ì¸í•  ìˆ˜ ìˆê²Œ í‘œì‹œí•œë‹¤.
+    /// ê²Œì„ ì‹¤í–‰ ê²°ê³¼ì—ëŠ” ë‚˜íƒ€ë‚˜ì§€ ì•ŠëŠ”ë‹¤.
     /// </summary>
     private void OnDrawGizmosSelected()
     {
-        // ³ë¶õ»ö ¿øÀº Àû Å½»ö ¹üÀ§´Ù.
+        // ë…¸ë€ìƒ‰ ì›ì€ ì  íƒìƒ‰ ë²”ìœ„ë‹¤.
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(
             transform.position,
             _targetSearchRadius);
 
-        // »¡°£»ö ¿øÀº Æø¹ß ÇÇÇØ ¹üÀ§´Ù.
+        // ë¹¨ê°„ìƒ‰ ì›ì€ í­ë°œ í”¼í•´ ë²”ìœ„ë‹¤.
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(
             transform.position,

@@ -1,98 +1,104 @@
-using System;
+ï»¿using System;
 using DG.Tweening;
 using UnityEngine;
 
-// ±¸Ã¼Çü Á¢ÃË ÆÇÁ¤°ú Åõ»çÃ¼ ÀÌµ¿¿¡ ÇÊ¿äÇÑ ÄÄÆ÷³ÍÆ®.
+// êµ¬ì²´í˜• ì ‘ì´‰ íŒì •ê³¼ íˆ¬ì‚¬ì²´ ì´ë™ì— í•„ìš”í•œ ì»´í¬ë„ŒíŠ¸.
 [RequireComponent(typeof(CircleCollider2D), typeof(Rigidbody2D))]
 public sealed class CruiserBigBullet : MonoBehaviour
 {
-    // È­¸é ¹İ»ç ½Ã ±×¸²ÀÌ È­¸é ¹ÛÀ¸·Î Àß¸®Áö ¾Êµµ·Ï Å©±â¸¦ È®ÀÎÇÑ´Ù.
+    // í™”ë©´ ë°˜ì‚¬ ì‹œ ê·¸ë¦¼ì´ í™”ë©´ ë°–ìœ¼ë¡œ ì˜ë¦¬ì§€ ì•Šë„ë¡ í¬ê¸°ë¥¼ í™•ì¸í•œë‹¤.
     [SerializeField] private SpriteRenderer _bulletRenderer;
 
-    // ÃæÀü°ú ºñÇà ½ºÇÁ¶óÀÌÆ® ¾Ö´Ï¸ŞÀÌ¼ÇÀ» Àç»ıÇÑ´Ù.
+    // ì¶©ì „ê³¼ ë¹„í–‰ ìŠ¤í”„ë¼ì´íŠ¸ ì• ë‹ˆë©”ì´ì…˜ì„ ì¬ìƒí•œë‹¤.
     [SerializeField] private Animator _bulletAnimator;
 
-    // ÃæÀü ½ÃÀÛ ½Ã Àç»ıÇÒ »óÅÂÀÇ ÀüÃ¼ °æ·Î.
+    // ì¶©ì „ ì‹œì‘ ì‹œ ì¬ìƒí•  ìƒíƒœì˜ ì „ì²´ ê²½ë¡œ.
     private static readonly int ChargeState =
         Animator.StringToHash("Base Layer.CruiserBigBullet_Charge");
 
-    // ÃæÀü ¿Ï·á ÈÄ ´ë±â Áß°ú ºñÇà Áß¿¡ ¹İº¹ÇÒ »óÅÂÀÇ ÀüÃ¼ °æ·Î.
+    // ì¶©ì „ ì™„ë£Œ í›„ ëŒ€ê¸° ì¤‘ê³¼ ë¹„í–‰ ì¤‘ì— ë°˜ë³µí•  ìƒíƒœì˜ ì „ì²´ ê²½ë¡œ.
     private static readonly int ActiveFlightState =
         Animator.StringToHash("Base Layer.CruiserBigBullet_ActiveFlight");
 
-    // ÃæÀüºÎÅÍ ºñÇà±îÁö À¯ÁöÇÒ ÅºÈ¯ ÀüÃ¼ Å©±â ¹èÀ².
+    // ì¶©ì „ë¶€í„° ë¹„í–‰ê¹Œì§€ ìœ ì§€í•  íƒ„í™˜ ì „ì²´ í¬ê¸° ë°°ìœ¨.
     [SerializeField, Min(0.01f)] private float _bulletScale = 1.8f;
 
-    // ÃæÀü ½ºÇÁ¶óÀÌÆ®°¡ Ã³À½ºÎÅÍ ³¡±îÁö Àç»ıµÇ´Â ½Ã°£.
+    // ì¶©ì „ ìŠ¤í”„ë¼ì´íŠ¸ê°€ ì²˜ìŒë¶€í„° ëê¹Œì§€ ì¬ìƒë˜ëŠ” ì‹œê°„.
     [SerializeField, Min(0.01f)] private float _growDuration = 2f;
 
-    // ÃæÀü ¿Ï·á ÈÄ ¿Ï¼ºµÈ ¸ğ½ÀÀ» ¹İº¹ÇÏ¸ç ¹ß»ç¸¦ ±â´Ù¸®´Â ½Ã°£.
+    // ì¶©ì „ ì™„ë£Œ í›„ ì™„ì„±ëœ ëª¨ìŠµì„ ë°˜ë³µí•˜ë©° ë°œì‚¬ë¥¼ ê¸°ë‹¤ë¦¬ëŠ” ì‹œê°„.
     [SerializeField, Min(0f)] private float _holdDuration = 1f;
 
-    // ¹ß»ç ÈÄ ÃÊ´ç ÀÌµ¿ °Å¸®.
+    // ë°œì‚¬ í›„ ì´ˆë‹¹ ì´ë™ ê±°ë¦¬.
     [SerializeField, Min(0.01f)] private float _speed = 5f;
 
-    // ÃæÀü ½Ã°£À» Á¦¿ÜÇÑ ¹ß»ç ÈÄ »ıÁ¸ ½Ã°£.
+    // ì¶©ì „ ì‹œê°„ì„ ì œì™¸í•œ ë°œì‚¬ í›„ ìƒì¡´ ì‹œê°„.
     [SerializeField, Min(0.01f)] private float _lifeDuration = 8f;
 
-    // ÀÌ ½Ã°£¸¸Å­ ´©Àû Á¢ÃËÇÒ ¶§¸¶´Ù ÇÇÇØ¸¦ ÇÑ ¹ø ÁØ´Ù.
+    // ì´ ì‹œê°„ë§Œí¼ ëˆ„ì  ì ‘ì´‰í•  ë•Œë§ˆë‹¤ í”¼í•´ë¥¼ í•œ ë²ˆ ì¤€ë‹¤.
     [SerializeField, Min(0.01f)] private float _damageInterval = 0.5f;
 
-    // Á¢ÃË ½Ã°£ÀÌ ÇÇÇØ °£°İ¿¡ µµ´ŞÇßÀ» ¶§ Àû¿ëÇÒ ÇÇÇØ·®.
+    // ì ‘ì´‰ ì‹œê°„ì´ í”¼í•´ ê°„ê²©ì— ë„ë‹¬í–ˆì„ ë•Œ ì ìš©í•  í”¼í•´ëŸ‰.
     [SerializeField, Min(1)] private float _damage = 5;
 
-    // Åõ»çÃ¼¸¦ »ı¼ºÇÑ º¸½º¿Í ÇÇÇØ¸¦ ¹ŞÀ» ÇÃ·¹ÀÌ¾î.
+    // íˆ¬ì‚¬ì²´ë¥¼ ìƒì„±í•œ ë³´ìŠ¤ì™€ í”¼í•´ë¥¼ ë°›ì„ í”Œë ˆì´ì–´.
     private BossEnemy _owner;
     private PlayerController _player;
 
-    // ÃæÀü Áß µû¶ó°¥ À§Ä¡¿Í È­¸é °æ°è¸¦ °è»êÇÒ Ä«¸Ş¶ó.
+    // ì¶©ì „ ì¤‘ ë”°ë¼ê°ˆ ìœ„ì¹˜ì™€ í™”ë©´ ê²½ê³„ë¥¼ ê³„ì‚°í•  ì¹´ë©”ë¼.
     private Transform _firePoint;
     private Camera _battleCamera;
 
-    // ÅºÈ¯ÀÇ ¿øÇü ÇÇÇØ ¿µ¿ª.
+    // íƒ„í™˜ì˜ ì›í˜• í”¼í•´ ì˜ì—­.
     private CircleCollider2D _bulletCollider;
     private Collider2D _playerCollider;
 
-    // Åõ»çÃ¼ ÀÌµ¿Àº ÀÌ ½ºÅ©¸³Æ®¿¡¼­ Á÷Á¢ °è»êÇÑ´Ù.
+    // íˆ¬ì‚¬ì²´ ì´ë™ì€ ì´ ìŠ¤í¬ë¦½íŠ¸ì—ì„œ ì§ì ‘ ê³„ì‚°í•œë‹¤.
     private Rigidbody2D _body;
 
-    // ¹ß»ç ¼ø°£ ÇöÀç À§Ä¡¿¡¼­ ÀÌ ¿ùµå ÁÂÇ¥¸¦ ÇâÇÑ´Ù.
+    // ë°œì‚¬ ìˆœê°„ í˜„ì¬ ìœ„ì¹˜ì—ì„œ ì´ ì›”ë“œ ì¢Œí‘œë¥¼ í–¥í•œë‹¤.
     private Vector2 _targetPosition;
 
-    // ¹ß»ç ÈÄ ÀÌµ¿ ¹æÇâ°ú ÃÊ´ç ¼Óµµ¸¦ ÇÔ²² ÀúÀåÇÑ´Ù.
+    // ë°œì‚¬ í›„ ì´ë™ ë°©í–¥ê³¼ ì´ˆë‹¹ ì†ë„ë¥¼ í•¨ê»˜ ì €ì¥í•œë‹¤.
     private Vector2 _velocity;
 
-    // Åõ»çÃ¼ Å©±â¸¦ Á¦¿ÜÇÏ°í °è»êÇÑ Áß½ÉÁ¡ÀÇ ÀÌµ¿ °¡´É ¹üÀ§.
+    // íˆ¬ì‚¬ì²´ í¬ê¸°ë¥¼ ì œì™¸í•˜ê³  ê³„ì‚°í•œ ì¤‘ì‹¬ì ì˜ ì´ë™ ê°€ëŠ¥ ë²”ìœ„.
     private Rect _movementBounds;
 
-    // ³²Àº ¼ö¸í°ú ¾ÆÁ÷ ÇÇÇØ·Î È¯»êµÇÁö ¾ÊÀº Á¢ÃË ½Ã°£.
+    // í™”ë©´ ë°–ì—ì„œ ë°œì‚¬ëœ ì¶•ì€ ì•ˆìª½ì— ì§„ì…í•œ ë’¤ë¶€í„° ë°˜ì‚¬ë¥¼ ì ìš©í•œë‹¤.
+    private bool _enteredHorizontalBounds;
+    private bool _enteredVerticalBounds;
+
+    // ë‚¨ì€ ìˆ˜ëª…ê³¼ ì•„ì§ í”¼í•´ë¡œ í™˜ì‚°ë˜ì§€ ì•Šì€ ì ‘ì´‰ ì‹œê°„.
     private float _remainingLife;
     private float _contactTime;
 
-    // ÃÊ±âÈ­¿Í ¹ß»ç ¿©ºÎ¸¦ ±¸ºĞÇÑ´Ù.
+    // ì´ˆê¸°í™”ì™€ ë°œì‚¬ ì—¬ë¶€ë¥¼ êµ¬ë¶„í•œë‹¤.
     private bool _initialized;
     private bool _launched;
+    // ì¶©ì „ ì·¨ì†Œì™€ ë°œì‚¬ ì „í™˜ì—ì„œ ì •ì§€í•  ì†Œë¦¬.
+    private GameAudio.Handle _chargeAudio;
 
-    // ºñÈ°¼ºÈ­µÉ ¶§ ÃæÀü ¿¬Ãâµµ Áß´ÜÇÒ ¼ö ÀÖµµ·Ï º¸°üÇÑ´Ù.
+    // ë¹„í™œì„±í™”ë  ë•Œ ì¶©ì „ ì—°ì¶œë„ ì¤‘ë‹¨í•  ìˆ˜ ìˆë„ë¡ ë³´ê´€í•œë‹¤.
     private Sequence _chargeSequence;
 
-    // ´ÙÀ½ ´Ü°èÀÇ º¸½º ÆĞÅÏ¿¡¼­ ¹ß»ç ¿Ï·á ¿©ºÎ¸¦ È®ÀÎÇÑ´Ù.
+    // ë‹¤ìŒ ë‹¨ê³„ì˜ ë³´ìŠ¤ íŒ¨í„´ì—ì„œ ë°œì‚¬ ì™„ë£Œ ì—¬ë¶€ë¥¼ í™•ì¸í•œë‹¤.
     public bool HasLaunched => _launched;
 
     /// <summary>
-    /// ÄÄÆ÷³ÍÆ® ÂüÁ¶¿Í ÃÊ±â ½ÇÇà »óÅÂ¸¦ ÁØºñÇÑ´Ù.
+    /// ì»´í¬ë„ŒíŠ¸ ì°¸ì¡°ì™€ ì´ˆê¸° ì‹¤í–‰ ìƒíƒœë¥¼ ì¤€ë¹„í•œë‹¤.
     /// </summary>
     private void Awake()
     {
-        // ·çÆ®ÀÇ ¿øÇü Äİ¶óÀÌ´õ¸¦ Á¢ÃË ÆÇÁ¤¿¡ »ç¿ëÇÑ´Ù.
+        // ë£¨íŠ¸ì˜ ì›í˜• ì½œë¼ì´ë”ë¥¼ ì ‘ì´‰ íŒì •ì— ì‚¬ìš©í•œë‹¤.
         _bulletCollider = GetComponent<CircleCollider2D>();
         _body = GetComponent<Rigidbody2D>();
 
-        // ÃæÀü Áß¿¡´Â Á¢ÃË ÇÇÇØ¸¦ ÆÇÁ¤ÇÏÁö ¾Ê´Â´Ù.
+        // ì¶©ì „ ì¤‘ì—ëŠ” ì ‘ì´‰ í”¼í•´ë¥¼ íŒì •í•˜ì§€ ì•ŠëŠ”ë‹¤.
         _bulletCollider.isTrigger = true;
         _bulletCollider.enabled = false;
 
-        // È­¸é ¹İ»ç´Â Á÷Á¢ °è»êÇÏ¹Ç·Î ¹°¸® ¹İ¹ß·ÂÀº »ç¿ëÇÏÁö ¾Ê´Â´Ù.
+        // í™”ë©´ ë°˜ì‚¬ëŠ” ì§ì ‘ ê³„ì‚°í•˜ë¯€ë¡œ ë¬¼ë¦¬ ë°˜ë°œë ¥ì€ ì‚¬ìš©í•˜ì§€ ì•ŠëŠ”ë‹¤.
         _body.bodyType = RigidbodyType2D.Kinematic;
         _body.gravityScale = 0f;
         _body.linearVelocity = Vector2.zero;
@@ -100,9 +106,9 @@ public sealed class CruiserBigBullet : MonoBehaviour
         _body.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 
-    // º¸½º ÆĞÅÏÀÌ Åõ»çÃ¼¸¦ »ı¼ºÇÑ Á÷ÈÄ È£ÃâÇÑ´Ù.
+    // ë³´ìŠ¤ íŒ¨í„´ì´ íˆ¬ì‚¬ì²´ë¥¼ ìƒì„±í•œ ì§í›„ í˜¸ì¶œí•œë‹¤.
     /// <summary>
-    /// º¸½º ÆĞÅÏÀÌ Åõ»çÃ¼¸¦ »ı¼ºÇÑ Á÷ÈÄ È£ÃâÇÑ´Ù.
+    /// ë³´ìŠ¤ íŒ¨í„´ì´ íˆ¬ì‚¬ì²´ë¥¼ ìƒì„±í•œ ì§í›„ í˜¸ì¶œí•œë‹¤.
     /// </summary>
     public void Initialize(
         BossEnemy owner,
@@ -114,7 +120,7 @@ public sealed class CruiserBigBullet : MonoBehaviour
         if (_initialized)
         {
             throw new InvalidOperationException(
-                $"{name}: ÀÌ¹Ì ÃÊ±âÈ­µÈ Åõ»çÃ¼ÀÔ´Ï´Ù.");
+                $"{name}: ì´ë¯¸ ì´ˆê¸°í™”ëœ íˆ¬ì‚¬ì²´ì…ë‹ˆë‹¤.");
         }
 
         if (owner == null || player == null ||
@@ -122,34 +128,34 @@ public sealed class CruiserBigBullet : MonoBehaviour
             _bulletRenderer == null)
         {
             throw new InvalidOperationException(
-                $"{name}: º¸½º, ÇÃ·¹ÀÌ¾î, FirePoint, Ä«¸Ş¶ó, Renderer¸¦ È®ÀÎÇÏ¼¼¿ä.");
+                $"{name}: ë³´ìŠ¤, í”Œë ˆì´ì–´, FirePoint, ì¹´ë©”ë¼, Rendererë¥¼ í™•ì¸í•˜ì„¸ìš”.");
         }
 
-        // ±×¸²À» Ç¥½ÃÇÏ´Â ¿ÀºêÁ§Æ®ÀÇ Animator°¡ ¿¬°áµÆ´ÂÁö È®ÀÎÇÑ´Ù.
+        // ê·¸ë¦¼ì„ í‘œì‹œí•˜ëŠ” ì˜¤ë¸Œì íŠ¸ì˜ Animatorê°€ ì—°ê²°ëëŠ”ì§€ í™•ì¸í•œë‹¤.
         if (_bulletAnimator == null ||
             _bulletAnimator.gameObject != _bulletRenderer.gameObject ||
             !_bulletAnimator.isActiveAndEnabled ||
             _bulletAnimator.runtimeAnimatorController == null)
         {
             throw new InvalidOperationException(
-                $"{name}: RendererÀÇ Animator¿Í Controller¸¦ È®ÀÎÇÏ¼¼¿ä.");
+                $"{name}: Rendererì˜ Animatorì™€ Controllerë¥¼ í™•ì¸í•˜ì„¸ìš”.");
         }
 
-        // ÃæÀü¡¤ºñÇà »óÅÂ°¡ ¸ğµÎ ÀÖ¾î¾ß ¿¬ÃâÀ» Á¤»ó ÀüÈ¯ÇÒ ¼ö ÀÖ´Ù.
+        // ì¶©ì „Â·ë¹„í–‰ ìƒíƒœê°€ ëª¨ë‘ ìˆì–´ì•¼ ì—°ì¶œì„ ì •ìƒ ì „í™˜í•  ìˆ˜ ìˆë‹¤.
         if (!_bulletAnimator.HasState(0, ChargeState) ||
             !_bulletAnimator.HasState(0, ActiveFlightState))
         {
             throw new InvalidOperationException(
-                $"{name}: ÃæÀü ¶Ç´Â ºñÇà ¾Ö´Ï¸ŞÀÌ¼Ç »óÅÂ°¡ ¾ø½À´Ï´Ù.");
+                $"{name}: ì¶©ì „ ë˜ëŠ” ë¹„í–‰ ì• ë‹ˆë©”ì´ì…˜ ìƒíƒœê°€ ì—†ìŠµë‹ˆë‹¤.");
         }
 
-        // ÇöÀç °ÔÀÓÃ³·³ È¸ÀüÇÏÁö ¾ÊÀº XY Æò¸éÀÇ Á÷±³ Ä«¸Ş¶ó¸¦ »ç¿ëÇÑ´Ù.
+        // í˜„ì¬ ê²Œì„ì²˜ëŸ¼ íšŒì „í•˜ì§€ ì•Šì€ XY í‰ë©´ì˜ ì§êµ ì¹´ë©”ë¼ë¥¼ ì‚¬ìš©í•œë‹¤.
         if (!battleCamera.orthographic ||
             Vector3.Dot(battleCamera.transform.right, Vector3.right) < 0.9999f ||
             Vector3.Dot(battleCamera.transform.up, Vector3.up) < 0.9999f)
         {
             throw new InvalidOperationException(
-                $"{name}: XY Æò¸éÀ» º¸´Â È¸Àü ¾ø´Â Á÷±³ Ä«¸Ş¶ó°¡ ÇÊ¿äÇÕ´Ï´Ù.");
+                $"{name}: XY í‰ë©´ì„ ë³´ëŠ” íšŒì „ ì—†ëŠ” ì§êµ ì¹´ë©”ë¼ê°€ í•„ìš”í•©ë‹ˆë‹¤.");
         }
 
         if (_bulletScale <= 0f || 
@@ -161,7 +167,7 @@ public sealed class CruiserBigBullet : MonoBehaviour
             _damage <= 0)
         {
             throw new InvalidOperationException(
-                $"{name}: ½Ã°£, ¼Óµµ, ÇÇÇØ ¼³Á¤À» È®ÀÎÇÏ¼¼¿ä.");
+                $"{name}: ì‹œê°„, ì†ë„, í”¼í•´ ì„¤ì •ì„ í™•ì¸í•˜ì„¸ìš”.");
         }
 
         _playerCollider = player.GetComponent<Collider2D>();
@@ -169,7 +175,7 @@ public sealed class CruiserBigBullet : MonoBehaviour
         if (_playerCollider == null)
         {
             throw new InvalidOperationException(
-                $"{name}: ÇÃ·¹ÀÌ¾î ·çÆ®ÀÇ Collider2D°¡ ÇÊ¿äÇÕ´Ï´Ù.");
+                $"{name}: í”Œë ˆì´ì–´ ë£¨íŠ¸ì˜ Collider2Dê°€ í•„ìš”í•©ë‹ˆë‹¤.");
         }
 
         _owner = owner;
@@ -178,18 +184,18 @@ public sealed class CruiserBigBullet : MonoBehaviour
         _battleCamera = battleCamera;
         _targetPosition = targetPosition;
 
-        // º¸½ºÀÇ ½ºÄÉÀÏ°ú È¸Àü¿¡ ¿µÇâÀ» ¹ŞÁö ¾Êµµ·Ï µ¶¸³½ÃÅ²´Ù.
+        // ë³´ìŠ¤ì˜ ìŠ¤ì¼€ì¼ê³¼ íšŒì „ì— ì˜í–¥ì„ ë°›ì§€ ì•Šë„ë¡ ë…ë¦½ì‹œí‚¨ë‹¤.
         transform.SetParent(null);
         transform.SetPositionAndRotation(
             firePoint.position, Quaternion.identity);
 
-        // »õ ½ºÇÁ¶óÀÌÆ®´Â PPU 236, Scale 1À» ±âÁØÀ¸·Î Á¦ÀÛÇß´Ù.
-        // ÃæÀü Áß¿¡µµ Å©±â´Â °íÁ¤ÇÏ°í ÀÌ¹ÌÁö º¯È­·Î ÃæÀüÀ» Ç¥ÇöÇÑ´Ù.
+        // ìƒˆ ìŠ¤í”„ë¼ì´íŠ¸ëŠ” PPU 236, Scale 1ì„ ê¸°ì¤€ìœ¼ë¡œ ì œì‘í–ˆë‹¤.
+        // ì¶©ì „ ì¤‘ì—ë„ í¬ê¸°ëŠ” ê³ ì •í•˜ê³  ì´ë¯¸ì§€ ë³€í™”ë¡œ ì¶©ì „ì„ í‘œí˜„í•œë‹¤.
         _bulletCollider.offset = Vector2.zero;
-        // ÃæÀü°ú ºñÇà ³»³» ÁöÁ¤ÇÑ Å©±â¸¦ À¯ÁöÇÑ´Ù.
+        // ì¶©ì „ê³¼ ë¹„í–‰ ë‚´ë‚´ ì§€ì •í•œ í¬ê¸°ë¥¼ ìœ ì§€í•œë‹¤.
         transform.localScale = Vector3.one * _bulletScale;
 
-        // ÃæÀü Å¬¸³À» Ã¹ ÇÁ·¹ÀÓºÎÅÍ Àç»ıÇÏ°í ±æÀÌ¸¦ È®ÀÎÇÑ´Ù.
+        // ì¶©ì „ í´ë¦½ì„ ì²« í”„ë ˆì„ë¶€í„° ì¬ìƒí•˜ê³  ê¸¸ì´ë¥¼ í™•ì¸í•œë‹¤.
         _bulletAnimator.speed = 1f;
         _bulletAnimator.Play(ChargeState, 0, 0f);
         _bulletAnimator.Update(0f);
@@ -200,19 +206,20 @@ public sealed class CruiserBigBullet : MonoBehaviour
         if (chargeClipLength <= 0f)
         {
             throw new InvalidOperationException(
-                $"{name}: ÃæÀü ¾Ö´Ï¸ŞÀÌ¼Ç Å¬¸³ÀÇ ±æÀÌ¸¦ È®ÀÎÇÏ¼¼¿ä.");
+                $"{name}: ì¶©ì „ ì• ë‹ˆë©”ì´ì…˜ í´ë¦½ì˜ ê¸¸ì´ë¥¼ í™•ì¸í•˜ì„¸ìš”.");
         }
 
-        // ÃæÀü ½Ã°£À» Á¶ÀıÇØµµ ÀüÃ¼ ÃæÀü ÀÌ¹ÌÁö°¡ ±× ½Ã°£ ¾È¿¡ Àç»ıµÈ´Ù.
+        // ì¶©ì „ ì‹œê°„ì„ ì¡°ì ˆí•´ë„ ì „ì²´ ì¶©ì „ ì´ë¯¸ì§€ê°€ ê·¸ ì‹œê°„ ì•ˆì— ì¬ìƒëœë‹¤.
         _bulletAnimator.speed = chargeClipLength / _growDuration;
 
         _initialized = true;
+        _chargeAudio = GameAudio.PlayOwned(GameSound.CruiserBigshotCharge, this);
 
-        // ÃæÀü°ú ¹ß»ç ´ë±â´Â °ÔÀÓ ½Ã°£À¸·Î ÁøÇàÇÑ´Ù.
+        // ì¶©ì „ê³¼ ë°œì‚¬ ëŒ€ê¸°ëŠ” ê²Œì„ ì‹œê°„ìœ¼ë¡œ ì§„í–‰í•œë‹¤.
         _chargeSequence = DOTween.Sequence();
         _chargeSequence.AppendInterval(_growDuration);
 
-        // ÃæÀüÀÌ ³¡³ª¸é ¿Ï¼ºµÈ ÅºÈ¯ ¾Ö´Ï¸ŞÀÌ¼ÇÀ» Á¤»ó ¼Óµµ·Î ¹İº¹ÇÑ´Ù.
+        // ì¶©ì „ì´ ëë‚˜ë©´ ì™„ì„±ëœ íƒ„í™˜ ì• ë‹ˆë©”ì´ì…˜ì„ ì •ìƒ ì†ë„ë¡œ ë°˜ë³µí•œë‹¤.
         _chargeSequence.AppendCallback(() =>
         {
             _bulletAnimator.speed = 1f;
@@ -220,14 +227,14 @@ public sealed class CruiserBigBullet : MonoBehaviour
             _bulletAnimator.Update(0f);
         });
 
-        // ¿Ï¼ºµÈ ¸ğ½ÀÀ¸·Î ´ë±âÇÑ µÚ ¹ß»çÇÑ´Ù.
-        // ¹ß»ç ÈÄ¿¡µµ °°Àº ºñÇà ¾Ö´Ï¸ŞÀÌ¼ÇÀ» °è¼Ó ¹İº¹ÇÑ´Ù.
+        // ì™„ì„±ëœ ëª¨ìŠµìœ¼ë¡œ ëŒ€ê¸°í•œ ë’¤ ë°œì‚¬í•œë‹¤.
+        // ë°œì‚¬ í›„ì—ë„ ê°™ì€ ë¹„í–‰ ì• ë‹ˆë©”ì´ì…˜ì„ ê³„ì† ë°˜ë³µí•œë‹¤.
         _chargeSequence.AppendInterval(_holdDuration);
         _chargeSequence.OnComplete(Launch);
     }
 
     /// <summary>
-    /// ÇÁ·¹ÀÓÀÇ ÀÌµ¿ °á°ú¿¡ ¸ÂÃç ÈÄ¼Ó »óÅÂ¸¦ °»½ÅÇÑ´Ù.
+    /// í”„ë ˆì„ì˜ ì´ë™ ê²°ê³¼ì— ë§ì¶° í›„ì† ìƒíƒœë¥¼ ê°±ì‹ í•œë‹¤.
     /// </summary>
     private void LateUpdate()
     {
@@ -236,7 +243,7 @@ public sealed class CruiserBigBullet : MonoBehaviour
             return;
         }
 
-        // º¸½º Ã³Ä¡ ÀÌÈÄ ÀÌµ¿ ¿¬Ãâ¿¡ °ø°İÀÌ ³²Áö ¾Êµµ·Ï Á¦°ÅÇÑ´Ù.
+        // ë³´ìŠ¤ ì²˜ì¹˜ ì´í›„ ì´ë™ ì—°ì¶œì— ê³µê²©ì´ ë‚¨ì§€ ì•Šë„ë¡ ì œê±°í•œë‹¤.
         if (_owner == null || _owner.IsDead ||
             !_owner.isActiveAndEnabled)
         {
@@ -244,7 +251,7 @@ public sealed class CruiserBigBullet : MonoBehaviour
             return;
         }
 
-        // ÃæÀü°ú ¹ß»ç ´ë±â Áß¿¡´Â º»Ã¼ÀÇ FirePoint¸¦ µû¶ó°£´Ù.
+        // ì¶©ì „ê³¼ ë°œì‚¬ ëŒ€ê¸° ì¤‘ì—ëŠ” ë³¸ì²´ì˜ FirePointë¥¼ ë”°ë¼ê°„ë‹¤.
         if (!_launched)
         {
             if (_firePoint == null)
@@ -258,7 +265,7 @@ public sealed class CruiserBigBullet : MonoBehaviour
     }
 
     /// <summary>
-    /// Launch µ¿ÀÛ¿¡ ÇÊ¿äÇÑ »óÅÂ¿Í Ã³¸® Èå¸§À» ½ÇÇàÇÑ´Ù.
+    /// Launch ë™ì‘ì— í•„ìš”í•œ ìƒíƒœì™€ ì²˜ë¦¬ íë¦„ì„ ì‹¤í–‰í•œë‹¤.
     /// </summary>
     private void Launch()
     {
@@ -269,7 +276,7 @@ public sealed class CruiserBigBullet : MonoBehaviour
             return;
         }
 
-        // ¹ß»ç ¼ø°£ÀÇ FirePoint À§Ä¡¿¡¼­ ¸ñÇ¥ ÁÂÇ¥ ¹æÇâÀ» °è»êÇÑ´Ù.
+        // ë°œì‚¬ ìˆœê°„ì˜ FirePoint ìœ„ì¹˜ì—ì„œ ëª©í‘œ ì¢Œí‘œ ë°©í–¥ì„ ê³„ì‚°í•œë‹¤.
         transform.position = _firePoint.position;
 
         Vector2 direction =
@@ -280,10 +287,10 @@ public sealed class CruiserBigBullet : MonoBehaviour
             Destroy(gameObject);
 
             throw new InvalidOperationException(
-                $"{name}: ¹ß»ç À§Ä¡¿Í ¸ñÇ¥ ÁÂÇ¥°¡ °°½À´Ï´Ù.");
+                $"{name}: ë°œì‚¬ ìœ„ì¹˜ì™€ ëª©í‘œ ì¢Œí‘œê°€ ê°™ìŠµë‹ˆë‹¤.");
         }
 
-        // ¼ºÀåÇÑ Å©±â°¡ Äİ¶óÀÌ´õ¿Í RendererÀÇ °æ°è¿¡ ¹İ¿µµÇ°Ô ÇÑ´Ù.
+        // ì„±ì¥í•œ í¬ê¸°ê°€ ì½œë¼ì´ë”ì™€ Rendererì˜ ê²½ê³„ì— ë°˜ì˜ë˜ê²Œ í•œë‹¤.
         _bulletCollider.enabled = true;
         Physics2D.SyncTransforms();
 
@@ -291,29 +298,30 @@ public sealed class CruiserBigBullet : MonoBehaviour
 
         Vector2 startPosition = transform.position;
 
-        // ¹ß»ç À§Ä¡¿¡¼­ Åõ»çÃ¼ ÀüÃ¼°¡ È­¸é ¾È¿¡ µé¾î¿Í¾ß ÇÑ´Ù.
-        if (startPosition.x < _movementBounds.xMin ||
-            startPosition.x > _movementBounds.xMax ||
-            startPosition.y < _movementBounds.yMin ||
-            startPosition.y > _movementBounds.yMax)
-        {
-            Destroy(gameObject);
-
-            throw new InvalidOperationException(
-                $"{name}: FirePoint À§Ä¡ ¶Ç´Â Target ScaleÀ» Á¶Á¤ÇÏ¼¼¿ä. " +
-                "¹ß»ç ½Ã Åõ»çÃ¼ ÀüÃ¼°¡ È­¸é ¾È¿¡ ÀÖ¾î¾ß ÇÕ´Ï´Ù.");
-        }
-
+        // í¬êµ¬ê°€ ê°€ì¥ìë¦¬ì— ìˆìœ¼ë©´ í˜„ì¬ ìœ„ì¹˜ì—ì„œ ìì—°ìŠ¤ëŸ½ê²Œ í™”ë©´ ì•ˆìœ¼ë¡œ ì§„ì…í•œë‹¤.
+        // ì§„ì… ì „ì—ëŠ” í•´ë‹¹ ì¶•ì˜ ë²½ ë°˜ì‚¬ë¥¼ ìœ ì˜ˆí•˜ê³  ì†ë„ë¥¼ ì•ˆìª½ìœ¼ë¡œ í–¥í•˜ê²Œ í•œë‹¤.
         _body.position = startPosition;
         _velocity = direction.normalized * _speed;
+        _enteredHorizontalBounds = startPosition.x >= _movementBounds.xMin && startPosition.x <= _movementBounds.xMax;
+        _enteredVerticalBounds = startPosition.y >= _movementBounds.yMin && startPosition.y <= _movementBounds.yMax;
+        if (!_enteredHorizontalBounds)
+            _velocity.x = startPosition.x < _movementBounds.xMin ? Mathf.Abs(_velocity.x) : -Mathf.Abs(_velocity.x);
+        if (!_enteredVerticalBounds)
+            _velocity.y = startPosition.y < _movementBounds.yMin ? Mathf.Abs(_velocity.y) : -Mathf.Abs(_velocity.y);
+        // ì¶• ì†ë„ê°€ 0ì´ì–´ë„ ë°”ê¹¥ì— ë¨¸ë¬¼ì§€ ì•Šë„ë¡ í™”ë©´ ì•ˆì˜ ëª©í‘œë¥¼ í–¥í•œë‹¤.
+        if ((!_enteredHorizontalBounds && Mathf.Abs(_velocity.x) < 0.0001f) ||
+            (!_enteredVerticalBounds && Mathf.Abs(_velocity.y) < 0.0001f))
+            _velocity = (_movementBounds.center - startPosition).normalized * _speed;
         _remainingLife = _lifeDuration;
         _contactTime = 0f;
         _launched = true;
+        GameAudio.Stop(_chargeAudio);
+        GameAudio.Play(GameSound.CruiserBigshotFire);
     }
 
-    // ¹ß»ç ½ÃÁ¡ÀÇ Ä«¸Ş¶ó È­¸éÀ» ¹İ»ç ¿µ¿ªÀ¸·Î »ç¿ëÇÑ´Ù.
+    // ë°œì‚¬ ì‹œì ì˜ ì¹´ë©”ë¼ í™”ë©´ì„ ë°˜ì‚¬ ì˜ì—­ìœ¼ë¡œ ì‚¬ìš©í•œë‹¤.
     /// <summary>
-    /// ¹ß»ç ½ÃÁ¡ÀÇ Ä«¸Ş¶ó È­¸éÀ» ¹İ»ç ¿µ¿ªÀ¸·Î »ç¿ëÇÑ´Ù.
+    /// ë°œì‚¬ ì‹œì ì˜ ì¹´ë©”ë¼ í™”ë©´ì„ ë°˜ì‚¬ ì˜ì—­ìœ¼ë¡œ ì‚¬ìš©í•œë‹¤.
     /// </summary>
     private void CalculateMovementBounds()
     {
@@ -327,7 +335,7 @@ public sealed class CruiserBigBullet : MonoBehaviour
         Vector3 topRight = _battleCamera.ViewportToWorldPoint(
             new Vector3(1f, 1f, depth));
 
-        // ±×¸²°ú Ãæµ¹ ¿µ¿ªÀ» ¸ğµÎ Æ÷ÇÔÇÏ´Â °æ°è¸¦ ±¸ÇÑ´Ù.
+        // ê·¸ë¦¼ê³¼ ì¶©ëŒ ì˜ì—­ì„ ëª¨ë‘ í¬í•¨í•˜ëŠ” ê²½ê³„ë¥¼ êµ¬í•œë‹¤.
         Bounds bounds = _bulletCollider.bounds;
         bounds.Encapsulate(_bulletRenderer.bounds);
 
@@ -350,12 +358,12 @@ public sealed class CruiserBigBullet : MonoBehaviour
             Destroy(gameObject);
 
             throw new InvalidOperationException(
-                $"{name}: Åõ»çÃ¼ Å©±â°¡ È­¸éº¸´Ù Å®´Ï´Ù.");
+                $"{name}: íˆ¬ì‚¬ì²´ í¬ê¸°ê°€ í™”ë©´ë³´ë‹¤ í½ë‹ˆë‹¤.");
         }
     }
 
     /// <summary>
-    /// ¹°¸® °»½Å ÁÖ±â¿¡ ¸ÂÃç ÀÌµ¿°ú Ãæµ¹ Ã³¸®¸¦ ¼öÇàÇÑ´Ù.
+    /// ë¬¼ë¦¬ ê°±ì‹  ì£¼ê¸°ì— ë§ì¶° ì´ë™ê³¼ ì¶©ëŒ ì²˜ë¦¬ë¥¼ ìˆ˜í–‰í•œë‹¤.
     /// </summary>
     private void FixedUpdate()
     {
@@ -371,12 +379,12 @@ public sealed class CruiserBigBullet : MonoBehaviour
             return;
         }
 
-        // ¸¶Áö¸· ÇÁ·¹ÀÓ¿¡µµ ½ÇÁ¦ ³²Àº ¼ö¸í¸¸Å­¸¸ ÀÌµ¿ÇÏ°í ÇÇÇØ¸¦ °è»êÇÑ´Ù.
+        // ë§ˆì§€ë§‰ í”„ë ˆì„ì—ë„ ì‹¤ì œ ë‚¨ì€ ìˆ˜ëª…ë§Œí¼ë§Œ ì´ë™í•˜ê³  í”¼í•´ë¥¼ ê³„ì‚°í•œë‹¤.
         float duration = Mathf.Min(
             Time.fixedDeltaTime, _remainingLife);
 
-        // ºü¸¥ ÀÌµ¿¿¡¼­ Á¢ÃËÀ» °Ç³Ê¶Ù´Â ÀÏÀ» ÁÙÀÌ±â À§ÇØ
-        // Åõ»çÃ¼ Å©±â¿¡ ºñ·ÊÇÏ¿© ÀÌµ¿°ú Á¢ÃË °Ë»ç¸¦ Àß°Ô ³ª´«´Ù.
+        // ë¹ ë¥¸ ì´ë™ì—ì„œ ì ‘ì´‰ì„ ê±´ë„ˆë›°ëŠ” ì¼ì„ ì¤„ì´ê¸° ìœ„í•´
+        // íˆ¬ì‚¬ì²´ í¬ê¸°ì— ë¹„ë¡€í•˜ì—¬ ì´ë™ê³¼ ì ‘ì´‰ ê²€ì‚¬ë¥¼ ì˜ê²Œ ë‚˜ëˆˆë‹¤.
         Vector3 size = _bulletCollider.bounds.size;
         float sampleDistance =
             Mathf.Max(0.001f, Mathf.Min(size.x, size.y) * 0.25f);
@@ -391,21 +399,21 @@ public sealed class CruiserBigBullet : MonoBehaviour
             Vector2 position =
                 _body.position + _velocity * stepDuration;
 
-            ReflectAxis(
-                ref position.x, ref _velocity.x,
+            ReflectAfterEntry(
+                ref _enteredHorizontalBounds, ref position.x, ref _velocity.x,
                 _movementBounds.xMin, _movementBounds.xMax);
 
-            ReflectAxis(
-                ref position.y, ref _velocity.y,
+            ReflectAfterEntry(
+                ref _enteredVerticalBounds, ref position.y, ref _velocity.y,
                 _movementBounds.yMin, _movementBounds.yMax);
 
             _body.position = position;
 
-            // º¯°æµÈ À§Ä¡¸¦ Á¢ÃË °Ë»ç¿¡ Áï½Ã ¹İ¿µÇÑ´Ù.
+            // ë³€ê²½ëœ ìœ„ì¹˜ë¥¼ ì ‘ì´‰ ê²€ì‚¬ì— ì¦‰ì‹œ ë°˜ì˜í•œë‹¤.
             Physics2D.SyncTransforms();
             AccumulateContactDamage(stepDuration);
 
-            // ÀÌ¹ø ÇÇÇØ·Î ÇÃ·¹ÀÌ¾î°¡ »ç¸ÁÇÏ¸é Ãß°¡ °è»êÀ» Áß´ÜÇÑ´Ù.
+            // ì´ë²ˆ í”¼í•´ë¡œ í”Œë ˆì´ì–´ê°€ ì‚¬ë§í•˜ë©´ ì¶”ê°€ ê³„ì‚°ì„ ì¤‘ë‹¨í•œë‹¤.
             if (_player != null && _player.IsDead)
             {
                 break;
@@ -420,10 +428,20 @@ public sealed class CruiserBigBullet : MonoBehaviour
         }
     }
 
-    // º®À» ÃÊ°úÇÑ ÀÌµ¿ °Å¸®µµ ¹İ»çÇÏ¿© ¼Óµµ°¡ ÁÙÁö ¾Êµµ·Ï ÇÑ´Ù.
-    // ¸ğ¼­¸®¿¡¼­´Â X¿Í Y°¡ °¢°¢ ¹İ»çµÈ´Ù.
+    /// <summary>í™”ë©´ ë°–ì—ì„œ ì¶œë°œí•œ ì¶•ì€ ì•ˆìª½ ê²½ê³„ë¥¼ í†µê³¼í•œ ìˆœê°„ë¶€í„° ë°˜ì‚¬í•©ë‹ˆë‹¤.</summary>
+    private static void ReflectAfterEntry(ref bool entered, ref float position,
+        ref float velocity, float minimum, float maximum)
+    {
+        // ì´ë™ ë°©í–¥ ê¸°ì¤€ìœ¼ë¡œ ì§„ì… ì—¬ë¶€ë¥¼ íŒë‹¨í•˜ë¯€ë¡œ í•œ ìŠ¤í…ì— ì˜ì—­ì„ ì§€ë‚˜ë„ ë°˜ì‚¬ëœë‹¤.
+        if (!entered)
+            entered = velocity > 0f ? position >= minimum : position <= maximum;
+        if (entered) ReflectAxis(ref position, ref velocity, minimum, maximum);
+    }
+
+    // ë²½ì„ ì´ˆê³¼í•œ ì´ë™ ê±°ë¦¬ë„ ë°˜ì‚¬í•˜ì—¬ ì†ë„ê°€ ì¤„ì§€ ì•Šë„ë¡ í•œë‹¤.
+    // ëª¨ì„œë¦¬ì—ì„œëŠ” Xì™€ Yê°€ ê°ê° ë°˜ì‚¬ëœë‹¤.
     /// <summary>
-    /// ¸ğ¼­¸®¿¡¼­´Â X¿Í Y°¡ °¢°¢ ¹İ»çµÈ´Ù.
+    /// ëª¨ì„œë¦¬ì—ì„œëŠ” Xì™€ Yê°€ ê°ê° ë°˜ì‚¬ëœë‹¤.
     /// </summary>
     private static void ReflectAxis(
         ref float position,
@@ -447,11 +465,11 @@ public sealed class CruiserBigBullet : MonoBehaviour
     }
 
     /// <summary>
-    /// AccumulateContactDamage µ¿ÀÛ¿¡ ÇÊ¿äÇÑ »óÅÂ¿Í Ã³¸® Èå¸§À» ½ÇÇàÇÑ´Ù.
+    /// AccumulateContactDamage ë™ì‘ì— í•„ìš”í•œ ìƒíƒœì™€ ì²˜ë¦¬ íë¦„ì„ ì‹¤í–‰í•œë‹¤.
     /// </summary>
     private void AccumulateContactDamage(float duration)
     {
-        // ÀÌµ¿ ¿¬Ãâ Áß¿¡´Â Á¢ÃË ½Ã°£µµ ½×Áö ¾Ê´Â´Ù.
+        // ì´ë™ ì—°ì¶œ ì¤‘ì—ëŠ” ì ‘ì´‰ ì‹œê°„ë„ ìŒ“ì§€ ì•ŠëŠ”ë‹¤.
         if (_player == null || _player.IsDead ||
             !_player.isActiveAndEnabled || !_player.CanControl ||
             _playerCollider == null ||
@@ -460,20 +478,20 @@ public sealed class CruiserBigBullet : MonoBehaviour
             return;
         }
 
-        // ÇÃ·¹ÀÌ¾îÀÇ ½ÇÁ¦ Äİ¶óÀÌ´õ¿Í °ãÄ¡´ÂÁö °Ë»çÇÑ´Ù.
+        // í”Œë ˆì´ì–´ì˜ ì‹¤ì œ ì½œë¼ì´ë”ì™€ ê²¹ì¹˜ëŠ”ì§€ ê²€ì‚¬í•œë‹¤.
         ColliderDistance2D contact =
             Physics2D.Distance(_bulletCollider, _playerCollider);
 
         if (!contact.isOverlapped)
         {
-            // ¶³¾îÁ® ÀÖ´Â µ¿¾È¿¡´Â ½Ã°£ÀÌ Áõ°¡ÇÏÁö ¾Ê´Â´Ù.
-            // ÀÌÀü Á¢ÃË ½Ã°£ÀÇ ³ª¸ÓÁö´Â À¯ÁöÇÑ´Ù.
+            // ë–¨ì–´ì ¸ ìˆëŠ” ë™ì•ˆì—ëŠ” ì‹œê°„ì´ ì¦ê°€í•˜ì§€ ì•ŠëŠ”ë‹¤.
+            // ì´ì „ ì ‘ì´‰ ì‹œê°„ì˜ ë‚˜ë¨¸ì§€ëŠ” ìœ ì§€í•œë‹¤.
             return;
         }
 
         _contactTime += duration;
 
-        // ´©Àû Á¢ÃË ½Ã°£ÀÌ ±æ¾îµµ ÇÊ¿äÇÑ ÇÇÇØ È½¼ö¸¦ ºü¶ß¸®Áö ¾Ê´Â´Ù.
+        // ëˆ„ì  ì ‘ì´‰ ì‹œê°„ì´ ê¸¸ì–´ë„ í•„ìš”í•œ í”¼í•´ íšŸìˆ˜ë¥¼ ë¹ ëœ¨ë¦¬ì§€ ì•ŠëŠ”ë‹¤.
         while (_contactTime >= _damageInterval)
         {
             _contactTime -= _damageInterval;
@@ -487,11 +505,12 @@ public sealed class CruiserBigBullet : MonoBehaviour
     }
 
     /// <summary>
-    /// ºñÈ°¼ºÈ­ ½Ã ÀÌº¥Æ® ¿¬°á°ú ½ÇÇà »óÅÂ¸¦ Á¤¸®ÇÑ´Ù.
+    /// ë¹„í™œì„±í™” ì‹œ ì´ë²¤íŠ¸ ì—°ê²°ê³¼ ì‹¤í–‰ ìƒíƒœë¥¼ ì •ë¦¬í•œë‹¤.
     /// </summary>
     private void OnDisable()
     {
-        // ÃæÀü µµÁß Á¦°ÅµÇ¸é ¿¹¾àµÈ ¹ß»ç Äİ¹éµµ ÇÔ²² Ãë¼ÒÇÑ´Ù.
+        GameAudio.Stop(_chargeAudio);
+        // ì¶©ì „ ë„ì¤‘ ì œê±°ë˜ë©´ ì˜ˆì•½ëœ ë°œì‚¬ ì½œë°±ë„ í•¨ê»˜ ì·¨ì†Œí•œë‹¤.
         if (_chargeSequence != null)
         {
             _chargeSequence.Kill();

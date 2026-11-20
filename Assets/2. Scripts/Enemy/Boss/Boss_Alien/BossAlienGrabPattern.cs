@@ -1,18 +1,18 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using UnityEngine;
 
-// GrabÀÇ ¼ø¼­¸¦ °ü¸®ÇÑ´Ù.
-// ÇÃ·¹ÀÌ¾î ºÙÀÌ±â¿Í ¹İ»ç ÀÌµ¿Àº °¢°¢ÀÇ Àü¿ë ÄÄÆ÷³ÍÆ®°¡ ´ã´çÇÑ´Ù.
+// Grabì˜ ìˆœì„œë¥¼ ê´€ë¦¬í•œë‹¤.
+// í”Œë ˆì´ì–´ ë¶™ì´ê¸°ì™€ ë°˜ì‚¬ ì´ë™ì€ ê°ê°ì˜ ì „ìš© ì»´í¬ë„ŒíŠ¸ê°€ ë‹´ë‹¹í•œë‹¤.
 [CreateAssetMenu(
     menuName = "Boss/Patterns/Alien Grab",
     fileName = "BossAlienGrabPattern")]
 public sealed class BossAlienGrabPattern : BossPattern
 {
-    // Àâ±â¡¤Èçµé±â¡¤´øÁö±â¿¡ »ç¿ëÇÒ ¼³Á¤ ¿¡¼ÂÀÌ´Ù.
+    // ì¡ê¸°Â·í”ë“¤ê¸°Â·ë˜ì§€ê¸°ì— ì‚¬ìš©í•  ì„¤ì • ì—ì…‹ì´ë‹¤.
     [SerializeField] private BossAlienGrabConfig _config;
 
-    // BodyVisual Animator¿¡¼­ Á÷Á¢ Àç»ıÇÒ »óÅÂ´Ù.
+    // BodyVisual Animatorì—ì„œ ì§ì ‘ ì¬ìƒí•  ìƒíƒœë‹¤.
     private static readonly int PrepareState =
         Animator.StringToHash("Base Layer.Alien_Grab_Prepare");
     private static readonly int ThrowState =
@@ -27,7 +27,7 @@ public sealed class BossAlienGrabPattern : BossPattern
         if (boss == null || _config == null || !PauseRandomMovement)
         {
             Debug.LogError(
-                $"{name}: Boss_Alien, Config, Pause Random Movement¸¦ È®ÀÎÇÏ¼¼¿ä.");
+                $"{name}: Boss_Alien, Config, Pause Random Movementë¥¼ í™•ì¸í•˜ì„¸ìš”.");
             yield break;
         }
 
@@ -41,8 +41,8 @@ public sealed class BossAlienGrabPattern : BossPattern
         PlayerThrownMotion thrown =
             context.TargetPlayer.GetComponent<PlayerThrownMotion>();
 
-        // º¸½º ÇÁ¸®ÆÕ¿¡´Â ¾À ¿ÀºêÁ§Æ®¸¦ ÀúÀåÇÒ ¼ö ¾øÀ¸¹Ç·Î ½ÇÇà ½Ã Ã£´Â´Ù.
-        // ¿©·¯ °æ°è°¡ ÀÖÀ¸¸é ÀÓÀÇ·Î ¼±ÅÃÇÏÁö ¾Ê°í ¼³Á¤ ¿À·ù·Î Ã³¸®ÇÑ´Ù.
+        // ë³´ìŠ¤ í”„ë¦¬íŒ¹ì—ëŠ” ì”¬ ì˜¤ë¸Œì íŠ¸ë¥¼ ì €ì¥í•  ìˆ˜ ì—†ìœ¼ë¯€ë¡œ ì‹¤í–‰ ì‹œ ì°¾ëŠ”ë‹¤.
+        // ì—¬ëŸ¬ ê²½ê³„ê°€ ìˆìœ¼ë©´ ì„ì˜ë¡œ ì„ íƒí•˜ì§€ ì•Šê³  ì„¤ì • ì˜¤ë¥˜ë¡œ ì²˜ë¦¬í•œë‹¤.
         BossAlienGrabArena[] arenas =
             UnityEngine.Object.FindObjectsByType<BossAlienGrabArena>(
                 FindObjectsSortMode.None);
@@ -53,7 +53,7 @@ public sealed class BossAlienGrabPattern : BossPattern
             arenas.Length != 1 || !arenas[0].isActiveAndEnabled)
         {
             Debug.LogError(
-                $"{name}: Grab ¿¬°á, PlayerThrownMotion, ¾ÀÀÇ Arena ÇÏ³ª¸¦ È®ÀÎÇÏ¼¼¿ä.");
+                $"{name}: Grab ì—°ê²°, PlayerThrownMotion, ì”¬ì˜ Arena í•˜ë‚˜ë¥¼ í™•ì¸í•˜ì„¸ìš”.");
             yield break;
         }
 
@@ -63,25 +63,25 @@ public sealed class BossAlienGrabPattern : BossPattern
             !animator.HasState(0, ThrowState) ||
             !animator.HasState(0, IdleState))
         {
-            Debug.LogError($"{name}: AnimatorÀÇ Grab¡¤Idle »óÅÂ¸¦ È®ÀÎÇÏ¼¼¿ä.");
+            Debug.LogError($"{name}: Animatorì˜ GrabÂ·Idle ìƒíƒœë¥¼ í™•ì¸í•˜ì„¸ìš”.");
             yield break;
         }
 
-        // ´Ù¸¥ ½ÇÇàÀÌ °¡Áø ÇÃ·¹ÀÌ¾î ÀÌµ¿ ±ÇÇÑÀ» °Çµå¸®Áö ¾Ê´Â´Ù.
+        // ë‹¤ë¥¸ ì‹¤í–‰ì´ ê°€ì§„ í”Œë ˆì´ì–´ ì´ë™ ê¶Œí•œì„ ê±´ë“œë¦¬ì§€ ì•ŠëŠ”ë‹¤.
         if (grab.HasCapturedPlayer || thrown.IsRunning ||
             !context.TargetPlayer.CanControl)
         {
             yield break;
         }
 
-        // ½ÇÇà »óÅÂ´Â ¿¡¼Â ÇÊµå°¡ ¾Æ´Ï¶ó ÀÌ¹ø ½ÇÇàÀÇ Áö¿ª º¯¼ö·Î °ü¸®ÇÑ´Ù.
+        // ì‹¤í–‰ ìƒíƒœëŠ” ì—ì…‹ í•„ë“œê°€ ì•„ë‹ˆë¼ ì´ë²ˆ ì‹¤í–‰ì˜ ì§€ì—­ ë³€ìˆ˜ë¡œ ê´€ë¦¬í•œë‹¤.
         bool aborted = false;
         bool captured = false;
         bool throwStarted = false;
         bool extendRequested = false;
         bool throwRequested = false;
 
-        // 0: ÀÌº¥Æ® ´ë±â ¾Æ´Ô, 1: ÆÈ »¸±â ´ë±â, 2: ´øÁö±â ´ë±â.
+        // 0: ì´ë²¤íŠ¸ ëŒ€ê¸° ì•„ë‹˜, 1: íŒ” ë»—ê¸° ëŒ€ê¸°, 2: ë˜ì§€ê¸° ëŒ€ê¸°.
         int eventStage = 0;
 
         bool CanContinue()
@@ -94,7 +94,7 @@ public sealed class BossAlienGrabPattern : BossPattern
                 arena != null && arena.isActiveAndEnabled;
         }
 
-        // ´Ù¸¥ ´Ü°è¿¡¼­ µé¾î¿Â ÀÌº¥Æ®´Â ¹«½ÃÇÑ´Ù.
+        // ë‹¤ë¥¸ ë‹¨ê³„ì—ì„œ ë“¤ì–´ì˜¨ ì´ë²¤íŠ¸ëŠ” ë¬´ì‹œí•œë‹¤.
         void HandleExtend()
         {
             if (eventStage == 1 && CanContinue())
@@ -111,8 +111,8 @@ public sealed class BossAlienGrabPattern : BossPattern
             }
         }
 
-        // ÁöÁ¤ À§Ä¡±îÁö ¼Õ¸ñÀ» ÀÌµ¿ÇÑ´Ù.
-        // ÀâÀº µÚ ÀÌµ¿ÇÒ ¶§´Â ÇÃ·¹ÀÌ¾î°¡ ÇØÁ¦µÆ´ÂÁöµµ °Ë»çÇÑ´Ù.
+        // ì§€ì • ìœ„ì¹˜ê¹Œì§€ ì†ëª©ì„ ì´ë™í•œë‹¤.
+        // ì¡ì€ ë’¤ ì´ë™í•  ë•ŒëŠ” í”Œë ˆì´ì–´ê°€ í•´ì œëëŠ”ì§€ë„ ê²€ì‚¬í•œë‹¤.
         IEnumerator MoveHand(Vector3 destination, float speed, bool requireCapture)
         {
             while ((rig.HandRoot.position - destination).sqrMagnitude > 0.0001f)
@@ -131,7 +131,7 @@ public sealed class BossAlienGrabPattern : BossPattern
             }
         }
 
-        // ¾Ö´Ï¸ŞÀÌ¼Ç ÀÌº¥Æ® ´©¶ôÀ¸·Î ¹«ÇÑ ´ë±âÇÏÁö ¾Êµµ·Ï Á¦ÇÑÇÑ´Ù.
+        // ì• ë‹ˆë©”ì´ì…˜ ì´ë²¤íŠ¸ ëˆ„ë½ìœ¼ë¡œ ë¬´í•œ ëŒ€ê¸°í•˜ì§€ ì•Šë„ë¡ ì œí•œí•œë‹¤.
         IEnumerator WaitForEvent(Func<bool> received, bool requireCapture)
         {
             float deadline = Time.time + _config.AnimationTimeout;
@@ -147,7 +147,7 @@ public sealed class BossAlienGrabPattern : BossPattern
 
                 if (Time.time >= deadline)
                 {
-                    Debug.LogError($"{name}: Grab ¾Ö´Ï¸ŞÀÌ¼Ç ÀÌº¥Æ®°¡ ¿ÀÁö ¾Ê¾Ò½À´Ï´Ù.");
+                    Debug.LogError($"{name}: Grab ì• ë‹ˆë©”ì´ì…˜ ì´ë²¤íŠ¸ê°€ ì˜¤ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
                     aborted = true;
                     yield break;
                 }
@@ -169,7 +169,7 @@ public sealed class BossAlienGrabPattern : BossPattern
             sensor.SetDetectionEnabled(false);
             rig.SetHandClosed(false);
 
-            // 1. ¼ÕÀ» ÁØºñ À§Ä¡·Î ¿Å±ä´Ù.
+            // 1. ì†ì„ ì¤€ë¹„ ìœ„ì¹˜ë¡œ ì˜®ê¸´ë‹¤.
             yield return MoveHand(
                 boss.PrepareHandPosition, _config.HandMoveSpeed, false);
 
@@ -178,9 +178,10 @@ public sealed class BossAlienGrabPattern : BossPattern
                 yield break;
             }
 
-            // 2. ÁØºñ ¾Ö´Ï¸ŞÀÌ¼ÇÀÇ ÆÈ »¸±â ÀÌº¥Æ®¸¦ ±â´Ù¸°´Ù.
+            // 2. ì¤€ë¹„ ì• ë‹ˆë©”ì´ì…˜ì˜ íŒ” ë»—ê¸° ì´ë²¤íŠ¸ë¥¼ ê¸°ë‹¤ë¦°ë‹¤.
             eventStage = 1;
             animator.Play(PrepareState, 0, 0f);
+            GameAudio.Play(GameSound.AlienGrabPrepare);
             yield return WaitForEvent(() => extendRequested, false);
             eventStage = 0;
 
@@ -189,7 +190,7 @@ public sealed class BossAlienGrabPattern : BossPattern
                 yield break;
             }
 
-            // ÀÌº¥Æ®¸¦ ¹ŞÀº ¼ø°£¿¡¸¸ ÇÃ·¹ÀÌ¾î À§Ä¡·Î Á¶ÁØÇÑ´Ù.
+            // ì´ë²¤íŠ¸ë¥¼ ë°›ì€ ìˆœê°„ì—ë§Œ í”Œë ˆì´ì–´ ìœ„ì¹˜ë¡œ ì¡°ì¤€í•œë‹¤.
             Vector3 origin = boss.ArmSocket.position;
             Vector3 target = context.TargetPlayer.transform.position;
             target.z = origin.z;
@@ -207,7 +208,7 @@ public sealed class BossAlienGrabPattern : BossPattern
                 _config.MaxArmLength);
             Vector3 endPosition = origin + direction * reach;
 
-            // 3. ¼ÕÀ» »¸À¸¸é¼­ ÇöÀç °ãÄ§°ú ÀÌµ¿ °æ·Î¸¦ °Ë»çÇÑ´Ù.
+            // 3. ì†ì„ ë»—ìœ¼ë©´ì„œ í˜„ì¬ ê²¹ì¹¨ê³¼ ì´ë™ ê²½ë¡œë¥¼ ê²€ì‚¬í•œë‹¤.
             sensor.SetDetectionEnabled(true);
 
             while (CanContinue())
@@ -226,7 +227,7 @@ public sealed class BossAlienGrabPattern : BossPattern
                 if (sensor.TryDetectPlayer(
                     movement, out PlayerController player, out float hitDistance))
                 {
-                    // °æ·Î¿¡¼­ Á¢ÃËÇß´Ù¸é Á¢ÃË À§Ä¡±îÁö ¼ÕÀ» ¿Å±ä´Ù.
+                    // ê²½ë¡œì—ì„œ ì ‘ì´‰í–ˆë‹¤ë©´ ì ‘ì´‰ ìœ„ì¹˜ê¹Œì§€ ì†ì„ ì˜®ê¸´ë‹¤.
                     if (movement.sqrMagnitude > 0f)
                     {
                         float distance = Mathf.Min(hitDistance, movement.magnitude);
@@ -244,7 +245,7 @@ public sealed class BossAlienGrabPattern : BossPattern
 
                 rig.SetHandPosition(next);
 
-                // ÀÌµ¿ ÈÄ ¼ÕÀÇ È¸Àü ¶§¹®¿¡ °ãÄ£ °æ¿ìµµ È®ÀÎÇÑ´Ù.
+                // ì´ë™ í›„ ì†ì˜ íšŒì „ ë•Œë¬¸ì— ê²¹ì¹œ ê²½ìš°ë„ í™•ì¸í•œë‹¤.
                 if (sensor.TryDetectPlayer(
                     Vector2.zero, out player, out hitDistance))
                 {
@@ -271,7 +272,7 @@ public sealed class BossAlienGrabPattern : BossPattern
                 yield break;
             }
 
-            // ºø³ª°¡¸é Àâ±â ÀÌÈÄ µ¿ÀÛ ¾øÀÌ ±âº» À§Ä¡·Î º¹±ÍÇÑ´Ù.
+            // ë¹—ë‚˜ê°€ë©´ ì¡ê¸° ì´í›„ ë™ì‘ ì—†ì´ ê¸°ë³¸ ìœ„ì¹˜ë¡œ ë³µê·€í•œë‹¤.
             if (!captured)
             {
                 yield return MoveHand(
@@ -279,7 +280,7 @@ public sealed class BossAlienGrabPattern : BossPattern
                 yield break;
             }
 
-            // 4. ÇÃ·¹ÀÌ¾î°¡ ¼Õ ¾È¿¡ ¿ÏÀüÈ÷ ºÙÀ» ¶§±îÁö ±â´Ù¸°´Ù.
+            // 4. í”Œë ˆì´ì–´ê°€ ì† ì•ˆì— ì™„ì „íˆ ë¶™ì„ ë•Œê¹Œì§€ ê¸°ë‹¤ë¦°ë‹¤.
             float attachDeadline =
                 Time.time + _config.AttachDuration + _config.AnimationTimeout;
 
@@ -292,14 +293,14 @@ public sealed class BossAlienGrabPattern : BossPattern
 
                 if (Time.time >= attachDeadline)
                 {
-                    Debug.LogError($"{name}: ÇÃ·¹ÀÌ¾î¸¦ ¼Õ¿¡ ºÙÀÌÁö ¸øÇß½À´Ï´Ù.");
+                    Debug.LogError($"{name}: í”Œë ˆì´ì–´ë¥¼ ì†ì— ë¶™ì´ì§€ ëª»í–ˆìŠµë‹ˆë‹¤.");
                     yield break;
                 }
 
                 yield return null;
             }
 
-            // 5. À¯Áö À§Ä¡·Î ÀÌµ¿ÇÑ µÚ ¼³Á¤ ½Ã°£ µ¿¾È À§¾Æ·¡·Î Èçµç´Ù.
+            // 5. ìœ ì§€ ìœ„ì¹˜ë¡œ ì´ë™í•œ ë’¤ ì„¤ì • ì‹œê°„ ë™ì•ˆ ìœ„ì•„ë˜ë¡œ í”ë“ ë‹¤.
             yield return MoveHand(
                 boss.HoldHandPosition, _config.HandMoveSpeed, true);
 
@@ -328,7 +329,7 @@ public sealed class BossAlienGrabPattern : BossPattern
                 yield return null;
             }
 
-            // 6. ¼ÕÀ» ´ç±ä µÚ ´øÁö±â ¾Ö´Ï¸ŞÀÌ¼Ç ÀÌº¥Æ®¸¦ ±â´Ù¸°´Ù.
+            // 6. ì†ì„ ë‹¹ê¸´ ë’¤ ë˜ì§€ê¸° ì• ë‹ˆë©”ì´ì…˜ ì´ë²¤íŠ¸ë¥¼ ê¸°ë‹¤ë¦°ë‹¤.
             yield return MoveHand(
                 boss.ThrowWindupHandPosition, _config.HandMoveSpeed, true);
 
@@ -347,16 +348,16 @@ public sealed class BossAlienGrabPattern : BossPattern
                 yield break;
             }
 
-            // 7. Àü¿ë ÄÄÆ÷³ÍÆ®°¡ ºñÇà¡¤¹İ»ç¡¤È¸Àü¡¤Á¶ÀÛ º¹±¸¸¦ ½ÇÇàÇÑ´Ù.
+            // 7. ì „ìš© ì»´í¬ë„ŒíŠ¸ê°€ ë¹„í–‰Â·ë°˜ì‚¬Â·íšŒì „Â·ì¡°ì‘ ë³µêµ¬ë¥¼ ì‹¤í–‰í•œë‹¤.
             throwStarted = thrown.TryBegin(grab, boss, arena, _config);
 
             if (!throwStarted)
             {
-                Debug.LogError($"{name}: ÇÃ·¹ÀÌ¾î ´øÁö±â¸¦ ½ÃÀÛÇÏÁö ¸øÇß½À´Ï´Ù.");
+                Debug.LogError($"{name}: í”Œë ˆì´ì–´ ë˜ì§€ê¸°ë¥¼ ì‹œì‘í•˜ì§€ ëª»í–ˆìŠµë‹ˆë‹¤.");
                 yield break;
             }
 
-            // ÇÃ·¹ÀÌ¾î°¡ ³¯¾Æ°¡´Â µ¿¾È ¼ÕÀº ±âº» À§Ä¡·Î µ¹¾Æ¿Â´Ù.
+            // í”Œë ˆì´ì–´ê°€ ë‚ ì•„ê°€ëŠ” ë™ì•ˆ ì†ì€ ê¸°ë³¸ ìœ„ì¹˜ë¡œ ëŒì•„ì˜¨ë‹¤.
             yield return MoveHand(
                 boss.RestHandPosition, _config.ReturnSpeed, false);
 
@@ -365,7 +366,7 @@ public sealed class BossAlienGrabPattern : BossPattern
                 yield break;
             }
 
-            // ÇÃ·¹ÀÌ¾îÀÇ ¹İ»ç ÀÌµ¿°ú Á¶ÀÛ º¹±¸±îÁö ±â´Ù¸°´Ù.
+            // í”Œë ˆì´ì–´ì˜ ë°˜ì‚¬ ì´ë™ê³¼ ì¡°ì‘ ë³µêµ¬ê¹Œì§€ ê¸°ë‹¤ë¦°ë‹¤.
             while (thrown.IsRunning)
             {
                 if (!CanContinue())
@@ -378,7 +379,7 @@ public sealed class BossAlienGrabPattern : BossPattern
         }
         finally
         {
-            // Á¤»ó Á¾·á¿Í RunnerÀÇ °­Á¦ Ãë¼Ò ¸ğµÎ ÀÌ°÷¿¡¼­ Á¤¸®ÇÑ´Ù.
+            // ì •ìƒ ì¢…ë£Œì™€ Runnerì˜ ê°•ì œ ì·¨ì†Œ ëª¨ë‘ ì´ê³³ì—ì„œ ì •ë¦¬í•œë‹¤.
             eventStage = 0;
 
             if (relay != null)
@@ -406,7 +407,7 @@ public sealed class BossAlienGrabPattern : BossPattern
             {
                 boss.ResetArm();
 
-                // »ç¸Á ¾Ö´Ï¸ŞÀÌ¼ÇÀº Idle·Î µ¤¾î¾²Áö ¾Ê´Â´Ù.
+                // ì‚¬ë§ ì• ë‹ˆë©”ì´ì…˜ì€ Idleë¡œ ë®ì–´ì“°ì§€ ì•ŠëŠ”ë‹¤.
                 if (!boss.IsDead && animator != null &&
                     animator.isActiveAndEnabled)
                 {
@@ -416,7 +417,7 @@ public sealed class BossAlienGrabPattern : BossPattern
         }
     }
 
-    // ¼Õ ÀÌµ¿ ¼Óµµ¿Í ½Ã°£ ¼³Á¤ÀÌ À¯È¿ÇÑÁö ½ÇÇà Àü¿¡ È®ÀÎÇÑ´Ù.
+    // ì† ì´ë™ ì†ë„ì™€ ì‹œê°„ ì„¤ì •ì´ ìœ íš¨í•œì§€ ì‹¤í–‰ ì „ì— í™•ì¸í•œë‹¤.
     private void ValidateConfig()
     {
         if (!Positive(_config.HandMoveSpeed) ||
@@ -431,7 +432,7 @@ public sealed class BossAlienGrabPattern : BossPattern
             !NonNegative(_config.ShakeAmplitude))
         {
             throw new InvalidOperationException(
-                $"{name}: Grab ConfigÀÇ ¼Óµµ¡¤½Ã°£¡¤°Å¸® ¼³Á¤À» È®ÀÎÇÏ¼¼¿ä.");
+                $"{name}: Grab Configì˜ ì†ë„Â·ì‹œê°„Â·ê±°ë¦¬ ì„¤ì •ì„ í™•ì¸í•˜ì„¸ìš”.");
         }
     }
 

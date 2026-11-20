@@ -1,0 +1,66 @@
+[
+  {
+    "file": "06_Combat/player_hurt.wav",
+    "seconds": 0.46,
+    "peak": 0.7,
+    "rms": 0.10847110020347055,
+    "loop": false,
+    "boundaryJump": 0
+  },
+  {
+    "file": "06_Combat/enemy_death.wav",
+    "seconds": 0.32,
+    "peak": 0.65,
+    "rms": 0.09381332707319341,
+    "loop": false,
+    "boundaryJump": 0
+  },
+  {
+    "file": "07_Bosses/Dog/dog_death.wav",
+    "seconds": 1.1,
+    "peak": 0.75,
+    "rms": 0.1004632090956497,
+    "loop": false,
+    "boundaryJump": 0
+  },
+  {
+    "file": "07_Bosses/Head/head_death.wav",
+    "seconds": 1.35,
+    "peak": 0.75,
+    "rms": 0.10073595312581198,
+    "loop": false,
+    "boundaryJump": 0
+  },
+  {
+    "file": "07_Bosses/Cruiser/cruiser_death_explosion.wav",
+    "seconds": 1.8,
+    "peak": 0.8,
+    "rms": 0.10287152251858853,
+    "loop": false,
+    "boundaryJump": 0
+  },
+  {
+    "file": "07_Bosses/Alien/alien_death.wav",
+    "seconds": 1.6,
+    "peak": 0.78,
+    "rms": 0.09325153170950476,
+    "loop": false,
+    "boundaryJump": 0
+  },
+  {
+    "file": "07_Bosses/Head/head_laser_loop.wav",
+    "seconds": 4,
+    "peak": 0.42,
+    "rms": 0.20267190232691637,
+    "loop": true,
+    "boundaryJump": 0.07350867727785837
+  },
+  {
+    "file": "07_Bosses/Head/head_blackhole_loop.wav",
+    "seconds": 4,
+    "peak": 0.38,
+    "rms": 0.12660386671012785,
+    "loop": true,
+    "boundaryJump": 0.0006762144819108598
+  }
+]

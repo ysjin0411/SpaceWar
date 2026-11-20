@@ -76,7 +76,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 12
   m_Sprite: {fileID: 21300000, guid: d7925c10417fcec43950c3fab350217c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -113,13 +113,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: ae9b618373b04fc46b4fe28f09a8d8fb, type: 3}
   - {fileID: 21300000, guid: 9d5c6a3a49cbf354e9184f6fd8074e1e, type: 3}
   - {fileID: 21300000, guid: cff6977cd1867464c806c4bb97a7c457, type: 3}
-  _armedFrames:
-  - {fileID: 21300000, guid: a6e47393a7bad0a4d9f02f285a980344, type: 3}
-  - {fileID: 21300000, guid: 72399b144abb0044484f11cf46e5e6bf, type: 3}
-  - {fileID: 21300000, guid: 953aeb933ef1b3b4fa508b641ff7f6b6, type: 3}
-  - {fileID: 21300000, guid: ac9eed84d567fba499287cd6dc17c624, type: 3}
   _tumbleFps: 18
-  _armedFps: 12
 --- !u!1 &8053201812717553051
 GameObject:
   m_ObjectHideFlags: 0
@@ -165,14 +159,14 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8053201812717553051}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1.1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -228,7 +222,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.2, y: 0.0001}
+  m_Size: {x: 0.225, y: 0.225}
   m_EdgeRadius: 0
 --- !u!114 &-3118562713570720401
 MonoBehaviour:
@@ -246,9 +240,7 @@ MonoBehaviour:
   _lifeTime: 3
   _damage: 20
   _hitEffectPrefab: {fileID: 0}
-  _rotationSpeed: 0
-  _gravityStartDistance: 3
-  _fuseTime: 1.2
+  _impactSound: 0
   _explosionRadius: 2
   _enemyLayerMask:
     serializedVersion: 2

@@ -552,7 +552,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _swordPrefab: {fileID: 7730162344355505760, guid: 77a225f43225d94448753976b2c100a7, type: 3}
-  _swordCount: 40
+  _swordCount: 24
   _fireDuration: 3
   _spawnLineCenterViewport: {x: -0.15, y: 0.5}
 --- !u!70 &6233448519816325409
@@ -839,12 +839,15 @@ MonoBehaviour:
   _guardCycleDuration: 0.5
   _guardCollider: {fileID: 5399611090237788206}
   _guardOutline:
-  - {x: 2.65, y: 8.05}
-  - {x: 3.13, y: 8.65}
-  - {x: 5.96, y: 7.82}
-  - {x: 6.17, y: -2.97}
-  - {x: 4.8, y: -4.22}
-  - {x: 2.65, y: -2.7}
+  - {x: 0.8, y: 6.05}
+  - {x: 1.46, y: 6.72}
+  - {x: 1.83, y: 6.72}
+  - {x: 2.7, y: 5.8}
+  - {x: 3.92, y: 5.96}
+  - {x: 4.52, y: 5.35}
+  - {x: 4.52, y: -3.9}
+  - {x: 3.12, y: -6.28}
+  - {x: 0.88, y: -4.16}
   _deployEffectPrefab: {fileID: 6577251182290537006, guid: 39976eddfa5383a4e806847466bf4344, type: 3}
   _guardEffectPrefab: {fileID: 519745507696143326, guid: 7b2f66ae500c62548a40512230d3a1b2, type: 3}
   _hitEffectPrefab: {fileID: 1284653994326736162, guid: 56f5beb43c825774d83f67aad609dfc4, type: 3}

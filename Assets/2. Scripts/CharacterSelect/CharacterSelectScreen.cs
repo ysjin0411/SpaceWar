@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Linq;
 using TMPro;
 using UnityEngine;
@@ -13,33 +13,33 @@ public class CharacterSelectScreen : MonoBehaviour
     [Serializable]
     private class CharacterSlot
     {
-        // ½½·Ô ·çÆ®¿¡ ÀÖ´Â ¼±ÅÃ ¹öÆ°.
+        // ìŠ¬ë¡¯ ë£¨íŠ¸ì— ìˆëŠ” ì„ íƒ ë²„íŠ¼.
         public Button button;
 
-        // ÇÁ·¹ÀÓ, Ä³¸¯ÅÍ, ÅØ½ºÆ®, ¹«±â ¾ÆÀÌÄÜÀÌ µé¾î ÀÖ´Â ºÎ¸ğ.
-        // ¼±ÅÃ ¿©ºÎ¿¡ µû¸¥ ¹à±â¸¦ ÀÌ ¾ÈÀÇ Graphic¿¡ Àû¿ëÇÑ´Ù.
+        // í”„ë ˆì„, ìºë¦­í„°, í…ìŠ¤íŠ¸, ë¬´ê¸° ì•„ì´ì½˜ì´ ë“¤ì–´ ìˆëŠ” ë¶€ëª¨.
+        // ì„ íƒ ì—¬ë¶€ì— ë”°ë¥¸ ë°ê¸°ë¥¼ ì´ ì•ˆì˜ Graphicì— ì ìš©í•œë‹¤.
         public RectTransform cardVisual;
 
-        // ¼±ÅÃÇÑ ½½·Ô°ú ´Ù¸¥ Ä³¸¯ÅÍ ÇÁ·¹ÀÓº¸´Ù ¾Õ¿¡¼­ È¸ÀüÇÏ´Â ¸µ.
+        // ì„ íƒí•œ ìŠ¬ë¡¯ê³¼ ë‹¤ë¥¸ ìºë¦­í„° í”„ë ˆì„ë³´ë‹¤ ì•ì—ì„œ íšŒì „í•˜ëŠ” ë§.
         public Image selectionRing;
 
-        // Ã¹ ¹øÂ° ÀåÂø ¹«±âÀÇ IdleÀ» Ç¥½ÃÇÒ ÀÌ¹ÌÁö.
+        // ì²« ë²ˆì§¸ ì¥ì°© ë¬´ê¸°ì˜ Idleì„ í‘œì‹œí•  ì´ë¯¸ì§€.
         public Image characterPreview;
 
-        // Ä³¸¯ÅÍ ÀÌ¸§°ú ÇöÀç ·¹º§.
+        // ìºë¦­í„° ì´ë¦„ê³¼ í˜„ì¬ ë ˆë²¨.
         public TMP_Text nameText;
         public TMP_Text levelText;
 
-        // ÀåÂø ¼ø¼­´ë·Î ¿¬°áÇÏ´Â ¹«±â ¾ÆÀÌÄÜ 3°³.
+        // ì¥ì°© ìˆœì„œëŒ€ë¡œ ì—°ê²°í•˜ëŠ” ë¬´ê¸° ì•„ì´ì½˜ 3ê°œ.
         public Image[] weaponIcons = new Image[3];
 
-        // Àá±İ »óÅÂÀÏ ¶§ Ç¥½ÃÇÒ ÀÚ¹°¼è¿Í ¾È³» ¹®±¸ÀÇ ºÎ¸ğ´Ù.
+        // ì ê¸ˆ ìƒíƒœì¼ ë•Œ í‘œì‹œí•  ìë¬¼ì‡ ì™€ ì•ˆë‚´ ë¬¸êµ¬ì˜ ë¶€ëª¨ë‹¤.
         public GameObject lockOverlay;
 
-        // ÇØ±İ Á¶°ÇÀ» Ç¥½ÃÇÒ ÅØ½ºÆ®´Ù.
+        // í•´ê¸ˆ ì¡°ê±´ì„ í‘œì‹œí•  í…ìŠ¤íŠ¸ë‹¤.
         public TMP_Text unlockText;
 
-        // ¾Æ·¡ °ªÀº ½ÇÇà Áß »ç¿ëÇÏ´Â »óÅÂÀÌ¸ç Inspector¿¡´Â ÀúÀåÇÏÁö ¾Ê´Â´Ù.
+        // ì•„ë˜ ê°’ì€ ì‹¤í–‰ ì¤‘ ì‚¬ìš©í•˜ëŠ” ìƒíƒœì´ë©° Inspectorì—ëŠ” ì €ì¥í•˜ì§€ ì•ŠëŠ”ë‹¤.
         [NonSerialized] public Sprite[] idleFrames;
         [NonSerialized] public int frameIndex;
         [NonSerialized] public float frameTimer;
@@ -51,65 +51,65 @@ public class CharacterSelectScreen : MonoBehaviour
         [NonSerialized] public Tween brightnessTween;
     }
 
-    [Header("µ¥ÀÌÅÍ")]
-    // Ä³¸¯ÅÍ ¹è¿­ ¼ø¼­¿Í ½½·Ô ¹è¿­ ¼ø¼­¸¦ ¸ÂÃá´Ù.
+    [Header("ë°ì´í„°")]
+    // ìºë¦­í„° ë°°ì—´ ìˆœì„œì™€ ìŠ¬ë¡¯ ë°°ì—´ ìˆœì„œë¥¼ ë§ì¶˜ë‹¤.
     [SerializeField] CharacterDatabase _characterDatabase;
 
-    // ÀúÀåµÈ ¹«±â ID¸¦ ½ÇÁ¦ WeaponData·Î º¯È¯ÇÑ´Ù.
+    // ì €ì¥ëœ ë¬´ê¸° IDë¥¼ ì‹¤ì œ WeaponDataë¡œ ë³€í™˜í•œë‹¤.
     [SerializeField] WeaponDatabase _weaponDatabase;
 
-    [Header("Ä³¸¯ÅÍ ½½·Ô")]
-    // 0¹ø ¼ÖÁ®, 1¹ø ¿ö¸®¾î. ÁØºñµÇÁö ¾ÊÀº Àá±İ ½½·ÔÀº ³ÖÁö ¾Ê´Â´Ù.
+    [Header("ìºë¦­í„° ìŠ¬ë¡¯")]
+    // 0ë²ˆ ì†”ì ¸, 1ë²ˆ ì›Œë¦¬ì–´. ì¤€ë¹„ë˜ì§€ ì•Šì€ ì ê¸ˆ ìŠ¬ë¡¯ì€ ë„£ì§€ ì•ŠëŠ”ë‹¤.
     [SerializeField] CharacterSlot[] _slots;
 
-    [Header("Idle Àç»ı")]
-    // 1ÃÊ µ¿¾È Àç»ıÇÒ ½ºÇÁ¶óÀÌÆ® ¼ö. ¼±ÅÃ ¿©ºÎ¿Í °ü°è¾øÀÌ Àû¿ëµÈ´Ù.
+    [Header("Idle ì¬ìƒ")]
+    // 1ì´ˆ ë™ì•ˆ ì¬ìƒí•  ìŠ¤í”„ë¼ì´íŠ¸ ìˆ˜. ì„ íƒ ì—¬ë¶€ì™€ ê´€ê³„ì—†ì´ ì ìš©ëœë‹¤.
     [SerializeField, Min(0.1f)] float _idleFps = 10f;
 
-    [Header("¼±ÅÃ ¿¬Ãâ")]
-    // Inspector¿¡ ¼³Á¤ÇÑ ¿ø·¡ Scale¿¡ °öÇÏ´Â ¼±ÅÃ ¹èÀ².
+    [Header("ì„ íƒ ì—°ì¶œ")]
+    // Inspectorì— ì„¤ì •í•œ ì›ë˜ Scaleì— ê³±í•˜ëŠ” ì„ íƒ ë°°ìœ¨.
     [SerializeField, Min(1f)] float _selectedScale = 1.06f;
 
-    // È®´ë¿Í ¹à±â º¯È­¿¡ °É¸®´Â ½Ã°£.
+    // í™•ëŒ€ì™€ ë°ê¸° ë³€í™”ì— ê±¸ë¦¬ëŠ” ì‹œê°„.
     [SerializeField, Min(0.01f)] float _transitionDuration = 0.18f;
 
-    // ºñ¼±ÅÃ »óÅÂ¿¡¼­ ¿ø·¡ »ö»ó¿¡ °öÇÏ´Â ¹à±â.
+    // ë¹„ì„ íƒ ìƒíƒœì—ì„œ ì›ë˜ ìƒ‰ìƒì— ê³±í•˜ëŠ” ë°ê¸°.
     [SerializeField, Range(0f, 1f)] float _unselectedBrightness = 0.7f;
 
-    // ¼±ÅÃ »óÅÂ¿¡¼­ ¿ø·¡ »ö»ó¿¡ °öÇÏ´Â ¹à±â.
+    // ì„ íƒ ìƒíƒœì—ì„œ ì›ë˜ ìƒ‰ìƒì— ê³±í•˜ëŠ” ë°ê¸°.
     [SerializeField, Range(0f, 1f)] float _selectedBrightness = 1f;
 
-    // ¼±ÅÃ ¸µÀÌ ÇÑ ¹ÙÄû È¸ÀüÇÏ´Â ½Ã°£.
+    // ì„ íƒ ë§ì´ í•œ ë°”í€´ íšŒì „í•˜ëŠ” ì‹œê°„.
     [SerializeField, Min(0.01f)] float _ringRotationDuration = 8f;
 
-    // Ãâ°İ¿ë Ä³¸¯ÅÍ ¼±ÅÃ¿¡¼­ ÀÌÀü È­¸éÀ¸·Î µ¹¾Æ°¡´Â ¹öÆ°.
-    // »óÁ¡¿ë Ä³¸¯ÅÍ ¼±ÅÃ¿¡¼­´Â Ã¢ÀÇ X ¹öÆ°À» »ç¿ëÇÏ¹Ç·Î ¼û±ä´Ù.
+    // ì¶œê²©ìš© ìºë¦­í„° ì„ íƒì—ì„œ ì´ì „ í™”ë©´ìœ¼ë¡œ ëŒì•„ê°€ëŠ” ë²„íŠ¼.
+    // ìƒì ìš© ìºë¦­í„° ì„ íƒì—ì„œëŠ” ì°½ì˜ X ë²„íŠ¼ì„ ì‚¬ìš©í•˜ë¯€ë¡œ ìˆ¨ê¸´ë‹¤.
     [SerializeField] private Button _backButton;
 
-    // ÇöÀç ¼±ÅÃµÈ ½½·Ô ¹øÈ£¿Í ¾À ÀÌµ¿ »óÅÂ.
+    // í˜„ì¬ ì„ íƒëœ ìŠ¬ë¡¯ ë²ˆí˜¸ì™€ ì”¬ ì´ë™ ìƒíƒœ.
     private int _selectedIndex = -1;
     private bool _isLeaving;
     private bool _initialized;
 
-    // ÇöÀç ¼±ÅÃµÈ ½½·ÔÀÇ ¸µ È¸Àü¸¸ °ü¸®ÇÑ´Ù.
+    // í˜„ì¬ ì„ íƒëœ ìŠ¬ë¡¯ì˜ ë§ íšŒì „ë§Œ ê´€ë¦¬í•œë‹¤.
     private Tween _ringTween;
 
-    // ¼±ÅÃ °á°ú ÀúÀå ÈÄ Town¿¡¼­ Ãâ°İ ¿¬ÃâÀ» ½ÃÀÛÇÏµµ·Ï ¿äÃ»ÇÑ´Ù.
+    // ì„ íƒ ê²°ê³¼ ì €ì¥ í›„ Townì—ì„œ ì¶œê²© ì—°ì¶œì„ ì‹œì‘í•˜ë„ë¡ ìš”ì²­í•œë‹¤.
     public event Action<string> DepartureRequested;
-    // Ã¢ ³»ºÎ¿¡¼­ ½ºÅ×ÀÌÁö ¼±ÅÃ È­¸éÀ¸·Î µ¹¾Æ°¡µµ·Ï ¿äÃ»ÇÑ´Ù.
+    // ì°½ ë‚´ë¶€ì—ì„œ ìŠ¤í…Œì´ì§€ ì„ íƒ í™”ë©´ìœ¼ë¡œ ëŒì•„ê°€ë„ë¡ ìš”ì²­í•œë‹¤.
     public event Action StageSelectionRequested;
-    // »óÁ¡¿ë Ä³¸¯ÅÍ ¼±ÅÃÀÌ ³¡³ª¸é ±¸¸Å¡¤ÀåÂø È­¸é ¿­±â¸¦ ¿äÃ»ÇÑ´Ù.
+    // ìƒì ìš© ìºë¦­í„° ì„ íƒì´ ëë‚˜ë©´ êµ¬ë§¤Â·ì¥ì°© í™”ë©´ ì—´ê¸°ë¥¼ ìš”ì²­í•œë‹¤.
     public event Action EquipmentRequested;
 
-    // »óÁ¡ÀÇ Ã¹ È­¸é¿¡¼­ µÚ·Î °¡±â¸¦ ´©¸£¸é ¼­ºñ½º Ã¢ ´İ±â¸¦ ¿äÃ»ÇÑ´Ù.
+    // ìƒì ì˜ ì²« í™”ë©´ì—ì„œ ë’¤ë¡œ ê°€ê¸°ë¥¼ ëˆ„ë¥´ë©´ ì„œë¹„ìŠ¤ ì°½ ë‹«ê¸°ë¥¼ ìš”ì²­í•œë‹¤.
     public event Action CloseRequested;
 
-    // »óÅÂ º¯°æ ÀÌº¥Æ®¸¦ ¿¬°áÇÑ ÀúÀå °ü¸®ÀÚ¸¦ º¸°üÇÑ´Ù.
+    // ìƒíƒœ ë³€ê²½ ì´ë²¤íŠ¸ë¥¼ ì—°ê²°í•œ ì €ì¥ ê´€ë¦¬ìë¥¼ ë³´ê´€í•œë‹¤.
     private SaveManager _saveManager;
 
 
 
-    // ¹öÆ° »óÅÂ¿Í º°°³·Î ÃÖ½Å À¯Àú ·¹º§À» È®ÀÎÇÑ´Ù.
+    // ë²„íŠ¼ ìƒíƒœì™€ ë³„ê°œë¡œ ìµœì‹  ìœ ì € ë ˆë²¨ì„ í™•ì¸í•œë‹¤.
     private bool CanSelectCharacter(int index)
     {
         if (index < 0 || index >= _slots.Length)
@@ -128,7 +128,7 @@ public class CharacterSelectScreen : MonoBehaviour
         return character.IsUnlocked(_saveManager.CurrentUserLevel);
     }
 
-    // È­¸é ÁøÀÔ ½Ã¿Í À¯Àú Á¤º¸ º¯°æ ½Ã ¼±ÅÃ °¡´É »óÅÂ¸¦ °»½ÅÇÑ´Ù.
+    // í™”ë©´ ì§„ì… ì‹œì™€ ìœ ì € ì •ë³´ ë³€ê²½ ì‹œ ì„ íƒ ê°€ëŠ¥ ìƒíƒœë¥¼ ê°±ì‹ í•œë‹¤.
     private void RefreshCharacterLocks()
     {
         if (!_initialized || _isLeaving)
@@ -140,16 +140,16 @@ public class CharacterSelectScreen : MonoBehaviour
         {
             bool unlocked = CanSelectCharacter(i);
 
-            // ¹öÆ° ÀÔ·Â¸¸ Â÷´ÜÇÑ´Ù. Ä«µå¿Í Idle ÀÌ¹ÌÁö´Â °è¼Ó È°¼ºÈ­ÇÑ´Ù.
+            // ë²„íŠ¼ ì…ë ¥ë§Œ ì°¨ë‹¨í•œë‹¤. ì¹´ë“œì™€ Idle ì´ë¯¸ì§€ëŠ” ê³„ì† í™œì„±í™”í•œë‹¤.
             _slots[i].button.interactable = unlocked;
 
             CharacterSlot slot = _slots[i];
 
-            // Àá±İ »óÅÂ¿¡¼­´Â Ä³¸¯ÅÍ, ¹«±â ¾ÆÀÌÄÜ, ÀÌ¸§ µî Ä«µå ÀüÃ¼¸¦ ¼û±ä´Ù.
-            // ÇØ±İµÇ¸é ±âÁ¸ Ä«µå¸¦ ´Ù½Ã Ç¥½ÃÇÑ´Ù.
+            // ì ê¸ˆ ìƒíƒœì—ì„œëŠ” ìºë¦­í„°, ë¬´ê¸° ì•„ì´ì½˜, ì´ë¦„ ë“± ì¹´ë“œ ì „ì²´ë¥¼ ìˆ¨ê¸´ë‹¤.
+            // í•´ê¸ˆë˜ë©´ ê¸°ì¡´ ì¹´ë“œë¥¼ ë‹¤ì‹œ í‘œì‹œí•œë‹¤.
             slot.cardVisual.gameObject.SetActive(unlocked);
 
-            // Ä«µå¿Í º°µµ·Î ¹èÄ¡µÈ ¼±ÅÃ ¸µµµ Àá±İ »óÅÂ¿¡¼­´Â ¼û±ä´Ù.
+            // ì¹´ë“œì™€ ë³„ë„ë¡œ ë°°ì¹˜ëœ ì„ íƒ ë§ë„ ì ê¸ˆ ìƒíƒœì—ì„œëŠ” ìˆ¨ê¸´ë‹¤.
             if (!unlocked)
             {
                 slot.selectionRing.gameObject.SetActive(false);
@@ -158,28 +158,28 @@ public class CharacterSelectScreen : MonoBehaviour
             CharacterData character =
                 _characterDatabase.GetCharacterDataAt(i);
 
-            // ÇØ±İ Á¶°ÇÀÌ ÀÖ´Â Ä³¸¯ÅÍ´Â Àá±İ Ç¥½Ã ¿¬°áÀÌ ÇÊ¿äÇÏ´Ù.
+            // í•´ê¸ˆ ì¡°ê±´ì´ ìˆëŠ” ìºë¦­í„°ëŠ” ì ê¸ˆ í‘œì‹œ ì—°ê²°ì´ í•„ìš”í•˜ë‹¤.
             if (character.RequiredUserLevel > 1 &&
                 (slot.lockOverlay == null || slot.unlockText == null))
             {
                 throw new InvalidOperationException(
-                    $"{character.CharacterName}: Lock Overlay¿Í Unlock Text¸¦ ¿¬°áÇØÁÖ¼¼¿ä.");
+                    $"{character.CharacterName}: Lock Overlayì™€ Unlock Textë¥¼ ì—°ê²°í•´ì£¼ì„¸ìš”.");
             }
 
-            // ·¹º§ Á¶°ÇÀº CharacterData¿¡¼­ ÀĞ¾î ¹®±¸¿Í ½ÇÁ¦ Á¶°ÇÀ» ÀÏÄ¡½ÃÅ²´Ù.
+            // ë ˆë²¨ ì¡°ê±´ì€ CharacterDataì—ì„œ ì½ì–´ ë¬¸êµ¬ì™€ ì‹¤ì œ ì¡°ê±´ì„ ì¼ì¹˜ì‹œí‚¨ë‹¤.
             if (slot.unlockText != null)
             {
                 slot.unlockText.text =
-                    $"·¹º§ {character.RequiredUserLevel} ÀÌ»ó";
+                    $"ë ˆë²¨ {character.RequiredUserLevel} ì´ìƒ";
             }
 
-            // Àá±İ Ç¥½Ã¸¸ ÄÑ°í ²ö´Ù. Ä³¸¯ÅÍ ¹Ì¸®º¸±â´Â °è¼Ó Àç»ıÇÑ´Ù.
+            // ì ê¸ˆ í‘œì‹œë§Œ ì¼œê³  ëˆë‹¤. ìºë¦­í„° ë¯¸ë¦¬ë³´ê¸°ëŠ” ê³„ì† ì¬ìƒí•œë‹¤.
             if (slot.lockOverlay != null)
             {
                 slot.lockOverlay.SetActive(!unlocked);
             }
 
-            // Å×½ºÆ® Áß ·¹º§À» ³·Ãçµµ Àá±ä Ä³¸¯ÅÍÀÇ ¼±ÅÃÀÌ ³²Áö ¾Ê°Ô ÇÑ´Ù.
+            // í…ŒìŠ¤íŠ¸ ì¤‘ ë ˆë²¨ì„ ë‚®ì¶°ë„ ì ê¸´ ìºë¦­í„°ì˜ ì„ íƒì´ ë‚¨ì§€ ì•Šê²Œ í•œë‹¤.
             if (!unlocked && _selectedIndex == i)
             {
                 if (_ringTween != null)
@@ -203,29 +203,29 @@ public class CharacterSelectScreen : MonoBehaviour
 
     private void Start()
     {
-        // µ¥ÀÌÅÍ¿Í ½½·ÔÀÇ ±âº» ¿¬°áÀ» È®ÀÎÇÑ´Ù.
+        // ë°ì´í„°ì™€ ìŠ¬ë¡¯ì˜ ê¸°ë³¸ ì—°ê²°ì„ í™•ì¸í•œë‹¤.
         if (_characterDatabase == null ||
             _weaponDatabase == null ||
             SaveManager.Instance == null ||
             GameSessionManager.Instance == null)
         {
             throw new InvalidOperationException(
-                "Ä³¸¯ÅÍ ¼±ÅÃ È­¸éÀÇ µ¥ÀÌÅÍº£ÀÌ½º ¶Ç´Â ¸Å´ÏÀú°¡ ¾ø½À´Ï´Ù.");
+                "ìºë¦­í„° ì„ íƒ í™”ë©´ì˜ ë°ì´í„°ë² ì´ìŠ¤ ë˜ëŠ” ë§¤ë‹ˆì €ê°€ ì—†ìŠµë‹ˆë‹¤.");
         }
 
-        // Back ¹öÆ°ÀÌ Inspector¿¡ ¿¬°áµÇ¾î ÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
+        // Back ë²„íŠ¼ì´ Inspectorì— ì—°ê²°ë˜ì–´ ìˆëŠ”ì§€ í™•ì¸í•œë‹¤.
         if (_backButton == null)
         {
             throw new MissingReferenceException(
-                "CharacterSelectScreenÀÇ Back ButtonÀ» ¿¬°áÇØÁÖ¼¼¿ä.");
+                "CharacterSelectScreenì˜ Back Buttonì„ ì—°ê²°í•´ì£¼ì„¸ìš”.");
         }
 
-        // ÀÌÀü ½ºÅ×ÀÌÁö ¼±ÅÃ È­¸éÀÌ ÀÖ´Â Ãâ°İ °æ·Î¿¡¼­¸¸ Back ¹öÆ°À» Ç¥½ÃÇÑ´Ù.
+        // ì´ì „ ìŠ¤í…Œì´ì§€ ì„ íƒ í™”ë©´ì´ ìˆëŠ” ì¶œê²© ê²½ë¡œì—ì„œë§Œ Back ë²„íŠ¼ì„ í‘œì‹œí•œë‹¤.
         bool showBackButton =
             GameSessionManager.Instance.CurrentCharacterSelectPurpose ==
             CharacterSelectPurpose.Battle;
 
-        // ¹öÆ° ÀÌ¹ÌÁö¿Í ÀÚ½Ä ±ÛÀÚ¸¦ ÇÔ²² ¼û±â°í ÀÔ·Âµµ ¹ŞÁö ¾Ê°Ô ÇÑ´Ù.
+        // ë²„íŠ¼ ì´ë¯¸ì§€ì™€ ìì‹ ê¸€ìë¥¼ í•¨ê»˜ ìˆ¨ê¸°ê³  ì…ë ¥ë„ ë°›ì§€ ì•Šê²Œ í•œë‹¤.
         _backButton.gameObject.SetActive(showBackButton);
 
         if (_slots == null ||
@@ -233,10 +233,10 @@ public class CharacterSelectScreen : MonoBehaviour
             _slots.Length != _characterDatabase.Count)
         {
             throw new InvalidOperationException(
-                "Slots °³¼ö¸¦ CharacterDatabaseÀÇ Ä³¸¯ÅÍ °³¼ö¿Í ¸ÂÃçÁÖ¼¼¿ä.");
+                "Slots ê°œìˆ˜ë¥¼ CharacterDatabaseì˜ ìºë¦­í„° ê°œìˆ˜ì™€ ë§ì¶°ì£¼ì„¸ìš”.");
         }
 
-        // °¢ ½½·Ô¿¡ ÀúÀå µ¥ÀÌÅÍ¿Í Idle ½ºÇÁ¶óÀÌÆ®¸¦ ÁØºñÇÑ´Ù.
+        // ê° ìŠ¬ë¡¯ì— ì €ì¥ ë°ì´í„°ì™€ Idle ìŠ¤í”„ë¼ì´íŠ¸ë¥¼ ì¤€ë¹„í•œë‹¤.
         for (int i = 0; i < _slots.Length; i++)
         {
             InitializeSlot(i);
@@ -244,25 +244,25 @@ public class CharacterSelectScreen : MonoBehaviour
 
         _initialized = true;
 
-        // ½½·Ô ÁØºñ°¡ ³¡³­ µÚ Àá±İ Á¶°ÇÀ» Àû¿ëÇÑ´Ù.
+        // ìŠ¬ë¡¯ ì¤€ë¹„ê°€ ëë‚œ ë’¤ ì ê¸ˆ ì¡°ê±´ì„ ì ìš©í•œë‹¤.
         _saveManager = SaveManager.Instance;
         _saveManager.UserStatusChanged += RefreshCharacterLocks;
 
         RefreshCharacterLocks();
 
-        // È­¸é¿¡ µé¾î¿ÀÀÚ¸¶ÀÚ Æ¯Á¤ Ä³¸¯ÅÍ°¡ ÀÚµ¿ ¼±ÅÃµÇÁö ¾Ê°Ô ÇÑ´Ù.
+        // í™”ë©´ì— ë“¤ì–´ì˜¤ìë§ˆì íŠ¹ì • ìºë¦­í„°ê°€ ìë™ ì„ íƒë˜ì§€ ì•Šê²Œ í•œë‹¤.
         if (EventSystem.current != null)
         {
             EventSystem.current.SetSelectedGameObject(null);
         }
     }
 
-    // Ä«µå¿¡ ½ÇÁ¦ ÀåÂø »óÅÂ¸¦ Ç¥½ÃÇÏ°í, Àç»ıÇÒ Idle ÀÌ¹ÌÁö¸¦ ÁØºñÇÑ´Ù.
+    // ì¹´ë“œì— ì‹¤ì œ ì¥ì°© ìƒíƒœë¥¼ í‘œì‹œí•˜ê³ , ì¬ìƒí•  Idle ì´ë¯¸ì§€ë¥¼ ì¤€ë¹„í•œë‹¤.
     private void InitializeSlot(int index)
     {
         CharacterSlot slot = _slots[index];
 
-        // Ä«µå Ç¥½Ã¿¡ ÇÊ¿äÇÑ UI ¿¬°áÀ» È®ÀÎÇÑ´Ù.
+        // ì¹´ë“œ í‘œì‹œì— í•„ìš”í•œ UI ì—°ê²°ì„ í™•ì¸í•œë‹¤.
         if (slot == null ||
             slot.button == null ||
             slot.cardVisual == null ||
@@ -274,7 +274,7 @@ public class CharacterSelectScreen : MonoBehaviour
             slot.weaponIcons.Length != 3)
         {
             throw new InvalidOperationException(
-                $"Slots Element {index}ÀÇ UI ¿¬°áÀ» È®ÀÎÇØÁÖ¼¼¿ä.");
+                $"Slots Element {index}ì˜ UI ì—°ê²°ì„ í™•ì¸í•´ì£¼ì„¸ìš”.");
         }
 
         CharacterData character =
@@ -286,7 +286,7 @@ public class CharacterSelectScreen : MonoBehaviour
         slot.nameText.text = character.CharacterName;
         slot.levelText.text = loadout.level.ToString();
 
-        // Ä³¸¯ÅÍ ¿ÜÇüÀº Ã¹ ¹øÂ° ½½·Ô¿¡ ½ÇÁ¦·Î ÀåÂøÇÑ ¹«±â¸¦ ±âÁØÀ¸·Î ÇÑ´Ù.
+        // ìºë¦­í„° ì™¸í˜•ì€ ì²« ë²ˆì§¸ ìŠ¬ë¡¯ì— ì‹¤ì œë¡œ ì¥ì°©í•œ ë¬´ê¸°ë¥¼ ê¸°ì¤€ìœ¼ë¡œ í•œë‹¤.
         WeaponData firstWeapon = null;
 
         for (int i = 0; i < slot.weaponIcons.Length; i++)
@@ -296,7 +296,7 @@ public class CharacterSelectScreen : MonoBehaviour
             if (icon == null)
             {
                 throw new InvalidOperationException(
-                    $"{character.name}ÀÇ Weapon Icons {i}¹øÀÌ ºñ¾î ÀÖ½À´Ï´Ù.");
+                    $"{character.name}ì˜ Weapon Icons {i}ë²ˆì´ ë¹„ì–´ ìˆìŠµë‹ˆë‹¤.");
             }
 
             string weaponId = string.Empty;
@@ -307,7 +307,7 @@ public class CharacterSelectScreen : MonoBehaviour
                 weaponId = loadout.equippedWeaponIds[i];
             }
 
-            // ºó ÀåÂø ½½·Ô¿¡´Â ±âº» ¹«±â¸¦ ´ë½Å Ç¥½ÃÇÏÁö ¾Ê´Â´Ù.
+            // ë¹ˆ ì¥ì°© ìŠ¬ë¡¯ì—ëŠ” ê¸°ë³¸ ë¬´ê¸°ë¥¼ ëŒ€ì‹  í‘œì‹œí•˜ì§€ ì•ŠëŠ”ë‹¤.
             if (string.IsNullOrWhiteSpace(weaponId))
             {
                 icon.sprite = null;
@@ -327,29 +327,29 @@ public class CharacterSelectScreen : MonoBehaviour
             }
         }
 
-        // Ã³À½ºÎÅÍ ¾Ö´Ï¸ŞÀÌ¼ÇÀ» Àç»ıÇÏµµ·Ï ½Ã°£À» ÃÊ±âÈ­ÇÑ´Ù.
+        // ì²˜ìŒë¶€í„° ì• ë‹ˆë©”ì´ì…˜ì„ ì¬ìƒí•˜ë„ë¡ ì‹œê°„ì„ ì´ˆê¸°í™”í•œë‹¤.
         slot.frameIndex = 0;
         slot.frameTimer = 0f;
 
         if (firstWeapon == null)
         {
-            // Ã¹ ½½·ÔÀÌ ºñ¾î ÀÖÀ¸¸é ±âº» Ä³¸¯ÅÍ ÀÌ¹ÌÁö¸¦ Ç¥½ÃÇÑ´Ù.
-            // ÇÑ ÀåÂ¥¸® ¹è¿­ÀÌ¹Ç·Î ±âÁ¸ Update¿¡¼­µµ ±×´ë·Î Ã³¸®ÇÒ ¼ö ÀÖ´Ù.
+            // ì²« ìŠ¬ë¡¯ì´ ë¹„ì–´ ìˆìœ¼ë©´ ê¸°ë³¸ ìºë¦­í„° ì´ë¯¸ì§€ë¥¼ í‘œì‹œí•œë‹¤.
+            // í•œ ì¥ì§œë¦¬ ë°°ì—´ì´ë¯€ë¡œ ê¸°ì¡´ Updateì—ì„œë„ ê·¸ëŒ€ë¡œ ì²˜ë¦¬í•  ìˆ˜ ìˆë‹¤.
             slot.idleFrames = new Sprite[] { character.Icon };
         }
         else
         {
-            // Ã¹ ¹øÂ° ÀåÂø ¹«±â¿¡ ÇØ´çÇÏ´Â Ä³¸¯ÅÍ ¾Ö´Ï¸ŞÀÌ¼ÇÀ» °¡Á®¿Â´Ù.
+            // ì²« ë²ˆì§¸ ì¥ì°© ë¬´ê¸°ì— í•´ë‹¹í•˜ëŠ” ìºë¦­í„° ì• ë‹ˆë©”ì´ì…˜ì„ ê°€ì ¸ì˜¨ë‹¤.
             SpriteLibraryAsset library = firstWeapon.PlayerSpriteLibrary;
             string category = character.PreviewIdleCategory;
 
             if (library == null || string.IsNullOrWhiteSpace(category))
             {
                 throw new InvalidOperationException(
-                    $"{character.name}ÀÇ Sprite Library¿Í Idle Ä«Å×°í¸®¸¦ È®ÀÎÇØÁÖ¼¼¿ä.");
+                    $"{character.name}ì˜ Sprite Libraryì™€ Idle ì¹´í…Œê³ ë¦¬ë¥¼ í™•ì¸í•´ì£¼ì„¸ìš”.");
             }
 
-            // ±âÁ¸°ú °°Àº ÀÌ¸§ ¼ø¼­·Î ¾Ö´Ï¸ŞÀÌ¼Ç ÇÁ·¹ÀÓÀ» ÁØºñÇÑ´Ù.
+            // ê¸°ì¡´ê³¼ ê°™ì€ ì´ë¦„ ìˆœì„œë¡œ ì• ë‹ˆë©”ì´ì…˜ í”„ë ˆì„ì„ ì¤€ë¹„í•œë‹¤.
             string[] labels = library
                 .GetCategoryLabelNames(category)
                 .OrderBy(label => label, StringComparer.Ordinal)
@@ -358,7 +358,7 @@ public class CharacterSelectScreen : MonoBehaviour
             if (labels.Length == 0)
             {
                 throw new InvalidOperationException(
-                    $"{library.name}¿¡ {category} ÇÁ·¹ÀÓÀÌ ¾ø½À´Ï´Ù.");
+                    $"{library.name}ì— {category} í”„ë ˆì„ì´ ì—†ìŠµë‹ˆë‹¤.");
             }
 
             slot.idleFrames = new Sprite[labels.Length];
@@ -371,11 +371,11 @@ public class CharacterSelectScreen : MonoBehaviour
                 if (slot.idleFrames[i] == null)
                 {
                     throw new InvalidOperationException(
-                        $"{library.name}ÀÇ {category}/{labels[i]} ÀÌ¹ÌÁö°¡ ºñ¾î ÀÖ½À´Ï´Ù.");
+                        $"{library.name}ì˜ {category}/{labels[i]} ì´ë¯¸ì§€ê°€ ë¹„ì–´ ìˆìŠµë‹ˆë‹¤.");
                 }
             }
 
-            // ¹«±âº°·Î ¼³Á¤Çß´ø ¹Ì¸®º¸±â Å©±â¿Í À§Ä¡¸¦ À¯ÁöÇÑ´Ù.
+            // ë¬´ê¸°ë³„ë¡œ ì„¤ì •í–ˆë˜ ë¯¸ë¦¬ë³´ê¸° í¬ê¸°ì™€ ìœ„ì¹˜ë¥¼ ìœ ì§€í•œë‹¤.
             RectTransform previewRect = slot.characterPreview.rectTransform;
 
             previewRect.localScale =
@@ -385,12 +385,12 @@ public class CharacterSelectScreen : MonoBehaviour
                 firstWeapon.CharacterSelectPreviewOffset;
         }
 
-        // ÁØºñÇÑ Ã¹ ÀÌ¹ÌÁö¸¦ Ç¥½ÃÇÑ´Ù. ÀÌÈÄ Àç»ıÀº ±âÁ¸ Update°¡ ´ã´çÇÑ´Ù.
+        // ì¤€ë¹„í•œ ì²« ì´ë¯¸ì§€ë¥¼ í‘œì‹œí•œë‹¤. ì´í›„ ì¬ìƒì€ ê¸°ì¡´ Updateê°€ ë‹´ë‹¹í•œë‹¤.
         slot.characterPreview.sprite = slot.idleFrames[0];
         slot.characterPreview.preserveAspect = true;
         slot.characterPreview.enabled = slot.idleFrames[0] != null;
 
-        // ±âÁ¸ Ä«µå ¼±ÅÃ È®´ë¿Í ¹à±â È¿°ú¿¡ ÇÊ¿äÇÑ ¿øº» °ªÀ» ÀúÀåÇÑ´Ù.
+        // ê¸°ì¡´ ì¹´ë“œ ì„ íƒ í™•ëŒ€ì™€ ë°ê¸° íš¨ê³¼ì— í•„ìš”í•œ ì›ë³¸ ê°’ì„ ì €ì¥í•œë‹¤.
         slot.originalScale = slot.button.transform.localScale;
         slot.graphics = slot.cardVisual.GetComponentsInChildren<Graphic>(true);
         slot.originalColors = new Color[slot.graphics.Length];
@@ -411,7 +411,7 @@ public class CharacterSelectScreen : MonoBehaviour
             return;
         }
 
-        // ¼±ÅÃµÇÁö ¾ÊÀº Ä³¸¯ÅÍµµ °°Àº ¼Óµµ·Î IdleÀ» °è¼Ó Àç»ıÇÑ´Ù.
+        // ì„ íƒë˜ì§€ ì•Šì€ ìºë¦­í„°ë„ ê°™ì€ ì†ë„ë¡œ Idleì„ ê³„ì† ì¬ìƒí•œë‹¤.
         float interval = 1f / Mathf.Max(0.1f, _idleFps);
 
         foreach (CharacterSlot slot in _slots)
@@ -433,7 +433,7 @@ public class CharacterSelectScreen : MonoBehaviour
                 slot.idleFrames[slot.frameIndex];
         }
 
-        // ¹æÇâÅ°·Î ¹öÆ° »çÀÌ¸¦ ÀÌµ¿ÇØµµ ¼±ÅÃ ¿¬ÃâÀ» °»½ÅÇÑ´Ù.
+        // ë°©í–¥í‚¤ë¡œ ë²„íŠ¼ ì‚¬ì´ë¥¼ ì´ë™í•´ë„ ì„ íƒ ì—°ì¶œì„ ê°±ì‹ í•œë‹¤.
         if (EventSystem.current == null)
         {
             return;
@@ -480,7 +480,7 @@ public class CharacterSelectScreen : MonoBehaviour
             return;
         }
 
-        // ÀÌÀü ¸µ È¸ÀüÀ» Áß´ÜÇÏ°í ÀÌÀü ½½·ÔÀ» ¿ø·¡ »óÅÂ·Î µ¹¸°´Ù.
+        // ì´ì „ ë§ íšŒì „ì„ ì¤‘ë‹¨í•˜ê³  ì´ì „ ìŠ¬ë¡¯ì„ ì›ë˜ ìƒíƒœë¡œ ëŒë¦°ë‹¤.
         if (_ringTween != null)
         {
             _ringTween.Kill();
@@ -491,21 +491,24 @@ public class CharacterSelectScreen : MonoBehaviour
             ApplySelection(_slots[_selectedIndex], false);
         }
 
-        // ¼±ÅÃÇÑ ½½·Ô ¹øÈ£¿Í ½½·Ô Á¤º¸¸¦ ÀúÀåÇÑ´Ù.
+        // ì„ íƒí•œ ìŠ¬ë¡¯ ë²ˆí˜¸ì™€ ìŠ¬ë¡¯ ì •ë³´ë¥¼ ì €ì¥í•œë‹¤.
         _selectedIndex = index;
+        // ìŠ¬ë¡¯ ë²ˆí˜¸ê°€ ì•„ë‹ˆë¼ ì‹¤ì œ ìºë¦­í„° IDì— ë”°ë¼ ì†Œë¦¬ë¥¼ ê³ ë¥¸ë‹¤.
+        string soundCharacterId = _characterDatabase.GetCharacterDataAt(index).Id;
+        GameAudio.Play(soundCharacterId == "soldier" ? GameSound.CharacterSoldierSelect : GameSound.CharacterWarriorSelect);
         CharacterSlot selectedSlot = _slots[index];
 
-        // ¼±ÅÃÇÑ ½½·ÔÀ» ÇüÁ¦ Áß ¸¶Áö¸·¿¡ ±×·Á¼­ ´Ù¸¥ ½½·Ôº¸´Ù ¾Õ¿¡ Ç¥½ÃÇÑ´Ù.
-        // ½½·Ô À§Ä¡¿Í _slots ¹è¿­ÀÇ ¼ø¼­´Â ¹Ù²îÁö ¾Ê´Â´Ù.
+        // ì„ íƒí•œ ìŠ¬ë¡¯ì„ í˜•ì œ ì¤‘ ë§ˆì§€ë§‰ì— ê·¸ë ¤ì„œ ë‹¤ë¥¸ ìŠ¬ë¡¯ë³´ë‹¤ ì•ì— í‘œì‹œí•œë‹¤.
+        // ìŠ¬ë¡¯ ìœ„ì¹˜ì™€ _slots ë°°ì—´ì˜ ìˆœì„œëŠ” ë°”ë€Œì§€ ì•ŠëŠ”ë‹¤.
         selectedSlot.button.transform.SetAsLastSibling();
 
-        // ¼±ÅÃÇÑ ½½·Ô ¾È¿¡¼­µµ ¸µÀ» ¸¶Áö¸·¿¡ ±×·Á¼­ ÀÚ±â ÇÁ·¹ÀÓº¸´Ù ¾Õ¿¡ Ç¥½ÃÇÑ´Ù.
+        // ì„ íƒí•œ ìŠ¬ë¡¯ ì•ˆì—ì„œë„ ë§ì„ ë§ˆì§€ë§‰ì— ê·¸ë ¤ì„œ ìê¸° í”„ë ˆì„ë³´ë‹¤ ì•ì— í‘œì‹œí•œë‹¤.
         selectedSlot.selectionRing.rectTransform.SetAsLastSibling();
 
-        // ±âÁ¸ ¼±ÅÃ È®´ë, ¹à±â º¯°æ, ¸µ È°¼ºÈ­ È¿°ú¸¦ Àû¿ëÇÑ´Ù.
+        // ê¸°ì¡´ ì„ íƒ í™•ëŒ€, ë°ê¸° ë³€ê²½, ë§ í™œì„±í™” íš¨ê³¼ë¥¼ ì ìš©í•œë‹¤.
         ApplySelection(selectedSlot, true);
 
-        // ¸¶¿ì½º·Î ¼±ÅÃÇÑ °á°úµµ Å°º¸µå Æ÷Ä¿½º¿¡ ¹İ¿µÇÑ´Ù.
+        // ë§ˆìš°ìŠ¤ë¡œ ì„ íƒí•œ ê²°ê³¼ë„ í‚¤ë³´ë“œ í¬ì»¤ìŠ¤ì— ë°˜ì˜í•œë‹¤.
         if (EventSystem.current != null)
         {
             EventSystem.current.SetSelectedGameObject(
@@ -527,7 +530,7 @@ public class CharacterSelectScreen : MonoBehaviour
 
     private void ApplySelection(CharacterSlot slot, bool selected)
     {
-        // ºü¸£°Ô ¼±ÅÃÀ» ¹Ù²ãµµ ÀÌÀü Æ®À©ÀÌ °ãÄ¡Áö ¾Ê°Ô ÇÑ´Ù.
+        // ë¹ ë¥´ê²Œ ì„ íƒì„ ë°”ê¿”ë„ ì´ì „ íŠ¸ìœˆì´ ê²¹ì¹˜ì§€ ì•Šê²Œ í•œë‹¤.
         if (slot.scaleTween != null)
         {
             slot.scaleTween.Kill();
@@ -562,7 +565,7 @@ public class CharacterSelectScreen : MonoBehaviour
     {
         slot.brightness = brightness;
 
-        // Åõ¸íµµ´Â À¯ÁöÇÏ°í ¿ø·¡ RGB »ö»ó¿¡¸¸ ¹à±â¸¦ °öÇÑ´Ù.
+        // íˆ¬ëª…ë„ëŠ” ìœ ì§€í•˜ê³  ì›ë˜ RGB ìƒ‰ìƒì—ë§Œ ë°ê¸°ë¥¼ ê³±í•œë‹¤.
         for (int i = 0; i < slot.graphics.Length; i++)
         {
             Color original = slot.originalColors[i];
@@ -575,10 +578,10 @@ public class CharacterSelectScreen : MonoBehaviour
         }
     }
 
-    // ¼±ÅÃÇÑ Ä³¸¯ÅÍ¸¦ ÀúÀåÇÏ°í, ¼±ÅÃ ¸ñÀû¿¡ ¸Â´Â È­¸é ÀüÈ¯À» ¿äÃ»ÇÑ´Ù.
+    // ì„ íƒí•œ ìºë¦­í„°ë¥¼ ì €ì¥í•˜ê³ , ì„ íƒ ëª©ì ì— ë§ëŠ” í™”ë©´ ì „í™˜ì„ ìš”ì²­í•œë‹¤.
     public void LoadCharacter(int index)
     {
-        // Å¬¸¯ ¿Ü¿¡ ´Ù¸¥ ÄÚµå¿¡¼­ È£ÃâÇØµµ Àá±ä Ä³¸¯ÅÍ·Î ÁøÇàÇÏÁö ¾Ê´Â´Ù.
+        // í´ë¦­ ì™¸ì— ë‹¤ë¥¸ ì½”ë“œì—ì„œ í˜¸ì¶œí•´ë„ ì ê¸´ ìºë¦­í„°ë¡œ ì§„í–‰í•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (!_initialized || _isLeaving ||
             index < 0 || index >= _slots.Length ||
             !CanSelectCharacter(index) ||
@@ -591,8 +594,8 @@ public class CharacterSelectScreen : MonoBehaviour
         CharacterSelectPurpose purpose =
             session.CurrentCharacterSelectPurpose;
 
-        // È­¸é ÀüÈ¯À» ¹ŞÀ» °ü¸®ÀÚ°¡ ¿¬°áµÇ¾î ÀÖ´ÂÁö ¸ÕÀú È®ÀÎÇÑ´Ù.
-        // ¿¬°á ¿À·ù°¡ ÀÖÀ» ¶§ ¼±ÅÃ È­¸éÀ» ¶°³ª´Â »óÅÂ·Î Àá±âÁö ¾Ê°Ô ÇÑ´Ù.
+        // í™”ë©´ ì „í™˜ì„ ë°›ì„ ê´€ë¦¬ìê°€ ì—°ê²°ë˜ì–´ ìˆëŠ”ì§€ ë¨¼ì € í™•ì¸í•œë‹¤.
+        // ì—°ê²° ì˜¤ë¥˜ê°€ ìˆì„ ë•Œ ì„ íƒ í™”ë©´ì„ ë– ë‚˜ëŠ” ìƒíƒœë¡œ ì ê¸°ì§€ ì•Šê²Œ í•œë‹¤.
         switch (purpose)
         {
             case CharacterSelectPurpose.Battle:
@@ -600,7 +603,7 @@ public class CharacterSelectScreen : MonoBehaviour
                     DepartureRequested == null)
                 {
                     Debug.LogError(
-                        "Ãâ°İÇÒ ½ºÅ×ÀÌÁö¿Í Ãâ°İ ÀÌº¥Æ® ¿¬°áÀ» È®ÀÎÇØÁÖ¼¼¿ä.",
+                        "ì¶œê²©í•  ìŠ¤í…Œì´ì§€ì™€ ì¶œê²© ì´ë²¤íŠ¸ ì—°ê²°ì„ í™•ì¸í•´ì£¼ì„¸ìš”.",
                         this);
                     return;
                 }
@@ -610,7 +613,7 @@ public class CharacterSelectScreen : MonoBehaviour
                 if (EquipmentRequested == null)
                 {
                     Debug.LogError(
-                        "»óÁ¡ È­¸é ÀüÈ¯ ÀÌº¥Æ®°¡ ¿¬°áµÇÁö ¾Ê¾Ò½À´Ï´Ù.",
+                        "ìƒì  í™”ë©´ ì „í™˜ ì´ë²¤íŠ¸ê°€ ì—°ê²°ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.",
                         this);
                     return;
                 }
@@ -618,22 +621,23 @@ public class CharacterSelectScreen : MonoBehaviour
 
             default:
                 Debug.LogError(
-                    "Ä³¸¯ÅÍ ¼±ÅÃ ¸ñÀûÀÌ ¼³Á¤µÇÁö ¾Ê¾Ò½À´Ï´Ù.",
+                    "ìºë¦­í„° ì„ íƒ ëª©ì ì´ ì„¤ì •ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.",
                     this);
                 return;
         }
 
         SelectingCharacter(index);
 
-        // ±¸¸Å¡¤ÀåÂø È­¸é°ú ÀüÅõ¿¡¼­ »ç¿ëÇÒ Ä³¸¯ÅÍ Á¤º¸¸¦ ÀúÀåÇÑ´Ù.
+        // êµ¬ë§¤Â·ì¥ì°© í™”ë©´ê³¼ ì „íˆ¬ì—ì„œ ì‚¬ìš©í•  ìºë¦­í„° ì •ë³´ë¥¼ ì €ì¥í•œë‹¤.
         CharacterData character =
             _characterDatabase.GetCharacterDataAt(index);
 
         session.SelectCharacter(index);
         session.SelectCharacter(character.Id);
 
-        // È­¸é ÀüÈ¯ Áß Áßº¹ ¼±ÅÃÀ» ¸·´Â´Ù.
+        // í™”ë©´ ì „í™˜ ì¤‘ ì¤‘ë³µ ì„ íƒì„ ë§‰ëŠ”ë‹¤.
         _isLeaving = true;
+        GameAudio.Play(GameSound.UiConfirm);
 
         if (purpose == CharacterSelectPurpose.LoadoutEdit)
         {
@@ -641,12 +645,12 @@ public class CharacterSelectScreen : MonoBehaviour
             return;
         }
 
-        // ½ÇÁ¦ ÀüÅõ ¾À ·ÎµùÀº TownÀÇ Ãâ°İ ¿¬ÃâÀÌ ³¡³­ µÚ Ã³¸®ÇÑ´Ù.
+        // ì‹¤ì œ ì „íˆ¬ ì”¬ ë¡œë”©ì€ Townì˜ ì¶œê²© ì—°ì¶œì´ ëë‚œ ë’¤ ì²˜ë¦¬í•œë‹¤.
         string destination = $"Stage{session.SelectedStageIndex + 1}";
         DepartureRequested.Invoke(destination);
     }
 
-    // ÀüÅõ¿ë ¼±ÅÃ¿¡¼­´Â ½ºÅ×ÀÌÁö·Î µ¹¾Æ°¡°í, »óÁ¡¿ë ¼±ÅÃ¿¡¼­´Â Ã¢À» ´İ´Â´Ù.
+    // ì „íˆ¬ìš© ì„ íƒì—ì„œëŠ” ìŠ¤í…Œì´ì§€ë¡œ ëŒì•„ê°€ê³ , ìƒì ìš© ì„ íƒì—ì„œëŠ” ì°½ì„ ë‹«ëŠ”ë‹¤.
     public void Back()
     {
         if (!_initialized || _isLeaving)
@@ -662,13 +666,14 @@ public class CharacterSelectScreen : MonoBehaviour
                 if (StageSelectionRequested == null)
                 {
                     Debug.LogError(
-                        "½ºÅ×ÀÌÁö ¼±ÅÃ º¹±Í ÀÌº¥Æ®°¡ ¿¬°áµÇÁö ¾Ê¾Ò½À´Ï´Ù.",
+                        "ìŠ¤í…Œì´ì§€ ì„ íƒ ë³µê·€ ì´ë²¤íŠ¸ê°€ ì—°ê²°ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.",
                         this);
                     return;
                 }
 
                 _isLeaving = true;
                 session.ResetSelection();
+                GameAudio.Play(GameSound.UiBack);
                 StageSelectionRequested.Invoke();
                 break;
 
@@ -676,19 +681,19 @@ public class CharacterSelectScreen : MonoBehaviour
                 if (CloseRequested == null)
                 {
                     Debug.LogError(
-                        "¼­ºñ½º Ã¢ ´İ±â ÀÌº¥Æ®°¡ ¿¬°áµÇÁö ¾Ê¾Ò½À´Ï´Ù.",
+                        "ì„œë¹„ìŠ¤ ì°½ ë‹«ê¸° ì´ë²¤íŠ¸ê°€ ì—°ê²°ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.",
                         this);
                     return;
                 }
 
-                // ¼±ÅÃ ÃÊ±âÈ­¿Í Town Á¶ÀÛ º¹±¸´Â Ã¢ °ü¸®ÀÚ°¡ Ã³¸®ÇÑ´Ù.
+                // ì„ íƒ ì´ˆê¸°í™”ì™€ Town ì¡°ì‘ ë³µêµ¬ëŠ” ì°½ ê´€ë¦¬ìê°€ ì²˜ë¦¬í•œë‹¤.
                 _isLeaving = true;
                 CloseRequested.Invoke();
                 break;
 
             default:
                 Debug.LogError(
-                    "Ä³¸¯ÅÍ ¼±ÅÃ ¸ñÀûÀÌ ¼³Á¤µÇÁö ¾Ê¾Ò½À´Ï´Ù.",
+                    "ìºë¦­í„° ì„ íƒ ëª©ì ì´ ì„¤ì •ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.",
                     this);
                 break;
         }
@@ -696,13 +701,13 @@ public class CharacterSelectScreen : MonoBehaviour
 
     private void OnDestroy()
     {
-        // È­¸éÀÌ Á¦°ÅµÇ¸é ÀúÀå °ü¸®ÀÚÀÇ ÀÌº¥Æ® ±¸µ¶À» ÇØÁ¦ÇÑ´Ù.
+        // í™”ë©´ì´ ì œê±°ë˜ë©´ ì €ì¥ ê´€ë¦¬ìì˜ ì´ë²¤íŠ¸ êµ¬ë…ì„ í•´ì œí•œë‹¤.
         if (_saveManager != null)
         {
             _saveManager.UserStatusChanged -= RefreshCharacterLocks;
         }
 
-        // ¾À ÀÌµ¿ ½Ã ÀÌ È­¸é¿¡¼­ »ı¼ºÇÑ Æ®À©À» Á¤¸®ÇÑ´Ù.
+        // ì”¬ ì´ë™ ì‹œ ì´ í™”ë©´ì—ì„œ ìƒì„±í•œ íŠ¸ìœˆì„ ì •ë¦¬í•œë‹¤.
         if (_ringTween != null)
         {
             _ringTween.Kill();

@@ -2,266 +2,156 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// FirePoint¿¡¼­ Á¶ÁØ ¹æÇâÀ¸·Î ÅõÃ´µÈ µÚ
-/// Rigidbody2D Áß·ÂÀ» ¹Ş¾Æ Æ÷¹°¼±À¸·Î ÀÌµ¿ÇÏ°í,
-/// ½Å°ü ½Ã°£ÀÌ ³¡³ª¸é ÁÖº¯ Àû¿¡°Ô ¹üÀ§ ÇÇÇØ¸¦ ÁÖ´Â ¼ö·ùÅºÀÌ´Ù.
-/// </summary>
+/// <summary>ë°œì‚¬ ìˆœê°„ì˜ ì¡°ì¤€ ë°©í–¥ìœ¼ë¡œ ì§ì§„í•˜ê³  ì  ì ‘ì´‰ ì‹œì—ë§Œ ë²”ìœ„ í­ë°œí•œë‹¤.</summary>
 public class Grenade : Projectile
 {
-    [Header("¼ö·ùÅº ÅõÃ´ ¼³Á¤")]
+    // í­ë°œ ë°˜ê²½ê³¼ í”¼í•´ ëŒ€ìƒ ë ˆì´ì–´.
+    [Min(0.1f), SerializeField] private float _explosionRadius = 2f;
+    [SerializeField] private LayerMask _enemyLayerMask;
+    // ë³¸ì²´ê°€ ë°˜ë‚©ë˜ì–´ë„ ì¬ìƒí•˜ëŠ” ë…ë¦½ í­ë°œ ì—°ì¶œ.
+    [SerializeField] private SpriteExplosionEffect _explosionEffectPrefab;
+    // ì´ë™ê³¼ í­ë°œ ì¤‘ë³µì„ ë§‰ëŠ” ë°œì‚¬ë³„ ìƒíƒœ.
+    private bool _isFlying;
+    private bool _hasExploded;
+    // ë¹„í–‰ ê²½ë¡œ ê²€ìƒ‰ ì¡°ê±´ê³¼ ì¬ì‚¬ìš© ê²°ê³¼ ëª©ë¡.
+    private ContactFilter2D _flightFilter;
+    private readonly List<RaycastHit2D> _castHits = new();
+    private readonly List<Collider2D> _overlaps = new();
+    private readonly HashSet<IDamageable> _damagedTargets = new();
+    // ì‹¤ì œ ì¹´ë©”ë¼ ì˜ì—­ê³¼ ì´ë¯¸ì§€ ì „ì²´ì˜ ì´íƒˆì„ ê²€ì‚¬í•œë‹¤.
+    private Camera _worldCamera;
+    private SpriteRenderer _flightRenderer;
+    private readonly Plane[] _cameraPlanes = new Plane[6];
 
-    // ¼ö·ùÅºÀÌ ³¯¾Æ°¡´Â µ¿¾È ÃÊ´ç È¸ÀüÇÏ´Â °¢µµ´Ù.
-    // ¾ç¼ö¸é ¹İ½Ã°è ¹æÇâ, À½¼ö¸é ½Ã°è ¹æÇâÀ¸·Î È¸ÀüÇÑ´Ù.
-    [SerializeField] float _rotationSpeed;
-
-    // ¹ß»ç ¹æÇâÀ¸·Î ÀÌ °Å¸®¸¸Å­ Á÷ÁøÇÑ µÚ Áß·ÂÀ» Àû¿ëÇÑ´Ù.
-    // ¿ùµå °Å¸® ±âÁØÀÌ¸ç, À§ÂÊÀ¸·Î ¹ß»çÇØµµ µ¿ÀÏÇÑ °Å¸®¸¦ Á÷ÁøÇÑ´Ù.
-    [Min(0f)]
-    [SerializeField] float _gravityStartDistance = 3f;
-
-    // ÇÁ¸®ÆÕ Rigidbody2D¿¡ ¼³Á¤µÈ ¿ø·¡ Áß·Â ¹èÀ²ÀÌ´Ù.
-    float _flightGravityScale;
-
-    // Áß·Â ¾øÀÌ Á÷ÁøÇØ¾ß ÇÏ´Â ³²Àº ½Ã°£ÀÌ´Ù.
-    float _straightFlightRemaining;
-
-    // Á¶ÁØ¼±¿¡¼­µµ °°Àº Á÷Áø °Å¸®¸¦ »ç¿ëÇÑ´Ù.
-    public float GravityStartDistance => _gravityStartDistance;
-
-    [Header("¼ö·ùÅº Æø¹ß ¼³Á¤")]
-
-    // ¼ö·ùÅºÀ» ´øÁø ¼ø°£ºÎÅÍ Æø¹ßÇÏ±â±îÁö °É¸®´Â ½Ã°£ÀÌ´Ù.
-    [Min(0.1f)]
-    [SerializeField] float _fuseTime = 1.2f;
-
-    // Æø¹ßÇÒ ¶§ Àû¿¡°Ô ÇÇÇØ¸¦ ÁÖ´Â ¿øÇü ¹üÀ§´Ù.
-    [Min(0.1f)]
-    [SerializeField] float _explosionRadius = 2f;
-
-    // Æø¹ß ÇÇÇØ¸¦ °Ë»çÇÒ Enemy ·¹ÀÌ¾î´Ù.
-    [SerializeField] LayerMask _enemyLayerMask;
-
-    // ¼ö·ùÅºÀÌ Æø¹ßÇÒ ¶§ »ı¼ºÇÒ µ¶¸³ÀûÀÎ Æø¹ß ÀÌÆåÆ® ÇÁ¸®ÆÕÀÌ´Ù.
-    [SerializeField] SpriteExplosionEffect _explosionEffectPrefab;
-
-    // ÀÌ¹Ì Æø¹ß Ã³¸®¸¦ ¸¶ÃÆ´ÂÁö È®ÀÎÇÏ¿© Áßº¹ Æø¹ßÀ» ¹æÁöÇÑ´Ù.
-    bool _hasExploded;
-
-    // Á¶ÁØ¼±ÀÌ ½ÇÁ¦ ¼ö·ùÅº°ú °°Àº ÃÖÃÊ ÅõÃ´ ¼Óµµ¸¦ »ç¿ëÇÏ°Ô Á¦°øÇÑ´Ù.
-    public float LaunchSpeed => MoveSpeed;
-
-    // Á¶ÁØ¼±ÀÌ ¼ö·ùÅº Æø¹ß ½ÃÁ¡±îÁö ±ËÀûÀ» Ç¥½ÃÇÏ°Ô Á¦°øÇÑ´Ù.
-    public float FuseTime => _fuseTime;
-
-    // Á¶ÁØ¼±ÀÌ Rigidbody2D¿Í °°Àº Áß·Â ¹èÀ²À» »ç¿ëÇÏ°Ô Á¦°øÇÑ´Ù.
-    public float GravityScale
-    {
-        get
-        {
-            Rigidbody2D grenadeBody =
-                GetComponent<Rigidbody2D>();
-
-            return grenadeBody.gravityScale;
-        }
-    }
-
-    /// <summary>
-    /// WeaponÀÌ °ø°İ·Â°ú Á¶ÁØ ¹æÇâÀ» Àü´ŞÇÑ Á÷ÈÄ ½ÇÇàµÈ´Ù.
-    /// Rigidbody2D¿¡ ÃÖÃÊ ÅõÃ´ ¼Óµµ¿Í È¸Àü ¼Óµµ¸¦ Àû¿ëÇÑ´Ù.
-    /// </summary>
+    /// <summary>ì¤‘ë ¥ ì—†ëŠ” ì§ì„  ë¹„í–‰ê³¼ ê²€ìƒ‰ ì¡°ê±´ì„ ì´ˆê¸°í™”í•œë‹¤.</summary>
     protected override void OnInitialized()
     {
-        // ÀÌÀü ¹ß»ç¿¡¼­ ÀÌ¹Ì Æø¹ßÇß´ø »óÅÂ¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+        // í’€ ì¬ì‚¬ìš© ì‹œ ì´ì „ ë°œì‚¬ì˜ ìƒíƒœë¥¼ ë¹„ìš´ë‹¤.
         _hasExploded = false;
-
-        // Æø¹ß ÀÌÆåÆ®°¡ ¾øÀ¸¸é Á¤»óÀûÀÎ ¼ö·ùÅº °ø°İÀ» ¿Ï¼ºÇÒ ¼ö ¾ø´Ù.
-        if (_explosionEffectPrefab == null)
-        {
-            throw new InvalidOperationException(
-                $"{name}ÀÇ Grenade¿¡ Explosion Effect PrefabÀÌ ¿¬°áµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
-        }
-
-        // °Å¸®¿Í ¼Óµµ·Î Á÷Áø ½Ã°£À» °è»êÇÏ¹Ç·Î ¾ç¼ö ¼Óµµ°¡ ÇÊ¿äÇÏ´Ù.
-        if (MoveSpeed <= 0f)
-        {
-            throw new InvalidOperationException(
-                $"{name}ÀÇ Grenade Move Speed´Â 0º¸´Ù Ä¿¾ß ÇÕ´Ï´Ù.");
-        }
-
-        // Inspector¿¡ ¼³Á¤ÇÑ Áß·ÂÀ» ÀúÀåÇÑ´Ù.
-        _flightGravityScale = Body.gravityScale;
-
-        // ÀÏÁ¤ ¼Óµµ¿¡¼­ °Å¸® / ¼Óµµ´Â ÇØ´ç °Å¸®¸¦ ÀÌµ¿ÇÏ´Â ½Ã°£ÀÌ´Ù.
-        _straightFlightRemaining =
-            _gravityStartDistance / MoveSpeed;
-
-        // Á÷Áø ±¸°£¿¡¼­´Â Áß·ÂÀ» ²ô°í,
-        // Á÷Áø °Å¸®°¡ 0ÀÌ¸é Ã³À½ºÎÅÍ Áß·ÂÀ» »ç¿ëÇÑ´Ù.
-        Body.gravityScale =
-            _straightFlightRemaining > 0f
-                ? 0f
-                : _flightGravityScale;
-
-        // Àü´Ş¹ŞÀº Á¶ÁØ ¹æÇâÀ¸·Î ¹ß»çÇÑ´Ù.
-        Body.linearVelocity =
-            Direction * MoveSpeed;
-
-        // ¼ö·ùÅºÀÌ ³¯¾Æ°¡´Â µ¿¾È È¸ÀüÇÏ°Ô ¸¸µç´Ù.
-        Body.angularVelocity =
-            _rotationSpeed;
-
-        // ¼³Á¤ÇÑ ½Å°ü ½Ã°£ÀÌ Áö³ª¸é Æø¹ßÇÑ´Ù.
-        Invoke(
-            nameof(Explode),
-            _fuseTime);
-    }
-
-    /// <summary>
-    /// Á÷Áø ±¸°£ÀÌ ³¡³ª¸é Áß·ÂÀ» Àû¿ëÇÑ´Ù.
-    /// °æ°è°¡ ¹°¸® ÇÁ·¹ÀÓ Áß°£¿¡ °É¸®¸é ÇØ´ç ½Ã°£ ºñÀ²¸¸Å­ Àû¿ëÇÑ´Ù.
-    /// </summary>
-    protected override void MoveProjectile()
-    {
-        if (_hasExploded)
-        {
-            return;
-        }
-
-        float stepTime = Time.fixedDeltaTime;
-
-        // ÀÌ¹ø ¹°¸® ÇÁ·¹ÀÓ Áß Á÷Áø¿¡ »ç¿ëÇÒ ½Ã°£ÀÌ´Ù.
-        float straightTime = Mathf.Min(
-            _straightFlightRemaining,
-            stepTime);
-
-        _straightFlightRemaining = Mathf.Max(
-            0f,
-            _straightFlightRemaining - stepTime);
-
-        // Á÷Áø ±¸°£¿¡¼­´Â 0, ³«ÇÏ ±¸°£¿¡¼­´Â ¿ø·¡ Áß·ÂÀÌ´Ù.
-        // °æ°è ÇÁ·¹ÀÓÀº ³²Àº ½Ã°£ ºñÀ²¸¸Å­ Áß·ÂÀ» Àû¿ëÇÑ´Ù.
-        float gravityTimeRatio =
-            (stepTime - straightTime) / stepTime;
-
-        Body.gravityScale =
-            _flightGravityScale * gravityTimeRatio;
-    }
-
-    /// <summary>
-    /// ½Å°ü ½Ã°£ÀÌ ³¡³ª¸é Æø¹ß ¹üÀ§ ¾ÈÀÇ Àû¿¡°Ô ÇÑ ¹ø¾¿ ÇÇÇØ¸¦ ÁÖ°í
-    /// µ¶¸³ÀûÀÎ Æø¹ß ÀÌÆåÆ®¸¦ »ı¼ºÇÑ´Ù.
-    /// </summary>
-    private void Explode()
-    {
-        // °°Àº ¼ö·ùÅºÀÌ µÎ ¹ø Æø¹ßÇÏ´Â °ÍÀ» ¹æÁöÇÑ´Ù.
-        if (_hasExploded)
-        {
-            return;
-        }
-
-        _hasExploded = true;
-
-        Vector2 explosionPosition =
-            transform.position;
-
-        // Æø¹ß ¹üÀ§ ¾È¿¡ ÀÖ´Â Enemy ·¹ÀÌ¾îÀÇ Collider¸¦ ¸ğµÎ °¡Á®¿Â´Ù.
-        Collider2D[] hitColliders =
-            Physics2D.OverlapCircleAll(
-                explosionPosition,
-                _explosionRadius,
-                _enemyLayerMask);
-
-        // ÇÏ³ªÀÇ ÀûÀÌ Collider¸¦ ¿©·¯ °³ °¡Áö°í ÀÖ¾îµµ
-        // Æø¹ß ÇÇÇØ´Â ÇÑ ¹ø¸¸ Àû¿ëÇÏ±â À§ÇØ »ç¿ëÇÑ´Ù.
-        HashSet<IDamageable> damagedTargets =
-            new HashSet<IDamageable>();
-
-        foreach (Collider2D hitCollider in hitColliders)
-        {
-            // Collider ÀÚ½ÅÀÌ³ª ºÎ¸ğ¿¡¼­ ÇÇÇØ¸¦ ¹ŞÀ» ´ë»óÀ» Ã£´Â´Ù.
-            IDamageable target =
-                hitCollider.GetComponentInParent<IDamageable>();
-
-            // ÇÇÇØ ´ë»óÀÌ ¾Æ´Ï°Å³ª ÀÌ¹Ì »ç¸ÁÇß´Ù¸é °Ç³Ê¶Ú´Ù.
-            if (target == null || target.IsDead)
-            {
-                continue;
-            }
-
-            // °°Àº ´ë»óÀÇ ´Ù¸¥ Collider¸¦ ´Ù½Ã Ã£Àº °æ¿ì °Ç³Ê¶Ú´Ù.
-            if (!damagedTargets.Add(target))
-            {
-                continue;
-            }
-
-            // WeaponRuntimeState¿¡¼­ Àü´Ş¹ŞÀº ÇöÀç °ø°İ·ÂÀ» Àû¿ëÇÑ´Ù.
-            target.TakeHit(Damage);
-        }
-
-        // ¼ö·ùÅº°ú µ¶¸³µÈ Æø¹ß ÀÌÆåÆ®¸¦ »ı¼ºÇÑ´Ù.
-        // ¼ö·ùÅº º»Ã¼°¡ Á¦°ÅµÇ¾îµµ ÀÌÆåÆ®´Â ÀÚÃ¼ TweenÀ» ³¡±îÁö Àç»ıÇÑ´Ù.
-        SpriteExplosionEffect explosionEffect =
-            Instantiate(
-                _explosionEffectPrefab,
-                explosionPosition,
-                Quaternion.identity);
-
-        explosionEffect.Play();
-
-        // Æø¹ßÇÑ ¼ö·ùÅºÀÇ ¹°¸® ÀÌµ¿À» Áï½Ã ¸ØÃá´Ù.
+        _isFlying = false;
+        _damagedTargets.Clear();
+        if (_explosionEffectPrefab == null || MoveSpeed <= 0f || _enemyLayerMask.value == 0)
+            throw new InvalidOperationException($"{name}: ìˆ˜ë¥˜íƒ„ ì†ë„, ì  ë ˆì´ì–´, í­ë°œ ì´í™íŠ¸ë¥¼ í™•ì¸í•´ì£¼ì„¸ìš”.");
+        _worldCamera = Camera.main;
+        _flightRenderer = GetComponentInChildren<SpriteRenderer>();
+        if (_worldCamera == null || _flightRenderer == null)
+            throw new InvalidOperationException($"{name}: MainCameraì™€ ìˆ˜ë¥˜íƒ„ Rendererê°€ í•„ìš”í•©ë‹ˆë‹¤.");
+        // ìœ„ì¹˜ëŠ” MoveProjectileì—ì„œ ê´€ë¦¬í•˜ë©° ë¬¼ë¦¬ ì¤‘ë ¥ê³¼ íšŒì „ì€ ì‚¬ìš©í•˜ì§€ ì•ŠëŠ”ë‹¤.
+        Body.bodyType = RigidbodyType2D.Kinematic;
+        Body.gravityScale = 0f;
         Body.linearVelocity = Vector2.zero;
         Body.angularVelocity = 0f;
+        _flightFilter = new ContactFilter2D();
+        _flightFilter.SetLayerMask(_enemyLayerMask);
+        _flightFilter.useTriggers = true;
+        _isFlying = true;
+    }
 
-        // Æø¹ß Ã³¸®°¡ ³¡³­ ¼ö·ùÅºÀ» Ç®·Î ¹İ³³ÇÑ´Ù.
+    /// <summary>ì¶œë°œ ìœ„ì¹˜ì™€ ì´ë™ ê²½ë¡œì—ì„œ ì‚´ì•„ ìˆëŠ” ì²« ì ì„ ê²€ì‚¬í•œë‹¤.</summary>
+    protected override void MoveProjectile()
+    {
+        if (!_isFlying || _hasExploded) return;
+        Physics2D.SyncTransforms();
+        // ìƒì„± ìœ„ì¹˜ë¶€í„° ê²¹ì¹œ ì ë„ ë†“ì¹˜ì§€ ì•ŠëŠ”ë‹¤.
+        _overlaps.Clear();
+        HitCollider.Overlap(_flightFilter, _overlaps);
+        foreach (Collider2D hit in _overlaps)
+        {
+            IDamageable target = hit == null ? null : hit.GetComponentInParent<IDamageable>();
+            if (target == null || target.IsDead) continue;
+            Explode(target);
+            return;
+        }
+        // ë¹ ë¥¸ ì´ë™ ì¤‘ í†µê³¼í•˜ëŠ” ì ì€ Collider ì „ì²´ì˜ Castë¡œ ì°¾ëŠ”ë‹¤.
+        float distance = MoveSpeed * Time.fixedDeltaTime;
+        _castHits.Clear();
+        HitCollider.Cast(Direction, _flightFilter, _castHits, distance);
+        IDamageable nearest = null;
+        float nearestDistance = float.PositiveInfinity;
+        foreach (RaycastHit2D hit in _castHits)
+        {
+            if (hit.collider == null || hit.distance >= nearestDistance) continue;
+            IDamageable target = hit.collider.GetComponentInParent<IDamageable>();
+            if (target == null || target.IsDead) continue;
+            nearest = target;
+            nearestDistance = hit.distance;
+        }
+        if (nearest != null)
+        {
+            // ìµœì´ˆ ì ‘ì´‰ ìœ„ì¹˜ì—ì„œ ë²”ìœ„ í­ë°œí•œë‹¤.
+            Body.position += Direction * nearestDistance;
+            Physics2D.SyncTransforms();
+            Explode(nearest);
+            return;
+        }
+        // ì¤‘ë ¥ì´ë‚˜ ì¡°ì¤€ì„ ì˜ ì´í›„ ë³€í™” ì—†ì´ ë°œì‚¬ ë°©í–¥ì„ ìœ ì§€í•œë‹¤.
+        Body.position += Direction * distance;
+    }
+
+    /// <summary>ê¸°ì¡´ ì‹œê°„ ìˆ˜ëª… ëŒ€ì‹  ì¹´ë©”ë¼ ë°– ì™„ì „ ì´íƒˆë¡œ ë°˜í™˜í•œë‹¤.</summary>
+    protected override void Update()
+    {
+        if (!_isFlying || _hasExploded || Time.timeScale <= 0f) return;
+        // ë¶€ëª¨ Updateë¥¼ í˜¸ì¶œí•˜ì§€ ì•Šì•„ ê¸°ì¡´ 3ì´ˆ ìˆ˜ëª…ìœ¼ë¡œ ì¡°ê¸° ì†Œë©¸í•˜ì§€ ì•ŠëŠ”ë‹¤.
+        GeometryUtility.CalculateFrustumPlanes(_worldCamera, _cameraPlanes);
+        if (!GeometryUtility.TestPlanesAABB(_cameraPlanes, _flightRenderer.bounds))
+        {
+            _isFlying = false;
+            ReturnToPool();
+        }
+    }
+
+    /// <summary>ëª…ì¤‘í•œ ì ê³¼ í­ë°œ ë²”ìœ„ ì•ˆì˜ ì ì—ê²Œ ê°ê° í•œ ë²ˆ í”¼í•´ë¥¼ ì¤€ë‹¤.</summary>
+    private void Explode(IDamageable directTarget)
+    {
+        if (_hasExploded || !_isFlying) return;
+        _hasExploded = true;
+        _isFlying = false;
+        Vector2 position = Body.position;
+        // í”¼í•´ë¡œ ì „íˆ¬ê°€ ì¢…ë£Œë˜ê¸° ì „ì— ë…ë¦½ í­ë°œ ì—°ì¶œì„ ë§Œë“ ë‹¤.
+        SpriteExplosionEffect effect = Instantiate(_explosionEffectPrefab, position, Quaternion.identity);
+        effect.Play();
+        GameAudio.Play(GameSound.GrenadeExplosion);
+        _overlaps.Clear();
+        Physics2D.OverlapCircle(position, _explosionRadius, _flightFilter, _overlaps);
+        _damagedTargets.Clear();
+        // Cast ê²½ê³„ì—ì„œ ê²€ì¶œí•œ ì§ì ‘ ëª…ì¤‘ ëŒ€ìƒë„ í¬í•¨í•˜ë˜ ì¤‘ë³µ í”¼í•´ëŠ” ë§‰ëŠ”ë‹¤.
+        if (directTarget != null && !directTarget.IsDead) _damagedTargets.Add(directTarget);
+        foreach (Collider2D hit in _overlaps)
+        {
+            IDamageable target = hit == null ? null : hit.GetComponentInParent<IDamageable>();
+            if (target != null && !target.IsDead) _damagedTargets.Add(target);
+        }
+        foreach (IDamageable target in _damagedTargets)
+        {
+            // ì•ì„  í”¼í•´ë¡œ ì‚¬ë§í•œ ëŒ€ìƒì€ ê±´ë„ˆë›´ë‹¤.
+            if (!target.IsDead) target.TakeHit(Damage);
+        }
+        // í­ë°œ í›„ ë³¸ì²´ëŠ” ê¸°ì¡´ í’€ë¡œ ë°˜í™˜í•œë‹¤.
         ReturnToPool();
     }
 
-    /// <summary>
-    /// ¼ö·ùÅºÀÌ »ì¾Æ ÀÖ´Â Àû¿¡°Ô ´êÀ¸¸é
-    /// ³²Àº ½Å°ü ½Ã°£°ú °ü°è¾øÀÌ Ãæµ¹ À§Ä¡¿¡¼­ Áï½Ã Æø¹ßÇÑ´Ù.
-    /// </summary>
-    protected override void OnTriggerEnter2D(
-        Collider2D collision)
+    /// <summary>ì‹¤ì œ ë¬¼ë¦¬ ì ‘ì´‰ë„ ë™ì¼í•œ í­ë°œ ê²½ë¡œë¡œ ì²˜ë¦¬í•œë‹¤.</summary>
+    protected override void OnTriggerEnter2D(Collider2D collision)
     {
-        // Ãæµ¹ÇÑ Collider ¶Ç´Â ºÎ¸ğ¿¡¼­ ÇÇÇØ ´ë»óÀ» Ã£´Â´Ù.
-        // ÀÏ¹İ Enemy¿Í BossEnemy¸¦ ¸ğµÎ Ã³¸®ÇÒ ¼ö ÀÖ´Ù.
-        IDamageable target =
-            collision.GetComponentInParent<IDamageable>();
-
-        // ÀûÀÌ ¾Æ´Ñ ¿ÀºêÁ§Æ®¿Í Ãæµ¹ÇÑ °æ¿ì¿¡´Â
-        // ±âÁ¸ Æ÷¹°¼± ÀÌµ¿°ú ½Å°ü ½Ã°£À» °è¼Ó À¯ÁöÇÑ´Ù.
-        if (target == null)
-        {
-            return;
-        }
-
-        // ÀÌ¹Ì »ç¸ÁÇÑ ÀûÀÇ Collider¿¡´Â ¹İÀÀÇÏÁö ¾Ê´Â´Ù.
-        if (target.IsDead)
-        {
-            return;
-        }
-
-        // Á÷Á¢ Ãæµ¹ ÇÇÇØ¸¦ µû·Î Àû¿ëÇÏÁö ¾Ê°í
-        // Ãæµ¹ÇÑ ÇöÀç À§Ä¡¸¦ Áß½ÉÀ¸·Î ¹üÀ§ Æø¹ßÀ» ¹ß»ı½ÃÅ²´Ù.
-        // Ãæµ¹ÇÑ Àûµµ Æø¹ß ¹üÀ§ ¾È¿¡ ÀÖÀ¸¹Ç·Î ÇÇÇØ´Â ÇÑ ¹ø¸¸ ¹Ş´Â´Ù.
-        Explode();
+        if (!_isFlying || _hasExploded) return;
+        if ((_enemyLayerMask.value & (1 << collision.gameObject.layer)) == 0) return;
+        IDamageable target = collision.GetComponentInParent<IDamageable>();
+        if (target != null && !target.IsDead) Explode(target);
     }
 
-    /// <summary>
-    /// Scene ºä¿¡¼­ ½ÇÁ¦ Æø¹ß ÇÇÇØ ¹üÀ§¸¦ È®ÀÎÇÑ´Ù.
-    /// °ÔÀÓ È­¸é¿¡´Â Ç¥½ÃµÇÁö ¾Ê´Â´Ù.
-    /// </summary>
+    /// <summary>í’€ ë°˜í™˜ ì‹œ ë¹„í–‰ ìƒíƒœì™€ ë¬¼ë¦¬ ì›€ì§ì„ì„ ì •ë¦¬í•œë‹¤.</summary>
+    protected override void OnDisable()
+    {
+        _isFlying = false;
+        // ë¶€ëª¨ê°€ ì†ë„ì™€ ì˜ˆì•½ ì‘ì—…ì„ ì •ë¦¬í•œë‹¤.
+        base.OnDisable();
+    }
+
+    /// <summary>Sceneì—ì„œ í­ë°œ ë²”ìœ„ë¥¼ í‘œì‹œí•œë‹¤.</summary>
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = new Color(
-            1f,
-            0.25f,
-            0f,
-            1f);
-
-        Gizmos.DrawWireSphere(
-            transform.position,
-            _explosionRadius);
+        Gizmos.color = new Color(1f, 0.25f, 0f, 1f);
+        Gizmos.DrawWireSphere(transform.position, _explosionRadius);
     }
 }

@@ -1,258 +1,264 @@
-using System;
+ï»¿using System;
 
 /// <summary>
-/// EquipmentManage È­¸éÀÇ Model°ú View¸¦ ¿¬°áÇÑ´Ù.
-/// UI ÀÔ·ÂÀ» Model¿¡ Àü´ÞÇÏ°í Ã³¸® °á°ú¸¦ View¿¡ ¹Ý¿µÇÑ´Ù.
+/// EquipmentManage í™”ë©´ì˜ Modelê³¼ Viewë¥¼ ì—°ê²°í•œë‹¤.
+/// UI ìž…ë ¥ì„ Modelì— ì „ë‹¬í•˜ê³  ì²˜ë¦¬ ê²°ê³¼ë¥¼ Viewì— ë°˜ì˜í•œë‹¤.
 /// </summary>
 public class EquipmentPresenter
 {
-    // Àåºñ µ¥ÀÌÅÍ¿Í ±¸¸Å ¹× ÀåÂø ±ÔÄ¢À» ´ã´çÇÏ´Â Model
+    // ìž¥ë¹„ ë°ì´í„°ì™€ êµ¬ë§¤ ë° ìž¥ì°© ê·œì¹™ì„ ë‹´ë‹¹í•˜ëŠ” Model
     readonly EquipmentModel _model;
 
-    // ½ÇÁ¦ EquipmentManage UI Ç¥½Ã¸¦ ´ã´çÇÏ´Â View
+    // ì‹¤ì œ EquipmentManage UI í‘œì‹œë¥¼ ë‹´ë‹¹í•˜ëŠ” View
     readonly EquipmentManageView _view;
 
-    // ÇöÀç Áß¾Ó ½½·Ô¿¡¼­ ¼±ÅÃµÈ ¹«±â µ¥ÀÌÅÍ
+    // í˜„ìž¬ ì¤‘ì•™ ìŠ¬ë¡¯ì—ì„œ ì„ íƒëœ ë¬´ê¸° ë°ì´í„°
     WeaponData _selectedWeaponData;
 
     /// <summary>
-    /// ¿¬°áÇÒ Model°ú View¸¦ Àü´Þ¹Þ¾Æ Presenter¸¦ »ý¼ºÇÑ´Ù.
+    /// ì—°ê²°í•  Modelê³¼ Viewë¥¼ ì „ë‹¬ë°›ì•„ Presenterë¥¼ ìƒì„±í•œë‹¤.
     /// </summary>
     public EquipmentPresenter(
         EquipmentModel model,
         EquipmentManageView view)
     {
-        // ModelÀÌ ¾øÀ¸¸é Àåºñ µ¥ÀÌÅÍ¿Í ±ÔÄ¢À» Ã³¸®ÇÒ ¼ö ¾ø´Ù.
+        // Modelì´ ì—†ìœ¼ë©´ ìž¥ë¹„ ë°ì´í„°ì™€ ê·œì¹™ì„ ì²˜ë¦¬í•  ìˆ˜ ì—†ë‹¤.
         if (model == null)
         {
             throw new ArgumentNullException(nameof(model));
         }
 
-        // View°¡ ¾øÀ¸¸é Ã³¸® °á°ú¸¦ È­¸é¿¡ Ç¥½ÃÇÒ ¼ö ¾ø´Ù.
+        // Viewê°€ ì—†ìœ¼ë©´ ì²˜ë¦¬ ê²°ê³¼ë¥¼ í™”ë©´ì— í‘œì‹œí•  ìˆ˜ ì—†ë‹¤.
         if (view == null)
         {
             throw new ArgumentNullException(nameof(view));
         }
 
-        // Àü´Þ¹ÞÀº Model°ú View¸¦ Presenter ³»ºÎ¿¡ ÀúÀåÇÑ´Ù.
+        // ì „ë‹¬ë°›ì€ Modelê³¼ Viewë¥¼ Presenter ë‚´ë¶€ì— ì €ìž¥í•œë‹¤.
         _model = model;
         _view = view;
 
-        // Áßº¹ ¿¬°áÀ» ¹æÁöÇÏ±â À§ÇØ ±âÁ¸ ÀÌº¥Æ® ¿¬°áÀ» ¸ÕÀú Á¦°ÅÇÑ´Ù.
+        // ì¤‘ë³µ ì—°ê²°ì„ ë°©ì§€í•˜ê¸° ìœ„í•´ ê¸°ì¡´ ì´ë²¤íŠ¸ ì—°ê²°ì„ ë¨¼ì € ì œê±°í•œë‹¤.
         _view.WeaponSelected -=
             HandleWeaponSelected;
 
-        // Áß¾Ó ½½·Ô¿¡¼­ ¼±ÅÃµÈ ¹«±â¸¦ Presenter°¡ Àü´Þ¹Þµµ·Ï ¿¬°áÇÑ´Ù.
+        // ì¤‘ì•™ ìŠ¬ë¡¯ì—ì„œ ì„ íƒëœ ë¬´ê¸°ë¥¼ Presenterê°€ ì „ë‹¬ë°›ë„ë¡ ì—°ê²°í•œë‹¤.
         _view.WeaponSelected +=
             HandleWeaponSelected;
 
-        // Áßº¹ ±¸µ¶À» ¹æÁöÇÏ±â À§ÇØ ±âÁ¸ ±¸¸Å ¿äÃ» ÀÌº¥Æ® ¿¬°áÀ» Á¦°ÅÇÑ´Ù.
+        // ì¤‘ë³µ êµ¬ë…ì„ ë°©ì§€í•˜ê¸° ìœ„í•´ ê¸°ì¡´ êµ¬ë§¤ ìš”ì²­ ì´ë²¤íŠ¸ ì—°ê²°ì„ ì œê±°í•œë‹¤.
         _view.PurchaseRequested -=
             HandlePurchaseRequested;
 
-        // ±¸¸Å ¹öÆ°À» ´­·¶À» ¶§ Presenter°¡ ¿äÃ»À» ¹Þµµ·Ï ¿¬°áÇÑ´Ù.
+        // êµ¬ë§¤ ë²„íŠ¼ì„ ëˆŒë €ì„ ë•Œ Presenterê°€ ìš”ì²­ì„ ë°›ë„ë¡ ì—°ê²°í•œë‹¤.
         _view.PurchaseRequested +=
             HandlePurchaseRequested;
 
-        // Áßº¹ ¿¬°áÀ» ¹æÁöÇÏ±â À§ÇØ ±âÁ¸ ¹«±â ÀåÂø ¿äÃ» ÀÌº¥Æ®¸¦ Á¦°ÅÇÑ´Ù.
+        // ì¤‘ë³µ ì—°ê²°ì„ ë°©ì§€í•˜ê¸° ìœ„í•´ ê¸°ì¡´ ë¬´ê¸° ìž¥ì°© ìš”ì²­ ì´ë²¤íŠ¸ë¥¼ ì œê±°í•œë‹¤.
         _view.WeaponEquipRequested -=
             HandleWeaponEquipRequested;
 
-        // View¿¡¼­ ¹«±â µå·ÓÀÌ ¹ß»ýÇÏ¸é Presenter°¡ ÀåÂø ¿äÃ»À» Ã³¸®ÇÑ´Ù.
+        // Viewì—ì„œ ë¬´ê¸° ë“œë¡­ì´ ë°œìƒí•˜ë©´ Presenterê°€ ìž¥ì°© ìš”ì²­ì„ ì²˜ë¦¬í•œë‹¤.
         _view.WeaponEquipRequested +=
             HandleWeaponEquipRequested;
 
-        // Áßº¹ ¿¬°áÀ» ¹æÁöÇÏ±â À§ÇØ ±âÁ¸ ÀåÂø ½½·Ô ±³È¯ ÀÌº¥Æ®¸¦ Á¦°ÅÇÑ´Ù.
+        // ì¤‘ë³µ ì—°ê²°ì„ ë°©ì§€í•˜ê¸° ìœ„í•´ ê¸°ì¡´ ìž¥ì°© ìŠ¬ë¡¯ êµí™˜ ì´ë²¤íŠ¸ë¥¼ ì œê±°í•œë‹¤.
         _view.EquippedWeaponSwapRequested -=
             HandleEquippedWeaponSwapRequested;
 
-        // View¿¡¼­ ½½·Ô ±³È¯ÀÌ ¿äÃ»µÇ¸é Presenter°¡ Model¿¡ Àü´ÞÇÑ´Ù.
+        // Viewì—ì„œ ìŠ¬ë¡¯ êµí™˜ì´ ìš”ì²­ë˜ë©´ Presenterê°€ Modelì— ì „ë‹¬í•œë‹¤.
         _view.EquippedWeaponSwapRequested +=
             HandleEquippedWeaponSwapRequested;
     }
 
     /// <summary>
-    /// EquipmentManage È­¸é¿¡ Ã³À½ ÇÊ¿äÇÑ Á¤º¸¸¦ Ç¥½ÃÇÑ´Ù.
+    /// EquipmentManage í™”ë©´ì— ì²˜ìŒ í•„ìš”í•œ ì •ë³´ë¥¼ í‘œì‹œí•œë‹¤.
     /// </summary>
     public void Initialize()
     {
-        // ÃÖÃÊ È­¸é¿¡´Â ¼±ÅÃµÈ ¹«±â°¡ ¾øÀ¸¹Ç·Î ¿À¸¥ÂÊ »ó¼¼ ÆÐ³ÎÀ» ¼û±ä´Ù.
+        // ìµœì´ˆ í™”ë©´ì—ëŠ” ì„ íƒëœ ë¬´ê¸°ê°€ ì—†ìœ¼ë¯€ë¡œ ì˜¤ë¥¸ìª½ ìƒì„¸ íŒ¨ë„ì„ ìˆ¨ê¸´ë‹¤.
         _view.HideWeaponDetail();
 
-        // È­¸é¿¡ Ã³À½ ÁøÀÔÇßÀ» ¶§ ¹«±â ÅøÆÁÀÌ º¸ÀÌÁö ¾Êµµ·Ï ÃÊ±âÈ­ÇÑ´Ù.
+        // í™”ë©´ì— ì²˜ìŒ ì§„ìž…í–ˆì„ ë•Œ ë¬´ê¸° íˆ´íŒì´ ë³´ì´ì§€ ì•Šë„ë¡ ì´ˆê¸°í™”í•œë‹¤.
         _view.HideWeaponTooltip();
 
-        // ¼±ÅÃÇÑ Ä³¸¯ÅÍÀÇ ÀÌ¹ÌÁö, ÀÌ¸§, ÇöÀç ·¹º§À» Ç¥½ÃÇÑ´Ù.
+        // ì„ íƒí•œ ìºë¦­í„°ì˜ ì´ë¯¸ì§€, ì´ë¦„, í˜„ìž¬ ë ˆë²¨ì„ í‘œì‹œí•œë‹¤.
         _view.ShowCharacter(
             _model.CharacterData,
             _model.CharacterLevel);
 
-        // ÇÃ·¹ÀÌ¾î°¡ ÇöÀç º¸À¯ÇÑ °ñµå¸¦ Ç¥½ÃÇÑ´Ù.
+        // í”Œë ˆì´ì–´ê°€ í˜„ìž¬ ë³´ìœ í•œ ê³¨ë“œë¥¼ í‘œì‹œí•œë‹¤.
         _view.ShowGold(_model.CurrentGold);
 
-        // ÇöÀç ÀåÂøµÈ ¹«±â 3°³¸¦ ¿ÞÂÊ ½½·Ô¿¡ Ç¥½ÃÇÑ´Ù.
+        // í˜„ìž¬ ìž¥ì°©ëœ ë¬´ê¸° 3ê°œë¥¼ ì™¼ìª½ ìŠ¬ë¡¯ì— í‘œì‹œí•œë‹¤.
         RefreshEquippedWeapons();
 
-        // ÇöÀç Ä³¸¯ÅÍ°¡ »ç¿ëÇÒ ¼ö ÀÖ´Â ¹«±â °³¼ö¸¸Å­
-        // Áß¾Ó ¹«±â ½½·ÔÀ» ÃÖÃÊ ÇÑ ¹ø »ý¼ºÇÑ´Ù.
+        // í˜„ìž¬ ìºë¦­í„°ê°€ ì‚¬ìš©í•  ìˆ˜ ìžˆëŠ” ë¬´ê¸° ê°œìˆ˜ë§Œí¼
+        // ì¤‘ì•™ ë¬´ê¸° ìŠ¬ë¡¯ì„ ìµœì´ˆ í•œ ë²ˆ ìƒì„±í•œë‹¤.
         _view.CreateWeaponSlots(
             _model.AvailableWeapons.Length);
 
-        // ÇöÀç Ä³¸¯ÅÍ°¡ »ç¿ëÇÒ ¼ö ÀÖ´Â ÀüÃ¼ ¹«±â¸¦ Áß¾Ó ½½·Ô¿¡ Ç¥½ÃÇÑ´Ù.
+        // í˜„ìž¬ ìºë¦­í„°ê°€ ì‚¬ìš©í•  ìˆ˜ ìžˆëŠ” ì „ì²´ ë¬´ê¸°ë¥¼ ì¤‘ì•™ ìŠ¬ë¡¯ì— í‘œì‹œí•œë‹¤.
         RefreshWeaponSlots();
 
-        // Áß¾Ó ¹«±â ½½·ÔÀÇ ¼±ÅÃ ÀÌº¥Æ®¸¦ View¿Í ¿¬°áÇÑ´Ù.
+        // ì¤‘ì•™ ë¬´ê¸° ìŠ¬ë¡¯ì˜ ì„ íƒ ì´ë²¤íŠ¸ë¥¼ Viewì™€ ì—°ê²°í•œë‹¤.
         _view.InitializeWeaponSlotEvents();
 
-        // ¿ÞÂÊ ÀåÂø ½½·Ô¿¡ ¹øÈ£¸¦ ºÎ¿©ÇÏ°í µå·Ó ÀÌº¥Æ®¸¦ ¿¬°áÇÑ´Ù.
+        // ì™¼ìª½ ìž¥ì°© ìŠ¬ë¡¯ì— ë²ˆí˜¸ë¥¼ ë¶€ì—¬í•˜ê³  ë“œë¡­ ì´ë²¤íŠ¸ë¥¼ ì—°ê²°í•œë‹¤.
         _view.InitializeEquippedWeaponSlotEvents();
 
-        // ¿ìÃø °¡°Ý ÇÁ·¹ÀÓÀÇ ¹öÆ° Å¬¸¯ ÀÌº¥Æ®¸¦ View ³»ºÎ¿¡¼­ ¿¬°áÇÑ´Ù.
+        // ìš°ì¸¡ ê°€ê²© í”„ë ˆìž„ì˜ ë²„íŠ¼ í´ë¦­ ì´ë²¤íŠ¸ë¥¼ View ë‚´ë¶€ì—ì„œ ì—°ê²°í•œë‹¤.
         _view.InitializePurchaseButtonEvent();
     }
 
     /// <summary>
-    /// ÁöÁ¤ÇÑ ¹«±â°¡ ÇöÀç µå·¡±× °¡´ÉÇÑ »óÅÂÀÎÁö È®ÀÎÇÑ´Ù.
+    /// ì§€ì •í•œ ë¬´ê¸°ê°€ í˜„ìž¬ ë“œëž˜ê·¸ ê°€ëŠ¥í•œ ìƒíƒœì¸ì§€ í™•ì¸í•œë‹¤.
     /// </summary>
     public bool CanDragWeapon(WeaponData weaponData)
     {
-        // ¹«±â µ¥ÀÌÅÍ°¡ ¾ø´Ù¸é µå·¡±×ÇÒ ¼ö ¾ø´Ù.
+        // ë¬´ê¸° ë°ì´í„°ê°€ ì—†ë‹¤ë©´ ë“œëž˜ê·¸í•  ìˆ˜ ì—†ë‹¤.
         if (weaponData == null)
         {
             return false;
         }
 
-        // ±¸¸Å ¿Ï·á ÈÄ º¸À¯ ÁßÀÎ ¹«±â¸¸ µå·¡±×ÇÒ ¼ö ÀÖ´Ù.
+        // êµ¬ë§¤ ì™„ë£Œ í›„ ë³´ìœ  ì¤‘ì¸ ë¬´ê¸°ë§Œ ë“œëž˜ê·¸í•  ìˆ˜ ìžˆë‹¤.
         return _model.GetItemState(weaponData) ==
                EquipmentItemState.Owned;
     }
 
     /// <summary>
-    /// ¼±ÅÃÇÑ ¹«±âÀÇ ±¸¸Å¸¦ ½ÃµµÇÏ°í ¼º°øÇÑ °æ¿ì °ñµå UI¸¦ °»½ÅÇÑ´Ù.
+    /// ì„ íƒí•œ ë¬´ê¸°ì˜ êµ¬ë§¤ë¥¼ ì‹œë„í•˜ê³  ì„±ê³µí•œ ê²½ìš° ê³¨ë“œ UIë¥¼ ê°±ì‹ í•œë‹¤.
     /// </summary>
     public bool TryPurchaseWeapon(
         WeaponData weaponData)
     {
-        // Model¿¡¼­ ±¸¸ÅÇÒ ¼ö ¾ø´Ù°í ÆÇ´ÜÇÏ¸é UI¸¦ º¯°æÇÏÁö ¾Ê´Â´Ù.
+        // Modelì—ì„œ êµ¬ë§¤í•  ìˆ˜ ì—†ë‹¤ê³  íŒë‹¨í•˜ë©´ UIë¥¼ ë³€ê²½í•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (!_model.TryPurchase(weaponData))
         {
+            GameAudio.Play(GameSound.UiActionDenied); // ì‹¤ì œ ì‹¤íŒ¨í•œ ìš”ì²­ë§Œ ì•Œë¦¼.
             return false;
         }
 
-        // ±¸¸Å·Î º¯°æµÈ ÇöÀç °ñµå¸¦ È­¸é¿¡ ´Ù½Ã Ç¥½ÃÇÑ´Ù.
+        // êµ¬ë§¤ë¡œ ë³€ê²½ëœ í˜„ìž¬ ê³¨ë“œë¥¼ í™”ë©´ì— ë‹¤ì‹œ í‘œì‹œí•œë‹¤.
         _view.ShowGold(_model.CurrentGold);
 
-        // ±¸¸ÅÇÑ ¹«±â°¡ Purchasable »óÅÂ¿¡¼­ Owned »óÅÂ·Î º¸ÀÌµµ·Ï
-        // Áß¾Ó ¹«±â ½½·Ô ÀüÃ¼¸¦ ´Ù½Ã Ç¥½ÃÇÑ´Ù.
+        // êµ¬ë§¤í•œ ë¬´ê¸°ê°€ Purchasable ìƒíƒœì—ì„œ Owned ìƒíƒœë¡œ ë³´ì´ë„ë¡
+        // ì¤‘ì•™ ë¬´ê¸° ìŠ¬ë¡¯ ì „ì²´ë¥¼ ë‹¤ì‹œ í‘œì‹œí•œë‹¤.
         RefreshWeaponSlots();
 
-        // ±¸¸ÅÇÑ ¹«±âÀÇ ¿À¸¥ÂÊ »ó¼¼ Á¤º¸µµ Owned »óÅÂ·Î °»½ÅÇÑ´Ù.
+        // êµ¬ë§¤í•œ ë¬´ê¸°ì˜ ì˜¤ë¥¸ìª½ ìƒì„¸ ì •ë³´ë„ Owned ìƒíƒœë¡œ ê°±ì‹ í•œë‹¤.
         HandleWeaponSelected(weaponData);
 
-        // ±¸¸Å°¡ Á¤»óÀûÀ¸·Î ¿Ï·áµÆ´Ù.
+        // êµ¬ë§¤ê°€ ì •ìƒì ìœ¼ë¡œ ì™„ë£Œëë‹¤.
+        GameAudio.Play(GameSound.EquipmentUpgradeSuccess); // ë°ì´í„° ë³€ê²½ ì„±ê³µ í›„ ìž¬ìƒ.
         return true;
     }
 
     /// <summary>
-    /// µå·¡±×ÇÑ ¹«±â¸¦ ÁöÁ¤ÇÑ ÀåÂø ½½·Ô¿¡ ÀåÂøÇÑ´Ù.
-    /// ÀåÂø¿¡ ¼º°øÇÏ¸é ¿ÞÂÊ ÀåÂø ½½·Ô ÀüÃ¼¸¦ ´Ù½Ã Ç¥½ÃÇÑ´Ù.
+    /// ë“œëž˜ê·¸í•œ ë¬´ê¸°ë¥¼ ì§€ì •í•œ ìž¥ì°© ìŠ¬ë¡¯ì— ìž¥ì°©í•œë‹¤.
+    /// ìž¥ì°©ì— ì„±ê³µí•˜ë©´ ì™¼ìª½ ìž¥ì°© ìŠ¬ë¡¯ ì „ì²´ë¥¼ ë‹¤ì‹œ í‘œì‹œí•œë‹¤.
     /// </summary>
     public bool TryEquipWeapon(
         WeaponData weaponData,
         int slotIndex)
     {
-        // Model¿¡¼­ ÀåÂøÇÒ ¼ö ¾ø´Ù°í ÆÇ´ÜÇÏ¸é UI¸¦ º¯°æÇÏÁö ¾Ê´Â´Ù.
+        // Modelì—ì„œ ìž¥ì°©í•  ìˆ˜ ì—†ë‹¤ê³  íŒë‹¨í•˜ë©´ UIë¥¼ ë³€ê²½í•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (!_model.TryEquipWeapon(
             weaponData,
             slotIndex))
         {
+            GameAudio.Play(GameSound.UiActionDenied); // ì‹¤ì œ ì‹¤íŒ¨í•œ ìš”ì²­ë§Œ ì•Œë¦¼.
             return false;
         }
 
-        // ÀåÂø °á°ú¸¦ ¿ÞÂÊ ÀåÂø ½½·Ô 3°³¿¡ ´Ù½Ã Ç¥½ÃÇÑ´Ù.
-        // ÃßÈÄ ¹«±â ±³È¯ ±â´ÉÀÌ »ý°Üµµ ÀüÃ¼ ½½·ÔÀÌ ¿Ã¹Ù¸£°Ô °»½ÅµÈ´Ù.
+        // ìž¥ì°© ê²°ê³¼ë¥¼ ì™¼ìª½ ìž¥ì°© ìŠ¬ë¡¯ 3ê°œì— ë‹¤ì‹œ í‘œì‹œí•œë‹¤.
+        // ì¶”í›„ ë¬´ê¸° êµí™˜ ê¸°ëŠ¥ì´ ìƒê²¨ë„ ì „ì²´ ìŠ¬ë¡¯ì´ ì˜¬ë°”ë¥´ê²Œ ê°±ì‹ ëœë‹¤.
         RefreshEquippedWeapons();
 
-        // ÀåÂø°ú UI °»½ÅÀÌ Á¤»óÀûÀ¸·Î ¿Ï·áµÆ´Ù.
+        // ìž¥ì°©ê³¼ UI ê°±ì‹ ì´ ì •ìƒì ìœ¼ë¡œ ì™„ë£Œëë‹¤.
+        GameAudio.Play(GameSound.EquipmentEquip); // ë°ì´í„° ë³€ê²½ ì„±ê³µ í›„ ìž¬ìƒ.
         return true;
     }
 
     /// <summary>
-    /// µÎ ÀåÂø ½½·ÔÀÇ ¹«±â¸¦ ±³È¯ÇÏ°í
-    /// ¼º°øÇÏ¸é ÀåÂø ½½·Ô UI ÀüÃ¼¸¦ ´Ù½Ã Ç¥½ÃÇÑ´Ù.
+    /// ë‘ ìž¥ì°© ìŠ¬ë¡¯ì˜ ë¬´ê¸°ë¥¼ êµí™˜í•˜ê³ 
+    /// ì„±ê³µí•˜ë©´ ìž¥ì°© ìŠ¬ë¡¯ UI ì „ì²´ë¥¼ ë‹¤ì‹œ í‘œì‹œí•œë‹¤.
     /// </summary>
     public bool TrySwapEquippedWeaponSlots(
         int sourceSlotIndex,
         int targetSlotIndex)
     {
-        // Model¿¡¼­ ±³È¯ÇÒ ¼ö ¾ø´Ù°í ÆÇ´ÜÇÏ¸é UI¸¦ °»½ÅÇÏÁö ¾Ê´Â´Ù.
+        // Modelì—ì„œ êµí™˜í•  ìˆ˜ ì—†ë‹¤ê³  íŒë‹¨í•˜ë©´ UIë¥¼ ê°±ì‹ í•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (!_model.TrySwapEquippedWeaponSlots(
             sourceSlotIndex,
             targetSlotIndex))
         {
+            GameAudio.Play(GameSound.UiActionDenied); // ì‹¤ì œ ì‹¤íŒ¨í•œ ìš”ì²­ë§Œ ì•Œë¦¼.
             return false;
         }
 
-        // ÀúÀå µ¥ÀÌÅÍÀÇ »õ·Î¿î ÀåÂø ¼ø¼­¿¡ ¸ÂÃç
-        // ÀåÂø ½½·Ô 1~3ÀÇ ¾ÆÀÌÄÜ°ú ÀÌ¸§À» ¸ðµÎ ´Ù½Ã Ç¥½ÃÇÑ´Ù.
+        // ì €ìž¥ ë°ì´í„°ì˜ ìƒˆë¡œìš´ ìž¥ì°© ìˆœì„œì— ë§žì¶°
+        // ìž¥ì°© ìŠ¬ë¡¯ 1~3ì˜ ì•„ì´ì½˜ê³¼ ì´ë¦„ì„ ëª¨ë‘ ë‹¤ì‹œ í‘œì‹œí•œë‹¤.
         RefreshEquippedWeapons();
 
-        // ÀåÂø ½½·Ô ±³È¯ÀÌ ¼º°øÀûÀ¸·Î ¿Ï·áµÆ´Ù.
+        // ìž¥ì°© ìŠ¬ë¡¯ êµí™˜ì´ ì„±ê³µì ìœ¼ë¡œ ì™„ë£Œëë‹¤.
+        GameAudio.Play(GameSound.EquipmentEquip); // ë°ì´í„° ë³€ê²½ ì„±ê³µ í›„ ìž¬ìƒ.
         return true;
     }
 
     /// <summary>
-    /// View¿¡¼­ Àü´Þ¹ÞÀº ¹«±â¿Í ÀåÂø ½½·Ô ¹øÈ£¸¦ »ç¿ëÇØ
-    /// ½ÇÁ¦ ¹«±â ÀåÂøÀ» ¿äÃ»ÇÑ´Ù.
+    /// Viewì—ì„œ ì „ë‹¬ë°›ì€ ë¬´ê¸°ì™€ ìž¥ì°© ìŠ¬ë¡¯ ë²ˆí˜¸ë¥¼ ì‚¬ìš©í•´
+    /// ì‹¤ì œ ë¬´ê¸° ìž¥ì°©ì„ ìš”ì²­í•œë‹¤.
     /// </summary>
     private void HandleWeaponEquipRequested(
         WeaponData weaponData,
         int equippedSlotIndex)
     {
-        // ±âÁ¸ ÀåÂø ÇÔ¼ö¸¦ ÅëÇØ ModelÀÇ ÀåÂø µ¥ÀÌÅÍ¿Í UI¸¦ °»½ÅÇÑ´Ù.
+        // ê¸°ì¡´ ìž¥ì°© í•¨ìˆ˜ë¥¼ í†µí•´ Modelì˜ ìž¥ì°© ë°ì´í„°ì™€ UIë¥¼ ê°±ì‹ í•œë‹¤.
         TryEquipWeapon(
             weaponData,
             equippedSlotIndex);
     }
 
     /// <summary>
-    /// View¿¡¼­ Àü´Þ¹ÞÀº Ãâ¹ß ½½·Ô°ú µµÂø ½½·Ô ¹øÈ£¸¦ »ç¿ëÇØ
-    /// µÎ ÀåÂø ¹«±âÀÇ ±³È¯À» ¿äÃ»ÇÑ´Ù.
+    /// Viewì—ì„œ ì „ë‹¬ë°›ì€ ì¶œë°œ ìŠ¬ë¡¯ê³¼ ë„ì°© ìŠ¬ë¡¯ ë²ˆí˜¸ë¥¼ ì‚¬ìš©í•´
+    /// ë‘ ìž¥ì°© ë¬´ê¸°ì˜ êµí™˜ì„ ìš”ì²­í•œë‹¤.
     /// </summary>
     private void HandleEquippedWeaponSwapRequested(
         int sourceSlotIndex,
         int targetSlotIndex)
     {
-        // ModelÀÇ ±³È¯ ±ÔÄ¢°ú ÀúÀå Ã³¸®¸¦ °ÅÃÄ ÀåÂø UI¸¦ °»½ÅÇÑ´Ù.
+        // Modelì˜ êµí™˜ ê·œì¹™ê³¼ ì €ìž¥ ì²˜ë¦¬ë¥¼ ê±°ì³ ìž¥ì°© UIë¥¼ ê°±ì‹ í•œë‹¤.
         TrySwapEquippedWeaponSlots(
             sourceSlotIndex,
             targetSlotIndex);
     }
 
     /// <summary>
-    /// ¿ìÃø ±¸¸Å ¹öÆ°ÀÌ ´­·ÈÀ» ¶§ ÇöÀç ¼±ÅÃµÈ ¹«±âÀÇ ±¸¸Å¸¦ ½ÃµµÇÑ´Ù.
+    /// ìš°ì¸¡ êµ¬ë§¤ ë²„íŠ¼ì´ ëˆŒë ¸ì„ ë•Œ í˜„ìž¬ ì„ íƒëœ ë¬´ê¸°ì˜ êµ¬ë§¤ë¥¼ ì‹œë„í•œë‹¤.
     /// </summary>
     private void HandlePurchaseRequested()
     {
-        // ¾ÆÁ÷ Áß¾Ó ½½·Ô¿¡¼­ ¼±ÅÃµÈ ¹«±â°¡ ¾ø´Ù¸é ±¸¸ÅÇÒ ´ë»óÀÌ ¾ø´Ù.
+        // ì•„ì§ ì¤‘ì•™ ìŠ¬ë¡¯ì—ì„œ ì„ íƒëœ ë¬´ê¸°ê°€ ì—†ë‹¤ë©´ êµ¬ë§¤í•  ëŒ€ìƒì´ ì—†ë‹¤.
         if (_selectedWeaponData == null)
         {
             return;
         }
 
-        // ÇöÀç ¼±ÅÃµÈ ¹«±âÀÇ ±¸¸Å¸¦ ½ÃµµÇÑ´Ù.
-        // ±¸¸Å ¼º°ø ½Ã TryPurchaseWeapon ³»ºÎ¿¡¼­ °ñµå¿Í ½½·Ô UIµµ °»½ÅµÈ´Ù.
+        // í˜„ìž¬ ì„ íƒëœ ë¬´ê¸°ì˜ êµ¬ë§¤ë¥¼ ì‹œë„í•œë‹¤.
+        // êµ¬ë§¤ ì„±ê³µ ì‹œ TryPurchaseWeapon ë‚´ë¶€ì—ì„œ ê³¨ë“œì™€ ìŠ¬ë¡¯ UIë„ ê°±ì‹ ëœë‹¤.
         TryPurchaseWeapon(_selectedWeaponData);
     }
 
     /// <summary>
-    /// Áß¾Ó ½½·Ô¿¡¼­ ¹«±â°¡ ¼±ÅÃµÆÀ» ¶§
-    /// ÇØ´ç ¹«±âÀÇ ÇöÀç »óÅÂ¸¦ ¿À¸¥ÂÊ »ó¼¼ ÆÐ³Î¿¡ Ç¥½ÃÇÑ´Ù.
+    /// ì¤‘ì•™ ìŠ¬ë¡¯ì—ì„œ ë¬´ê¸°ê°€ ì„ íƒëì„ ë•Œ
+    /// í•´ë‹¹ ë¬´ê¸°ì˜ í˜„ìž¬ ìƒíƒœë¥¼ ì˜¤ë¥¸ìª½ ìƒì„¸ íŒ¨ë„ì— í‘œì‹œí•œë‹¤.
     /// </summary>
     private void HandleWeaponSelected(
         WeaponData weaponData)
     {
-        // ¼±ÅÃµÈ ¹«±â µ¥ÀÌÅÍ°¡ ¾ø´Ù¸é »ó¼¼ Á¤º¸¸¦ Ç¥½ÃÇÏÁö ¾Ê´Â´Ù.
+        // ì„ íƒëœ ë¬´ê¸° ë°ì´í„°ê°€ ì—†ë‹¤ë©´ ìƒì„¸ ì •ë³´ë¥¼ í‘œì‹œí•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (weaponData == null)
         {
             _selectedWeaponData = null;
@@ -260,43 +266,44 @@ public class EquipmentPresenter
             return;
         }
 
-        // ±¸¸Å ¹öÆ°°ú ÀÌÈÄ ÀÔ·Â¿¡¼­ »ç¿ëÇÒ ¼ö ÀÖµµ·Ï ¼±ÅÃ ¹«±â¸¦ ÀúÀåÇÑ´Ù.
+        // êµ¬ë§¤ ë²„íŠ¼ê³¼ ì´í›„ ìž…ë ¥ì—ì„œ ì‚¬ìš©í•  ìˆ˜ ìžˆë„ë¡ ì„ íƒ ë¬´ê¸°ë¥¼ ì €ìž¥í•œë‹¤.
+        if (_selectedWeaponData != weaponData) GameAudio.Play(GameSound.InventoryItemSelect);
         _selectedWeaponData = weaponData;
 
-        // ¼±ÅÃµÈ ¹«±âÀÇ ÇöÀç Àá±Ý, º¸À¯, ±¸¸Å °¡´É »óÅÂ¸¦ °¡Á®¿Â´Ù.
+        // ì„ íƒëœ ë¬´ê¸°ì˜ í˜„ìž¬ ìž ê¸ˆ, ë³´ìœ , êµ¬ë§¤ ê°€ëŠ¥ ìƒíƒœë¥¼ ê°€ì ¸ì˜¨ë‹¤.
         EquipmentItemState itemState =
             _model.GetItemState(weaponData);
 
-        // ¿À¸¥ÂÊ ÆÐ³Î¿¡ ¹«±â µ¥ÀÌÅÍ¿Í ÇöÀç »óÅÂ¸¦ Ç¥½ÃÇÑ´Ù.
+        // ì˜¤ë¥¸ìª½ íŒ¨ë„ì— ë¬´ê¸° ë°ì´í„°ì™€ í˜„ìž¬ ìƒíƒœë¥¼ í‘œì‹œí•œë‹¤.
         _view.ShowWeaponDetail(
             weaponData,
             itemState);
     }
 
     /// <summary>
-    /// ÇöÀç Ä³¸¯ÅÍ°¡ »ç¿ëÇÒ ¼ö ÀÖ´Â ÀüÃ¼ ¹«±â¸¦
-    /// Áß¾Ó ½½·Ô¿¡ ¼ø¼­´ë·Î Ç¥½ÃÇÑ´Ù.
+    /// í˜„ìž¬ ìºë¦­í„°ê°€ ì‚¬ìš©í•  ìˆ˜ ìžˆëŠ” ì „ì²´ ë¬´ê¸°ë¥¼
+    /// ì¤‘ì•™ ìŠ¬ë¡¯ì— ìˆœì„œëŒ€ë¡œ í‘œì‹œí•œë‹¤.
     /// </summary>
     private void RefreshWeaponSlots()
     {
-        // ÇöÀç Ä³¸¯ÅÍ°¡ »ç¿ëÇÒ ¼ö ÀÖ´Â ÀüÃ¼ ¹«±â ¸ñ·ÏÀ» °¡Á®¿Â´Ù.
+        // í˜„ìž¬ ìºë¦­í„°ê°€ ì‚¬ìš©í•  ìˆ˜ ìžˆëŠ” ì „ì²´ ë¬´ê¸° ëª©ë¡ì„ ê°€ì ¸ì˜¨ë‹¤.
         WeaponData[] availableWeapons =
             _model.AvailableWeapons;
 
-        // ÀüÃ¼ ¹«±â¸¦ Áß¾Ó ½½·Ô ¼ø¼­´ë·Î È®ÀÎÇÑ´Ù.
+        // ì „ì²´ ë¬´ê¸°ë¥¼ ì¤‘ì•™ ìŠ¬ë¡¯ ìˆœì„œëŒ€ë¡œ í™•ì¸í•œë‹¤.
         for (int slotIndex = 0;
              slotIndex < availableWeapons.Length;
              slotIndex++)
         {
-            // ÇöÀç Áß¾Ó ½½·Ô¿¡ Ç¥½ÃÇÒ ¹«±â µ¥ÀÌÅÍ¸¦ °¡Á®¿Â´Ù.
+            // í˜„ìž¬ ì¤‘ì•™ ìŠ¬ë¡¯ì— í‘œì‹œí•  ë¬´ê¸° ë°ì´í„°ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
             WeaponData weaponData =
                 availableWeapons[slotIndex];
 
-            // ModelÀ» ÅëÇØ Àá±Ý, º¸À¯, ±¸¸Å °¡´É µîÀÇ »óÅÂ¸¦ ÆÇÁ¤ÇÑ´Ù.
+            // Modelì„ í†µí•´ ìž ê¸ˆ, ë³´ìœ , êµ¬ë§¤ ê°€ëŠ¥ ë“±ì˜ ìƒíƒœë¥¼ íŒì •í•œë‹¤.
             EquipmentItemState itemState =
                 _model.GetItemState(weaponData);
 
-            // View°¡ Áß¾Ó ½½·Ô¿¡ ¹«±â ¾ÆÀÌÄÜ°ú »óÅÂ¸¦ Ç¥½ÃÇÏµµ·Ï ÇÑ´Ù.
+            // Viewê°€ ì¤‘ì•™ ìŠ¬ë¡¯ì— ë¬´ê¸° ì•„ì´ì½˜ê³¼ ìƒíƒœë¥¼ í‘œì‹œí•˜ë„ë¡ í•œë‹¤.
             _view.ShowWeaponSlot(
                 slotIndex,
                 weaponData,
@@ -305,27 +312,27 @@ public class EquipmentPresenter
     }
 
     /// <summary>
-    /// ÇöÀç ÀúÀåµÈ ÀåÂø ¹«±â Á¤º¸¸¦ ¿ÞÂÊ ½½·Ô 1~3¿¡ Ç¥½ÃÇÑ´Ù.
+    /// í˜„ìž¬ ì €ìž¥ëœ ìž¥ì°© ë¬´ê¸° ì •ë³´ë¥¼ ì™¼ìª½ ìŠ¬ë¡¯ 1~3ì— í‘œì‹œí•œë‹¤.
     /// </summary>
     private void RefreshEquippedWeapons()
     {
-        // ÀúÀå µ¥ÀÌÅÍÀÇ ÀåÂø ½½·Ô °³¼ö¸¸Å­ ¹Ýº¹ÇÑ´Ù.
+        // ì €ìž¥ ë°ì´í„°ì˜ ìž¥ì°© ìŠ¬ë¡¯ ê°œìˆ˜ë§Œí¼ ë°˜ë³µí•œë‹¤.
         for (int slotIndex = 0;
              slotIndex <
              _model.Loadout.equippedWeaponIds.Length;
              slotIndex++)
         {
-            // ÇöÀç ½½·Ô¿¡ ÀåÂøµÈ WeaponData¸¦ °¡Á®¿Â´Ù.
+            // í˜„ìž¬ ìŠ¬ë¡¯ì— ìž¥ì°©ëœ WeaponDataë¥¼ ê°€ì ¸ì˜¨ë‹¤.
             WeaponData equippedWeapon =
                 _model.GetEquippedWeaponAt(slotIndex);
 
-            // ÇØ´ç ½½·ÔÀÇ ¹«±â ¾ÆÀÌÄÜ°ú ÀÌ¸§À» View¿¡ Ç¥½ÃÇÑ´Ù.
+            // í•´ë‹¹ ìŠ¬ë¡¯ì˜ ë¬´ê¸° ì•„ì´ì½˜ê³¼ ì´ë¦„ì„ Viewì— í‘œì‹œí•œë‹¤.
             _view.ShowEquippedWeapon(
                 slotIndex,
                 equippedWeapon);
         }
 
-        // ÃÖÃÊ ÁøÀÔ, ¹«±â ÀåÂø, ½½·Ô ±³È¯ ÈÄ Ä³¸¯ÅÍ ¿ÜÇüµµ ÇÔ²² °»½ÅÇÑ´Ù.
+        // ìµœì´ˆ ì§„ìž…, ë¬´ê¸° ìž¥ì°©, ìŠ¬ë¡¯ êµí™˜ í›„ ìºë¦­í„° ì™¸í˜•ë„ í•¨ê»˜ ê°±ì‹ í•œë‹¤.
         _view.ShowCharacterPreview(
             _model.CharacterData,
             _model.GetEquippedWeaponAt(0));

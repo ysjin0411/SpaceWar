@@ -1,44 +1,50 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Áõ°­ ÈÄº¸ ÃßÃ·°ú Áõ°­ Àû¿ë ±ÔÄ¢À» ´ã´çÇÏ´Â ModelÀÌ´Ù.
-/// Unity UI, Button, ÇÁ¸®ÆÕ, ¾Ö´Ï¸ŞÀÌ¼ÇÀº ¾ËÁö ¸øÇÑ´Ù.
+/// ì¦ê°• í›„ë³´ ì¶”ì²¨ê³¼ ì¦ê°• ì ìš© ê·œì¹™ì„ ë‹´ë‹¹í•˜ëŠ” Modelì´ë‹¤.
+/// Unity UI, Button, í”„ë¦¬íŒ¹, ì• ë‹ˆë©”ì´ì…˜ì€ ì•Œì§€ ëª»í•œë‹¤.
 /// </summary>
 public sealed class UpgradeModel
 {
-    // ÀüÃ¼ Áõ°­ µ¥ÀÌÅÍ ÀúÀå¼Ò
+    // ì „ì²´ ì¦ê°• ë°ì´í„° ì €ì¥ì†Œ
     private readonly UpgradeMap _upgradeMap;
 
-    // ÇÃ·¹ÀÌ¾î ´ë»ó Áõ°­À» Àû¿ëÇÒ ·±Å¸ÀÓ ÇÃ·¹ÀÌ¾î
+    // í”Œë ˆì´ì–´ ëŒ€ìƒ ì¦ê°•ì„ ì ìš©í•  ëŸ°íƒ€ì„ í”Œë ˆì´ì–´
     private readonly PlayerController _playerController;
 
-    // ¹«±â ´ë»ó Áõ°­À» Àû¿ëÇÒ ·±Å¸ÀÓ ¹«±â °ü¸®ÀÚ
+    // ë¬´ê¸° ëŒ€ìƒ ì¦ê°•ì„ ì ìš©í•  ëŸ°íƒ€ì„ ë¬´ê¸° ê´€ë¦¬ì
     private readonly Weapon _weapon;
 
-    // ÀÚ¿¬ °ÔÀÌÁö ÃæÀü¼Óµµ Áõ°­À» Àû¿ëÇÒ ½ºÅ×ÀÌÁö °ü¸®ÀÚ
+    // ìì—° ê²Œì´ì§€ ì¶©ì „ì†ë„ ì¦ê°•ì„ ì ìš©í•  ìŠ¤í…Œì´ì§€ ê´€ë¦¬ì
     private readonly GameManager _gameManager;
 
-    // Áßº¹ ¾ø´Â ·£´ı ÈÄº¸ ÃßÃ·¿¡ »ç¿ëÇÒ ³­¼ö »ı¼º±â
+    // ì¤‘ë³µ ì—†ëŠ” ëœë¤ í›„ë³´ ì¶”ì²¨ì— ì‚¬ìš©í•  ë‚œìˆ˜ ìƒì„±ê¸°
     private readonly System.Random _random;
 
-    // ÇöÀç È­¸é¿¡ Ç¥½ÃµÈ Áõ°­ ÈÄº¸ ¸ñ·Ï
+    // í˜„ì¬ í™”ë©´ì— í‘œì‹œëœ ì¦ê°• í›„ë³´ ëª©ë¡
     private readonly List<UpgradeData> _currentChoices = new();
 
-    // 1Â÷¿¡¼­ ¼±ÅÃµÆÁö¸¸ ¾ÆÁ÷ ´ë»ó ¹«±â°¡ Á¤ÇØÁöÁö ¾ÊÀº Áõ°­
+    // 1ì°¨ì—ì„œ ì„ íƒëì§€ë§Œ ì•„ì§ ëŒ€ìƒ ë¬´ê¸°ê°€ ì •í•´ì§€ì§€ ì•Šì€ ì¦ê°•
     private UpgradeData _pendingWeaponUpgrade;
 
-    // Presenter°¡ ÇöÀç ¼±ÅÃ ÈÄº¸¸¦ ÀĞÀ» ¼ö ÀÖµµ·Ï °ø°³ÇÑ´Ù.
+    // Presenterê°€ í˜„ì¬ ì„ íƒ í›„ë³´ë¥¼ ì½ì„ ìˆ˜ ìˆë„ë¡ ê³µê°œí•œë‹¤.
     public IReadOnlyList<UpgradeData> CurrentChoices =>
         _currentChoices;
 
-    // ÇöÀç 2Â÷ ¹«±â ¼±ÅÃÀ» ±â´Ù¸®´Â Áõ°­ÀÌ ÀÖ´ÂÁö ¹İÈ¯ÇÑ´Ù.
+    // í˜„ì¬ 2ì°¨ ë¬´ê¸° ì„ íƒì„ ê¸°ë‹¤ë¦¬ëŠ” ì¦ê°•ì´ ìˆëŠ”ì§€ ë°˜í™˜í•œë‹¤.
     public bool HasPendingWeaponUpgrade =>
         _pendingWeaponUpgrade != null;
 
+    // 2ì°¨ ì„ íƒ í™”ë©´ì— í‘œì‹œí•  ì¦ê°• ì¢…ë¥˜. ì„ íƒ ëŒ€ê¸° ì¤‘ì¼ ë•Œë§Œ ì¡°íšŒí•œë‹¤.
+    public UpgradeType PendingWeaponUpgradeType =>
+        _pendingWeaponUpgrade != null
+            ? _pendingWeaponUpgrade.Type
+            : throw new InvalidOperationException("ì„ íƒ ëŒ€ê¸° ì¤‘ì¸ ë¬´ê¸° ì¦ê°•ì´ ì—†ìŠµë‹ˆë‹¤.");
+
     /// <summary>
-    /// ModelÀÌ »ç¿ëÇÒ µ¥ÀÌÅÍ¿Í ·±Å¸ÀÓ Àû¿ë ´ë»óÀ» Àü´Ş¹Ş´Â´Ù.
+    /// Modelì´ ì‚¬ìš©í•  ë°ì´í„°ì™€ ëŸ°íƒ€ì„ ì ìš© ëŒ€ìƒì„ ì „ë‹¬ë°›ëŠ”ë‹¤.
     /// </summary>
     public UpgradeModel(
         UpgradeMap upgradeMap,
@@ -59,15 +65,15 @@ public sealed class UpgradeModel
         _gameManager = gameManager ??
             throw new ArgumentNullException(nameof(gameManager));
 
-        // Å×½ºÆ®¿¡¼­´Â °íÁ¤ SeedÀÇ RandomÀ» Àü´ŞÇÒ ¼ö ÀÖ´Ù.
-        // ½ÇÁ¦ °ÔÀÓ¿¡¼­´Â Àü´ŞÇÏÁö ¾ÊÀ¸¸é »õ·Î¿î ³­¼ö »ı¼º±â¸¦ »ç¿ëÇÑ´Ù.
+        // í…ŒìŠ¤íŠ¸ì—ì„œëŠ” ê³ ì • Seedì˜ Randomì„ ì „ë‹¬í•  ìˆ˜ ìˆë‹¤.
+        // ì‹¤ì œ ê²Œì„ì—ì„œëŠ” ì „ë‹¬í•˜ì§€ ì•Šìœ¼ë©´ ìƒˆë¡œìš´ ë‚œìˆ˜ ìƒì„±ê¸°ë¥¼ ì‚¬ìš©í•œë‹¤.
         _random = random ?? new System.Random();
     }
 
     /// <summary>
-    /// ÀüÃ¼ N°³ Áõ°­ Áß Áßº¹ ¾øÀÌ ÁöÁ¤µÈ °³¼ö¸¸Å­ ÃßÃ·ÇÑ´Ù.
+    /// ì „ì²´ Nê°œ ì¦ê°• ì¤‘ ì¤‘ë³µ ì—†ì´ ì§€ì •ëœ ê°œìˆ˜ë§Œí¼ ì¶”ì²¨í•œë‹¤.
     /// </summary>
-    /// <param name="choiceCount">È­¸é¿¡ Ç¥½ÃÇÒ ÈÄº¸ °³¼ö</param>
+    /// <param name="choiceCount">í™”ë©´ì— í‘œì‹œí•  í›„ë³´ ê°œìˆ˜</param>
     public IReadOnlyList<UpgradeData> DrawUpgradeChoices(
         int choiceCount)
     {
@@ -75,27 +81,27 @@ public sealed class UpgradeModel
         {
             throw new ArgumentOutOfRangeException(
                 nameof(choiceCount),
-                "Áõ°­ ÈÄº¸ °³¼ö´Â 1°³ ÀÌ»óÀÌ¾î¾ß ÇÕ´Ï´Ù.");
+                "ì¦ê°• í›„ë³´ ê°œìˆ˜ëŠ” 1ê°œ ì´ìƒì´ì–´ì•¼ í•©ë‹ˆë‹¤.");
         }
 
-        // ÀúÀå¼ÒÀÇ ¿øº» ¹è¿­À» º¸È£ÇÏ±â À§ÇØ º¹»çº»À» °¡Á®¿Â´Ù.
+        // ì €ì¥ì†Œì˜ ì›ë³¸ ë°°ì—´ì„ ë³´í˜¸í•˜ê¸° ìœ„í•´ ë³µì‚¬ë³¸ì„ ê°€ì ¸ì˜¨ë‹¤.
         UpgradeData[] candidatePool =
             _upgradeMap.CreateSnapshot();
 
         if (choiceCount > candidatePool.Length)
         {
             throw new InvalidOperationException(
-                $"¿äÃ»ÇÑ ÈÄº¸ °³¼ö({choiceCount})°¡ " +
-                $"ÀüÃ¼ Áõ°­ °³¼ö({candidatePool.Length})º¸´Ù ¸¹½À´Ï´Ù.");
+                $"ìš”ì²­í•œ í›„ë³´ ê°œìˆ˜({choiceCount})ê°€ " +
+                $"ì „ì²´ ì¦ê°• ê°œìˆ˜({candidatePool.Length})ë³´ë‹¤ ë§ìŠµë‹ˆë‹¤.");
         }
 
         _currentChoices.Clear();
         _pendingWeaponUpgrade = null;
 
         /*
-         * Partial Fisher-Yates ShuffleÀ» »ç¿ëÇÑ´Ù.
-         * ¹è¿­ ÀüÃ¼¸¦ ¼¯Áö ¾Ê°í ÇÊ¿äÇÑ ¾ÕÂÊ choiceCount°³¸¸ È®Á¤ÇÏ¹Ç·Î
-         * Áßº¹ ¾øÀÌ ÈÄº¸¸¦ ¼±ÅÃÇÒ ¼ö ÀÖ´Ù.
+         * Partial Fisher-Yates Shuffleì„ ì‚¬ìš©í•œë‹¤.
+         * ë°°ì—´ ì „ì²´ë¥¼ ì„ì§€ ì•Šê³  í•„ìš”í•œ ì•ìª½ choiceCountê°œë§Œ í™•ì •í•˜ë¯€ë¡œ
+         * ì¤‘ë³µ ì—†ì´ í›„ë³´ë¥¼ ì„ íƒí•  ìˆ˜ ìˆë‹¤.
          */
         for (int index = 0;
              index < choiceCount;
@@ -106,7 +112,7 @@ public sealed class UpgradeModel
                     index,
                     candidatePool.Length);
 
-            // ÇöÀç À§Ä¡¿Í ¹«ÀÛÀ§ À§Ä¡ÀÇ µ¥ÀÌÅÍ¸¦ ±³È¯ÇÑ´Ù.
+            // í˜„ì¬ ìœ„ì¹˜ì™€ ë¬´ì‘ìœ„ ìœ„ì¹˜ì˜ ë°ì´í„°ë¥¼ êµí™˜í•œë‹¤.
             (candidatePool[index], candidatePool[randomIndex]) =
                 (candidatePool[randomIndex], candidatePool[index]);
 
@@ -118,10 +124,10 @@ public sealed class UpgradeModel
     }
 
     /// <summary>
-    /// 1Â÷ ¼±ÅÃ °á°ú¸¦ Ã³¸®ÇÑ´Ù.
-    /// Player ´ë»óÀÌ¸é Áï½Ã Àû¿ëÇÏ°í, Weapon ´ë»óÀÌ¸é 2Â÷ ¼±ÅÃÀ» ÁØºñÇÑ´Ù.
+    /// 1ì°¨ ì„ íƒ ê²°ê³¼ë¥¼ ì²˜ë¦¬í•œë‹¤.
+    /// Player ëŒ€ìƒì´ë©´ ì¦‰ì‹œ ì ìš©í•˜ê³ , Weapon ëŒ€ìƒì´ë©´ 2ì°¨ ì„ íƒì„ ì¤€ë¹„í•œë‹¤.
     /// </summary>
-    /// <returns>¼±ÅÃµÈ Áõ°­ÀÌ Àû¿ëµÉ ´ë»ó</returns>
+    /// <returns>ì„ íƒëœ ì¦ê°•ì´ ì ìš©ë  ëŒ€ìƒ</returns>
     public UpgradeTarget ChooseUpgrade(int choiceIndex)
     {
         UpgradeData selectedUpgrade =
@@ -138,19 +144,19 @@ public sealed class UpgradeModel
 
         if (selectedUpgrade.Target == UpgradeTarget.Weapon)
         {
-            // ´ë»ó ¹«±â°¡ °áÁ¤µÉ ¶§±îÁö Áõ°­ µ¥ÀÌÅÍ¸¦ º¸°üÇÑ´Ù.
+            // ëŒ€ìƒ ë¬´ê¸°ê°€ ê²°ì •ë  ë•Œê¹Œì§€ ì¦ê°• ë°ì´í„°ë¥¼ ë³´ê´€í•œë‹¤.
             _pendingWeaponUpgrade = selectedUpgrade;
 
             return UpgradeTarget.Weapon;
         }
 
         throw new InvalidOperationException(
-            $"Áö¿øÇÏÁö ¾Ê´Â Áõ°­ ´ë»óÀÔ´Ï´Ù: {selectedUpgrade.Target}");
+            $"ì§€ì›í•˜ì§€ ì•ŠëŠ” ì¦ê°• ëŒ€ìƒì…ë‹ˆë‹¤: {selectedUpgrade.Target}");
     }
 
     /// <summary>
-    /// ÇöÀç ÀåÂø ½½·ÔÀÇ WeaponData¸¦ ½ÇÁ¦ ½½·Ô ¼ø¼­´ë·Î ¹İÈ¯ÇÑ´Ù.
-    /// ºó ½½·ÔÀº null·Î À¯ÁöÇØ ½ÇÁ¦ ¹«±â ½½·Ô ¹øÈ£°¡ ¹Ù²îÁö ¾Ê°Ô ÇÑ´Ù.
+    /// í˜„ì¬ ì¥ì°© ìŠ¬ë¡¯ì˜ WeaponDataë¥¼ ì‹¤ì œ ìŠ¬ë¡¯ ìˆœì„œëŒ€ë¡œ ë°˜í™˜í•œë‹¤.
+    /// ë¹ˆ ìŠ¬ë¡¯ì€ nullë¡œ ìœ ì§€í•´ ì‹¤ì œ ë¬´ê¸° ìŠ¬ë¡¯ ë²ˆí˜¸ê°€ ë°”ë€Œì§€ ì•Šê²Œ í•œë‹¤.
     /// </summary>
     public IReadOnlyList<WeaponData> GetEquippedWeapons()
     {
@@ -169,7 +175,7 @@ public sealed class UpgradeModel
     }
 
     /// <summary>
-    /// 1Â÷¿¡¼­ º¸·ùÇÑ ¹«±â Áõ°­À» ¼±ÅÃµÈ ¹«±â¿¡ Àû¿ëÇÑ´Ù.
+    /// 1ì°¨ì—ì„œ ë³´ë¥˜í•œ ë¬´ê¸° ì¦ê°•ì„ ì„ íƒëœ ë¬´ê¸°ì— ì ìš©í•œë‹¤.
     /// </summary>
     public void ApplyPendingWeaponUpgrade(
         int weaponSlotIndex)
@@ -177,7 +183,7 @@ public sealed class UpgradeModel
         if (_pendingWeaponUpgrade == null)
         {
             throw new InvalidOperationException(
-                "Àû¿ëÀ» ±â´Ù¸®´Â ¹«±â Áõ°­ÀÌ ¾ø½À´Ï´Ù.");
+                "ì ìš©ì„ ê¸°ë‹¤ë¦¬ëŠ” ë¬´ê¸° ì¦ê°•ì´ ì—†ìŠµë‹ˆë‹¤.");
         }
 
         WeaponData selectedWeapon =
@@ -186,23 +192,23 @@ public sealed class UpgradeModel
         if (selectedWeapon == null)
         {
             throw new InvalidOperationException(
-                $"{weaponSlotIndex}¹ø ½½·Ô¿¡´Â ÀåÂøµÈ ¹«±â°¡ ¾ø½À´Ï´Ù.");
+                $"{weaponSlotIndex}ë²ˆ ìŠ¬ë¡¯ì—ëŠ” ì¥ì°©ëœ ë¬´ê¸°ê°€ ì—†ìŠµë‹ˆë‹¤.");
         }
 
         switch (_pendingWeaponUpgrade.Type)
         {
             case UpgradeType.FireRate:
 
-                // ¹«±â¸¶´Ù ¼³Á¤µÈ ¿¬»ç¼Óµµ °­È­ ¼öÄ¡¸¦ ÇÑ ´Ü°è Àû¿ëÇÑ´Ù.
+                // ë¬´ê¸°ë§ˆë‹¤ ì„¤ì •ëœ ì—°ì‚¬ì†ë„ ê°•í™” ìˆ˜ì¹˜ë¥¼ í•œ ë‹¨ê³„ ì ìš©í•œë‹¤.
                 _weapon.AddFireRate(weaponSlotIndex);
                 break;
 
             case UpgradeType.Damage:
 
-                // ¼Ò¼öÁ¡ Áõ°­°ªÀ» ¹İ¿Ã¸²ÇÏÁö ¾Ê°í ±×´ë·Î »ç¿ëÇÑ´Ù.
+                // 0.15ëŠ” ê¸°ë³¸ ê³µê²©ë ¥ì˜ 15% ì¦ê°€ë¥¼ ì˜ë¯¸í•œë‹¤.
                 float damageAmount = _pendingWeaponUpgrade.UpgradeValue;
 
-                _weapon.AddDamage(
+                _weapon.AddDamageRatio(
                     weaponSlotIndex,
                     damageAmount);
                 break;
@@ -210,16 +216,16 @@ public sealed class UpgradeModel
             default:
 
                 throw new InvalidOperationException(
-                    $"¹«±â¿¡ Àû¿ëÇÒ ¼ö ¾ø´Â Áõ°­ÀÔ´Ï´Ù: " +
+                    $"ë¬´ê¸°ì— ì ìš©í•  ìˆ˜ ì—†ëŠ” ì¦ê°•ì…ë‹ˆë‹¤: " +
                     $"{_pendingWeaponUpgrade.Type}");
         }
 
-        // °°Àº Áõ°­ÀÌ Áßº¹ Àû¿ëµÇÁö ¾Êµµ·Ï Àû¿ë ÈÄ Á¦°ÅÇÑ´Ù.
+        // ê°™ì€ ì¦ê°•ì´ ì¤‘ë³µ ì ìš©ë˜ì§€ ì•Šë„ë¡ ì ìš© í›„ ì œê±°í•œë‹¤.
         _pendingWeaponUpgrade = null;
     }
 
     /// <summary>
-    /// ÇöÀç ¼±ÅÃµÈ Player ´ë»ó Áõ°­À» ½ÇÁ¦ ÇÃ·¹ÀÌ¾î¿¡°Ô Àû¿ëÇÑ´Ù.
+    /// í˜„ì¬ ì„ íƒëœ Player ëŒ€ìƒ ì¦ê°•ì„ ì‹¤ì œ í”Œë ˆì´ì–´ì—ê²Œ ì ìš©í•œë‹¤.
     /// </summary>
     private void ApplyPlayerUpgrade(
         UpgradeData upgradeData)
@@ -250,13 +256,13 @@ public sealed class UpgradeModel
             default:
 
                 throw new InvalidOperationException(
-                    $"ÇÃ·¹ÀÌ¾î¿¡°Ô Àû¿ëÇÒ ¼ö ¾ø´Â Áõ°­ÀÔ´Ï´Ù: " +
+                    $"í”Œë ˆì´ì–´ì—ê²Œ ì ìš©í•  ìˆ˜ ì—†ëŠ” ì¦ê°•ì…ë‹ˆë‹¤: " +
                     $"{upgradeData.Type}");
         }
     }
 
     /// <summary>
-    /// ÇöÀç È­¸é¿¡ Ç¥½ÃµÈ ÈÄº¸¿¡¼­ ÁöÁ¤µÈ Áõ°­À» Ã£´Â´Ù.
+    /// í˜„ì¬ í™”ë©´ì— í‘œì‹œëœ í›„ë³´ì—ì„œ ì§€ì •ëœ ì¦ê°•ì„ ì°¾ëŠ”ë‹¤.
     /// </summary>
     private UpgradeData GetCurrentChoice(int choiceIndex)
     {
@@ -266,7 +272,7 @@ public sealed class UpgradeModel
             throw new ArgumentOutOfRangeException(
                 nameof(choiceIndex),
                 choiceIndex,
-                "ÇöÀç Áõ°­ ÈÄº¸ ¹üÀ§¸¦ ¹ş¾î³µ½À´Ï´Ù.");
+                "í˜„ì¬ ì¦ê°• í›„ë³´ ë²”ìœ„ë¥¼ ë²—ì–´ë‚¬ìŠµë‹ˆë‹¤.");
         }
 
         UpgradeData selectedUpgrade =
@@ -275,7 +281,7 @@ public sealed class UpgradeModel
         if (selectedUpgrade == null)
         {
             throw new InvalidOperationException(
-                $"{choiceIndex}¹ø Áõ°­ ÈÄº¸°¡ ºñ¾î ÀÖ½À´Ï´Ù.");
+                $"{choiceIndex}ë²ˆ ì¦ê°• í›„ë³´ê°€ ë¹„ì–´ ìˆìŠµë‹ˆë‹¤.");
         }
 
         return selectedUpgrade;

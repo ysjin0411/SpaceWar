@@ -1,0 +1,1372 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3ebddb44cc75b04bb3ca9581cc1827e, type: 3}
+  m_Name: GameAudioCatalog
+  m_EditorClassIdentifier: 
+  _groups:
+  - GroupName: "\uACF5\uD1B5 UI"
+    Category: 1
+    Entries:
+    - Category: 1
+      Id: 1
+      Clip: {fileID: 8300000, guid: 18820b7228a9bdc4cb544475e11d4041, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 48
+      IgnorePause: 1
+      ContinueAcrossScenes: 1
+    - Category: 1
+      Id: 2
+      Clip: {fileID: 8300000, guid: d6dca3b286b78d24cafc2c12431e11ba, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 48
+      IgnorePause: 1
+      ContinueAcrossScenes: 1
+    - Category: 1
+      Id: 3
+      Clip: {fileID: 8300000, guid: 7c8c444b802c1ba4ab99a85a60b26696, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 48
+      IgnorePause: 1
+      ContinueAcrossScenes: 1
+    - Category: 1
+      Id: 14
+      Clip: {fileID: 8300000, guid: 7f4b85f2d01870847849f141fd071d74, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 48
+      IgnorePause: 1
+      ContinueAcrossScenes: 1
+    - Category: 1
+      Id: 15
+      Clip: {fileID: 8300000, guid: 150789fff11a6234a91fc8d16e7fd890, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 48
+      IgnorePause: 1
+      ContinueAcrossScenes: 1
+    - Category: 1
+      Id: 17
+      Clip: {fileID: 8300000, guid: 2aa8480cdb8616a419445c97b7e03dda, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 48
+      IgnorePause: 1
+      ContinueAcrossScenes: 1
+    - Category: 1
+      Id: 20
+      Clip: {fileID: 8300000, guid: 933b8c3cc5fe26640adb06611a4dbd38, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 48
+      IgnorePause: 1
+      ContinueAcrossScenes: 1
+    - Category: 1
+      Id: 21
+      Clip: {fileID: 8300000, guid: 02a9bb12284cb3d43853e13704a30d46, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 48
+      IgnorePause: 1
+      ContinueAcrossScenes: 1
+    - Category: 1
+      Id: 22
+      Clip: {fileID: 8300000, guid: 67cb924c337588a45814eb8588b7861c, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 48
+      IgnorePause: 1
+      ContinueAcrossScenes: 1
+    - Category: 1
+      Id: 23
+      Clip: {fileID: 8300000, guid: 92354fcc78418ab42ab32b865ebc2681, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 48
+      IgnorePause: 1
+      ContinueAcrossScenes: 1
+    - Category: 1
+      Id: 24
+      Clip: {fileID: 8300000, guid: d93348c720e005b448f6829e44746d76, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 48
+      IgnorePause: 1
+      ContinueAcrossScenes: 1
+    - Category: 1
+      Id: 25
+      Clip: {fileID: 8300000, guid: 4aeb76ace7fbf064c9df8b5c445cd4db, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 48
+      IgnorePause: 1
+      ContinueAcrossScenes: 1
+    - Category: 1
+      Id: 26
+      Clip: {fileID: 8300000, guid: 1897ec4c20a43ba46a0750d1e62fbc3b, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 48
+      IgnorePause: 1
+      ContinueAcrossScenes: 1
+    - Category: 1
+      Id: 27
+      Clip: {fileID: 8300000, guid: 04b7fe6f719fd89438d3f566c9ee10d7, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 48
+      IgnorePause: 1
+      ContinueAcrossScenes: 1
+    - Category: 1
+      Id: 28
+      Clip: {fileID: 8300000, guid: ab22e2f9fedaaeb4aa7c4a880df3e65e, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 48
+      IgnorePause: 1
+      ContinueAcrossScenes: 1
+    - Category: 1
+      Id: 29
+      Clip: {fileID: 8300000, guid: b897ffab008a76341b4de49a5e2fec8e, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 48
+      IgnorePause: 1
+      ContinueAcrossScenes: 1
+    - Category: 1
+      Id: 31
+      Clip: {fileID: 8300000, guid: 145a59aead4ecd84993c16f9f1ba61ad, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 48
+      IgnorePause: 1
+      ContinueAcrossScenes: 1
+    - Category: 1
+      Id: 32
+      Clip: {fileID: 8300000, guid: 643dddd0539d15343a8953ebb5faccc8, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 48
+      IgnorePause: 1
+      ContinueAcrossScenes: 1
+    - Category: 1
+      Id: 33
+      Clip: {fileID: 8300000, guid: 5b75398052ee14b4b94121da2d77581b, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 48
+      IgnorePause: 1
+      ContinueAcrossScenes: 1
+    - Category: 1
+      Id: 34
+      Clip: {fileID: 8300000, guid: 6dddcf1770fbcd04cbc66e09d2cdaa66, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 48
+      IgnorePause: 1
+      ContinueAcrossScenes: 1
+  - GroupName: "\uD0C0\uC6B4"
+    Category: 2
+    Entries:
+    - Category: 2
+      Id: 4
+      Clip: {fileID: 8300000, guid: 102a5be2702717b449b74579d5d0e79e, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 48
+      IgnorePause: 1
+      ContinueAcrossScenes: 1
+    - Category: 2
+      Id: 5
+      Clip: {fileID: 8300000, guid: d23f23b5237cbc4419b2cfde118625a6, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 48
+      IgnorePause: 1
+      ContinueAcrossScenes: 1
+    - Category: 2
+      Id: 6
+      Clip: {fileID: 8300000, guid: 4d8782bb7ac88c941b5451e857c50d02, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 48
+      IgnorePause: 1
+      ContinueAcrossScenes: 1
+    - Category: 2
+      Id: 19
+      Clip: {fileID: 8300000, guid: 5ed80a60e0f7398459ddee571131bc2f, type: 3}
+      Volume: 0.25
+      Interval: 0
+      MaxVoices: 8
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+  - GroupName: "\uD50C\uB808\uC774\uC5B4"
+    Category: 3
+    Entries:
+    - Category: 3
+      Id: 7
+      Clip: {fileID: 8300000, guid: ee02f609e4f086a45b5efda810abf4c8, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 3
+      Id: 8
+      Clip: {fileID: 8300000, guid: c1eebf9e96f5f3a4394970fc9e6f0860, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 3
+      Id: 9
+      Clip: {fileID: 8300000, guid: c95161d9157f29d41b23738c1841568c, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 3
+      Id: 10
+      Clip: {fileID: 8300000, guid: 5d8b9be6ee7aea340a9c02c16fa1e4e1, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 3
+      Id: 11
+      Clip: {fileID: 8300000, guid: 26b55d300dac68340993465f57f4dbcd, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 3
+      Id: 65
+      Clip: {fileID: 8300000, guid: 619d18d8387091e4e8ba5ad71e57cb39, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 3
+      Id: 66
+      Clip: {fileID: 8300000, guid: 955bf3562cabe364e80cf8974a9add4a, type: 3}
+      Volume: 0.85
+      Interval: 0.65
+      MaxVoices: 1
+      Priority: 32
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 3
+      Id: 67
+      Clip: {fileID: 8300000, guid: 288cc98354342dc4393319cb8f289f19, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 48
+      IgnorePause: 1
+      ContinueAcrossScenes: 1
+  - GroupName: "\uBCD1\uC0AC \uBB34\uAE30\xB7\uAD81\uADF9\uAE30"
+    Category: 4
+    Entries:
+    - Category: 4
+      Id: 35
+      Clip: {fileID: 8300000, guid: bf02dd9f8e34f174e91f2c582b5d10d5, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 4
+      Id: 36
+      Clip: {fileID: 8300000, guid: a787e765d1cad4e408e49480cd22febb, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 4
+      Id: 37
+      Clip: {fileID: 8300000, guid: 47493aba19c99c645a615904f827faac, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 4
+      Id: 38
+      Clip: {fileID: 8300000, guid: 0bcdfb9dba78b3d4aa0e0096567eb66e, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 4
+      Id: 39
+      Clip: {fileID: 8300000, guid: 935e4b5213ee27242bedea80949e10eb, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 4
+      Id: 40
+      Clip: {fileID: 8300000, guid: 27fe6729b10587049b83e6710db8ddf3, type: 3}
+      Volume: 0.6
+      Interval: 0
+      MaxVoices: 8
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 4
+      Id: 41
+      Clip: {fileID: 8300000, guid: 322b7f2040858f94ebe01d23072fa886, type: 3}
+      Volume: 0.6
+      Interval: 0
+      MaxVoices: 8
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 4
+      Id: 42
+      Clip: {fileID: 8300000, guid: c5de0dc691047dc4eb97ab954c43f197, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 4
+      Id: 43
+      Clip: {fileID: 8300000, guid: 2eba32a3ff8feb041807ddcfb444d4b7, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 4
+      Id: 44
+      Clip: {fileID: 8300000, guid: 8af27edb6f0f6c44cbd060aed2389d36, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 4
+      Id: 45
+      Clip: {fileID: 8300000, guid: acf642a1159b3844691121fd210b20ee, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 4
+      Id: 46
+      Clip: {fileID: 8300000, guid: 5915334d2bedb0d42868f89857b495c1, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 4
+      Id: 47
+      Clip: {fileID: 8300000, guid: ccc621bcb7e471a4cbc540a9100dcf8a, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 4
+      Id: 48
+      Clip: {fileID: 8300000, guid: ed56a1a528b01be4f912142724d70bb6, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 4
+      Id: 49
+      Clip: {fileID: 8300000, guid: f3d704bc285673748afa4a78d5355fb2, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 4
+      Id: 85
+      Clip: {fileID: 8300000, guid: 03c7b8c16378bd143bd5527e34989b4d, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 4
+      Id: 86
+      Clip: {fileID: 8300000, guid: 5b46004c9ff02ca48b5c775081abe610, type: 3}
+      Volume: 0.6
+      Interval: 0.12
+      MaxVoices: 2
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+  - GroupName: "\uC804\uC0AC \uBB34\uAE30\xB7\uAD81\uADF9\uAE30"
+    Category: 5
+    Entries:
+    - Category: 5
+      Id: 50
+      Clip: {fileID: 8300000, guid: 70ba987a1851aeb4f92afa87db6add8b, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 5
+      Id: 51
+      Clip: {fileID: 8300000, guid: 9b5101ad0b2a3ef488fc39435689e37c, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 5
+      Id: 52
+      Clip: {fileID: 8300000, guid: 110fbeaa02b422541827f1f5e1477a05, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 5
+      Id: 53
+      Clip: {fileID: 8300000, guid: 37b9cf7c09b01024cb02d6638336b38a, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 5
+      Id: 54
+      Clip: {fileID: 8300000, guid: 0244b911a8766434a846fde0efac5ed6, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 5
+      Id: 55
+      Clip: {fileID: 8300000, guid: 6f0f302ca3141bd428008d04027f6f45, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 5
+      Id: 56
+      Clip: {fileID: 8300000, guid: 14e220ffee0e9ae40999412413d34d35, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 5
+      Id: 57
+      Clip: {fileID: 8300000, guid: a1f16d588e359aa4091e90d664936ad8, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 5
+      Id: 58
+      Clip: {fileID: 8300000, guid: 8034840503d132c4c992eb8a815aee47, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 5
+      Id: 59
+      Clip: {fileID: 8300000, guid: 885ef10cf0088f34ea502c6bb7276d87, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 5
+      Id: 60
+      Clip: {fileID: 8300000, guid: 68cded51e1c8a7142b4cfcb5c81786fb, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 5
+      Id: 61
+      Clip: {fileID: 8300000, guid: 1b4ec473435cf6a4db9d2b8820406af9, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 5
+      Id: 62
+      Clip: {fileID: 8300000, guid: 5e4dd6aa5c2dc484eb3af7e5d13ce408, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 5
+      Id: 63
+      Clip: {fileID: 8300000, guid: 3db0dfb4b10e10d4295417174a6d835c, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 5
+      Id: 64
+      Clip: {fileID: 8300000, guid: 37651a678bf4f8a46819d43ce18bd8a1, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 5
+      Id: 82
+      Clip: {fileID: 8300000, guid: ebcaf59fadc74374383a08bd9b9ea700, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 5
+      Id: 83
+      Clip: {fileID: 8300000, guid: b1951ebb21573b647830d388c3aab589, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 5
+      Id: 84
+      Clip: {fileID: 8300000, guid: 4b54da0ebee59204e961de72b901a06a, type: 3}
+      Volume: 0.6
+      Interval: 0.12
+      MaxVoices: 2
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+  - GroupName: "\uC77C\uBC18 \uC801"
+    Category: 6
+    Entries:
+    - Category: 6
+      Id: 68
+      Clip: {fileID: 8300000, guid: 42b3bf93f31fc8842b625ffddcbf5c8a, type: 3}
+      Volume: 0.3
+      Interval: 0.12
+      MaxVoices: 2
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 6
+      Id: 69
+      Clip: {fileID: 8300000, guid: 31f0984b3fba0fd48b1c9a4e936c43b2, type: 3}
+      Volume: 0.3
+      Interval: 0.12
+      MaxVoices: 2
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 6
+      Id: 70
+      Clip: {fileID: 8300000, guid: 5858439b91a280f46845b7d2dd7c792d, type: 3}
+      Volume: 0.3
+      Interval: 0.12
+      MaxVoices: 2
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 6
+      Id: 71
+      Clip: {fileID: 8300000, guid: 8ec78e30f98b73547a26b1cdb665f802, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 6
+      Id: 72
+      Clip: {fileID: 8300000, guid: 3b336117dab796e40800ae8ed5fab8c2, type: 3}
+      Volume: 0.6
+      Interval: 0.04
+      MaxVoices: 4
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+  - GroupName: "\uD68D\uB4DD\xB7\uC131\uC7A5\xB7\uBCF4\uC0C1"
+    Category: 7
+    Entries:
+    - Category: 7
+      Id: 12
+      Clip: {fileID: 8300000, guid: 751a8dc2821c910478e09b91d9ade184, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 48
+      IgnorePause: 1
+      ContinueAcrossScenes: 1
+    - Category: 7
+      Id: 13
+      Clip: {fileID: 8300000, guid: 5ccdb74ac680d7f418565b455df06353, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 48
+      IgnorePause: 1
+      ContinueAcrossScenes: 1
+    - Category: 7
+      Id: 30
+      Clip: {fileID: 8300000, guid: a932a3f22282114439703e91cfa46109, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 48
+      IgnorePause: 1
+      ContinueAcrossScenes: 1
+    - Category: 7
+      Id: 73
+      Clip: {fileID: 8300000, guid: c3db2789ae3b42a48b15e6ed0dfc5c0d, type: 3}
+      Volume: 0.6
+      Interval: 0
+      MaxVoices: 4
+      Priority: 64
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 7
+      Id: 74
+      Clip: {fileID: 8300000, guid: b0432d24dc6157344be579306f21bba7, type: 3}
+      Volume: 0.6
+      Interval: 0.12
+      MaxVoices: 2
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 7
+      Id: 75
+      Clip: {fileID: 8300000, guid: a726858d5a010034380b9a07aff89c48, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 7
+      Id: 76
+      Clip: {fileID: 8300000, guid: d7078ee8f02687f4b84a899fbb9dd9b1, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 48
+      IgnorePause: 1
+      ContinueAcrossScenes: 1
+    - Category: 7
+      Id: 77
+      Clip: {fileID: 8300000, guid: 3ca46c1246f3fc64890c0a6e138d0867, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 48
+      IgnorePause: 1
+      ContinueAcrossScenes: 1
+    - Category: 7
+      Id: 78
+      Clip: {fileID: 8300000, guid: 742031061bb559342938c520454221f5, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 48
+      IgnorePause: 1
+      ContinueAcrossScenes: 1
+    - Category: 7
+      Id: 79
+      Clip: {fileID: 8300000, guid: df29357f95a4f1e4b84d5a9177a1da63, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 7
+      Id: 80
+      Clip: {fileID: 8300000, guid: 5b99b14b1b6ff1d4aae90d2f0fcc3fbd, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 7
+      Id: 81
+      Clip: {fileID: 8300000, guid: 6221128f8ff60a3429b9f129d842e678, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+  - GroupName: "\uB3C4\uADF8 \uD6A8\uACFC\uC74C"
+    Category: 8
+    Entries:
+    - Category: 8
+      Id: 90
+      Clip: {fileID: 8300000, guid: c05b078acd7917d4d8e6d27b8a7be4ab, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 8
+      Id: 91
+      Clip: {fileID: 8300000, guid: be700b86c47996c488b734a3c38eec4f, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 8
+      Id: 92
+      Clip: {fileID: 8300000, guid: 36686de01c0767c479e8e23ee12dc5ca, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 8
+      Id: 93
+      Clip: {fileID: 8300000, guid: 71a076385f50bf2469a791a56a033ffd, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+  - GroupName: "\uD5E4\uB4DC \uD6A8\uACFC\uC74C"
+    Category: 9
+    Entries:
+    - Category: 9
+      Id: 94
+      Clip: {fileID: 8300000, guid: cfe9013b704e54e44956a1c4fff74dcc, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 9
+      Id: 95
+      Clip: {fileID: 8300000, guid: f13771be870cefa4393f81a91447f69c, type: 3}
+      Volume: 0.7
+      Interval: 0
+      MaxVoices: 4
+      Priority: 40
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 9
+      Id: 96
+      Clip: {fileID: 8300000, guid: 94f62b2156b228943807e13efd1ea193, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 1
+      ContinueAcrossScenes: 0
+    - Category: 9
+      Id: 97
+      Clip: {fileID: 8300000, guid: 3cc14c530474e29439a6bc349c9826e9, type: 3}
+      Volume: 0.85
+      Interval: 0
+      MaxVoices: 8
+      Priority: 16
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 9
+      Id: 98
+      Clip: {fileID: 8300000, guid: 36d66a55e1c6be7479a26a6bb7165b03, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 9
+      Id: 136
+      Clip: {fileID: 8300000, guid: 62b70a05ed3e248449f44425cab8f9b3, type: 3}
+      Volume: 0.5
+      Interval: 0
+      MaxVoices: 5
+      Priority: 48
+      IgnorePause: 1
+      ContinueAcrossScenes: 0
+    - Category: 9
+      Id: 137
+      Clip: {fileID: 8300000, guid: 9b03d6cf5a906ef4e9218ae41906b723, type: 3}
+      Volume: 0.65
+      Interval: 0
+      MaxVoices: 5
+      Priority: 48
+      IgnorePause: 1
+      ContinueAcrossScenes: 0
+    - Category: 0
+      Id: 144
+      Clip: {fileID: 8300000, guid: 029576ccce9038046b60f643377c64f5, type: 3}
+      Volume: 0.85
+      Interval: 0
+      MaxVoices: 2
+      Priority: 12
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+  - GroupName: "\uD06C\uB8E8\uC800 \uD6A8\uACFC\uC74C"
+    Category: 10
+    Entries:
+    - Category: 10
+      Id: 99
+      Clip: {fileID: 8300000, guid: 15cf438e70552414aad028b879480ec6, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 10
+      Id: 100
+      Clip: {fileID: 8300000, guid: 1737e229213a4a249b00026d44a29252, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 10
+      Id: 101
+      Clip: {fileID: 8300000, guid: a30990d8e02d21844a7f289455656b3c, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 10
+      Id: 102
+      Clip: {fileID: 8300000, guid: 280880a402c952e408d9f89a597ced2c, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 10
+      Id: 103
+      Clip: {fileID: 8300000, guid: 0915a81b313a2644dafbc5dc072f0e30, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 10
+      Id: 104
+      Clip: {fileID: 8300000, guid: 65c40ed796f8f284992672433dd20722, type: 3}
+      Volume: 1
+      Interval: 0
+      MaxVoices: 2
+      Priority: 8
+      IgnorePause: 1
+      ContinueAcrossScenes: 1
+    - Category: 0
+      Id: 143
+      Clip: {fileID: 8300000, guid: a31256d8b0aa7cb4889a4b01cdb195ba, type: 3}
+      Volume: 0.7
+      Interval: 0
+      MaxVoices: 32
+      Priority: 20
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 0
+      Id: 145
+      Clip: {fileID: 8300000, guid: fc8e56b3a2f99e94bb95f7a7a988d138, type: 3}
+      Volume: 0.85
+      Interval: 0
+      MaxVoices: 2
+      Priority: 12
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+  - GroupName: "\uC5D0\uC77C\uB9AC\uC5B8 \uD6A8\uACFC\uC74C"
+    Category: 11
+    Entries:
+    - Category: 11
+      Id: 105
+      Clip: {fileID: 8300000, guid: 9a5c6d988141f5c4aa83feaa29ce595b, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 11
+      Id: 106
+      Clip: {fileID: 8300000, guid: 189ec519afa0d6a4dbf8ec94a4eeaf63, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 11
+      Id: 107
+      Clip: {fileID: 8300000, guid: f22e77e24e690814eb6db3c451f96037, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 11
+      Id: 108
+      Clip: {fileID: 8300000, guid: e49ab08f84f53604c9d15e7f3ca6081a, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 11
+      Id: 109
+      Clip: {fileID: 8300000, guid: 1e4daaa9b1f022d489fea2bfc9f37981, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 11
+      Id: 110
+      Clip: {fileID: 8300000, guid: 8576c755fa0a41540a75a91a655d7ea1, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 11
+      Id: 111
+      Clip: {fileID: 8300000, guid: 5dd6a263fd7a9544592a234240723388, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 11
+      Id: 112
+      Clip: {fileID: 8300000, guid: 5714119da55bdd14d9810eb39994b537, type: 3}
+      Volume: 0.45
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 11
+      Id: 113
+      Clip: {fileID: 8300000, guid: b13ea7025a32c99459da55bea9063f7b, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 11
+      Id: 114
+      Clip: {fileID: 8300000, guid: 87c72280243594d4c802f3969e4c8c7a, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 11
+      Id: 115
+      Clip: {fileID: 8300000, guid: 0fc7ebb13689cba4cbf081b3f6e702b4, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 11
+      Id: 116
+      Clip: {fileID: 8300000, guid: 8efdbd9d8920c764885e2c40b2a6f12a, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 11
+      Id: 117
+      Clip: {fileID: 8300000, guid: 34e3d558f1c05ea41a6be34591f7bb23, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 11
+      Id: 118
+      Clip: {fileID: 8300000, guid: 91223473598a8aa48a78d5c543723a74, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 11
+      Id: 119
+      Clip: {fileID: 8300000, guid: 7e58bf9609939624abf2768e4570edeb, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 11
+      Id: 120
+      Clip: {fileID: 8300000, guid: a6c7d32d3fcbaab408e2c034148e85d9, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 11
+      Id: 121
+      Clip: {fileID: 8300000, guid: 7fd9014790358bc48a3ee7b2b5c79b00, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 11
+      Id: 122
+      Clip: {fileID: 8300000, guid: 64da36b14d968204c9a4d2b4b392000b, type: 3}
+      Volume: 1
+      Interval: 0
+      MaxVoices: 2
+      Priority: 8
+      IgnorePause: 1
+      ContinueAcrossScenes: 1
+    - Category: 11
+      Id: 123
+      Clip: {fileID: 8300000, guid: 7ab4d68a77f17054ca60f01aea2f5b20, type: 3}
+      Volume: 0.8
+      Interval: 0
+      MaxVoices: 1
+      Priority: 16
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 11
+      Id: 124
+      Clip: {fileID: 8300000, guid: 51fc297ac8def8245846413d11b29f7f, type: 3}
+      Volume: 0.8
+      Interval: 0
+      MaxVoices: 1
+      Priority: 16
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 11
+      Id: 125
+      Clip: {fileID: 8300000, guid: 810f313b510bb8c48af21b01fd3276b6, type: 3}
+      Volume: 0.8
+      Interval: 0
+      MaxVoices: 1
+      Priority: 16
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 11
+      Id: 138
+      Clip: {fileID: 8300000, guid: d6396faa34c42e04eb1296435ea12a91, type: 3}
+      Volume: 0.65
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 48
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 11
+      Id: 139
+      Clip: {fileID: 8300000, guid: 6a9a430d506b80540b3ea390d30e7345, type: 3}
+      Volume: 0.55
+      Interval: 0.05
+      MaxVoices: 1
+      Priority: 32
+      IgnorePause: 1
+      ContinueAcrossScenes: 0
+    - Category: 11
+      Id: 140
+      Clip: {fileID: 8300000, guid: 348c8ac65acfc3e4b9d5329b4084234b, type: 3}
+      Volume: 0.65
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 48
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+    - Category: 0
+      Id: 146
+      Clip: {fileID: 8300000, guid: 5031cd961b0edf34584dc410d8b4cad4, type: 3}
+      Volume: 0.85
+      Interval: 0
+      MaxVoices: 2
+      Priority: 12
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+  - GroupName: "\uC2A4\uD14C\uC774\uC9C0"
+    Category: 12
+    Entries:
+    - Category: 12
+      Id: 16
+      Clip: {fileID: 8300000, guid: d9427201262dac34caff3c1afdbb21c1, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 48
+      IgnorePause: 1
+      ContinueAcrossScenes: 1
+    - Category: 12
+      Id: 87
+      Clip: {fileID: 8300000, guid: e45989a5d1c35584eab4454ed8657eaa, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 48
+      IgnorePause: 1
+      ContinueAcrossScenes: 1
+    - Category: 12
+      Id: 88
+      Clip: {fileID: 8300000, guid: b776701b93d82a74aadf702a2811a306, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 48
+      IgnorePause: 1
+      ContinueAcrossScenes: 1
+    - Category: 12
+      Id: 89
+      Clip: {fileID: 8300000, guid: ccfae5338a5ec4f42bc29aa62a0df793, type: 3}
+      Volume: 0.6
+      Interval: 0.05
+      MaxVoices: 3
+      Priority: 128
+      IgnorePause: 0
+      ContinueAcrossScenes: 0
+  - GroupName: "\uBC30\uACBD\uC74C\uC545"
+    Category: 13
+    Entries:
+    - Category: 13
+      Id: 18
+      Clip: {fileID: 8300000, guid: 21d60747f5ddb024d88ac1481b15551b, type: 3}
+      Volume: 1
+      Interval: 0
+      MaxVoices: 8
+      Priority: 128
+      IgnorePause: 1
+      ContinueAcrossScenes: 0
+    - Category: 13
+      Id: 126
+      Clip: {fileID: 8300000, guid: f01ab3ed684671548a908001f304d19f, type: 3}
+      Volume: 1
+      Interval: 0
+      MaxVoices: 8
+      Priority: 128
+      IgnorePause: 1
+      ContinueAcrossScenes: 0
+    - Category: 13
+      Id: 127
+      Clip: {fileID: 8300000, guid: 3e6aaa364f65ebe468619d2d60421ec6, type: 3}
+      Volume: 1
+      Interval: 0
+      MaxVoices: 8
+      Priority: 128
+      IgnorePause: 1
+      ContinueAcrossScenes: 0
+    - Category: 13
+      Id: 128
+      Clip: {fileID: 8300000, guid: 4fefeffdf9c05554c9abb01f458106b3, type: 3}
+      Volume: 1
+      Interval: 0
+      MaxVoices: 8
+      Priority: 128
+      IgnorePause: 1
+      ContinueAcrossScenes: 0
+    - Category: 13
+      Id: 129
+      Clip: {fileID: 8300000, guid: 0ac4788c373460c44b22239881c0bb6c, type: 3}
+      Volume: 1
+      Interval: 0
+      MaxVoices: 8
+      Priority: 128
+      IgnorePause: 1
+      ContinueAcrossScenes: 0
+    - Category: 13
+      Id: 130
+      Clip: {fileID: 8300000, guid: 0e7efb62bbd5ee9429a63e422724d785, type: 3}
+      Volume: 1
+      Interval: 0
+      MaxVoices: 8
+      Priority: 128
+      IgnorePause: 1
+      ContinueAcrossScenes: 0
+    - Category: 13
+      Id: 131
+      Clip: {fileID: 8300000, guid: 9b29dfe7a5a73f646917fa48a269265b, type: 3}
+      Volume: 1
+      Interval: 0
+      MaxVoices: 8
+      Priority: 128
+      IgnorePause: 1
+      ContinueAcrossScenes: 0
+    - Category: 13
+      Id: 132
+      Clip: {fileID: 8300000, guid: 50b05601c39d1e2459e39b9f0f8860ff, type: 3}
+      Volume: 1
+      Interval: 0
+      MaxVoices: 8
+      Priority: 128
+      IgnorePause: 1
+      ContinueAcrossScenes: 0
+    - Category: 13
+      Id: 133
+      Clip: {fileID: 8300000, guid: 09fe7e3f19b024640adba0186bd89415, type: 3}
+      Volume: 1
+      Interval: 0
+      MaxVoices: 8
+      Priority: 128
+      IgnorePause: 1
+      ContinueAcrossScenes: 0
+    - Category: 13
+      Id: 134
+      Clip: {fileID: 8300000, guid: 1ea5896bae291bd4c93b1fe0c18673ba, type: 3}
+      Volume: 1
+      Interval: 0
+      MaxVoices: 8
+      Priority: 128
+      IgnorePause: 1
+      ContinueAcrossScenes: 0
+    - Category: 13
+      Id: 135
+      Clip: {fileID: 8300000, guid: 3431df56ff4b8724786266fdae3f453b, type: 3}
+      Volume: 1
+      Interval: 0
+      MaxVoices: 8
+      Priority: 128
+      IgnorePause: 1
+      ContinueAcrossScenes: 0
+  - GroupName: "\uBCF4\uC2A4 \uC0AC\uB9DD"
+    Category: 0
+    Entries:
+    - Category: 0
+      Id: 141
+      Clip: {fileID: 8300000, guid: c84e718fedfaa434bac417f874bc965b, type: 3}
+      Volume: 1
+      Interval: 0
+      MaxVoices: 2
+      Priority: 8
+      IgnorePause: 1
+      ContinueAcrossScenes: 1
+    - Category: 0
+      Id: 142
+      Clip: {fileID: 8300000, guid: a97dfd24d0162aa458db72d913bb7c3a, type: 3}
+      Volume: 0.65
+      Interval: 0
+      MaxVoices: 2
+      Priority: 8
+      IgnorePause: 1
+      ContinueAcrossScenes: 1
+  _entries: []

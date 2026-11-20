@@ -1,0 +1,36 @@
+Town SF Audio — 직접 파형 합성한 사운드 세트
+
+형식: 44.1kHz / 16bit PCM WAV. BGM·환경음은 스테레오, 효과음은 모노.
+프로젝트 파일 수정 및 Unity 연결은 수행하지 않았습니다.
+
+ui_button_click.wav — 공통 버튼 클릭 (0.09초)
+ui_window_open.wav — 서비스·인벤토리 창 열기 (0.22초)
+ui_window_close.wav — 창 닫기 (0.18초)
+npc_dialogue_open.wav — NPC 대화 시작 (0.27초)
+npc_dialogue_next.wav — 다음 대사 (0.065초)
+npc_dialogue_close.wav — NPC 대화 종료 (0.2초)
+player_footstep_01.wav — 발소리 변형 1 (0.14초)
+player_footstep_02.wav — 발소리 변형 2 (0.14초)
+player_footstep_03.wav — 발소리 변형 3 (0.14초)
+player_jump.wav — 점프 시작 (0.19초)
+player_land.wav — 착지 (0.22초)
+quest_accept.wav — 퀘스트 수락 성공 (0.34초)
+quest_reward.wav — 퀘스트 보상 수령 성공 (0.8초)
+equipment_equip.wav — 장비 장착 성공 (0.24초)
+equipment_unequip.wav — 장비 해제 성공 (0.19초)
+stage_depart.wav — 스테이지 출발 (0.9초)
+ui_action_denied.wav — 조건 미충족·처리 실패 (0.25초)
+town_bgm_orbital_rest_loop.wav — Town 배경음악 / BGM 그룹 / Loop On (42.667초)
+town_ambience_ventilation_loop.wav — 작은 기지 환기 배경음 / SFX 그룹 / Loop On (12초)
+preview_all_effects.wav — 효과음 미리듣기 모음 / 게임에 연결하지 않음 (13.925초)
+
+사용 안내
+- 효과음은 Loop Off, Play On Awake Off. 성공·보상음은 실제 처리 성공 후 재생.
+- 타이핑음 대신 npc_dialogue_next를 대사 넘김에 한 번 사용.
+- 발소리는 세 변형을 번갈아 사용하고 지상 이동 중에만 재생.
+- 같은 동작에 버튼음·창 열기음이 중복되지 않게 하나만 선택.
+- Town BGM은 추가 로드한 서비스 화면에서도 유지하고 실제 전투 이동 시 종료.
+- 환경음은 선택 사항. 음악보다 작게(예: AudioSource Volume 0.2) 시작해서 조절.
+- BGM은 90 BPM, 16마디, 약 42.67초. 루프의 잔향은 파일 시작부에 이어지도록 합성.
+- 저장 시 .wav 확장자를 유지.
+- 파일 형식·샘플·피크·반복 경계는 수치 검증했으며 실제 청음 검수는 수행하지 않았습니다.

@@ -1,47 +1,50 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using UnityEngine;
 
 /// <summary>
-/// ½Ã½ºÅÛ °æ°í ÈÄ ½ºÆù À§Ä¡·Î ÀÌµ¿ÇÏ¿© ºí·¢È¦À» ¹ß»çÇÑ´Ù.
-/// ºí·¢È¦ ¼Ò¸ê ¿Ï·á±îÁö Æ¯¼öÆĞÅÏ »óÅÂ¸¦ À¯ÁöÇÑ´Ù.
+/// ì‹œìŠ¤í…œ ê²½ê³  í›„ ìŠ¤í° ìœ„ì¹˜ë¡œ ì´ë™í•˜ì—¬ ë¸”ë™í™€ì„ ë°œì‚¬í•œë‹¤.
+/// ë¸”ë™í™€ ì†Œë©¸ ì™„ë£Œê¹Œì§€ íŠ¹ìˆ˜íŒ¨í„´ ìƒíƒœë¥¼ ìœ ì§€í•œë‹¤.
 /// </summary>
 [CreateAssetMenu(
     fileName = "BossHeadBlackHolePattern",
     menuName = "BossPattern/Head/Black Hole")]
 public sealed class BossHeadBlackHolePattern : BossPattern
 {
-    // ½Ã½ºÅÛ ´ÙÀÌ¾ó·Î±×¿¡ Ç¥½ÃÇÒ °æ°í ¹®±¸´Ù.
+    // ì‹œìŠ¤í…œ ë‹¤ì´ì–¼ë¡œê·¸ì— í‘œì‹œí•  ê²½ê³  ë¬¸êµ¬ë‹¤.
     [TextArea]
-    [SerializeField] string _systemMessage = "Áß·Â ÀÌ»ó °¨Áö!";
+    [SerializeField] string _systemMessage = "ì¤‘ë ¥ ì´ìƒ ê°ì§€!";
 
-    // ÃÖÃÊ ½ºÆù À§Ä¡·Î ÀÌµ¿ÇÏ´Â ½Ã°£ÀÌ´Ù.
+    // ìµœì´ˆ ìŠ¤í° ìœ„ì¹˜ë¡œ ì´ë™í•˜ëŠ” ì‹œê°„ì´ë‹¤.
     [Min(0.01f)]
     [SerializeField] float _moveToSpawnDuration = 0.4f;
 
-    // ¹ß»çÇÒ ºí·¢È¦ ÇÁ¸®ÆÕÀÌ´Ù.
+    // ë°œì‚¬í•  ë¸”ë™í™€ í”„ë¦¬íŒ¹ì´ë‹¤.
     [SerializeField] BossBlackHole _blackHolePrefab;
 
-    // true¸é ÇÃ·¹ÀÌ¾î ±âÁØ À§Ä¡, false¸é °íÁ¤ ¿ùµå ÁÂÇ¥¸¦ »ç¿ëÇÑ´Ù.
+    // trueë©´ í”Œë ˆì´ì–´ ê¸°ì¤€ ìœ„ì¹˜, falseë©´ ê³ ì • ì›”ë“œ ì¢Œí‘œë¥¼ ì‚¬ìš©í•œë‹¤.
     [SerializeField] bool _usePlayerRelativeTarget = true;
 
-    // ¹ß»ç ¼ø°£ ÇÃ·¹ÀÌ¾î À§Ä¡¿¡ ´õÇÒ ÁÂÇ¥´Ù.
-    // ÇöÀç È¾½ºÅ©·Ñ ±âÁØ ¿À¸¥ÂÊÀÌ ÇÃ·¹ÀÌ¾îÀÇ ¾ÕÂÊÀÌ´Ù.
+    // ë°œì‚¬ ìˆœê°„ í”Œë ˆì´ì–´ ìœ„ì¹˜ì— ë”í•  ì¢Œí‘œë‹¤.
+    // í˜„ì¬ íš¡ìŠ¤í¬ë¡¤ ê¸°ì¤€ ì˜¤ë¥¸ìª½ì´ í”Œë ˆì´ì–´ì˜ ì•ìª½ì´ë‹¤.
     [SerializeField] Vector2 _playerTargetOffset = new Vector2(1.5f, 0f);
 
-    // °íÁ¤ ÁÂÇ¥ ¸ğµå¿¡¼­ »ç¿ëÇÒ ¿ùµå ¸ñÀûÁö´Ù.
+    // ê³ ì • ì¢Œí‘œ ëª¨ë“œì—ì„œ ì‚¬ìš©í•  ì›”ë“œ ëª©ì ì§€ë‹¤.
     [SerializeField] Vector2 _worldTargetPosition = new Vector2(-2f, 0f);
 
-    // Å©±â´Â ÇÁ¸®ÆÕ¿¡¼­, ºñÇà¡¤È®´ë¡¤°ø°İ µ¿ÀÛÀº Config¿¡¼­ ¼³Á¤ÇÑ´Ù.
+    // í¬ê¸°ëŠ” í”„ë¦¬íŒ¹ì—ì„œ, ë¹„í–‰Â·í™•ëŒ€Â·ê³µê²© ë™ì‘ì€ Configì—ì„œ ì„¤ì •í•œë‹¤.
     [SerializeField]
     BossBlackHoleSettings _settings = new BossBlackHoleSettings
     {
         TravelDuration = 1f,
+        // ì´ë¯¸ì§€ í™•ëŒ€ì™€ ì†Œë©¸ì„ ê°ê° 0.5ì´ˆ ë™ì•ˆ ì§„í–‰í•œë‹¤.
+        ExpandDuration = 0.5f,
+        FadeDuration = 0.5f,
 
-        // ÃÖÁ¾ Å©±âÀÇ 15%·Î ºñÇàÇÑ´Ù.
+        // ìµœì¢… í¬ê¸°ì˜ 15%ë¡œ ë¹„í–‰í•œë‹¤.
         FlightScaleRatio = 0.15f,
 
-        // ÆîÃÄÁø µÚ 5ÃÊ µ¿¾È °ø°İÇÑ´Ù.
+        // í¼ì³ì§„ ë’¤ 5ì´ˆ ë™ì•ˆ ê³µê²©í•œë‹¤.
         ActiveDuration = 5f,
         PullSpeed = 2.5f,
         DamageInterval = 0.5f,
@@ -57,13 +60,13 @@ public sealed class BossHeadBlackHolePattern : BossPattern
         BossBlackHole hole = null;
         bool dialogueCompleted = false;
 
-        // UI ¿Ï·á ÀÌº¥Æ®¸¦ ¹ŞÀº µÚ ´ÙÀ½ ´Ü°è·Î ÁøÇàÇÑ´Ù.
+        // UI ì™„ë£Œ ì´ë²¤íŠ¸ë¥¼ ë°›ì€ ë’¤ ë‹¤ìŒ ë‹¨ê³„ë¡œ ì§„í–‰í•œë‹¤.
         Action onDialogueCompleted = () => dialogueCompleted = true;
         boss.SystemDialogueCompleted += onDialogueCompleted;
 
         try
         {
-            // Runner°¡ Æ¯¼öÆĞÅÏ ½ÃÀÛ°ú ÀÏ¹İ Àû »ı¼º Áß´ÜÀ» ¸ÕÀú Ã³¸®ÇÑ´Ù.
+            // Runnerê°€ íŠ¹ìˆ˜íŒ¨í„´ ì‹œì‘ê³¼ ì¼ë°˜ ì  ìƒì„± ì¤‘ë‹¨ì„ ë¨¼ì € ì²˜ë¦¬í•œë‹¤.
             boss.RequestSystemDialogue(_systemMessage);
 
             while (IsAlive(boss) && !dialogueCompleted)
@@ -76,7 +79,7 @@ public sealed class BossHeadBlackHolePattern : BossPattern
                 yield break;
             }
 
-            // º¸½º°¡ ÃÖÃÊ »ı¼ºµÆ´ø À§Ä¡·Î ÀÌµ¿ÇÑ´Ù.
+            // ë³´ìŠ¤ê°€ ìµœì´ˆ ìƒì„±ëë˜ ìœ„ì¹˜ë¡œ ì´ë™í•œë‹¤.
             Vector2 start = context.Rigidbody.position;
             Vector2 destination = boss.MovementCenter;
             float elapsed = 0f;
@@ -101,8 +104,8 @@ public sealed class BossHeadBlackHolePattern : BossPattern
                 yield break;
             }
 
-            // ¸ñÀûÁö´Â ¹ß»ç ¼ø°£ ÇÑ ¹ø¸¸ È®Á¤ÇÑ´Ù.
-            // ¹ß»ç ÈÄ ÇÃ·¹ÀÌ¾î°¡ ¿òÁ÷¿©µµ ¸ñÀûÁö°¡ µû¶ó°¡Áö ¾Ê´Â´Ù.
+            // ëª©ì ì§€ëŠ” ë°œì‚¬ ìˆœê°„ í•œ ë²ˆë§Œ í™•ì •í•œë‹¤.
+            // ë°œì‚¬ í›„ í”Œë ˆì´ì–´ê°€ ì›€ì§ì—¬ë„ ëª©ì ì§€ê°€ ë”°ë¼ê°€ì§€ ì•ŠëŠ”ë‹¤.
             Vector2 target = _usePlayerRelativeTarget
                 ? (Vector2)context.TargetPlayer.transform.position +
                     _playerTargetOffset
@@ -119,7 +122,7 @@ public sealed class BossHeadBlackHolePattern : BossPattern
                 target,
                 _settings);
 
-            // ºñÇà¡¤ÈíÀÎ À¯Áö¡¤¼Ò¸êÀ» ¸ğµÎ ¸¶Ä¥ ¶§±îÁö ±â´Ù¸°´Ù.
+            // ë¹„í–‰Â·í¡ì¸ ìœ ì§€Â·ì†Œë©¸ì„ ëª¨ë‘ ë§ˆì¹  ë•Œê¹Œì§€ ê¸°ë‹¤ë¦°ë‹¤.
             while (IsAlive(boss) &&
                    hole != null &&
                    hole.isActiveAndEnabled)
@@ -134,14 +137,14 @@ public sealed class BossHeadBlackHolePattern : BossPattern
                 boss.SystemDialogueCompleted -= onDialogueCompleted;
             }
 
-            // ÆĞÅÏÀÌ Áß´ÜµÇ¾îµµ ³²¾Æ ÀÖ´Â ÈíÀÎÀ» ÇØÁ¦ÇÑ´Ù.
+            // íŒ¨í„´ì´ ì¤‘ë‹¨ë˜ì–´ë„ ë‚¨ì•„ ìˆëŠ” í¡ì¸ì„ í•´ì œí•œë‹¤.
             if (hole != null)
             {
                 hole.BeginFadeOut();
             }
         }
 
-        // ¿©±â¼­ Execute°¡ ³¡³ª¸é ±âÁ¸ Runner°¡ ÀÏ¹İ ¸ğµå·Î º¹±Í½ÃÅ²´Ù.
+        // ì—¬ê¸°ì„œ Executeê°€ ëë‚˜ë©´ ê¸°ì¡´ Runnerê°€ ì¼ë°˜ ëª¨ë“œë¡œ ë³µê·€ì‹œí‚¨ë‹¤.
     }
 
     private static bool IsAlive(BossEnemy boss)
@@ -152,7 +155,7 @@ public sealed class BossHeadBlackHolePattern : BossPattern
     }
 
     /// <summary>
-    /// ½ÇÇà Àü¿¡ ÇÊ¼ö ÂüÁ¶¿Í ¼³Á¤ ¹üÀ§¸¦ È®ÀÎÇÑ´Ù.
+    /// ì‹¤í–‰ ì „ì— í•„ìˆ˜ ì°¸ì¡°ì™€ ì„¤ì • ë²”ìœ„ë¥¼ í™•ì¸í•œë‹¤.
     /// </summary>
     private void ValidateSettings(BossPatternContext context)
     {
@@ -160,16 +163,16 @@ public sealed class BossHeadBlackHolePattern : BossPattern
             string.IsNullOrWhiteSpace(_systemMessage))
         {
             throw new InvalidOperationException(
-                $"{name}: Context, ºí·¢È¦ ÇÁ¸®ÆÕ, °æ°í ¹®±¸°¡ ÇÊ¿äÇÕ´Ï´Ù.");
+                $"{name}: Context, ë¸”ë™í™€ í”„ë¦¬íŒ¹, ê²½ê³  ë¬¸êµ¬ê°€ í•„ìš”í•©ë‹ˆë‹¤.");
         }
 
         if (!PauseRandomMovement)
         {
             throw new InvalidOperationException(
-                $"{name}: Pause Random Movement¸¦ ÄÑ¼¼¿ä.");
+                $"{name}: Pause Random Movementë¥¼ ì¼œì„¸ìš”.");
         }
 
-        // ºñÇà Å©±â ºñÀ²°ú °¢ ´Ü°èÀÇ ½Ã°£¡¤°ø°İ ¼öÄ¡¸¦ °Ë»çÇÑ´Ù.
+        // ë¹„í–‰ í¬ê¸° ë¹„ìœ¨ê³¼ ê° ë‹¨ê³„ì˜ ì‹œê°„Â·ê³µê²© ìˆ˜ì¹˜ë¥¼ ê²€ì‚¬í•œë‹¤.
         if (_moveToSpawnDuration <= 0f ||
             _settings.TravelDuration <= 0f ||
             _settings.FlightScaleRatio <= 0f ||
@@ -180,7 +183,7 @@ public sealed class BossHeadBlackHolePattern : BossPattern
             _settings.Damage <= 0)
         {
             throw new InvalidOperationException(
-                $"{name}: ºí·¢È¦ ¼³Á¤ ¼öÄ¡¸¦ È®ÀÎÇÏ¼¼¿ä.");
+                $"{name}: ë¸”ë™í™€ ì„¤ì • ìˆ˜ì¹˜ë¥¼ í™•ì¸í•˜ì„¸ìš”.");
         }
     }
 }

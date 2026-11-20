@@ -1,29 +1,35 @@
-using System;
+ï»¿using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public sealed class AudioSettingsUI : MonoBehaviour
 {
-    // ÅëÂ°·Î È°¼ºÈ­ÇÏ°Å³ª ºñÈ°¼ºÈ­ÇÒ ¼³Á¤ Canvas ¿ÀºêÁ§Æ®.
+    // í†µì§¸ë¡œ í™œì„±í™”í•˜ê±°ë‚˜ ë¹„í™œì„±í™”í•  ì„¤ì • Canvas ì˜¤ë¸Œì íŠ¸.
     [SerializeField] private GameObject _settingsCanvas;
 
-    // ¹è°æÀ½°ú È¿°úÀ½À» Á¶ÀıÇÏ´Â ½½¶óÀÌ´õ.
+    // ë°°ê²½ìŒê³¼ íš¨ê³¼ìŒì„ ì¡°ì ˆí•˜ëŠ” ìŠ¬ë¼ì´ë”.
     [SerializeField] private UnityEngine.UI.Slider _bgmSlider;
     [SerializeField] private UnityEngine.UI.Slider _sfxSlider;
 
-    // °¢ ½½¶óÀÌ´õ ¿À¸¥ÂÊ¿¡ Ç¥½ÃÇÒ ÇöÀç À½·®.
+    // ê° ìŠ¬ë¼ì´ë” ì˜¤ë¥¸ìª½ì— í‘œì‹œí•  í˜„ì¬ ìŒëŸ‰.
     [SerializeField] private TMP_Text _bgmValueText;
     [SerializeField] private TMP_Text _sfxValueText;
 
-    // ·Î±×¾Æ¿ô ÈÄ ÀÌµ¿ÇÒ ¸ŞÀÎ ¸Ş´º ¾À ÀÌ¸§.
+    // ë¡œê·¸ì•„ì›ƒ í›„ ì´ë™í•  ë©”ì¸ ë©”ë‰´ ì”¬ ì´ë¦„.
     [SerializeField] private string _mainMenuSceneName = "1.MainMenu";
 
-    // °øÅë À½·® ¼³Á¤ °ü¸®ÀÚ.
+    // ê³µí†µ ìŒëŸ‰ ì„¤ì • ê´€ë¦¬ì.
     private AudioSettingsManager _settings;
 
-    // ÀÌº¥Æ® ¿¬°áÀÌ ³¡³µ´ÂÁö ³ªÅ¸³½´Ù.
+    // ì´ë²¤íŠ¸ ì—°ê²°ì´ ëë‚¬ëŠ”ì§€ ë‚˜íƒ€ë‚¸ë‹¤.
     private bool _isInitialized;
+
+    // ì„¤ì •ì°½ì˜ í‘œì‹œ ìƒíƒœ ë³€ê²½ì„ ì•Œë¦°ë‹¤. trueëŠ” ì—´ë¦¼, falseëŠ” ë‹«í˜ì´ë‹¤.
+    public event Action<bool> VisibilityChanged;
+
+    // ì™¸ë¶€ì—ì„œ ì„¤ì •ì°½ì˜ ì—´ë¦¼ ì—¬ë¶€ë¥¼ í™•ì¸í•œë‹¤.
+    public bool IsOpen => _settingsCanvas != null && _settingsCanvas.activeSelf;
 
     private void Start()
     {
@@ -34,7 +40,7 @@ public sealed class AudioSettingsUI : MonoBehaviour
             _sfxValueText == null)
         {
             throw new InvalidOperationException(
-                "AudioSettingsUIÀÇ Canvas, Slider, Text¸¦ ¸ğµÎ ¿¬°áÇØÁÖ¼¼¿ä.");
+                "AudioSettingsUIì˜ Canvas, Slider, Textë¥¼ ëª¨ë‘ ì—°ê²°í•´ì£¼ì„¸ìš”.");
         }
 
         _settings = AudioSettingsManager.Instance;
@@ -42,25 +48,25 @@ public sealed class AudioSettingsUI : MonoBehaviour
         if (_settings == null)
         {
             throw new InvalidOperationException(
-                "È°¼º »óÅÂÀÇ AudioSettingsManager°¡ ÇÊ¿äÇÕ´Ï´Ù.");
+                "í™œì„± ìƒíƒœì˜ AudioSettingsManagerê°€ í•„ìš”í•©ë‹ˆë‹¤.");
         }
 
-        // µÎ ½½¶óÀÌ´õ¸¦ Á¤¼ö 0~100 ¹üÀ§·Î ÅëÀÏÇÑ´Ù.
+        // ë‘ ìŠ¬ë¼ì´ë”ë¥¼ ì •ìˆ˜ 0~100 ë²”ìœ„ë¡œ í†µì¼í•œë‹¤.
         ConfigureSlider(_bgmSlider);
         ConfigureSlider(_sfxSlider);
 
-        // ½½¶óÀÌ´õ ÀÌº¥Æ®´Â ÄÚµå¿¡¼­ ÇÑ ¹ø¸¸ ¿¬°áÇÑ´Ù.
+        // ìŠ¬ë¼ì´ë” ì´ë²¤íŠ¸ëŠ” ì½”ë“œì—ì„œ í•œ ë²ˆë§Œ ì—°ê²°í•œë‹¤.
         _bgmSlider.onValueChanged.AddListener(HandleBgmChanged);
         _sfxSlider.onValueChanged.AddListener(HandleSfxChanged);
 
         _isInitialized = true;
 
-        // ÀúÀåµÈ °ªÀ» Ç¥½ÃÇÏ°í Ã³À½¿¡´Â ¼³Á¤Ã¢À» ´İ¾ÆµĞ´Ù.
+        // ì €ì¥ëœ ê°’ì„ í‘œì‹œí•˜ê³  ì²˜ìŒì—ëŠ” ì„¤ì •ì°½ì„ ë‹«ì•„ë‘”ë‹¤.
         RefreshValues();
         _settingsCanvas.SetActive(false);
     }
 
-    // UI¿¡¼­ »ç¿ëÇÒ ½½¶óÀÌ´õ ¹üÀ§¿Í ¹æÇâÀ» ¼³Á¤ÇÑ´Ù.
+    // UIì—ì„œ ì‚¬ìš©í•  ìŠ¬ë¼ì´ë” ë²”ìœ„ì™€ ë°©í–¥ì„ ì„¤ì •í•œë‹¤.
     private void ConfigureSlider(UnityEngine.UI.Slider slider)
     {
         slider.minValue = 0f;
@@ -69,7 +75,7 @@ public sealed class AudioSettingsUI : MonoBehaviour
         slider.direction = UnityEngine.UI.Slider.Direction.LeftToRight;
     }
 
-    // ÇöÀç ¼³Á¤°ªÀ» ÀÌº¥Æ® ÀçÈ£Ãâ ¾øÀÌ UI¿¡ Ç¥½ÃÇÑ´Ù.
+    // í˜„ì¬ ì„¤ì •ê°’ì„ ì´ë²¤íŠ¸ ì¬í˜¸ì¶œ ì—†ì´ UIì— í‘œì‹œí•œë‹¤.
     private void RefreshValues()
     {
         _bgmSlider.SetValueWithoutNotify(_settings.BgmVolume);
@@ -79,15 +85,19 @@ public sealed class AudioSettingsUI : MonoBehaviour
         _sfxValueText.text = _settings.SfxVolume.ToString();
     }
 
-    // Åé´Ï¹ÙÄû ¹öÆ°¿¡¼­ È£ÃâÇÑ´Ù.
+    /// <summary>
+    /// ì„¤ì •ì°½ì„ ì „í™˜í•˜ê³  í‘œì‹œ ìƒíƒœ ë³€ê²½ì„ ì•Œë¦°ë‹¤.
+    /// </summary>
     public void Toggle()
     {
         if (!_isInitialized)
         {
             return;
         }
+        // í™˜ê²½ì„¤ì • ë²„íŠ¼ìœ¼ë¡œ ì°½ì„ ì—´ê±°ë‚˜ ë‹«ì„ ë•Œ í´ë¦­ìŒì„ ì¬ìƒí•œë‹¤.
+        UIAudioPlayer.Play(UISound.ButtonClick);
 
-        if (_settingsCanvas.activeSelf)
+        if (IsOpen)
         {
             Close();
             return;
@@ -95,35 +105,44 @@ public sealed class AudioSettingsUI : MonoBehaviour
 
         RefreshValues();
         _settingsCanvas.SetActive(true);
+
+        // ì¼ì‹œì •ì§€ í™”ë©´ ë“± êµ¬ë…ìê°€ í‘œì‹œ ìƒíƒœë¥¼ ì „í™˜í•˜ë„ë¡ ì•Œë¦°ë‹¤.
+        VisibilityChanged?.Invoke(true);
     }
 
-    // X ¹öÆ° ¶Ç´Â Åé´Ï¹ÙÄû·Î ´İÀ» ¶§ ÀúÀåÇÏ°í Canvas¸¦ ²ö´Ù.
+    /// <summary>
+    /// ì„¤ì •ê°’ì„ ì €ì¥í•˜ê³  ì°½ì„ ë‹«ì€ ë’¤ ë‹«í˜ ìƒíƒœë¥¼ ì•Œë¦°ë‹¤.
+    /// </summary>
     public void Close()
     {
-        if (!_isInitialized)
+        // ì´ˆê¸°í™” ì „ ë˜ëŠ” ì´ë¯¸ ë‹«íŒ ìƒíƒœì—ì„œëŠ” ì¤‘ë³µ ì²˜ë¦¬í•˜ì§€ ì•ŠëŠ”ë‹¤.
+        if (!_isInitialized || !IsOpen)
         {
             return;
         }
 
         _settings.SaveSettings();
         _settingsCanvas.SetActive(false);
+
+        // ë²„íŠ¼ê³¼ ESC ëª¨ë‘ ê°™ì€ ë‹«í˜ ì´ë²¤íŠ¸ë¥¼ ì „ë‹¬í•œë‹¤.
+        VisibilityChanged?.Invoke(false);
     }
 
-    // ¹è°æÀ½ ½½¶óÀÌ´õ º¯°æÀ» ½ÇÁ¦ À½·®°ú ¼ıÀÚ¿¡ ¹İ¿µÇÑ´Ù.
+    // ë°°ê²½ìŒ ìŠ¬ë¼ì´ë” ë³€ê²½ì„ ì‹¤ì œ ìŒëŸ‰ê³¼ ìˆ«ìì— ë°˜ì˜í•œë‹¤.
     private void HandleBgmChanged(float value)
     {
         _settings.SetBgmVolume(Mathf.RoundToInt(value));
         _bgmValueText.text = _settings.BgmVolume.ToString();
     }
 
-    // È¿°úÀ½ ½½¶óÀÌ´õ º¯°æÀ» ½ÇÁ¦ À½·®°ú ¼ıÀÚ¿¡ ¹İ¿µÇÑ´Ù.
+    // íš¨ê³¼ìŒ ìŠ¬ë¼ì´ë” ë³€ê²½ì„ ì‹¤ì œ ìŒëŸ‰ê³¼ ìˆ«ìì— ë°˜ì˜í•œë‹¤.
     private void HandleSfxChanged(float value)
     {
         _settings.SetSfxVolume(Mathf.RoundToInt(value));
         _sfxValueText.text = _settings.SfxVolume.ToString();
     }
 
-    // °øÅë È¯°æ¼³Á¤°ú °èÁ¤ ÁøÇà µ¥ÀÌÅÍ¸¦ ÀúÀåÇÑ ÈÄ ·Î±×¾Æ¿ôÇÑ´Ù.
+    // ê³µí†µ í™˜ê²½ì„¤ì •ê³¼ ê³„ì • ì§„í–‰ ë°ì´í„°ë¥¼ ì €ì¥í•œ í›„ ë¡œê·¸ì•„ì›ƒí•œë‹¤.
     public void Logout()
     {
         if (!_isInitialized)
@@ -133,15 +152,15 @@ public sealed class AudioSettingsUI : MonoBehaviour
 
         if (SaveManager.Instance == null)
         {
-            Debug.LogError("SaveManager°¡ ¾ø½À´Ï´Ù.", this);
+            Debug.LogError("SaveManagerê°€ ì—†ìŠµë‹ˆë‹¤.", this);
             return;
         }
 
-        // ÀÌµ¿ÇÒ ¾ÀÀÌ ÁØºñµÇÁö ¾Ê¾Ò´Ù¸é ·Î±×ÀÎ »óÅÂ¸¦ ¸ÕÀú Áö¿ìÁö ¾Ê´Â´Ù.
+        // ì´ë™í•  ì”¬ì´ ì¤€ë¹„ë˜ì§€ ì•Šì•˜ë‹¤ë©´ ë¡œê·¸ì¸ ìƒíƒœë¥¼ ë¨¼ì € ì§€ìš°ì§€ ì•ŠëŠ”ë‹¤.
         if (!Application.CanStreamedLevelBeLoaded(_mainMenuSceneName))
         {
             Debug.LogError(
-                $"Build ProfilesÀÇ ¾À ¸ñ·Ï¿¡ '{_mainMenuSceneName}'À» Ãß°¡ÇØÁÖ¼¼¿ä.",
+                $"Build Profilesì˜ ì”¬ ëª©ë¡ì— '{_mainMenuSceneName}'ì„ ì¶”ê°€í•´ì£¼ì„¸ìš”.",
                 this);
             return;
         }
@@ -150,12 +169,12 @@ public sealed class AudioSettingsUI : MonoBehaviour
         {
             _settings.SaveSettings();
 
-            // ±âÁ¸ Logout ³»ºÎ¿¡¼­ °èÁ¤ ÀúÀåÀ» ¼öÇàÇÑ´Ù.
+            // ê¸°ì¡´ Logout ë‚´ë¶€ì—ì„œ ê³„ì • ì €ì¥ì„ ìˆ˜í–‰í•œë‹¤.
             SaveManager.Instance.Logout();
         }
         catch (Exception exception)
         {
-            // ÀúÀå ½ÇÆĞ ½Ã ¾ÀÀ» ÀÌµ¿ÇÏÁö ¾Ê°í ¿À·ù¸¦ ³²±ä´Ù.
+            // ì €ì¥ ì‹¤íŒ¨ ì‹œ ì”¬ì„ ì´ë™í•˜ì§€ ì•Šê³  ì˜¤ë¥˜ë¥¼ ë‚¨ê¸´ë‹¤.
             Debug.LogException(exception, this);
             return;
         }
@@ -165,7 +184,7 @@ public sealed class AudioSettingsUI : MonoBehaviour
 
     private void OnDisable()
     {
-        // ¾À ÀÌµ¿ µîÀ¸·Î UI °ü¸®ÀÚ°¡ ºñÈ°¼ºÈ­µÉ ¶§µµ º¯°æ°ªÀ» ÀúÀåÇÑ´Ù.
+        // ì”¬ ì´ë™ ë“±ìœ¼ë¡œ UI ê´€ë¦¬ìê°€ ë¹„í™œì„±í™”ë  ë•Œë„ ë³€ê²½ê°’ì„ ì €ì¥í•œë‹¤.
         if (_isInitialized && _settings != null)
         {
             _settings.SaveSettings();
@@ -179,7 +198,7 @@ public sealed class AudioSettingsUI : MonoBehaviour
             return;
         }
 
-        // ³²¾Æ ÀÖ´Â ½½¶óÀÌ´õÀÇ ÀÌº¥Æ® ¿¬°áÀ» ÇØÁ¦ÇÑ´Ù.
+        // ë‚¨ì•„ ìˆëŠ” ìŠ¬ë¼ì´ë”ì˜ ì´ë²¤íŠ¸ ì—°ê²°ì„ í•´ì œí•œë‹¤.
         if (_bgmSlider != null)
         {
             _bgmSlider.onValueChanged.RemoveListener(HandleBgmChanged);
@@ -189,5 +208,14 @@ public sealed class AudioSettingsUI : MonoBehaviour
         {
             _sfxSlider.onValueChanged.RemoveListener(HandleSfxChanged);
         }
+    }
+
+    /// <summary>ì„¤ì • ì°½ì˜ ë‹«ê¸° ë²„íŠ¼ì—ì„œ ì €ì¥ê³¼ ë‹«ê¸° íš¨ê³¼ìŒì„ í•¨ê»˜ ì²˜ë¦¬í•©ë‹ˆë‹¤.</summary>
+    public void CloseFromButton()
+    {
+        // ì´ˆê¸°í™”ë‚˜ ë¹„í™œì„±í™” ì •ë¦¬ì—ì„œëŠ” íš¨ê³¼ìŒì„ ë‚´ì§€ ì•ŠëŠ”ë‹¤.
+        if (!_isInitialized || !_settingsCanvas.activeSelf) return;
+        GameAudio.Play(GameSound.UiWindowClose);
+        Close();
     }
 }

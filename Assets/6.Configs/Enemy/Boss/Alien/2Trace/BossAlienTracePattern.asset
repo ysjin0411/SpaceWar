@@ -17,12 +17,12 @@ MonoBehaviour:
     \uAE30\uB85D\uB41C \uC704\uCE58\uC5D0\uC11C \uBC97\uC5B4\uB098\uC2ED\uC2DC\uC624."
   _warningPrefab: {fileID: 6804048250050553609, guid: 9a2ba771da4dabb4189c2e321920be0b, type: 3}
   _clawPrefab: {fileID: 1427030137258137657, guid: 5b8be1a29b6b42b4bbc0452e634abce0, type: 3}
-  _recordCount: 30
-  _warningDuration: 0.3
-  _strikeInterval: 0.15
+  _recordCount: 16
+  _warningDuration: 0.5
+  _strikeInterval: 0.22
   _riseDuration: 0.08
   _peakDuration: 0.3
   _fadeDuration: 0.15
   _recoveryDuration: 0.6
   _radius: 1.2
-  _damage: 10
+  _damage: 12

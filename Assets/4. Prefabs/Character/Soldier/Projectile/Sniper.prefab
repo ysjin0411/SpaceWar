@@ -235,6 +235,7 @@ MonoBehaviour:
   _lifeTime: 5
   _damage: 0
   _hitEffectPrefab: {fileID: 8670412759217664541, guid: a99265ffa702d9c4c9c7e5cfce441666, type: 3}
+  _impactSound: 49
   _enemyLayerMask:
     serializedVersion: 2
     m_Bits: 256

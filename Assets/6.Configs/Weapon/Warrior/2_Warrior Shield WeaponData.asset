@@ -32,17 +32,22 @@ MonoBehaviour:
   _chargeRecoveryTime: 5
   _chargeRecoveryUpgradeValue: 0.5
   _minimumChargeRecoveryTime: 1
-  _shieldMaxHealth: 100
-  _shieldRecoveryPerSecond: 5
-  _shieldRepairAmount: 100
-  _shieldRecoveryUpgradeValue: 1
+  _shieldMaxHealth: 90
+  _shieldRecoveryPerSecond: 4
+  _shieldRepairAmount: 60
+  _shieldRecoveryUpgradeValue: 0.6
   _price: 0
   _requiredCharacterLevel: 1
   _isInitiallyOwned: 1
-  _fireRateUpgradeValue: 0.01
-  _minimumCooltime: 0.05
-  _info: "\uBC29\uD328\uB97C \uB4E4\uC5B4 \uC801\uC744 \uBC00\uC5B4\uB0B8\uB2E4."
-  _upgradeSelectionInfo: "Shield\uB97C \uAC15\uD654\uD55C\uB2E4."
-  _weaponMoveSpeed: 12
+  _fireRateUpgradeValue: 0.06
+  _minimumCooltime: 0.65
+  _info: "\uC804\uBC29 \uACF5\uACA9\uC744 \uB9C9\uB294 \uBC29\uD328. \uB0B4\uAD6C\uB3C4
+    90, \uCD08\uB2F9 \uB0B4\uAD6C\uB3C4 4 \uD68C\uBCF5."
+  _damageUpgradeSelectionInfo: "공격력 증강은 내구도를 60 회복합니다."
+  _fireRateUpgradeSelectionInfo: "연사 강화는 초당 내구도 회복량을 0.6 늘립니다."
+  _meleeFirstDamage: 30
+  _meleeSecondDamage: 30
+  _meleeThirdDamage: 30
+  _weaponMoveSpeed: 5.5
   _lazerHitsPerSecond: 10
   _lazerHitsPerSecondUpgrade: 1

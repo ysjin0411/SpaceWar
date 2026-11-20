@@ -1,59 +1,59 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// ¸ðµç ÇÃ·¹ÀÌ¾î Ä³¸¯ÅÍ°¡ °øÅëÀ¸·Î »ç¿ëÇÏ´Â ÄÁÆ®·Ñ·¯.
-/// ¸ðµç Ä³¸¯ÅÍ°¡ ÀÌ ½ºÅ©¸³Æ®¸¦ »ç¿ëÇÑ´Ù.
-/// Ä³¸¯ÅÍº° Ã¼·Â°ú ÀÌµ¿¼Óµµ´Â CharacterData¸¦ ÅëÇØ Àü´Þ¹Þ´Â´Ù.
-/// PlayerController - ÀÌµ¿, Ã¼·Â, ÇÇ°Ý
+/// ëª¨ë“  í”Œë ˆì´ì–´ ìºë¦­í„°ê°€ ê³µí†µìœ¼ë¡œ ì‚¬ìš©í•˜ëŠ” ì»¨íŠ¸ë¡¤ëŸ¬.
+/// ëª¨ë“  ìºë¦­í„°ê°€ ì´ ìŠ¤í¬ë¦½íŠ¸ë¥¼ ì‚¬ìš©í•œë‹¤.
+/// ìºë¦­í„°ë³„ ì²´ë ¥ê³¼ ì´ë™ì†ë„ëŠ” CharacterDataë¥¼ í†µí•´ ì „ë‹¬ë°›ëŠ”ë‹¤.
+/// PlayerController - ì´ë™, ì²´ë ¥, í”¼ê²©
 /// </summary>
 public class PlayerController : MonoBehaviour, IDamageable
 {
-    [Header("·±Å¸ÀÓ ÀÌµ¿ µ¥ÀÌÅÍ")]
-    [SerializeField] float _moveSpeed;      // Ä³¸¯ÅÍ ÀÌµ¿¼Óµµ
+    [Header("ëŸ°íƒ€ìž„ ì´ë™ ë°ì´í„°")]
+    [SerializeField] float _moveSpeed;      // ìºë¦­í„° ì´ë™ì†ë„
 
-    [Header("·±Å¸ÀÓ Ã¼·Â µ¥ÀÌÅÍ")]
-    [SerializeField] float _maxHp;            // ÃÖ´ë Ã¼·Â
-    [SerializeField] float _currentHp;        // ÇöÀç Ã¼·Â
+    [Header("ëŸ°íƒ€ìž„ ì²´ë ¥ ë°ì´í„°")]
+    [SerializeField] float _maxHp;            // ìµœëŒ€ ì²´ë ¥
+    [SerializeField] float _currentHp;        // í˜„ìž¬ ì²´ë ¥
 
     [Header("UI")]
     [SerializeField] HPUI _hpUI;
 
-    // Àâ±â¡¤´øÁö±âÃ³·³ ¿ÜºÎ ÄÚµå°¡ ÇÃ·¹ÀÌ¾î À§Ä¡¸¦ °ü¸®ÇÏ´Â µ¿¾È À¯ÁöÇÑ´Ù.
+    // ìž¡ê¸°Â·ë˜ì§€ê¸°ì²˜ëŸ¼ ì™¸ë¶€ ì½”ë“œê°€ í”Œë ˆì´ì–´ ìœ„ì¹˜ë¥¼ ê´€ë¦¬í•˜ëŠ” ë™ì•ˆ ìœ ì§€í•œë‹¤.
     private bool _hasForcedMovement;
 
-    // ÀÌµ¿ ±ÇÇÑÀ» ¾òÀº °´Ã¼¸¸ À§Ä¡ º¯°æ°ú ÇØÁ¦¸¦ ÇÒ ¼ö ÀÖ´Ù.
+    // ì´ë™ ê¶Œí•œì„ ì–»ì€ ê°ì²´ë§Œ ìœ„ì¹˜ ë³€ê²½ê³¼ í•´ì œë¥¼ í•  ìˆ˜ ìžˆë‹¤.
     private MonoBehaviour _forcedMovementOwner;
 
-    // ÇÇ°Ý ÈÄ ±ôºýÀÓÀÌ ³¡³¯ ¶§±îÁö Ãß°¡ ÇÇÇØ¸¦ ¸·´Â´Ù.
+    // í”¼ê²© í›„ ê¹œë¹¡ìž„ì´ ëë‚  ë•Œê¹Œì§€ ì¶”ê°€ í”¼í•´ë¥¼ ë§‰ëŠ”ë‹¤.
     private bool _isHitInvulnerable;
 
-    Vector2 _moveDirection;         // Update¿¡¼­ ÀÔ·Â¹Þ°í FixedUpdate¿¡¼­ »ç¿ëÇÒ ÀÌµ¿ ¹æÇâ
+    Vector2 _moveDirection;         // Updateì—ì„œ ìž…ë ¥ë°›ê³  FixedUpdateì—ì„œ ì‚¬ìš©í•  ì´ë™ ë°©í–¥
 
-    bool _canControl = true;        // ÀÌµ¿ °¡´É ¿©ºÎ
+    bool _canControl = true;        // ì´ë™ ê°€ëŠ¥ ì—¬ë¶€
 
-    // ÈíÀÎ µî ¿ÜºÎ È¿°ú°¡ Àü´ÞÇÑ ÀÌµ¿ ¼Óµµ¸¦ È¿°úº°·Î º¸°üÇÑ´Ù.
+    // í¡ì¸ ë“± ì™¸ë¶€ íš¨ê³¼ê°€ ì „ë‹¬í•œ ì´ë™ ì†ë„ë¥¼ íš¨ê³¼ë³„ë¡œ ë³´ê´€í•œë‹¤.
     readonly Dictionary<MonoBehaviour, Vector2> _externalVelocities =
         new Dictionary<MonoBehaviour, Vector2>();
 
     Rigidbody2D _rigidbody;
-    // ¹«±â¸¦ ¹Ù²ãµµ ´©Àû ÀÌµ¿¼Óµµ Áõ°­Àº À¯ÁöÇÑ´Ù.
+    // ë¬´ê¸°ë¥¼ ë°”ê¿”ë„ ëˆ„ì  ì´ë™ì†ë„ ì¦ê°•ì€ ìœ ì§€í•œë‹¤.
     float _moveSpeedBonus;
     Weapon _weapon;
-    // ¹«±â°¡ ¾øÀ¸¸é CharacterData¿¡¼­ ÀÐÀº ±âº» ¼Óµµ¸¦ »ç¿ëÇÑ´Ù.
+    // ë¬´ê¸°ê°€ ì—†ìœ¼ë©´ CharacterDataì—ì„œ ì½ì€ ê¸°ë³¸ ì†ë„ë¥¼ ì‚¬ìš©í•œë‹¤.
     public float CurrentMoveSpeed => Mathf.Max(0f,
         (_weapon != null && _weapon.CurrentWeapon != null
             ? _weapon.CurrentWeapon.Data.WeaponMoveSpeed : _moveSpeed) + _moveSpeedBonus);
 
 
-    // ÀÌµ¿ °¡´ÉÇÑ È­¸é ¿µ¿ª
+    // ì´ë™ ê°€ëŠ¥í•œ í™”ë©´ ì˜ì—­
     const float MinX = -8f;
     const float MaxX = 8f;
     const float MinY = -4f;
     const float MaxY = 4f;
 
-    // ÇÃ·¹ÀÌ¾î¿Í ÇÊµå ¾ÆÀÌÅÛÀÌ °øÀ¯ÇÏ´Â ¿ùµå ÀÌµ¿ ¹üÀ§´Ù.
+    // í”Œë ˆì´ì–´ì™€ í•„ë“œ ì•„ì´í…œì´ ê³µìœ í•˜ëŠ” ì›”ë“œ ì´ë™ ë²”ìœ„ë‹¤.
     public static Rect MovementBounds =>
         Rect.MinMaxRect(MinX, MinY, MaxX, MaxY);
 
@@ -61,86 +61,86 @@ public class PlayerController : MonoBehaviour, IDamageable
     public float MaxHp => _maxHp;
     public float CurrentHp => _currentHp;
 
-    // ±âº» Á¶ÀÛ Çã¿ë »óÅÂ¿Í °­Á¦ ÀÌµ¿ »óÅÂ¸¦ ÇÔ²² ¹Ý¿µÇÑ´Ù.
+    // ê¸°ë³¸ ì¡°ìž‘ í—ˆìš© ìƒíƒœì™€ ê°•ì œ ì´ë™ ìƒíƒœë¥¼ í•¨ê»˜ ë°˜ì˜í•œë‹¤.
     public bool CanControl =>
         _canControl && !_hasForcedMovement && !IsDead;
     public bool IsDead => _currentHp <= 0;
 
-    // Á¶ÀÛ °¡´ÉÇÑ »óÅÂ¿¡¼­ ÀÌµ¿ ¹æÇâÀÌ ÀÔ·ÂµÇ°í ÀÖ´ÂÁö ¾Ë·ÁÁØ´Ù.
+    // ì¡°ìž‘ ê°€ëŠ¥í•œ ìƒíƒœì—ì„œ ì´ë™ ë°©í–¥ì´ ìž…ë ¥ë˜ê³  ìžˆëŠ”ì§€ ì•Œë ¤ì¤€ë‹¤.
     public bool HasMoveInput =>
         CanControl && _moveDirection.sqrMagnitude > 0.001f;
-    public Transform TargetTransform => transform;  // Ä³¸¯ÅÍÀÇ À§Ä¡ Àü´Þ
+    public Transform TargetTransform => transform;  // ìºë¦­í„°ì˜ ìœ„ì¹˜ ì „ë‹¬
 
-    // Ä³¸¯ÅÍ°¡ µ¥¹ÌÁö ÀÔ¾úÀ»¶§ ÀÌº¥Æ®
+    // ìºë¦­í„°ê°€ ë°ë¯¸ì§€ ìž…ì—ˆì„ë•Œ ì´ë²¤íŠ¸
     public event Action<float> Damaged;
 
-    // Ä³¸¯ÅÍ°¡ »ç¸ÁÇßÀ» ¶§ ½ºÅ×ÀÌÁö ½Ã½ºÅÛ¿¡ ¾Ë¸°´Ù.
+    // ìºë¦­í„°ê°€ ì‚¬ë§í–ˆì„ ë•Œ ìŠ¤í…Œì´ì§€ ì‹œìŠ¤í…œì— ì•Œë¦°ë‹¤.
     public event Action Died;
 
-    // ÀÌµ¿ ¿¬Ãâ µîÀ¸·Î Á¶ÀÛ °¡´É »óÅÂ°¡ ¹Ù²î¸é ¹«±â¿¡µµ ¾Ë¸°´Ù.
+    // ì´ë™ ì—°ì¶œ ë“±ìœ¼ë¡œ ì¡°ìž‘ ê°€ëŠ¥ ìƒíƒœê°€ ë°”ë€Œë©´ ë¬´ê¸°ì—ë„ ì•Œë¦°ë‹¤.
     public event Action<bool> ControlStateChanged;
 
 
 
     /// <summary>
-    /// »ç¿ëÇÒ ÄÄÆ÷³ÍÆ®¿Í ÃÊ±â ÂüÁ¶¸¦ ÁØºñÇÑ´Ù.
+    /// ì‚¬ìš©í•  ì»´í¬ë„ŒíŠ¸ì™€ ì´ˆê¸° ì°¸ì¡°ë¥¼ ì¤€ë¹„í•œë‹¤.
     /// </summary>
     private void Awake()
     {
-        // Player ÇÁ¸®ÆÕ¿¡ ÀÖ´Â Rigidbody2D¸¦ °¡Á®¿Â´Ù.
+        // Player í”„ë¦¬íŒ¹ì— ìžˆëŠ” Rigidbody2Dë¥¼ ê°€ì ¸ì˜¨ë‹¤.
         _rigidbody = GetComponent<Rigidbody2D>();
         _weapon = GetComponent<Weapon>();
 
-        // Rigidbody2D°¡ ¾ø´Ù¸é ÇÃ·¹ÀÌ¾î¸¦ ÀÌµ¿½ÃÅ³ ¼ö ¾ø´Ù.
+        // Rigidbody2Dê°€ ì—†ë‹¤ë©´ í”Œë ˆì´ì–´ë¥¼ ì´ë™ì‹œí‚¬ ìˆ˜ ì—†ë‹¤.
         if (_rigidbody == null)
         {
-            throw new MissingComponentException($"{name}¿¡ Rigidbody2D°¡ ¾ø½À´Ï´Ù.");
+            throw new MissingComponentException($"{name}ì— Rigidbody2Dê°€ ì—†ìŠµë‹ˆë‹¤.");
         }
     }
 
     /// <summary>
-    /// ÃÊ±âÈ­µÈ µ¥ÀÌÅÍ¸¦ È­¸é°ú ½ÇÇà »óÅÂ¿¡ ¹Ý¿µÇÑ´Ù.
+    /// ì´ˆê¸°í™”ëœ ë°ì´í„°ë¥¼ í™”ë©´ê³¼ ì‹¤í–‰ ìƒíƒœì— ë°˜ì˜í•œë‹¤.
     /// </summary>
     private void Start()
     {
-        // HpUI ½ÃÀÛ ¾÷µ¥ÀÌÆ®
+        // HpUI ì‹œìž‘ ì—…ë°ì´íŠ¸
         UpdateHpUI();
     }
 
     /// <summary>
-    /// StageManager°¡ Ä³¸¯ÅÍ ÇÁ¸®ÆÕÀ» »ý¼ºÇÑ Á÷ÈÄ È£Ãâ
-    /// ¼±ÅÃÇÑ CharacterDataÀÇ ±âº» ´É·ÂÄ¡¸¦ ½ÇÁ¦ ÀüÅõ¿ë ·±Å¸ÀÓ °ªÀ¸·Î º¹»çÇÑ´Ù.
+    /// StageManagerê°€ ìºë¦­í„° í”„ë¦¬íŒ¹ì„ ìƒì„±í•œ ì§í›„ í˜¸ì¶œ
+    /// ì„ íƒí•œ CharacterDataì˜ ê¸°ë³¸ ëŠ¥ë ¥ì¹˜ë¥¼ ì‹¤ì œ ì „íˆ¬ìš© ëŸ°íƒ€ìž„ ê°’ìœ¼ë¡œ ë³µì‚¬í•œë‹¤.
     /// </summary>
-    /// <param name="characterData">¼±ÅÃÇÑ Ä³¸¯ÅÍ ¿øº» µ¥ÀÌÅÍ</param><param name="hpUI">Stage¿¡ Á¸ÀçÇÏ´Â Ã¼·Â UI</param>
+    /// <param name="characterData">ì„ íƒí•œ ìºë¦­í„° ì›ë³¸ ë°ì´í„°</param><param name="hpUI">Stageì— ì¡´ìž¬í•˜ëŠ” ì²´ë ¥ UI</param>
     public void Initialize(CharacterData characterData, HPUI hpUI)
     {
-        // Ä³¸¯ÅÍ µ¥ÀÌÅÍ ¾øÀ½
+        // ìºë¦­í„° ë°ì´í„° ì—†ìŒ
         if (characterData == null)
         {
             throw new ArgumentNullException(nameof(characterData));
         }
 
-        // Ä³¸¯ÅÍ ÃÊ±âÈ­ ½Ã ÀÌÀü ÇÇ°Ý ¹«Àû »óÅÂ¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+        // ìºë¦­í„° ì´ˆê¸°í™” ì‹œ ì´ì „ í”¼ê²© ë¬´ì  ìƒíƒœë¥¼ ì´ˆê¸°í™”í•œë‹¤.
         _isHitInvulnerable = false;
 
-        // Ä³¸¯ÅÍ ¿øº» µ¥ÀÌÅÍ¿¡¼­ ±âº» ´É·ÂÄ¡¸¦ °¡Á®¿Â´Ù.
+        // ìºë¦­í„° ì›ë³¸ ë°ì´í„°ì—ì„œ ê¸°ë³¸ ëŠ¥ë ¥ì¹˜ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
         _maxHp = characterData.BaseHp;
         _currentHp = _maxHp;
         _moveSpeed = characterData.BaseMoveSpeed;
         _moveSpeedBonus = 0f;
 
-        // ÇÁ¸®ÆÕÀÌ Á÷Á¢ ÂüÁ¶ÇÒ ¼ö ¾ø´Â StageÀÇ UI¸¦ Àü´Þ¹Þ´Â´Ù.
+        // í”„ë¦¬íŒ¹ì´ ì§ì ‘ ì°¸ì¡°í•  ìˆ˜ ì—†ëŠ” Stageì˜ UIë¥¼ ì „ë‹¬ë°›ëŠ”ë‹¤.
         _hpUI = hpUI;
 
         UpdateHpUI();
     }
 
     /// <summary>
-    /// ¸Å ÇÁ·¹ÀÓ ÀÔ·Â°ú °æ°ú ½Ã°£¿¡ µû¸¥ »óÅÂ¸¦ °»½ÅÇÑ´Ù.
+    /// ë§¤ í”„ë ˆìž„ ìž…ë ¥ê³¼ ê²½ê³¼ ì‹œê°„ì— ë”°ë¥¸ ìƒíƒœë¥¼ ê°±ì‹ í•œë‹¤.
     /// </summary>
     private void Update()
     {
-        // ÀÌµ¿À» ¸ÃÀº °´Ã¼°¡ »ç¶óÁö°Å³ª ºñÈ°¼ºÈ­µÇ¸é Àá±ÝÀ» Á¤¸®ÇÑ´Ù.
+        // ì´ë™ì„ ë§¡ì€ ê°ì²´ê°€ ì‚¬ë¼ì§€ê±°ë‚˜ ë¹„í™œì„±í™”ë˜ë©´ ìž ê¸ˆì„ ì •ë¦¬í•œë‹¤.
         if (_hasForcedMovement &&
             (_forcedMovementOwner == null ||
              !_forcedMovementOwner.isActiveAndEnabled))
@@ -148,37 +148,37 @@ public class PlayerController : MonoBehaviour, IDamageable
             ReleaseForcedMovement();
         }
 
-        // °­Á¦ ÀÌµ¿ Áß¿¡´Â »õ ÀÌµ¿ ÀÔ·ÂÀ» ¹ÞÁö ¾Ê´Â´Ù.
+        // ê°•ì œ ì´ë™ ì¤‘ì—ëŠ” ìƒˆ ì´ë™ ìž…ë ¥ì„ ë°›ì§€ ì•ŠëŠ”ë‹¤.
         if (!CanControl)
         {
             _moveDirection = Vector2.zero;
             return;
         }
 
-        // ¹æÇâÅ° ÀÔ·Â ¹Þ±â
+        // ë°©í–¥í‚¤ ìž…ë ¥ ë°›ê¸°
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
 
-        // ´ë°¢¼± ÀÌµ¿ÀÌ ´õ »¡¶óÁöÁö ¾Êµµ·Ï ¹æÇâ º¤ÅÍ¸¦ Á¤±ÔÈ­ÇÑ´Ù.
+        // ëŒ€ê°ì„  ì´ë™ì´ ë” ë¹¨ë¼ì§€ì§€ ì•Šë„ë¡ ë°©í–¥ ë²¡í„°ë¥¼ ì •ê·œí™”í•œë‹¤.
         _moveDirection = new Vector2(horizontal, vertical).normalized;
     }
 
     /// <summary>
-    /// FixedUpdate Ã³¸®¿¡¼­ º¯°æµÈ ÀüÅõ ¼öÄ¡¿Í »óÅÂ¸¦ ¹Ý¿µÇÑ´Ù.
+    /// FixedUpdate ì²˜ë¦¬ì—ì„œ ë³€ê²½ëœ ì „íˆ¬ ìˆ˜ì¹˜ì™€ ìƒíƒœë¥¼ ë°˜ì˜í•œë‹¤.
     /// </summary>
     private void FixedUpdate()
     {
-        // °­Á¦ ÀÌµ¿ Áß¿¡´Â ÀÏ¹Ý ÀÌµ¿°ú È­¸é °æ°è º¸Á¤À» Àû¿ëÇÏÁö ¾Ê´Â´Ù.
+        // ê°•ì œ ì´ë™ ì¤‘ì—ëŠ” ì¼ë°˜ ì´ë™ê³¼ í™”ë©´ ê²½ê³„ ë³´ì •ì„ ì ìš©í•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (!CanControl)
         {
             _rigidbody.linearVelocity = Vector2.zero;
             return;
         }
 
-        // ÇÃ·¹ÀÌ¾î°¡ Á÷Á¢ ÀÔ·ÂÇÑ ÀÌµ¿ ¼Óµµ´Ù.
+        // í”Œë ˆì´ì–´ê°€ ì§ì ‘ ìž…ë ¥í•œ ì´ë™ ì†ë„ë‹¤.
         Vector2 velocity = _moveDirection * CurrentMoveSpeed;
 
-        // È°¼º »óÅÂÀÎ ¿ÜºÎ È¿°úÀÇ ÀÌµ¿ ¼Óµµ¸¦ ÇÕ»êÇÑ´Ù.
+        // í™œì„± ìƒíƒœì¸ ì™¸ë¶€ íš¨ê³¼ì˜ ì´ë™ ì†ë„ë¥¼ í•©ì‚°í•œë‹¤.
         foreach (KeyValuePair<MonoBehaviour, Vector2> entry
                  in _externalVelocities)
         {
@@ -190,7 +190,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
         _rigidbody.linearVelocity = velocity;
 
-        // ±âÁ¸ È­¸é °æ°è Á¦ÇÑÀ» À¯ÁöÇÑ´Ù.
+        // ê¸°ì¡´ í™”ë©´ ê²½ê³„ ì œí•œì„ ìœ ì§€í•œë‹¤.
         Vector2 clampedPosition = _rigidbody.position;
         clampedPosition.x = Mathf.Clamp(clampedPosition.x, MinX, MaxX);
         clampedPosition.y = Mathf.Clamp(clampedPosition.y, MinY, MaxY);
@@ -198,8 +198,8 @@ public class PlayerController : MonoBehaviour, IDamageable
     }
 
     /// <summary>
-    /// ¿ÜºÎ È¿°ú°¡ ÀÌ¹ø ¹°¸® ÇÁ·¹ÀÓ¿¡ Àû¿ëÇÒ ÀÌµ¿ ¼Óµµ¸¦ Àü´ÞÇÑ´Ù.
-    /// °°Àº È¿°ú´Â ±âÁ¸ °ªÀ» °»½ÅÇÏ¹Ç·Î °è¼Ó ´©ÀûµÇÁö ¾Ê´Â´Ù.
+    /// ì™¸ë¶€ íš¨ê³¼ê°€ ì´ë²ˆ ë¬¼ë¦¬ í”„ë ˆìž„ì— ì ìš©í•  ì´ë™ ì†ë„ë¥¼ ì „ë‹¬í•œë‹¤.
+    /// ê°™ì€ íš¨ê³¼ëŠ” ê¸°ì¡´ ê°’ì„ ê°±ì‹ í•˜ë¯€ë¡œ ê³„ì† ëˆ„ì ë˜ì§€ ì•ŠëŠ”ë‹¤.
     /// </summary>
     public void SetExternalVelocity(MonoBehaviour source, Vector2 velocity)
     {
@@ -212,7 +212,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     }
 
     /// <summary>
-    /// Á¾·áµÇ°Å³ª ¹üÀ§¸¦ ¹þ¾î³­ ¿ÜºÎ È¿°úÀÇ ÀÌµ¿ ¼Óµµ¸¦ Á¦°ÅÇÑ´Ù.
+    /// ì¢…ë£Œë˜ê±°ë‚˜ ë²”ìœ„ë¥¼ ë²—ì–´ë‚œ ì™¸ë¶€ íš¨ê³¼ì˜ ì´ë™ ì†ë„ë¥¼ ì œê±°í•œë‹¤.
     /// </summary>
     public void RemoveExternalVelocity(MonoBehaviour source)
     {
@@ -222,9 +222,9 @@ public class PlayerController : MonoBehaviour, IDamageable
         }
     }
 
-    // ÀÔÀå¡¤±¸°£ ÀüÈ¯ µî ±âÁ¸ ½Ã½ºÅÛÀÇ Á¶ÀÛ Çã¿ë »óÅÂ¸¦ º¯°æÇÑ´Ù.
+    // ìž…ìž¥Â·êµ¬ê°„ ì „í™˜ ë“± ê¸°ì¡´ ì‹œìŠ¤í…œì˜ ì¡°ìž‘ í—ˆìš© ìƒíƒœë¥¼ ë³€ê²½í•œë‹¤.
     /// <summary>
-    /// ÀÔÀå¡¤±¸°£ ÀüÈ¯ µî ±âÁ¸ ½Ã½ºÅÛÀÇ Á¶ÀÛ Çã¿ë »óÅÂ¸¦ º¯°æÇÑ´Ù.
+    /// ìž…ìž¥Â·êµ¬ê°„ ì „í™˜ ë“± ê¸°ì¡´ ì‹œìŠ¤í…œì˜ ì¡°ìž‘ í—ˆìš© ìƒíƒœë¥¼ ë³€ê²½í•œë‹¤.
     /// </summary>
     public void SetControlEnabled(bool canControl)
     {
@@ -232,9 +232,9 @@ public class PlayerController : MonoBehaviour, IDamageable
         NotifyControlState();
     }
 
-    // ÃÖÁ¾ Á¶ÀÛ °¡´É »óÅÂ¸¦ ¹«±â¿¡µµ Àü´ÞÇÑ´Ù.
+    // ìµœì¢… ì¡°ìž‘ ê°€ëŠ¥ ìƒíƒœë¥¼ ë¬´ê¸°ì—ë„ ì „ë‹¬í•œë‹¤.
     /// <summary>
-    /// ÃÖÁ¾ Á¶ÀÛ °¡´É »óÅÂ¸¦ ¹«±â¿¡µµ Àü´ÞÇÑ´Ù.
+    /// ìµœì¢… ì¡°ìž‘ ê°€ëŠ¥ ìƒíƒœë¥¼ ë¬´ê¸°ì—ë„ ì „ë‹¬í•œë‹¤.
     /// </summary>
     private void NotifyControlState()
     {
@@ -251,52 +251,74 @@ public class PlayerController : MonoBehaviour, IDamageable
         }
     }
 
-    // ÀÏ¹Ý ÃÑ¾Ë¡¤¸ö¹Ú µîÀÇ ÇÇÇØ¸¦ Ã³¸®ÇÑ´Ù.
-    // Àâ±â¡¤´øÁö±â¡¤¹Ý»ç ÀÌµ¿ Áß¿¡´Â CanControlÀÌ falseÀÌ¹Ç·Î Â÷´ÜÇÑ´Ù.
+    // ì¼ë°˜ ì´ì•ŒÂ·ëª¸ë°• ë“±ì˜ í”¼í•´ë¥¼ ì²˜ë¦¬í•œë‹¤.
+    // ìž¡ê¸°Â·ë˜ì§€ê¸°Â·ë°˜ì‚¬ ì´ë™ ì¤‘ì—ëŠ” CanControlì´ falseì´ë¯€ë¡œ ì°¨ë‹¨í•œë‹¤.
     /// <summary>
-    /// ¼Ò¼öÁ¡ ÇÇÇØ¸¦ ¹Ý¿µÇÏ°í ÇÇ°Ý ¹× »ç¸Á Ã³¸®¸¦ ½ÇÇàÇÑ´Ù.
+    /// ì†Œìˆ˜ì  í”¼í•´ë¥¼ ë°˜ì˜í•˜ê³  í”¼ê²© ë° ì‚¬ë§ ì²˜ë¦¬ë¥¼ ì‹¤í–‰í•œë‹¤.
     /// </summary>
     public void TakeHit(float damage)
     {
-        // ¼Ò¼öÁ¡ ÇÇÇØ¸¦ ¹Ý¿µÇÏ°í ÇÇ°Ý ¹× »ç¸Á Ã³¸®¸¦ ½ÇÇàÇÑ´Ù.
+        // ê¸°ì¡´ IDamageable í˜¸ì¶œì€ ì¼ë°˜ í”¼ê²© ì—°ì¶œì„ ì‚¬ìš©í•œë‹¤.
+        TakeHit(damage, false);
+    }
+
+    /// <summary>ê¸°ì¡´ í”¼ê²© ë¬´ì  ê·œì¹™ì„ ìœ ì§€í•˜ë©° ë°˜ë³µ ê³µê²©ì˜ í™”ë©´ ë°˜ì‘ë§Œ ì•½í•˜ê²Œ ì§€ì •í•œë‹¤.</summary>
+    public void TakeHit(float damage, bool continuousFeedback)
+    {
+        // ì†Œìˆ˜ì  í”¼í•´ë¥¼ ë°˜ì˜í•˜ê³  í”¼ê²© ë° ì‚¬ë§ ì²˜ë¦¬ë¥¼ ì‹¤í–‰í•œë‹¤.
         if (!CanControl || _isHitInvulnerable || damage <= 0)
         {
             return;
         }
 
-        ApplyDamage(damage, true);
+        ApplyDamage(damage, true, continuousFeedback);
     }
 
-    // Áö¼Ó ÇÇÇØµµ Á¶ÀÛÀÌ º¹±¸µÇ±â Àü±îÁö Â÷´ÜÇÑ´Ù.
-    // Á¶ÀÛ °¡´É »óÅÂ¿¡¼­´Â ±âÁ¸Ã³·³ ÀÏ¹Ý ÇÇ°Ý ¹«ÀûÀ» ¹«½ÃÇÑ´Ù.
+    // ì§€ì† í”¼í•´ë„ ì¡°ìž‘ì´ ë³µêµ¬ë˜ê¸° ì „ê¹Œì§€ ì°¨ë‹¨í•œë‹¤.
+    // ì¡°ìž‘ ê°€ëŠ¥ ìƒíƒœì—ì„œëŠ” ê¸°ì¡´ì²˜ëŸ¼ ì¼ë°˜ í”¼ê²© ë¬´ì ì„ ë¬´ì‹œí•œë‹¤.
     /// <summary>
-    /// Á¶ÀÛ °¡´É »óÅÂ¿¡¼­´Â ±âÁ¸Ã³·³ ÀÏ¹Ý ÇÇ°Ý ¹«ÀûÀ» ¹«½ÃÇÑ´Ù.
+    /// ì¡°ìž‘ ê°€ëŠ¥ ìƒíƒœì—ì„œëŠ” ê¸°ì¡´ì²˜ëŸ¼ ì¼ë°˜ í”¼ê²© ë¬´ì ì„ ë¬´ì‹œí•œë‹¤.
     /// </summary>
     public void TakeContinuousDamage(float damage)
     {
-        // Á¶ÀÛ °¡´É »óÅÂ¿¡¼­´Â ±âÁ¸Ã³·³ ÀÏ¹Ý ÇÇ°Ý ¹«ÀûÀ» ¹«½ÃÇÑ´Ù.
+        // ì¡°ìž‘ ê°€ëŠ¥ ìƒíƒœì—ì„œëŠ” ê¸°ì¡´ì²˜ëŸ¼ ì¼ë°˜ í”¼ê²© ë¬´ì ì„ ë¬´ì‹œí•œë‹¤.
         if (!CanControl || damage <= 0)
         {
             return;
         }
 
-        ApplyDamage(damage, false);
+        ApplyDamage(damage, false, true);
     }
 
-    // ÀÏ¹Ý ÇÇÇØ¿Í Áö¼Ó ÇÇÇØÀÇ Ã¼·Â °¨¼Ò, UI °»½Å, »ç¸Á Ã³¸®¸¦ °øÀ¯ÇÑ´Ù.
+    // ì¼ë°˜ í”¼í•´ì™€ ì§€ì† í”¼í•´ì˜ ì²´ë ¥ ê°ì†Œ, UI ê°±ì‹ , ì‚¬ë§ ì²˜ë¦¬ë¥¼ ê³µìœ í•œë‹¤.
     /// <summary>
-    /// ÀÏ¹Ý ÇÇÇØ¿Í Áö¼Ó ÇÇÇØÀÇ Ã¼·Â °¨¼Ò, UI °»½Å, »ç¸Á Ã³¸®¸¦ °øÀ¯ÇÑ´Ù.
+    /// ì¼ë°˜ í”¼í•´ì™€ ì§€ì† í”¼í•´ì˜ ì²´ë ¥ ê°ì†Œ, UI ê°±ì‹ , ì‚¬ë§ ì²˜ë¦¬ë¥¼ ê³µìœ í•œë‹¤.
     /// </summary>
-    private void ApplyDamage(float damage, bool playHitReaction)
+    private void ApplyDamage(float damage, bool playHitReaction, bool continuousFeedback = false)
     {
-        // Ã¼·ÂÀÌ À½¼ö°¡ µÇÁö ¾Êµµ·Ï Á¦ÇÑÇÑ´Ù.
+        // ì²´ë ¥ì´ ìŒìˆ˜ê°€ ë˜ì§€ ì•Šë„ë¡ ì œí•œí•œë‹¤.
+        float previousHp = _currentHp;
         _currentHp = Mathf.Max(0, _currentHp - damage);
 
-        // ÀÏ¹Ý ÇÇÇØ¸¦ ¹Þ°í »ì¾Æ³²¾ÒÀ» ¶§¸¸ ÇÇ°Ý ¾Ö´Ï¸ÞÀÌ¼ÇÀ» ¿äÃ»ÇÑ´Ù.
-        // Áö¼Ó ÇÇÇØ¸¶´Ù ¾Ö´Ï¸ÞÀÌ¼ÇÀ» ´Ù½Ã ½ÃÀÛÇÏÁö ¾Êµµ·Ï ±¸ºÐÇÑ´Ù.
+        // ë¬´ì Â·ì¡°ìž‘ ì œí•œì„ í†µê³¼í•´ ì‹¤ì œ ì²´ë ¥ì´ ì¤„ì–´ë“  í”¼í•´ë§Œ ì¹´ë©”ë¼ì— ì „ë‹¬í•œë‹¤.
+        // ë§ˆì§€ë§‰ íƒ€ê²©ë„ ì›ëž˜ í”¼í•´ëŸ‰ìœ¼ë¡œ ë¹„êµí•´ ë‚¨ì€ ì²´ë ¥ì— ë”°ë¼ ë¶„ë¥˜ê°€ ë°”ë€Œì§€ ì•ŠëŠ”ë‹¤.
+        if (_currentHp < previousHp)
+        {
+            Camera mainCamera = Camera.main;
+            if (mainCamera != null)
+            {
+                CameraController controller = mainCamera.GetComponent<CameraController>();
+                if (controller != null) controller.CameraShake(damage, continuousFeedback);
+            }
+            // ë°˜ë³µ í”¼ê²©ìŒì˜ ìµœì†Œ ê°„ê²©ì€ ì˜¤ë””ì˜¤ ì¹´íƒˆë¡œê·¸ì—ì„œ ì œí•œí•œë‹¤.
+            if (_currentHp > 0) GameAudio.Play(GameSound.PlayerHurt);
+        }
+
+        // ì¼ë°˜ í”¼í•´ë¥¼ ë°›ê³  ì‚´ì•„ë‚¨ì•˜ì„ ë•Œë§Œ í”¼ê²© ì• ë‹ˆë©”ì´ì…˜ì„ ìš”ì²­í•œë‹¤.
+        // ì§€ì† í”¼í•´ë§ˆë‹¤ ì• ë‹ˆë©”ì´ì…˜ì„ ë‹¤ì‹œ ì‹œìž‘í•˜ì§€ ì•Šë„ë¡ êµ¬ë¶„í•œë‹¤.
         if (_currentHp > 0 && playHitReaction)
         {
-            // ÀÌº¥Æ® Ã³¸® Áß ´Ù¸¥ °ø°ÝÀÌ µé¾î¿Íµµ Áßº¹ ÇÇ°ÝÀ» ¸·´Â´Ù.
+            // ì´ë²¤íŠ¸ ì²˜ë¦¬ ì¤‘ ë‹¤ë¥¸ ê³µê²©ì´ ë“¤ì–´ì™€ë„ ì¤‘ë³µ í”¼ê²©ì„ ë§‰ëŠ”ë‹¤.
             _isHitInvulnerable = true;
 
             if (Damaged != null)
@@ -305,19 +327,19 @@ public class PlayerController : MonoBehaviour, IDamageable
             }
         }
 
-        // µÎ Á¾·ùÀÇ ÇÇÇØ ¸ðµÎ ±âÁ¸ Ã¼·Â UI¿¡ ¹Ý¿µÇÑ´Ù.
+        // ë‘ ì¢…ë¥˜ì˜ í”¼í•´ ëª¨ë‘ ê¸°ì¡´ ì²´ë ¥ UIì— ë°˜ì˜í•œë‹¤.
         UpdateHpUI();
 
-        // Áö¼Ó ÇÇÇØ·Î Ã¼·ÂÀÌ ¼ÒÁøµÇ¾îµµ ±âÁ¸ »ç¸Á Ã³¸®¸¦ ½ÇÇàÇÑ´Ù.
+        // ì§€ì† í”¼í•´ë¡œ ì²´ë ¥ì´ ì†Œì§„ë˜ì–´ë„ ê¸°ì¡´ ì‚¬ë§ ì²˜ë¦¬ë¥¼ ì‹¤í–‰í•œë‹¤.
         if (_currentHp <= 0)
         {
             Die();
         }
     }
 
-    // ±ôºýÀÓ »óÅÂ°¡ ³¡³ª¸é ´Ù½Ã ÇÇÇØ¸¦ ¹ÞÀ» ¼ö ÀÖ°Ô ÇÑ´Ù.
+    // ê¹œë¹¡ìž„ ìƒíƒœê°€ ëë‚˜ë©´ ë‹¤ì‹œ í”¼í•´ë¥¼ ë°›ì„ ìˆ˜ ìžˆê²Œ í•œë‹¤.
     /// <summary>
-    /// ±ôºýÀÓ »óÅÂ°¡ ³¡³ª¸é ´Ù½Ã ÇÇÇØ¸¦ ¹ÞÀ» ¼ö ÀÖ°Ô ÇÑ´Ù.
+    /// ê¹œë¹¡ìž„ ìƒíƒœê°€ ëë‚˜ë©´ ë‹¤ì‹œ í”¼í•´ë¥¼ ë°›ì„ ìˆ˜ ìžˆê²Œ í•œë‹¤.
     /// </summary>
     public void EndHitInvulnerability()
     {
@@ -325,7 +347,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     }
 
     /// <summary>
-    /// ÇöÀç Ã¼·Â »óÅÂ¸¦ HP UI¿¡ ¹Ý¿µÇÑ´Ù.
+    /// í˜„ìž¬ ì²´ë ¥ ìƒíƒœë¥¼ HP UIì— ë°˜ì˜í•œë‹¤.
     /// </summary>
     private void UpdateHpUI()
     {
@@ -338,23 +360,24 @@ public class PlayerController : MonoBehaviour, IDamageable
     }
 
     /// <summary>
-    /// ÇÃ·¹ÀÌ¾î Á¶ÀÛÀ» Àá±×°í »ç¸Á »ç½ÇÀ» ½ºÅ×ÀÌÁö ½Ã½ºÅÛ¿¡ Àü´ÞÇÑ´Ù.
+    /// í”Œë ˆì´ì–´ ì¡°ìž‘ì„ ìž ê·¸ê³  ì‚¬ë§ ì‚¬ì‹¤ì„ ìŠ¤í…Œì´ì§€ ì‹œìŠ¤í…œì— ì „ë‹¬í•œë‹¤.
     /// </summary>
     private void Die()
     {
-        // ÀÔ·Â°ú ÇöÀç ÀÌµ¿ ¼Óµµ¸¦ ÇÔ²² ÃÊ±âÈ­ÇÑ´Ù.
+        GameAudio.Play(GameSound.PlayerDeath); // ê²°ê³¼ ì¼ì‹œì •ì§€ì—ë„ ëê¹Œì§€ ìž¬ìƒ.
+        // ìž…ë ¥ê³¼ í˜„ìž¬ ì´ë™ ì†ë„ë¥¼ í•¨ê»˜ ì´ˆê¸°í™”í•œë‹¤.
         SetControlEnabled(false);
 
-        // »ç¸Á ÈÄ¿¡´Â Àâ±â¡¤´øÁö±âÀÇ ÀÌµ¿ ±ÇÇÑµµ ³²±âÁö ¾Ê´Â´Ù.
+        // ì‚¬ë§ í›„ì—ëŠ” ìž¡ê¸°Â·ë˜ì§€ê¸°ì˜ ì´ë™ ê¶Œí•œë„ ë‚¨ê¸°ì§€ ì•ŠëŠ”ë‹¤.
         ReleaseForcedMovement();
 
-        // »ç¸Á ÈÄ¿¡´Â ÈíÀÎ µî ¿ÜºÎ ÀÌµ¿ È¿°úµµ À¯ÁöÇÏÁö ¾Ê´Â´Ù.
+        // ì‚¬ë§ í›„ì—ëŠ” í¡ì¸ ë“± ì™¸ë¶€ ì´ë™ íš¨ê³¼ë„ ìœ ì§€í•˜ì§€ ì•ŠëŠ”ë‹¤.
         _externalVelocities.Clear();
 
-        // »ç¸ÁÇÑ ¼ø°£ ÀüÅõ¸¦ Á¤ÁöÇÑ´Ù.
+        // ì‚¬ë§í•œ ìˆœê°„ ì „íˆ¬ë¥¼ ì •ì§€í•œë‹¤.
         Time.timeScale = 0f;
 
-        // °á°úÃ¢À» Á÷Á¢ ÂüÁ¶ÇÏÁö ¾Ê°í »ç¸Á »ç½Ç¸¸ ¾Ë¸°´Ù.
+        // ê²°ê³¼ì°½ì„ ì§ì ‘ ì°¸ì¡°í•˜ì§€ ì•Šê³  ì‚¬ë§ ì‚¬ì‹¤ë§Œ ì•Œë¦°ë‹¤.
         if (Died != null)
         {
             Died.Invoke();
@@ -362,18 +385,18 @@ public class PlayerController : MonoBehaviour, IDamageable
     }
 
     /// <summary>
-    /// ÀüÅõ Áß ÀÌµ¿¼Óµµ Áõ°­À» Àû¿ëÇÑ´Ù.
-    /// </summary><param name="value">Ãß°¡ÇÒ ÀÌµ¿¼Óµµ</param>
+    /// ì „íˆ¬ ì¤‘ ì´ë™ì†ë„ ì¦ê°•ì„ ì ìš©í•œë‹¤.
+    /// </summary><param name="value">ì¶”ê°€í•  ì´ë™ì†ë„</param>
     public void AddMoveSpeed(float value)
     {
-        // ¹«±âÀÇ ±âº»°ªÀ» º¯°æÇÏÁö ¾Ê°í Áõ°­ºÐ¸¸ ´©ÀûÇÑ´Ù.
+        // ë¬´ê¸°ì˜ ê¸°ë³¸ê°’ì„ ë³€ê²½í•˜ì§€ ì•Šê³  ì¦ê°•ë¶„ë§Œ ëˆ„ì í•œë‹¤.
         _moveSpeedBonus += value;
     }
 
     /// <summary>
-    /// ÃÖ´ëÃ¼·ÂÀ» Áõ°¡½ÃÅ°°í ÇöÀç Ã¼·ÂÀ» »õ·Î¿î ÃÖ´ëÃ¼·Â±îÁö È¸º¹ÇÑ´Ù.
+    /// ìµœëŒ€ì²´ë ¥ì„ ì¦ê°€ì‹œí‚¤ê³  í˜„ìž¬ ì²´ë ¥ì„ ìƒˆë¡œìš´ ìµœëŒ€ì²´ë ¥ê¹Œì§€ íšŒë³µí•œë‹¤.
     /// </summary>
-    /// <param name="amount">Áõ°¡ÇÒ ÃÖ´ëÃ¼·Â</param>
+    /// <param name="amount">ì¦ê°€í•  ìµœëŒ€ì²´ë ¥</param>
     public void IncreaseMaxHpAndFullHeal(float amount)
     {
         if (amount <= 0)
@@ -381,19 +404,19 @@ public class PlayerController : MonoBehaviour, IDamageable
             return;
         }
 
-        // ÃÖ´ëÃ¼·ÂÀ» ¸ÕÀú Áõ°¡½ÃÅ²´Ù.
+        // ìµœëŒ€ì²´ë ¥ì„ ë¨¼ì € ì¦ê°€ì‹œí‚¨ë‹¤.
         _maxHp += amount;
 
-        // Áõ°¡µÈ ÃÖ´ëÃ¼·Â±îÁö ÇöÀç Ã¼·ÂÀ» ¿ÏÀüÈ÷ È¸º¹ÇÑ´Ù.
+        // ì¦ê°€ëœ ìµœëŒ€ì²´ë ¥ê¹Œì§€ í˜„ìž¬ ì²´ë ¥ì„ ì™„ì „ížˆ íšŒë³µí•œë‹¤.
         _currentHp = _maxHp;
 
-        // º¯°æµÈ ÇöÀçÃ¼·Â°ú ÃÖ´ëÃ¼·ÂÀ» Áï½Ã È­¸é¿¡ ¹Ý¿µÇÑ´Ù.
+        // ë³€ê²½ëœ í˜„ìž¬ì²´ë ¥ê³¼ ìµœëŒ€ì²´ë ¥ì„ ì¦‰ì‹œ í™”ë©´ì— ë°˜ì˜í•œë‹¤.
         UpdateHpUI();
     }
 
-    // Àâ±â¿¡ ¼º°øÇÑ °´Ã¼°¡ ÇÃ·¹ÀÌ¾îÀÇ ÀÌµ¿ ±ÇÇÑÀ» ¿äÃ»ÇÑ´Ù.
+    // ìž¡ê¸°ì— ì„±ê³µí•œ ê°ì²´ê°€ í”Œë ˆì´ì–´ì˜ ì´ë™ ê¶Œí•œì„ ìš”ì²­í•œë‹¤.
     /// <summary>
-    /// Àâ±â¿¡ ¼º°øÇÑ °´Ã¼°¡ ÇÃ·¹ÀÌ¾îÀÇ ÀÌµ¿ ±ÇÇÑÀ» ¿äÃ»ÇÑ´Ù.
+    /// ìž¡ê¸°ì— ì„±ê³µí•œ ê°ì²´ê°€ í”Œë ˆì´ì–´ì˜ ì´ë™ ê¶Œí•œì„ ìš”ì²­í•œë‹¤.
     /// </summary>
     public bool TryBeginForcedMovement(MonoBehaviour owner)
     {
@@ -402,7 +425,7 @@ public class PlayerController : MonoBehaviour, IDamageable
             throw new ArgumentNullException(nameof(owner));
         }
 
-        // ´Ù¸¥ ¿¬Ãâ¡¤Àâ±â¡¤»ç¸Á »óÅÂ¿¡¼­´Â »õ ÀÌµ¿ ±ÇÇÑÀ» ÁÖÁö ¾Ê´Â´Ù.
+        // ë‹¤ë¥¸ ì—°ì¶œÂ·ìž¡ê¸°Â·ì‚¬ë§ ìƒíƒœì—ì„œëŠ” ìƒˆ ì´ë™ ê¶Œí•œì„ ì£¼ì§€ ì•ŠëŠ”ë‹¤.
         if (!isActiveAndEnabled ||
             !owner.isActiveAndEnabled ||
             !CanControl)
@@ -413,14 +436,14 @@ public class PlayerController : MonoBehaviour, IDamageable
         _forcedMovementOwner = owner;
         _hasForcedMovement = true;
 
-        // ÀÌµ¿ ÀÔ·Â°ú ÁøÇà ÁßÀÎ ¹«±â °ø°ÝÀ» Áß´ÜÇÑ´Ù.
+        // ì´ë™ ìž…ë ¥ê³¼ ì§„í–‰ ì¤‘ì¸ ë¬´ê¸° ê³µê²©ì„ ì¤‘ë‹¨í•œë‹¤.
         NotifyControlState();
         return true;
     }
 
-    // ±ÇÇÑÀ» °¡Áø °´Ã¼¸¸ Àâ±â¡¤´øÁö±âÀÇ ¿ùµå À§Ä¡¸¦ Àü´ÞÇÒ ¼ö ÀÖ´Ù.
+    // ê¶Œí•œì„ ê°€ì§„ ê°ì²´ë§Œ ìž¡ê¸°Â·ë˜ì§€ê¸°ì˜ ì›”ë“œ ìœ„ì¹˜ë¥¼ ì „ë‹¬í•  ìˆ˜ ìžˆë‹¤.
     /// <summary>
-    /// ±ÇÇÑÀ» °¡Áø °´Ã¼¸¸ Àâ±â¡¤´øÁö±âÀÇ ¿ùµå À§Ä¡¸¦ Àü´ÞÇÒ ¼ö ÀÖ´Ù.
+    /// ê¶Œí•œì„ ê°€ì§„ ê°ì²´ë§Œ ìž¡ê¸°Â·ë˜ì§€ê¸°ì˜ ì›”ë“œ ìœ„ì¹˜ë¥¼ ì „ë‹¬í•  ìˆ˜ ìžˆë‹¤.
     /// </summary>
     public bool TrySetForcedPosition(MonoBehaviour owner, Vector2 position)
     {
@@ -438,16 +461,16 @@ public class PlayerController : MonoBehaviour, IDamageable
         _rigidbody.linearVelocity = Vector2.zero;
         _rigidbody.position = position;
 
-        // °°Àº ÇÁ·¹ÀÓÀÇ Ç¥½Ã À§Ä¡µµ ¸ÂÃß°í ±âÁ¸ Z ÁÂÇ¥´Â À¯ÁöÇÑ´Ù.
+        // ê°™ì€ í”„ë ˆìž„ì˜ í‘œì‹œ ìœ„ì¹˜ë„ ë§žì¶”ê³  ê¸°ì¡´ Z ì¢Œí‘œëŠ” ìœ ì§€í•œë‹¤.
         transform.position = new Vector3(
             position.x, position.y, transform.position.z);
 
         return true;
     }
 
-    // Á¤»ó Á¾·á³ª ÆÐÅÏ Ãë¼Ò ½Ã ±ÇÇÑÀ» °¡Áø °´Ã¼°¡ È£ÃâÇÑ´Ù.
+    // ì •ìƒ ì¢…ë£Œë‚˜ íŒ¨í„´ ì·¨ì†Œ ì‹œ ê¶Œí•œì„ ê°€ì§„ ê°ì²´ê°€ í˜¸ì¶œí•œë‹¤.
     /// <summary>
-    /// Á¤»ó Á¾·á³ª ÆÐÅÏ Ãë¼Ò ½Ã ±ÇÇÑÀ» °¡Áø °´Ã¼°¡ È£ÃâÇÑ´Ù.
+    /// ì •ìƒ ì¢…ë£Œë‚˜ íŒ¨í„´ ì·¨ì†Œ ì‹œ ê¶Œí•œì„ ê°€ì§„ ê°ì²´ê°€ í˜¸ì¶œí•œë‹¤.
     /// </summary>
     public void EndForcedMovement(MonoBehaviour owner)
     {
@@ -461,9 +484,9 @@ public class PlayerController : MonoBehaviour, IDamageable
         ReleaseForcedMovement();
     }
 
-    // ¼ÒÀ¯ÀÚ Á¦°Å¡¤»ç¸Á¡¤ºñÈ°¼ºÈ­¿¡¼­µµ °øÅëÀ¸·Î »ç¿ëÇÏ´Â Á¤¸®´Ù.
+    // ì†Œìœ ìž ì œê±°Â·ì‚¬ë§Â·ë¹„í™œì„±í™”ì—ì„œë„ ê³µí†µìœ¼ë¡œ ì‚¬ìš©í•˜ëŠ” ì •ë¦¬ë‹¤.
     /// <summary>
-    /// ¼ÒÀ¯ÀÚ Á¦°Å¡¤»ç¸Á¡¤ºñÈ°¼ºÈ­¿¡¼­µµ °øÅëÀ¸·Î »ç¿ëÇÏ´Â Á¤¸®´Ù.
+    /// ì†Œìœ ìž ì œê±°Â·ì‚¬ë§Â·ë¹„í™œì„±í™”ì—ì„œë„ ê³µí†µìœ¼ë¡œ ì‚¬ìš©í•˜ëŠ” ì •ë¦¬ë‹¤.
     /// </summary>
     private void ReleaseForcedMovement()
     {
@@ -476,11 +499,11 @@ public class PlayerController : MonoBehaviour, IDamageable
         _forcedMovementOwner = null;
         _rigidbody.linearVelocity = Vector2.zero;
 
-        // º® Ãæµ¹ÀÇ ÇÇ°Ý ¹«ÀûÀÌ ³²¾Æ ÀÖ¾îµµ Á¶ÀÛ º¹±¸ ½Ã¿¡´Â ÇØÁ¦ÇÑ´Ù.
-        // ÀÌÈÄ »õ·Î ¹Þ´Â ÀÏ¹Ý °ø°ÝÀº ±âÁ¸ ÇÇ°Ý ¹«Àû ±ÔÄ¢À» µû¸¥´Ù.
+        // ë²½ ì¶©ëŒì˜ í”¼ê²© ë¬´ì ì´ ë‚¨ì•„ ìžˆì–´ë„ ì¡°ìž‘ ë³µêµ¬ ì‹œì—ëŠ” í•´ì œí•œë‹¤.
+        // ì´í›„ ìƒˆë¡œ ë°›ëŠ” ì¼ë°˜ ê³µê²©ì€ ê¸°ì¡´ í”¼ê²© ë¬´ì  ê·œì¹™ì„ ë”°ë¥¸ë‹¤.
         _isHitInvulnerable = false;
 
-        // ¼ÕÀÌ È­¸é ¹Û¿¡ ÀÖ´Â ¼ø°£ Ãë¼ÒµÅµµ ÇÃ·¹ÀÌ¾î´Â ÀÌµ¿ ¿µ¿ªÀ¸·Î º¹±ÍÇÑ´Ù.
+        // ì†ì´ í™”ë©´ ë°–ì— ìžˆëŠ” ìˆœê°„ ì·¨ì†Œë¼ë„ í”Œë ˆì´ì–´ëŠ” ì´ë™ ì˜ì—­ìœ¼ë¡œ ë³µê·€í•œë‹¤.
         Vector2 position = _rigidbody.position;
         position.x = Mathf.Clamp(position.x, MinX, MaxX);
         position.y = Mathf.Clamp(position.y, MinY, MaxY);
@@ -489,24 +512,24 @@ public class PlayerController : MonoBehaviour, IDamageable
         transform.position = new Vector3(
             position.x, position.y, transform.position.z);
 
-        // ±âº» Á¶ÀÛ Çã¿ë »óÅÂ´Â º¯°æÇÏÁö ¾Ê´Â´Ù.
+        // ê¸°ë³¸ ì¡°ìž‘ í—ˆìš© ìƒíƒœëŠ” ë³€ê²½í•˜ì§€ ì•ŠëŠ”ë‹¤.
         NotifyControlState();
     }
 
-    // ÇÃ·¹ÀÌ¾î°¡ ºñÈ°¼ºÈ­µÇ¸é ³²Àº ÀÌµ¿ ±ÇÇÑÀ» Á¤¸®ÇÑ´Ù.
+    // í”Œë ˆì´ì–´ê°€ ë¹„í™œì„±í™”ë˜ë©´ ë‚¨ì€ ì´ë™ ê¶Œí•œì„ ì •ë¦¬í•œë‹¤.
     /// <summary>
-    /// ÇÃ·¹ÀÌ¾î°¡ ºñÈ°¼ºÈ­µÇ¸é ³²Àº ÀÌµ¿ ±ÇÇÑÀ» Á¤¸®ÇÑ´Ù.
+    /// í”Œë ˆì´ì–´ê°€ ë¹„í™œì„±í™”ë˜ë©´ ë‚¨ì€ ì´ë™ ê¶Œí•œì„ ì •ë¦¬í•œë‹¤.
     /// </summary>
     private void OnDisable()
     {
         ReleaseForcedMovement();
     }
 
-    // °­Á¦ ÀÌµ¿À» °ü¸®ÇÏ´Â °´Ã¼°¡ ÇØ´ç ÆÐÅÏÀÇ ÇÇÇØ¸¦ Àû¿ëÇÑ´Ù.
-    // ¿ÜºÎ ÇÇÇØ Â÷´Ü°ú ±âÁ¸ ÇÇ°Ý ¹«ÀûÀ» ¹«½ÃÇÏÁö¸¸,
-    // ÀÌµ¿ ±ÇÇÑÀÌ ¾ø°Å³ª ÇÃ·¹ÀÌ¾î°¡ »ç¸ÁÇÑ °æ¿ì¿¡´Â Àû¿ëÇÏÁö ¾Ê´Â´Ù.
+    // ê°•ì œ ì´ë™ì„ ê´€ë¦¬í•˜ëŠ” ê°ì²´ê°€ í•´ë‹¹ íŒ¨í„´ì˜ í”¼í•´ë¥¼ ì ìš©í•œë‹¤.
+    // ì™¸ë¶€ í”¼í•´ ì°¨ë‹¨ê³¼ ê¸°ì¡´ í”¼ê²© ë¬´ì ì„ ë¬´ì‹œí•˜ì§€ë§Œ,
+    // ì´ë™ ê¶Œí•œì´ ì—†ê±°ë‚˜ í”Œë ˆì´ì–´ê°€ ì‚¬ë§í•œ ê²½ìš°ì—ëŠ” ì ìš©í•˜ì§€ ì•ŠëŠ”ë‹¤.
     /// <summary>
-    /// ÀÌµ¿ ±ÇÇÑÀÌ ¾ø°Å³ª ÇÃ·¹ÀÌ¾î°¡ »ç¸ÁÇÑ °æ¿ì¿¡´Â Àû¿ëÇÏÁö ¾Ê´Â´Ù.
+    /// ì´ë™ ê¶Œí•œì´ ì—†ê±°ë‚˜ í”Œë ˆì´ì–´ê°€ ì‚¬ë§í•œ ê²½ìš°ì—ëŠ” ì ìš©í•˜ì§€ ì•ŠëŠ”ë‹¤.
     /// </summary>
     public void ApplyForcedMovementDamage(MonoBehaviour owner, float damage)
     {
@@ -522,7 +545,7 @@ public class PlayerController : MonoBehaviour, IDamageable
             return;
         }
 
-        // ±âÁ¸ Ã¼·Â °¨¼Ò¡¤ÇÇ°Ý ¿¬Ãâ¡¤UI °»½Å¡¤»ç¸Á Ã³¸®¸¦ »ç¿ëÇÑ´Ù.
+        // ê¸°ì¡´ ì²´ë ¥ ê°ì†ŒÂ·í”¼ê²© ì—°ì¶œÂ·UI ê°±ì‹ Â·ì‚¬ë§ ì²˜ë¦¬ë¥¼ ì‚¬ìš©í•œë‹¤.
         ApplyDamage(damage, true);
     }
 }

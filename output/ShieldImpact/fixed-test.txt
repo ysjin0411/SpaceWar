@@ -1,0 +1,4 @@
+impact=(-7.50, 0.82, 0.00), sorting=102
+impact=(-7.55, 1.62, 0.00), sorting=102
+HP=130 -> 130, shield=90 -> 88, active=False,False
+effectsAfter=0

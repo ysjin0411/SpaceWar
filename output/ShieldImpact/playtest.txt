@@ -1,0 +1,4 @@
+effect=(-0.96, 1.11, 0.00), sorting=102, parent=none
+effect=(-0.96, 0.81, 0.00), sorting=102, parent=none
+HP=125 -> 125, shield=90 -> 88, bulletsActive=False,False, frame=55686
+effectsAfter=0

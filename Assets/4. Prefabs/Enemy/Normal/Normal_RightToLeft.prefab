@@ -251,11 +251,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58eef901144b6ee47b78fa21f46e2adb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHp: 15
+  _maxHp: 24
   _crashDamage: 10
-  _expReward: 10
-  _userExpReward: 2
-  _upgradeGaugeReward: 10
+  _expReward: 6
+  _userExpReward: 1
+  _upgradeGaugeReward: 3
   _currentHp: 20
   _isDead: 0
   _deathEffectPrefab: {fileID: 8543505188801508365, guid: 7e0bc5c64f4eedf4b8428f8b570063e8, type: 3}
@@ -360,7 +360,7 @@ MonoBehaviour:
     _entries: []
   _stageDrops:
   - _prefab: {fileID: 4012495091504343507, guid: 2f2fd5caed3b9a540866aa6a368269ad, type: 3}
-    _dropChancePercent: 100
+    _dropChancePercent: 8
   _itemDropPoint: {fileID: 0}
 --- !u!114 &8797135328921871370
 MonoBehaviour:

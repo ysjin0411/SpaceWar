@@ -1,120 +1,120 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using UnityEngine;
 
 /// <summary>
-/// Boss DogÀÇ È¸Àü ³­»ç Æ¯¼ö ÆĞÅÏÀÌ´Ù.
-/// ÇöÀç ´Ü°è¿¡¼­´Â ½Ã½ºÅÛ °æ°í ÈÄ ½ºÆù À§Ä¡·Î ÀÌµ¿ÇÑ´Ù.
+/// Boss Dogì˜ íšŒì „ ë‚œì‚¬ íŠ¹ìˆ˜ íŒ¨í„´ì´ë‹¤.
+/// í˜„ì¬ ë‹¨ê³„ì—ì„œëŠ” ì‹œìŠ¤í…œ ê²½ê³  í›„ ìŠ¤í° ìœ„ì¹˜ë¡œ ì´ë™í•œë‹¤.
 /// </summary>
 [CreateAssetMenu(
     fileName = "BossDogSpiralShotPattern",
     menuName = "BossPattern/Dog/Spiral Shot")]
 public sealed class BossDogSpiralShotPattern : BossPattern
 {
-    [Header("½Ã½ºÅÛ °æ°í")]
+    [Header("ì‹œìŠ¤í…œ ê²½ê³ ")]
 
-    // ÀÌ ÆĞÅÏÀ» ¿¹°íÇÏ´Â ½Ã½ºÅÛ ¸Ş½ÃÁö´Ù.
+    // ì´ íŒ¨í„´ì„ ì˜ˆê³ í•˜ëŠ” ì‹œìŠ¤í…œ ë©”ì‹œì§€ë‹¤.
     [TextArea]
     [SerializeField]
     string _systemMessage;
 
-    [Header("½ºÆù À§Ä¡ ÀÌµ¿")]
+    [Header("ìŠ¤í° ìœ„ì¹˜ ì´ë™")]
 
-    // °æ°í°¡ ³¡³­ µÚ ½ºÆù À§Ä¡·Î ÀÌµ¿ÇÏ´Â µ¥ °É¸®´Â ½Ã°£ÀÌ´Ù.
+    // ê²½ê³ ê°€ ëë‚œ ë’¤ ìŠ¤í° ìœ„ì¹˜ë¡œ ì´ë™í•˜ëŠ” ë° ê±¸ë¦¬ëŠ” ì‹œê°„ì´ë‹¤.
     [Min(0.01f)]
     [SerializeField]
     float _moveToSpawnDuration = 0.4f;
 
-    [Header("³­»ç ÃÑ¾Ë ¼³Á¤")]
+    [Header("ë‚œì‚¬ ì´ì•Œ ì„¤ì •")]
 
-    // ±âÁ¸ EnemyBullet ÇÁ¸®ÆÕÀ» ¿¬°áÇÑ´Ù.
+    // ê¸°ì¡´ EnemyBullet í”„ë¦¬íŒ¹ì„ ì—°ê²°í•œë‹¤.
     [SerializeField]
     EnemyBullet _bulletPrefab;
 
-    // ÀÌ ÆĞÅÏ¿¡¼­ ¹ß»çÇÏ´Â ÃÑ¾ËÀÇ ÀÌµ¿ ¼Óµµ´Ù.
+    // ì´ íŒ¨í„´ì—ì„œ ë°œì‚¬í•˜ëŠ” ì´ì•Œì˜ ì´ë™ ì†ë„ë‹¤.
     [Min(0.01f)]
     [SerializeField]
     float _bulletSpeed = 5f;
 
-    // ÀÌ ÆĞÅÏ¿¡¼­ ¹ß»çÇÏ´Â ÃÑ¾Ë ÇÑ ¹ßÀÇ ÇÇÇØ·®ÀÌ´Ù.
+    // ì´ íŒ¨í„´ì—ì„œ ë°œì‚¬í•˜ëŠ” ì´ì•Œ í•œ ë°œì˜ í”¼í•´ëŸ‰ì´ë‹¤.
     [Min(0)]
     [SerializeField]
     float _bulletDamage = 5;
 
-    [Header("È¸Àü ³­»ç")]
+    [Header("íšŒì „ ë‚œì‚¬")]
 
-    // È¸ÀüÇÏ¸ç ÃÑ¾ËÀ» ¹ß»çÇÏ´Â ÃÑ ½Ã°£ÀÌ´Ù.
+    // íšŒì „í•˜ë©° ì´ì•Œì„ ë°œì‚¬í•˜ëŠ” ì´ ì‹œê°„ì´ë‹¤.
     [Min(0.01f)]
     [SerializeField]
     float _shootDuration = 5f;
 
-    // ÃÊ´ç È¸Àü °¢µµ´Ù. À½¼ö·Î ¼³Á¤ÇÏ¸é ¹İ´ë·Î È¸ÀüÇÑ´Ù.
+    // ì´ˆë‹¹ íšŒì „ ê°ë„ë‹¤. ìŒìˆ˜ë¡œ ì„¤ì •í•˜ë©´ ë°˜ëŒ€ë¡œ íšŒì „í•œë‹¤.
     [SerializeField]
     float _rotationSpeed = 180f;
 
-    // ÇÑ ¹­À½ÀÇ ÃÑ¾ËÀ» ¹ß»çÇÏ´Â ½Ã°£ °£°İÀÌ´Ù.
+    // í•œ ë¬¶ìŒì˜ ì´ì•Œì„ ë°œì‚¬í•˜ëŠ” ì‹œê°„ ê°„ê²©ì´ë‹¤.
     [Min(0.01f)]
     [SerializeField]
     float _fireInterval = 0.1f;
 
-    // ÇÑ ¹ø¿¡ ±ÕµîÇÑ °¢µµ·Î ¹ß»çÇÒ ÃÑ¾Ë ¼ö´Ù.
-    // 6ÀÌ¸é 60µµ °£°İÀ¸·Î 6¹ßÀ» ¹ß»çÇÑ´Ù.
+    // í•œ ë²ˆì— ê· ë“±í•œ ê°ë„ë¡œ ë°œì‚¬í•  ì´ì•Œ ìˆ˜ë‹¤.
+    // 6ì´ë©´ 60ë„ ê°„ê²©ìœ¼ë¡œ 6ë°œì„ ë°œì‚¬í•œë‹¤.
     [Min(1)]
     [SerializeField]
     int _bulletsPerShot = 6;
 
     /// <summary>
-    /// °æ°í ¿Ï·á¸¦ ±â´Ù¸° µÚ º¸½º¸¦ ½ºÆù À§Ä¡·Î ÀÌµ¿½ÃÅ²´Ù.
+    /// ê²½ê³  ì™„ë£Œë¥¼ ê¸°ë‹¤ë¦° ë’¤ ë³´ìŠ¤ë¥¼ ìŠ¤í° ìœ„ì¹˜ë¡œ ì´ë™ì‹œí‚¨ë‹¤.
     /// </summary>
     public override IEnumerator Execute(BossPatternContext context)
     {
-        // ½ÇÇà¿¡ ÇÊ¿äÇÑ Á¤º¸°¡ Àü´ŞµÆ´ÂÁö °Ë»çÇÑ´Ù.
+        // ì‹¤í–‰ì— í•„ìš”í•œ ì •ë³´ê°€ ì „ë‹¬ëëŠ”ì§€ ê²€ì‚¬í•œë‹¤.
         if (context == null)
         {
             throw new ArgumentNullException(nameof(context));
         }
 
-        // ´Ù¸¥ º¸½º¿¡ Àß¸ø ÀåÂøÇÏ´Â °ÍÀ» ¹æÁöÇÑ´Ù.
+        // ë‹¤ë¥¸ ë³´ìŠ¤ì— ì˜ëª» ì¥ì°©í•˜ëŠ” ê²ƒì„ ë°©ì§€í•œë‹¤.
         if (!(context.Boss is Boss_Dog))
         {
             throw new InvalidOperationException(
-                $"{name} ÆĞÅÏÀº Boss_Dog¸¸ »ç¿ëÇÒ ¼ö ÀÖ½À´Ï´Ù.");
+                $"{name} íŒ¨í„´ì€ Boss_Dogë§Œ ì‚¬ìš©í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.");
         }
 
-        // °æ°í ¿Ï·á ¿©ºÎ´Â ÀÌ¹ø ½ÇÇàÀÇ Áö¿ª º¯¼ö·Î °ü¸®ÇÑ´Ù.
-        // °øÀ¯ Config¿¡ º¸½ºº° ½ÇÇà »óÅÂ¸¦ ÀúÀåÇÏÁö ¾Ê´Â´Ù.
+        // ê²½ê³  ì™„ë£Œ ì—¬ë¶€ëŠ” ì´ë²ˆ ì‹¤í–‰ì˜ ì§€ì—­ ë³€ìˆ˜ë¡œ ê´€ë¦¬í•œë‹¤.
+        // ê³µìœ  Configì— ë³´ìŠ¤ë³„ ì‹¤í–‰ ìƒíƒœë¥¼ ì €ì¥í•˜ì§€ ì•ŠëŠ”ë‹¤.
         bool isDialogueCompleted = false;
 
         Action handleDialogueCompleted =
             () => isDialogueCompleted = true;
 
-        // °æ°í¸¦ ¿äÃ»ÇÏ±â Àü¿¡ ¿Ï·á ÀÌº¥Æ®¸¦ ±¸µ¶ÇÑ´Ù.
+        // ê²½ê³ ë¥¼ ìš”ì²­í•˜ê¸° ì „ì— ì™„ë£Œ ì´ë²¤íŠ¸ë¥¼ êµ¬ë…í•œë‹¤.
         context.Boss.SystemDialogueCompleted +=
             handleDialogueCompleted;
 
         try
         {
-            // ±âÁ¸ ½Ã½ºÅÛ UI¿¡ ÀÌ ÆĞÅÏÀÇ °æ°í ¸Ş½ÃÁö¸¦ Àü´ŞÇÑ´Ù.
+            // ê¸°ì¡´ ì‹œìŠ¤í…œ UIì— ì´ íŒ¨í„´ì˜ ê²½ê³  ë©”ì‹œì§€ë¥¼ ì „ë‹¬í•œë‹¤.
             context.Boss.RequestSystemDialogue(_systemMessage);
 
-            // °æ°í°¡ ³¡³ª°Å³ª º¸½º°¡ »ç¸ÁÇÒ ¶§±îÁö ±â´Ù¸°´Ù.
+            // ê²½ê³ ê°€ ëë‚˜ê±°ë‚˜ ë³´ìŠ¤ê°€ ì‚¬ë§í•  ë•Œê¹Œì§€ ê¸°ë‹¤ë¦°ë‹¤.
             yield return new WaitUntil(() =>
                 isDialogueCompleted || context.Boss.IsDead);
         }
         finally
         {
-            // ´ë±â ±¸°£À» ºüÁ®³ª°¥ ¶§ ¿Ï·á ÀÌº¥Æ® ±¸µ¶À» ÇØÁ¦ÇÑ´Ù.
+            // ëŒ€ê¸° êµ¬ê°„ì„ ë¹ ì ¸ë‚˜ê°ˆ ë•Œ ì™„ë£Œ ì´ë²¤íŠ¸ êµ¬ë…ì„ í•´ì œí•œë‹¤.
             context.Boss.SystemDialogueCompleted -=
                 handleDialogueCompleted;
         }
 
-        // »ç¸ÁÇß´Ù¸é ÀÌÈÄ Çàµ¿Àº ½ÇÇàÇÏÁö ¾Ê´Â´Ù.
+        // ì‚¬ë§í–ˆë‹¤ë©´ ì´í›„ í–‰ë™ì€ ì‹¤í–‰í•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (context.Boss.IsDead)
         {
             yield break;
         }
 
-        // º¸½ºÀÇ ÃÖÃÊ ½ºÆù À§Ä¡·Î ÀÌµ¿ÇÑ´Ù.
+        // ë³´ìŠ¤ì˜ ìµœì´ˆ ìŠ¤í° ìœ„ì¹˜ë¡œ ì´ë™í•œë‹¤.
         yield return MoveToSpawnPosition(context);
 
         if (context.Boss.IsDead)
@@ -122,21 +122,21 @@ public sealed class BossDogSpiralShotPattern : BossPattern
             yield break;
         }
 
-        // ½ºÆù À§Ä¡¿¡¼­ È¸Àü ³­»ç°¡ ³¡³¯ ¶§±îÁö ±â´Ù¸°´Ù.
-        // ¿Ï·áµÇ¸é Execute°¡ ³¡³ª°í Runner°¡ ´ÙÀ½ Çàµ¿À» ÁøÇàÇÑ´Ù.
+        // ìŠ¤í° ìœ„ì¹˜ì—ì„œ íšŒì „ ë‚œì‚¬ê°€ ëë‚  ë•Œê¹Œì§€ ê¸°ë‹¤ë¦°ë‹¤.
+        // ì™„ë£Œë˜ë©´ Executeê°€ ëë‚˜ê³  Runnerê°€ ë‹¤ìŒ í–‰ë™ì„ ì§„í–‰í•œë‹¤.
         yield return RotateAndShoot(context);
     }
 
     /// <summary>
-    /// ÀÏÁ¤ ½Ã°£ µ¿¾È º¸½º ¿ÜÇüÀ» È¸Àü½ÃÅ°¸é¼­ ÃÑ¾ËÀ» ¹ß»çÇÑ´Ù.
+    /// ì¼ì • ì‹œê°„ ë™ì•ˆ ë³´ìŠ¤ ì™¸í˜•ì„ íšŒì „ì‹œí‚¤ë©´ì„œ ì´ì•Œì„ ë°œì‚¬í•œë‹¤.
     /// </summary>
     private IEnumerator RotateAndShoot(BossPatternContext context)
     {
-        // Àß¸øµÈ ¼³Á¤À¸·Î ¹«ÇÑ ¹İº¹ÇÏ°Å³ª ¹ß»ç¿¡ ½ÇÆĞÇÏÁö ¾Êµµ·Ï °Ë»çÇÑ´Ù.
+        // ì˜ëª»ëœ ì„¤ì •ìœ¼ë¡œ ë¬´í•œ ë°˜ë³µí•˜ê±°ë‚˜ ë°œì‚¬ì— ì‹¤íŒ¨í•˜ì§€ ì•Šë„ë¡ ê²€ì‚¬í•œë‹¤.
         if (_bulletPrefab == null)
         {
             throw new InvalidOperationException(
-                $"{name}¿¡ Bullet PrefabÀÌ ¿¬°áµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+                $"{name}ì— Bullet Prefabì´ ì—°ê²°ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
         }
 
         if (_shootDuration <= 0f ||
@@ -144,19 +144,19 @@ public sealed class BossDogSpiralShotPattern : BossPattern
             _bulletsPerShot < 1)
         {
             throw new InvalidOperationException(
-                $"{name}ÀÇ ³­»ç ½Ã°£, ¹ß»ç °£°İ, ÃÑ¾Ë °³¼ö¸¦ È®ÀÎÇÏ¼¼¿ä.");
+                $"{name}ì˜ ë‚œì‚¬ ì‹œê°„, ë°œì‚¬ ê°„ê²©, ì´ì•Œ ê°œìˆ˜ë¥¼ í™•ì¸í•˜ì„¸ìš”.");
         }
 
-        // Rigidbody°¡ ÀÖ´Â ·çÆ® ´ë½Å ¿ÜÇü¸¸ È¸Àü½ÃÅ²´Ù.
+        // Rigidbodyê°€ ìˆëŠ” ë£¨íŠ¸ ëŒ€ì‹  ì™¸í˜•ë§Œ íšŒì „ì‹œí‚¨ë‹¤.
         Transform visual = context.VisualTransform;
 
-        // ÆĞÅÏÀÌ ³¡³µÀ» ¶§ º¹¿øÇÒ È¸ÀüÀ» ÀúÀåÇÑ´Ù.
+        // íŒ¨í„´ì´ ëë‚¬ì„ ë•Œ ë³µì›í•  íšŒì „ì„ ì €ì¥í•œë‹¤.
         Quaternion originalRotation = visual.localRotation;
 
-        // ÃÑ¾Ë ¹æÇâÀº ¿ùµå ÁÂÇ¥¸¦ »ç¿ëÇÏ¹Ç·Î ½ÃÀÛ ¿ùµå °¢µµ¸¦ ÀúÀåÇÑ´Ù.
+        // ì´ì•Œ ë°©í–¥ì€ ì›”ë“œ ì¢Œí‘œë¥¼ ì‚¬ìš©í•˜ë¯€ë¡œ ì‹œì‘ ì›”ë“œ ê°ë„ë¥¼ ì €ì¥í•œë‹¤.
         float startWorldAngle = visual.eulerAngles.z;
 
-        // ½ÇÇà »óÅÂ´Â Config ÇÊµå°¡ ¾Æ´Ñ Áö¿ª º¯¼ö·Î °ü¸®ÇÑ´Ù.
+        // ì‹¤í–‰ ìƒíƒœëŠ” Config í•„ë“œê°€ ì•„ë‹Œ ì§€ì—­ ë³€ìˆ˜ë¡œ ê´€ë¦¬í•œë‹¤.
         float elapsedTime = 0f;
         float nextFireTime = 0f;
 
@@ -164,21 +164,21 @@ public sealed class BossDogSpiralShotPattern : BossPattern
         {
             while (elapsedTime < _shootDuration)
             {
-                // »ç¸ÁÇÏ¸é ³­»ç¸¦ Á¾·áÇÑ´Ù.
+                // ì‚¬ë§í•˜ë©´ ë‚œì‚¬ë¥¼ ì¢…ë£Œí•œë‹¤.
                 if (context.Boss.IsDead)
                 {
                     yield break;
                 }
 
-                // °æ°ú ½Ã°£¿¡ ¸ÂÃç ¿ÜÇüÀ» ZÃàÀ¸·Î È¸Àü½ÃÅ²´Ù.
+                // ê²½ê³¼ ì‹œê°„ì— ë§ì¶° ì™¸í˜•ì„ Zì¶•ìœ¼ë¡œ íšŒì „ì‹œí‚¨ë‹¤.
                 float rotationAngle = _rotationSpeed * elapsedTime;
 
                 visual.localRotation =
                     originalRotation *
                     Quaternion.Euler(0f, 0f, rotationAngle);
 
-                // ÀÌ¹ø ½ÃÁ¡±îÁö ¹ß»çÇØ¾ß ÇÒ ÃÑ¾Ë ¹­À½À» »ı¼ºÇÑ´Ù.
-                // °¢ ¹­À½Àº ¿¹Á¤µÈ ¹ß»ç ½Ã°¢¿¡ ÇØ´çÇÏ´Â °¢µµ¸¦ »ç¿ëÇÑ´Ù.
+                // ì´ë²ˆ ì‹œì ê¹Œì§€ ë°œì‚¬í•´ì•¼ í•  ì´ì•Œ ë¬¶ìŒì„ ìƒì„±í•œë‹¤.
+                // ê° ë¬¶ìŒì€ ì˜ˆì •ëœ ë°œì‚¬ ì‹œê°ì— í•´ë‹¹í•˜ëŠ” ê°ë„ë¥¼ ì‚¬ìš©í•œë‹¤.
                 while (nextFireTime <= elapsedTime &&
                        nextFireTime < _shootDuration)
                 {
@@ -191,14 +191,14 @@ public sealed class BossDogSpiralShotPattern : BossPattern
                     nextFireTime += _fireInterval;
                 }
 
-                // ´ÙÀ½ ¹°¸® ¾÷µ¥ÀÌÆ®±îÁö ¾çº¸ÇÑ´Ù.
+                // ë‹¤ìŒ ë¬¼ë¦¬ ì—…ë°ì´íŠ¸ê¹Œì§€ ì–‘ë³´í•œë‹¤.
                 yield return new WaitForFixedUpdate();
                 elapsedTime += Time.fixedDeltaTime;
             }
         }
         finally
         {
-            // ÀÌ ½ÇÇà ±¸°£À» ºüÁ®³ª°¥ ¶§ ¿ÜÇüÀÇ ¿ø·¡ È¸ÀüÀ» º¹¿øÇÑ´Ù.
+            // ì´ ì‹¤í–‰ êµ¬ê°„ì„ ë¹ ì ¸ë‚˜ê°ˆ ë•Œ ì™¸í˜•ì˜ ì›ë˜ íšŒì „ì„ ë³µì›í•œë‹¤.
             if (visual != null)
             {
                 visual.localRotation = originalRotation;
@@ -207,48 +207,49 @@ public sealed class BossDogSpiralShotPattern : BossPattern
     }
 
     /// <summary>
-    /// º¸½º À§Ä¡¿¡¼­ ±ÕµîÇÑ °¢µµ °£°İÀ¸·Î ÃÑ¾Ë ÇÑ ¹­À½À» ¹ß»çÇÑ´Ù.
+    /// ë³´ìŠ¤ ìœ„ì¹˜ì—ì„œ ê· ë“±í•œ ê°ë„ ê°„ê²©ìœ¼ë¡œ ì´ì•Œ í•œ ë¬¶ìŒì„ ë°œì‚¬í•œë‹¤.
     /// </summary>
     private void FireBulletGroup(
         BossPatternContext context,
         float baseAngle)
     {
-        // ¿ø ÇÑ ¹ÙÄû¸¦ ÃÑ¾Ë ¼ö·Î ³ª´² ¹ß»ç °£°İÀ» ±¸ÇÑ´Ù.
+        // ì› í•œ ë°”í€´ë¥¼ ì´ì•Œ ìˆ˜ë¡œ ë‚˜ëˆ  ë°œì‚¬ ê°„ê²©ì„ êµ¬í•œë‹¤.
+        GameAudio.Play(GameSound.DogSpiralShot); // íƒ„ì•Œ ë¬¶ìŒë‹¹ í•œ ë²ˆ.
         float angleStep = 360f / _bulletsPerShot;
 
         Vector3 spawnPosition = context.Boss.transform.position;
 
         for (int i = 0; i < _bulletsPerShot; i++)
         {
-            // ÀÌ¹ø ÃÑ¾ËÀÇ ¿ùµå ¹ß»ç °¢µµ¸¦ °è»êÇÑ´Ù.
+            // ì´ë²ˆ ì´ì•Œì˜ ì›”ë“œ ë°œì‚¬ ê°ë„ë¥¼ ê³„ì‚°í•œë‹¤.
             float angle = baseAngle + angleStep * i;
             float radians = angle * Mathf.Deg2Rad;
 
-            // °¢µµ¸¦ ±æÀÌ°¡ 1ÀÎ ¹æÇâ º¤ÅÍ·Î º¯È¯ÇÑ´Ù.
+            // ê°ë„ë¥¼ ê¸¸ì´ê°€ 1ì¸ ë°©í–¥ ë²¡í„°ë¡œ ë³€í™˜í•œë‹¤.
             Vector2 direction = new Vector2(
                 Mathf.Cos(radians),
                 Mathf.Sin(radians));
 
-            // ³ª¼±Çü ¹ß»ç¿¡ »ç¿ëÇÒ ÅºÈ¯À» Ç®¿¡¼­ ²¨³» º¸½º À§Ä¡¿¡ ¹èÄ¡ÇÑ´Ù.
+            // ë‚˜ì„ í˜• ë°œì‚¬ì— ì‚¬ìš©í•  íƒ„í™˜ì„ í’€ì—ì„œ êº¼ë‚´ ë³´ìŠ¤ ìœ„ì¹˜ì— ë°°ì¹˜í•œë‹¤.
             GameObject bulletObject = ProjectilePoolManager.Instance.Spawn(
                 _bulletPrefab.gameObject,
                 spawnPosition,
                 Quaternion.identity);
 
-            // °¢ ÅºÈ¯ÀÇ ¹ß»ç Á¤º¸¸¦ ¼³Á¤ÇÒ ÄÄÆ÷³ÍÆ®¸¦ °¡Á®¿Â´Ù.
+            // ê° íƒ„í™˜ì˜ ë°œì‚¬ ì •ë³´ë¥¼ ì„¤ì •í•  ì»´í¬ë„ŒíŠ¸ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
             EnemyBullet bullet = bulletObject.GetComponent<EnemyBullet>();
 
-            // ÀÌ ConfigÀÇ ¼Óµµ¿Í ÇÇÇØ·®À» »ı¼ºµÈ ÃÑ¾Ë¿¡ Àü´ŞÇÑ´Ù.
+            // ì´ Configì˜ ì†ë„ì™€ í”¼í•´ëŸ‰ì„ ìƒì„±ëœ ì´ì•Œì— ì „ë‹¬í•œë‹¤.
             bullet.Init(direction, _bulletSpeed, _bulletDamage);
         }
     }
 
     /// <summary>
-    /// Rigidbody2D¸¦ ÀÌ¿ëÇØ ÃÖÃÊ ½ºÆù À§Ä¡·Î ÀÌµ¿ÇÑ´Ù.
+    /// Rigidbody2Dë¥¼ ì´ìš©í•´ ìµœì´ˆ ìŠ¤í° ìœ„ì¹˜ë¡œ ì´ë™í•œë‹¤.
     /// </summary>
     private IEnumerator MoveToSpawnPosition(BossPatternContext context)
     {
-        // ½ÃÀÛ À§Ä¡¿Í ¸ñÇ¥ À§Ä¡¸¦ ÀÌ¹ø ÀÌµ¿ µ¿¾È °íÁ¤ÇÑ´Ù.
+        // ì‹œì‘ ìœ„ì¹˜ì™€ ëª©í‘œ ìœ„ì¹˜ë¥¼ ì´ë²ˆ ì´ë™ ë™ì•ˆ ê³ ì •í•œë‹¤.
         Vector2 startPosition = context.Rigidbody.position;
         Vector2 targetPosition = context.Boss.MovementCenter;
 
@@ -256,7 +257,7 @@ public sealed class BossDogSpiralShotPattern : BossPattern
 
         while (elapsedTime < _moveToSpawnDuration)
         {
-            // ÀÌµ¿ µµÁß »ç¸ÁÇß´Ù¸é ´õ ÀÌ»ó À§Ä¡¸¦ º¯°æÇÏÁö ¾Ê´Â´Ù.
+            // ì´ë™ ë„ì¤‘ ì‚¬ë§í–ˆë‹¤ë©´ ë” ì´ìƒ ìœ„ì¹˜ë¥¼ ë³€ê²½í•˜ì§€ ì•ŠëŠ”ë‹¤.
             if (context.Boss.IsDead)
             {
                 yield break;
@@ -264,11 +265,11 @@ public sealed class BossDogSpiralShotPattern : BossPattern
 
             elapsedTime += Time.fixedDeltaTime;
 
-            // ÀÌµ¿ ÁøÇà·üÀ» 0~1 ¹üÀ§·Î °è»êÇÑ´Ù.
+            // ì´ë™ ì§„í–‰ë¥ ì„ 0~1 ë²”ìœ„ë¡œ ê³„ì‚°í•œë‹¤.
             float moveRatio = Mathf.Clamp01(
                 elapsedTime / _moveToSpawnDuration);
 
-            // ¹°¸® ¾÷µ¥ÀÌÆ®¸¶´Ù ¸ñÇ¥¸¦ ÇâÇØ Á¶±İ¾¿ ÀÌµ¿ÇÑ´Ù.
+            // ë¬¼ë¦¬ ì—…ë°ì´íŠ¸ë§ˆë‹¤ ëª©í‘œë¥¼ í–¥í•´ ì¡°ê¸ˆì”© ì´ë™í•œë‹¤.
             context.Rigidbody.MovePosition(
                 Vector2.Lerp(
                     startPosition,

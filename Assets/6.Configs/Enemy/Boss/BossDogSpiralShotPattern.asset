@@ -18,8 +18,8 @@ MonoBehaviour:
   _moveToSpawnDuration: 0.4
   _bulletPrefab: {fileID: 1395107858575537321, guid: ddb96700977591f40b3eaba27a097cb7, type: 3}
   _bulletSpeed: 5
-  _bulletDamage: 5
+  _bulletDamage: 6
   _shootDuration: 2.5
   _rotationSpeed: 180
-  _fireInterval: 0.05
-  _bulletsPerShot: 4
+  _fireInterval: 0.12
+  _bulletsPerShot: 3

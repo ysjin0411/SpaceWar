@@ -30,10 +30,11 @@ MonoBehaviour:
     _requiredLevel: 1
     _stageIndex: 0
     _weapon: {fileID: 0}
+    _requiredItems: []
   _rewards:
   - _type: 0
-    _amount: 10
+    _amount: 40
     _icon: {fileID: 21300000, guid: 428c7d81ce7bada45942181ea0a1758a, type: 3}
   - _type: 1
-    _amount: 50
+    _amount: 150
     _icon: {fileID: 21300000, guid: b7169c21225b1f04ab520fd934e0cd2c, type: 3}

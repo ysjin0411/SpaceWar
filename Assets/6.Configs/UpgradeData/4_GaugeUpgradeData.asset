@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: gauge_upgrade
   _name: "\uAC8C\uC774\uC9C0 \uAC15\uD654"
-  _info: "\uAC8C\uC774\uC9C0 \uCDA9\uC804\uB7C9\uC744 \uC99D\uAC00\uC2DC\uD0A8\uB2E4."
+  _info: "\uC99D\uAC15 \uAC8C\uC774\uC9C0\uC758 \uCD08\uB2F9 \uC790\uC5F0 \uCDA9\uC804\uB7C9\uC774
+    0.15 \uC99D\uAC00\uD569\uB2C8\uB2E4."
   _icon: {fileID: -5903094119899265478, guid: c0db4c68a705e89468060b8d597faa76, type: 3}
   _type: 4
   _target: 0
-  _value: 0.2
+  _value: 0.15

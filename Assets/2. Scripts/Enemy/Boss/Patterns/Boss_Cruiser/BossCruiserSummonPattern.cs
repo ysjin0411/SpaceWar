@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using UnityEngine;
 
@@ -10,44 +10,44 @@ public sealed class BossCruiserSummonPattern : BossPattern
     [Serializable]
     private sealed class HoleSettings
     {
-        // ÀÌ ±¸¸Û¿¡¼­ ÆĞÅÏ ÀüÃ¼ µ¿¾È ¼ÒÈ¯ÇÒ ÃÑ ¸¶¸´¼ö.
-        // 0ÀÌ¸é ÇØ´ç ±¸¸Û¿¡¼­´Â ¼ÒÈ¯ÇÏÁö ¾Ê´Â´Ù.
+        // ì´ êµ¬ë©ì—ì„œ íŒ¨í„´ ì „ì²´ ë™ì•ˆ ì†Œí™˜í•  ì´ ë§ˆë¦¿ìˆ˜.
+        // 0ì´ë©´ í•´ë‹¹ êµ¬ë©ì—ì„œëŠ” ì†Œí™˜í•˜ì§€ ì•ŠëŠ”ë‹¤.
         [Min(0)]
         public int TotalCount = 5;
 
-        // ¼ÒÈ¯ À§Ä¡¸¦ ±âÁØÀ¸·Î Ã¹ ¹øÂ° Á¦¾îÁ¡±îÁöÀÇ ¿ùµå ¹æÇâ °Å¸®.
-        // Y¸¦ ³ôÀÌ¸é ±¸¸Û¿¡¼­ À§·Î ¼Ú¾Æ¿À¸£´Â ¸ğ¾çÀÌ µÈ´Ù.
+        // ì†Œí™˜ ìœ„ì¹˜ë¥¼ ê¸°ì¤€ìœ¼ë¡œ ì²« ë²ˆì§¸ ì œì–´ì ê¹Œì§€ì˜ ì›”ë“œ ë°©í–¥ ê±°ë¦¬.
+        // Yë¥¼ ë†’ì´ë©´ êµ¬ë©ì—ì„œ ìœ„ë¡œ ì†Ÿì•„ì˜¤ë¥´ëŠ” ëª¨ì–‘ì´ ëœë‹¤.
         public Vector2 Control1Offset = new Vector2(0f, 2f);
 
-        // µÎ ¹øÂ° Á¦¾îÁ¡±îÁöÀÇ ¿ùµå ¹æÇâ °Å¸®.
-        // X¸¦ À½¼ö·Î ¼³Á¤ÇÏ¸é ¿ŞÂÊÀ¸·Î ÈÖ¾îÁø´Ù.
+        // ë‘ ë²ˆì§¸ ì œì–´ì ê¹Œì§€ì˜ ì›”ë“œ ë°©í–¥ ê±°ë¦¬.
+        // Xë¥¼ ìŒìˆ˜ë¡œ ì„¤ì •í•˜ë©´ ì™¼ìª½ìœ¼ë¡œ íœ˜ì–´ì§„ë‹¤.
         public Vector2 Control2Offset = new Vector2(-2f, 3f);
 
-        // ¼ÒÈ¯ À§Ä¡¸¦ ±âÁØÀ¸·Î °î¼± ÀÌµ¿À» ³¡³¾ À§Ä¡.
+        // ì†Œí™˜ ìœ„ì¹˜ë¥¼ ê¸°ì¤€ìœ¼ë¡œ ê³¡ì„  ì´ë™ì„ ëë‚¼ ìœ„ì¹˜.
         public Vector2 EndOffset = new Vector2(-4f, 1f);
 
-        // Ã¹ ¹øÂ° Àû°ú ¸¶Áö¸· ÀûÀÇ µµÂø À§Ä¡ »çÀÌÀÇ ÀüÃ¼ °£°İ.
-        // °°Àº ±¸¸Û¿¡¼­ ³ª¿Â ÀûµéÀÌ Á¶±İ¾¿ ´Ù¸¥ °î¼±À¸·Î ÆÛÁö°Ô ÇÑ´Ù.
+        // ì²« ë²ˆì§¸ ì ê³¼ ë§ˆì§€ë§‰ ì ì˜ ë„ì°© ìœ„ì¹˜ ì‚¬ì´ì˜ ì „ì²´ ê°„ê²©.
+        // ê°™ì€ êµ¬ë©ì—ì„œ ë‚˜ì˜¨ ì ë“¤ì´ ì¡°ê¸ˆì”© ë‹¤ë¥¸ ê³¡ì„ ìœ¼ë¡œ í¼ì§€ê²Œ í•œë‹¤.
         public Vector2 EndSpread = new Vector2(0f, 1.5f);
 
-        // Àû ÇÑ ¸¶¸®°¡ °î¼±À» µû¶ó ÀÌµ¿ÇÏ´Â ½Ã°£.
+        // ì  í•œ ë§ˆë¦¬ê°€ ê³¡ì„ ì„ ë”°ë¼ ì´ë™í•˜ëŠ” ì‹œê°„.
         [Min(0.01f)]
         public float CurveDuration = 1.2f;
     }
 
-    // ¼ÒÈ¯À» ½ÃÀÛÇÏ±â Àü¿¡ Ç¥½ÃÇÒ ½Ã½ºÅÛ °æ°í.
+    // ì†Œí™˜ì„ ì‹œì‘í•˜ê¸° ì „ì— í‘œì‹œí•  ì‹œìŠ¤í…œ ê²½ê³ .
     [SerializeField, TextArea]
-    private string _systemMessage = "°æ°í! Å©·çÀú¿¡¼­ ÀÚÆø ±âÃ¼°¡ Ãâ°İÇÕ´Ï´Ù.";
+    private string _systemMessage = "ê²½ê³ ! í¬ë£¨ì €ì—ì„œ ìí­ ê¸°ì²´ê°€ ì¶œê²©í•©ë‹ˆë‹¤.";
 
-    // ±âÁ¸ ÀÚÆø µ¿ÀÛÀÌ ¼³Á¤µÈ SmallEnemy ÇÁ¸®ÆÕ.
+    // ê¸°ì¡´ ìí­ ë™ì‘ì´ ì„¤ì •ëœ SmallEnemy í”„ë¦¬íŒ¹.
     [SerializeField]
     private SmallEnemy _enemyPrefab;
 
-    // °æ°í°¡ ³¡³­ µÚ ¼¼ ±¸¸ÛÀÌ ÇÔ²² »ç¿ëÇÏ´Â ¼ÒÈ¯ ½Ã°£.
+    // ê²½ê³ ê°€ ëë‚œ ë’¤ ì„¸ êµ¬ë©ì´ í•¨ê»˜ ì‚¬ìš©í•˜ëŠ” ì†Œí™˜ ì‹œê°„.
     [SerializeField, Min(0.01f)]
     private float _summonDuration = 5f;
 
-    // ±¸¸Ûº° ÃÑ ¸¶¸´¼ö¿Í °î¼± ¸ğ¾çÀ» °¢°¢ ¼³Á¤ÇÑ´Ù.
+    // êµ¬ë©ë³„ ì´ ë§ˆë¦¿ìˆ˜ì™€ ê³¡ì„  ëª¨ì–‘ì„ ê°ê° ì„¤ì •í•œë‹¤.
     [SerializeField] private HoleSettings _holeA = new HoleSettings();
     [SerializeField] private HoleSettings _holeB = new HoleSettings();
     [SerializeField] private HoleSettings _holeC = new HoleSettings();
@@ -59,10 +59,10 @@ public sealed class BossCruiserSummonPattern : BossPattern
         if (cruiser == null)
         {
             throw new InvalidOperationException(
-                $"{name}: Boss_Cruiser Àü¿ë ÆĞÅÏÀÔ´Ï´Ù.");
+                $"{name}: Boss_Cruiser ì „ìš© íŒ¨í„´ì…ë‹ˆë‹¤.");
         }
 
-        // ´ë±â Áß ÆäÀÌÁî°¡ ´Ş¶óÁ³°Å³ª º¸½º°¡ »ç¸ÁÇß´Ù¸é ½ÇÇàÇÏÁö ¾Ê´Â´Ù.
+        // ëŒ€ê¸° ì¤‘ í˜ì´ì¦ˆê°€ ë‹¬ë¼ì¡Œê±°ë‚˜ ë³´ìŠ¤ê°€ ì‚¬ë§í–ˆë‹¤ë©´ ì‹¤í–‰í•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (!CanExecute(cruiser))
         {
             yield break;
@@ -73,10 +73,10 @@ public sealed class BossCruiserSummonPattern : BossPattern
             !IsPositiveFinite(_summonDuration))
         {
             throw new InvalidOperationException(
-                $"{name}: ÇÁ¸®ÆÕ, °æ°í ¹®±¸, ¼ÒÈ¯ ½Ã°£À» È®ÀÎÇÏ¼¼¿ä.");
+                $"{name}: í”„ë¦¬íŒ¹, ê²½ê³  ë¬¸êµ¬, ì†Œí™˜ ì‹œê°„ì„ í™•ì¸í•˜ì„¸ìš”.");
         }
 
-        // ½ÇÇà¸¶´Ù º°µµÀÇ »óÅÂ¸¦ ¸¸µé¾î ÆĞÅÏ ¿¡¼Â¿¡ ½ÇÇà Á¤º¸¸¦ ³²±âÁö ¾Ê´Â´Ù.
+        // ì‹¤í–‰ë§ˆë‹¤ ë³„ë„ì˜ ìƒíƒœë¥¼ ë§Œë“¤ì–´ íŒ¨í„´ ì—ì…‹ì— ì‹¤í–‰ ì •ë³´ë¥¼ ë‚¨ê¸°ì§€ ì•ŠëŠ”ë‹¤.
         HoleSettings[] settings = { _holeA, _holeB, _holeC };
         Transform[] points = new Transform[3];
         int[] spawnedCounts = new int[3];
@@ -90,10 +90,10 @@ public sealed class BossCruiserSummonPattern : BossPattern
             if (hole == null || hole.TotalCount < 0)
             {
                 throw new InvalidOperationException(
-                    $"{name}: ±¸¸Û {i}ÀÇ ¼³Á¤À» È®ÀÎÇÏ¼¼¿ä.");
+                    $"{name}: êµ¬ë© {i}ì˜ ì„¤ì •ì„ í™•ì¸í•˜ì„¸ìš”.");
             }
 
-            // »ç¿ëÇÏÁö ¾Ê´Â ±¸¸ÛÀº À§Ä¡ ¿¬°áµµ ¿ä±¸ÇÏÁö ¾Ê´Â´Ù.
+            // ì‚¬ìš©í•˜ì§€ ì•ŠëŠ” êµ¬ë©ì€ ìœ„ì¹˜ ì—°ê²°ë„ ìš”êµ¬í•˜ì§€ ì•ŠëŠ”ë‹¤.
             if (hole.TotalCount == 0)
             {
                 continue;
@@ -102,14 +102,14 @@ public sealed class BossCruiserSummonPattern : BossPattern
             if (!IsPositiveFinite(hole.CurveDuration))
             {
                 throw new InvalidOperationException(
-                    $"{name}: ±¸¸Û {i}ÀÇ Curve DurationÀ» È®ÀÎÇÏ¼¼¿ä.");
+                    $"{name}: êµ¬ë© {i}ì˜ Curve Durationì„ í™•ì¸í•˜ì„¸ìš”.");
             }
 
             points[i] = cruiser.GetSummonPoint(i);
             hasEnemiesToSpawn = true;
         }
 
-        // ¼¼ ±¸¸ÛÀÌ ¸ğµÎ 0¸¶¸®¶ó¸é °æ°í ¾øÀÌ Á¾·áÇÑ´Ù.
+        // ì„¸ êµ¬ë©ì´ ëª¨ë‘ 0ë§ˆë¦¬ë¼ë©´ ê²½ê³  ì—†ì´ ì¢…ë£Œí•œë‹¤.
         if (!hasEnemiesToSpawn)
         {
             yield break;
@@ -124,7 +124,7 @@ public sealed class BossCruiserSummonPattern : BossPattern
 
         try
         {
-            // ±âÁ¸ º¸½º ½Ã½ºÅÛ ´ÙÀÌ¾ó·Î±×¸¦ »ç¿ëÇÑ´Ù.
+            // ê¸°ì¡´ ë³´ìŠ¤ ì‹œìŠ¤í…œ ë‹¤ì´ì–¼ë¡œê·¸ë¥¼ ì‚¬ìš©í•œë‹¤.
             cruiser.RequestSystemDialogue(_systemMessage);
 
             while (!dialogueCompleted)
@@ -142,8 +142,9 @@ public sealed class BossCruiserSummonPattern : BossPattern
                 yield break;
             }
 
-            // °æ°í ½Ã°£Àº ¼ÒÈ¯ ½Ã°£¿¡ Æ÷ÇÔÇÏÁö ¾Ê´Â´Ù.
-            // °ÔÀÓ ½Ã°£ ±âÁØÀÌ¹Ç·Î ÀÏ½ÃÁ¤Áö Áß¿¡´Â ½Ã°£Ç¥µµ ¸ØÃá´Ù.
+            // ê²½ê³  ì‹œê°„ì€ ì†Œí™˜ ì‹œê°„ì— í¬í•¨í•˜ì§€ ì•ŠëŠ”ë‹¤.
+            // ê²Œì„ ì‹œê°„ ê¸°ì¤€ì´ë¯€ë¡œ ì¼ì‹œì •ì§€ ì¤‘ì—ëŠ” ì‹œê°„í‘œë„ ë©ˆì¶˜ë‹¤.
+            GameAudio.Play(GameSound.CruiserSummon); // ëŒ€ì‚¬ ì¢…ë£Œ í›„ ì†Œí™˜ ì‹œì‘.
             double startTime = Time.timeAsDouble;
 
             while (true)
@@ -164,12 +165,12 @@ public sealed class BossCruiserSummonPattern : BossPattern
                         continue;
                     }
 
-                    // °£°İÀº º°µµ·Î ÀÔ·ÂÇÏÁö ¾Ê°í ÃÑ ¸¶¸´¼ö·Î °è»êÇÑ´Ù.
+                    // ê°„ê²©ì€ ë³„ë„ë¡œ ì…ë ¥í•˜ì§€ ì•Šê³  ì´ ë§ˆë¦¿ìˆ˜ë¡œ ê³„ì‚°í•œë‹¤.
                     double interval =
                         (double)_summonDuration / hole.TotalCount;
 
-                    // Ã¹ ¹øÂ° ÀûÀÇ ¿¹Á¤ ½Ã°£Àº 0ÃÊ´Ù.
-                    // ÇÁ·¹ÀÓÀÌ Áö¿¬µÇ¾îµµ ¿¹Á¤µÈ ¸¶¸´¼ö¸¦ ´©¶ôÇÏÁö ¾Ê´Â´Ù.
+                    // ì²« ë²ˆì§¸ ì ì˜ ì˜ˆì • ì‹œê°„ì€ 0ì´ˆë‹¤.
+                    // í”„ë ˆì„ì´ ì§€ì—°ë˜ì–´ë„ ì˜ˆì •ëœ ë§ˆë¦¿ìˆ˜ë¥¼ ëˆ„ë½í•˜ì§€ ì•ŠëŠ”ë‹¤.
                     while (spawnedCounts[i] < hole.TotalCount &&
                            elapsed >= spawnedCounts[i] * interval)
                     {
@@ -184,7 +185,7 @@ public sealed class BossCruiserSummonPattern : BossPattern
                     }
                 }
 
-                // ¸¶Áö¸· ÀûÀÌ ¸ÕÀú ³ª¿Ô´õ¶óµµ ¼³Á¤ÇÑ ¼ÒÈ¯ ½Ã°£±îÁö À¯ÁöÇÑ´Ù.
+                // ë§ˆì§€ë§‰ ì ì´ ë¨¼ì € ë‚˜ì™”ë”ë¼ë„ ì„¤ì •í•œ ì†Œí™˜ ì‹œê°„ê¹Œì§€ ìœ ì§€í•œë‹¤.
                 if (elapsed >= _summonDuration)
                 {
                     break;
@@ -195,16 +196,17 @@ public sealed class BossCruiserSummonPattern : BossPattern
         }
         finally
         {
-            // Á¤»ó ¿Ï·á¿Í Áßµµ Ãë¼Ò ¸ğµÎ ÀÌº¥Æ® ±¸µ¶À» Á¤¸®ÇÑ´Ù.
+            // ì •ìƒ ì™„ë£Œì™€ ì¤‘ë„ ì·¨ì†Œ ëª¨ë‘ ì´ë²¤íŠ¸ êµ¬ë…ì„ ì •ë¦¬í•œë‹¤.
             if (cruiser != null)
             {
                 cruiser.SystemDialogueCompleted -= handleDialogueCompleted;
             }
         }
 
-        // ÀÌ¹Ì »ı¼ºµÈ ÀûÀº °¢ÀÚ °î¼± ÀÌµ¿°ú ÀÚÆøÀ» °è¼Ó ÁøÇàÇÑ´Ù.
+        // ì´ë¯¸ ìƒì„±ëœ ì ì€ ê°ì ê³¡ì„  ì´ë™ê³¼ ìí­ì„ ê³„ì† ì§„í–‰í•œë‹¤.
     }
 
+    /// <summary>ìí­ ì  í•œ ë§ˆë¦¬ì˜ ì´ˆê¸°í™”ë¥¼ ë§ˆì¹œ ë’¤ í•´ë‹¹ ë°œì‚¬ì˜ ë¶„ì¶œìŒì„ ì¬ìƒí•œë‹¤.</summary>
     private void SpawnOne(
         BossPatternContext context,
         Boss_Cruiser cruiser,
@@ -215,43 +217,45 @@ public sealed class BossCruiserSummonPattern : BossPattern
         if (point == null || !point.gameObject.activeInHierarchy)
         {
             throw new InvalidOperationException(
-                $"{name}: ¼ÒÈ¯ Áß ±¸¸Û À§Ä¡°¡ »ç¶óÁö°Å³ª ºñÈ°¼ºÈ­µÆ½À´Ï´Ù.");
+                $"{name}: ì†Œí™˜ ì¤‘ êµ¬ë© ìœ„ì¹˜ê°€ ì‚¬ë¼ì§€ê±°ë‚˜ ë¹„í™œì„±í™”ëìŠµë‹ˆë‹¤.");
         }
 
-        // ¸Å¹ø »ı¼º ½ÃÁ¡ÀÇ ±¸¸Û À§Ä¡¸¦ »ç¿ëÇÑ´Ù.
+        // ë§¤ë²ˆ ìƒì„± ì‹œì ì˜ êµ¬ë© ìœ„ì¹˜ë¥¼ ì‚¬ìš©í•œë‹¤.
         Vector3 spawnPosition = point.position;
         Vector2 origin = spawnPosition;
 
-        // ÇÑ ¸¶¸®¸é Áß¾Ó, ¿©·¯ ¸¶¸®¸é -0.5~0.5 »çÀÌ¿¡ ±Õµî ¹èÄ¡ÇÑ´Ù.
+        // í•œ ë§ˆë¦¬ë©´ ì¤‘ì•™, ì—¬ëŸ¬ ë§ˆë¦¬ë©´ -0.5~0.5 ì‚¬ì´ì— ê· ë“± ë°°ì¹˜í•œë‹¤.
         float spreadRatio = settings.TotalCount <= 1
             ? 0f
             : (float)spawnIndex / (settings.TotalCount - 1) - 0.5f;
 
         Vector2 spread = settings.EndSpread * spreadRatio;
 
-        // SmallEnemy Ç®¿¡¼­ ºô·Á ¼ÒÈ¯ À§Ä¡¿¡ È°¼ºÈ­ÇÑ´Ù.
+        // SmallEnemy í’€ì—ì„œ ë¹Œë ¤ ì†Œí™˜ ìœ„ì¹˜ì— í™œì„±í™”í•œë‹¤.
         GameObject enemyObject = ProjectilePoolManager.Instance.Spawn(
             _enemyPrefab.gameObject,
             spawnPosition,
             Quaternion.identity);
 
-        // ºô¸° ¿ÀºêÁ§Æ®ÀÇ Àû ÄÄÆ÷³ÍÆ®¸¦ °¡Á®¿Â´Ù.
+        // ë¹Œë¦° ì˜¤ë¸Œì íŠ¸ì˜ ì  ì»´í¬ë„ŒíŠ¸ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
         SmallEnemy enemy = enemyObject.GetComponent<SmallEnemy>();
 
         cruiser.RegisterSummonedEnemy(enemy);
 
-        // ±âÁ¸ ÀÏ¹İ Àû »ı¼º°ú µ¿ÀÏÇÏ°Ô ÇÃ·¹ÀÌ¾î¿Í GameManager¸¦ Àü´ŞÇÑ´Ù.
+        // ê¸°ì¡´ ì¼ë°˜ ì  ìƒì„±ê³¼ ë™ì¼í•˜ê²Œ í”Œë ˆì´ì–´ì™€ GameManagerë¥¼ ì „ë‹¬í•œë‹¤.
         enemy.Init(context.TargetPlayer, context.GameManager);
 
-        // °î¼±ÀÌ ³¡³ª¸é SmallEnemyÀÇ ±âÁ¸ Á¶ÁØ¡¤µ¹Áø¡¤ÀÚÆøÀ¸·Î ÀÌ¾îÁø´Ù.
+        // ê³¡ì„ ì´ ëë‚˜ë©´ SmallEnemyì˜ ê¸°ì¡´ ì¡°ì¤€Â·ëŒì§„Â·ìí­ìœ¼ë¡œ ì´ì–´ì§„ë‹¤.
         enemy.InitializeCurvedSuicidePattern(
             origin + settings.Control1Offset,
             origin + settings.Control2Offset + spread,
             origin + settings.EndOffset + spread,
             settings.CurveDuration);
+        // ì´ˆê¸°í™”ê°€ ì„±ê³µí•œ ê°œë³„ ì ë§ˆë‹¤ ì¬ìƒí•˜ë©° íŒ¨í„´ ì‹œì‘ ì•Œë¦¼ê³¼ êµ¬ë¶„í•œë‹¤.
+        GameAudio.Play(GameSound.CruiserMinionLaunch);
     }
 
-    // 2ÆäÀÌÁî¿¡¼­ »ì¾Æ ÀÖ´Â Å©·çÀú¸¸ ¼ÒÈ¯ÇÒ ¼ö ÀÖ´Ù.
+    // 2í˜ì´ì¦ˆì—ì„œ ì‚´ì•„ ìˆëŠ” í¬ë£¨ì €ë§Œ ì†Œí™˜í•  ìˆ˜ ìˆë‹¤.
     private static bool CanExecute(Boss_Cruiser cruiser)
     {
         return cruiser != null &&
@@ -260,7 +264,7 @@ public sealed class BossCruiserSummonPattern : BossPattern
                cruiser.CurrentPhase == Boss_Cruiser.CruiserPhase.Entity;
     }
 
-    // ½Ã°£ÀÌ 0, À½¼ö, NaN, ¹«ÇÑ´ë·Î ¼³Á¤µÇ´Â °ÍÀ» ¸·´Â´Ù.
+    // ì‹œê°„ì´ 0, ìŒìˆ˜, NaN, ë¬´í•œëŒ€ë¡œ ì„¤ì •ë˜ëŠ” ê²ƒì„ ë§‰ëŠ”ë‹¤.
     private static bool IsPositiveFinite(float value)
     {
         return value > 0f && !float.IsInfinity(value);

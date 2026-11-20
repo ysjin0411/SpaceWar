@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f65ef82e55d18e46806b964143e061c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _amount: 10
+  _amount: 5
   _spreadDuration: 0.25
   _spreadWaitDuration: 0.15
   _collectSpeed: 4000

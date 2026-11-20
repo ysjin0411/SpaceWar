@@ -26,23 +26,29 @@ MonoBehaviour:
   _playerSpriteLibrary: {fileID: 7108339969198208228, guid: 7fa0862f63ad8a646839f532572a45d7, type: 3}
   _characterSelectPreviewScale: 1
   _characterSelectPreviewOffset: {x: 0, y: 0}
-  _baseDamage: 10
-  _baseCooltime: 1
+  _baseDamage: 110
+  _baseCooltime: 0.65
   _maximumChargeCount: 3
-  _chargeRecoveryTime: 5
-  _chargeRecoveryUpgradeValue: 0.5
-  _minimumChargeRecoveryTime: 1
+  _chargeRecoveryTime: 3.8
+  _chargeRecoveryUpgradeValue: 0.35
+  _minimumChargeRecoveryTime: 2
   _shieldMaxHealth: 100
   _shieldRecoveryPerSecond: 5
   _shieldRepairAmount: 100
   _shieldRecoveryUpgradeValue: 1
-  _price: 500
-  _requiredCharacterLevel: 5
+  _price: 600
+  _requiredCharacterLevel: 3
   _isInitiallyOwned: 0
-  _fireRateUpgradeValue: 0.01
-  _minimumCooltime: 0.05
-  _info: "\uCDA9\uC804\uD615 \uC218\uB958\uD0C4\uC744 \uB358\uC9C4\uB2E4."
-  _upgradeSelectionInfo: "Grenade\uB97C \uAC15\uD654\uD55C\uB2E4."
-  _weaponMoveSpeed: 8
+  _fireRateUpgradeValue: 0.04
+  _minimumCooltime: 0.4
+  _info: "\uAC15\uD55C \uBC94\uC704 \uD3ED\uBC1C. \uAE30\uBCF8 \uD53C\uD574 110.
+    \uCD5C\uB300 3\uAC1C\uB97C \uBCF4\uC720\uD558\uACE0 3.8\uCD08\uB9C8\uB2E4 1\uAC1C\uAC00
+    \uCDA9\uC804\uB429\uB2C8\uB2E4."
+  _damageUpgradeSelectionInfo: "공격력은 기본 피해의 15%씩 증가합니다."
+  _fireRateUpgradeSelectionInfo: "연사 강화는 충전 시간을 0.35초 줄이며 최소 2초입니다."
+  _meleeFirstDamage: 30
+  _meleeSecondDamage: 30
+  _meleeThirdDamage: 30
+  _weaponMoveSpeed: 6
   _lazerHitsPerSecond: 10
   _lazerHitsPerSecondUpgrade: 1

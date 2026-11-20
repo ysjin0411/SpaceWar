@@ -1,62 +1,62 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// ÀÚÀÌ¾ğÆ®¼Òµå¿Í ÇØ¸ÓÀÇ 3¿¬°İ, ¹«±â ±ËÀû ÆÇÁ¤ ¹× È¿°ú¸¦ °ü¸®ÇÑ´Ù.
+/// ìì´ì–¸íŠ¸ì†Œë“œì™€ í•´ë¨¸ì˜ 3ì—°ê²©, ë¬´ê¸° ê¶¤ì  íŒì • ë° íš¨ê³¼ë¥¼ ê´€ë¦¬í•œë‹¤.
 /// </summary>
 [RequireComponent(typeof(PolygonCollider2D))]
 public class SpriteMeleeAttack : MonoBehaviour
 {
-    /// <summary>ÇÑ ÇÁ·¹ÀÓÀÇ ¹«±â ÆÇÁ¤ À§Ä¡¸¦ Renderer ·ÎÄÃ ÁÂÇ¥·Î ÀúÀåÇÑ´Ù.</summary>
+    /// <summary>í•œ í”„ë ˆì„ì˜ ë¬´ê¸° íŒì • ìœ„ì¹˜ë¥¼ Renderer ë¡œì»¬ ì¢Œí‘œë¡œ ì €ì¥í•œë‹¤.</summary>
     [Serializable]
     private class HitPose
     {
-        // ¹«±â ÆÇÁ¤ »ç°¢ÇüÀÇ Áß½É. PPU°¡ Àû¿ëµÈ Renderer ·ÎÄÃ ´ÜÀ§´Ù.
+        // ë¬´ê¸° íŒì • ì‚¬ê°í˜•ì˜ ì¤‘ì‹¬. PPUê°€ ì ìš©ëœ Renderer ë¡œì»¬ ë‹¨ìœ„ë‹¤.
         public Vector2 Center;
-        // ¿À¸¥ÂÊ ¹æÇâÀÌ 0µµÀÌ¸ç ¹İ½Ã°è ¹æÇâÀÌ ¾ç¼ö´Ù.
+        // ì˜¤ë¥¸ìª½ ë°©í–¥ì´ 0ë„ì´ë©° ë°˜ì‹œê³„ ë°©í–¥ì´ ì–‘ìˆ˜ë‹¤.
         public float Angle;
-        // ÆÇÁ¤ »ç°¢ÇüÀÇ ±æÀÌ¿Í µÎ²². Ä³¸¯ÅÍ ÀüÃ¼ Å©±â°¡ ¾Æ´Ï´Ù.
+        // íŒì • ì‚¬ê°í˜•ì˜ ê¸¸ì´ì™€ ë‘ê»˜. ìºë¦­í„° ì „ì²´ í¬ê¸°ê°€ ì•„ë‹ˆë‹¤.
         public Vector2 Size = Vector2.one;
     }
 
-    /// <summary>°¢ Å¸°İÀÇ Àç»ı ½Ã°£, À¯È¿ ±¸°£, ÆÇÁ¤ ±ËÀû°ú È¿°ú¸¦ ÀúÀåÇÑ´Ù.</summary>
+    /// <summary>ê° íƒ€ê²©ì˜ ì¬ìƒ ì‹œê°„, ìœ íš¨ êµ¬ê°„, íŒì • ê¶¤ì ê³¼ íš¨ê³¼ë¥¼ ì €ì¥í•œë‹¤.</summary>
     [Serializable]
     private class ComboStep
     {
-        // Base Layer ¾È¿¡¼­ Àç»ıÇÒ »óÅÂ ÀÌ¸§.
+        // Base Layer ì•ˆì—ì„œ ì¬ìƒí•  ìƒíƒœ ì´ë¦„.
         public string StateName;
-        // ÀÌ Å¸°İÀÇ ¿øº» ¾Ö´Ï¸ŞÀÌ¼Ç Å¬¸³.
+        // ì´ íƒ€ê²©ì˜ ì›ë³¸ ì• ë‹ˆë©”ì´ì…˜ í´ë¦½.
         public AnimationClip Clip;
-        // ÁØºñ, ÈÖµÎ¸£±â, È¸¼ö¸¦ Æ÷ÇÔÇÑ ÃÑ µ¿ÀÛ ½Ã°£.
+        // ì¤€ë¹„, íœ˜ë‘ë¥´ê¸°, íšŒìˆ˜ë¥¼ í¬í•¨í•œ ì´ ë™ì‘ ì‹œê°„.
         [Min(0.01f)] public float Duration = 0.3f;
-        // ÇÇÇØ ÆÇÁ¤À» ½ÃÀÛÇÏ°í ³¡³¾ Á¤±ÔÈ­ ½Ã°£.
+        // í”¼í•´ íŒì •ì„ ì‹œì‘í•˜ê³  ëë‚¼ ì •ê·œí™” ì‹œê°„.
         [Range(0f, 1f)] public float HitStart = 1f / 6f;
         [Range(0f, 1f)] public float HitEnd = 5f / 6f;
 
-        // °°Àº °ø°İ ¾È¿¡¼­ µÎ ¹øÂ° Å¸°İÀ» Çã¿ëÇÑ´Ù.
-        // È¸Àü ÈÄ ³»·ÁÂï±â°¡ ÀÖ´Â 3Å¸¿¡¼­ »ç¿ëÇÑ´Ù.
+        // ê°™ì€ ê³µê²© ì•ˆì—ì„œ ë‘ ë²ˆì§¸ íƒ€ê²©ì„ í—ˆìš©í•œë‹¤.
+        // íšŒì „ í›„ ë‚´ë ¤ì°ê¸°ê°€ ìˆëŠ” 3íƒ€ì—ì„œ ì‚¬ìš©í•œë‹¤.
         public bool UseSecondHit;
 
-        // µÎ ¹øÂ° Å¸°İÀ» ½ÃÀÛÇÒ ¾Ö´Ï¸ŞÀÌ¼Ç ÁøÇà ºñÀ².
-        // ÀÌ ½ÃÁ¡ºÎÅÍ ¾Õ¼­ ¸Â¾Ò´ø Àûµµ ´Ù½Ã ÇÑ ¹ø ¸ÂÀ» ¼ö ÀÖ´Ù.
+        // ë‘ ë²ˆì§¸ íƒ€ê²©ì„ ì‹œì‘í•  ì• ë‹ˆë©”ì´ì…˜ ì§„í–‰ ë¹„ìœ¨.
+        // ì´ ì‹œì ë¶€í„° ì•ì„œ ë§ì•˜ë˜ ì ë„ ë‹¤ì‹œ í•œ ë²ˆ ë§ì„ ìˆ˜ ìˆë‹¤.
         [Range(0f, 1f)]
         public float SecondHitStart = 0.8f;
 
-        // ¿øº» ¾Ö´Ï¸ŞÀÌ¼Ç ¼ø¼­¿Í µ¿ÀÏÇÑ ¿©¼¸ ÇÁ·¹ÀÓÀÇ ¹«±â ÆÇÁ¤.
+        // ì›ë³¸ ì• ë‹ˆë©”ì´ì…˜ ìˆœì„œì™€ ë™ì¼í•œ ì—¬ì„¯ í”„ë ˆì„ì˜ ë¬´ê¸° íŒì •.
         public HitPose[] HitPoses = new HitPose[6];
-        // ³»·ÁÂï±â µî Æ¯Á¤ ¼ø°£¿¡ »ı¼ºÇÒ È¿°ú. ¾øÀ¸¸é »ı¼ºÇÏÁö ¾Ê´Â´Ù.
+        // ë‚´ë ¤ì°ê¸° ë“± íŠ¹ì • ìˆœê°„ì— ìƒì„±í•  íš¨ê³¼. ì—†ìœ¼ë©´ ìƒì„±í•˜ì§€ ì•ŠëŠ”ë‹¤.
         public SpriteOneShotEffect ImpactEffect;
-        // ÀüÃ¼ µ¿ÀÛ Áß ImpactEffect¸¦ »ı¼ºÇÒ ½ÃÁ¡.
+        // ì „ì²´ ë™ì‘ ì¤‘ ImpactEffectë¥¼ ìƒì„±í•  ì‹œì .
         [Range(0f, 1f)] public float ImpactTime = 0.65f;
-        // ImpactEffectÀÇ »ı¼º À§Ä¡. Renderer ·ÎÄÃ ÁÂÇ¥ ±âÁØÀÌ´Ù.
+        // ImpactEffectì˜ ìƒì„± ìœ„ì¹˜. Renderer ë¡œì»¬ ì¢Œí‘œ ê¸°ì¤€ì´ë‹¤.
         public Vector2 ImpactOffset;
     }
 
-    // Ä³¸¯ÅÍ º»Ã¼¿Í ¹«±â ±×¸²À» Ç¥½ÃÇÏ´Â Renderer¿Í Animator.
+    // ìºë¦­í„° ë³¸ì²´ì™€ ë¬´ê¸° ê·¸ë¦¼ì„ í‘œì‹œí•˜ëŠ” Rendererì™€ Animator.
     [SerializeField] private SpriteRenderer _characterRenderer;
     [SerializeField] private Animator _animator;
-    // 1Å¸, 2Å¸, 3Å¸ ¼ø¼­·Î ¼³Á¤ÇÑ´Ù.
+    // 1íƒ€, 2íƒ€, 3íƒ€ ìˆœì„œë¡œ ì„¤ì •í•œë‹¤.
     [SerializeField]
     private ComboStep[] _comboSteps =
     {
@@ -64,9 +64,9 @@ public class SpriteMeleeAttack : MonoBehaviour
         new ComboStep { StateName = "Attack2" },
         new ComboStep { StateName = "Attack3" }
     };
-    // ÀûÀÇ ÇÇ°İ Collider°¡ ¼ÓÇÑ ·¹ÀÌ¾î¸¸ °Ë»çÇÑ´Ù.
+    // ì ì˜ í”¼ê²© Colliderê°€ ì†í•œ ë ˆì´ì–´ë§Œ ê²€ì‚¬í•œë‹¤.
     [SerializeField] private LayerMask _enemyLayerMask;
-    // ½ÇÁ¦ Àû¿¡°Ô ÇÇÇØ¸¦ ÁÙ ¶§ Á¢ÃË À§Ä¡¿¡ »ı¼ºÇÒ È¿°ú.
+    // ì‹¤ì œ ì ì—ê²Œ í”¼í•´ë¥¼ ì¤„ ë•Œ ì ‘ì´‰ ìœ„ì¹˜ì— ìƒì„±í•  íš¨ê³¼.
     [SerializeField] private SpriteOneShotEffect _hitEffectPrefab;
 
     private PolygonCollider2D _hitCollider;
@@ -80,42 +80,44 @@ public class SpriteMeleeAttack : MonoBehaviour
     private int _currentAttackStateHash;
     private float _damage;
     private float _previousNormalizedTime;
-    // ZÅ°¸¦ À¯ÁöÇÏ´Â µ¿¾È ÇöÀç Å¸°İ Á÷ÈÄ ´ÙÀ½ Å¸°İÀ» ¿¬°áÇÑ´Ù.
+    // Zí‚¤ë¥¼ ìœ ì§€í•˜ëŠ” ë™ì•ˆ í˜„ì¬ íƒ€ê²© ì§í›„ ë‹¤ìŒ íƒ€ê²©ì„ ì—°ê²°í•œë‹¤.
     private bool _attackHeld;
-    // ´ÙÀ½ Å¸°İ ½ÃÀÛ ½Ã È®Á¤ÇÒ ÃÖ½Å °ø°İ·ÂÀÌ´Ù.
+    // ë‹¤ìŒ íƒ€ê²© ì‹œì‘ ì‹œ í™•ì •í•  ìµœì‹  ê³µê²©ë ¥ì´ë‹¤.
     private float _requestedDamage;
-    // ÇöÀç ¹«±âÀÇ Config.
-    // ÀÚµ¿À¸·Î ´ÙÀ½ ¿¬°İÀ» ½ÃÀÛÇÒ ¶§µµ °°Àº ¼³Á¤À» »ç¿ëÇÑ´Ù.
+    // í˜„ì¬ ë¬´ê¸°ì˜ Config.
+    // ìë™ìœ¼ë¡œ ë‹¤ìŒ ì—°ê²©ì„ ì‹œì‘í•  ë•Œë„ ê°™ì€ ì„¤ì •ì„ ì‚¬ìš©í•œë‹¤.
     private WeaponData _requestedWeaponData;
 
-    // ±âº» ÄğÅ¸ÀÓ / ÇöÀç ÄğÅ¸ÀÓ. 1º¸´Ù Å©¸é °¢ Å¸°İÀÌ »¡¶óÁø´Ù.
+    // ê¸°ë³¸ ì¿¨íƒ€ì„ / í˜„ì¬ ì¿¨íƒ€ì„. 1ë³´ë‹¤ í¬ë©´ ê° íƒ€ê²©ì´ ë¹¨ë¼ì§„ë‹¤.
     private float _requestedAttackSpeedMultiplier = 1f;
     private bool _isAttackActive;
     private bool _resetComboOnFinish;
     private bool _impactPlayed;
-    // ÀÌ¹ø °ø°İ¿¡¼­ µÎ ¹øÂ° Å¸°İÀ¸·Î ÀüÈ¯Çß´ÂÁö ±â·ÏÇÑ´Ù.
-    // ÇÇ°İ ±â·ÏÀÌ ¸Å ÇÁ·¹ÀÓ ÃÊ±âÈ­µÇ´Â °ÍÀ» ¸·´Â´Ù.
+    // í˜„ì¬ íƒ€ê²©ì˜ íœ˜ë‘ë¦„ ì†Œë¦¬ë¥¼ í•œ ë²ˆë§Œ ì¬ìƒí•œë‹¤.
+    private bool _swingSoundPlayed;
+    // ì´ë²ˆ ê³µê²©ì—ì„œ ë‘ ë²ˆì§¸ íƒ€ê²©ìœ¼ë¡œ ì „í™˜í–ˆëŠ”ì§€ ê¸°ë¡í•œë‹¤.
+    // í”¼ê²© ê¸°ë¡ì´ ë§¤ í”„ë ˆì„ ì´ˆê¸°í™”ë˜ëŠ” ê²ƒì„ ë§‰ëŠ”ë‹¤.
     private bool _secondHitStarted;
 
     [Header("Hitbox Gizmos")]
-    // ²ô¸é ÇÃ·¹ÀÌ Áß È÷Æ®¹Ú½º Ç¥½Ã¸¦ ¼û±ä´Ù.
+    // ë„ë©´ í”Œë ˆì´ ì¤‘ íˆíŠ¸ë°•ìŠ¤ í‘œì‹œë¥¼ ìˆ¨ê¸´ë‹¤.
     [SerializeField] private bool _showHitboxGizmos = true;
-    // ÆÇÁ¤ È°¼º ±¸°£ÀÇ »ö»ó. A¸¦ 0À¸·Î ¼³Á¤ÇÏ¸é ÀÌ ±¸°£ÀÇ Ç¥½Ã¸¦ ¼û±ä´Ù.
+    // íŒì • í™œì„± êµ¬ê°„ì˜ ìƒ‰ìƒ. Aë¥¼ 0ìœ¼ë¡œ ì„¤ì •í•˜ë©´ ì´ êµ¬ê°„ì˜ í‘œì‹œë¥¼ ìˆ¨ê¸´ë‹¤.
     [SerializeField] private Color _activeHitboxColor = new Color(1f, 0.2f, 0.1f, 1f);
-    // ÁØºñ¡¤È¸¼ö ±¸°£ÀÇ »ö»ó. A¸¦ 0À¸·Î ¼³Á¤ÇÏ¸é ÀÌ ±¸°£ÀÇ Ç¥½Ã¸¦ ¼û±ä´Ù.
+    // ì¤€ë¹„Â·íšŒìˆ˜ êµ¬ê°„ì˜ ìƒ‰ìƒ. Aë¥¼ 0ìœ¼ë¡œ ì„¤ì •í•˜ë©´ ì´ êµ¬ê°„ì˜ í‘œì‹œë¥¼ ìˆ¨ê¸´ë‹¤.
     [SerializeField] private Color _inactiveHitboxColor = new Color(0.6f, 0.6f, 0.6f, 0.7f);
 
     private static readonly int AttackHash = Animator.StringToHash("Attack");
     private static readonly int AttackSpeedHash = Animator.StringToHash("AttackSpeed");
     private static readonly int IdleStateHash = Animator.StringToHash("Base Layer.Idle");
 
-    // °ø°İ µ¿ÀÛ Áß¿¡¸¸ true. ´ë±â½Ã°£Àº CanBeginAttackÀ¸·Î º°µµ È®ÀÎÇÑ´Ù.
+    // ê³µê²© ë™ì‘ ì¤‘ì—ë§Œ true. ëŒ€ê¸°ì‹œê°„ì€ CanBeginAttackìœ¼ë¡œ ë³„ë„ í™•ì¸í•œë‹¤.
     public bool IsAttacking => _isAttackActive;
-    // WeaponÀº ÀÌ °ªÀÌ trueÀÏ ¶§¸¸ »õ·Î¿î Å¸°İÀ» ¿äÃ»ÇÑ´Ù.
+    // Weaponì€ ì´ ê°’ì´ trueì¼ ë•Œë§Œ ìƒˆë¡œìš´ íƒ€ê²©ì„ ìš”ì²­í•œë‹¤.
     public bool CanBeginAttack => isActiveAndEnabled && Time.timeScale > 0f &&
         !_isAttackActive;
 
-    /// <summary>°øÅë ÂüÁ¶¿Í ÇÇÇØ °Ë»ö Á¶°ÇÀ» ÃÊ±âÈ­ÇÑ´Ù.</summary>
+    /// <summary>ê³µí†µ ì°¸ì¡°ì™€ í”¼í•´ ê²€ìƒ‰ ì¡°ê±´ì„ ì´ˆê¸°í™”í•œë‹¤.</summary>
     private void Awake()
     {
         _hitCollider = GetComponent<PolygonCollider2D>();
@@ -124,41 +126,41 @@ public class SpriteMeleeAttack : MonoBehaviour
         _hitCollider.offset = Vector2.zero;
         _hitCollider.pathCount = 1;
         if (_characterRenderer == null || _animator == null || _enemyLayerMask.value == 0)
-            throw new InvalidOperationException($"{name}: Renderer, Animator, Enemy Layer Mask¸¦ ¼³Á¤ÇÏ¼¼¿ä.");
+            throw new InvalidOperationException($"{name}: Renderer, Animator, Enemy Layer Maskë¥¼ ì„¤ì •í•˜ì„¸ìš”.");
         _contactFilter = new ContactFilter2D();
         _contactFilter.SetLayerMask(_enemyLayerMask);
         _contactFilter.useTriggers = true;
     }
 
-    /// <summary>ZÅ° À¯Áö ¿©ºÎ¸¦ ÀúÀåÇÏ°í, Å°¸¦ ³õÀ¸¸é ´ÙÀ½ ½ÃÀÛ Å¸°İÀ» ÃÊ±âÈ­ÇÑ´Ù.</summary>
+    /// <summary>Zí‚¤ ìœ ì§€ ì—¬ë¶€ë¥¼ ì €ì¥í•˜ê³ , í‚¤ë¥¼ ë†“ìœ¼ë©´ ë‹¤ìŒ ì‹œì‘ íƒ€ê²©ì„ ì´ˆê¸°í™”í•œë‹¤.</summary>
     public void SetAttackHeld(bool isHeld)
     {
         _attackHeld = isHeld;
         if (isHeld) return;
 
-        // ÁøÇà ÁßÀÎ ÇÑ Å¸°İÀº ¸¶Ä¡µÇ, ´ÙÀ½ ÀÔ·ÂÀº 1Å¸ºÎÅÍ ½ÃÀÛÇÑ´Ù.
+        // ì§„í–‰ ì¤‘ì¸ í•œ íƒ€ê²©ì€ ë§ˆì¹˜ë˜, ë‹¤ìŒ ì…ë ¥ì€ 1íƒ€ë¶€í„° ì‹œì‘í•œë‹¤.
         _nextComboIndex = 0;
         if (_isAttackActive) _resetComboOnFinish = true;
     }
 
-    // ¹«±â Config¿Í ÃÖ½Å °ø°İ ¼öÄ¡¸¦ ÀúÀåÇÏ°í ´ÙÀ½ ¿¬°İÀ» ½ÃÀÛÇÑ´Ù.
+    // ë¬´ê¸° Configì™€ ìµœì‹  ê³µê²© ìˆ˜ì¹˜ë¥¼ ì €ì¥í•˜ê³  ë‹¤ìŒ ì—°ê²©ì„ ì‹œì‘í•œë‹¤.
     public void BeginAttack(
         WeaponData weaponData,
         float damage,
         float attackSpeedMultiplier)
     {
-        // ¿¬°İº° ±âº» µ¥¹ÌÁö¸¦ ÀĞÀ» Config°¡ ÇÊ¿äÇÏ´Ù.
+        // ì—°ê²©ë³„ ê¸°ë³¸ ë°ë¯¸ì§€ë¥¼ ì½ì„ Configê°€ í•„ìš”í•˜ë‹¤.
         if (weaponData == null)
             throw new ArgumentNullException(nameof(weaponData));
 
-        // Àü´Ş¹ŞÀº ÇöÀç °ø°İ·Â°ú °ø°İ¼Óµµ°¡ À¯È¿ÇÑÁö °Ë»çÇÑ´Ù.
+        // ì „ë‹¬ë°›ì€ í˜„ì¬ ê³µê²©ë ¥ê³¼ ê³µê²©ì†ë„ê°€ ìœ íš¨í•œì§€ ê²€ì‚¬í•œë‹¤.
         if (!IsFinite(damage) || damage < 0f)
             throw new ArgumentOutOfRangeException(nameof(damage));
 
         if (!IsFinite(attackSpeedMultiplier) || attackSpeedMultiplier <= 0f)
             throw new ArgumentOutOfRangeException(nameof(attackSpeedMultiplier));
 
-        // ÁøÇà ÁßÀÎ Å¸°İÀº À¯ÁöÇÏ°í, ´ÙÀ½ Å¸°İ¿¡ »ç¿ëÇÒ °ªÀ» °»½ÅÇÑ´Ù.
+        // ì§„í–‰ ì¤‘ì¸ íƒ€ê²©ì€ ìœ ì§€í•˜ê³ , ë‹¤ìŒ íƒ€ê²©ì— ì‚¬ìš©í•  ê°’ì„ ê°±ì‹ í•œë‹¤.
         _requestedWeaponData = weaponData;
         _requestedDamage = damage;
         _requestedAttackSpeedMultiplier = attackSpeedMultiplier;
@@ -169,76 +171,78 @@ public class SpriteMeleeAttack : MonoBehaviour
         ComboStep step = _comboSteps[_nextComboIndex];
         float duration = step.Duration / attackSpeedMultiplier;
         if (!IsFinite(duration) || duration <= 0f)
-            throw new InvalidOperationException($"{name}: °ø°İ Àç»ı ½Ã°£ÀÌ À¯È¿ÇÏÁö ¾Ê½À´Ï´Ù.");
+            throw new InvalidOperationException($"{name}: ê³µê²© ì¬ìƒ ì‹œê°„ì´ ìœ íš¨í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 
         _currentComboIndex = _nextComboIndex;
         _currentAttackStateHash = Animator.StringToHash($"Base Layer.{step.StateName}");
 
-        // ÇöÀç °ø°İ·Â¿¡¼­ ±âÁ¸ ±âº» °ø°İ·ÂÀ» »©¼­ °­È­ Áõ°¡·®¸¸ ±¸ÇÑ´Ù.
-        float bonusDamage = damage - weaponData.BaseDamage;
+        // ë¬´ê¸° ê¸°ë³¸ ê³µê²©ë ¥ ëŒ€ë¹„ ì¦ê°• ë°°ìœ¨ì„ ê° ì—°ê²©ì—ë„ ë™ì¼í•˜ê²Œ ì ìš©í•œë‹¤.
+        float damageMultiplier = weaponData.BaseDamage > 0f
+            ? damage / weaponData.BaseDamage : 1f;
 
-        // ConfigÀÇ ÇØ´ç ¿¬°İ µ¥¹ÌÁö¿¡ °­È­ Áõ°¡·®À» ´õÇÑ´Ù.
+        // ë§ˆë¬´ë¦¬ ê³µê²©ë„ ì²« íƒ€ì™€ ê°™ì€ ë¹„ìœ¨ë¡œ ì„±ì¥í•œë‹¤.
         _damage = Mathf.Max(
             0f,
-            weaponData.GetMeleeDamage(_currentComboIndex) + bonusDamage);
+            weaponData.GetMeleeDamage(_currentComboIndex) * damageMultiplier);
 
         _previousNormalizedTime = 0f;
         _resetComboOnFinish = false;
         _impactPlayed = false;
-        // »õ·Î¿î °ø°İÀ» ½ÃÀÛÇÒ ¶§ µÎ ¹øÂ° Å¸°İ ÀüÈ¯ »óÅÂ¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+        _swingSoundPlayed = false;
+        // ìƒˆë¡œìš´ ê³µê²©ì„ ì‹œì‘í•  ë•Œ ë‘ ë²ˆì§¸ íƒ€ê²© ì „í™˜ ìƒíƒœë¥¼ ì´ˆê¸°í™”í•œë‹¤.
         _secondHitStarted = false;
         _hitTargets.Clear();
         _isAttackActive = true;
 
-        // ÄğÅ¸ÀÓ ´ë±â ´ë½Å, ÁØºñ¡¤ÈÖµÎ¸£±â¡¤È¸¼ö°¡ Æ÷ÇÔµÈ ÇÑ Å¸°İ ÀüÃ¼¸¦ ºü¸£°Ô Àç»ıÇÑ´Ù.
+        // ì¿¨íƒ€ì„ ëŒ€ê¸° ëŒ€ì‹ , ì¤€ë¹„Â·íœ˜ë‘ë¥´ê¸°Â·íšŒìˆ˜ê°€ í¬í•¨ëœ í•œ íƒ€ê²© ì „ì²´ë¥¼ ë¹ ë¥´ê²Œ ì¬ìƒí•œë‹¤.
         _animator.SetFloat(AttackSpeedHash, step.Clip.length / duration);
         _animator.SetBool(AttackHash, true);
         _animator.Play(_currentAttackStateHash, 0, 0f);
         _animator.Update(0f);
     }
 
-    /// <summary>¼¼ Å¸°İÀÇ Å¬¸³, ½Ã°£, ÆÇÁ¤ ÁÂÇ¥°¡ À¯È¿ÇÑÁö ½ÃÀÛ Àü¿¡ °Ë»çÇÑ´Ù.</summary>
+    /// <summary>ì„¸ íƒ€ê²©ì˜ í´ë¦½, ì‹œê°„, íŒì • ì¢Œí‘œê°€ ìœ íš¨í•œì§€ ì‹œì‘ ì „ì— ê²€ì‚¬í•œë‹¤.</summary>
     private void ValidateComboSteps()
     {
         if (_comboSteps == null || _comboSteps.Length != 3)
-            throw new InvalidOperationException($"{name}: Combo Steps´Â ¼¼ °³¿©¾ß ÇÕ´Ï´Ù.");
+            throw new InvalidOperationException($"{name}: Combo StepsëŠ” ì„¸ ê°œì—¬ì•¼ í•©ë‹ˆë‹¤.");
         foreach (ComboStep step in _comboSteps)
         {
             if (step == null || step.Clip == null || string.IsNullOrWhiteSpace(step.StateName) ||
                 !IsFinite(step.Duration) || step.Duration <= 0f || step.Clip.length <= 0f ||
                 !IsFinite(step.HitStart) || !IsFinite(step.HitEnd) ||
                 step.HitStart < 0f || step.HitEnd > 1f || step.HitStart >= step.HitEnd ||
-                // À§Ä¡¸¦ ÀÌ¾î¼­ °è»êÇÒ ¼ö ÀÖµµ·Ï ÃÖ¼Ò 2°³´Â ÇÊ¿äÇÏ´Ù.
+                // ìœ„ì¹˜ë¥¼ ì´ì–´ì„œ ê³„ì‚°í•  ìˆ˜ ìˆë„ë¡ ìµœì†Œ 2ê°œëŠ” í•„ìš”í•˜ë‹¤.
                 step.HitPoses == null || step.HitPoses.Length < 2)
-                throw new InvalidOperationException($"{name}: ¿¬°İ ½Ã°£, Å¬¸³, ¿©¼¸ Hit Poses¸¦ È®ÀÎÇÏ¼¼¿ä.");
-            // µÎ ¹øÂ° Å¸°İ ½ÃÁ¡ÀÌ ½ÇÁ¦ °ø°İ ÆÇÁ¤ ±¸°£ ¾È¿¡ ÀÖ´ÂÁö °Ë»çÇÑ´Ù.
+                throw new InvalidOperationException($"{name}: ì—°ê²© ì‹œê°„, í´ë¦½, ì—¬ì„¯ Hit Posesë¥¼ í™•ì¸í•˜ì„¸ìš”.");
+            // ë‘ ë²ˆì§¸ íƒ€ê²© ì‹œì ì´ ì‹¤ì œ ê³µê²© íŒì • êµ¬ê°„ ì•ˆì— ìˆëŠ”ì§€ ê²€ì‚¬í•œë‹¤.
             if (step.UseSecondHit &&
                 (!IsFinite(step.SecondHitStart) ||
                  step.SecondHitStart <= step.HitStart ||
                  step.SecondHitStart >= step.HitEnd))
             {
                 throw new InvalidOperationException(
-                    $"{name}: Second Hit Start´Â Hit Startº¸´Ù Å©°í Hit Endº¸´Ù ÀÛ¾Æ¾ß ÇÕ´Ï´Ù.");
+                    $"{name}: Second Hit StartëŠ” Hit Startë³´ë‹¤ í¬ê³  Hit Endë³´ë‹¤ ì‘ì•„ì•¼ í•©ë‹ˆë‹¤.");
             }
 
             if (!_animator.HasState(0, Animator.StringToHash($"Base Layer.{step.StateName}")))
-                throw new InvalidOperationException($"{name}: Animator¿¡ {step.StateName} »óÅÂ°¡ ¾ø½À´Ï´Ù.");
+                throw new InvalidOperationException($"{name}: Animatorì— {step.StateName} ìƒíƒœê°€ ì—†ìŠµë‹ˆë‹¤.");
             if (!IsFinite(step.ImpactTime) || step.ImpactTime < 0f || step.ImpactTime > 1f ||
                 !IsFinite(step.ImpactOffset.x) || !IsFinite(step.ImpactOffset.y))
-                throw new InvalidOperationException($"{name}: Impact ¼³Á¤À» È®ÀÎÇÏ¼¼¿ä.");
+                throw new InvalidOperationException($"{name}: Impact ì„¤ì •ì„ í™•ì¸í•˜ì„¸ìš”.");
             foreach (HitPose pose in step.HitPoses)
                 if (pose == null || !IsFinite(pose.Center.x) || !IsFinite(pose.Center.y) ||
                     !IsFinite(pose.Angle) || !IsFinite(pose.Size.x) || !IsFinite(pose.Size.y) ||
                     pose.Size.x <= 0f || pose.Size.y <= 0f)
-                    throw new InvalidOperationException($"{name}: Hit PoseÀÇ À§Ä¡, °¢µµ, Å©±â¸¦ È®ÀÎÇÏ¼¼¿ä.");
+                    throw new InvalidOperationException($"{name}: Hit Poseì˜ ìœ„ì¹˜, ê°ë„, í¬ê¸°ë¥¼ í™•ì¸í•˜ì„¸ìš”.");
         }
     }
 
-    /// <summary>¾Ö´Ï¸ŞÀÌ¼Ç ÁøÇà ±¸°£À» µû¶ó ÇÇÇØ ÆÇÁ¤°ú È¿°ú¸¦ Ã³¸®ÇÑ´Ù.</summary>
+    /// <summary>ì• ë‹ˆë©”ì´ì…˜ ì§„í–‰ êµ¬ê°„ì„ ë”°ë¼ í”¼í•´ íŒì •ê³¼ íš¨ê³¼ë¥¼ ì²˜ë¦¬í•œë‹¤.</summary>
     private void LateUpdate()
     {
         if (Time.timeScale <= 0f) return;
-        // Å¸°İ »çÀÌ¿¡ º°µµ ´ë±â Å¸ÀÌ¸Ó¸¦ µÎÁö ¾Ê´Â´Ù.
+        // íƒ€ê²© ì‚¬ì´ì— ë³„ë„ ëŒ€ê¸° íƒ€ì´ë¨¸ë¥¼ ë‘ì§€ ì•ŠëŠ”ë‹¤.
         if (!_isAttackActive) return;
         AnimatorStateInfo state = _animator.GetCurrentAnimatorStateInfo(0);
         if (state.fullPathHash != _currentAttackStateHash)
@@ -248,9 +252,17 @@ public class SpriteMeleeAttack : MonoBehaviour
         }
         ComboStep step = _comboSteps[_currentComboIndex];
         float current = Mathf.Clamp01(state.normalizedTime);
+        // ì‹¤ì œ íˆíŠ¸ êµ¬ê°„ì— ì§„ì…í•œ í”„ë ˆì„ì—ë§Œ íœ˜ë‘ë¦„ì„ ì¬ìƒí•œë‹¤.
+        if (!_swingSoundPlayed && current >= step.HitStart)
+        {
+            _swingSoundPlayed = true;
+            GameSound first = _requestedWeaponData.Type == WeaponType.Hammer
+                ? GameSound.HammerSwing01 : GameSound.GiantSwordSwing01;
+            GameAudio.Play((GameSound)((int)first + _currentComboIndex));
+        }
         float from = Mathf.Max(_previousNormalizedTime, step.HitStart);
         float to = Mathf.Min(current, step.HitEnd);
-        // ÇÁ·¹ÀÓÀÌ °Ç³Ê¶Ù¾îµµ Áö³ª°£ À¯È¿ ±¸°£ ÀüÃ¼¸¦ °Ë»çÇÑ´Ù.
+        // í”„ë ˆì„ì´ ê±´ë„ˆë›°ì–´ë„ ì§€ë‚˜ê°„ ìœ íš¨ êµ¬ê°„ ì „ì²´ë¥¼ ê²€ì‚¬í•œë‹¤.
         if (current > _previousNormalizedTime && to >= from && current >= step.HitStart &&
             _previousNormalizedTime < step.HitEnd)
             CheckDamage(from, to);
@@ -264,12 +276,12 @@ public class SpriteMeleeAttack : MonoBehaviour
         if (state.normalizedTime >= 1f) CompleteAttack();
     }
 
-    /// <summary>°æ°ú ±¸°£À» ÇÁ·¹ÀÓ °æ°è¿Í ÀÛÀº ÀÌµ¿ ±¸°£À¸·Î ³ª´² °Ë»çÇÑ´Ù.</summary>
+    /// <summary>ê²½ê³¼ êµ¬ê°„ì„ í”„ë ˆì„ ê²½ê³„ì™€ ì‘ì€ ì´ë™ êµ¬ê°„ìœ¼ë¡œ ë‚˜ëˆ  ê²€ì‚¬í•œë‹¤.</summary>
     private void CheckDamage(float from, float to)
     {
         ComboStep step = _comboSteps[_currentComboIndex];
         int count = step.HitPoses.Length;
-        // ¿©¼¸ Å°´Â °¢°¢ 0, 1/6, ... 5/6¿¡ À§Ä¡ÇÏ¸ç ¸¶Áö¸· Å°´Â ³¡±îÁö À¯ÁöµÈ´Ù.
+        // ì—¬ì„¯ í‚¤ëŠ” ê°ê° 0, 1/6, ... 5/6ì— ìœ„ì¹˜í•˜ë©° ë§ˆì§€ë§‰ í‚¤ëŠ” ëê¹Œì§€ ìœ ì§€ëœë‹¤.
         for (int frame = 0; frame < count && _isAttackActive; frame++)
         {
             float start = Mathf.Max(from, frame / (float)count);
@@ -283,11 +295,11 @@ public class SpriteMeleeAttack : MonoBehaviour
             samples = Mathf.Max(samples, Mathf.CeilToInt(Mathf.Abs(Mathf.DeltaAngle(a0, a1)) / 5f));
             for (int i = 0; i <= samples && _isAttackActive; i++)
             {
-                // ÀÌ¹ø¿¡ °Ë»çÇÒ ±ËÀû»óÀÇ ¾Ö´Ï¸ŞÀÌ¼Ç ÁøÇà ºñÀ²À» ±¸ÇÑ´Ù.
+                // ì´ë²ˆì— ê²€ì‚¬í•  ê¶¤ì ìƒì˜ ì• ë‹ˆë©”ì´ì…˜ ì§„í–‰ ë¹„ìœ¨ì„ êµ¬í•œë‹¤.
                 float time = Mathf.Lerp(start, end, i / (float)samples);
 
-                // ³»·ÁÂï±â ±¸°£¿¡ Ã³À½ µµ´ŞÇßÀ» ¶§¸¸ ÀÌÀü ÇÇ°İ ±â·ÏÀ» Áö¿î´Ù.
-                // È¸Àü °ø°İÀ¸·Î ¸Â¾Ò´ø Àûµµ ³»·ÁÂï±â¿¡ ´Ù½Ã ¸ÂÀ» ¼ö ÀÖ´Ù.
+                // ë‚´ë ¤ì°ê¸° êµ¬ê°„ì— ì²˜ìŒ ë„ë‹¬í–ˆì„ ë•Œë§Œ ì´ì „ í”¼ê²© ê¸°ë¡ì„ ì§€ìš´ë‹¤.
+                // íšŒì „ ê³µê²©ìœ¼ë¡œ ë§ì•˜ë˜ ì ë„ ë‚´ë ¤ì°ê¸°ì— ë‹¤ì‹œ ë§ì„ ìˆ˜ ìˆë‹¤.
                 if (step.UseSecondHit &&
                     !_secondHitStarted &&
                     time >= step.SecondHitStart)
@@ -296,24 +308,24 @@ public class SpriteMeleeAttack : MonoBehaviour
                     _hitTargets.Clear();
                 }
 
-                // ÇöÀç ±ËÀû À§Ä¡¿¡ È÷Æ®¹Ú½º¸¦ ¹èÄ¡ÇÏ°í ÇÇÇØ¸¦ Àû¿ëÇÑ´Ù.
-                // µÎ ¹øÂ° Å¸°İ¿¡¼­µµ °°Àº Àû¿¡ ´ëÇÑ Áßº¹ ÇÇÇØ´Â ÇÑ ¹øÀ¸·Î Á¦ÇÑµÈ´Ù.
+                // í˜„ì¬ ê¶¤ì  ìœ„ì¹˜ì— íˆíŠ¸ë°•ìŠ¤ë¥¼ ë°°ì¹˜í•˜ê³  í”¼í•´ë¥¼ ì ìš©í•œë‹¤.
+                // ë‘ ë²ˆì§¸ íƒ€ê²©ì—ì„œë„ ê°™ì€ ì ì— ëŒ€í•œ ì¤‘ë³µ í”¼í•´ëŠ” í•œ ë²ˆìœ¼ë¡œ ì œí•œëœë‹¤.
                 ApplyHitboxShape(time);
                 CollectAndApplyDamage();
             }
         }
     }
 
-    /// <summary>Á¤±ÔÈ­ ½Ã°£¿¡ ¸Â´Â ¹«±â Áß½É, È¸Àü, Å©±â¸¦ º¸°£ÇÑ´Ù.</summary>
+    /// <summary>ì •ê·œí™” ì‹œê°„ì— ë§ëŠ” ë¬´ê¸° ì¤‘ì‹¬, íšŒì „, í¬ê¸°ë¥¼ ë³´ê°„í•œë‹¤.</summary>
     private void EvaluateHitPose(float time, out Vector2 center, out float angle, out Vector2 size)
     {
         EvaluateHitPose(_comboSteps[_currentComboIndex].HitPoses, time, out center, out angle, out size);
     }
 
-    /// <summary>½ÇÁ¦ ÆÇÁ¤°ú Gizmos Ç¥½Ã°¡ °°Àº º¸°£ °è»êÀ¸·Î »ç°¢ÇüÀ» ±¸ÇÑ´Ù.</summary>
+    /// <summary>ì‹¤ì œ íŒì •ê³¼ Gizmos í‘œì‹œê°€ ê°™ì€ ë³´ê°„ ê³„ì‚°ìœ¼ë¡œ ì‚¬ê°í˜•ì„ êµ¬í•œë‹¤.</summary>
     private static void EvaluateHitPose(HitPose[] poses, float time, out Vector2 center, out float angle, out Vector2 size)
     {
-        // ±âÁØ ÀÚ¼¼ »çÀÌ¸¦ º¸°£ÇÏ¸ç ¸¶Áö¸· ÀÚ¼¼ ÀÌÈÄ¿¡´Â ¸¶Áö¸· °ªÀ» À¯ÁöÇÑ´Ù.
+        // ê¸°ì¤€ ìì„¸ ì‚¬ì´ë¥¼ ë³´ê°„í•˜ë©° ë§ˆì§€ë§‰ ìì„¸ ì´í›„ì—ëŠ” ë§ˆì§€ë§‰ ê°’ì„ ìœ ì§€í•œë‹¤.
         float cursor = Mathf.Clamp(time * poses.Length, 0f, poses.Length - 1f);
         int first = Mathf.FloorToInt(cursor);
         int second = Mathf.Min(first + 1, poses.Length - 1);
@@ -323,7 +335,7 @@ public class SpriteMeleeAttack : MonoBehaviour
         size = Vector2.Lerp(poses[first].Size, poses[second].Size, t);
     }
 
-    /// <summary>½ºÇÁ¶óÀÌÆ® Physics Shape ´ë½Å ¹«±â »ç°¢ÇüÀ¸·Î ÆÇÁ¤ ¿µ¿ªÀ» ¸¸µç´Ù.</summary>
+    /// <summary>ìŠ¤í”„ë¼ì´íŠ¸ Physics Shape ëŒ€ì‹  ë¬´ê¸° ì‚¬ê°í˜•ìœ¼ë¡œ íŒì • ì˜ì—­ì„ ë§Œë“ ë‹¤.</summary>
     private void ApplyHitboxShape(float time)
     {
         EvaluateHitPose(time, out Vector2 center, out float angle, out Vector2 size);
@@ -337,7 +349,7 @@ public class SpriteMeleeAttack : MonoBehaviour
         _hitCollider.SetPath(0, _colliderPoints);
     }
 
-    /// <summary>ÇöÀç ÆÇÁ¤¿¡ °ãÄ£ ÀûÀ» ¼öÁıÇÏ°í ÇÑ Å¸°İ´ç ÇÑ ¹ø¸¸ ÇÇÇØ¸¦ ÁØ´Ù.</summary>
+    /// <summary>í˜„ì¬ íŒì •ì— ê²¹ì¹œ ì ì„ ìˆ˜ì§‘í•˜ê³  í•œ íƒ€ê²©ë‹¹ í•œ ë²ˆë§Œ í”¼í•´ë¥¼ ì¤€ë‹¤.</summary>
     private void CollectAndApplyDamage()
     {
         _overlapResults.Clear();
@@ -358,11 +370,15 @@ public class SpriteMeleeAttack : MonoBehaviour
             IDamageable target = hit.GetComponentInParent<IDamageable>();
             if (target == null || target.IsDead || !_hitTargets.Add(target)) continue;
             if (_hitEffectPrefab != null) Instantiate(_hitEffectPrefab, _hitPoints[i], Quaternion.identity);
+            // í•´ë¨¸ ë§ˆì§€ë§‰ íƒ€ê²©ì€ ë³„ë„ì˜ ì¶©ê²©ìŒì„ ì‚¬ìš©í•œë‹¤.
+            if (_requestedWeaponData.Type != WeaponType.Hammer || _currentComboIndex != 2)
+                GameAudio.Play(_requestedWeaponData.Type == WeaponType.Hammer
+                    ? GameSound.HammerHit : GameSound.GiantSwordHit);
             target.TakeHit(_damage);
         }
     }
 
-    /// <summary>RendererÀÇ ÁÂ¿ì ¹İÀü°ú TransformÀ» ÆÇÁ¤ À§Ä¡¿¡ ¹İ¿µÇÑ´Ù.</summary>
+    /// <summary>Rendererì˜ ì¢Œìš° ë°˜ì „ê³¼ Transformì„ íŒì • ìœ„ì¹˜ì— ë°˜ì˜í•œë‹¤.</summary>
     private Vector3 RendererPointToWorld(Vector2 point)
     {
         if (_characterRenderer.flipX) point.x = -point.x;
@@ -370,9 +386,12 @@ public class SpriteMeleeAttack : MonoBehaviour
         return _characterRenderer.transform.TransformPoint(point);
     }
 
-    /// <summary>³»·ÁÂï±â È¿°ú¸¦ »ı¼º À§Ä¡¿¡ ³²°Ü Ä³¸¯ÅÍ¸¦ µû¶ó°¡Áö ¾Ê°Ô ÇÑ´Ù.</summary>
+    /// <summary>ë‚´ë ¤ì°ê¸° íš¨ê³¼ë¥¼ ìƒì„± ìœ„ì¹˜ì— ë‚¨ê²¨ ìºë¦­í„°ë¥¼ ë”°ë¼ê°€ì§€ ì•Šê²Œ í•œë‹¤.</summary>
     private void PlayImpact(ComboStep step)
     {
+        // ì´í™íŠ¸ ì°¸ì¡°ê°€ ì—†ì–´ë„ ë§ˆì§€ë§‰ í•´ë¨¸ íƒ€ê²©ìŒì€ ì¬ìƒí•œë‹¤.
+        if (_requestedWeaponData.Type == WeaponType.Hammer && _currentComboIndex == 2)
+            GameAudio.Play(GameSound.HammerFinisher);
         if (step.ImpactEffect == null) return;
         SpriteOneShotEffect effect = Instantiate(step.ImpactEffect,
             RendererPointToWorld(step.ImpactOffset), _characterRenderer.transform.rotation);
@@ -384,7 +403,7 @@ public class SpriteMeleeAttack : MonoBehaviour
         sr.sortingOrder = _characterRenderer.sortingOrder + 1;
     }
 
-    /// <summary>ÇöÀç Å¸°İÀ» Á¤¸®ÇÏ°í, ZÅ°¸¦ À¯Áö ÁßÀÌ¸é °°Àº ÇÁ·¹ÀÓ¿¡¼­ ´ÙÀ½ Å¸°İÀ» ½ÃÀÛÇÑ´Ù.</summary>
+    /// <summary>í˜„ì¬ íƒ€ê²©ì„ ì •ë¦¬í•˜ê³ , Zí‚¤ë¥¼ ìœ ì§€ ì¤‘ì´ë©´ ê°™ì€ í”„ë ˆì„ì—ì„œ ë‹¤ìŒ íƒ€ê²©ì„ ì‹œì‘í•œë‹¤.</summary>
     private void CompleteAttack()
     {
         if (!_isAttackActive) return;
@@ -394,10 +413,10 @@ public class SpriteMeleeAttack : MonoBehaviour
             ? 0
             : (_currentComboIndex + 1) % _comboSteps.Length;
 
-        // ¿¬¼Ó °ø°İ Áß¿¡´Â EndAttackÀÌ Idle·Î ÀüÈ¯ÇÏÁö ¾Ê´Â´Ù.
+        // ì—°ì† ê³µê²© ì¤‘ì—ëŠ” EndAttackì´ Idleë¡œ ì „í™˜í•˜ì§€ ì•ŠëŠ”ë‹¤.
         EndAttack(false);
 
-        // ´ÙÀ½ ¿¬°İ¿¡µµ ÇöÀç ¹«±âÀÇ Config¿Í ÃÖ½Å °ø°İ ¼öÄ¡¸¦ Àü´ŞÇÑ´Ù.
+        // ë‹¤ìŒ ì—°ê²©ì—ë„ í˜„ì¬ ë¬´ê¸°ì˜ Configì™€ ìµœì‹  ê³µê²© ìˆ˜ì¹˜ë¥¼ ì „ë‹¬í•œë‹¤.
         if (continueCombo)
         {
             BeginAttack(
@@ -408,14 +427,14 @@ public class SpriteMeleeAttack : MonoBehaviour
 
     }
 
-    /// <summary>°­Á¦ Ãë¼Ò ½Ã ´ÙÀ½ °ø°İÀ» 1Å¸·Î ÃÊ±âÈ­ÇÑ´Ù.</summary>
+    /// <summary>ê°•ì œ ì·¨ì†Œ ì‹œ ë‹¤ìŒ ê³µê²©ì„ 1íƒ€ë¡œ ì´ˆê¸°í™”í•œë‹¤.</summary>
     public void CancelAttack()
     {
         EndAttack(true);
     }
 
     /// <summary>
-    /// °ø°İ »óÅÂ¿Í ÆÇÁ¤À» Á¤¸®ÇÏ°í, ÇÊ¿äÇÏ¸é ÄŞº¸¸¦ ÃÊ±âÈ­ÇÏ°Å³ª Idle·Î º¹±ÍÇÑ´Ù.
+    /// ê³µê²© ìƒíƒœì™€ íŒì •ì„ ì •ë¦¬í•˜ê³ , í•„ìš”í•˜ë©´ ì½¤ë³´ë¥¼ ì´ˆê¸°í™”í•˜ê±°ë‚˜ Idleë¡œ ë³µê·€í•œë‹¤.
     /// </summary>
     private void EndAttack(bool resetCombo)
     {
@@ -428,14 +447,14 @@ public class SpriteMeleeAttack : MonoBehaviour
 
         if (resetCombo)
         {
-            // ¹«±â º¯°æ¡¤»ç¸Á¡¤Á¦¾î ºÒ°¡ µîÀÇ Ãë¼Ò´Â ´ÙÀ½ °ø°İÀ» 1Å¸·Î µÇµ¹¸°´Ù.
+            // ë¬´ê¸° ë³€ê²½Â·ì‚¬ë§Â·ì œì–´ ë¶ˆê°€ ë“±ì˜ ì·¨ì†ŒëŠ” ë‹¤ìŒ ê³µê²©ì„ 1íƒ€ë¡œ ë˜ëŒë¦°ë‹¤.
             _nextComboIndex = 0;
             _currentComboIndex = 0;
             _resetComboOnFinish = false;
             _attackHeld = false;
         }
 
-        // Z À¯Áö Áß Á¤»ó Á¾·á´Â ´ÙÀ½ Å¸°İÀ¸·Î Á÷Á¢ ÀÌ¾îÁö¹Ç·Î IdleÀ» ³¢¿ìÁö ¾Ê´Â´Ù.
+        // Z ìœ ì§€ ì¤‘ ì •ìƒ ì¢…ë£ŒëŠ” ë‹¤ìŒ íƒ€ê²©ìœ¼ë¡œ ì§ì ‘ ì´ì–´ì§€ë¯€ë¡œ Idleì„ ë¼ìš°ì§€ ì•ŠëŠ”ë‹¤.
         if (wasAttacking && !_attackHeld && _animator != null && _animator.isActiveAndEnabled)
         {
             _animator.SetBool(AttackHash, false);
@@ -444,15 +463,15 @@ public class SpriteMeleeAttack : MonoBehaviour
         }
     }
 
-    /// <summary>ÇÃ·¹ÀÌ Áß ÁøÇà ÁßÀÎ °ø°İÀÇ È÷Æ®¹Ú½º¸¦ ¼±ÅÃ ¿©ºÎ¿Í °ü°è¾øÀÌ Ç¥½ÃÇÑ´Ù.</summary>
+    /// <summary>í”Œë ˆì´ ì¤‘ ì§„í–‰ ì¤‘ì¸ ê³µê²©ì˜ íˆíŠ¸ë°•ìŠ¤ë¥¼ ì„ íƒ ì—¬ë¶€ì™€ ê´€ê³„ì—†ì´ í‘œì‹œí•œë‹¤.</summary>
     private void OnDrawGizmos()
     {
-        // Collider´Â °Ë»ç ¼ø°£¿¡¸¸ ÄÑÁö¹Ç·Î enabled ´ë½Å °ø°İ »óÅÂ¸¦ È®ÀÎÇÑ´Ù.
+        // ColliderëŠ” ê²€ì‚¬ ìˆœê°„ì—ë§Œ ì¼œì§€ë¯€ë¡œ enabled ëŒ€ì‹  ê³µê²© ìƒíƒœë¥¼ í™•ì¸í•œë‹¤.
         if (Application.isPlaying && isActiveAndEnabled && _isAttackActive)
             DrawHitboxGizmo();
     }
 
-    /// <summary>ÆÇÁ¤°ú µ¿ÀÏÇÑ ÁÂÇ¥ º¯È¯À¸·Î »ç°¢ÇüÀ» ±×¸®¸ç ¾ËÆÄ 0ÀÌ¸é Ç¥½ÃÇÏÁö ¾Ê´Â´Ù.</summary>
+    /// <summary>íŒì •ê³¼ ë™ì¼í•œ ì¢Œí‘œ ë³€í™˜ìœ¼ë¡œ ì‚¬ê°í˜•ì„ ê·¸ë¦¬ë©° ì•ŒíŒŒ 0ì´ë©´ í‘œì‹œí•˜ì§€ ì•ŠëŠ”ë‹¤.</summary>
     private void DrawHitboxGizmo()
     {
         if (!_showHitboxGizmos || _characterRenderer == null || _comboSteps == null)
@@ -461,13 +480,13 @@ public class SpriteMeleeAttack : MonoBehaviour
         int index = _currentComboIndex;
         if (index < 0 || index >= _comboSteps.Length) return;
         ComboStep step = _comboSteps[index];
-        // Inspector¿¡¼­ ¹è¿­À» ¼öÁ¤ÇÏ´Â µµÁß¿¡µµ Ç¥½Ã ¿À·ù°¡ ¹ß»ıÇÏÁö ¾Ê°Ô ÇÑ´Ù.
+        // Inspectorì—ì„œ ë°°ì—´ì„ ìˆ˜ì •í•˜ëŠ” ë„ì¤‘ì—ë„ í‘œì‹œ ì˜¤ë¥˜ê°€ ë°œìƒí•˜ì§€ ì•Šê²Œ í•œë‹¤.
         if (step == null || step.HitPoses == null || step.HitPoses.Length == 0) return;
         foreach (HitPose pose in step.HitPoses)
             if (pose == null || !IsFinite(pose.Center.x) || !IsFinite(pose.Center.y) ||
                 !IsFinite(pose.Angle) || !IsFinite(pose.Size.x) || !IsFinite(pose.Size.y)) return;
 
-        // ÇöÀç °ø°İ ¾Ö´Ï¸ŞÀÌ¼ÇÀÇ ÁøÇà·ü¸¸ »ç¿ëÇÑ´Ù.
+        // í˜„ì¬ ê³µê²© ì• ë‹ˆë©”ì´ì…˜ì˜ ì§„í–‰ë¥ ë§Œ ì‚¬ìš©í•œë‹¤.
         if (_animator == null || !_animator.isActiveAndEnabled) return;
         AnimatorStateInfo state = _animator.GetCurrentAnimatorStateInfo(0);
         if (state.fullPathHash != _currentAttackStateHash) return;
@@ -476,7 +495,7 @@ public class SpriteMeleeAttack : MonoBehaviour
         time = Mathf.Clamp01(time);
         bool hitActive = time >= step.HitStart && time <= step.HitEnd;
         Color color = hitActive ? _activeHitboxColor : _inactiveHitboxColor;
-        // ¿ÏÀü Åõ¸íÀÏ ¶§´Â ±×¸®±â ÀÚÃ¼¸¦ »ı·«ÇÑ´Ù. °ø°İ ÆÇÁ¤¿¡´Â ¿µÇâÀ» ÁÖÁö ¾Ê´Â´Ù.
+        // ì™„ì „ íˆ¬ëª…ì¼ ë•ŒëŠ” ê·¸ë¦¬ê¸° ìì²´ë¥¼ ìƒëµí•œë‹¤. ê³µê²© íŒì •ì—ëŠ” ì˜í–¥ì„ ì£¼ì§€ ì•ŠëŠ”ë‹¤.
         if (color.a <= 0f) return;
 
         EvaluateHitPose(step.HitPoses, time, out Vector2 center, out float angle, out Vector2 size);
@@ -484,7 +503,7 @@ public class SpriteMeleeAttack : MonoBehaviour
         Color previousColor = Gizmos.color;
         try
         {
-            // ½ÇÁ¦ RendererPointToWorld¿Í µ¿ÀÏÇÏ°Ô ÁÂ¿ì ¹İÀü ¹× ºÎ¸ğ TransformÀ» ¹İ¿µÇÑ´Ù.
+            // ì‹¤ì œ RendererPointToWorldì™€ ë™ì¼í•˜ê²Œ ì¢Œìš° ë°˜ì „ ë° ë¶€ëª¨ Transformì„ ë°˜ì˜í•œë‹¤.
             Vector3 flip = new Vector3(_characterRenderer.flipX ? -1f : 1f,
                 _characterRenderer.flipY ? -1f : 1f, 1f);
             Gizmos.matrix = _characterRenderer.transform.localToWorldMatrix *
@@ -494,19 +513,19 @@ public class SpriteMeleeAttack : MonoBehaviour
         }
         finally
         {
-            // ´Ù¸¥ ¿ÀºêÁ§Æ®ÀÇ Gizmos¿¡ »ö»óÀÌ³ª ÁÂÇ¥°è°¡ ³²Áö ¾Êµµ·Ï º¹±¸ÇÑ´Ù.
+            // ë‹¤ë¥¸ ì˜¤ë¸Œì íŠ¸ì˜ Gizmosì— ìƒ‰ìƒì´ë‚˜ ì¢Œí‘œê³„ê°€ ë‚¨ì§€ ì•Šë„ë¡ ë³µêµ¬í•œë‹¤.
             Gizmos.matrix = previousMatrix;
             Gizmos.color = previousColor;
         }
     }
 
-    /// <summary>NaN°ú ¹«ÇÑ´ë¸¦ Á¦¿ÜÇÑ Á¤»óÀûÀÎ ¼öÄ¡ÀÎÁö È®ÀÎÇÑ´Ù.</summary>
+    /// <summary>NaNê³¼ ë¬´í•œëŒ€ë¥¼ ì œì™¸í•œ ì •ìƒì ì¸ ìˆ˜ì¹˜ì¸ì§€ í™•ì¸í•œë‹¤.</summary>
     private static bool IsFinite(float value)
     {
         return !float.IsNaN(value) && !float.IsInfinity(value);
     }
 
-    /// <summary>ºñÈ°¼ºÈ­ ½Ã °ø°İ ¹× ¿¬°İ ÁøÇà »óÅÂ¸¦ Á¤¸®ÇÑ´Ù.</summary>
+    /// <summary>ë¹„í™œì„±í™” ì‹œ ê³µê²© ë° ì—°ê²© ì§„í–‰ ìƒíƒœë¥¼ ì •ë¦¬í•œë‹¤.</summary>
     private void OnDisable()
     {
         CancelAttack();

@@ -1,68 +1,68 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using UnityEngine;
 
 /// <summary>
-/// °æ°í ÈÄ È¸Àü ·¹ÀÌÀú¸¦ ¹ß»çÇÏ°í ÃÖÃÊ ½ºÆù À§Ä¡·Î º¹±ÍÇÑ´Ù.
-/// ½ÇÇà Áß »óÅÂ´Â Áö¿ª º¯¼ö¿¡ º¸°üÇÑ´Ù.
+/// ê²½ê³  í›„ íšŒì „ ë ˆì´ì €ë¥¼ ë°œì‚¬í•˜ê³  ìµœì´ˆ ìŠ¤í° ìœ„ì¹˜ë¡œ ë³µê·€í•œë‹¤.
+/// ì‹¤í–‰ ì¤‘ ìƒíƒœëŠ” ì§€ì—­ ë³€ìˆ˜ì— ë³´ê´€í•œë‹¤.
 /// </summary>
 [CreateAssetMenu(
     fileName = "BossHeadLaserSweepPattern",
     menuName = "BossPattern/Head/Laser Sweep")]
 public sealed class BossHeadLaserSweepPattern : BossPattern
 {
-    // ½Ã½ºÅÛ ´ÙÀÌ¾ó·Î±×¿¡ Ç¥½ÃÇÒ °æ°í ¹®±¸´Ù.
+    // ì‹œìŠ¤í…œ ë‹¤ì´ì–¼ë¡œê·¸ì— í‘œì‹œí•  ê²½ê³  ë¬¸êµ¬ë‹¤.
     [TextArea]
     [SerializeField] string _systemMessage;
 
-    // ½Ã½ºÅÛ °æ°í ÈÄ º¸½º°¡ ÀÌµ¿ÇÒ ¿ùµå ÁÂÇ¥´Ù.
+    // ì‹œìŠ¤í…œ ê²½ê³  í›„ ë³´ìŠ¤ê°€ ì´ë™í•  ì›”ë“œ ì¢Œí‘œë‹¤.
     [SerializeField] Vector2 _attackPosition = new Vector2(5f, 0f);
 
-    // °ø°İ À§Ä¡±îÁö ÀÌµ¿ÇÏ´Â ½Ã°£ÀÌ´Ù.
+    // ê³µê²© ìœ„ì¹˜ê¹Œì§€ ì´ë™í•˜ëŠ” ì‹œê°„ì´ë‹¤.
     [Min(0.01f)]
     [SerializeField] float _moveDuration = 0.5f;
 
-    // ÃÖÃÊ ¹ß»ç ¹æÇâÀ» Á¤ÇÏ´Â ¿ùµå Á¶ÁØ ÁÂÇ¥´Ù.
-    // ½ÇÁ¦ ·¹ÀÌÀú ³¡Àº ÀÌ Á¡À» ³Ñ¾î È­¸é ¹Û±îÁö ¿¬ÀåµÈ´Ù.
+    // ìµœì´ˆ ë°œì‚¬ ë°©í–¥ì„ ì •í•˜ëŠ” ì›”ë“œ ì¡°ì¤€ ì¢Œí‘œë‹¤.
+    // ì‹¤ì œ ë ˆì´ì € ëì€ ì´ ì ì„ ë„˜ì–´ í™”ë©´ ë°–ê¹Œì§€ ì—°ì¥ëœë‹¤.
     [SerializeField] Vector2 _aimPoint = new Vector2(-5f, 3f);
 
-    // ÃÖÃÊ ¹æÇâ¿¡¼­ È¸ÀüÇÒ °¢µµ´Ù.
-    // ¾ç¼ö´Â ¹İ½Ã°è, À½¼ö´Â ½Ã°è ¹æÇâÀÌ´Ù.
+    // ìµœì´ˆ ë°©í–¥ì—ì„œ íšŒì „í•  ê°ë„ë‹¤.
+    // ì–‘ìˆ˜ëŠ” ë°˜ì‹œê³„, ìŒìˆ˜ëŠ” ì‹œê³„ ë°©í–¥ì´ë‹¤.
     [Range(-150f, 150f)]
     [SerializeField] float _sweepAngle = 40f;
 
-    // ·¹ÀÌÀú ¹æÇâÀÌ ÀüÃ¼ °¢µµ¸¦ È¸ÀüÇÏ´Â ½Ã°£ÀÌ´Ù.
+    // ë ˆì´ì € ë°©í–¥ì´ ì „ì²´ ê°ë„ë¥¼ íšŒì „í•˜ëŠ” ì‹œê°„ì´ë‹¤.
     [Min(0.01f)]
     [SerializeField] float _sweepDuration = 3f;
 
-    // º¸½º ÀÌ¹ÌÁöÀÇ ±âº» Á¤¸é ¹æÇâÀ» º¸Á¤ÇÑ´Ù.
-    // ¿øº» ÀÌ¹ÌÁö°¡ ¿ŞÂÊÀ» ¹Ù¶óº¸¸é 180À» »ç¿ëÇÑ´Ù.
+    // ë³´ìŠ¤ ì´ë¯¸ì§€ì˜ ê¸°ë³¸ ì •ë©´ ë°©í–¥ì„ ë³´ì •í•œë‹¤.
+    // ì›ë³¸ ì´ë¯¸ì§€ê°€ ì™¼ìª½ì„ ë°”ë¼ë³´ë©´ 180ì„ ì‚¬ìš©í•œë‹¤.
     [SerializeField] float _visualAngleOffset = 180f;
 
-    // »ı¼ºÇÒ ·¹ÀÌÀú ÇÁ¸®ÆÕÀÌ´Ù.
+    // ìƒì„±í•  ë ˆì´ì € í”„ë¦¬íŒ¹ì´ë‹¤.
     [SerializeField] BossLaserBeam _laserPrefab;
 
-    // ·¹ÀÌÀúÀÇ ÇÇÇØ °£°İ¸¶´Ù Àû¿ëÇÒ ÇÇÇØ·®ÀÌ´Ù.
+    // ë ˆì´ì €ì˜ í”¼í•´ ê°„ê²©ë§ˆë‹¤ ì ìš©í•  í”¼í•´ëŸ‰ì´ë‹¤.
     [Min(1)]
     [SerializeField] float _damage = 20;
 
-    // ÀüÃ¼ À§Çè ¹üÀ§¸¦ Ç¥½ÃÇÒ °æ°í ÇÁ¸®ÆÕÀÌ´Ù.
+    // ì „ì²´ ìœ„í—˜ ë²”ìœ„ë¥¼ í‘œì‹œí•  ê²½ê³  í”„ë¦¬íŒ¹ì´ë‹¤.
     [SerializeField] BossLaserWarning _warningPrefab;
 
-    // °æ°í°¡ ÇÑ ¹ø ¹à¾ÆÁ³´Ù ¾îµÎ¿öÁö´Â ½Ã°£ÀÌ´Ù.
+    // ê²½ê³ ê°€ í•œ ë²ˆ ë°ì•„ì¡Œë‹¤ ì–´ë‘ì›Œì§€ëŠ” ì‹œê°„ì´ë‹¤.
     [Min(0.01f)]
     [SerializeField] float _warningBlinkDuration = 0.3f;
 
-    // À§Çè ¹üÀ§ °æ°í¸¦ Á¡¸êÇÏ´Â È½¼ö´Ù.
+    // ìœ„í—˜ ë²”ìœ„ ê²½ê³ ë¥¼ ì ë©¸í•˜ëŠ” íšŸìˆ˜ë‹¤.
     [Min(1)]
     [SerializeField] int _warningBlinkCount = 3;
 
-    // ·¹ÀÌÀú ¼Ò¸ê ÈÄ ÃÖÃÊ ½ºÆù À§Ä¡·Î º¹±ÍÇÏ´Â ½Ã°£ÀÌ´Ù.
+    // ë ˆì´ì € ì†Œë©¸ í›„ ìµœì´ˆ ìŠ¤í° ìœ„ì¹˜ë¡œ ë³µê·€í•˜ëŠ” ì‹œê°„ì´ë‹¤.
     [Min(0.01f)]
     [SerializeField] float _returnDuration = 0.35f;
 
     /// <summary>
-    /// °æ°íºÎÅÍ º¹±Í±îÁö ÇÏ³ªÀÇ Æ¯¼öÆĞÅÏÀ¸·Î ½ÇÇàÇÑ´Ù.
+    /// ê²½ê³ ë¶€í„° ë³µê·€ê¹Œì§€ í•˜ë‚˜ì˜ íŠ¹ìˆ˜íŒ¨í„´ìœ¼ë¡œ ì‹¤í–‰í•œë‹¤.
     /// </summary>
     public override IEnumerator Execute(BossPatternContext context)
     {
@@ -72,25 +72,26 @@ public sealed class BossHeadLaserSweepPattern : BossPattern
         BossEnemy boss = context.Boss;
         Transform visual = context.VisualTransform;
 
-        // Á¤»ó Á¾·á ÈÄ º¹¿øÇÒ ¿ÜÇü È¸ÀüÀÌ´Ù.
+        // ì •ìƒ ì¢…ë£Œ í›„ ë³µì›í•  ì™¸í˜• íšŒì „ì´ë‹¤.
         Quaternion originalRotation = visual.localRotation;
 
-        // º¹±Í À§Ä¡´Â °ø°İ ½ÃÀÛ À§Ä¡°¡ ¾Æ´Ï¶ó ÃÖÃÊ ½ºÆù À§Ä¡´Ù.
+        // ë³µê·€ ìœ„ì¹˜ëŠ” ê³µê²© ì‹œì‘ ìœ„ì¹˜ê°€ ì•„ë‹ˆë¼ ìµœì´ˆ ìŠ¤í° ìœ„ì¹˜ë‹¤.
         Vector2 returnPosition = boss.MovementCenter;
 
         BossLaserWarning warning = null;
         BossLaserBeam laser = null;
 
         bool dialogueCompleted = false;
+        GameAudio.Handle chargeAudio = default; // íŒ¨í„´ ì·¨ì†Œ ì‹œ ì •ë¦¬í•  ì¤€ë¹„ìŒ.
 
-        // ½Ã½ºÅÛ ´ÙÀÌ¾ó·Î±× ¿Ï·á ½ÅÈ£¸¦ ¹ŞÀ» ÇÔ¼ö´Ù.
+        // ì‹œìŠ¤í…œ ë‹¤ì´ì–¼ë¡œê·¸ ì™„ë£Œ ì‹ í˜¸ë¥¼ ë°›ì„ í•¨ìˆ˜ë‹¤.
         Action onDialogueCompleted = () => dialogueCompleted = true;
 
         boss.SystemDialogueCompleted += onDialogueCompleted;
 
         try
         {
-            // Runner°¡ ÀÌ¹Ì Æ¯¼öÆĞÅÏ ½ÃÀÛ ÀÌº¥Æ®¸¦ º¸³½ »óÅÂ´Ù.
+            // Runnerê°€ ì´ë¯¸ íŠ¹ìˆ˜íŒ¨í„´ ì‹œì‘ ì´ë²¤íŠ¸ë¥¼ ë³´ë‚¸ ìƒíƒœë‹¤.
             boss.RequestSystemDialogue(_systemMessage);
 
             while (IsAlive(boss) && !dialogueCompleted)
@@ -103,7 +104,7 @@ public sealed class BossHeadLaserSweepPattern : BossPattern
                 yield break;
             }
 
-            // °æ°í ¹®±¸°¡ ³¡³­ µÚ °ø°İ À§Ä¡·Î ÀÌµ¿ÇÑ´Ù.
+            // ê²½ê³  ë¬¸êµ¬ê°€ ëë‚œ ë’¤ ê³µê²© ìœ„ì¹˜ë¡œ ì´ë™í•œë‹¤.
             yield return MoveAndRotate(
                 context, _attackPosition,
                 originalRotation, _moveDuration);
@@ -119,13 +120,13 @@ public sealed class BossHeadLaserSweepPattern : BossPattern
             if (aimDirection.sqrMagnitude < 0.000001f)
             {
                 throw new InvalidOperationException(
-                    $"{name}: Aim Point¿Í FirePoint°¡ °°Àº À§Ä¡ÀÔ´Ï´Ù.");
+                    $"{name}: Aim Pointì™€ FirePointê°€ ê°™ì€ ìœ„ì¹˜ì…ë‹ˆë‹¤.");
             }
 
             float startAngle = Mathf.Atan2(
                 aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
 
-            // ·¹ÀÌÀú ¹ß»ç ÀüºÎÅÍ ÃÖÃÊ ¹ß»ç ¹æÇâÀ» ¹Ù¶óº»´Ù.
+            // ë ˆì´ì € ë°œì‚¬ ì „ë¶€í„° ìµœì´ˆ ë°œì‚¬ ë°©í–¥ì„ ë°”ë¼ë³¸ë‹¤.
             SetVisualAngle(visual, startAngle);
 
             warning = Instantiate(_warningPrefab);
@@ -137,8 +138,9 @@ public sealed class BossHeadLaserSweepPattern : BossPattern
                 startAngle,
                 _sweepAngle,
                 _laserPrefab.DamageWidth);
+            chargeAudio = GameAudio.PlayOwned(GameSound.HeadLaserCharge, boss);
 
-            // ·¹ÀÌÀú°¡ Áö³ª°¥ ÀüÃ¼ ¹üÀ§¸¦ ¸ÕÀú Á¡¸êÇÑ´Ù.
+            // ë ˆì´ì €ê°€ ì§€ë‚˜ê°ˆ ì „ì²´ ë²”ìœ„ë¥¼ ë¨¼ì € ì ë©¸í•œë‹¤.
             float warningDuration =
                 _warningBlinkDuration * _warningBlinkCount;
 
@@ -148,7 +150,7 @@ public sealed class BossHeadLaserSweepPattern : BossPattern
             {
                 elapsed += Time.deltaTime;
 
-                // ÇÑ ÁÖ±â¸¶´Ù 0 ¡æ 1 ¡æ 0À¸·Î ºÎµå·´°Ô Á¡¸êÇÑ´Ù.
+                // í•œ ì£¼ê¸°ë§ˆë‹¤ 0 â†’ 1 â†’ 0ìœ¼ë¡œ ë¶€ë“œëŸ½ê²Œ ì ë©¸í•œë‹¤.
                 float phase = elapsed / _warningBlinkDuration;
                 float opacity = 0.5f -
                     0.5f * Mathf.Cos(phase * Mathf.PI * 2f);
@@ -168,7 +170,8 @@ public sealed class BossHeadLaserSweepPattern : BossPattern
                 yield break;
             }
 
-            // À§Çè ¹üÀ§ °æ°í°¡ ³¡³­ µÚ ½ÇÁ¦ ·¹ÀÌÀú¸¦ »ı¼ºÇÑ´Ù.
+            // ìœ„í—˜ ë²”ìœ„ ê²½ê³ ê°€ ëë‚œ ë’¤ ì‹¤ì œ ë ˆì´ì €ë¥¼ ìƒì„±í•œë‹¤.
+            GameAudio.Stop(chargeAudio); // ë°œì‚¬ë¡œ ì „í™˜.
             laser = Instantiate(_laserPrefab);
 
             laser.Initialize(
@@ -188,11 +191,11 @@ public sealed class BossHeadLaserSweepPattern : BossPattern
 
                 float angle = startAngle + _sweepAngle * ratio;
 
-                // º¸½º ¿ÜÇü°ú ·¹ÀÌÀú¿¡ °°Àº È¸Àü °¢µµ¸¦ Àû¿ëÇÑ´Ù.
+                // ë³´ìŠ¤ ì™¸í˜•ê³¼ ë ˆì´ì €ì— ê°™ì€ íšŒì „ ê°ë„ë¥¼ ì ìš©í•œë‹¤.
                 SetVisualAngle(visual, angle);
                 laser.SetDirection(Direction(angle));
 
-                // ¸¶Áö¸· °¢µµ°¡ LateUpdate¿¡¼­ ¼±¿¡ Àû¿ëµÉ ½Ã°£µµ È®º¸ÇÑ´Ù.
+                // ë§ˆì§€ë§‰ ê°ë„ê°€ LateUpdateì—ì„œ ì„ ì— ì ìš©ë  ì‹œê°„ë„ í™•ë³´í•œë‹¤.
                 yield return null;
             }
 
@@ -203,7 +206,7 @@ public sealed class BossHeadLaserSweepPattern : BossPattern
 
             if (laser != null)
             {
-                // ÇÇÇØ´Â Áï½Ã ²ô°í DOTween ¼Ò¸ê ¿Ï·á±îÁö ±â´Ù¸°´Ù.
+                // í”¼í•´ëŠ” ì¦‰ì‹œ ë„ê³  DOTween ì†Œë©¸ ì™„ë£Œê¹Œì§€ ê¸°ë‹¤ë¦°ë‹¤.
                 yield return laser.FadeOutAndWait();
                 laser = null;
             }
@@ -213,19 +216,20 @@ public sealed class BossHeadLaserSweepPattern : BossPattern
                 yield break;
             }
 
-            // ·¹ÀÌÀú °ø°İ Á¾·á ÈÄ º¹±ÍÇÏ´Â µ¿¾È ¸öÃ¼ Ãæµ¹À» ¹«½ÃÇÑ´Ù.
+            // ë ˆì´ì € ê³µê²© ì¢…ë£Œ í›„ ë³µê·€í•˜ëŠ” ë™ì•ˆ ëª¸ì²´ ì¶©ëŒì„ ë¬´ì‹œí•œë‹¤.
             boss.BeginReturnCollisionIgnore();
 
-            // ½ºÆù À§Ä¡¿Í ¿ø·¡ È¸ÀüÀ¸·Î º¹±ÍÇÑ´Ù.
+            // ìŠ¤í° ìœ„ì¹˜ì™€ ì›ë˜ íšŒì „ìœ¼ë¡œ ë³µê·€í•œë‹¤.
             yield return MoveAndRotate(
                 context, returnPosition,
                 originalRotation, _returnDuration);
 
-            // ¿©±â±îÁö ¿Ï·áµÇ¾î¾ß Runner°¡ Æ¯¼öÆĞÅÏ Á¾·á¸¦ ¾Ë¸°´Ù.
+            // ì—¬ê¸°ê¹Œì§€ ì™„ë£Œë˜ì–´ì•¼ Runnerê°€ íŠ¹ìˆ˜íŒ¨í„´ ì¢…ë£Œë¥¼ ì•Œë¦°ë‹¤.
         }
         finally
         {
-            // Á¤»ó Á¾·á¿Í Áß´Ü ½Ã ³²Àº ÂüÁ¶¸¦ Á¤¸®ÇÑ´Ù.
+            GameAudio.Stop(chargeAudio); // ì˜ˆì™¸Â·ì·¨ì†Œ ê²½ë¡œë„ ì •ë¦¬.
+            // ì •ìƒ ì¢…ë£Œì™€ ì¤‘ë‹¨ ì‹œ ë‚¨ì€ ì°¸ì¡°ë¥¼ ì •ë¦¬í•œë‹¤.
             if (boss != null)
             {
                 boss.SystemDialogueCompleted -= onDialogueCompleted;
@@ -249,7 +253,7 @@ public sealed class BossHeadLaserSweepPattern : BossPattern
     }
 
     /// <summary>
-    /// ÁöÁ¤ À§Ä¡·Î ÀÌµ¿ÇÏ¸é¼­ ¿ÜÇüÀÇ ·ÎÄÃ È¸Àüµµ º¹¿øÇÑ´Ù.
+    /// ì§€ì • ìœ„ì¹˜ë¡œ ì´ë™í•˜ë©´ì„œ ì™¸í˜•ì˜ ë¡œì»¬ íšŒì „ë„ ë³µì›í•œë‹¤.
     /// </summary>
     private IEnumerator MoveAndRotate(
         BossPatternContext context,
@@ -268,7 +272,7 @@ public sealed class BossHeadLaserSweepPattern : BossPattern
             float ratio = Mathf.SmoothStep(
                 0f, 1f, Mathf.Clamp01(elapsed / duration));
 
-            // ÇöÀç º¸½º´Â Kinematic Rigidbody2D¸¦ »ç¿ëÇÑ´Ù.
+            // í˜„ì¬ ë³´ìŠ¤ëŠ” Kinematic Rigidbody2Dë¥¼ ì‚¬ìš©í•œë‹¤.
             context.Rigidbody.position =
                 Vector2.Lerp(start, destination, ratio);
 
@@ -280,7 +284,7 @@ public sealed class BossHeadLaserSweepPattern : BossPattern
     }
 
     /// <summary>
-    /// ¿ÜÇüÀÇ Á¤¸é ¹æÇâÀ» º¸Á¤ÇÏ¿© ·¹ÀÌÀú ¹æÇâÀ¸·Î È¸ÀüÇÑ´Ù.
+    /// ì™¸í˜•ì˜ ì •ë©´ ë°©í–¥ì„ ë³´ì •í•˜ì—¬ ë ˆì´ì € ë°©í–¥ìœ¼ë¡œ íšŒì „í•œë‹¤.
     /// </summary>
     private void SetVisualAngle(Transform visual, float angle)
     {
@@ -289,7 +293,7 @@ public sealed class BossHeadLaserSweepPattern : BossPattern
     }
 
     /// <summary>
-    /// ZÃà È¸Àü °¢µµ¸¦ XY ¹æÇâÀ¸·Î º¯È¯ÇÑ´Ù.
+    /// Zì¶• íšŒì „ ê°ë„ë¥¼ XY ë°©í–¥ìœ¼ë¡œ ë³€í™˜í•œë‹¤.
     /// </summary>
     private static Vector2 Direction(float angle)
     {
@@ -298,7 +302,7 @@ public sealed class BossHeadLaserSweepPattern : BossPattern
     }
 
     /// <summary>
-    /// »ç¸ÁÇÏ°Å³ª ºñÈ°¼ºÈ­µÈ º¸½º´Â ´ÙÀ½ Çàµ¿À» ½ÇÇàÇÏÁö ¾Ê´Â´Ù.
+    /// ì‚¬ë§í•˜ê±°ë‚˜ ë¹„í™œì„±í™”ëœ ë³´ìŠ¤ëŠ” ë‹¤ìŒ í–‰ë™ì„ ì‹¤í–‰í•˜ì§€ ì•ŠëŠ”ë‹¤.
     /// </summary>
     private static bool IsAlive(BossEnemy boss)
     {
@@ -308,7 +312,7 @@ public sealed class BossHeadLaserSweepPattern : BossPattern
     }
 
     /// <summary>
-    /// ÆĞÅÏ ½ÇÇà Àü¿¡ ÇÊ¼ö ¿¬°á°ú ¼öÄ¡¸¦ °Ë»çÇÑ´Ù.
+    /// íŒ¨í„´ ì‹¤í–‰ ì „ì— í•„ìˆ˜ ì—°ê²°ê³¼ ìˆ˜ì¹˜ë¥¼ ê²€ì‚¬í•œë‹¤.
     /// </summary>
     private void ValidateSettings(
         BossPatternContext context,
@@ -318,13 +322,13 @@ public sealed class BossHeadLaserSweepPattern : BossPattern
             _laserPrefab == null || _warningPrefab == null)
         {
             throw new InvalidOperationException(
-                $"{name}: Context, MainCamera, ·¹ÀÌÀú¿Í °æ°í ÇÁ¸®ÆÕÀÌ ÇÊ¿äÇÕ´Ï´Ù.");
+                $"{name}: Context, MainCamera, ë ˆì´ì €ì™€ ê²½ê³  í”„ë¦¬íŒ¹ì´ í•„ìš”í•©ë‹ˆë‹¤.");
         }
 
         if (!PauseRandomMovement)
         {
             throw new InvalidOperationException(
-                $"{name}: Pause Random Movement¸¦ ÄÑ¼¼¿ä.");
+                $"{name}: Pause Random Movementë¥¼ ì¼œì„¸ìš”.");
         }
 
         if (!battleCamera.orthographic ||
@@ -333,7 +337,7 @@ public sealed class BossHeadLaserSweepPattern : BossPattern
                 Vector3.forward)) < 0.9999f)
         {
             throw new InvalidOperationException(
-                $"{name}: XY Æò¸éÀ» ¹Ù¶óº¸´Â Á÷±³ Ä«¸Ş¶ó°¡ ÇÊ¿äÇÕ´Ï´Ù.");
+                $"{name}: XY í‰ë©´ì„ ë°”ë¼ë³´ëŠ” ì§êµ ì¹´ë©”ë¼ê°€ í•„ìš”í•©ë‹ˆë‹¤.");
         }
 
         if (string.IsNullOrWhiteSpace(_systemMessage) ||
@@ -344,15 +348,15 @@ public sealed class BossHeadLaserSweepPattern : BossPattern
             _warningBlinkCount < 1 || _damage <= 0)
         {
             throw new InvalidOperationException(
-                $"{name}: °æ°í ¹®±¸¿Í ÆĞÅÏ ¼öÄ¡¸¦ È®ÀÎÇÏ¼¼¿ä.");
+                $"{name}: ê²½ê³  ë¬¸êµ¬ì™€ íŒ¨í„´ ìˆ˜ì¹˜ë¥¼ í™•ì¸í•˜ì„¸ìš”.");
         }
 
-        // ÇöÀç ±¸Á¶¿¡¼­´Â ÃÑ±¸¸¦ º¸½º ·çÆ® ¾Æ·¡¿¡ µÎ¾î
-        // ¿ÜÇü È¸ÀüÀ¸·Î °æ°íÀÇ Áß½ÉÁ¡ÀÌ ¿òÁ÷ÀÌÁö ¾Êµµ·Ï ÇÑ´Ù.
+        // í˜„ì¬ êµ¬ì¡°ì—ì„œëŠ” ì´êµ¬ë¥¼ ë³´ìŠ¤ ë£¨íŠ¸ ì•„ë˜ì— ë‘ì–´
+        // ì™¸í˜• íšŒì „ìœ¼ë¡œ ê²½ê³ ì˜ ì¤‘ì‹¬ì ì´ ì›€ì§ì´ì§€ ì•Šë„ë¡ í•œë‹¤.
         if (context.Boss.FirePoint.IsChildOf(context.VisualTransform))
         {
             throw new InvalidOperationException(
-                $"{name}: FirePoint¸¦ Renderer ¹ÛÀÇ º¸½º ·çÆ® ¾Æ·¡¿¡ µÎ¼¼¿ä.");
+                $"{name}: FirePointë¥¼ Renderer ë°–ì˜ ë³´ìŠ¤ ë£¨íŠ¸ ì•„ë˜ì— ë‘ì„¸ìš”.");
         }
     }
 }

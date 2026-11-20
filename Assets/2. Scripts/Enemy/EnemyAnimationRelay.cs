@@ -7,6 +7,9 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public sealed class EnemyAnimationRelay : MonoBehaviour
 {
+    // 공격 준비 시간 계산과 실제 발사 판정이 공유하는 정규화 시점.
+    public const float FireNormalizedTime = 0.5f;
+
     // 같은 Renderer 오브젝트의 Animator다.
     Animator _animator;
 
@@ -89,7 +92,7 @@ public sealed class EnemyAnimationRelay : MonoBehaviour
 
         // 현재 4컷 클립의 세 번째 컷이 시작되는 시점이다.
         // 프레임이 건너뛰어도 공격을 누락하지 않도록 이상 조건을 사용한다.
-        if (!_fireSent && progress >= 0.5f)
+        if (!_fireSent && progress >= FireNormalizedTime)
         {
             _fireSent = true;
             _enemy.FireFromAnimation();

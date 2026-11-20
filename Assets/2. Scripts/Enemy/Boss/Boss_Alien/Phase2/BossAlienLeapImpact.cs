@@ -1,28 +1,28 @@
-using System;
+ï»¿using System;
 using UnityEngine;
 
-// ÂøÁö Ãæ°İÆÄÀÇ È®´ë¿Í ÆäÀÌµå¾Æ¿ô¸¸ ´ã´çÇÑ´Ù.
-// Ãæµ¹ °Ë»ç³ª ÇÇÇØ Ã³¸®´Â ÇÏÁö ¾Ê´Â´Ù.
+// ì°©ì§€ ì¶©ê²©íŒŒì˜ í™•ëŒ€ì™€ í˜ì´ë“œì•„ì›ƒë§Œ ë‹´ë‹¹í•œë‹¤.
+// ì¶©ëŒ ê²€ì‚¬ë‚˜ í”¼í•´ ì²˜ë¦¬ëŠ” í•˜ì§€ ì•ŠëŠ”ë‹¤.
 [DisallowMultipleComponent]
 [RequireComponent(typeof(SpriteRenderer))]
 public sealed class BossAlienLeapImpact : MonoBehaviour
 {
-    // Áö¸é ±Õ¿­ ÀÌ¹ÌÁö 12ÀåÀ» 001ºÎÅÍ 012±îÁö ¼ø¼­´ë·Î µî·ÏÇÑ´Ù.
+    // ì§€ë©´ ê· ì—´ ì´ë¯¸ì§€ 12ì¥ì„ 001ë¶€í„° 012ê¹Œì§€ ìˆœì„œëŒ€ë¡œ ë“±ë¡í•œë‹¤.
     [SerializeField]
     private Sprite[] _frames = Array.Empty<Sprite>();
 
-    // ÃÊ´ç Ç¥½ÃÇÒ ÀÌ¹ÌÁö ¼ö´Ù. 12ÀåÀ» 24 FPS·Î Àç»ıÇÏ¸é 0.5ÃÊ´Ù.
+    // ì´ˆë‹¹ í‘œì‹œí•  ì´ë¯¸ì§€ ìˆ˜ë‹¤. 12ì¥ì„ 24 FPSë¡œ ì¬ìƒí•˜ë©´ 0.5ì´ˆë‹¤.
     [SerializeField, Min(1f)]
     private float _framesPerSecond = 24f;
 
-    // ÀÌ¹ÌÁö ¼ö¿Í FPS·Î °è»êÇÏ´Â ÀüÃ¼ Àç»ı ½Ã°£ÀÌ´Ù.
+    // ì´ë¯¸ì§€ ìˆ˜ì™€ FPSë¡œ ê³„ì‚°í•˜ëŠ” ì „ì²´ ì¬ìƒ ì‹œê°„ì´ë‹¤.
     private float _duration;
 
-    // ÀÌ¹ÌÁö¿¡ Àû¿ëÇÒ »ö»ó°ú ÃÊ±â Åõ¸íµµ´Ù.
+    // ì´ë¯¸ì§€ì— ì ìš©í•  ìƒ‰ìƒê³¼ ì´ˆê¸° íˆ¬ëª…ë„ë‹¤.
     [SerializeField]
     private Color _color = Color.white;
 
-    // Àç»ı¿¡ ÇÊ¿äÇÑ ÂüÁ¶¿Í ½ÇÇà »óÅÂ´Ù.
+    // ì¬ìƒì— í•„ìš”í•œ ì°¸ì¡°ì™€ ì‹¤í–‰ ìƒíƒœë‹¤.
     private SpriteRenderer _visual;
     private Vector3 _targetScale;
     private float _elapsed;
@@ -30,43 +30,43 @@ public sealed class BossAlienLeapImpact : MonoBehaviour
 
     private void Awake()
     {
-        // À§Ä¡¿Í Å©±â ¼³Á¤ Àü¿¡´Â Ç¥½ÃÇÏÁö ¾Ê´Â´Ù.
+        // ìœ„ì¹˜ì™€ í¬ê¸° ì„¤ì • ì „ì—ëŠ” í‘œì‹œí•˜ì§€ ì•ŠëŠ”ë‹¤.
         _visual = GetComponent<SpriteRenderer>();
         _visual.drawMode = SpriteDrawMode.Simple;
         _visual.enabled = false;
     }
 
-    // ÂøÁö Áß½É°ú °ø°İ ¹İ°æÀ» ¹Ş¾Æ ½Ã°¢ È¿°ú¸¦ Àç»ıÇÑ´Ù.
+    // ì°©ì§€ ì¤‘ì‹¬ê³¼ ê³µê²© ë°˜ê²½ì„ ë°›ì•„ ì‹œê° íš¨ê³¼ë¥¼ ì¬ìƒí•œë‹¤.
     public void Play(Vector2 center, float radius)
     {
-        // ºÎ¸ğÀÇ Å©±â¿Í È¸ÀüÀÌ ÀÌÆåÆ®¿¡ ¿µÇâÀ» ÁÖÁö ¾Ê°Ô ÇÑ´Ù.
+        // ë¶€ëª¨ì˜ í¬ê¸°ì™€ íšŒì „ì´ ì´í™íŠ¸ì— ì˜í–¥ì„ ì£¼ì§€ ì•Šê²Œ í•œë‹¤.
         if (transform.parent != null)
         {
             throw new InvalidOperationException(
-                $"{name}: ÂøÁö ÀÌÆåÆ®´Â ºÎ¸ğ ¾øÀÌ »ı¼ºÇÏ¼¼¿ä.");
+                $"{name}: ì°©ì§€ ì´í™íŠ¸ëŠ” ë¶€ëª¨ ì—†ì´ ìƒì„±í•˜ì„¸ìš”.");
         }
-        // Àç»ıÇÒ ÀÌ¹ÌÁö ¸ñ·Ï°ú ÃÊ´ç ÇÁ·¹ÀÓ ¼ö°¡ ¿Ã¹Ù¸¥Áö È®ÀÎÇÑ´Ù.
+        // ì¬ìƒí•  ì´ë¯¸ì§€ ëª©ë¡ê³¼ ì´ˆë‹¹ í”„ë ˆì„ ìˆ˜ê°€ ì˜¬ë°”ë¥¸ì§€ í™•ì¸í•œë‹¤.
         if (_frames == null || _frames.Length == 0 ||
             !IsFinite(_framesPerSecond) || _framesPerSecond <= 0f)
         {
             throw new InvalidOperationException(
-                $"{name}: Frames¿Í Frames Per Second¸¦ È®ÀÎÇÏ¼¼¿ä.");
+                $"{name}: Framesì™€ Frames Per Secondë¥¼ í™•ì¸í•˜ì„¸ìš”.");
         }
 
-        // µî·ÏµÈ ÀÌ¹ÌÁö Áß ºñ¾î ÀÖ´Â Ç×¸ñÀÌ ÀÖÀ¸¸é ¾Ë·ÁÁØ´Ù.
+        // ë“±ë¡ëœ ì´ë¯¸ì§€ ì¤‘ ë¹„ì–´ ìˆëŠ” í•­ëª©ì´ ìˆìœ¼ë©´ ì•Œë ¤ì¤€ë‹¤.
         for (int i = 0; i < _frames.Length; i++)
         {
             if (_frames[i] == null)
             {
                 throw new InvalidOperationException(
-                    $"{name}: FramesÀÇ Element {i}°¡ ºñ¾î ÀÖ½À´Ï´Ù.");
+                    $"{name}: Framesì˜ Element {i}ê°€ ë¹„ì–´ ìˆìŠµë‹ˆë‹¤.");
             }
         }
 
-        // ±âÁ¸ ÀÌ¹ÌÁö ´ë½Å ±Õ¿­ÀÇ Ã¹ ¹øÂ° ÀÌ¹ÌÁö·Î Àç»ıÀ» ½ÃÀÛÇÑ´Ù.
+        // ê¸°ì¡´ ì´ë¯¸ì§€ ëŒ€ì‹  ê· ì—´ì˜ ì²« ë²ˆì§¸ ì´ë¯¸ì§€ë¡œ ì¬ìƒì„ ì‹œì‘í•œë‹¤.
         _visual.sprite = _frames[0];
 
-        // 12Àå ¡À 24 FPS = 0.5ÃÊ µ¿¾È Àç»ıÇÑ´Ù.
+        // 12ì¥ Ã· 24 FPS = 0.5ì´ˆ ë™ì•ˆ ì¬ìƒí•œë‹¤.
         _duration = _frames.Length / _framesPerSecond;
 
         if (_visual.sprite == null ||
@@ -75,16 +75,16 @@ public sealed class BossAlienLeapImpact : MonoBehaviour
             !IsFinite(_duration) || _duration <= 0f)
         {
             throw new InvalidOperationException(
-                $"{name}: ½ºÇÁ¶óÀÌÆ®, ÁÂÇ¥, ¹İ°æ, Àç»ı ½Ã°£À» È®ÀÎÇÏ¼¼¿ä.");
+                $"{name}: ìŠ¤í”„ë¼ì´íŠ¸, ì¢Œí‘œ, ë°˜ê²½, ì¬ìƒ ì‹œê°„ì„ í™•ì¸í•˜ì„¸ìš”.");
         }
 
-        // ½ºÇÁ¶óÀÌÆ® ÀüÃ¼ Å©±â¸¦ ±âÁØÀ¸·Î ¸ñÇ¥ Áö¸§À» °è»êÇÑ´Ù.
+        // ìŠ¤í”„ë¼ì´íŠ¸ ì „ì²´ í¬ê¸°ë¥¼ ê¸°ì¤€ìœ¼ë¡œ ëª©í‘œ ì§€ë¦„ì„ ê³„ì‚°í•œë‹¤.
         Vector2 sourceSize = _visual.sprite.bounds.size;
 
         if (sourceSize.x <= 0f || sourceSize.y <= 0f)
         {
             throw new InvalidOperationException(
-                $"{name}: ½ºÇÁ¶óÀÌÆ® Å©±â°¡ ¿Ã¹Ù¸£Áö ¾Ê½À´Ï´Ù.");
+                $"{name}: ìŠ¤í”„ë¼ì´íŠ¸ í¬ê¸°ê°€ ì˜¬ë°”ë¥´ì§€ ì•ŠìŠµë‹ˆë‹¤.");
         }
 
         float diameter = radius * 2f;
@@ -99,8 +99,9 @@ public sealed class BossAlienLeapImpact : MonoBehaviour
 
         _elapsed = 0f;
         _playing = true;
+        GameAudio.Play(GameSound.AlienP2Land); // ì‹¤ì œ ì°©ì§€ ì´í™íŠ¸ì™€ ë™ê¸°í™”.
 
-        // »ı¼ºµÈ ÇÁ·¹ÀÓºÎÅÍ ÃÊ±â Å©±â¿Í »ö»óÀ¸·Î º¸¿©ÁØ´Ù.
+        // ìƒì„±ëœ í”„ë ˆì„ë¶€í„° ì´ˆê¸° í¬ê¸°ì™€ ìƒ‰ìƒìœ¼ë¡œ ë³´ì—¬ì¤€ë‹¤.
         ApplyProgress(0f);
         _visual.enabled = true;
     }
@@ -110,13 +111,13 @@ public sealed class BossAlienLeapImpact : MonoBehaviour
         if (!_playing)
             return;
 
-        // °ÔÀÓ ½Ã°£¿¡ ¸ÂÃç Àç»ıÇÏ¹Ç·Î ÀÏ½ÃÁ¤Áö Áß¿¡´Â ÁøÇàÇÏÁö ¾Ê´Â´Ù.
+        // ê²Œì„ ì‹œê°„ì— ë§ì¶° ì¬ìƒí•˜ë¯€ë¡œ ì¼ì‹œì •ì§€ ì¤‘ì—ëŠ” ì§„í–‰í•˜ì§€ ì•ŠëŠ”ë‹¤.
         _elapsed += Time.deltaTime;
         float progress = Mathf.Clamp01(_elapsed / _duration);
 
         ApplyProgress(progress);
 
-        // ¸¶Áö¸· ÇÁ·¹ÀÓ¿¡¼­ Åõ¸íÇØÁø µÚ ¿ÀºêÁ§Æ®¸¦ Á¦°ÅÇÑ´Ù.
+        // ë§ˆì§€ë§‰ í”„ë ˆì„ì—ì„œ íˆ¬ëª…í•´ì§„ ë’¤ ì˜¤ë¸Œì íŠ¸ë¥¼ ì œê±°í•œë‹¤.
         if (progress >= 1f)
         {
             _playing = false;
@@ -125,11 +126,11 @@ public sealed class BossAlienLeapImpact : MonoBehaviour
         }
     }
 
-    // Àç»ı ÁøÇà·ü¿¡ ¸ÂÃç ±Õ¿­ ÀÌ¹ÌÁö¸¦ ¼ø¼­´ë·Î Ç¥½ÃÇÑ´Ù.
+    // ì¬ìƒ ì§„í–‰ë¥ ì— ë§ì¶° ê· ì—´ ì´ë¯¸ì§€ë¥¼ ìˆœì„œëŒ€ë¡œ í‘œì‹œí•œë‹¤.
     private void ApplyProgress(float progress)
     {
-        // ÁøÇà·ü 0~1À» ÀÌ¹ÌÁö ¹øÈ£ 0~11·Î º¯È¯ÇÑ´Ù.
-        // Á¾·á ÁöÁ¡¿¡¼­µµ ¹è¿­ ¹üÀ§¸¦ ³ÑÁö ¾Êµµ·Ï ¸¶Áö¸· ¹øÈ£·Î Á¦ÇÑÇÑ´Ù.
+        // ì§„í–‰ë¥  0~1ì„ ì´ë¯¸ì§€ ë²ˆí˜¸ 0~11ë¡œ ë³€í™˜í•œë‹¤.
+        // ì¢…ë£Œ ì§€ì ì—ì„œë„ ë°°ì—´ ë²”ìœ„ë¥¼ ë„˜ì§€ ì•Šë„ë¡ ë§ˆì§€ë§‰ ë²ˆí˜¸ë¡œ ì œí•œí•œë‹¤.
         int frameIndex = Mathf.Clamp(
             Mathf.FloorToInt(progress * _frames.Length),
             0,
@@ -137,12 +138,12 @@ public sealed class BossAlienLeapImpact : MonoBehaviour
 
         _visual.sprite = _frames[frameIndex];
 
-        // È®´ë¿Í ¼Ò¸êÀº ÀÌ¹ÌÁö¿¡ Æ÷ÇÔµÇ¾î ÀÖÀ¸¹Ç·Î Ãß°¡ º¯ÇüÇÏÁö ¾Ê´Â´Ù.
+        // í™•ëŒ€ì™€ ì†Œë©¸ì€ ì´ë¯¸ì§€ì— í¬í•¨ë˜ì–´ ìˆìœ¼ë¯€ë¡œ ì¶”ê°€ ë³€í˜•í•˜ì§€ ì•ŠëŠ”ë‹¤.
         transform.localScale = _targetScale;
         _visual.color = _color;
     }
 
-    // NaN°ú ¹«ÇÑ´ë°¡ À§Ä¡¡¤Å©±â °è»ê¿¡ µé¾î°¡Áö ¾Ê°Ô ÇÑ´Ù.
+    // NaNê³¼ ë¬´í•œëŒ€ê°€ ìœ„ì¹˜Â·í¬ê¸° ê³„ì‚°ì— ë“¤ì–´ê°€ì§€ ì•Šê²Œ í•œë‹¤.
     private static bool IsFinite(float value)
     {
         return !float.IsNaN(value) && !float.IsInfinity(value);

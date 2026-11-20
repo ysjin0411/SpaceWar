@@ -1,20 +1,20 @@
-using System.Collections;
+ï»¿using System.Collections;
 using UnityEngine;
 
-// ¼³Á¤Àº ¿¡¼Â¿¡ º¸°üÇÏ°í, ¹ß»ç ÁøÇà »óÅÂ´Â ½ÇÇà¸¶´Ù µû·Î °ü¸®ÇÑ´Ù.
+// ì„¤ì •ì€ ì—ì…‹ì— ë³´ê´€í•˜ê³ , ë°œì‚¬ ì§„í–‰ ìƒíƒœëŠ” ì‹¤í–‰ë§ˆë‹¤ ë”°ë¡œ ê´€ë¦¬í•œë‹¤.
 [CreateAssetMenu(
     menuName = "Boss/Patterns/Alien Missile",
     fileName = "BossAlienMissilePattern")]
 public sealed class BossAlienMissilePattern : BossPattern
 {
-    // ¼ÒÄÏº° ¹ß»ç ÀÏÁ¤°ú ¹Ì»çÀÏ Á¤º¸¸¦ °¡Áø ¼³Á¤ ¿¡¼ÂÀÌ´Ù.
+    // ì†Œì¼“ë³„ ë°œì‚¬ ì¼ì •ê³¼ ë¯¸ì‚¬ì¼ ì •ë³´ë¥¼ ê°€ì§„ ì„¤ì • ì—ì…‹ì´ë‹¤.
     [SerializeField] private BossAlienMissileConfig _config;
 
-    // ÀÌº¥Æ® ´©¶ôÀÌ³ª Àß¸øµÈ Animator ¿¬°á·Î ¹«ÇÑ ´ë±âÇÏÁö ¾Ê°Ô ÇÑ´Ù.
+    // ì´ë²¤íŠ¸ ëˆ„ë½ì´ë‚˜ ì˜ëª»ëœ Animator ì—°ê²°ë¡œ ë¬´í•œ ëŒ€ê¸°í•˜ì§€ ì•Šê²Œ í•œë‹¤.
     [SerializeField, Min(0.1f)]
     private float _animationTimeout = 3f;
 
-    // ÇØÄ¡ °³¹æ »óÅÂ¸¦ Á¦¾îÇÏ´Â Animator ÆÄ¶ó¹ÌÅÍ´Ù.
+    // í•´ì¹˜ ê°œë°© ìƒíƒœë¥¼ ì œì–´í•˜ëŠ” Animator íŒŒë¼ë¯¸í„°ë‹¤.
     private static readonly int MissileAttacking =
         Animator.StringToHash("IsMissileAttacking");
 
@@ -22,7 +22,7 @@ public sealed class BossAlienMissilePattern : BossPattern
     {
         Boss_Alien boss = context.Boss as Boss_Alien;
 
-        // ÇÊ¿äÇÑ ¼³Á¤°ú ½ÇÇà ´ë»óÀ» È®ÀÎÇÑ´Ù.
+        // í•„ìš”í•œ ì„¤ì •ê³¼ ì‹¤í–‰ ëŒ€ìƒì„ í™•ì¸í•œë‹¤.
         if (boss == null || _config == null ||
             _config.MissilePrefab == null ||
             _config.SocketCount != 4 ||
@@ -31,8 +31,8 @@ public sealed class BossAlienMissilePattern : BossPattern
             !IsFinite(_config.FlightDuration) ||
             _config.FlightDuration <= 0f)
         {
-            Debug.LogError($"{name}: º¸½º, Config, ¼ÒÄÏ ¼ö, ½Ã°£ ¼³Á¤°ú " +
-                "Pause Random Movement¸¦ È®ÀÎÇÏ¼¼¿ä.");
+            Debug.LogError($"{name}: ë³´ìŠ¤, Config, ì†Œì¼“ ìˆ˜, ì‹œê°„ ì„¤ì •ê³¼ " +
+                "Pause Random Movementë¥¼ í™•ì¸í•˜ì„¸ìš”.");
             yield break;
         }
 
@@ -43,11 +43,11 @@ public sealed class BossAlienMissilePattern : BossPattern
 
         if (animator == null || relay == null)
         {
-            Debug.LogError($"{name}: Animator¿Í ÀÌº¥Æ® Àü´Ş ¿¬°áÀÌ ÇÊ¿äÇÕ´Ï´Ù.");
+            Debug.LogError($"{name}: Animatorì™€ ì´ë²¤íŠ¸ ì „ë‹¬ ì—°ê²°ì´ í•„ìš”í•©ë‹ˆë‹¤.");
             yield break;
         }
 
-        // Àß¸øµÈ ¹ß»ç ÀÏÁ¤ÀÌ ½ÇÇà µµÁß ¹®Á¦¸¦ ÀÏÀ¸Å°Áö ¾Ê°Ô °Ë»çÇÑ´Ù.
+        // ì˜ëª»ëœ ë°œì‚¬ ì¼ì •ì´ ì‹¤í–‰ ë„ì¤‘ ë¬¸ì œë¥¼ ì¼ìœ¼í‚¤ì§€ ì•Šê²Œ ê²€ì‚¬í•œë‹¤.
         for (int i = 0; i < _config.SocketCount; i++)
         {
             BossAlienMissileConfig.SocketSettings settings =
@@ -60,21 +60,21 @@ public sealed class BossAlienMissilePattern : BossPattern
                 settings.Interval <= 0f ||
                 settings.ShotCount < 0)
             {
-                Debug.LogError($"{name}: {i}¹ø ¼ÒÄÏÀÇ ¹ß»ç ¼³Á¤À» È®ÀÎÇÏ¼¼¿ä.");
+                Debug.LogError($"{name}: {i}ë²ˆ ì†Œì¼“ì˜ ë°œì‚¬ ì„¤ì •ì„ í™•ì¸í•˜ì„¸ìš”.");
                 yield break;
             }
 
-            // ½ÇÁ¦ º¸½º¿¡µµ ´ëÀÀÇÏ´Â ¼ÒÄÏÀÌ ¿¬°áµÇ¾î ÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
+            // ì‹¤ì œ ë³´ìŠ¤ì—ë„ ëŒ€ì‘í•˜ëŠ” ì†Œì¼“ì´ ì—°ê²°ë˜ì–´ ìˆëŠ”ì§€ í™•ì¸í•œë‹¤.
             boss.GetMissileSpawnPosition(i);
         }
 
-        // ÀÌ ½ÇÇà¿¡¼­¸¸ »ç¿ëÇÏ´Â ¼ÒÄÏº° ¹ß»ç È½¼ö´Ù.
+        // ì´ ì‹¤í–‰ì—ì„œë§Œ ì‚¬ìš©í•˜ëŠ” ì†Œì¼“ë³„ ë°œì‚¬ íšŸìˆ˜ë‹¤.
         int[] firedCounts = new int[_config.SocketCount];
 
         bool sequenceStarted = false;
         float sequenceStartTime = 0f;
 
-        // ·Îº¿ÀÇ Ã¼·ÂÀÌ ¼ÒÁøµÇ°Å³ª ÀüÅõ°¡ ³¡³ª¸é Ãß°¡ ¹ß»ç¸¦ ¸·´Â´Ù.
+        // ë¡œë´‡ì˜ ì²´ë ¥ì´ ì†Œì§„ë˜ê±°ë‚˜ ì „íˆ¬ê°€ ëë‚˜ë©´ ì¶”ê°€ ë°œì‚¬ë¥¼ ë§‰ëŠ”ë‹¤.
         bool CanContinue()
         {
             return boss != null &&
@@ -87,7 +87,7 @@ public sealed class BossAlienMissilePattern : BossPattern
                 !context.TargetPlayer.IsDead;
         }
 
-        // ÇØÄ¡ °³¹æ ÀÌº¥Æ®°¡ ¹ß»ıÇÑ ½Ã°¢À» ÇÑ ¹ø¸¸ ±â·ÏÇÑ´Ù.
+        // í•´ì¹˜ ê°œë°© ì´ë²¤íŠ¸ê°€ ë°œìƒí•œ ì‹œê°ì„ í•œ ë²ˆë§Œ ê¸°ë¡í•œë‹¤.
         void HandleSequenceStart()
         {
             if (sequenceStarted || !CanContinue())
@@ -104,14 +104,15 @@ public sealed class BossAlienMissilePattern : BossPattern
             yield break;
         }
 
-        // ¾Ö´Ï¸ŞÀÌ¼ÇÀ» ½ÃÀÛÇÏ±â Àü¿¡ ±¸µ¶ÇÏ¿© ÀÌº¥Æ® ´©¶ôÀ» ¸·´Â´Ù.
+        // ì• ë‹ˆë©”ì´ì…˜ì„ ì‹œì‘í•˜ê¸° ì „ì— êµ¬ë…í•˜ì—¬ ì´ë²¤íŠ¸ ëˆ„ë½ì„ ë§‰ëŠ”ë‹¤.
         relay.MissileSequenceStartRequested += HandleSequenceStart;
 
         try
         {
             animator.SetBool(MissileAttacking, true);
+            GameAudio.Play(GameSound.AlienMissileOpen);
 
-            // ÇØÄ¡°¡ ½ÇÁ¦·Î ¿­¸°´Ù´Â ÀÌº¥Æ®¸¦ ±â´Ù¸°´Ù.
+            // í•´ì¹˜ê°€ ì‹¤ì œë¡œ ì—´ë¦°ë‹¤ëŠ” ì´ë²¤íŠ¸ë¥¼ ê¸°ë‹¤ë¦°ë‹¤.
             float deadline = Time.time + _animationTimeout;
 
             while (!sequenceStarted)
@@ -123,14 +124,14 @@ public sealed class BossAlienMissilePattern : BossPattern
 
                 if (Time.time >= deadline)
                 {
-                    Debug.LogError($"{name}: ¹Ì»çÀÏ ½ÃÀÛ ÀÌº¥Æ®°¡ ¿ÀÁö ¾Ê¾Ò½À´Ï´Ù.");
+                    Debug.LogError($"{name}: ë¯¸ì‚¬ì¼ ì‹œì‘ ì´ë²¤íŠ¸ê°€ ì˜¤ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
                     yield break;
                 }
 
                 yield return null;
             }
 
-            // ³× ¼ÒÄÏÀÇ ÀÏÁ¤À» °°Àº ½ÃÀÛ ½Ã°¢ ±âÁØÀ¸·Î ÁøÇàÇÑ´Ù.
+            // ë„¤ ì†Œì¼“ì˜ ì¼ì •ì„ ê°™ì€ ì‹œì‘ ì‹œê° ê¸°ì¤€ìœ¼ë¡œ ì§„í–‰í•œë‹¤.
             while (CanContinue())
             {
                 float elapsed = Time.time - sequenceStartTime;
@@ -141,14 +142,14 @@ public sealed class BossAlienMissilePattern : BossPattern
                     BossAlienMissileConfig.SocketSettings settings =
                         _config.GetSocketSettings(i);
 
-                    // ÇÁ·¹ÀÓÀÌ ´Ê¾îÁ®µµ ¿¹Á¤µÈ ¹ß»ç È½¼ö°¡ ´©¶ôµÇÁö ¾Ê°Ô ÇÑ´Ù.
+                    // í”„ë ˆì„ì´ ëŠ¦ì–´ì ¸ë„ ì˜ˆì •ëœ ë°œì‚¬ íšŸìˆ˜ê°€ ëˆ„ë½ë˜ì§€ ì•Šê²Œ í•œë‹¤.
                     while (firedCounts[i] < settings.ShotCount &&
                         elapsed >= settings.FirstDelay +
                         firedCounts[i] * settings.Interval)
                     {
                         Vector3 start = boss.GetMissileSpawnPosition(i);
 
-                        // ¸Å ¹ß¸¶´Ù ÇöÀç ÇÃ·¹ÀÌ¾î À§Ä¡¸¦ »õ·Î ¹Ş¾Æ¿Â´Ù.
+                        // ë§¤ ë°œë§ˆë‹¤ í˜„ì¬ í”Œë ˆì´ì–´ ìœ„ì¹˜ë¥¼ ìƒˆë¡œ ë°›ì•„ì˜¨ë‹¤.
                         Vector3 target =
                             context.TargetPlayer.transform.position;
                         target.z = start.z;
@@ -158,7 +159,7 @@ public sealed class BossAlienMissilePattern : BossPattern
                             start,
                             Quaternion.identity);
 
-                        // ¹ß»çÀÚ¿Í °ø°İ ´ë»óµµ Àü´ŞÇÏ¿© ÀüÅõ Á¾·á ½Ã Á¤¸®ÇÒ ¼ö ÀÖ°Ô ÇÑ´Ù.
+                        // ë°œì‚¬ìì™€ ê³µê²© ëŒ€ìƒë„ ì „ë‹¬í•˜ì—¬ ì „íˆ¬ ì¢…ë£Œ ì‹œ ì •ë¦¬í•  ìˆ˜ ìˆê²Œ í•œë‹¤.
                         missile.Launch(
                             start,
                             target,
@@ -171,6 +172,7 @@ public sealed class BossAlienMissilePattern : BossPattern
                             boss,
                             context.TargetPlayer);
 
+                        GameAudio.Play(GameSound.AlienMissileLaunch); // ì„±ê³µì ìœ¼ë¡œ ë°œì‚¬í•œ ë’¤ ì¬ìƒ.
                         firedCounts[i]++;
                     }
 
@@ -193,7 +195,7 @@ public sealed class BossAlienMissilePattern : BossPattern
                 yield break;
             }
 
-            // ¸¶Áö¸· ¹ß»ç ÈÄ ÇØÄ¡¸¦ ´İ°í ´ë±â »óÅÂ º¹±Í±îÁö ±â´Ù¸°´Ù.
+            // ë§ˆì§€ë§‰ ë°œì‚¬ í›„ í•´ì¹˜ë¥¼ ë‹«ê³  ëŒ€ê¸° ìƒíƒœ ë³µê·€ê¹Œì§€ ê¸°ë‹¤ë¦°ë‹¤.
             animator.SetBool(MissileAttacking, false);
             deadline = Time.time + _animationTimeout;
 
@@ -208,7 +210,7 @@ public sealed class BossAlienMissilePattern : BossPattern
 
                 if (Time.time >= deadline)
                 {
-                    Debug.LogError($"{name}: ÇØÄ¡°¡ ´ë±â »óÅÂ·Î º¹±ÍÇÏÁö ¾Ê¾Ò½À´Ï´Ù.");
+                    Debug.LogError($"{name}: í•´ì¹˜ê°€ ëŒ€ê¸° ìƒíƒœë¡œ ë³µê·€í•˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
                     yield break;
                 }
             }
@@ -218,7 +220,7 @@ public sealed class BossAlienMissilePattern : BossPattern
         }
         finally
         {
-            // Á¤»ó Á¾·á¿Í °­Á¦ Áß´Ü ¸ğµÎ ÀÌº¥Æ® ±¸µ¶°ú °ø°İ ÇÃ·¡±×¸¦ Á¤¸®ÇÑ´Ù.
+            // ì •ìƒ ì¢…ë£Œì™€ ê°•ì œ ì¤‘ë‹¨ ëª¨ë‘ ì´ë²¤íŠ¸ êµ¬ë…ê³¼ ê³µê²© í”Œë˜ê·¸ë¥¼ ì •ë¦¬í•œë‹¤.
             if (relay != null)
             {
                 relay.MissileSequenceStartRequested -= HandleSequenceStart;
@@ -231,7 +233,7 @@ public sealed class BossAlienMissilePattern : BossPattern
         }
     }
 
-    // NaNÀÌ³ª ¹«ÇÑ´ë°¡ ¹ß»ç ½Ã°£ °è»ê¿¡ µé¾î¿À´Â °ÍÀ» ¸·´Â´Ù.
+    // NaNì´ë‚˜ ë¬´í•œëŒ€ê°€ ë°œì‚¬ ì‹œê°„ ê³„ì‚°ì— ë“¤ì–´ì˜¤ëŠ” ê²ƒì„ ë§‰ëŠ”ë‹¤.
     private static bool IsFinite(float value)
     {
         return !float.IsNaN(value) && !float.IsInfinity(value);

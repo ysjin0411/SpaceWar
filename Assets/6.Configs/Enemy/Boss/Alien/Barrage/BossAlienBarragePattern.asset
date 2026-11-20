@@ -19,12 +19,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2c1f26296dfd9704880326139ece4365, type: 2}
   - {fileID: 11400000, guid: 93af6b3a792c31140a5f86c6bf726f2a, type: 2}
   - {fileID: 11400000, guid: 0c4e98abe6ae4d8498ebfccc10a4b84b, type: 2}
-  _firstDelay: 1
-  _roundInterval: 0.8
+  _firstDelay: 1.25
+  _roundInterval: 1.1
   _recoveryDuration: 1
   _warningPrefab: {fileID: 891452153128977727, guid: 8de8a231ef277e24faf0231e53d1cd2f, type: 3}
   _missilePrefab: {fileID: 6658962208171896521, guid: ec646cae1b56e4e4c854fa628c2c596f, type: 3}
   _explosionPrefab: {fileID: 5971722688956264944, guid: 0410d707fc6bbbb41929054b46c8dd98, type: 3}
   _spawnHeightAboveArena: 2
-  _fallDuration: 0.6
+  _fallDuration: 0.85
   _explosionFadeDuration: 0.2

@@ -23,4 +23,4 @@ MonoBehaviour:
   _targetCharacterId: soldier
   _targetCharacterLevel: 5
   _rewardType: 0
-  _rewardValue: 500
+  _rewardValue: 300

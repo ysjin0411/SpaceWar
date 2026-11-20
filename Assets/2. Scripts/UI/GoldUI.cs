@@ -65,6 +65,9 @@ public class GoldUI : MoneyUI
         UpdateGoldText(SaveManager.Instance.CurrentGold);
     }
 
+    /// <summary>
+    /// 대기 중인 골드 획득 팝업과 소리를 같은 간격으로 표시한다.
+    /// </summary>
     private void Update()
     {
         // 일시정지 중에는 표시 간격과 텍스트 재생을 함께 멈춘다.
@@ -98,6 +101,9 @@ public class GoldUI : MoneyUI
             Target.rect.height * 0.5f + _popupOffsetY);
 
         popup.Play(amount, startPosition);
+
+        // +N 팝업 하나마다 획득음을 재생해 표시와 소리의 간격을 일치시킨다.
+        GameAudio.Play(GameSound.PickupGold);
 
         // 다음 텍스트는 설정한 간격 뒤에 생성한다.
         _popupTimer = _popupInterval;

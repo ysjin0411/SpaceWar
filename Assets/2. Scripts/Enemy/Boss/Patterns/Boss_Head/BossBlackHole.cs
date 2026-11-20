@@ -1,44 +1,51 @@
-using System;
+ï»¿using System;
 using UnityEngine;
 
 /// <summary>
-/// ÆĞÅÏ Config¿¡¼­ ºí·¢È¦¿¡ Àü´ŞÇÒ ¼³Á¤ÀÌ´Ù.
+/// íŒ¨í„´ Configì—ì„œ ë¸”ë™í™€ì— ì „ë‹¬í•  ì„¤ì •ì´ë‹¤.
 /// </summary>
 [Serializable]
 public struct BossBlackHoleSettings
 {
-    // FirePoint¿¡¼­ ¸ñÀûÁö±îÁö ³¯¾Æ°¡´Â ½Ã°£ÀÌ´Ù.
+    // FirePointì—ì„œ ëª©ì ì§€ê¹Œì§€ ë‚ ì•„ê°€ëŠ” ì‹œê°„ì´ë‹¤.
     [Min(0.01f)] public float TravelDuration;
 
-    // ¿ÏÀüÈ÷ ÆîÃÄÁø Å©±â¿¡ ´ëÇÑ ºñÇà Áß Å©±âÀÇ ºñÀ²ÀÌ´Ù.
-    // 0.15¸é ÃÖÁ¾ Å©±âÀÇ 15%·Î ³¯¾Æ°£´Ù.
+    // ì™„ì „íˆ í¼ì³ì§„ í¬ê¸°ì— ëŒ€í•œ ë¹„í–‰ ì¤‘ í¬ê¸°ì˜ ë¹„ìœ¨ì´ë‹¤.
+    // 0.15ë©´ ìµœì¢… í¬ê¸°ì˜ 15%ë¡œ ë‚ ì•„ê°„ë‹¤.
     [Range(0.01f, 1f)] public float FlightScaleRatio;
 
-    // È®´ë°¡ ¿Ï·áµÈ ÈÄ ÈíÀÎ°ú ÇÇÇØ¸¦ À¯ÁöÇÏ´Â ½Ã°£ÀÌ´Ù.
+    // ë“±ì¥ í™•ëŒ€ì™€ ì†Œë©¸ì— ê±¸ë¦¬ëŠ” ì‹œê°„ì´ë‹¤.
+    [Min(0.01f)] public float ExpandDuration;
+    [Min(0.01f)] public float FadeDuration;
+
+    // í™•ëŒ€ê°€ ì™„ë£Œëœ í›„ í¡ì¸ê³¼ í”¼í•´ë¥¼ ìœ ì§€í•˜ëŠ” ì‹œê°„ì´ë‹¤.
     [Min(0.01f)] public float ActiveDuration;
 
 
-    // ÇÃ·¹ÀÌ¾î¿¡°Ô ´õÇÒ Áß½É ¹æÇâÀÇ ÀÌµ¿ ¼Óµµ´Ù.
+    // í”Œë ˆì´ì–´ì—ê²Œ ë”í•  ì¤‘ì‹¬ ë°©í–¥ì˜ ì´ë™ ì†ë„ë‹¤.
     [SerializeField][Min(0f)] public float PullSpeed;
 
-    // °°Àº ºí·¢È¦ÀÌ ÇÇÇØ¸¦ ÁÖ´Â ÃÖ¼Ò ½Ã°£ °£°İÀÌ´Ù.
+    // ê°™ì€ ë¸”ë™í™€ì´ í”¼í•´ë¥¼ ì£¼ëŠ” ìµœì†Œ ì‹œê°„ ê°„ê²©ì´ë‹¤.
     [Min(0.01f)] public float DamageInterval;
 
-    // ÇÇÇØ °£°İ¸¶´Ù Àû¿ëÇÒ ÇÇÇØ·®ÀÌ´Ù.
+    // í”¼í•´ ê°„ê²©ë§ˆë‹¤ ì ìš©í•  í”¼í•´ëŸ‰ì´ë‹¤.
     [SerializeField][Min(1)] public float Damage;
 
-    // À¯Áö¡¤¼Ò¸ê Áß ÃÊ´ç È¸Àü °¢µµ´Ù. À½¼ö´Â ½Ã°è ¹æÇâÀÌ´Ù.
+    // ìœ ì§€Â·ì†Œë©¸ ì¤‘ ì´ˆë‹¹ íšŒì „ ê°ë„ë‹¤. ìŒìˆ˜ëŠ” ì‹œê³„ ë°©í–¥ì´ë‹¤.
     public float RotationSpeed;
 }
 
 /// <summary>
-/// ¸ñÀûÁö·Î ÀÌµ¿ÇÑ µÚ ÇÃ·¹ÀÌ¾î¸¦ ÈíÀÎÇÏ°í ÁÖ±âÀûÀ¸·Î ÇÇÇØ¸¦ ÁØ´Ù.
-/// ÇÃ·¹ÀÌ¾îº¸´Ù ¸ÕÀú ¿ÜºÎ ÀÌµ¿ ¼Óµµ¸¦ °è»êÇÑ´Ù.
+/// ëª©ì ì§€ë¡œ ì´ë™í•œ ë’¤ í”Œë ˆì´ì–´ë¥¼ í¡ì¸í•˜ê³  ì£¼ê¸°ì ìœ¼ë¡œ í”¼í•´ë¥¼ ì¤€ë‹¤.
+/// í”Œë ˆì´ì–´ë³´ë‹¤ ë¨¼ì € ì™¸ë¶€ ì´ë™ ì†ë„ë¥¼ ê³„ì‚°í•œë‹¤.
 /// </summary>
 [DefaultExecutionOrder(-100)]
 public sealed class BossBlackHole : MonoBehaviour
 {
-    // ºñÇà°ú °ø°İ »çÀÌ¿¡ È®´ë ´Ü°è¸¦ µĞ´Ù.
+    // ë¸”ë™í™€ì˜ ì§€ì†ìŒì„ ì •ë¦¬í•  í•¸ë“¤.
+    private GameAudio.Handle _holeAudio;
+
+    // ë¹„í–‰ê³¼ ê³µê²© ì‚¬ì´ì— í™•ëŒ€ ë‹¨ê³„ë¥¼ ë‘”ë‹¤.
     enum HoleState
     {
         None,
@@ -48,69 +55,58 @@ public sealed class BossBlackHole : MonoBehaviour
         Fading
     }
 
-    // Renderer ÀÚ½Ä¿¡ ºÙ¾î ÀÖ´Â ºí·¢È¦ Animator´Ù.
-    [SerializeField] Animator _animator;
-
-    // µîÀå ¾Ö´Ï¸ŞÀÌ¼Ç »óÅÂÀÇ ÀüÃ¼ °æ·Î´Ù.
-    static readonly int AppearStateHash =
-        Animator.StringToHash("Base Layer.Boss_Head_BlackHole_Appear");
-
-    // È°¼º ¾Ö´Ï¸ŞÀÌ¼Ç »óÅÂÀÇ ÀüÃ¼ °æ·Î´Ù.
-    static readonly int ActiveStateHash =
-        Animator.StringToHash("Base Layer.Boss_Head_BlackHole_Active");
-
-    // ¼Ò¸ê ¾Ö´Ï¸ŞÀÌ¼Ç »óÅÂÀÇ ÀüÃ¼ °æ·Î´Ù.
-    static readonly int DisappearStateHash =
-        Animator.StringToHash("Base Layer.Boss_Head_BlackHole_Disappear");
-
-    // È¸Àü¡¤Å©±â¡¤Åõ¸íµµ ¿¬ÃâÀ» Àû¿ëÇÒ ÀÚ½Ä SpriteRenderer´Ù.
+    // íšŒì „Â·í¬ê¸°Â·íˆ¬ëª…ë„ ì—°ì¶œì„ ì ìš©í•  ìì‹ SpriteRendererë‹¤.
     [SerializeField] SpriteRenderer _spriteRenderer;
 
-    // ÀÌ¹ÌÁö ÀüÃ¼ ³Êºñ ´ëºñ ¹Ù±ù ÈíÀÎ ¿øÀÇ ¹İÁö¸§ ºñÀ²ÀÌ´Ù.
-    // ÇöÀç »ı¼ºÇÑ ÀÌ¹ÌÁöÀÇ ¿©¹éÀ» °í·ÁÇÑ ÃÊ±â°ªÀÌ´Ù.
+    // ì´ë¯¸ì§€ ì „ì²´ ë„ˆë¹„ ëŒ€ë¹„ ë°”ê¹¥ í¡ì¸ ì›ì˜ ë°˜ì§€ë¦„ ë¹„ìœ¨ì´ë‹¤.
+    // í˜„ì¬ ìƒì„±í•œ ì´ë¯¸ì§€ì˜ ì—¬ë°±ì„ ê³ ë ¤í•œ ì´ˆê¸°ê°’ì´ë‹¤.
     [Range(0.01f, 0.5f)]
     [SerializeField] float _spriteOuterRadiusRatio = 0.47f;
 
-    // ÈíÀÎ ¹İÁö¸§ ´ëºñ ¾ÈÂÊ ÇÇÇØ ¹İÁö¸§ÀÇ ºñÀ²ÀÌ´Ù.
-    // ½ºÇÁ¶óÀÌÆ®ÀÇ ¾ÈÂÊ ÀÚÈ«»ö Å×µÎ¸®¿¡ ¸ÂÃç Á¶ÀıÇÑ´Ù.
+    // í¡ì¸ ë°˜ì§€ë¦„ ëŒ€ë¹„ ì•ˆìª½ í”¼í•´ ë°˜ì§€ë¦„ì˜ ë¹„ìœ¨ì´ë‹¤.
+    // ìŠ¤í”„ë¼ì´íŠ¸ì˜ ì•ˆìª½ ìí™ìƒ‰ í…Œë‘ë¦¬ì— ë§ì¶° ì¡°ì ˆí•œë‹¤.
     [Range(0.01f, 1f)]
     [SerializeField] float _damageRadiusRatio = 0.3f;
 
-    // ¿¡µğÅÍ¿¡¼­ ÈíÀÎ ¿ø°ú ÇÇÇØ ¿øÀ» Ç¥½ÃÇÑ´Ù.
+    // ì—ë””í„°ì—ì„œ í¡ì¸ ì›ê³¼ í”¼í•´ ì›ì„ í‘œì‹œí•œë‹¤.
     [SerializeField] bool _showRangeGizmos = true;
 
-    // ÇöÀç ¹ß»çÇÑ º¸½º¿Í ´ë»ó ÇÃ·¹ÀÌ¾î´Ù.
+    // í˜„ì¬ ë°œì‚¬í•œ ë³´ìŠ¤ì™€ ëŒ€ìƒ í”Œë ˆì´ì–´ë‹¤.
     BossEnemy _owner;
     PlayerController _player;
 
-    // ¾ÈÂÊ ÇÇÇØ ¿ø¿¡ ½ÇÁ¦·Î ´ê¾Ò´ÂÁö È®ÀÎÇÒ ÇÃ·¹ÀÌ¾î ColliderµéÀÌ´Ù.
+    // ì•ˆìª½ í”¼í•´ ì›ì— ì‹¤ì œë¡œ ë‹¿ì•˜ëŠ”ì§€ í™•ì¸í•  í”Œë ˆì´ì–´ Colliderë“¤ì´ë‹¤.
     Collider2D[] _playerColliders;
 
-    // ÆĞÅÏ¿¡¼­ º¹»çÇÑ ¼³Á¤ÀÌ´Ù.
+    // íŒ¨í„´ì—ì„œ ë³µì‚¬í•œ ì„¤ì •ì´ë‹¤.
     BossBlackHoleSettings _settings;
 
-    // ¹ß»ç À§Ä¡¿Í ¹ß»ç ½Ã È®Á¤ÇÑ ¸ñÀûÁö´Ù.
+    // ë°œì‚¬ ìœ„ì¹˜ì™€ ë°œì‚¬ ì‹œ í™•ì •í•œ ëª©ì ì§€ë‹¤.
     Vector3 _launchPosition;
     Vector3 _destination;
 
-    // ÇÁ¸®ÆÕ¿¡ ¼³Á¤µÈ ÀÌ¹ÌÁö ÀÚ½ÄÀÇ ¿ø·¡ Å©±â´Ù.
-    // È®´ë°¡ ³¡³ª¸é ÀÌ Å©±â·Î º¹¿øÇÑ´Ù.
+    // í”„ë¦¬íŒ¹ì— ì„¤ì •ëœ ì´ë¯¸ì§€ ìì‹ì˜ ì›ë˜ í¬ê¸°ë‹¤.
+    // í™•ëŒ€ê°€ ëë‚˜ë©´ ì´ í¬ê¸°ë¡œ ë³µì›í•œë‹¤.
     Vector3 _expandedLocalScale;
 
-    // ÇöÀç ´Ü°è¿Í ´Ü°èº° °æ°ú ½Ã°£ÀÌ´Ù.
+    // ì†Œë©¸ì„ ì‹œì‘í•œ ìˆœê°„ì˜ í¬ê¸°ì™€ ìƒ‰ì„ ë³´ê´€í•´ ì¤‘ê°„ ì·¨ì†Œë„ ìì—°ìŠ¤ëŸ½ê²Œ ì‡ëŠ”ë‹¤.
+    Vector3 _fadeStartScale;
+    Color _fadeStartColor;
+
+    // í˜„ì¬ ë‹¨ê³„ì™€ ë‹¨ê³„ë³„ ê²½ê³¼ ì‹œê°„ì´ë‹¤.
     HoleState _state;
     float _elapsed;
 
-    // ÀçÁøÀÔÀ¸·Î ÇÇÇØ °£°İÀ» ¿ìÈ¸ÇÏÁö ¾Êµµ·Ï ´ÙÀ½ ÇÇÇØ ½Ã°£À» º¸°üÇÑ´Ù.
+    // ì¬ì§„ì…ìœ¼ë¡œ í”¼í•´ ê°„ê²©ì„ ìš°íšŒí•˜ì§€ ì•Šë„ë¡ ë‹¤ìŒ í”¼í•´ ì‹œê°„ì„ ë³´ê´€í•œë‹¤.
     float _nextDamageTime;
 
-    // ½ºÇÁ¶óÀÌÆ® Áß½ÉÀ» ½ÇÁ¦ ÆÇÁ¤ Áß½ÉÀ¸·Î »ç¿ëÇÑ´Ù.
+    // ìŠ¤í”„ë¼ì´íŠ¸ ì¤‘ì‹¬ì„ ì‹¤ì œ íŒì • ì¤‘ì‹¬ìœ¼ë¡œ ì‚¬ìš©í•œë‹¤.
     private Vector2 RangeCenter =>
         _spriteRenderer.transform.TransformPoint(
             _spriteRenderer.sprite.bounds.center);
 
-    // ÀÌ¹ÌÁöÀÇ ¿øº» Å©±â¿¡ ÇöÀç Transform ¹èÀ²À» Àû¿ëÇÑ´Ù.
-    // ºÎ¸ğÀÎ ·çÆ®ÀÇ Scaleµµ Æ÷ÇÔµÇ¸ç ¸Å¹ø ÇöÀç Å©±â·Î °è»êÇÑ´Ù.
+    // ì´ë¯¸ì§€ì˜ ì›ë³¸ í¬ê¸°ì— í˜„ì¬ Transform ë°°ìœ¨ì„ ì ìš©í•œë‹¤.
+    // ë¶€ëª¨ì¸ ë£¨íŠ¸ì˜ Scaleë„ í¬í•¨ë˜ë©° ë§¤ë²ˆ í˜„ì¬ í¬ê¸°ë¡œ ê³„ì‚°í•œë‹¤.
     private float WorldSuctionRadius
     {
         get
@@ -124,47 +120,30 @@ public sealed class BossBlackHole : MonoBehaviour
         }
     }
 
-    // ÇÇÇØ ¹üÀ§µµ °°Àº Å©±â ±âÁØÀ» »ç¿ëÇÑ´Ù.
+    // í”¼í•´ ë²”ìœ„ë„ ê°™ì€ í¬ê¸° ê¸°ì¤€ì„ ì‚¬ìš©í•œë‹¤.
     private float WorldDamageRadius =>
         WorldSuctionRadius * _damageRadiusRatio;
 
     /// <summary>
-    /// ÄÄÆ÷³ÍÆ® ÂüÁ¶¿Í ÃÊ±â ½ÇÇà »óÅÂ¸¦ ÁØºñÇÑ´Ù.
+    /// ì»´í¬ë„ŒíŠ¸ ì°¸ì¡°ì™€ ì´ˆê¸° ì‹¤í–‰ ìƒíƒœë¥¼ ì¤€ë¹„í•œë‹¤.
     /// </summary>
     private void Awake()
     {
-        // ÀÌ¹ÌÁö°¡ ·çÆ®¿¡ ÀÖÀ¸¸é ÆÇÁ¤ À§Ä¡±îÁö È¸Àü¡¤Ãà¼ÒµÉ ¼ö ÀÖ´Ù.
+        // ì´ë¯¸ì§€ê°€ ë£¨íŠ¸ì— ìˆìœ¼ë©´ íŒì • ìœ„ì¹˜ê¹Œì§€ íšŒì „Â·ì¶•ì†Œë  ìˆ˜ ìˆë‹¤.
         if (_spriteRenderer == null ||
             _spriteRenderer.sprite == null ||
             _spriteRenderer.transform == transform ||
             _spriteRenderer.transform.parent != transform)
         {
             throw new InvalidOperationException(
-                $"{name}: ·çÆ®ÀÇ ¹Ù·Î ¾Æ·¡ ÀÚ½Ä SpriteRenderer¸¦ ¿¬°áÇÏ¼¼¿ä.");
+                $"{name}: ë£¨íŠ¸ì˜ ë°”ë¡œ ì•„ë˜ ìì‹ SpriteRendererë¥¼ ì—°ê²°í•˜ì„¸ìš”.");
         }
 
-        // ¾Ö´Ï¸ŞÀÌ¼ÇÀÌ SpriteRenderer¿Í °°Àº ÀÚ½Ä¿¡¼­ Àç»ıµÇ´ÂÁö °Ë»çÇÑ´Ù.
-        if (_animator == null ||
-            _animator.runtimeAnimatorController == null ||
-            _animator.gameObject != _spriteRenderer.gameObject)
-        {
-            throw new InvalidOperationException(
-                $"{name}: Renderer ÀÚ½ÄÀÇ Animator¿Í Controller¸¦ ¿¬°áÇÏ¼¼¿ä.");
-        }
-
-        // ÄÚµå¿¡¼­ Àç»ıÇÒ »óÅÂ°¡ ½ÇÁ¦ Controller¿¡ Á¸ÀçÇÏ´ÂÁö °Ë»çÇÑ´Ù.
-        if (!_animator.HasState(0, AppearStateHash) ||
-            !_animator.HasState(0, ActiveStateHash) ||
-            !_animator.HasState(0, DisappearStateHash))
-        {
-            throw new InvalidOperationException(
-                $"{name}: BlackHoleÀÇ Appear, Active, Disappear »óÅÂ¸¦ È®ÀÎÇÏ¼¼¿ä.");
-        }
     }
 
     /// <summary>
-    /// ÆĞÅÏÀÌ ºí·¢È¦ »ı¼º Á÷ÈÄ È£ÃâÇÑ´Ù.
-    /// ÇÁ¸®ÆÕ¿¡ ¼³Á¤ÇÑ ·çÆ®¿Í ÀÌ¹ÌÁöÀÇ Å©±â¸¦ À¯ÁöÇÑ´Ù.
+    /// íŒ¨í„´ì´ ë¸”ë™í™€ ìƒì„± ì§í›„ í˜¸ì¶œí•œë‹¤.
+    /// í”„ë¦¬íŒ¹ì— ì„¤ì •í•œ ë£¨íŠ¸ì™€ ì´ë¯¸ì§€ì˜ í¬ê¸°ë¥¼ ìœ ì§€í•œë‹¤.
     /// </summary>
     public void Initialize(
         BossEnemy owner,
@@ -174,17 +153,21 @@ public sealed class BossBlackHole : MonoBehaviour
     {
         if (owner == null || player == null)
         {
-            throw new ArgumentException("º¸½º¿Í ÇÃ·¹ÀÌ¾î¸¦ Àü´ŞÇÏ¼¼¿ä.");
+            throw new ArgumentException("ë³´ìŠ¤ì™€ í”Œë ˆì´ì–´ë¥¼ ì „ë‹¬í•˜ì„¸ìš”.");
         }
 
         _owner = owner;
         _player = player;
+        // ì˜ëª»ëœ ì‹œê°„ ì„¤ì •ìœ¼ë¡œ 0 ë‚˜ëˆ„ê¸°ê°€ ë°œìƒí•˜ì§€ ì•Šë„ë¡ ê²€ì‚¬í•œë‹¤.
+        if (settings.TravelDuration <= 0f || settings.ExpandDuration <= 0f ||
+            settings.FadeDuration <= 0f || settings.ActiveDuration <= 0f)
+            throw new ArgumentException("ë¸”ë™í™€ ì´ë™Â·í™•ëŒ€Â·ìœ ì§€Â·ì†Œë©¸ ì‹œê°„ì€ ì–‘ìˆ˜ì—¬ì•¼ í•©ë‹ˆë‹¤.");
         _settings = settings;
 
         _playerColliders =
             player.GetComponentsInChildren<Collider2D>();
 
-        // ºÎ¸ğ¿¡¼­ ºĞ¸®ÇÏ´õ¶óµµ ÇöÀç ¿ùµå Å©±â´Â À¯ÁöÇÑ´Ù.
+        // ë¶€ëª¨ì—ì„œ ë¶„ë¦¬í•˜ë”ë¼ë„ í˜„ì¬ ì›”ë“œ í¬ê¸°ëŠ” ìœ ì§€í•œë‹¤.
         transform.SetParent(null, true);
         transform.rotation = Quaternion.identity;
 
@@ -192,145 +175,86 @@ public sealed class BossBlackHole : MonoBehaviour
         _destination = new Vector3(
             destination.x, destination.y, _launchPosition.z);
 
-        // ÀÌ¹ÌÁö¸¦ ·çÆ® Áß½É¿¡ ¹èÄ¡ÇÑ´Ù.
+        // ì´ë¯¸ì§€ë¥¼ ë£¨íŠ¸ ì¤‘ì‹¬ì— ë°°ì¹˜í•œë‹¤.
         _spriteRenderer.transform.localPosition = Vector3.zero;
         _spriteRenderer.transform.localRotation = Quaternion.identity;
 
-        // ÇÁ¸®ÆÕÀÇ ¿ø·¡ Å©±â¸¦ º¸°üÇÏ°í ºñÇàÇÒ ¶§¸¸ ÀÛ°Ô ¸¸µç´Ù.
-        // ·çÆ® ScaleÀº º¯°æÇÏÁö ¾Ê´Â´Ù.
+        // í”„ë¦¬íŒ¹ì˜ ì›ë˜ í¬ê¸°ë¥¼ ë³´ê´€í•˜ê³  ë¹„í–‰í•  ë•Œë§Œ ì‘ê²Œ ë§Œë“ ë‹¤.
+        // ë£¨íŠ¸ Scaleì€ ë³€ê²½í•˜ì§€ ì•ŠëŠ”ë‹¤.
         _expandedLocalScale = _spriteRenderer.transform.localScale;
         _spriteRenderer.transform.localScale =
             _expandedLocalScale * _settings.FlightScaleRatio;
 
-        // ºñÇà°ú È®´ë Áß¿¡´Â ÈíÀÎ¡¤ÇÇÇØ¡¤È¸ÀüÀ» ½ÃÀÛÇÏÁö ¾Ê´Â´Ù.
+        // ë¹„í–‰ê³¼ í™•ëŒ€ ì¤‘ì—ëŠ” íšŒì „ë§Œ ì§„í–‰í•˜ê³  í¡ì¸Â·í”¼í•´ëŠ” ì‹œì‘í•˜ì§€ ì•ŠëŠ”ë‹¤.
         _elapsed = 0f;
         _nextDamageTime = 0f;
         _state = HoleState.Flying;
+        GameAudio.Stop(_holeAudio);
+        _holeAudio = GameAudio.PlayOwned(GameSound.HeadBlackholeLoop, this, true);
 
-        // ÀÌµ¿ Áß¿¡´Â ÇÁ¸®ÆÕ¿¡ ÁöÁ¤ÇÑ ½ºÇÁ¶óÀÌÆ®¸¦ ÀÛÀº Å©±â·Î Ç¥½ÃÇÑ´Ù.
-        // ¸ñÀûÁö¿¡ µµÂøÇÏ±â Àü¿¡´Â ¾Ö´Ï¸ŞÀÌ¼ÇÀ» Àç»ıÇÏÁö ¾Ê´Â´Ù.
-        _animator.enabled = false;
     }
 
-    // ÀÌµ¿, µîÀå, È°¼º À¯Áö, ¼Ò¸êÀÇ ¼ø¼­¸¦ °ü¸®ÇÑ´Ù.
+    /// <summary>í•œ ì¥ì˜ ì´ë¯¸ì§€ë¥¼ íšŒì „ì‹œí‚¤ë©° ì´ë™Â·í™•ëŒ€Â·ìœ ì§€Â·ì†Œë©¸ì„ ì§„í–‰í•©ë‹ˆë‹¤.</summary>
     private void Update()
     {
-        if (_state == HoleState.None)
-        {
-            return;
-        }
+        // ì´ˆê¸°í™” ì „ì—ëŠ” ì—°ì¶œì„ ì§„í–‰í•˜ì§€ ì•ŠëŠ”ë‹¤.
+        if (_state == HoleState.None) return;
+        _spriteRenderer.transform.Rotate(0f, 0f,
+            _settings.RotationSpeed * Time.deltaTime, Space.Self);
 
-        // ±âÁ¸Ã³·³ È°¼º »óÅÂ¿Í ¼Ò¸ê »óÅÂ¿¡¼­ È¸ÀüÇÑ´Ù.
-        if (_state == HoleState.Active || _state == HoleState.Fading)
-        {
-            _spriteRenderer.transform.Rotate(
-                0f, 0f,
-                _settings.RotationSpeed * Time.deltaTime,
-                Space.Self);
-        }
-
-        // Disappear¸¦ ³¡±îÁö Àç»ıÇÑ µÚ ºí·¢È¦À» »èÁ¦ÇÑ´Ù.
+        // ì†Œë©¸ì€ ì‹œì‘ ë‹¹ì‹œ í¬ê¸°ì™€ ìƒ‰ì—ì„œ ì´ì–´ì§€ë¯€ë¡œ ì¡°ê¸° ì·¨ì†Œí•´ë„ íŠ€ì§€ ì•ŠëŠ”ë‹¤.
         if (_state == HoleState.Fading)
         {
-            if (HasAnimationFinished(DisappearStateHash))
+            _elapsed += Time.deltaTime;
+            float ratio = Mathf.Clamp01(_elapsed / _settings.FadeDuration);
+            float eased = Mathf.SmoothStep(0f, 1f, ratio);
+            _spriteRenderer.transform.localScale = Vector3.Lerp(_fadeStartScale, Vector3.zero, eased);
+            Color color = _fadeStartColor;
+            color.a *= 1f - eased;
+            _spriteRenderer.color = color;
+            if (ratio >= 1f)
             {
                 _state = HoleState.None;
                 Destroy(gameObject);
             }
-
             return;
         }
 
-        // º¸½º°¡ »ç¶óÁö¸é ÀÌµ¿ ¶Ç´Â µîÀå ÁßÀÌ¶óµµ ¼Ò¸êÀ» ½ÃÀÛÇÑ´Ù.
-        if (!IsOwnerAlive())
-        {
-            BeginFadeOut();
-            return;
-        }
-
+        // ì†Œìœ  ë³´ìŠ¤ê°€ ì‚¬ë¼ì§€ë©´ í˜„ì¬ ë‹¨ê³„ì—ì„œ ë°”ë¡œ ì†Œë©¸ë¡œ ì´ì–´ì§„ë‹¤.
+        if (!IsOwnerAlive()) { BeginFadeOut(); return; }
+        _elapsed += Time.deltaTime;
         if (_state == HoleState.Flying)
         {
-            // ÀÛÀº Å©±â¸¦ À¯ÁöÇÏ¸ç ¸ñÀûÁö±îÁö ÀÌµ¿ÇÑ´Ù.
-            _elapsed += Time.deltaTime;
-
-            float ratio = Mathf.Clamp01(
-                _elapsed / _settings.TravelDuration);
-
-            transform.position =
-                Vector3.Lerp(_launchPosition, _destination, ratio);
-
+            float ratio = Mathf.Clamp01(_elapsed / _settings.TravelDuration);
+            transform.position = Vector3.Lerp(_launchPosition, _destination, ratio);
             if (ratio >= 1f)
             {
-                // ¸ñÀûÁö¿¡ µµÂøÇÑ ¼ø°£ºÎÅÍ Appear¸¦ Àç»ıÇÑ´Ù.
-                transform.position = _destination;
                 _elapsed = 0f;
                 _state = HoleState.Expanding;
-
-                _animator.enabled = true;
-                _animator.Play(AppearStateHash, 0, 0f);
             }
-
-            return;
         }
-
-        if (_state == HoleState.Expanding)
+        else if (_state == HoleState.Expanding)
         {
-            AnimatorStateInfo animation =
-                _animator.GetCurrentAnimatorStateInfo(0);
-
-            // Play ¿äÃ»ÀÌ Animator¿¡ ¹İ¿µµÇ±â Àü¿¡´Â ±â´Ù¸°´Ù.
-            if (animation.fullPathHash != AppearStateHash)
-            {
-                return;
-            }
-
-            // AppearÀÇ Àç»ı ÁøÇà·ü¿¡ ¸ÂÃç ±âÁ¸ È®´ë ¿¬ÃâÀ» ÁøÇàÇÑ´Ù.
-            float ratio = Mathf.Clamp01(animation.normalizedTime);
-            float easedRatio = Mathf.SmoothStep(0f, 1f, ratio);
-
+            // í™•ëŒ€ê°€ ëë‚œ ë’¤ë¶€í„°ë§Œ í™œì„± ì‹œê°„ê³¼ í”¼í•´ ê°„ê²©ì„ ê³„ì‚°í•œë‹¤.
+            float ratio = Mathf.Clamp01(_elapsed / _settings.ExpandDuration);
             _spriteRenderer.transform.localScale = Vector3.Lerp(
                 _expandedLocalScale * _settings.FlightScaleRatio,
-                _expandedLocalScale,
-                easedRatio);
-
-            if (animation.normalizedTime >= 1f)
+                _expandedLocalScale, Mathf.SmoothStep(0f, 1f, ratio));
+            if (ratio >= 1f)
             {
-                // µîÀå ¿Ï·á ÈÄ¿¡¸¸ È°¼º ½Ã°£°ú ÇÇÇØ ÆÇÁ¤À» ½ÃÀÛÇÑ´Ù.
-                _spriteRenderer.transform.localScale = _expandedLocalScale;
                 _elapsed = 0f;
                 _nextDamageTime = Time.time;
                 _state = HoleState.Active;
-
-                _animator.Play(ActiveStateHash, 0, 0f);
             }
-
-            return;
         }
-
-        if (_state == HoleState.Active)
+        else if (_state == HoleState.Active && _elapsed >= _settings.ActiveDuration)
         {
-            // ÀÌµ¿°ú µîÀå¿¡ °É¸° ½Ã°£Àº È°¼º À¯Áö ½Ã°£¿¡ Æ÷ÇÔÇÏÁö ¾Ê´Â´Ù.
-            _elapsed += Time.deltaTime;
-
-            if (_elapsed >= _settings.ActiveDuration)
-            {
-                BeginFadeOut();
-            }
+            BeginFadeOut();
         }
-    }
-
-    // ÁöÁ¤ÇÑ »óÅÂ°¡ ½ÇÁ¦·Î Àç»ı ÁßÀÌ¸ç ÇÑ ¹øÀÇ Àç»ıÀ» ¸¶ÃÆ´ÂÁö È®ÀÎÇÑ´Ù.
-    private bool HasAnimationFinished(int stateHash)
-    {
-        AnimatorStateInfo animation =
-            _animator.GetCurrentAnimatorStateInfo(0);
-
-        return animation.fullPathHash == stateHash &&
-               animation.normalizedTime >= 1f;
     }
 
     /// <summary>
-    /// ¹°¸® °»½Å ÁÖ±â¿¡ ¸ÂÃç ÀÌµ¿°ú Ãæµ¹ Ã³¸®¸¦ ¼öÇàÇÑ´Ù.
+    /// ë¬¼ë¦¬ ê°±ì‹  ì£¼ê¸°ì— ë§ì¶° ì´ë™ê³¼ ì¶©ëŒ ì²˜ë¦¬ë¥¼ ìˆ˜í–‰í•œë‹¤.
     /// </summary>
     private void FixedUpdate()
     {
@@ -345,21 +269,21 @@ public sealed class BossBlackHole : MonoBehaviour
             return;
         }
 
-        // ÀÌµ¿ ¿¬ÃâÀÌ³ª »ç¸Á ÁßÀÎ ÇÃ·¹ÀÌ¾î¿¡°Ô´Â ¿µÇâÀ» ÁÖÁö ¾Ê´Â´Ù.
+        // ì´ë™ ì—°ì¶œì´ë‚˜ ì‚¬ë§ ì¤‘ì¸ í”Œë ˆì´ì–´ì—ê²ŒëŠ” ì˜í–¥ì„ ì£¼ì§€ ì•ŠëŠ”ë‹¤.
         if (_player == null || _player.IsDead || !_player.CanControl)
         {
             ReleasePull();
             return;
         }
 
-        // ½ºÇÁ¶óÀÌÆ®ÀÇ ½ÇÁ¦ Áß½É°ú ÇöÀç Å©±â¸¦ »ç¿ëÇÑ´Ù.
+        // ìŠ¤í”„ë¼ì´íŠ¸ì˜ ì‹¤ì œ ì¤‘ì‹¬ê³¼ í˜„ì¬ í¬ê¸°ë¥¼ ì‚¬ìš©í•œë‹¤.
         Vector2 center = RangeCenter;
         Vector2 offset = center - (Vector2)_player.transform.position;
         float distance = offset.magnitude;
 
         if (distance <= WorldSuctionRadius)
         {
-            // Áß½ÉÀ» Áö³ªÃÄ ¹İ´ëÆíÀ¸·Î Æ¢Áö ¾Êµµ·Ï ÇÑ ÇÁ·¹ÀÓ ÀÌµ¿·®À» Á¦ÇÑÇÑ´Ù.
+            // ì¤‘ì‹¬ì„ ì§€ë‚˜ì³ ë°˜ëŒ€í¸ìœ¼ë¡œ íŠ€ì§€ ì•Šë„ë¡ í•œ í”„ë ˆì„ ì´ë™ëŸ‰ì„ ì œí•œí•œë‹¤.
             float speed = Mathf.Min(
                 _settings.PullSpeed,
                 distance / Time.fixedDeltaTime);
@@ -372,21 +296,22 @@ public sealed class BossBlackHole : MonoBehaviour
             ReleasePull();
         }
 
-        // ÇÇÇØ´Â ¹Ù±ù ÈíÀÎ ¿øÀÌ ¾Æ´Ñ ¾ÈÂÊ ÄÚ¾î Á¢ÃËÀ¸·Î ÆÇ´ÜÇÑ´Ù.
+        // í”¼í•´ëŠ” ë°”ê¹¥ í¡ì¸ ì›ì´ ì•„ë‹Œ ì•ˆìª½ ì½”ì–´ ì ‘ì´‰ìœ¼ë¡œ íŒë‹¨í•œë‹¤.
         if (Time.time >= _nextDamageTime &&
             TouchesDamageArea(center))
         {
             _nextDamageTime = Time.time + _settings.DamageInterval;
-            _player.TakeHit(_settings.Damage);
+            // í¡ì¸ ì¤‘ ë°˜ë³µ í”¼í•´ëŠ” ì•½í•œ í™”ë©´ ë°˜ì‘ì„ ì‚¬ìš©í•œë‹¤.
+            _player.TakeHit(_settings.Damage, true);
         }
     }
 
     /// <summary>
-    /// ÇÃ·¹ÀÌ¾î Collider Áß ÇÏ³ª¶óµµ ÇÇÇØ ¿ø¿¡ ´êÀ¸¸é true´Ù.
+    /// í”Œë ˆì´ì–´ Collider ì¤‘ í•˜ë‚˜ë¼ë„ í”¼í•´ ì›ì— ë‹¿ìœ¼ë©´ trueë‹¤.
     /// </summary>
     private bool TouchesDamageArea(Vector2 center)
     {
-        // ÇöÀç ·çÆ® ScaleÀÌ ¹İ¿µµÈ ÇÇÇØ ¹İÁö¸§ÀÌ´Ù.
+        // í˜„ì¬ ë£¨íŠ¸ Scaleì´ ë°˜ì˜ëœ í”¼í•´ ë°˜ì§€ë¦„ì´ë‹¤.
         float radius = WorldDamageRadius;
 
         foreach (Collider2D playerCollider in _playerColliders)
@@ -409,38 +334,42 @@ public sealed class BossBlackHole : MonoBehaviour
         return false;
     }
 
-    // ÈíÀÔ°ú ÇÇÇØ¸¦ Áß´ÜÇÏ°í ¼Ò¸ê ¾Ö´Ï¸ŞÀÌ¼ÇÀ» ½ÃÀÛÇÑ´Ù.
+    /// <summary>í¡ì¸ê³¼ í”¼í•´ë¥¼ ì¤‘ë‹¨í•˜ê³  í˜„ì¬ ëª¨ìŠµì—ì„œ ì¶•ì†ŒÂ·íˆ¬ëª…í™”ë¥¼ ì‹œì‘í•©ë‹ˆë‹¤.</summary>
     public void BeginFadeOut()
     {
-        // ¼Ò¸ê Áß ¹İº¹ È£ÃâµÇ¾îµµ ¾Ö´Ï¸ŞÀÌ¼ÇÀ» Ã³À½ºÎÅÍ Àç»ıÇÏÁö ¾Ê´Â´Ù.
+        // ì†Œë©¸ ì¤‘ ë°˜ë³µ í˜¸ì¶œë˜ì–´ë„ ì• ë‹ˆë©”ì´ì…˜ì„ ì²˜ìŒë¶€í„° ì¬ìƒí•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (_state == HoleState.Fading)
         {
             return;
         }
 
+        _fadeStartScale = _spriteRenderer.transform.localScale;
+        _fadeStartColor = _spriteRenderer.color;
+        _elapsed = 0f;
         _state = HoleState.Fading;
+        GameAudio.Stop(_holeAudio);
+        GameAudio.Play(GameSound.HeadBlackholeCollapse); // ì†Œë©¸ ì‹œì‘ì— í•œ ë²ˆ.
         ReleasePull();
 
-        // ºñÈ°¼º ¿ÀºêÁ§Æ®´Â ¾Ö´Ï¸ŞÀÌ¼ÇÀ» ÁøÇàÇÒ ¼ö ¾øÀ¸¹Ç·Î Á¤¸®ÇÑ´Ù.
+        // ë¹„í™œì„± ì˜¤ë¸Œì íŠ¸ëŠ” ì• ë‹ˆë©”ì´ì…˜ì„ ì§„í–‰í•  ìˆ˜ ì—†ìœ¼ë¯€ë¡œ ì •ë¦¬í•œë‹¤.
         if (!isActiveAndEnabled)
         {
             Destroy(gameObject);
             return;
         }
 
-        // ÀÌµ¿ Áß ÆĞÅÏÀÌ Áß´ÜµÇ¾úÀ» ¶§µµ ¼Ò¸ê ¾Ö´Ï¸ŞÀÌ¼ÇÀ» Àç»ıÇÑ´Ù.
-        _animator.enabled = true;
-        _animator.Play(DisappearStateHash, 0, 0f);
+
     }
 
-    // ¿ÀºêÁ§Æ®°¡ ºñÈ°¼ºÈ­µÇ¾îµµ ÇÃ·¹ÀÌ¾î¿¡°Ô ÈíÀÔ ¼Óµµ°¡ ³²Áö ¾Ê°Ô ÇÑ´Ù.
+    // ì˜¤ë¸Œì íŠ¸ê°€ ë¹„í™œì„±í™”ë˜ì–´ë„ í”Œë ˆì´ì–´ì—ê²Œ í¡ì… ì†ë„ê°€ ë‚¨ì§€ ì•Šê²Œ í•œë‹¤.
     private void OnDisable()
     {
+        GameAudio.Stop(_holeAudio);
         ReleasePull();
     }
 
     /// <summary>
-    /// ÀÌ ºí·¢È¦ÀÌ Àû¿ëÇÑ ÈíÀÎ ¼Óµµ¸¸ Á¦°ÅÇÑ´Ù.
+    /// ì´ ë¸”ë™í™€ì´ ì ìš©í•œ í¡ì¸ ì†ë„ë§Œ ì œê±°í•œë‹¤.
     /// </summary>
     private void ReleasePull()
     {
@@ -451,7 +380,7 @@ public sealed class BossBlackHole : MonoBehaviour
     }
 
     /// <summary>
-    /// IsOwnerAlive µ¿ÀÛ¿¡ ÇÊ¿äÇÑ »óÅÂ¿Í Ã³¸® Èå¸§À» ½ÇÇàÇÑ´Ù.
+    /// IsOwnerAlive ë™ì‘ì— í•„ìš”í•œ ìƒíƒœì™€ ì²˜ë¦¬ íë¦„ì„ ì‹¤í–‰í•œë‹¤.
     /// </summary>
     private bool IsOwnerAlive()
     {
@@ -461,8 +390,8 @@ public sealed class BossBlackHole : MonoBehaviour
     }
 
     /// <summary>
-    /// ÆíÁı Áß¿¡´Â Á¶ÀıÇÒ ¹üÀ§¸¦ º¸¿©ÁØ´Ù.
-    /// ½ÇÇà Áß¿¡´Â ½ÇÁ¦ °ø°İÀÌ È°¼ºÈ­µÈ µ¿¾È¸¸ Ç¥½ÃÇÑ´Ù.
+    /// í¸ì§‘ ì¤‘ì—ëŠ” ì¡°ì ˆí•  ë²”ìœ„ë¥¼ ë³´ì—¬ì¤€ë‹¤.
+    /// ì‹¤í–‰ ì¤‘ì—ëŠ” ì‹¤ì œ ê³µê²©ì´ í™œì„±í™”ëœ ë™ì•ˆë§Œ í‘œì‹œí•œë‹¤.
     /// </summary>
     private void OnDrawGizmos()
     {
@@ -478,7 +407,7 @@ public sealed class BossBlackHole : MonoBehaviour
             return;
         }
 
-        // ±âÁ¸ ±âÁî¸ğ »óÅÂ°¡ ´Ù¸¥ ±×¸²¿¡ ¿µÇâÀ» ÁÖÁö ¾Êµµ·Ï º¸°üÇÑ´Ù.
+        // ê¸°ì¡´ ê¸°ì¦ˆëª¨ ìƒíƒœê°€ ë‹¤ë¥¸ ê·¸ë¦¼ì— ì˜í–¥ì„ ì£¼ì§€ ì•Šë„ë¡ ë³´ê´€í•œë‹¤.
         Color previousColor = Gizmos.color;
         Matrix4x4 previousMatrix = Gizmos.matrix;
 
@@ -487,11 +416,11 @@ public sealed class BossBlackHole : MonoBehaviour
         Vector3 center = RangeCenter;
         center.z = _spriteRenderer.transform.position.z;
 
-        // ½ÇÁ¦ ÈíÀÎ ÆÇÁ¤°ú µ¿ÀÏÇÑ ¹İÁö¸§À» »ç¿ëÇÑ´Ù.
+        // ì‹¤ì œ í¡ì¸ íŒì •ê³¼ ë™ì¼í•œ ë°˜ì§€ë¦„ì„ ì‚¬ìš©í•œë‹¤.
         Gizmos.color = Color.cyan;
         DrawRangeCircle(center, WorldSuctionRadius);
 
-        // ½ÇÁ¦ ÇÇÇØ ÆÇÁ¤°ú µ¿ÀÏÇÑ ¹İÁö¸§À» »ç¿ëÇÑ´Ù.
+        // ì‹¤ì œ í”¼í•´ íŒì •ê³¼ ë™ì¼í•œ ë°˜ì§€ë¦„ì„ ì‚¬ìš©í•œë‹¤.
         Gizmos.color = Color.magenta;
         DrawRangeCircle(center, WorldDamageRadius);
 
@@ -500,7 +429,7 @@ public sealed class BossBlackHole : MonoBehaviour
     }
 
     /// <summary>
-    /// XY Æò¸é¿¡ ¿øÀ» ±×¸°´Ù. ±¸ ÇüÅÂÀÇ º¸Á¶¼±Àº Ç¥½ÃÇÏÁö ¾Ê´Â´Ù.
+    /// XY í‰ë©´ì— ì›ì„ ê·¸ë¦°ë‹¤. êµ¬ í˜•íƒœì˜ ë³´ì¡°ì„ ì€ í‘œì‹œí•˜ì§€ ì•ŠëŠ”ë‹¤.
     /// </summary>
     private static void DrawRangeCircle(Vector3 center, float radius)
     {

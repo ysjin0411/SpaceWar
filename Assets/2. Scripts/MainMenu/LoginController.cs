@@ -89,6 +89,8 @@ public class LoginController : MonoBehaviour
         // 입력란에서 Enter와 로그인 버튼 클릭을 연결한다.
         _idInputField.onSubmit.AddListener(HandleInputSubmitted);
         _loginButton.onClick.AddListener(RequestLogin);
+        // 사용자가 ID 입력 내용을 변경하면 입력 효과음을 재생한다.
+        _idInputField.onValueChanged.AddListener(HandleIdChanged);
 
         // 환경설정에서 돌아왔다면 기존 로그인 상태를 화면에 반영한다.
         RefreshLoginUI();
@@ -97,6 +99,21 @@ public class LoginController : MonoBehaviour
         {
             StartCoroutine(FocusInputAfterRelease());
         }
+    }
+
+    /// <summary>
+    /// 사용자가 ID 입력 내용을 변경했을 때 입력 효과음을 재생합니다.
+    /// </summary>
+    private void HandleIdChanged(string value)
+    {
+        // 직접 입력 중이며 입력 가능한 상태일 때만 소리를 낸다.
+        if (!_idInputField.isFocused || !_idInputField.interactable)
+        {
+            return;
+        }
+
+        // 문자열 변경에 대한 입력 효과음을 요청한다.
+        UIAudioPlayer.Play(UISound.Typing);
     }
 
     // 입력란의 Enter 제출을 로그인 요청으로 연결한다.
@@ -218,6 +235,8 @@ public class LoginController : MonoBehaviour
     {
         SetProcessing(false);
         RefreshLoginUI();
+        // 로그인 완료 상태가 UI에 반영된 뒤 성공음을 한 번 재생한다.
+        UIAudioPlayer.Play(UISound.LoginSuccess);
 
         try
         {
@@ -290,6 +309,9 @@ public class LoginController : MonoBehaviour
 
         if (!string.IsNullOrWhiteSpace(message))
         {
+            // 오류 안내가 있는 로그인 실패에만 실패음을 재생한다.
+            UIAudioPlayer.Play(UISound.LoginFailure);
+
             // 안내를 읽는 동안 로그인과 설정 이동을 계속 막는다.
             SetProcessing(true);
 
@@ -365,6 +387,8 @@ public class LoginController : MonoBehaviour
         if (_idInputField != null)
         {
             _idInputField.onSubmit.RemoveListener(HandleInputSubmitted);
+            // 입력 효과음을 위해 등록한 이벤트를 해제한다.
+            _idInputField.onValueChanged.RemoveListener(HandleIdChanged);
         }
 
         if (_loginButton != null)
@@ -431,6 +455,8 @@ public class LoginController : MonoBehaviour
             {
                 // 목록을 연 후 파일이 삭제된 경우 새 사용자를 만들지 않는다.
                 message = "저장 파일이 없습니다. 창을 다시 열어 목록을 갱신해주세요.";
+                // 저장된 ID를 불러오지 못한 경우 로그인 실패음을 재생한다.
+                UIAudioPlayer.Play(UISound.LoginFailure);
                 return false;
             }
         }
@@ -438,6 +464,8 @@ public class LoginController : MonoBehaviour
         {
             Debug.LogException(exception);
             message = "저장 파일을 불러오지 못했습니다. 파일 상태를 확인해주세요.";
+            // 저장된 ID를 불러오지 못한 경우 로그인 실패음을 재생한다.
+            UIAudioPlayer.Play(UISound.LoginFailure);
             return false;
         }
 

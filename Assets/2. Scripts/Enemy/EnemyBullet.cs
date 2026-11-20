@@ -7,6 +7,9 @@ public class EnemyBullet : MonoBehaviour
     // 초당 이동 거리.
     [SerializeField] float _speed = 5f;
 
+    // 실드에 막힌 접촉 위치에서 독립적으로 재생할 탄환 방어 효과.
+    [SerializeField] private ShieldProjectileImpact _shieldImpactPrefab;
+
     // 일반 적이 발사할 때 전달하는 조준 대상.
     [SerializeField] PlayerController _playerController;
 
@@ -230,6 +233,8 @@ public class EnemyBullet : MonoBehaviour
                 return false;
             }
 
+            // 방어가 성공한 탄환만 접촉 효과를 남긴 뒤 풀로 반환한다.
+            PlayShieldImpact(hitPoint, shield);
             Consume();
             return true;
         }
@@ -249,7 +254,30 @@ public class EnemyBullet : MonoBehaviour
         return true;
     }
 
-    // 충돌하거나 화면을 벗어난 탄환을 한 번만 반납한다.
+    /// <summary>
+    /// 탄환의 수명과 분리된 방어 효과를 실드 접촉 지점에서 재생한다.
+    /// </summary>
+    private void PlayShieldImpact(Vector2 hitPoint, Shield shield)
+    {
+        // 프리팹 연결 누락을 드러내되 탄환 회수와 방어 판정은 계속 처리한다.
+        if (_shieldImpactPrefab == null)
+        {
+            Debug.LogError($"{name}: Shield Impact Prefab을 연결하세요.", this);
+            return;
+        }
+
+        // 풀에 반환되는 탄환의 자식으로 만들지 않아 효과가 끝까지 재생된다.
+        ShieldProjectileImpact effect = Instantiate(
+            _shieldImpactPrefab, hitPoint, Quaternion.identity);
+
+        // 여러 씬을 함께 쓰더라도 탄환이 속한 씬과 함께 정리되도록 배치한다.
+        UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(
+            effect.gameObject, gameObject.scene);
+
+        // 방패와 기존 방어 효과보다 앞에서 접촉 섬광을 표시한다.
+        shield.ConfigureProjectileImpactSorting(effect.GetComponent<SpriteRenderer>());
+    }
+    /// <summary>충돌하거나 화면을 벗어난 탄환을 한 번만 풀에 반환한다.</summary>
     private void Consume()
     {
         if (_consumed)

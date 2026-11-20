@@ -43,6 +43,12 @@ public class FastEnemy : Enemy
 
     // 현재 공격에서 총알을 이미 생성했는지 확인한다.
     bool _firedThisAttack;
+    // 위로 이동하는 적의 탄환이 생성될 목표 월드 Y 좌표.
+    [SerializeField] float _verticalFireY = 0f;
+
+    // 현재 컨트롤러는 상태 속도와 Animator 속도가 모두 1이다.
+    // 공격 클립 길이와 Relay의 공통 발사 진행률로 준비 시간을 계산한다.
+    float _attackWindupSeconds;
 
     // 공통 컨트롤러의 공격 상태 경로다.
     static readonly int AttackHash =
@@ -98,8 +104,33 @@ public class FastEnemy : Enemy
 
         // 초기 애니메이션 상태를 즉시 화면에 반영한다.
         _animator.Update(0f);
+
+        // 풀에서 다시 꺼낼 때 현재 클립 기준으로 준비 시간을 갱신한다.
+        CacheAttackWindup();
     }
 
+    /// <summary>
+    /// 공격 클립에서 실제 발사까지 필요한 시간을 계산한다.
+    /// </summary>
+    private void CacheAttackWindup()
+    {
+        // 현재 공용 컨트롤러의 공격 상태에 연결된 클립을 찾는다.
+        foreach (AnimationClip clip in _animator.runtimeAnimatorController.animationClips)
+        {
+            if (clip.name != "Attack_4Frame")
+            {
+                continue;
+            }
+
+            // Relay와 같은 발사 진행률을 사용해 기준값이 어긋나지 않게 한다.
+            _attackWindupSeconds = clip.length * EnemyAnimationRelay.FireNormalizedTime;
+            return;
+        }
+
+        // 잘못된 컨트롤러 연결을 임의의 시간으로 대체하지 않는다.
+        throw new InvalidOperationException(
+            $"{name}: Attack_4Frame 공격 클립이 필요합니다.");
+    }
     private void Update()
     {
         // 이미 사망 처리된 적은 이동하거나 공격하지 않는다.
@@ -195,7 +226,10 @@ public class FastEnemy : Enemy
 
         // 공격 애니메이션만 시작한다.
         // 실제 탄환은 FireFromAnimation에서 한 번 발사한다.
-        if (transform.position.y >= 0f && !_isFired)
+        // 준비 시간 동안 위로 이동할 거리까지 포함한 발사 위치를 예측한다.
+        // FirePoint의 오프셋도 반영하므로 탄환 자체가 목표 Y에서 생성된다.
+        float predictedFireY = _firePoint.position.y + _moveSpeed * _attackWindupSeconds;
+        if (predictedFireY >= _verticalFireY && !_isFired)
         {
             BeginAttack();
         }

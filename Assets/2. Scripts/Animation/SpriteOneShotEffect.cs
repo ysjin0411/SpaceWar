@@ -43,6 +43,9 @@ public class SpriteOneShotEffect : MonoBehaviour
     // 프레임 재생 시작 후 흐른 시간이다.
     private float _elapsed;
 
+    // 보스 종료 정리 연출만 게임 정지와 무관하게 재생한다.
+    private bool _useUnscaledTime;
+
     private void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
@@ -141,14 +144,25 @@ public class SpriteOneShotEffect : MonoBehaviour
                 _originalScale * _endScaleMultiplier,
                 duration)
             .SetEase(_scaleEase)
-            .SetUpdate(UpdateType.Normal, false)
+            .SetUpdate(UpdateType.Normal, _useUnscaledTime)
             .OnKill(() => _scaleTween = null);
     }
 
+    /// <summary>
+    /// 결과창이 게임 시간을 멈춰도 프레임과 크기 연출을 끝까지 재생한다.
+    /// </summary>
+    public void UseUnscaledTime()
+    {
+        // 프레임 애니메이션의 시간 기준을 전환한다.
+        _useUnscaledTime = true;
+
+        // OnEnable에서 이미 시작된 크기 트윈도 같은 시간 기준으로 맞춘다.
+        _scaleTween?.SetUpdate(UpdateType.Normal, true);
+    }
     private void Update()
     {
         // 게임 시간에 맞춰 진행하므로 일시정지하면 재생도 멈춘다.
-        _elapsed += Time.deltaTime;
+        _elapsed += _useUnscaledTime ? Time.unscaledDeltaTime : Time.deltaTime;
 
         // 현재 시간에 해당하는 프레임 번호를 구한다.
         int frameIndex = Mathf.FloorToInt(

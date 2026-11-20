@@ -1,123 +1,123 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using UnityEngine;
 
-// ¿¹Ãø Á¶ÁØ°ú ÂøÁöÁ¡ È®Á¤À» ´ã´çÇÑ´Ù.
-// ½ÇÁ¦ µµ¾à ÀÌµ¿°ú ÂøÁö ÇÇÇØ´Â ´ÙÀ½ ´Ü°è¿¡¼­ ¿¬°áÇÑ´Ù.
+// ì˜ˆì¸¡ ì¡°ì¤€ê³¼ ì°©ì§€ì  í™•ì •ì„ ë‹´ë‹¹í•œë‹¤.
+// ì‹¤ì œ ë„ì•½ ì´ë™ê³¼ ì°©ì§€ í”¼í•´ëŠ” ë‹¤ìŒ ë‹¨ê³„ì—ì„œ ì—°ê²°í•œë‹¤.
 [CreateAssetMenu(
     menuName = "Boss/Alien/Phase2/Leap Pattern",
     fileName = "BossAlienLeapPattern")]
 public sealed class BossAlienLeapPattern : BossPattern
 {
-    // ¿¹»ó ÂøÁö ¹üÀ§¸¦ Ç¥½ÃÇÒ °æ°í ÇÁ¸®ÆÕÀÌ´Ù.
+    // ì˜ˆìƒ ì°©ì§€ ë²”ìœ„ë¥¼ í‘œì‹œí•  ê²½ê³  í”„ë¦¬íŒ¹ì´ë‹¤.
     [SerializeField]
     private BossAlienLeapWarning _warningPrefab;
 
-    // ÂøÁö ¼ø°£ Àç»ıÇÒ ½Ã°¢ È¿°ú´Ù. ÇÇÇØ ÆÇÁ¤Àº Æ÷ÇÔÇÏÁö ¾Ê´Â´Ù.
+    // ì°©ì§€ ìˆœê°„ ì¬ìƒí•  ì‹œê° íš¨ê³¼ë‹¤. í”¼í•´ íŒì •ì€ í¬í•¨í•˜ì§€ ì•ŠëŠ”ë‹¤.
     [SerializeField]
     private BossAlienLeapImpact _impactPrefab;
 
-    // ÇÃ·¹ÀÌ¾î ÀÌµ¿À» °üÃøÇÏ¸ç °æ°í À§Ä¡¸¦ °»½ÅÇÏ´Â ½Ã°£ÀÌ´Ù.
+    // í”Œë ˆì´ì–´ ì´ë™ì„ ê´€ì¸¡í•˜ë©° ê²½ê³  ìœ„ì¹˜ë¥¼ ê°±ì‹ í•˜ëŠ” ì‹œê°„ì´ë‹¤.
     [SerializeField, Min(0.01f)]
     private float _aimDuration = 0.8f;
 
-    // ÂøÁöÁ¡ È®Á¤ ÈÄ µµ¾à Àü±îÁö Á¦°øÇÒ È¸ÇÇ ½Ã°£ÀÌ´Ù.
+    // ì°©ì§€ì  í™•ì • í›„ ë„ì•½ ì „ê¹Œì§€ ì œê³µí•  íšŒí”¼ ì‹œê°„ì´ë‹¤.
     [SerializeField, Min(0.01f)]
     private float _lockDuration = 0.4f;
 
-    // ÇöÀç ÀÌµ¿ ¼Óµµ¸¦ ±âÁØÀ¸·Î ¸î ÃÊ ¾ÕÀ» Á¶ÁØÇÒÁö Á¤ÇÑ´Ù.
+    // í˜„ì¬ ì´ë™ ì†ë„ë¥¼ ê¸°ì¤€ìœ¼ë¡œ ëª‡ ì´ˆ ì•ì„ ì¡°ì¤€í• ì§€ ì •í•œë‹¤.
     [SerializeField, Min(0f)]
     private float _predictionSeconds = 0.4f;
 
-    // ÇÃ·¹ÀÌ¾î ÇöÀç À§Ä¡¿¡¼­ ¾Õ¼­ Á¶ÁØÇÒ ÃÖ´ë °Å¸®´Ù.
+    // í”Œë ˆì´ì–´ í˜„ì¬ ìœ„ì¹˜ì—ì„œ ì•ì„œ ì¡°ì¤€í•  ìµœëŒ€ ê±°ë¦¬ë‹¤.
     [SerializeField, Min(0f)]
     private float _maxPredictionDistance = 3f;
 
-    // ÀÌÈÄ ÂøÁö ÇÇÇØ¿¡µµ µ¿ÀÏÇÏ°Ô »ç¿ëÇÒ ¿øÇü ¹üÀ§ÀÇ ¹İ°æÀÌ´Ù.
+    // ì´í›„ ì°©ì§€ í”¼í•´ì—ë„ ë™ì¼í•˜ê²Œ ì‚¬ìš©í•  ì›í˜• ë²”ìœ„ì˜ ë°˜ê²½ì´ë‹¤.
     [SerializeField, Min(0.01f)]
     private float _landingRadius = 3f;
 
-    // ¸öÃ¼ Äİ¶óÀÌ´õ¿Í ÀüÅõ ¿µ¿ª º® »çÀÌ¿¡ È®º¸ÇÒ °£°İÀÌ´Ù.
+    // ëª¸ì²´ ì½œë¼ì´ë”ì™€ ì „íˆ¬ ì˜ì—­ ë²½ ì‚¬ì´ì— í™•ë³´í•  ê°„ê²©ì´ë‹¤.
     [SerializeField, Min(0f)]
     private float _wallPadding = 0.2f;
 
-    // °øÁß¿¡¼­ ¿ÜÇüÀ» À§·Î ¶ç¿ì´Â ÃÖ´ë ³ôÀÌ´Ù.
-    // BodyVisualÀÇ ·ÎÄÃ ÁÂÇ¥ ±âÁØÀÌ¸ç ¸öÃ¼ Äİ¶óÀÌ´õ´Â µû¶ó ¿Ã¶ó°¡Áö ¾Ê´Â´Ù.
+    // ê³µì¤‘ì—ì„œ ì™¸í˜•ì„ ìœ„ë¡œ ë„ìš°ëŠ” ìµœëŒ€ ë†’ì´ë‹¤.
+    // BodyVisualì˜ ë¡œì»¬ ì¢Œí‘œ ê¸°ì¤€ì´ë©° ëª¸ì²´ ì½œë¼ì´ë”ëŠ” ë”°ë¼ ì˜¬ë¼ê°€ì§€ ì•ŠëŠ”ë‹¤.
     [SerializeField, Min(0f)]
     private float _jumpHeight = 2.5f;
 
-    // ½ÇÁ¦ ÀÌ·úºÎÅÍ ÂøÁö ÇÇÇØ°¡ ¹ß»ıÇÏ±â±îÁö °É¸®´Â °ÔÀÓ ½Ã°£ÀÌ´Ù.
-    // ÀÌ ½Ã°£¿¡ ¸ÂÃç Leap Å¬¸³ÀÇ Àç»ı ¹è¼ÓÀ» °è»êÇÑ´Ù.
+    // ì‹¤ì œ ì´ë¥™ë¶€í„° ì°©ì§€ í”¼í•´ê°€ ë°œìƒí•˜ê¸°ê¹Œì§€ ê±¸ë¦¬ëŠ” ê²Œì„ ì‹œê°„ì´ë‹¤.
+    // ì´ ì‹œê°„ì— ë§ì¶° Leap í´ë¦½ì˜ ì¬ìƒ ë°°ì†ì„ ê³„ì‚°í•œë‹¤.
     [SerializeField, Min(0.05f)]
     private float _flightDuration = 22f / 24f;
 
-    // ÂøÁö ¼ø°£ ¿øÇü ¹üÀ§¿¡ ÇÑ ¹ø ¿äÃ»ÇÒ ÇÇÇØ·®ÀÌ´Ù.
+    // ì°©ì§€ ìˆœê°„ ì›í˜• ë²”ìœ„ì— í•œ ë²ˆ ìš”ì²­í•  í”¼í•´ëŸ‰ì´ë‹¤.
     [SerializeField, Min(0)]
     private float _landingDamage = 10;
 
-    // Alien_AxeKick_028ÀÇ ¹ß Á¢ÃË ±âÁØÁ¡ÀÌ´Ù.
-    // 2048 Äµ¹ö½º, Áß¾Ó Pivot, PPU 100 ±âÁØÀÇ SpriteRenderer ·ÎÄÃ ÁÂÇ¥´Ù.
-    // º¸½º Scale 0.43Àº Transform °è»ê¿¡¼­ Àû¿ëÇÏ¹Ç·Î ¿©±â¿¡ °öÇÏÁö ¾Ê´Â´Ù.
+    // Alien_AxeKick_028ì˜ ë°œ ì ‘ì´‰ ê¸°ì¤€ì ì´ë‹¤.
+    // 2048 ìº”ë²„ìŠ¤, ì¤‘ì•™ Pivot, PPU 100 ê¸°ì¤€ì˜ SpriteRenderer ë¡œì»¬ ì¢Œí‘œë‹¤.
+    // ë³´ìŠ¤ Scale 0.43ì€ Transform ê³„ì‚°ì—ì„œ ì ìš©í•˜ë¯€ë¡œ ì—¬ê¸°ì— ê³±í•˜ì§€ ì•ŠëŠ”ë‹¤.
     [SerializeField]
     private Vector2 _landingContactLocal = new Vector2(-2.144f, -5.5896f);
 
     /// <summary>
-    /// Execute µ¿ÀÛ¿¡ ÇÊ¿äÇÑ »óÅÂ¿Í Ã³¸® Èå¸§À» ½ÇÇàÇÑ´Ù.
+    /// Execute ë™ì‘ì— í•„ìš”í•œ ìƒíƒœì™€ ì²˜ë¦¬ íë¦„ì„ ì‹¤í–‰í•œë‹¤.
     /// </summary>
     public override IEnumerator Execute(BossPatternContext context)
     {
-        // ÀÌ ÆĞÅÏÀº ¿¡ÀÏ¸®¾ğ º»Ã¼¿¡¼­¸¸ ½ÇÇàÇÑ´Ù.
+        // ì´ íŒ¨í„´ì€ ì—ì¼ë¦¬ì–¸ ë³¸ì²´ì—ì„œë§Œ ì‹¤í–‰í•œë‹¤.
         Boss_AlienBody boss = context.Boss as Boss_AlienBody;
 
         if (boss == null)
         {
             throw new InvalidOperationException(
-                $"{name}: Boss_AlienBody Àü¿ë ÆĞÅÏÀÔ´Ï´Ù.");
+                $"{name}: Boss_AlienBody ì „ìš© íŒ¨í„´ì…ë‹ˆë‹¤.");
         }
 
         if (!boss.CanRunPhaseTwoPattern)
             yield break;
 
-        // ½ÇÇà Àü¿¡ ÇÊ¿äÇÑ µÎ ÇÁ¸®ÆÕÀÌ ¿¬°áµÆ´ÂÁö °Ë»çÇÑ´Ù.
+        // ì‹¤í–‰ ì „ì— í•„ìš”í•œ ë‘ í”„ë¦¬íŒ¹ì´ ì—°ê²°ëëŠ”ì§€ ê²€ì‚¬í•œë‹¤.
         if (_warningPrefab == null || _impactPrefab == null)
         {
             throw new InvalidOperationException(
-                $"{name}: Warning Prefab°ú Impact PrefabÀ» ¿¬°áÇÏ¼¼¿ä.");
+                $"{name}: Warning Prefabê³¼ Impact Prefabì„ ì—°ê²°í•˜ì„¸ìš”.");
         }
 
-        // ÇöÀç º»Ã¼ÀÇ ÀÚ¼¼¸¦ º¯°æÇÒ ÄÄÆ÷³ÍÆ®¸¦ Ã£´Â´Ù.
+        // í˜„ì¬ ë³¸ì²´ì˜ ìì„¸ë¥¼ ë³€ê²½í•  ì»´í¬ë„ŒíŠ¸ë¥¼ ì°¾ëŠ”ë‹¤.
         BossAlienPhaseTwoVisual visual =
             context.VisualTransform.GetComponent<BossAlienPhaseTwoVisual>();
 
         if (visual == null)
         {
             throw new MissingComponentException(
-                $"{name}: BodyVisual¿¡ BossAlienPhaseTwoVisualÀÌ ÇÊ¿äÇÕ´Ï´Ù.");
+                $"{name}: BodyVisualì— BossAlienPhaseTwoVisualì´ í•„ìš”í•©ë‹ˆë‹¤.");
         }
 
-        // ½ÇÁ¦ ÂøÁö ÀÌ¹ÌÁöÀÇ Á¢ÃËÁ¡À» º¸½º ¿øÁ¡ ±âÁØ ¿ùµå ¿ÀÇÁ¼ÂÀ¸·Î È¯»êÇÑ´Ù.
+        // ì‹¤ì œ ì°©ì§€ ì´ë¯¸ì§€ì˜ ì ‘ì´‰ì ì„ ë³´ìŠ¤ ì›ì  ê¸°ì¤€ ì›”ë“œ ì˜¤í”„ì…‹ìœ¼ë¡œ í™˜ì‚°í•œë‹¤.
         SpriteRenderer bodyRenderer =
             context.VisualTransform.GetComponent<SpriteRenderer>();
 
         if (bodyRenderer == null)
         {
             throw new MissingComponentException(
-                $"{name}: BodyVisual¿¡ SpriteRenderer°¡ ÇÊ¿äÇÕ´Ï´Ù.");
+                $"{name}: BodyVisualì— SpriteRendererê°€ í•„ìš”í•©ë‹ˆë‹¤.");
         }
 
-        // SpriteRendererÀÇ ÁÂ¿ì¡¤»óÇÏ ¹İÀüµµ Á¢ÃËÁ¡¿¡ ¹İ¿µÇÑ´Ù.
+        // SpriteRendererì˜ ì¢Œìš°Â·ìƒí•˜ ë°˜ì „ë„ ì ‘ì´‰ì ì— ë°˜ì˜í•œë‹¤.
         Vector3 contactLocal = new Vector3(
             bodyRenderer.flipX ? -_landingContactLocal.x : _landingContactLocal.x,
             bodyRenderer.flipY ? -_landingContactLocal.y : _landingContactLocal.y,
             0f);
 
-        // ºÎ¸ğ Scale°ú BodyVisualÀÇ ±âº» À§Ä¡¸¦ Æ÷ÇÔÇØ °è»êÇÑ´Ù.
-        // ¾ÆÁ÷ Á¡ÇÁ ³ôÀÌ¸¦ Àû¿ëÇÏ±â ÀüÀÌ¹Ç·Î ±âº» ÀÚ¼¼ ±âÁØ ¿ÀÇÁ¼ÂÀÌ µÈ´Ù.
+        // ë¶€ëª¨ Scaleê³¼ BodyVisualì˜ ê¸°ë³¸ ìœ„ì¹˜ë¥¼ í¬í•¨í•´ ê³„ì‚°í•œë‹¤.
+        // ì•„ì§ ì í”„ ë†’ì´ë¥¼ ì ìš©í•˜ê¸° ì „ì´ë¯€ë¡œ ê¸°ë³¸ ìì„¸ ê¸°ì¤€ ì˜¤í”„ì…‹ì´ ëœë‹¤.
         Vector2 landingContactOffset =
             (Vector2)context.VisualTransform.TransformPoint(contactLocal)
             - context.Rigidbody.position;
 
-        // °æ°í Áß½ÉÀÌ ½ÇÁ¦ ¹ß Á¢ÃË À§Ä¡°¡ µÇµµ·Ï °è»êÇÑ´Ù.
+        // ê²½ê³  ì¤‘ì‹¬ì´ ì‹¤ì œ ë°œ ì ‘ì´‰ ìœ„ì¹˜ê°€ ë˜ë„ë¡ ê³„ì‚°í•œë‹¤.
         if (!boss.TryGetLeapLandingPosition(
             _predictionSeconds,
             _maxPredictionDistance,
@@ -128,16 +128,16 @@ public sealed class BossAlienLeapPattern : BossPattern
             yield break;
         }
 
-        // ½ÇÇà »óÅÂ´Â °øÀ¯ ¿¡¼ÂÀÇ ÇÊµå°¡ ¾Æ´Ñ Áö¿ª º¯¼ö·Î º¸°üÇÑ´Ù.
+        // ì‹¤í–‰ ìƒíƒœëŠ” ê³µìœ  ì—ì…‹ì˜ í•„ë“œê°€ ì•„ë‹Œ ì§€ì—­ ë³€ìˆ˜ë¡œ ë³´ê´€í•œë‹¤.
         BossAlienLeapWarning warning = null;
         bool beganAction = false;
 
-        // µµ¾à Á¾·á³ª Ãë¼Ò ½Ã º¹¿øÇÒ ¿ÜÇüÀÇ ¿ø·¡ ·ÎÄÃ À§Ä¡´Ù.
+        // ë„ì•½ ì¢…ë£Œë‚˜ ì·¨ì†Œ ì‹œ ë³µì›í•  ì™¸í˜•ì˜ ì›ë˜ ë¡œì»¬ ìœ„ì¹˜ë‹¤.
         Vector3 originalVisualPosition = context.VisualTransform.localPosition;
 
         try
         {
-            // ÇÃ·¹ÀÌ¾î¸¦ °üÂûÇÏ°í ÂøÁöÁ¡À» °íÁ¤ÇÏ´Â µ¿¾È »õ ¿õÅ©¸®±â ÀÚ¼¼¸¦ Ç¥½ÃÇÑ´Ù.
+            // í”Œë ˆì´ì–´ë¥¼ ê´€ì°°í•˜ê³  ì°©ì§€ì ì„ ê³ ì •í•˜ëŠ” ë™ì•ˆ ìƒˆ ì›…í¬ë¦¬ê¸° ìì„¸ë¥¼ í‘œì‹œí•œë‹¤.
             beganAction = visual.BeginAction(
                 "Phase2_Leap_AxeKick",
                 "Alien_AxeKick_004");
@@ -145,13 +145,13 @@ public sealed class BossAlienLeapPattern : BossPattern
             if (!beganAction)
                 yield break;
 
-            // ºÎ¸ğ ¾øÀÌ »ı¼ºÇØ º¸½ºÀÇ ÀÌµ¿ÀÌ³ª Scale¿¡ ¿µÇâÀ» ¹ŞÁö ¾Ê´Â´Ù.
+            // ë¶€ëª¨ ì—†ì´ ìƒì„±í•´ ë³´ìŠ¤ì˜ ì´ë™ì´ë‚˜ Scaleì— ì˜í–¥ì„ ë°›ì§€ ì•ŠëŠ”ë‹¤.
             warning = UnityEngine.Object.Instantiate(_warningPrefab);
             warning.Initialize(boss, landingPosition, _landingRadius);
 
             float elapsed = 0f;
 
-            // Á¶ÁØ Áß¿¡´Â ÇÃ·¹ÀÌ¾îÀÇ ÀÌµ¿¿¡ ¸ÂÃç ¿¹»ó ÂøÁöÁ¡À» °»½ÅÇÑ´Ù.
+            // ì¡°ì¤€ ì¤‘ì—ëŠ” í”Œë ˆì´ì–´ì˜ ì´ë™ì— ë§ì¶° ì˜ˆìƒ ì°©ì§€ì ì„ ê°±ì‹ í•œë‹¤.
             while (elapsed < _aimDuration)
             {
                 if (boss == null ||
@@ -161,7 +161,7 @@ public sealed class BossAlienLeapPattern : BossPattern
                     yield break;
                 }
 
-                // ÇÃ·¹ÀÌ¾î¸¦ °üÂûÇÏ´Â µ¿¾È¿¡µµ °°Àº Á¢ÃËÁ¡ ±âÁØÀ¸·Î °»½ÅÇÑ´Ù.
+                // í”Œë ˆì´ì–´ë¥¼ ê´€ì°°í•˜ëŠ” ë™ì•ˆì—ë„ ê°™ì€ ì ‘ì´‰ì  ê¸°ì¤€ìœ¼ë¡œ ê°±ì‹ í•œë‹¤.
                 if (!boss.TryGetLeapLandingPosition(
                     _predictionSeconds,
                     _maxPredictionDistance,
@@ -178,7 +178,7 @@ public sealed class BossAlienLeapPattern : BossPattern
                 yield return null;
             }
 
-            // ¸¶Áö¸· ´ë±â ÇÁ·¹ÀÓ »çÀÌ¿¡ ÀüÅõ°¡ Áß´ÜµÆ´ÂÁö È®ÀÎÇÑ´Ù.
+            // ë§ˆì§€ë§‰ ëŒ€ê¸° í”„ë ˆì„ ì‚¬ì´ì— ì „íˆ¬ê°€ ì¤‘ë‹¨ëëŠ”ì§€ í™•ì¸í•œë‹¤.
             if (boss == null ||
                 !boss.CanRunPhaseTwoPattern ||
                 warning == null)
@@ -186,12 +186,12 @@ public sealed class BossAlienLeapPattern : BossPattern
                 yield break;
             }
 
-            // ¿©±âºÎÅÍ´Â landingPositionÀ» ´Ù½Ã °è»êÇÏÁö ¾Ê´Â´Ù.
+            // ì—¬ê¸°ë¶€í„°ëŠ” landingPositionì„ ë‹¤ì‹œ ê³„ì‚°í•˜ì§€ ì•ŠëŠ”ë‹¤.
             warning.LockPosition(landingPosition);
 
             elapsed = 0f;
 
-            // È®Á¤µÈ °æ°í¸¦ À¯ÁöÇÏ¿© ÇÃ·¹ÀÌ¾î¿¡°Ô È¸ÇÇ ½Ã°£À» ÁØ´Ù.
+            // í™•ì •ëœ ê²½ê³ ë¥¼ ìœ ì§€í•˜ì—¬ í”Œë ˆì´ì–´ì—ê²Œ íšŒí”¼ ì‹œê°„ì„ ì¤€ë‹¤.
             while (elapsed < _lockDuration)
             {
                 if (boss == null ||
@@ -205,7 +205,7 @@ public sealed class BossAlienLeapPattern : BossPattern
                 yield return null;
             }
 
-            // À§Ä¡ È®Á¤ ´ë±â Áß ÀüÅõ°¡ ³¡³µÀ¸¸é ÀÌ·úÇÏÁö ¾Ê´Â´Ù.
+            // ìœ„ì¹˜ í™•ì • ëŒ€ê¸° ì¤‘ ì „íˆ¬ê°€ ëë‚¬ìœ¼ë©´ ì´ë¥™í•˜ì§€ ì•ŠëŠ”ë‹¤.
             if (boss == null ||
                 !boss.CanRunPhaseTwoPattern ||
                 warning == null)
@@ -213,59 +213,65 @@ public sealed class BossAlienLeapPattern : BossPattern
                 yield break;
             }
 
-            // ÇöÀç µµ¾à Å¬¸³Àº 24 FPS, ÀüÃ¼ 36ÇÁ·¹ÀÓ ±æÀÌ´Ù.
+            // í˜„ì¬ ë„ì•½ í´ë¦½ì€ 24 FPS, ì „ì²´ 36í”„ë ˆì„ ê¸¸ì´ë‹¤.
             const float clipDuration = 36f / 24f;
 
-            // 5ÇÁ·¹ÀÓ À§Ä¡¿¡¼­ ÀÌ·úÇÏ°í, 27ÇÁ·¹ÀÓ À§Ä¡¿¡¼­ ÂøÁö °ø°İÇÑ´Ù.
+            // 5í”„ë ˆì„ ìœ„ì¹˜ì—ì„œ ì´ë¥™í•˜ê³ , 27í”„ë ˆì„ ìœ„ì¹˜ì—ì„œ ì°©ì§€ ê³µê²©í•œë‹¤.
             const float takeoffProgress = 5f / 36f;
             const float impactProgress = 27f / 36f;
 
-            // Inspector Á¦ÇÑ°ú º°°³·Î ½ÇÇà ½Ã¿¡µµ ½Ã°£°ªÀ» °Ë»çÇÑ´Ù.
+            // Inspector ì œí•œê³¼ ë³„ê°œë¡œ ì‹¤í–‰ ì‹œì—ë„ ì‹œê°„ê°’ì„ ê²€ì‚¬í•œë‹¤.
             if (float.IsNaN(_flightDuration) ||
                 float.IsInfinity(_flightDuration) ||
                 _flightDuration < 0.05f)
             {
                 throw new InvalidOperationException(
-                    $"{name}: Flight DurationÀº 0.05ÃÊ ÀÌ»óÀÌ¾î¾ß ÇÕ´Ï´Ù.");
+                    $"{name}: Flight Durationì€ 0.05ì´ˆ ì´ìƒì´ì–´ì•¼ í•©ë‹ˆë‹¤.");
             }
 
-            // ¿øº» Å¬¸³¿¡¼­ ÀÌ·úºÎÅÍ ÂøÁö±îÁö °É¸®´Â ½Ã°£ÀÌ´Ù.
-            // 1.5ÃÊ ¡¿ (27/36 - 5/36) = ¾à 0.917ÃÊ.
+            // ì›ë³¸ í´ë¦½ì—ì„œ ì´ë¥™ë¶€í„° ì°©ì§€ê¹Œì§€ ê±¸ë¦¬ëŠ” ì‹œê°„ì´ë‹¤.
+            // 1.5ì´ˆ Ã— (27/36 - 5/36) = ì•½ 0.917ì´ˆ.
             float originalFlightDuration =
                 clipDuration * (impactProgress - takeoffProgress);
 
-            // ¸ñÇ¥ ½Ã°£ÀÌ ÂªÀ¸¸é ºü¸£°Ô, ±æ¸é ´À¸®°Ô Àç»ıÇÑ´Ù.
+            // ëª©í‘œ ì‹œê°„ì´ ì§§ìœ¼ë©´ ë¹ ë¥´ê²Œ, ê¸¸ë©´ ëŠë¦¬ê²Œ ì¬ìƒí•œë‹¤.
             float playbackSpeed =
                 originalFlightDuration / _flightDuration;
 
-            // °è»êÇÑ ¹è¼ÓÀ¸·Î µµ¾à ¾Ö´Ï¸ŞÀÌ¼ÇÀ» ½ÃÀÛÇÑ´Ù.
+            // ê³„ì‚°í•œ ë°°ì†ìœ¼ë¡œ ë„ì•½ ì• ë‹ˆë©”ì´ì…˜ì„ ì‹œì‘í•œë‹¤.
             if (!visual.PlayLeapAnimation(playbackSpeed))
                 yield break;
 
-            // ½ÇÁ¦ ÀÌµ¿ ½ÃÀÛ À§Ä¡´Â ÂøÁöÁ¡À» °íÁ¤ÇÑ µÚÀÇ º¸½º À§Ä¡´Ù.
+            // ì‹¤ì œ ì´ë™ ì‹œì‘ ìœ„ì¹˜ëŠ” ì°©ì§€ì ì„ ê³ ì •í•œ ë’¤ì˜ ë³´ìŠ¤ ìœ„ì¹˜ë‹¤.
             Vector2 startPosition = context.Rigidbody.position;
 
-            // °æ°í Áß½É¿¡ ¹ßÀ» ³õÀ¸·Á¸é º¸½º ¿øÁ¡Àº Á¢ÃË ¿ÀÇÁ¼Â¸¸Å­ ¹İ´ëÂÊ¿¡ ÀÖ¾î¾ß ÇÑ´Ù.
+            // ê²½ê³  ì¤‘ì‹¬ì— ë°œì„ ë†“ìœ¼ë ¤ë©´ ë³´ìŠ¤ ì›ì ì€ ì ‘ì´‰ ì˜¤í”„ì…‹ë§Œí¼ ë°˜ëŒ€ìª½ì— ìˆì–´ì•¼ í•œë‹¤.
             Vector2 landingRootPosition =
                 landingPosition - landingContactOffset;
 
-            // ÂøÁö ÇÇÇØ´Â Å¬¸³ ÁøÇà·üÀÌ ÂøÁö ÁöÁ¡À» ³Ñ´Â ¼ø°£ ÇÑ ¹ø¸¸ Àû¿ëÇÑ´Ù.
+            // ì°©ì§€ í”¼í•´ëŠ” í´ë¦½ ì§„í–‰ë¥ ì´ ì°©ì§€ ì§€ì ì„ ë„˜ëŠ” ìˆœê°„ í•œ ë²ˆë§Œ ì ìš©í•œë‹¤.
             bool hasLanded = false;
+            bool leapSoundPlayed = false; // ì‹¤ì œ ì´ë¥™ í”„ë ˆì„ì„ í•œ ë²ˆ ê°ì§€.
 
-            // Rigidbody ÀÌµ¿Àº ¹°¸® °»½Å ÁÖ±â¿¡ ¸ÂÃá´Ù.
+            // Rigidbody ì´ë™ì€ ë¬¼ë¦¬ ê°±ì‹  ì£¼ê¸°ì— ë§ì¶˜ë‹¤.
             WaitForFixedUpdate waitForPhysics = new WaitForFixedUpdate();
 
             while (true)
             {
                 yield return waitForPhysics;
 
-                // »ç¸Á¡¤ÀüÅõ Áß´Ü ½Ã finally¿¡¼­ °æ°í¿Í Ç¥½Ã À§Ä¡¸¦ Á¤¸®ÇÑ´Ù.
+                // ì‚¬ë§Â·ì „íˆ¬ ì¤‘ë‹¨ ì‹œ finallyì—ì„œ ê²½ê³ ì™€ í‘œì‹œ ìœ„ì¹˜ë¥¼ ì •ë¦¬í•œë‹¤.
                 if (boss == null || !boss.CanRunPhaseTwoPattern)
                     yield break;
 
-                // ¾Ö´Ï¸ŞÀÌ¼ÇÀÌ ´Ù¸¥ »óÅÂ·Î ¹Ù²î¾ú´Ù¸é °ø°İµµ Áß´ÜÇÑ´Ù.
+                // ì• ë‹ˆë©”ì´ì…˜ì´ ë‹¤ë¥¸ ìƒíƒœë¡œ ë°”ë€Œì—ˆë‹¤ë©´ ê³µê²©ë„ ì¤‘ë‹¨í•œë‹¤.
                 if (!visual.TryGetLeapProgress(out float progress))
                     yield break;
+                if (!leapSoundPlayed && progress >= takeoffProgress)
+                {
+                    leapSoundPlayed = true;
+                    GameAudio.Play(GameSound.AlienP2Leap);
+                }
 
                 if (!hasLanded)
                 {
@@ -274,27 +280,27 @@ public sealed class BossAlienLeapPattern : BossPattern
 
                     if (progress >= impactProgress)
                     {
-                        // ¹ß Á¢ÃËÁ¡ÀÌ °æ°í Áß½É¿¡ ´êµµ·Ï º¸Á¤µÈ º¸½º À§Ä¡¸¦ Àû¿ëÇÑ´Ù.
+                        // ë°œ ì ‘ì´‰ì ì´ ê²½ê³  ì¤‘ì‹¬ì— ë‹¿ë„ë¡ ë³´ì •ëœ ë³´ìŠ¤ ìœ„ì¹˜ë¥¼ ì ìš©í•œë‹¤.
                         context.Rigidbody.position = landingRootPosition;
                         context.Rigidbody.linearVelocity = Vector2.zero;
                         context.VisualTransform.localPosition =
                             originalVisualPosition;
 
-                        // ¸ÕÀú ÂøÁö ¿Ï·á¸¦ ±â·ÏÇÏ¿© Áßº¹ ÇÇÇØ¸¦ ¹æÁöÇÑ´Ù.
+                        // ë¨¼ì € ì°©ì§€ ì™„ë£Œë¥¼ ê¸°ë¡í•˜ì—¬ ì¤‘ë³µ í”¼í•´ë¥¼ ë°©ì§€í•œë‹¤.
                         hasLanded = true;
 
-                        // ÂøÁö ¼ø°£ °æ°í¸¦ Á¦°ÅÇÑ´Ù.
+                        // ì°©ì§€ ìˆœê°„ ê²½ê³ ë¥¼ ì œê±°í•œë‹¤.
                         warning.Remove();
                         warning = null;
 
-                        // ±âÁ¸ ÂøÁö ÀÌÆåÆ®¸¦ À¯ÁöÇÑ´Ù.
-                        // »õ ÀÌÆåÆ®¿Í È­¸é ¿¬ÃâÀº ÀÌÈÄ ±³Ã¼ ´Ü°è¿¡¼­ ¿¬°áÇÑ´Ù.
+                        // ê¸°ì¡´ ì°©ì§€ ì´í™íŠ¸ë¥¼ ìœ ì§€í•œë‹¤.
+                        // ìƒˆ ì´í™íŠ¸ì™€ í™”ë©´ ì—°ì¶œì€ ì´í›„ êµì²´ ë‹¨ê³„ì—ì„œ ì—°ê²°í•œë‹¤.
                         BossAlienLeapImpact impact =
                             UnityEngine.Object.Instantiate(_impactPrefab);
 
                         impact.Play(landingPosition, _landingRadius);
 
-                        // ³»·ÁÂï´Â ÀÌ¹ÌÁö¿¡ ¸ÂÃç ¹üÀ§ ÇÇÇØ¸¦ ÇÑ ¹ø Àû¿ëÇÑ´Ù.
+                        // ë‚´ë ¤ì°ëŠ” ì´ë¯¸ì§€ì— ë§ì¶° ë²”ìœ„ í”¼í•´ë¥¼ í•œ ë²ˆ ì ìš©í•œë‹¤.
                         BossAlienExplosionDamage.Apply(
                             landingPosition,
                             _landingRadius,
@@ -302,13 +308,13 @@ public sealed class BossAlienLeapPattern : BossPattern
                     }
                     else if (progress >= takeoffProgress)
                     {
-                        // µµ¾à ½ÃÀÛºÎÅÍ ÂøÁö±îÁöÀÇ ±¸°£À» 0~1·Î È¯»êÇÑ´Ù.
+                        // ë„ì•½ ì‹œì‘ë¶€í„° ì°©ì§€ê¹Œì§€ì˜ êµ¬ê°„ì„ 0~1ë¡œ í™˜ì‚°í•œë‹¤.
                         float flightProgress = Mathf.InverseLerp(
                             takeoffProgress,
                             impactProgress,
                             progress);
 
-                        // °øÁß ÀÌµ¿µµ º¸Á¤µÈ ¸ñÀûÁö¸¦ ÇâÇÏ°Ô ÇØ¼­ ÂøÁö ¼ø°£ À§Ä¡°¡ Æ¢Áö ¾Êµµ·Ï ÇÑ´Ù.
+                        // ê³µì¤‘ ì´ë™ë„ ë³´ì •ëœ ëª©ì ì§€ë¥¼ í–¥í•˜ê²Œ í•´ì„œ ì°©ì§€ ìˆœê°„ ìœ„ì¹˜ê°€ íŠ€ì§€ ì•Šë„ë¡ í•œë‹¤.
                         Vector2 groundPosition = Vector2.Lerp(
                             startPosition,
                             landingRootPosition,
@@ -316,8 +322,8 @@ public sealed class BossAlienLeapPattern : BossPattern
 
                         context.Rigidbody.MovePosition(groundPosition);
 
-                        // ±âÁ¸ ¹æ½Ä´ë·Î BodyVisual¸¸ Æ÷¹°¼± ³ôÀÌ¸¦ Àû¿ëÇÑ´Ù.
-                        // È¸ÀüÀº ½ºÇÁ¶óÀÌÆ®¿¡ Æ÷ÇÔµÇ¾î ÀÖÀ¸¹Ç·Î TransformÀº È¸ÀüÇÏÁö ¾Ê´Â´Ù.
+                        // ê¸°ì¡´ ë°©ì‹ëŒ€ë¡œ BodyVisualë§Œ í¬ë¬¼ì„  ë†’ì´ë¥¼ ì ìš©í•œë‹¤.
+                        // íšŒì „ì€ ìŠ¤í”„ë¼ì´íŠ¸ì— í¬í•¨ë˜ì–´ ìˆìœ¼ë¯€ë¡œ Transformì€ íšŒì „í•˜ì§€ ì•ŠëŠ”ë‹¤.
                         float height =
                             4f * _jumpHeight *
                             flightProgress * (1f - flightProgress);
@@ -327,35 +333,35 @@ public sealed class BossAlienLeapPattern : BossPattern
                     }
                 }
 
-                // ÂøÁö ÀÌÈÄ¿¡µµ Å¬¸³ ³¡±îÁö ±â´Ù·Á È¸º¹ ÀÚ¼¼¸¦ º¸¿©ÁØ´Ù.
-                // ¿Ï·á ÈÄ ±âÁ¸ finallyÀÇ EndActionÀÌ Idle·Î º¹±Í½ÃÅ²´Ù.
+                // ì°©ì§€ ì´í›„ì—ë„ í´ë¦½ ëê¹Œì§€ ê¸°ë‹¤ë ¤ íšŒë³µ ìì„¸ë¥¼ ë³´ì—¬ì¤€ë‹¤.
+                // ì™„ë£Œ í›„ ê¸°ì¡´ finallyì˜ EndActionì´ Idleë¡œ ë³µê·€ì‹œí‚¨ë‹¤.
                 if (progress >= 1f)
                     break;
             }
         }
         finally
         {
-            // Á¤»ó Á¾·á¿Í Ãë¼Ò ¸ğµÎ ³²¾Æ ÀÖ´Â °æ°í¸¦ Á¦°ÅÇÑ´Ù.
+            // ì •ìƒ ì¢…ë£Œì™€ ì·¨ì†Œ ëª¨ë‘ ë‚¨ì•„ ìˆëŠ” ê²½ê³ ë¥¼ ì œê±°í•œë‹¤.
             if (warning != null)
             {
                 warning.Remove();
             }
 
-            // °øÁß¿¡¼­ »ç¸ÁÇÏ°Å³ª ÆĞÅÏÀÌ Ãë¼ÒµÅµµ ¿ÜÇü ³ôÀÌ¸¦ º¹¿øÇÑ´Ù.
-            // ·çÆ® À§Ä¡´Â ÇöÀç À§Ä¡¸¦ À¯ÁöÇÏ¹Ç·Î Ãâ¹ßÁ¡À¸·Î ¼ø°£ÀÌµ¿ÇÏÁö ¾Ê´Â´Ù.
+            // ê³µì¤‘ì—ì„œ ì‚¬ë§í•˜ê±°ë‚˜ íŒ¨í„´ì´ ì·¨ì†Œë¼ë„ ì™¸í˜• ë†’ì´ë¥¼ ë³µì›í•œë‹¤.
+            // ë£¨íŠ¸ ìœ„ì¹˜ëŠ” í˜„ì¬ ìœ„ì¹˜ë¥¼ ìœ ì§€í•˜ë¯€ë¡œ ì¶œë°œì ìœ¼ë¡œ ìˆœê°„ì´ë™í•˜ì§€ ì•ŠëŠ”ë‹¤.
             if (beganAction && context.VisualTransform != null)
             {
                 context.VisualTransform.localPosition = originalVisualPosition;
             }
 
-            // ³²¾Æ ÀÖ´Â µµ¾à ÀÌµ¿ ¼Óµµ¸¦ Á¦°ÅÇÑ´Ù.
+            // ë‚¨ì•„ ìˆëŠ” ë„ì•½ ì´ë™ ì†ë„ë¥¼ ì œê±°í•œë‹¤.
             if (beganAction && context.Rigidbody != null)
             {
                 context.Rigidbody.linearVelocity = Vector2.zero;
             }
 
-            // Á¤»ó Á¾·á ½Ã Idle·Î µ¹¾Æ°£´Ù.
-            // »ç¸Á Áß¿¡´Â Ç¥Çö ÄÄÆ÷³ÍÆ®°¡ Idle º¹±Í¸¦ ¸·´Â´Ù.
+            // ì •ìƒ ì¢…ë£Œ ì‹œ Idleë¡œ ëŒì•„ê°„ë‹¤.
+            // ì‚¬ë§ ì¤‘ì—ëŠ” í‘œí˜„ ì»´í¬ë„ŒíŠ¸ê°€ Idle ë³µê·€ë¥¼ ë§‰ëŠ”ë‹¤.
             if (beganAction && visual != null)
             {
                 visual.EndAction();

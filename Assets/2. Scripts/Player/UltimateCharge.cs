@@ -1,31 +1,31 @@
-using System;
+ï»¿using System;
 using UnityEngine;
 
-// ÇöÀç ÀüÅõ¿¡¼­ È¹µæÇÑ ÇÊ»ì±â ÃæÀü ¼ö¸¦ °ü¸®ÇÑ´Ù.
+// í˜„ì¬ ì „íˆ¬ì—ì„œ íšë“í•œ í•„ì‚´ê¸° ì¶©ì „ ìˆ˜ë¥¼ ê´€ë¦¬í•œë‹¤.
 [DisallowMultipleComponent]
 [RequireComponent(typeof(PlayerController))]
 public sealed class UltimateCharge : MonoBehaviour
 {
-    // ÇÊ»ì±â ÁØºñ »óÅÂ°¡ µÇ±â À§ÇØ ÇÊ¿äÇÑ °ÇÀüÁö °³¼ö´Ù.
+    // í•„ì‚´ê¸° ì¤€ë¹„ ìƒíƒœê°€ ë˜ê¸° ìœ„í•´ í•„ìš”í•œ ê±´ì „ì§€ ê°œìˆ˜ë‹¤.
     [SerializeField, Min(1)] private int _requiredCount = 3;
 
-    // Inspector¿¡¼­ ½ÇÇà Áß ÃæÀü °³¼ö¸¦ È®ÀÎÇÒ ¼ö ÀÖ´Ù.
+    // Inspectorì—ì„œ ì‹¤í–‰ ì¤‘ ì¶©ì „ ê°œìˆ˜ë¥¼ í™•ì¸í•  ìˆ˜ ìˆë‹¤.
     [SerializeField] private int _currentCount;
 
-    // ÇöÀç Ä³¸¯ÅÍÀÇ ½ÇÁ¦ ÇÊ»ì±â ±¸ÇöÀÌ´Ù.
+    // í˜„ì¬ ìºë¦­í„°ì˜ ì‹¤ì œ í•„ì‚´ê¸° êµ¬í˜„ì´ë‹¤.
     private UltimateAbility _ability;
 
-    // È­¸é ±âÁØ ÇÊ»ì±â À§Ä¡¸¦ °è»êÇÒ ¾À Ä«¸Ş¶ó´Ù.
+    // í™”ë©´ ê¸°ì¤€ í•„ì‚´ê¸° ìœ„ì¹˜ë¥¼ ê³„ì‚°í•  ì”¬ ì¹´ë©”ë¼ë‹¤.
     private Camera _worldCamera;
 
-    // Ä³¸¯ÅÍ ÇÁ¸®ÆÕ ³»ºÎÀÇ ÇÃ·¹ÀÌ¾î ÄÄÆ÷³ÍÆ®´Ù.
+    // ìºë¦­í„° í”„ë¦¬íŒ¹ ë‚´ë¶€ì˜ í”Œë ˆì´ì–´ ì»´í¬ë„ŒíŠ¸ë‹¤.
     private PlayerController _player;
 
-    // ¾À¿¡ ÀÖ´Â ÂüÁ¶´Â StageManager°¡ »ı¼º ÈÄ Àü´ŞÇÑ´Ù.
+    // ì”¬ì— ìˆëŠ” ì°¸ì¡°ëŠ” StageManagerê°€ ìƒì„± í›„ ì „ë‹¬í•œë‹¤.
     private StageFlowManager _stageFlow;
     private UltimateUI _ui;
 
-    // ¾À ÂüÁ¶°¡ ¸ğµÎ ¿¬°áµÈ ÀÌÈÄ¿¡¸¸ È¹µæÀ» Ã³¸®ÇÑ´Ù.
+    // ì”¬ ì°¸ì¡°ê°€ ëª¨ë‘ ì—°ê²°ëœ ì´í›„ì—ë§Œ íšë“ì„ ì²˜ë¦¬í•œë‹¤.
     private bool _isInitialized;
 
     public int CurrentCount => _currentCount;
@@ -36,7 +36,7 @@ public sealed class UltimateCharge : MonoBehaviour
     {
         _player = GetComponent<PlayerController>();
 
-        // ¼ÖÁ®¿Í ¿ö¸®¾î°¡ ¼­·Î ´Ù¸¥ ±¸ÇöÀ» °¡Á®µµ °°Àº ¹æ½ÄÀ¸·Î È£ÃâÇÑ´Ù.
+        // ì†”ì ¸ì™€ ì›Œë¦¬ì–´ê°€ ì„œë¡œ ë‹¤ë¥¸ êµ¬í˜„ì„ ê°€ì ¸ë„ ê°™ì€ ë°©ì‹ìœ¼ë¡œ í˜¸ì¶œí•œë‹¤.
         _ability = GetComponent<UltimateAbility>();
     }
 
@@ -61,14 +61,14 @@ public sealed class UltimateCharge : MonoBehaviour
             return;
         }
 
-        // ½ÇÁ¦ °ø°İÀÌ ½ÃÀÛµÈ °æ¿ì¿¡¸¸ ÃæÀüÀ» ¼ÒºñÇÑ´Ù.
+        // ì‹¤ì œ ê³µê²©ì´ ì‹œì‘ëœ ê²½ìš°ì—ë§Œ ì¶©ì „ì„ ì†Œë¹„í•œë‹¤.
         if (_ability.TryActivate(_worldCamera))
         {
             ResetCharge();
         }
     }
 
-    // ÇöÀç ÁøÇà ÁßÀÎ °ø°İ°ú ³²Àº ¿¬ÃâÀ» Á¤¸®ÇÑ´Ù.
+    // í˜„ì¬ ì§„í–‰ ì¤‘ì¸ ê³µê²©ê³¼ ë‚¨ì€ ì—°ì¶œì„ ì •ë¦¬í•œë‹¤.
     private void CancelAbility()
     {
         if (_ability != null)
@@ -77,7 +77,7 @@ public sealed class UltimateCharge : MonoBehaviour
         }
     }
 
-    // »ı¼ºµÈ ÇÃ·¹ÀÌ¾î¿¡ ÇöÀç ½ºÅ×ÀÌÁöÀÇ ½Ã½ºÅÛ°ú UI¸¦ ¿¬°áÇÑ´Ù.
+    // ìƒì„±ëœ í”Œë ˆì´ì–´ì— í˜„ì¬ ìŠ¤í…Œì´ì§€ì˜ ì‹œìŠ¤í…œê³¼ UIë¥¼ ì—°ê²°í•œë‹¤.
     public void Initialize(
         StageFlowManager stageFlow,
         UltimateUI ui,
@@ -86,7 +86,7 @@ public sealed class UltimateCharge : MonoBehaviour
         if (_isInitialized)
         {
             throw new InvalidOperationException(
-                $"{name}: UltimateCharge°¡ ÀÌ¹Ì ÃÊ±âÈ­µÆ½À´Ï´Ù.");
+                $"{name}: UltimateChargeê°€ ì´ë¯¸ ì´ˆê¸°í™”ëìŠµë‹ˆë‹¤.");
         }
 
         if (stageFlow == null ||
@@ -95,11 +95,11 @@ public sealed class UltimateCharge : MonoBehaviour
             _requiredCount < 1)
         {
             throw new InvalidOperationException(
-                $"{name}: ÇÊ»ì±â ÃæÀü ¼³Á¤°ú ¾À ÂüÁ¶¸¦ È®ÀÎÇØÁÖ¼¼¿ä.");
+                $"{name}: í•„ì‚´ê¸° ì¶©ì „ ì„¤ì •ê³¼ ì”¬ ì°¸ì¡°ë¥¼ í™•ì¸í•´ì£¼ì„¸ìš”.");
         }
 
-        // ½ÇÇà Àü¿¡ ÇÁ¸®ÆÕ ¼³Á¤ ¿À·ù¸¦ È®ÀÎÇÑ´Ù.
-        // ¾ÆÁ÷ ÇÊ»ì±â¸¦ ¿¬°áÇÏÁö ¾ÊÀº Ä³¸¯ÅÍ´Â ÃæÀü ±â´É¸¸ À¯ÁöÇÑ´Ù.
+        // ì‹¤í–‰ ì „ì— í”„ë¦¬íŒ¹ ì„¤ì • ì˜¤ë¥˜ë¥¼ í™•ì¸í•œë‹¤.
+        // ì•„ì§ í•„ì‚´ê¸°ë¥¼ ì—°ê²°í•˜ì§€ ì•Šì€ ìºë¦­í„°ëŠ” ì¶©ì „ ê¸°ëŠ¥ë§Œ ìœ ì§€í•œë‹¤.
         if (_ability != null)
         {
             _ability.ValidateConfiguration();
@@ -114,15 +114,15 @@ public sealed class UltimateCharge : MonoBehaviour
         _currentCount = 0;
         _isInitialized = true;
 
-        // »ç¸Á ¶Ç´Â ½ºÅ×ÀÌÁö Á¾·á ½Ã ÃæÀü »óÅÂ¸¦ Á¤¸®ÇÑ´Ù.
+        // ì‚¬ë§ ë˜ëŠ” ìŠ¤í…Œì´ì§€ ì¢…ë£Œ ì‹œ ì¶©ì „ ìƒíƒœë¥¼ ì •ë¦¬í•œë‹¤.
         _player.Died += HandlePlayerDied;
         _stageFlow.PhaseChanged += HandlePhaseChanged;
 
         RefreshUI();
     }
 
-    // true´Â ¾ÆÀÌÅÛÀ» ¼ÒºñÇØµµ µÈ´Ù´Â ¶æÀÌ´Ù.
-    // ÃÖ´ë ÃæÀü »óÅÂ¿¡¼­µµ true¸¦ ¹İÈ¯ÇÏµÇ ÃæÀü ¼ö´Â ¹Ù²ÙÁö ¾Ê´Â´Ù.
+    // trueëŠ” ì•„ì´í…œì„ ì†Œë¹„í•´ë„ ëœë‹¤ëŠ” ëœ»ì´ë‹¤.
+    // ìµœëŒ€ ì¶©ì „ ìƒíƒœì—ì„œë„ trueë¥¼ ë°˜í™˜í•˜ë˜ ì¶©ì „ ìˆ˜ëŠ” ë°”ê¾¸ì§€ ì•ŠëŠ”ë‹¤.
     public bool TryCollect()
     {
         if (!_isInitialized ||
@@ -141,11 +141,12 @@ public sealed class UltimateCharge : MonoBehaviour
 
         _currentCount++;
         RefreshUI();
+        GameAudio.Play(IsReady ? GameSound.UltimateReady : GameSound.PickupUltimate);
 
         return true;
     }
 
-    // ÀÔÀå, ±¸°£ ÀÌµ¿, º¸½º °æ°í, °á°ú È­¸é¿¡¼­´Â È¹µæÇÏÁö ¾Ê´Â´Ù.
+    // ì…ì¥, êµ¬ê°„ ì´ë™, ë³´ìŠ¤ ê²½ê³ , ê²°ê³¼ í™”ë©´ì—ì„œëŠ” íšë“í•˜ì§€ ì•ŠëŠ”ë‹¤.
     private bool IsBattlePhase()
     {
         StagePhase phase = _stageFlow.CurrentPhase;
@@ -156,27 +157,27 @@ public sealed class UltimateCharge : MonoBehaviour
                phase == StagePhase.FinalBossBattle;
     }
 
-    // ÃæÀü µ¥ÀÌÅÍ°¡ º¯°æµÈ °æ¿ì¿¡¸¸ UI¸¦ °»½ÅÇÑ´Ù.
+    // ì¶©ì „ ë°ì´í„°ê°€ ë³€ê²½ëœ ê²½ìš°ì—ë§Œ UIë¥¼ ê°±ì‹ í•œë‹¤.
     private void RefreshUI()
     {
         _ui.Show(_currentCount, IsReady);
     }
 
-    // ÇÃ·¹ÀÌ¾î°¡ »ç¸ÁÇÏ¸é ÁØºñ ÇÁ·¹ÀÓ°ú ÃæÀüÀ» Á¦°ÅÇÑ´Ù.
+    // í”Œë ˆì´ì–´ê°€ ì‚¬ë§í•˜ë©´ ì¤€ë¹„ í”„ë ˆì„ê³¼ ì¶©ì „ì„ ì œê±°í•œë‹¤.
     private void HandlePlayerDied()
     {
         CancelAbility();
         ResetCharge();
     }
 
-    // °°Àº ½ºÅ×ÀÌÁöÀÇ ±¸°£ ÀÌµ¿¿¡¼­´Â ÃæÀüÀ» À¯ÁöÇÑ´Ù.
-    // Å¬¸®¾î¿Í ½ÇÆĞ¿¡¼­¸¸ ÃÊ±âÈ­ÇÑ´Ù.
+    // ê°™ì€ ìŠ¤í…Œì´ì§€ì˜ êµ¬ê°„ ì´ë™ì—ì„œëŠ” ì¶©ì „ì„ ìœ ì§€í•œë‹¤.
+    // í´ë¦¬ì–´ì™€ ì‹¤íŒ¨ì—ì„œë§Œ ì´ˆê¸°í™”í•œë‹¤.
     private void HandlePhaseChanged(StagePhase phase)
     {
         if (phase == StagePhase.SectionTransition)
         {
-            // ´ÙÀ½ ±¸°£À¸·Î ÀÌÀü °ø°İÀÌ ³Ñ¾î°¡Áö ¾Êµµ·Ï Á¤¸®ÇÑ´Ù.
-            // »ç¿ëÇÏÁö ¾Ê°í ¸ğ¾ÆµĞ ÃæÀüÀº ±×´ë·Î À¯ÁöÇÑ´Ù.
+            // ë‹¤ìŒ êµ¬ê°„ìœ¼ë¡œ ì´ì „ ê³µê²©ì´ ë„˜ì–´ê°€ì§€ ì•Šë„ë¡ ì •ë¦¬í•œë‹¤.
+            // ì‚¬ìš©í•˜ì§€ ì•Šê³  ëª¨ì•„ë‘” ì¶©ì „ì€ ê·¸ëŒ€ë¡œ ìœ ì§€í•œë‹¤.
             CancelAbility();
             return;
         }
@@ -201,7 +202,7 @@ public sealed class UltimateCharge : MonoBehaviour
 
     private void OnDestroy()
     {
-        // ¾À Á¾·á ½Ã ÆÄ±«µÈ ÇÃ·¹ÀÌ¾î¸¦ ÀÌº¥Æ®°¡ ÂüÁ¶ÇÏÁö ¾Ê°Ô ÇÑ´Ù.
+        // ì”¬ ì¢…ë£Œ ì‹œ íŒŒê´´ëœ í”Œë ˆì´ì–´ë¥¼ ì´ë²¤íŠ¸ê°€ ì°¸ì¡°í•˜ì§€ ì•Šê²Œ í•œë‹¤.
         if (_player != null)
         {
             _player.Died -= HandlePlayerDied;

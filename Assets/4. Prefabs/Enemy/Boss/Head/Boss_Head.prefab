@@ -223,7 +223,7 @@ MonoBehaviour:
   - _groupName: Money
     _entries:
     - _prefab: {fileID: 523677333196082315, guid: 02f86527c15f5bc4cad8b61a57339f3d, type: 3}
-      _count: 10
+      _count: 30
   - _groupName: Quest
     _entries: []
   _stageDrops:
@@ -243,11 +243,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bossName: Head
+  _defeatSound: 142
   _bossIcon: {fileID: 21300000, guid: 6fc431706f85c0f4daa1607236cce711, type: 3}
   _firePoint: {fileID: 8735207689797437126}
-  _maxHp: 500
+  _maxHp: 1600
   _crashDamage: 10
-  _userExpReward: 10
+  _userExpReward: 60
   _animator: {fileID: 7177751443503475103}
   _bossBodyCollider: {fileID: 4757110715007747093}
   _currentHp: 600
@@ -256,8 +257,8 @@ MonoBehaviour:
   _moveSpeed: 2
   _movementHalfRange: {x: 2, y: 3}
   _arrivalDistance: 0.1
-  _normalPatternFirstDelay: 2
-  _normalPatternInterval: 2
+  _normalPatternFirstDelay: 3
+  _normalPatternInterval: 3.2
   _previousPatternWeightMultiplier: 0.1
   _timedPatternEntries:
   - _pattern: {fileID: 11400000, guid: 78f7af7718e744d4fbb537b663305b1c, type: 2}
@@ -269,7 +270,7 @@ MonoBehaviour:
     _pattern: {fileID: 11400000, guid: 4bac8dca52e82854cb02f785c34a33b4, type: 2}
   - _healthPercent: 50
     _pattern: {fileID: 11400000, guid: 6cd747d5da82eee45baa2a87f037ee72, type: 2}
-  - _healthPercent: 30
+  - _healthPercent: 25
     _pattern: {fileID: 11400000, guid: 5bb0701b05ed80f46bf1e6523006abae, type: 2}
 --- !u!50 &486255449174284901
 Rigidbody2D:

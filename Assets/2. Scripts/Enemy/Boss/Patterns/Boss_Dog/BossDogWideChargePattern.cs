@@ -1,120 +1,120 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 
 /// <summary>
-/// Boss Dog°¡ °Å´ëÈ­ÇÑ µÚ È­¸éÀ» °¡·ÎÁú·¯ µ¹ÁøÇÏ´Â Ã¼·Â Æ¯¼ö ÆĞÅÏÀÌ´Ù.
-/// ½Ã½ºÅÛ °æ°í ¸Ş½ÃÁö°¡ ³¡³­ ÈÄ ½ÇÁ¦ ÆĞÅÏ Çàµ¿À» ½ÃÀÛÇÑ´Ù.
+/// Boss Dogê°€ ê±°ëŒ€í™”í•œ ë’¤ í™”ë©´ì„ ê°€ë¡œì§ˆëŸ¬ ëŒì§„í•˜ëŠ” ì²´ë ¥ íŠ¹ìˆ˜ íŒ¨í„´ì´ë‹¤.
+/// ì‹œìŠ¤í…œ ê²½ê³  ë©”ì‹œì§€ê°€ ëë‚œ í›„ ì‹¤ì œ íŒ¨í„´ í–‰ë™ì„ ì‹œì‘í•œë‹¤.
 /// </summary>
 [CreateAssetMenu(
     fileName = "BossDogWideChargePattern",
     menuName = "BossPattern/Dog/Wide Charge")]
 public sealed class BossDogWideChargePattern : BossPattern
 {
-    // µ¹Áø Áß ÀÔÀ» ¹ú·È´Ù ´İ´Â ¹İº¹ ¾Ö´Ï¸ŞÀÌ¼Ç »óÅÂ´Ù.
+    // ëŒì§„ ì¤‘ ì…ì„ ë²Œë ¸ë‹¤ ë‹«ëŠ” ë°˜ë³µ ì• ë‹ˆë©”ì´ì…˜ ìƒíƒœë‹¤.
     private static readonly int ChargeMouthState =
         Animator.StringToHash("Base Layer.Boss_Dog_Charge_Mouth");
 
-    // µ¹ÁøÀ» ¸¶Ä£ µÚ µ¹¾Æ°¥ ´ë±â ¾Ö´Ï¸ŞÀÌ¼Ç »óÅÂ´Ù.
+    // ëŒì§„ì„ ë§ˆì¹œ ë’¤ ëŒì•„ê°ˆ ëŒ€ê¸° ì• ë‹ˆë©”ì´ì…˜ ìƒíƒœë‹¤.
     private static readonly int IdleState =
         Animator.StringToHash("Base Layer.Idle");
 
-    [Header("½Ã½ºÅÛ °æ°í")]
+    [Header("ì‹œìŠ¤í…œ ê²½ê³ ")]
 
-    // ÆĞÅÏ ½ÃÀÛ ½Ã ½Ã½ºÅÛ ´ÙÀÌ¾ó·Î±×¿¡ Ãâ·ÂÇÒ ¸Ş½ÃÁö´Ù.
+    // íŒ¨í„´ ì‹œì‘ ì‹œ ì‹œìŠ¤í…œ ë‹¤ì´ì–¼ë¡œê·¸ì— ì¶œë ¥í•  ë©”ì‹œì§€ë‹¤.
     [TextArea]
     [SerializeField]
     string _systemMessage;
 
-    [Header("½ºÆù À§Ä¡ ÀÌµ¿")]
+    [Header("ìŠ¤í° ìœ„ì¹˜ ì´ë™")]
 
-    // ½Ã½ºÅÛ °æ°í°¡ ³¡³­ µÚ ½ºÆù À§Ä¡·Î ÀÌµ¿ÇÏ´Â µ¥ °É¸®´Â ½Ã°£ÀÌ´Ù.
+    // ì‹œìŠ¤í…œ ê²½ê³ ê°€ ëë‚œ ë’¤ ìŠ¤í° ìœ„ì¹˜ë¡œ ì´ë™í•˜ëŠ” ë° ê±¸ë¦¬ëŠ” ì‹œê°„ì´ë‹¤.
     [Min(0.01f)]
     [SerializeField]
     float _moveToSpawnDuration = 0.4f;
 
-    [Header("º¸½º °Å´ëÈ­")]
+    [Header("ë³´ìŠ¤ ê±°ëŒ€í™”")]
 
-    // ¿ø·¡ Å©±â¿¡ °öÇÒ °Å´ëÈ­ ¹èÀ²ÀÌ´Ù.
+    // ì›ë˜ í¬ê¸°ì— ê³±í•  ê±°ëŒ€í™” ë°°ìœ¨ì´ë‹¤.
     [Min(1f)]
     [SerializeField]
     float _enlargedScaleMultiplier = 2f;
 
-    // º¸½º°¡ °Å´ëÇØÁö´Â µ¥ °É¸®´Â ½Ã°£ÀÌ´Ù.
+    // ë³´ìŠ¤ê°€ ê±°ëŒ€í•´ì§€ëŠ” ë° ê±¸ë¦¬ëŠ” ì‹œê°„ì´ë‹¤.
     [Min(0.01f)]
     [SerializeField]
     float _enlargeDuration = 0.3f;
 
-    // ÆĞÅÏ Á¾·á ÈÄ ¿ø·¡ Å©±â·Î µ¹¾Æ¿À´Â µ¥ °É¸®´Â ½Ã°£ÀÌ´Ù.
+    // íŒ¨í„´ ì¢…ë£Œ í›„ ì›ë˜ í¬ê¸°ë¡œ ëŒì•„ì˜¤ëŠ” ë° ê±¸ë¦¬ëŠ” ì‹œê°„ì´ë‹¤.
     [Min(0.01f)]
     [SerializeField]
     float _restoreScaleDuration = 0.25f;
 
-    [Header("µ¹Áø ½ÃÀÛ À§Ä¡")]
+    [Header("ëŒì§„ ì‹œì‘ ìœ„ì¹˜")]
 
-    // BossSpawner À§Ä¡¸¦ ±âÁØÀ¸·Î ÇÑ ¿À¸¥ÂÊ À§ µ¹Áø ½ÃÀÛ OffsetÀÌ´Ù.
+    // BossSpawner ìœ„ì¹˜ë¥¼ ê¸°ì¤€ìœ¼ë¡œ í•œ ì˜¤ë¥¸ìª½ ìœ„ ëŒì§„ ì‹œì‘ Offsetì´ë‹¤.
     [SerializeField] Vector2 _upperChargeStartOffset = new Vector2(7f, 3f);
 
-    // BossSpawner À§Ä¡¸¦ ±âÁØÀ¸·Î ÇÑ ¿À¸¥ÂÊ Áß¾Ó µ¹Áø ½ÃÀÛ OffsetÀÌ´Ù.
+    // BossSpawner ìœ„ì¹˜ë¥¼ ê¸°ì¤€ìœ¼ë¡œ í•œ ì˜¤ë¥¸ìª½ ì¤‘ì•™ ëŒì§„ ì‹œì‘ Offsetì´ë‹¤.
     [SerializeField] Vector2 _middleChargeStartOffset = new Vector2(7f, 0f);
 
-    // BossSpawner À§Ä¡¸¦ ±âÁØÀ¸·Î ÇÑ ¿À¸¥ÂÊ ¾Æ·¡ µ¹Áø ½ÃÀÛ OffsetÀÌ´Ù.
+    // BossSpawner ìœ„ì¹˜ë¥¼ ê¸°ì¤€ìœ¼ë¡œ í•œ ì˜¤ë¥¸ìª½ ì•„ë˜ ëŒì§„ ì‹œì‘ Offsetì´ë‹¤.
     [SerializeField] Vector2 _lowerChargeStartOffset = new Vector2(7f, -3f);
 
-    // ¼±ÅÃµÈ ¿À¸¥ÂÊ µ¹Áø ½ÃÀÛ À§Ä¡±îÁö ÀÌµ¿ÇÏ´Â ½Ã°£ÀÌ´Ù.
+    // ì„ íƒëœ ì˜¤ë¥¸ìª½ ëŒì§„ ì‹œì‘ ìœ„ì¹˜ê¹Œì§€ ì´ë™í•˜ëŠ” ì‹œê°„ì´ë‹¤.
     [Min(0.01f)][SerializeField] float _moveToChargeStartDuration = 0.4f;
 
-    [Header("µ¹Áø ¹üÀ§ °æ°í")]
+    [Header("ëŒì§„ ë²”ìœ„ ê²½ê³ ")]
 
-    // µ¹Áø ¹üÀ§¸¦ Ç¥½ÃÇÒ 1¡¿1 »ç°¢Çü SpriteRenderer ÇÁ¸®ÆÕÀÌ´Ù.
+    // ëŒì§„ ë²”ìœ„ë¥¼ í‘œì‹œí•  1Ã—1 ì‚¬ê°í˜• SpriteRenderer í”„ë¦¬íŒ¹ì´ë‹¤.
     [SerializeField]
     SpriteRenderer _chargeWarningPrefab;
 
-    // ¿À¸¥ÂÊ ½ÃÀÛ À§Ä¡¿¡¼­ ¿ŞÂÊÀ¸·Î µ¹ÁøÇÒ °Å¸®´Ù.
+    // ì˜¤ë¥¸ìª½ ì‹œì‘ ìœ„ì¹˜ì—ì„œ ì™¼ìª½ìœ¼ë¡œ ëŒì§„í•  ê±°ë¦¬ë‹¤.
     [Min(0.1f)]
     [SerializeField]
     float _chargeDistance = 16f;
 
-    // µ¹Áø À§Çè ¹üÀ§¿¡ Àû¿ëÇÒ »ö»ó°ú ÃÖ´ë Åõ¸íµµ´Ù.
+    // ëŒì§„ ìœ„í—˜ ë²”ìœ„ì— ì ìš©í•  ìƒ‰ìƒê³¼ ìµœëŒ€ íˆ¬ëª…ë„ë‹¤.
     [SerializeField]
     Color _chargeWarningColor =
         new Color(1f, 0f, 0f, 0.45f);
 
-    // ÇÑ ¹ø ³ªÅ¸³ª°Å³ª »ç¶óÁö´Â µ¥ °É¸®´Â ½Ã°£ÀÌ´Ù.
+    // í•œ ë²ˆ ë‚˜íƒ€ë‚˜ê±°ë‚˜ ì‚¬ë¼ì§€ëŠ” ë° ê±¸ë¦¬ëŠ” ì‹œê°„ì´ë‹¤.
     [Min(0.01f)]
     [SerializeField]
     float _chargeWarningBlinkDuration = 0.15f;
 
-    // µ¹Áø À§Çè ¹üÀ§¸¦ Á¡¸êÇÒ È½¼ö´Ù.
+    // ëŒì§„ ìœ„í—˜ ë²”ìœ„ë¥¼ ì ë©¸í•  íšŸìˆ˜ë‹¤.
     [Min(1)]
     [SerializeField]
     int _chargeWarningBlinkCount = 4;
 
-    [Header("±¤¹üÀ§ µ¹Áø")]
+    [Header("ê´‘ë²”ìœ„ ëŒì§„")]
 
-    // ¼±ÅÃµÈ ¿À¸¥ÂÊ À§Ä¡¿¡¼­ È­¸é ¿ŞÂÊ±îÁö µ¹ÁøÇÏ´Â ½Ã°£ÀÌ´Ù.
+    // ì„ íƒëœ ì˜¤ë¥¸ìª½ ìœ„ì¹˜ì—ì„œ í™”ë©´ ì™¼ìª½ê¹Œì§€ ëŒì§„í•˜ëŠ” ì‹œê°„ì´ë‹¤.
     [Min(0.01f)]
     [SerializeField]
     float _chargeDuration = 0.3f;
 
-    // ½ÇÁ¦ ±¤¹üÀ§ µ¹Áø Áß ÇÃ·¹ÀÌ¾î¿Í Ãæµ¹ÇßÀ» ¶§ ÁÙ ÇÇÇØ·®ÀÌ´Ù.
-    // ÀÌ ÆĞÅÏ ConfigÀÇ Inspector¿¡¼­ °³º° ¼³Á¤ÇÑ´Ù.
+    // ì‹¤ì œ ê´‘ë²”ìœ„ ëŒì§„ ì¤‘ í”Œë ˆì´ì–´ì™€ ì¶©ëŒí–ˆì„ ë•Œ ì¤„ í”¼í•´ëŸ‰ì´ë‹¤.
+    // ì´ íŒ¨í„´ Configì˜ Inspectorì—ì„œ ê°œë³„ ì„¤ì •í•œë‹¤.
     [Min(0)]
     [SerializeField]
     float _chargeDamage = 30;
 
-    [Header("ÆĞÅÏ Á¾·á º¹±Í")]
+    [Header("íŒ¨í„´ ì¢…ë£Œ ë³µê·€")]
 
-    // µ¹ÁøÀÌ ³¡³­ À§Ä¡¿¡¼­ BossSpawner À§Ä¡·Î ºü¸£°Ô º¹±ÍÇÏ´Â ½Ã°£ÀÌ´Ù.
+    // ëŒì§„ì´ ëë‚œ ìœ„ì¹˜ì—ì„œ BossSpawner ìœ„ì¹˜ë¡œ ë¹ ë¥´ê²Œ ë³µê·€í•˜ëŠ” ì‹œê°„ì´ë‹¤.
     [Min(0.01f)]
     [SerializeField]
     float _returnToSpawnDuration = 0.35f;
 
 
     /// <summary>
-    /// ½Ã½ºÅÛ °æ°í ¸Ş½ÃÁö¸¦ Ãâ·ÂÇÏ°í,
-    /// Á¡¸ê ¿Ï·á ÀÌº¥Æ®¸¦ ¹ŞÀ» ¶§±îÁö ÆĞÅÏ ÁøÇàÀ» ¸ØÃá´Ù.
+    /// ì‹œìŠ¤í…œ ê²½ê³  ë©”ì‹œì§€ë¥¼ ì¶œë ¥í•˜ê³ ,
+    /// ì ë©¸ ì™„ë£Œ ì´ë²¤íŠ¸ë¥¼ ë°›ì„ ë•Œê¹Œì§€ íŒ¨í„´ ì§„í–‰ì„ ë©ˆì¶˜ë‹¤.
     /// </summary>
     public override IEnumerator Execute(
         BossPatternContext context)
@@ -125,96 +125,96 @@ public sealed class BossDogWideChargePattern : BossPattern
                 nameof(context));
         }
 
-        // ÀÌ ÆĞÅÏÀÌ ´Ù¸¥ Á¾·ùÀÇ º¸½º¿¡ Àß¸ø ÀåÂøµÇ´Â °ÍÀ» ¹æÁöÇÑ´Ù.
+        // ì´ íŒ¨í„´ì´ ë‹¤ë¥¸ ì¢…ë¥˜ì˜ ë³´ìŠ¤ì— ì˜ëª» ì¥ì°©ë˜ëŠ” ê²ƒì„ ë°©ì§€í•œë‹¤.
         if (!(context.Boss is Boss_Dog))
         {
             throw new InvalidOperationException(
-                $"{name} ÆĞÅÏÀº Boss_Dog¸¸ »ç¿ëÇÒ ¼ö ÀÖ½À´Ï´Ù.");
+                $"{name} íŒ¨í„´ì€ Boss_Dogë§Œ ì‚¬ìš©í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.");
         }
 
-        // º»Ã¼ Renderer¿¡ ¿¬°áµÈ Animator¸¦ °¡Á®¿Â´Ù.
+        // ë³¸ì²´ Rendererì— ì—°ê²°ëœ Animatorë¥¼ ê°€ì ¸ì˜¨ë‹¤.
         Animator chargeAnimator =
             context.VisualTransform.GetComponent<Animator>();
 
         if (chargeAnimator == null)
         {
             throw new MissingComponentException(
-                $"{context.Boss.name}: º»Ã¼ Animator¸¦ È®ÀÎÇÏ¼¼¿ä.");
+                $"{context.Boss.name}: ë³¸ì²´ Animatorë¥¼ í™•ì¸í•˜ì„¸ìš”.");
         }
 
-        // µ¹Áø°ú º¹±Í¿¡ ÇÊ¿äÇÑ »óÅÂ°¡ Controller¿¡ ÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
+        // ëŒì§„ê³¼ ë³µê·€ì— í•„ìš”í•œ ìƒíƒœê°€ Controllerì— ìˆëŠ”ì§€ í™•ì¸í•œë‹¤.
         if (!chargeAnimator.HasState(0, ChargeMouthState) ||
             !chargeAnimator.HasState(0, IdleState))
         {
             throw new InvalidOperationException(
-                $"{context.Boss.name}: Boss_Dog_Charge_Mouth¿Í Idle »óÅÂ¸¦ È®ÀÎÇÏ¼¼¿ä.");
+                $"{context.Boss.name}: Boss_Dog_Charge_Mouthì™€ Idle ìƒíƒœë¥¼ í™•ì¸í•˜ì„¸ìš”.");
         }
 
-        // Boss DogÀÇ ½ÇÁ¦ Ãæµ¹ ÆÇÁ¤¿¡ »ç¿ëÇÏ´Â BoxCollider2D¸¦ °¡Á®¿Â´Ù.
+        // Boss Dogì˜ ì‹¤ì œ ì¶©ëŒ íŒì •ì— ì‚¬ìš©í•˜ëŠ” BoxCollider2Dë¥¼ ê°€ì ¸ì˜¨ë‹¤.
         BoxCollider2D bossCollider =
             context.Boss.GetComponent<BoxCollider2D>();
 
         if (bossCollider == null)
         {
             throw new MissingComponentException(
-                $"{context.Boss.name}¿¡ BoxCollider2D°¡ ¾ø½À´Ï´Ù.");
+                $"{context.Boss.name}ì— BoxCollider2Dê°€ ì—†ìŠµë‹ˆë‹¤.");
         }
 
-        // ÆĞÅÏ Á¾·á ÈÄ º¹¿øÇÏ±â À§ÇØ ColliderÀÇ ¿ø·¡ °ªÀ» ÀúÀåÇÑ´Ù.
+        // íŒ¨í„´ ì¢…ë£Œ í›„ ë³µì›í•˜ê¸° ìœ„í•´ Colliderì˜ ì›ë˜ ê°’ì„ ì €ì¥í•œë‹¤.
         Vector2 originalColliderSize =
             bossCollider.size;
 
         Vector2 originalColliderOffset =
             bossCollider.offset;
 
-        // ÆĞÅÏ Á¾·á ½Ã Á¤È®ÇÑ Å©±â·Î µ¹¾Æ°¡±â À§ÇØ
-        // ÇöÀç º¸½º ÀÌ¹ÌÁöÀÇ ¿ø·¡ Å©±â¸¦ ÀúÀåÇÑ´Ù.
+        // íŒ¨í„´ ì¢…ë£Œ ì‹œ ì •í™•í•œ í¬ê¸°ë¡œ ëŒì•„ê°€ê¸° ìœ„í•´
+        // í˜„ì¬ ë³´ìŠ¤ ì´ë¯¸ì§€ì˜ ì›ë˜ í¬ê¸°ë¥¼ ì €ì¥í•œë‹¤.
         Vector3 originalVisualScale =
             context.VisualTransform.localScale;
 
         bool isDialogueCompleted = false;
 
-        // UI°¡ Á¡¸ê ¿Ï·á¸¦ ¾Ë·ÁÁÖ¸é ´ë±â »óÅÂ¸¦ ³¡³½´Ù.
+        // UIê°€ ì ë©¸ ì™„ë£Œë¥¼ ì•Œë ¤ì£¼ë©´ ëŒ€ê¸° ìƒíƒœë¥¼ ëë‚¸ë‹¤.
         Action handleDialogueCompleted =
             () => isDialogueCompleted = true;
 
-        // ¸Ş½ÃÁö¸¦ ¿äÃ»ÇÏ±â Àü¿¡ ¸ÕÀú ¿Ï·á ÀÌº¥Æ®¸¦ ±¸µ¶ÇØ¾ß
-        // ºü¸£°Ô ¿Ï·áµÇ´õ¶óµµ ÀÌº¥Æ®¸¦ ³õÄ¡Áö ¾Ê´Â´Ù.
+        // ë©”ì‹œì§€ë¥¼ ìš”ì²­í•˜ê¸° ì „ì— ë¨¼ì € ì™„ë£Œ ì´ë²¤íŠ¸ë¥¼ êµ¬ë…í•´ì•¼
+        // ë¹ ë¥´ê²Œ ì™„ë£Œë˜ë”ë¼ë„ ì´ë²¤íŠ¸ë¥¼ ë†“ì¹˜ì§€ ì•ŠëŠ”ë‹¤.
         context.Boss.SystemDialogueCompleted +=
             handleDialogueCompleted;
 
         try
         {
-            // »ı¼ºµÈ Boss_Dog°¡ ½Ã½ºÅÛ ´ÙÀÌ¾ó·Î±×¿¡ ¸Ş½ÃÁö¸¦ Àü´ŞÇÑ´Ù.
+            // ìƒì„±ëœ Boss_Dogê°€ ì‹œìŠ¤í…œ ë‹¤ì´ì–¼ë¡œê·¸ì— ë©”ì‹œì§€ë¥¼ ì „ë‹¬í•œë‹¤.
             context.Boss.RequestSystemDialogue(
                 _systemMessage);
 
-            // ½Ã½ºÅÛ ¸Ş½ÃÁö Á¡¸êÀÌ ³¡³¯ ¶§±îÁö ±â´Ù¸°´Ù.
-            // ´Ù¸¥ Ã¼·Â ÀÌº¥Æ®³ª ÆĞÅÏ ¿äÃ»ÀÌ µé¾î¿Íµµ ÇöÀç ÆĞÅÏÀº À¯ÁöµÈ´Ù.
+            // ì‹œìŠ¤í…œ ë©”ì‹œì§€ ì ë©¸ì´ ëë‚  ë•Œê¹Œì§€ ê¸°ë‹¤ë¦°ë‹¤.
+            // ë‹¤ë¥¸ ì²´ë ¥ ì´ë²¤íŠ¸ë‚˜ íŒ¨í„´ ìš”ì²­ì´ ë“¤ì–´ì™€ë„ í˜„ì¬ íŒ¨í„´ì€ ìœ ì§€ëœë‹¤.
             yield return new WaitUntil(() =>
                 isDialogueCompleted ||
                 context.Boss.IsDead);
         }
         finally
         {
-            // ÆĞÅÏÀÌ Á¤»ó Á¾·áµÇ°Å³ª Áß´ÜµÇ´õ¶óµµ ÀÌº¥Æ® ±¸µ¶À» ÇØÁ¦ÇÑ´Ù.
+            // íŒ¨í„´ì´ ì •ìƒ ì¢…ë£Œë˜ê±°ë‚˜ ì¤‘ë‹¨ë˜ë”ë¼ë„ ì´ë²¤íŠ¸ êµ¬ë…ì„ í•´ì œí•œë‹¤.
             context.Boss.SystemDialogueCompleted -=
                 handleDialogueCompleted;
         }
 
-        // ½Ã½ºÅÛ ¸Ş½ÃÁö µµÁß º¸½º°¡ Á×¾ú´Ù¸é ´ÙÀ½ Çàµ¿À» ½ÇÇàÇÏÁö ¾Ê´Â´Ù.
+        // ì‹œìŠ¤í…œ ë©”ì‹œì§€ ë„ì¤‘ ë³´ìŠ¤ê°€ ì£½ì—ˆë‹¤ë©´ ë‹¤ìŒ í–‰ë™ì„ ì‹¤í–‰í•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (context.Boss.IsDead)
         {
             yield break;
         }
 
-        // ·£´ı ÀÌµ¿ ÁßÀÌ´ø À§Ä¡¿¡¼­ ÃÖÃÊ º¸½º ½ºÆù À§Ä¡·Î ÀÌµ¿ÇÑ´Ù.
+        // ëœë¤ ì´ë™ ì¤‘ì´ë˜ ìœ„ì¹˜ì—ì„œ ìµœì´ˆ ë³´ìŠ¤ ìŠ¤í° ìœ„ì¹˜ë¡œ ì´ë™í•œë‹¤.
         yield return MoveToPosition(
             context.Rigidbody,
             context.Boss.MovementCenter,
             _moveToSpawnDuration);
 
-        // ÀÌµ¿ µµÁß º¸½º°¡ Á×¾ú´Ù¸é ´ÙÀ½ Çàµ¿À» ½ÇÇàÇÏÁö ¾Ê´Â´Ù.
+        // ì´ë™ ë„ì¤‘ ë³´ìŠ¤ê°€ ì£½ì—ˆë‹¤ë©´ ë‹¤ìŒ í–‰ë™ì„ ì‹¤í–‰í•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (context.Boss.IsDead)
         {
             yield break;
@@ -224,17 +224,17 @@ public sealed class BossDogWideChargePattern : BossPattern
 
 
 
-        // ´ÙÀ½ ´Ü°èÀÇ À§Çè ¹üÀ§ Á¡¸ê°ú ½ÇÁ¦ µ¹Áø ÄÚµå´Â
-        // ¹İµå½Ã ÀÌ À§Ä¡¿Í ¿ø·¡ Å©±â º¹¿ø ÄÚµå »çÀÌ¿¡ Ãß°¡ÇÑ´Ù.
+        // ë‹¤ìŒ ë‹¨ê³„ì˜ ìœ„í—˜ ë²”ìœ„ ì ë©¸ê³¼ ì‹¤ì œ ëŒì§„ ì½”ë“œëŠ”
+        // ë°˜ë“œì‹œ ì´ ìœ„ì¹˜ì™€ ì›ë˜ í¬ê¸° ë³µì› ì½”ë“œ ì‚¬ì´ì— ì¶”ê°€í•œë‹¤.
 
-        // X¿Í Y¸¸ È®´ëÇÏ°í 2D¿¡¼­ »ç¿ëÇÏÁö ¾Ê´Â Z Å©±â´Â À¯ÁöÇÑ´Ù.
+        // Xì™€ Yë§Œ í™•ëŒ€í•˜ê³  2Dì—ì„œ ì‚¬ìš©í•˜ì§€ ì•ŠëŠ” Z í¬ê¸°ëŠ” ìœ ì§€í•œë‹¤.
         Vector3 enlargedVisualScale =
             new Vector3(
                 originalVisualScale.x * _enlargedScaleMultiplier,
                 originalVisualScale.y * _enlargedScaleMultiplier,
                 originalVisualScale.z);
 
-        // ¿ÜÇü°ú µ¿ÀÏÇÑ ºñÀ²·Î È®´ëÇÒ Collider Å©±â¸¦ °è»êÇÑ´Ù.
+        // ì™¸í˜•ê³¼ ë™ì¼í•œ ë¹„ìœ¨ë¡œ í™•ëŒ€í•  Collider í¬ê¸°ë¥¼ ê³„ì‚°í•œë‹¤.
         Vector2 enlargedColliderSize =
             originalColliderSize *
             _enlargedScaleMultiplier;
@@ -243,26 +243,35 @@ public sealed class BossDogWideChargePattern : BossPattern
             originalColliderOffset *
             _enlargedScaleMultiplier;
 
-        // º¸½º ¿ÜÇü°ú ½ÇÁ¦ Ãæµ¹ ¹üÀ§¸¦ ÇÔ²² ºÎµå·´°Ô È®´ëÇÑ´Ù.
-        yield return ScaleBossSize(
-            context.VisualTransform,
-            enlargedVisualScale,
-            bossCollider,
-            enlargedColliderSize,
-            enlargedColliderOffset,
-            _enlargeDuration);
+        // ë³´ìŠ¤ ì™¸í˜•ê³¼ ì‹¤ì œ ì¶©ëŒ ë²”ìœ„ë¥¼ í•¨ê»˜ ë¶€ë“œëŸ½ê²Œ í™•ëŒ€í•œë‹¤.
+        // ê±°ëŒ€í™” êµ¬ê°„ì— ìœ¼ë¥´ë ê±°ë¦¼ì„ ë¶™ì´ê³  ì·¨ì†Œë˜ë©´ ì†Œë¦¬ë„ ì •ë¦¬í•œë‹¤.
+        GameAudio.Handle growthAudio = GameAudio.PlayOwned(GameSound.DogIntroGrowl, context.Boss);
+        try
+        {
+            yield return ScaleBossSize(
+                context.VisualTransform,
+                enlargedVisualScale,
+                bossCollider,
+                enlargedColliderSize,
+                enlargedColliderOffset,
+                _enlargeDuration);
+        }
+        finally
+        {
+            GameAudio.Stop(growthAudio);
+        }
 
         if (context.Boss.IsDead)
         {
             yield break;
         }
 
-        // ¿À¸¥ÂÊ À§, Áß¾Ó, ¾Æ·¡ Áß ÇÏ³ª¸¦ °°Àº È®·ü·Î ¼±ÅÃÇÑ´Ù.
+        // ì˜¤ë¥¸ìª½ ìœ„, ì¤‘ì•™, ì•„ë˜ ì¤‘ í•˜ë‚˜ë¥¼ ê°™ì€ í™•ë¥ ë¡œ ì„ íƒí•œë‹¤.
         Vector2 chargeStartPosition =
             SelectChargeStartPosition(
                 context.Boss.MovementCenter);
 
-        // °Å´ëÈ­ »óÅÂ·Î ¼±ÅÃµÈ µ¹Áø ½ÃÀÛ À§Ä¡±îÁö ÀÌµ¿ÇÑ´Ù.
+        // ê±°ëŒ€í™” ìƒíƒœë¡œ ì„ íƒëœ ëŒì§„ ì‹œì‘ ìœ„ì¹˜ê¹Œì§€ ì´ë™í•œë‹¤.
         yield return MoveToPosition(
             context.Rigidbody,
             chargeStartPosition,
@@ -273,26 +282,26 @@ public sealed class BossDogWideChargePattern : BossPattern
             yield break;
         }
 
-        // º¸½º Áß½ÉÀÌ ½ÇÁ¦·Î µ¹ÁøÇÒ ¸ñÀûÁö´Ù.
+        // ë³´ìŠ¤ ì¤‘ì‹¬ì´ ì‹¤ì œë¡œ ëŒì§„í•  ëª©ì ì§€ë‹¤.
         Vector2 chargeEndPosition =
             chargeStartPosition +
             Vector2.left * _chargeDistance;
 
-        // °Å´ëÈ­µÈ ColliderÀÇ ½ÇÁ¦ ¿ùµå Å©±â¸¦ °¡Á®¿Â´Ù.
+        // ê±°ëŒ€í™”ëœ Colliderì˜ ì‹¤ì œ ì›”ë“œ í¬ê¸°ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
         Vector2 colliderWorldSize =
             bossCollider.bounds.size;
 
-        // ½ÃÀÛ À§Ä¡¿¡¼­ º¸½º ¸öÃ¼ÀÇ ¿À¸¥ÂÊ ³¡±îÁö °æ°í¿¡ Æ÷ÇÔÇÑ´Ù.
+        // ì‹œì‘ ìœ„ì¹˜ì—ì„œ ë³´ìŠ¤ ëª¸ì²´ì˜ ì˜¤ë¥¸ìª½ ëê¹Œì§€ ê²½ê³ ì— í¬í•¨í•œë‹¤.
         Vector2 warningStartPosition =
             chargeStartPosition +
             Vector2.right * (colliderWorldSize.x * 0.5f);
 
-        // µµÂø À§Ä¡¿¡¼­ º¸½º ¸öÃ¼ÀÇ ¿ŞÂÊ ³¡±îÁö °æ°í¿¡ Æ÷ÇÔÇÑ´Ù.
+        // ë„ì°© ìœ„ì¹˜ì—ì„œ ë³´ìŠ¤ ëª¸ì²´ì˜ ì™¼ìª½ ëê¹Œì§€ ê²½ê³ ì— í¬í•¨í•œë‹¤.
         Vector2 warningEndPosition =
             chargeEndPosition +
             Vector2.left * (colliderWorldSize.x * 0.5f);
 
-        // º¸½º ¸öÃ¼°¡ Áö³ª°¡´Â ÀüÃ¼ ³Êºñ¿Í ½ÇÁ¦ Ãæµ¹ ³ôÀÌ·Î °æ°í¸¦ »ı¼ºÇÑ´Ù.
+        // ë³´ìŠ¤ ëª¸ì²´ê°€ ì§€ë‚˜ê°€ëŠ” ì „ì²´ ë„ˆë¹„ì™€ ì‹¤ì œ ì¶©ëŒ ë†’ì´ë¡œ ê²½ê³ ë¥¼ ìƒì„±í•œë‹¤.
         SpriteRenderer chargeWarning =
             CreateChargeWarning(
                 warningStartPosition,
@@ -301,13 +310,13 @@ public sealed class BossDogWideChargePattern : BossPattern
 
         try
         {
-            // »¡°£ µ¹Áø À§Çè ¹üÀ§¸¦ ¼³Á¤µÈ È½¼ö¸¸Å­ Á¡¸ê½ÃÅ²´Ù.
+            // ë¹¨ê°„ ëŒì§„ ìœ„í—˜ ë²”ìœ„ë¥¼ ì„¤ì •ëœ íšŸìˆ˜ë§Œí¼ ì ë©¸ì‹œí‚¨ë‹¤.
             yield return BlinkChargeWarning(
                 chargeWarning);
         }
         finally
         {
-            // ÆĞÅÏÀÌ Áß´ÜµÇ¾îµµ À§Çè ¹üÀ§°¡ ³²Áö ¾Ê°Ô Á¦°ÅÇÑ´Ù.
+            // íŒ¨í„´ì´ ì¤‘ë‹¨ë˜ì–´ë„ ìœ„í—˜ ë²”ìœ„ê°€ ë‚¨ì§€ ì•Šê²Œ ì œê±°í•œë‹¤.
             if (chargeWarning != null)
             {
                 Destroy(
@@ -320,17 +329,18 @@ public sealed class BossDogWideChargePattern : BossPattern
             yield break;
         }
 
-        // ½ÇÁ¦ µ¹ÁøÀ» ½ÃÀÛÇÒ ¶§ ÀÌ ÆĞÅÏ¿¡ ¼³Á¤µÈ Á¢ÃË ÇÇÇØ¸¦ Àû¿ëÇÑ´Ù.
+        // ì‹¤ì œ ëŒì§„ì„ ì‹œì‘í•  ë•Œ ì´ íŒ¨í„´ì— ì„¤ì •ëœ ì ‘ì´‰ í”¼í•´ë¥¼ ì ìš©í•œë‹¤.
         context.Boss.SetPatternCrashDamage(_chargeDamage);
 
         try
         {
-            // ½ÇÁ¦ µ¹ÁøÀ» ½ÃÀÛÇÒ ¶§ ÀÔ µ¿ÀÛ Å¬¸³À» Ã³À½ºÎÅÍ Àç»ıÇÑ´Ù.
-            // ¹İº¹ ¼Óµµ´Â Animator »óÅÂÀÇ Speed ¼³Á¤À» ±×´ë·Î »ç¿ëÇÑ´Ù.
+            // ì‹¤ì œ ëŒì§„ì„ ì‹œì‘í•  ë•Œ ì… ë™ì‘ í´ë¦½ì„ ì²˜ìŒë¶€í„° ì¬ìƒí•œë‹¤.
+            // ë°˜ë³µ ì†ë„ëŠ” Animator ìƒíƒœì˜ Speed ì„¤ì •ì„ ê·¸ëŒ€ë¡œ ì‚¬ìš©í•œë‹¤.
             chargeAnimator.Play(ChargeMouthState, 0, 0f);
+            GameAudio.Play(GameSound.DogCharge); // ëŒì§„ ì‹œì‘.
             chargeAnimator.Update(0f);
 
-            // ÀÔ µ¿ÀÛ Àç»ı ¼Óµµ¿Í º°°³·Î ±âÁ¸ µ¹Áø ½Ã°£¸¸Å­ ÀÌµ¿ÇÑ´Ù.
+            // ì… ë™ì‘ ì¬ìƒ ì†ë„ì™€ ë³„ê°œë¡œ ê¸°ì¡´ ëŒì§„ ì‹œê°„ë§Œí¼ ì´ë™í•œë‹¤.
             yield return MoveToPosition(
                 context.Rigidbody,
                 chargeEndPosition,
@@ -338,12 +348,12 @@ public sealed class BossDogWideChargePattern : BossPattern
         }
         finally
         {
-            // µ¹Áø Á¾·á³ª ÆĞÅÏ Ãë¼Ò ½Ã Àü¿ë Á¢ÃË ÇÇÇØ ¼³Á¤À» ÇØÁ¦ÇÑ´Ù.
+            // ëŒì§„ ì¢…ë£Œë‚˜ íŒ¨í„´ ì·¨ì†Œ ì‹œ ì „ìš© ì ‘ì´‰ í”¼í•´ ì„¤ì •ì„ í•´ì œí•œë‹¤.
             if (context.Boss != null)
                 context.Boss.ResetPatternCrashDamage();
 
-            // »ì¾Æ ÀÖ°í µ¹Áø »óÅÂ°¡ À¯ÁöµÈ °æ¿ì¿¡¸¸ Idle·Î µ¹¾Æ°£´Ù.
-            // »ç¸ÁÇß°Å³ª ´Ù¸¥ »óÅÂ·Î ¹Ù²î¾ú´Ù¸é ÇØ´ç »óÅÂ¸¦ µ¤¾î¾²Áö ¾Ê´Â´Ù.
+            // ì‚´ì•„ ìˆê³  ëŒì§„ ìƒíƒœê°€ ìœ ì§€ëœ ê²½ìš°ì—ë§Œ Idleë¡œ ëŒì•„ê°„ë‹¤.
+            // ì‚¬ë§í–ˆê±°ë‚˜ ë‹¤ë¥¸ ìƒíƒœë¡œ ë°”ë€Œì—ˆë‹¤ë©´ í•´ë‹¹ ìƒíƒœë¥¼ ë®ì–´ì“°ì§€ ì•ŠëŠ”ë‹¤.
             if (context.Boss != null &&
                 !context.Boss.IsDead &&
                 chargeAnimator != null &&
@@ -362,16 +372,16 @@ public sealed class BossDogWideChargePattern : BossPattern
         }
 
 
-        // ½ÇÁ¦ µ¹ÁøÀÌ ³¡³ª°í ½ºÆù À§Ä¡·Î º¹±ÍÇÒ ¶§ºÎÅÍ ¸öÃ¼ Ãæµ¹À» ¹«½ÃÇÑ´Ù.
+        // ì‹¤ì œ ëŒì§„ì´ ëë‚˜ê³  ìŠ¤í° ìœ„ì¹˜ë¡œ ë³µê·€í•  ë•Œë¶€í„° ëª¸ì²´ ì¶©ëŒì„ ë¬´ì‹œí•œë‹¤.
         context.Boss.BeginReturnCollisionIgnore();
 
-        // °Å´ëÈ­ »óÅÂ·Î ½ºÆù À§Ä¡±îÁö º¹±ÍÇÑ´Ù.
+        // ê±°ëŒ€í™” ìƒíƒœë¡œ ìŠ¤í° ìœ„ì¹˜ê¹Œì§€ ë³µê·€í•œë‹¤.
         yield return MoveToPosition(
             context.Rigidbody,
             context.Boss.MovementCenter,
             _returnToSpawnDuration);
 
-        // ¸¶Áö¸· ÀÌµ¿ ¸ñÇ¥°¡ ¹°¸®¿¡ ¹İ¿µµÉ ¶§±îÁö ±â´Ù¸°´Ù.
+        // ë§ˆì§€ë§‰ ì´ë™ ëª©í‘œê°€ ë¬¼ë¦¬ì— ë°˜ì˜ë  ë•Œê¹Œì§€ ê¸°ë‹¤ë¦°ë‹¤.
         yield return new WaitForFixedUpdate();
 
         if (context.Boss.IsDead)
@@ -380,8 +390,8 @@ public sealed class BossDogWideChargePattern : BossPattern
         }
 
 
-        // BossSpawner À§Ä¡¿¡ µµÂøÇÑ ÈÄ
-        // ¿ÜÇü°ú ½ÇÁ¦ Ãæµ¹ ¹üÀ§¸¦ ¿ø·¡ Å©±â·Î ÇÔ²² µÇµ¹¸°´Ù.
+        // BossSpawner ìœ„ì¹˜ì— ë„ì°©í•œ í›„
+        // ì™¸í˜•ê³¼ ì‹¤ì œ ì¶©ëŒ ë²”ìœ„ë¥¼ ì›ë˜ í¬ê¸°ë¡œ í•¨ê»˜ ë˜ëŒë¦°ë‹¤.
         yield return ScaleBossSize(
             context.VisualTransform,
             originalVisualScale,
@@ -392,8 +402,8 @@ public sealed class BossDogWideChargePattern : BossPattern
     }
 
     /// <summary>
-    /// Rigidbody2D¸¦ ÇöÀç À§Ä¡¿¡¼­ ÁöÁ¤µÈ ¸ñÇ¥ À§Ä¡±îÁö ÀÏÁ¤ ½Ã°£ µ¿¾È ÀÌµ¿½ÃÅ²´Ù.
-    /// Æ¯¼ö ÆĞÅÏ ½ÃÀÛ°ú Á¾·á ½Ã ½ºÆù À§Ä¡·Î µ¹¾Æ°¥ ¶§ ÇÔ²² »ç¿ëÇÑ´Ù.
+    /// Rigidbody2Dë¥¼ í˜„ì¬ ìœ„ì¹˜ì—ì„œ ì§€ì •ëœ ëª©í‘œ ìœ„ì¹˜ê¹Œì§€ ì¼ì • ì‹œê°„ ë™ì•ˆ ì´ë™ì‹œí‚¨ë‹¤.
+    /// íŠ¹ìˆ˜ íŒ¨í„´ ì‹œì‘ê³¼ ì¢…ë£Œ ì‹œ ìŠ¤í° ìœ„ì¹˜ë¡œ ëŒì•„ê°ˆ ë•Œ í•¨ê»˜ ì‚¬ìš©í•œë‹¤.
     /// </summary>
     private IEnumerator MoveToPosition(
         Rigidbody2D rigidbody,
@@ -403,7 +413,7 @@ public sealed class BossDogWideChargePattern : BossPattern
         Vector2 startPosition =
             rigidbody.position;
 
-        // ÀÌ¹Ì ¸ñÇ¥ À§Ä¡¿¡ µµÂøÇØ ÀÖ´Ù¸é ºÒÇÊ¿äÇÏ°Ô ±â´Ù¸®Áö ¾Ê´Â´Ù.
+        // ì´ë¯¸ ëª©í‘œ ìœ„ì¹˜ì— ë„ì°©í•´ ìˆë‹¤ë©´ ë¶ˆí•„ìš”í•˜ê²Œ ê¸°ë‹¤ë¦¬ì§€ ì•ŠëŠ”ë‹¤.
         if ((targetPosition - startPosition).sqrMagnitude
             <= 0.0001f)
         {
@@ -429,21 +439,21 @@ public sealed class BossDogWideChargePattern : BossPattern
                     targetPosition,
                     moveRatio);
 
-            // ¹°¸® ÇÁ·¹ÀÓ¸¶´Ù º¸½º À§Ä¡¸¦ °»½ÅÇÑ´Ù.
+            // ë¬¼ë¦¬ í”„ë ˆì„ë§ˆë‹¤ ë³´ìŠ¤ ìœ„ì¹˜ë¥¼ ê°±ì‹ í•œë‹¤.
             rigidbody.MovePosition(
                 nextPosition);
 
             yield return new WaitForFixedUpdate();
         }
 
-        // ¸¶Áö¸· À§Ä¡°¡ ¿ÀÂ÷ ¾øÀÌ ¸ñÇ¥ À§Ä¡¿Í ÀÏÄ¡ÇÏµµ·Ï º¸Á¤ÇÑ´Ù.
+        // ë§ˆì§€ë§‰ ìœ„ì¹˜ê°€ ì˜¤ì°¨ ì—†ì´ ëª©í‘œ ìœ„ì¹˜ì™€ ì¼ì¹˜í•˜ë„ë¡ ë³´ì •í•œë‹¤.
         rigidbody.MovePosition(
             targetPosition);
     }
 
     /// <summary>
-    /// º¸½º ¿ÜÇü°ú BoxCollider2D¸¦ °°Àº ½Ã°£ µ¿¾È ÇÔ²² È®´ëÇÏ°Å³ª Ãà¼ÒÇÑ´Ù.
-    /// ¿ÜÇü°ú ½ÇÁ¦ Ãæµ¹ ¹üÀ§°¡ ¼­·Î ´Ù¸¥ Å©±â·Î º¸ÀÌ´Â °ÍÀ» ¹æÁöÇÑ´Ù.
+    /// ë³´ìŠ¤ ì™¸í˜•ê³¼ BoxCollider2Dë¥¼ ê°™ì€ ì‹œê°„ ë™ì•ˆ í•¨ê»˜ í™•ëŒ€í•˜ê±°ë‚˜ ì¶•ì†Œí•œë‹¤.
+    /// ì™¸í˜•ê³¼ ì‹¤ì œ ì¶©ëŒ ë²”ìœ„ê°€ ì„œë¡œ ë‹¤ë¥¸ í¬ê¸°ë¡œ ë³´ì´ëŠ” ê²ƒì„ ë°©ì§€í•œë‹¤.
     /// </summary>
     private IEnumerator ScaleBossSize(
         Transform visualTransform,
@@ -472,14 +482,14 @@ public sealed class BossDogWideChargePattern : BossPattern
                 Mathf.Clamp01(
                     elapsedTime / duration);
 
-            // º¸½º ÀÌ¹ÌÁö¸¦ ¸ñÇ¥ Å©±â±îÁö º¯°æÇÑ´Ù.
+            // ë³´ìŠ¤ ì´ë¯¸ì§€ë¥¼ ëª©í‘œ í¬ê¸°ê¹Œì§€ ë³€ê²½í•œë‹¤.
             visualTransform.localScale =
                 Vector3.Lerp(
                     startVisualScale,
                     targetVisualScale,
                     scaleRatio);
 
-            // ½ÇÁ¦ Ãæµ¹ ÆÇÁ¤µµ µ¿ÀÏÇÑ ºñÀ²·Î º¯°æÇÑ´Ù.
+            // ì‹¤ì œ ì¶©ëŒ íŒì •ë„ ë™ì¼í•œ ë¹„ìœ¨ë¡œ ë³€ê²½í•œë‹¤.
             bossCollider.size =
                 Vector2.Lerp(
                     startColliderSize,
@@ -492,11 +502,11 @@ public sealed class BossDogWideChargePattern : BossPattern
                     targetColliderOffset,
                     scaleRatio);
 
-            // Collider º¯°æÀ» ¹°¸® ÇÁ·¹ÀÓ°ú ¸ÂÃá´Ù.
+            // Collider ë³€ê²½ì„ ë¬¼ë¦¬ í”„ë ˆì„ê³¼ ë§ì¶˜ë‹¤.
             yield return new WaitForFixedUpdate();
         }
 
-        // ¸¶Áö¸· ÇÁ·¹ÀÓÀÇ ¿ÀÂ÷°¡ ³²Áö ¾Êµµ·Ï Á¤È®ÇÑ °ªÀ¸·Î º¸Á¤ÇÑ´Ù.
+        // ë§ˆì§€ë§‰ í”„ë ˆì„ì˜ ì˜¤ì°¨ê°€ ë‚¨ì§€ ì•Šë„ë¡ ì •í™•í•œ ê°’ìœ¼ë¡œ ë³´ì •í•œë‹¤.
         visualTransform.localScale =
             targetVisualScale;
 
@@ -508,14 +518,14 @@ public sealed class BossDogWideChargePattern : BossPattern
     }
 
     /// <summary>
-    /// BossSpawner À§Ä¡¸¦ ±âÁØÀ¸·Î ¿À¸¥ÂÊ À§, Áß¾Ó, ¾Æ·¡ Áß
-    /// ÇÏ³ªÀÇ µ¹Áø ½ÃÀÛ À§Ä¡¸¦ °°Àº È®·ü·Î ¼±ÅÃÇÑ´Ù.
+    /// BossSpawner ìœ„ì¹˜ë¥¼ ê¸°ì¤€ìœ¼ë¡œ ì˜¤ë¥¸ìª½ ìœ„, ì¤‘ì•™, ì•„ë˜ ì¤‘
+    /// í•˜ë‚˜ì˜ ëŒì§„ ì‹œì‘ ìœ„ì¹˜ë¥¼ ê°™ì€ í™•ë¥ ë¡œ ì„ íƒí•œë‹¤.
     /// </summary>
     private Vector2 SelectChargeStartPosition(
         Vector2 spawnPosition)
     {
-        // Random.RangeÀÇ int ÃÖ´ñ°ªÀº Æ÷ÇÔµÇÁö ¾ÊÀ¸¹Ç·Î
-        // 0, 1, 2 Áß ÇÏ³ª°¡ °¢°¢ °°Àº È®·ü·Î ¼±ÅÃµÈ´Ù.
+        // Random.Rangeì˜ int ìµœëŒ“ê°’ì€ í¬í•¨ë˜ì§€ ì•Šìœ¼ë¯€ë¡œ
+        // 0, 1, 2 ì¤‘ í•˜ë‚˜ê°€ ê°ê° ê°™ì€ í™•ë¥ ë¡œ ì„ íƒëœë‹¤.
         int selectedPositionIndex =
             UnityEngine.Random.Range(0, 3);
 
@@ -525,35 +535,35 @@ public sealed class BossDogWideChargePattern : BossPattern
         {
             case 0:
 
-                // ¿À¸¥ÂÊ À§ À§Ä¡¸¦ ¼±ÅÃÇÑ´Ù.
+                // ì˜¤ë¥¸ìª½ ìœ„ ìœ„ì¹˜ë¥¼ ì„ íƒí•œë‹¤.
                 selectedOffset =
                     _upperChargeStartOffset;
                 break;
 
             case 1:
 
-                // ¿À¸¥ÂÊ Áß¾Ó À§Ä¡¸¦ ¼±ÅÃÇÑ´Ù.
+                // ì˜¤ë¥¸ìª½ ì¤‘ì•™ ìœ„ì¹˜ë¥¼ ì„ íƒí•œë‹¤.
                 selectedOffset =
                     _middleChargeStartOffset;
                 break;
 
             default:
 
-                // ¿À¸¥ÂÊ ¾Æ·¡ À§Ä¡¸¦ ¼±ÅÃÇÑ´Ù.
+                // ì˜¤ë¥¸ìª½ ì•„ë˜ ìœ„ì¹˜ë¥¼ ì„ íƒí•œë‹¤.
                 selectedOffset =
                     _lowerChargeStartOffset;
                 break;
         }
 
-        // Àı´ë ÁÂÇ¥°¡ ¾Æ´Ï¶ó ½ÇÁ¦ º¸½º ½ºÆù À§Ä¡¿¡
-        // ¼±ÅÃµÈ OffsetÀ» ´õÇØ¼­ ÃÖÁ¾ À§Ä¡¸¦ °è»êÇÑ´Ù.
+        // ì ˆëŒ€ ì¢Œí‘œê°€ ì•„ë‹ˆë¼ ì‹¤ì œ ë³´ìŠ¤ ìŠ¤í° ìœ„ì¹˜ì—
+        // ì„ íƒëœ Offsetì„ ë”í•´ì„œ ìµœì¢… ìœ„ì¹˜ë¥¼ ê³„ì‚°í•œë‹¤.
         return spawnPosition +
                selectedOffset;
     }
 
     /// <summary>
-    /// ½ÇÁ¦ µ¹Áø ½ÃÀÛÁ¡°ú ³¡Á¡À» »ç¿ëÇÏ¿©
-    /// Á÷»ç°¢Çü ¸ğ¾çÀÇ »¡°£ À§Çè ¹üÀ§¸¦ »ı¼ºÇÑ´Ù.
+    /// ì‹¤ì œ ëŒì§„ ì‹œì‘ì ê³¼ ëì ì„ ì‚¬ìš©í•˜ì—¬
+    /// ì§ì‚¬ê°í˜• ëª¨ì–‘ì˜ ë¹¨ê°„ ìœ„í—˜ ë²”ìœ„ë¥¼ ìƒì„±í•œë‹¤.
     /// </summary>
     private SpriteRenderer CreateChargeWarning(
        Vector2 startPosition,
@@ -563,19 +573,19 @@ public sealed class BossDogWideChargePattern : BossPattern
         if (_chargeWarningPrefab == null)
         {
             throw new InvalidOperationException(
-                $"{name}¿¡ µ¹Áø ¹üÀ§ °æ°í ÇÁ¸®ÆÕÀÌ ¼³Á¤µÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+                $"{name}ì— ëŒì§„ ë²”ìœ„ ê²½ê³  í”„ë¦¬íŒ¹ì´ ì„¤ì •ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
         }
 
         if (_chargeWarningPrefab.sprite == null)
         {
             throw new InvalidOperationException(
-                $"{name}ÀÇ µ¹Áø ¹üÀ§ °æ°í ÇÁ¸®ÆÕ¿¡ Sprite°¡ ¾ø½À´Ï´Ù.");
+                $"{name}ì˜ ëŒì§„ ë²”ìœ„ ê²½ê³  í”„ë¦¬íŒ¹ì— Spriteê°€ ì—†ìŠµë‹ˆë‹¤.");
         }
 
         SpriteRenderer warningRenderer =
             Instantiate(_chargeWarningPrefab);
 
-        // µ¹Áø ½ÃÀÛÁ¡°ú ³¡Á¡ÀÇ Á¤Áß¾Ó¿¡ À§Çè ¹üÀ§¸¦ ¹èÄ¡ÇÑ´Ù.
+        // ëŒì§„ ì‹œì‘ì ê³¼ ëì ì˜ ì •ì¤‘ì•™ì— ìœ„í—˜ ë²”ìœ„ë¥¼ ë°°ì¹˜í•œë‹¤.
         warningRenderer.transform.position =
             (startPosition + endPosition) * 0.5f;
 
@@ -586,7 +596,7 @@ public sealed class BossDogWideChargePattern : BossPattern
             sourceSpriteSize.y <= 0f)
         {
             throw new InvalidOperationException(
-                $"{name}ÀÇ µ¹Áø ¹üÀ§ °æ°í Sprite Å©±â°¡ ¿Ã¹Ù¸£Áö ¾Ê½À´Ï´Ù.");
+                $"{name}ì˜ ëŒì§„ ë²”ìœ„ ê²½ê³  Sprite í¬ê¸°ê°€ ì˜¬ë°”ë¥´ì§€ ì•ŠìŠµë‹ˆë‹¤.");
         }
 
         float warningWidth =
@@ -594,15 +604,15 @@ public sealed class BossDogWideChargePattern : BossPattern
                 startPosition,
                 endPosition);
 
-        // ½ÇÁ¦ Collider°¡ Áö³ª°¡´Â ÀüÃ¼ ³Êºñ¿Í ³ôÀÌ¿¡ ¸Â°Ô
-        // °æ°í SpriteÀÇ Å©±â¸¦ Á¶ÀıÇÑ´Ù.
+        // ì‹¤ì œ Colliderê°€ ì§€ë‚˜ê°€ëŠ” ì „ì²´ ë„ˆë¹„ì™€ ë†’ì´ì— ë§ê²Œ
+        // ê²½ê³  Spriteì˜ í¬ê¸°ë¥¼ ì¡°ì ˆí•œë‹¤.
         warningRenderer.transform.localScale =
             new Vector3(
                 warningWidth / sourceSpriteSize.x,
                 warningHeight / sourceSpriteSize.y,
                 1f);
 
-        // Ã³À½¿¡´Â ¿ÏÀüÈ÷ Åõ¸íÇÏ°Ô ¸¸µç´Ù.
+        // ì²˜ìŒì—ëŠ” ì™„ì „íˆ íˆ¬ëª…í•˜ê²Œ ë§Œë“ ë‹¤.
         Color hiddenColor =
             _chargeWarningColor;
 
@@ -613,7 +623,7 @@ public sealed class BossDogWideChargePattern : BossPattern
     }
 
     /// <summary>
-    /// µ¹Áø À§Çè ¹üÀ§¸¦ ºÓ°Ô ³ªÅ¸³Â´Ù°¡ ¼û±â´Â µ¿ÀÛÀ» ¹İº¹ÇÑ´Ù.
+    /// ëŒì§„ ìœ„í—˜ ë²”ìœ„ë¥¼ ë¶‰ê²Œ ë‚˜íƒ€ëƒˆë‹¤ê°€ ìˆ¨ê¸°ëŠ” ë™ì‘ì„ ë°˜ë³µí•œë‹¤.
     /// </summary>
     private IEnumerator BlinkChargeWarning(
         SpriteRenderer warningRenderer)
@@ -622,13 +632,13 @@ public sealed class BossDogWideChargePattern : BossPattern
              i < _chargeWarningBlinkCount;
              i++)
         {
-            // À§Çè ¹üÀ§¸¦ ¼­¼­È÷ Ç¥½ÃÇÑ´Ù.
+            // ìœ„í—˜ ë²”ìœ„ë¥¼ ì„œì„œíˆ í‘œì‹œí•œë‹¤.
             yield return FadeWarningAlpha(
                 warningRenderer,
                 _chargeWarningColor.a,
                 _chargeWarningBlinkDuration);
 
-            // À§Çè ¹üÀ§¸¦ ´Ù½Ã ¼­¼­È÷ ¼û±ä´Ù.
+            // ìœ„í—˜ ë²”ìœ„ë¥¼ ë‹¤ì‹œ ì„œì„œíˆ ìˆ¨ê¸´ë‹¤.
             yield return FadeWarningAlpha(
                 warningRenderer,
                 0f,
@@ -637,7 +647,7 @@ public sealed class BossDogWideChargePattern : BossPattern
     }
 
     /// <summary>
-    /// À§Çè ¹üÀ§ SpriteRendererÀÇ ¾ËÆÄ°ªÀ» ºÎµå·´°Ô º¯°æÇÑ´Ù.
+    /// ìœ„í—˜ ë²”ìœ„ SpriteRendererì˜ ì•ŒíŒŒê°’ì„ ë¶€ë“œëŸ½ê²Œ ë³€ê²½í•œë‹¤.
     /// </summary>
     private IEnumerator FadeWarningAlpha(
         SpriteRenderer warningRenderer,

@@ -21,7 +21,7 @@ MonoBehaviour:
   _sweepDuration: 1.2
   _visualAngleOffset: 180
   _laserPrefab: {fileID: 9194843137220612075, guid: 890fce0ffae65c949b92a3ce3ff558d6, type: 3}
-  _damage: 70
+  _damage: 12
   _warningPrefab: {fileID: 502168068402317170, guid: 64237d13f6f41594d99100637a947a97, type: 3}
   _warningBlinkDuration: 0.3
   _warningBlinkCount: 3

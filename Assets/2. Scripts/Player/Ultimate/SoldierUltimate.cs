@@ -1,48 +1,48 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-// Ç×°ø¸ğÇÔÀÇ ÁøÀÔ, Æø°İ, ÅğÀå°ú »ı¼ºµÈ ¿¬ÃâÀÇ ¼ö¸íÀ» °ü¸®ÇÑ´Ù.
+// í•­ê³µëª¨í•¨ì˜ ì§„ì…, í­ê²©, í‡´ì¥ê³¼ ìƒì„±ëœ ì—°ì¶œì˜ ìˆ˜ëª…ì„ ê´€ë¦¬í•œë‹¤.
 public sealed class SoldierUltimate : UltimateAbility
 {
-    // Ç×°ø¸ğÇÔ ·çÆ®ÀÇ SpriteRenderer¸¦ ¿¬°áÇÑ´Ù.
+    // í•­ê³µëª¨í•¨ ë£¨íŠ¸ì˜ SpriteRendererë¥¼ ì—°ê²°í•œë‹¤.
     [SerializeField] private SpriteRenderer _carrierPrefab;
 
-    // ÁöÁ¤ ÁÂÇ¥±îÁö Á÷¼±À¸·Î ÀÌµ¿ÇÒ ¹Ì»çÀÏ ÇÁ¸®ÆÕÀÌ´Ù.
+    // ì§€ì • ì¢Œí‘œê¹Œì§€ ì§ì„ ìœ¼ë¡œ ì´ë™í•  ë¯¸ì‚¬ì¼ í”„ë¦¬íŒ¹ì´ë‹¤.
     [SerializeField] private UltimateMissile _missilePrefab;
 
-    // Ç×°ø¸ğÇÔÀÌ Æø°İ Áß ¸Ó¹«¸¦ È­¸é ºñÀ² À§Ä¡´Ù.
+    // í•­ê³µëª¨í•¨ì´ í­ê²© ì¤‘ ë¨¸ë¬´ë¥¼ í™”ë©´ ë¹„ìœ¨ ìœ„ì¹˜ë‹¤.
     [SerializeField]
     private Vector2 _arrivalViewport =
         new Vector2(0.3f, 0.85f);
 
-    // Ç×°ø¸ğÇÔ ÀüÃ¼°¡ È­¸é ¹Û¿¡¼­ ½ÃÀÛÇÏµµ·Ï Ãß°¡ÇÒ ¿ùµå ¿©¹éÀÌ´Ù.
+    // í•­ê³µëª¨í•¨ ì „ì²´ê°€ í™”ë©´ ë°–ì—ì„œ ì‹œì‘í•˜ë„ë¡ ì¶”ê°€í•  ì›”ë“œ ì—¬ë°±ì´ë‹¤.
     [SerializeField, Min(0f)] private float _outsideMargin = 0.5f;
 
-    // ÁøÀÔ¿¡ °É¸®´Â ½Ã°£ÀÌ´Ù. ÅğÀå¿¡µµ °°Àº ½Ã°£À» »ç¿ëÇÑ´Ù.
+    // ì§„ì…ì— ê±¸ë¦¬ëŠ” ì‹œê°„ì´ë‹¤. í‡´ì¥ì—ë„ ê°™ì€ ì‹œê°„ì„ ì‚¬ìš©í•œë‹¤.
     [SerializeField, Min(0.01f)] private float _travelDuration = 1.2f;
 
-    // Ç×°ø¸ğÇÔ ·ÎÄÃ ÁÂÇ¥ ±âÁØÀÇ ¹Ì»çÀÏ ¹ß»ç À§Ä¡´Ù.
+    // í•­ê³µëª¨í•¨ ë¡œì»¬ ì¢Œí‘œ ê¸°ì¤€ì˜ ë¯¸ì‚¬ì¼ ë°œì‚¬ ìœ„ì¹˜ë‹¤.
     [SerializeField]
     private Vector2 _launchLocalPosition =
         new Vector2(1f, -0.8f);
 
-    // ¹«ÀÛÀ§·Î ¸ñÇ¥¸¦ ¼±ÅÃÇÒ È­¸é ºñÀ² »ç°¢ÇüÀÌ´Ù.
+    // ë¬´ì‘ìœ„ë¡œ ëª©í‘œë¥¼ ì„ íƒí•  í™”ë©´ ë¹„ìœ¨ ì‚¬ê°í˜•ì´ë‹¤.
     [SerializeField]
     private Rect _targetViewportRect =
         new Rect(0.1f, 0.1f, 0.8f, 0.6f);
 
-    // Æø°İ ½Ã°£ µ¿¾È ¹ß»çÇÒ ¹Ì»çÀÏÀÇ ÃÑ °³¼ö´Ù.
+    // í­ê²© ì‹œê°„ ë™ì•ˆ ë°œì‚¬í•  ë¯¸ì‚¬ì¼ì˜ ì´ ê°œìˆ˜ë‹¤.
     [SerializeField, Min(1)] private int _missileCount = 30;
 
-    // Ç×°ø¸ğÇÔ µµÂø ÈÄ Æø°İÀ» ÁøÇàÇÒ °ÔÀÓ ½Ã°£ÀÌ´Ù.
+    // í•­ê³µëª¨í•¨ ë„ì°© í›„ í­ê²©ì„ ì§„í–‰í•  ê²Œì„ ì‹œê°„ì´ë‹¤.
     [SerializeField, Min(0.01f)] private float _bombardDuration = 3f;
 
-    // Ä³¸¯ÅÍ ÀÌµ¿°ú µ¶¸³ÀûÀÎ ¿ùµå ¿ÀºêÁ§Æ®µéÀ» ¹­´Â ½ÇÇà ·çÆ®´Ù.
+    // ìºë¦­í„° ì´ë™ê³¼ ë…ë¦½ì ì¸ ì›”ë“œ ì˜¤ë¸Œì íŠ¸ë“¤ì„ ë¬¶ëŠ” ì‹¤í–‰ ë£¨íŠ¸ë‹¤.
     private Transform _runtimeRoot;
 
-    // ÇöÀç ½ÇÇà ÁßÀÎ ÇÊ»ì±â ÄÚ·çÆ¾ÀÌ´Ù.
+    // í˜„ì¬ ì‹¤í–‰ ì¤‘ì¸ í•„ì‚´ê¸° ì½”ë£¨í‹´ì´ë‹¤.
     private Coroutine _routine;
 
     public override bool IsRunning => _runtimeRoot != null;
@@ -60,7 +60,7 @@ public sealed class SoldierUltimate : UltimateAbility
             _targetViewportRect.height <= 0f)
         {
             throw new InvalidOperationException(
-                $"{name}: Ç×°ø¸ğÇÔ ÇÊ»ì±â ¼³Á¤À» È®ÀÎÇØÁÖ¼¼¿ä.");
+                $"{name}: í•­ê³µëª¨í•¨ í•„ì‚´ê¸° ì„¤ì •ì„ í™•ì¸í•´ì£¼ì„¸ìš”.");
         }
 
         if (_targetViewportRect.xMin < 0f ||
@@ -73,7 +73,7 @@ public sealed class SoldierUltimate : UltimateAbility
             _arrivalViewport.y > 1f)
         {
             throw new InvalidOperationException(
-                $"{name}: µµÂø À§Ä¡¿Í Æø°İ ¹üÀ§´Â È­¸é ºñÀ² 0~1 ¾È¿¡ ¼³Á¤ÇØÁÖ¼¼¿ä.");
+                $"{name}: ë„ì°© ìœ„ì¹˜ì™€ í­ê²© ë²”ìœ„ëŠ” í™”ë©´ ë¹„ìœ¨ 0~1 ì•ˆì— ì„¤ì •í•´ì£¼ì„¸ìš”.");
         }
 
         _missilePrefab.ValidateConfiguration();
@@ -93,7 +93,7 @@ public sealed class SoldierUltimate : UltimateAbility
 
         ValidateConfiguration();
 
-        // »ç¿ë ½ÃÁ¡ÀÇ È­¸éÀ» ±âÁØÀ¸·Î À§Ä¡¸¦ °íÁ¤ÇÑ´Ù.
+        // ì‚¬ìš© ì‹œì ì˜ í™”ë©´ì„ ê¸°ì¤€ìœ¼ë¡œ ìœ„ì¹˜ë¥¼ ê³ ì •í•œë‹¤.
         Vector3 topLeft = GetWorldPoint(worldCamera, new Vector2(0f, 1f));
         Vector3 arrival = GetWorldPoint(worldCamera, _arrivalViewport);
 
@@ -107,7 +107,7 @@ public sealed class SoldierUltimate : UltimateAbility
 
         GameObject rootObject = new GameObject("SoldierUltimate_Runtime");
 
-        // ÇÃ·¹ÀÌ¾î°¡ ¼ÓÇÑ ½ºÅ×ÀÌÁö ¾À°ú ÇÔ²² Á¦°ÅµÇµµ·Ï ÇÑ´Ù.
+        // í”Œë ˆì´ì–´ê°€ ì†í•œ ìŠ¤í…Œì´ì§€ ì”¬ê³¼ í•¨ê»˜ ì œê±°ë˜ë„ë¡ í•œë‹¤.
         SceneManager.MoveGameObjectToScene(rootObject, gameObject.scene);
         _runtimeRoot = rootObject.transform;
 
@@ -117,7 +117,7 @@ public sealed class SoldierUltimate : UltimateAbility
             Quaternion.identity,
             _runtimeRoot);
 
-        // ÇÇ¹şÀÌ Áß¾ÓÀÌ ¾Æ´Ï¾îµµ ÀÌ¹ÌÁö ÀüÃ¼°¡ È­¸é ¹Û¿¡¼­ ½ÃÀÛÇÑ´Ù.
+        // í”¼ë²—ì´ ì¤‘ì•™ì´ ì•„ë‹ˆì–´ë„ ì´ë¯¸ì§€ ì „ì²´ê°€ í™”ë©´ ë°–ì—ì„œ ì‹œì‘í•œë‹¤.
         Bounds bounds = carrier.bounds;
         Vector3 centerOffset = bounds.center - carrier.transform.position;
 
@@ -129,6 +129,7 @@ public sealed class SoldierUltimate : UltimateAbility
 
         carrier.transform.position = start;
 
+        GameAudio.Play(GameSound.UltimateSoldierLaunch); // ìˆ˜ì†¡ì²´ ì¶œí˜„ ì—°ì¶œ ì‹œì‘.
         _routine = StartCoroutine(
             Execute(carrier, start, arrival, targetMin, targetMax));
 
@@ -142,7 +143,7 @@ public sealed class SoldierUltimate : UltimateAbility
         Vector3 targetMin,
         Vector3 targetMax)
     {
-        // È­¸é ¹Û ÁÂÃø »ó´Ü¿¡¼­ µµÂøÁ¡±îÁö ÁøÀÔÇÑ´Ù.
+        // í™”ë©´ ë°– ì¢Œì¸¡ ìƒë‹¨ì—ì„œ ë„ì°©ì ê¹Œì§€ ì§„ì…í•œë‹¤.
         yield return MoveCarrier(carrier.transform, start, arrival, false);
 
         float elapsed = 0f;
@@ -151,14 +152,14 @@ public sealed class SoldierUltimate : UltimateAbility
 
         while (elapsed < _bombardDuration)
         {
-            // ÀÏ½ÃÁ¤Áö Áß¿¡´Â ¹ß»ç¿Í ÁøÇà ½Ã°£À» ¸ğµÎ ¸ØÃá´Ù.
+            // ì¼ì‹œì •ì§€ ì¤‘ì—ëŠ” ë°œì‚¬ì™€ ì§„í–‰ ì‹œê°„ì„ ëª¨ë‘ ë©ˆì¶˜ë‹¤.
             if (Time.deltaTime <= 0f)
             {
                 yield return null;
                 continue;
             }
 
-            // ÇÁ·¹ÀÓÀÌ ´Ê¾îÁ®µµ ´©¶ô ¾øÀÌ ¿¹Á¤µÈ °³¼ö¸¦ ¹ß»çÇÑ´Ù.
+            // í”„ë ˆì„ì´ ëŠ¦ì–´ì ¸ë„ ëˆ„ë½ ì—†ì´ ì˜ˆì •ëœ ê°œìˆ˜ë¥¼ ë°œì‚¬í•œë‹¤.
             while (firedCount < _missileCount &&
                    elapsed >= firedCount * interval)
             {
@@ -170,20 +171,20 @@ public sealed class SoldierUltimate : UltimateAbility
             yield return null;
         }
 
-        // ¸¶Áö¸· ÇÁ·¹ÀÓ¿¡¼­ ½Ã°£ÀÌ Å©°Ô Áõ°¡ÇÑ °æ¿ì ³²Àº ¹ß»ç¸¦ Ã³¸®ÇÑ´Ù.
+        // ë§ˆì§€ë§‰ í”„ë ˆì„ì—ì„œ ì‹œê°„ì´ í¬ê²Œ ì¦ê°€í•œ ê²½ìš° ë‚¨ì€ ë°œì‚¬ë¥¼ ì²˜ë¦¬í•œë‹¤.
         while (firedCount < _missileCount)
         {
             FireMissile(carrier.transform, targetMin, targetMax);
             firedCount++;
         }
 
-        // ÁøÀÔ °æ·ÎÀÇ ÁøÇàµµ¸¦ °Å²Ù·Î °è»êÇÏ¿© ÅğÀåÇÑ´Ù.
+        // ì§„ì… ê²½ë¡œì˜ ì§„í–‰ë„ë¥¼ ê±°ê¾¸ë¡œ ê³„ì‚°í•˜ì—¬ í‡´ì¥í•œë‹¤.
         yield return MoveCarrier(carrier.transform, start, arrival, true);
 
         Destroy(carrier.gameObject);
 
-        // Ç×°ø¸ğÇÔÀÌ ÅğÀåÇØµµ ÀÌ¹Ì ¹ß»çµÈ ¹Ì»çÀÏ°ú ¿¬±â´Â À¯ÁöÇÑ´Ù.
-        // ¸ğµç ÀÚ½Ä ¿¬ÃâÀÌ ³¡³ª¸é ÀÌ¹ø ½ÇÇà ·çÆ®±îÁö Á¤¸®ÇÑ´Ù.
+        // í•­ê³µëª¨í•¨ì´ í‡´ì¥í•´ë„ ì´ë¯¸ ë°œì‚¬ëœ ë¯¸ì‚¬ì¼ê³¼ ì—°ê¸°ëŠ” ìœ ì§€í•œë‹¤.
+        // ëª¨ë“  ìì‹ ì—°ì¶œì´ ëë‚˜ë©´ ì´ë²ˆ ì‹¤í–‰ ë£¨íŠ¸ê¹Œì§€ ì •ë¦¬í•œë‹¤.
         while (_runtimeRoot != null && _runtimeRoot.childCount > 0)
         {
             yield return null;
@@ -237,11 +238,11 @@ public sealed class SoldierUltimate : UltimateAbility
         Vector3 targetMin,
         Vector3 targetMax)
     {
-        // ¹ß»ç À§Ä¡´Â Ç×°ø¸ğÇÔ¿¡ ¼³Á¤ÇÑ ·ÎÄÃ ÁöÁ¡À» »ç¿ëÇÑ´Ù.
+        // ë°œì‚¬ ìœ„ì¹˜ëŠ” í•­ê³µëª¨í•¨ì— ì„¤ì •í•œ ë¡œì»¬ ì§€ì ì„ ì‚¬ìš©í•œë‹¤.
         Vector3 launchPosition = carrier.TransformPoint(
             new Vector3(_launchLocalPosition.x, _launchLocalPosition.y, 0f));
 
-        // °¢ ¹Ì»çÀÏÀÌ ¼­·Î µ¶¸³ÀûÀÎ ¹«ÀÛÀ§ ¸ñÇ¥ ÁÂÇ¥¸¦ ¹Ş´Â´Ù.
+        // ê° ë¯¸ì‚¬ì¼ì´ ì„œë¡œ ë…ë¦½ì ì¸ ë¬´ì‘ìœ„ ëª©í‘œ ì¢Œí‘œë¥¼ ë°›ëŠ”ë‹¤.
         Vector3 target = new Vector3(
             UnityEngine.Random.Range(
                 Mathf.Min(targetMin.x, targetMax.x),
@@ -260,7 +261,7 @@ public sealed class SoldierUltimate : UltimateAbility
         missile.Initialize(target, _runtimeRoot);
     }
 
-    // Ä«¸Ş¶óÀÇ È­¸é ºñÀ² À§Ä¡¸¦ °ÔÀÓÀÇ XY Æò¸éÀ¸·Î º¯È¯ÇÑ´Ù.
+    // ì¹´ë©”ë¼ì˜ í™”ë©´ ë¹„ìœ¨ ìœ„ì¹˜ë¥¼ ê²Œì„ì˜ XY í‰ë©´ìœ¼ë¡œ ë³€í™˜í•œë‹¤.
     private static Vector3 GetWorldPoint(Camera camera, Vector2 viewport)
     {
         Ray ray = camera.ViewportPointToRay(
@@ -272,7 +273,7 @@ public sealed class SoldierUltimate : UltimateAbility
         if (!plane.Raycast(ray, out distance))
         {
             throw new InvalidOperationException(
-                "ÇÊ»ì±â Ä«¸Ş¶ó°¡ °ÔÀÓÀÇ XY Æò¸éÀ» ¹Ù¶óº¸µµ·Ï ¼³Á¤ÇØÁÖ¼¼¿ä.");
+                "í•„ì‚´ê¸° ì¹´ë©”ë¼ê°€ ê²Œì„ì˜ XY í‰ë©´ì„ ë°”ë¼ë³´ë„ë¡ ì„¤ì •í•´ì£¼ì„¸ìš”.");
         }
 
         return ray.GetPoint(distance);
@@ -288,7 +289,7 @@ public sealed class SoldierUltimate : UltimateAbility
 
         if (_runtimeRoot != null)
         {
-            // Destroy¸¦ ±â´Ù¸®´Â µ¿¾È Ãß°¡ ÇÇÇØ°¡ ¹ß»ıÇÏÁö ¾Êµµ·Ï ¸ÕÀú ²ö´Ù.
+            // Destroyë¥¼ ê¸°ë‹¤ë¦¬ëŠ” ë™ì•ˆ ì¶”ê°€ í”¼í•´ê°€ ë°œìƒí•˜ì§€ ì•Šë„ë¡ ë¨¼ì € ëˆë‹¤.
             _runtimeRoot.gameObject.SetActive(false);
             Destroy(_runtimeRoot.gameObject);
             _runtimeRoot = null;

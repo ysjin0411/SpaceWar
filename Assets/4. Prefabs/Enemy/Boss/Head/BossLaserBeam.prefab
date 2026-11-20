@@ -136,7 +136,7 @@ MonoBehaviour:
   _beamColor: {r: 1, g: 1, b: 1, a: 1}
   _outsideMargin: 1
   _fadeOutDuration: 0.3
-  _damageInterval: 0.2
+  _damageInterval: 0.35
 --- !u!1 &5557556163558138437
 GameObject:
   m_ObjectHideFlags: 0

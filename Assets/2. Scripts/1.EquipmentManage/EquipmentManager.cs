@@ -1,57 +1,57 @@
-using System;
+ï»¿using System;
 using UnityEngine;
 
 /// <summary>
-/// EquipmentManage ¾À¿¡¼­ ¼±ÅÃÇÑ Ä³¸¯ÅÍÀÇ Àåºñ Á¤º¸¸¦ °ü¸®ÇÑ´Ù.
-/// Ã³¸® ¼ø¼­:
-/// 1. GameSessionManager¿¡¼­ ¼±ÅÃÇÑ Ä³¸¯ÅÍ ID¸¦ °¡Á®¿Â´Ù.
-/// 2. CharacterDatabase¿¡¼­ ÇØ´ç CharacterData¸¦ Ã£´Â´Ù.
-/// 3. SaveManager¿¡¼­ ÇØ´ç Ä³¸¯ÅÍÀÇ ÀåÂøÁ¤º¸¸¦ °¡Á®¿Â´Ù.
+/// EquipmentManage ì”¬ì—ì„œ ì„ íƒí•œ ìºë¦­í„°ì˜ ì¥ë¹„ ì •ë³´ë¥¼ ê´€ë¦¬í•œë‹¤.
+/// ì²˜ë¦¬ ìˆœì„œ:
+/// 1. GameSessionManagerì—ì„œ ì„ íƒí•œ ìºë¦­í„° IDë¥¼ ê°€ì ¸ì˜¨ë‹¤.
+/// 2. CharacterDatabaseì—ì„œ í•´ë‹¹ CharacterDataë¥¼ ì°¾ëŠ”ë‹¤.
+/// 3. SaveManagerì—ì„œ í•´ë‹¹ ìºë¦­í„°ì˜ ì¥ì°©ì •ë³´ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
 /// </summary>
 public class EquipmentManager : MonoBehaviour
 {
-    [Header("Ä³¸¯ÅÍ µ¥ÀÌÅÍ")]
-    [Tooltip("¼±ÅÃÇÑ Ä³¸¯ÅÍ ID¸¦ CharacterData·Î º¯È¯ÇÒ µ¥ÀÌÅÍº£ÀÌ½º")]
+    [Header("ìºë¦­í„° ë°ì´í„°")]
+    [Tooltip("ì„ íƒí•œ ìºë¦­í„° IDë¥¼ CharacterDataë¡œ ë³€í™˜í•  ë°ì´í„°ë² ì´ìŠ¤")]
     [SerializeField] CharacterDatabase _characterDatabase;
 
-    [Header("Àåºñ È­¸é UI")]
+    [Header("ì¥ë¹„ í™”ë©´ UI")]
     [SerializeField]
-    EquipmentManageView _view; // EquipmentManage È­¸é Ç¥½Ã¸¦ ´ã´çÇÏ´Â View
+    EquipmentManageView _view; // EquipmentManage í™”ë©´ í‘œì‹œë¥¼ ë‹´ë‹¹í•˜ëŠ” View
 
-    // EquipmentCharacterSelect¿¡¼­ ¼±ÅÃÇÑ Ä³¸¯ÅÍÀÇ ¿øº» µ¥ÀÌÅÍ
+    // EquipmentCharacterSelectì—ì„œ ì„ íƒí•œ ìºë¦­í„°ì˜ ì›ë³¸ ë°ì´í„°
     CharacterData _selectedCharacterData;
 
-    // JSON¿¡¼­ ºÒ·¯¿Â ¼±ÅÃ Ä³¸¯ÅÍÀÇ ÀåÂøÁ¤º¸
+    // JSONì—ì„œ ë¶ˆëŸ¬ì˜¨ ì„ íƒ ìºë¦­í„°ì˜ ì¥ì°©ì •ë³´
     CharacterLoadoutSaveData _selectedCharacterLoadout;
 
-    // Àåºñ È­¸éÀÇ µ¥ÀÌÅÍ¿Í Àåºñ ±ÔÄ¢À» ´ã´çÇÏ´Â Model
+    // ì¥ë¹„ í™”ë©´ì˜ ë°ì´í„°ì™€ ì¥ë¹„ ê·œì¹™ì„ ë‹´ë‹¹í•˜ëŠ” Model
     EquipmentModel _model;
 
-    // Model°ú View¸¦ ¿¬°áÇÏ°í È­¸é Èå¸§À» Á¦¾îÇÏ´Â Presenter
+    // Modelê³¼ Viewë¥¼ ì—°ê²°í•˜ê³  í™”ë©´ íë¦„ì„ ì œì–´í•˜ëŠ” Presenter
     EquipmentPresenter _presenter;
 
-    // ´Ù¸¥ Ä³¸¯ÅÍÀÇ Àåºñ¸¦ °ü¸®ÇÏ±â À§ÇØ Ä³¸¯ÅÍ ¼±ÅÃ È­¸éÀ¸·Î µ¹¾Æ°£´Ù.
+    // ë‹¤ë¥¸ ìºë¦­í„°ì˜ ì¥ë¹„ë¥¼ ê´€ë¦¬í•˜ê¸° ìœ„í•´ ìºë¦­í„° ì„ íƒ í™”ë©´ìœ¼ë¡œ ëŒì•„ê°„ë‹¤.
     public event Action CharacterSelectionRequested;
 
-    // È­¸éÀ» ÀüÈ¯ÇÏ´Â µ¿¾È µÚ·Î °¡±â Áßº¹ ¿äÃ»À» ¸·´Â´Ù.
+    // í™”ë©´ì„ ì „í™˜í•˜ëŠ” ë™ì•ˆ ë’¤ë¡œ ê°€ê¸° ì¤‘ë³µ ìš”ì²­ì„ ë§‰ëŠ”ë‹¤.
     private bool _isLeaving;
 
     /// <summary>
-    /// ÇöÀç Àåºñ¸¦ ÆíÁıÇÏ°í ÀÖ´Â Ä³¸¯ÅÍÀÇ ¿øº» µ¥ÀÌÅÍ.
-    /// ÀÌÈÄ Ä³¸¯ÅÍ ÀÌ¸§, ¾ÆÀÌÄÜ, »ç¿ë °¡´ÉÇÑ ¹«±â¸¦ UI¿¡ Ç¥½ÃÇÒ ¶§ »ç¿ëÇÑ´Ù.
+    /// í˜„ì¬ ì¥ë¹„ë¥¼ í¸ì§‘í•˜ê³  ìˆëŠ” ìºë¦­í„°ì˜ ì›ë³¸ ë°ì´í„°.
+    /// ì´í›„ ìºë¦­í„° ì´ë¦„, ì•„ì´ì½˜, ì‚¬ìš© ê°€ëŠ¥í•œ ë¬´ê¸°ë¥¼ UIì— í‘œì‹œí•  ë•Œ ì‚¬ìš©í•œë‹¤.
     /// </summary>
     public CharacterData SelectedCharacterData =>
         _selectedCharacterData;
 
     /// <summary>
-    /// ÇöÀç Ä³¸¯ÅÍÀÇ ÀúÀåµÈ ÀåÂøÁ¤º¸.
-    /// ÀÌÈÄ Slot 1~3ÀÇ ¾ÆÀÌÄÜÀ» Ç¥½ÃÇÒ ¶§ »ç¿ëÇÑ´Ù.
+    /// í˜„ì¬ ìºë¦­í„°ì˜ ì €ì¥ëœ ì¥ì°©ì •ë³´.
+    /// ì´í›„ Slot 1~3ì˜ ì•„ì´ì½˜ì„ í‘œì‹œí•  ë•Œ ì‚¬ìš©í•œë‹¤.
     /// </summary>
     public CharacterLoadoutSaveData SelectedCharacterLoadout =>
         _selectedCharacterLoadout;
 
     /// <summary>
-    /// Àåºñ È­¸é¿¡¼­ »ç¿ëÇÏ´Â ModelÀ» ¿ÜºÎ¿¡¼­ ÀĞÀ» ¼ö ÀÖ°Ô ¹İÈ¯ÇÑ´Ù.
+    /// ì¥ë¹„ í™”ë©´ì—ì„œ ì‚¬ìš©í•˜ëŠ” Modelì„ ì™¸ë¶€ì—ì„œ ì½ì„ ìˆ˜ ìˆê²Œ ë°˜í™˜í•œë‹¤.
     /// </summary>
     public EquipmentModel Model => _model;
 
@@ -61,27 +61,27 @@ public class EquipmentManager : MonoBehaviour
     }
 
     /// <summary>
-    /// ¾Æ¹« UIµµ ¼±ÅÃµÇÁö ¾ÊÀº ÃÖÃÊ »óÅÂ¿¡¼­
-    /// ¹æÇâÅ° ÀÔ·ÂÀÌ µé¾î¿À¸é Ã¹ ¹øÂ° ¹«±â ½½·ÔÀ» ¼±ÅÃÇÑ´Ù.
+    /// ì•„ë¬´ UIë„ ì„ íƒë˜ì§€ ì•Šì€ ìµœì´ˆ ìƒíƒœì—ì„œ
+    /// ë°©í–¥í‚¤ ì…ë ¥ì´ ë“¤ì–´ì˜¤ë©´ ì²« ë²ˆì§¸ ë¬´ê¸° ìŠ¬ë¡¯ì„ ì„ íƒí•œë‹¤.
     /// </summary>
     private void Update()
     {
-        // ¹æÇâÅ° ÀÔ·ÂÀÌ ¾ø´Ù¸é ¼±ÅÃ Ã³¸®¸¦ ÇÏÁö ¾Ê´Â´Ù.
+        // ë°©í–¥í‚¤ ì…ë ¥ì´ ì—†ë‹¤ë©´ ì„ íƒ ì²˜ë¦¬ë¥¼ í•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (!IsAnyArrowKeyDown())
         {
             return;
         }
 
-        // ÇöÀç ¼±ÅÃµÈ UI°¡ ¾øÀ» ¶§¸¸ Ã¹ ¹øÂ° ¹«±â ½½·ÔÀ» ¼±ÅÃÇÑ´Ù.
+        // í˜„ì¬ ì„ íƒëœ UIê°€ ì—†ì„ ë•Œë§Œ ì²« ë²ˆì§¸ ë¬´ê¸° ìŠ¬ë¡¯ì„ ì„ íƒí•œë‹¤.
         _view.TrySelectFirstWeaponSlot();
     }
 
     /// <summary>
-    /// Å°º¸µåÀÇ »óÇÏÁÂ¿ì ¹æÇâÅ° Áß ÇÏ³ª°¡ ´­·È´ÂÁö È®ÀÎÇÑ´Ù.
+    /// í‚¤ë³´ë“œì˜ ìƒí•˜ì¢Œìš° ë°©í–¥í‚¤ ì¤‘ í•˜ë‚˜ê°€ ëˆŒë ¸ëŠ”ì§€ í™•ì¸í•œë‹¤.
     /// </summary>
     private bool IsAnyArrowKeyDown()
     {
-        // ³× ¹æÇâÅ° Áß ÇÏ³ª¶óµµ ÀÌ¹ø ÇÁ·¹ÀÓ¿¡ ´­·È´Ù¸é true¸¦ ¹İÈ¯ÇÑ´Ù.
+        // ë„¤ ë°©í–¥í‚¤ ì¤‘ í•˜ë‚˜ë¼ë„ ì´ë²ˆ í”„ë ˆì„ì— ëˆŒë ¸ë‹¤ë©´ trueë¥¼ ë°˜í™˜í•œë‹¤.
         return Input.GetKeyDown(KeyCode.UpArrow)
             || Input.GetKeyDown(KeyCode.DownArrow)
             || Input.GetKeyDown(KeyCode.LeftArrow)
@@ -89,79 +89,79 @@ public class EquipmentManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Ä³¸¯ÅÍ ¼±ÅÃ È­¸é¿¡¼­ Àü´ŞµÈ Ä³¸¯ÅÍ ID¸¦ ÀÌ¿ëÇØ
-    /// Ä³¸¯ÅÍ ¿øº» µ¥ÀÌÅÍ¿Í JSON ÀåÂøÁ¤º¸¸¦ ÁØºñÇÑ´Ù.
+    /// ìºë¦­í„° ì„ íƒ í™”ë©´ì—ì„œ ì „ë‹¬ëœ ìºë¦­í„° IDë¥¼ ì´ìš©í•´
+    /// ìºë¦­í„° ì›ë³¸ ë°ì´í„°ì™€ JSON ì¥ì°©ì •ë³´ë¥¼ ì¤€ë¹„í•œë‹¤.
     /// </summary>
     private void InitializeSelectedCharacter()
     {
-        // Bootstrap ¾ÀÀ» °ÅÄ¡Áö ¾Ê¾Ò´Ù¸é ¼¼¼Ç Á¤º¸°¡ Á¸ÀçÇÏÁö ¾Ê´Â´Ù.
+        // Bootstrap ì”¬ì„ ê±°ì¹˜ì§€ ì•Šì•˜ë‹¤ë©´ ì„¸ì…˜ ì •ë³´ê°€ ì¡´ì¬í•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (GameSessionManager.Instance == null)
         {
             throw new InvalidOperationException(
-                "GameSessionManager°¡ ¾ø½À´Ï´Ù. Bootstrap ¾ÀºÎÅÍ ½ÇÇàÇØ¾ß ÇÕ´Ï´Ù.");
+                "GameSessionManagerê°€ ì—†ìŠµë‹ˆë‹¤. Bootstrap ì”¬ë¶€í„° ì‹¤í–‰í•´ì•¼ í•©ë‹ˆë‹¤.");
         }
 
-        // Bootstrap ¾ÀÀ» °ÅÄ¡Áö ¾Ê¾Ò´Ù¸é ¼¼ÀÌºê µ¥ÀÌÅÍ°¡ Á¸ÀçÇÏÁö ¾Ê´Â´Ù.
+        // Bootstrap ì”¬ì„ ê±°ì¹˜ì§€ ì•Šì•˜ë‹¤ë©´ ì„¸ì´ë¸Œ ë°ì´í„°ê°€ ì¡´ì¬í•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (SaveManager.Instance == null)
         {
             throw new InvalidOperationException(
-                "SaveManager°¡ ¾ø½À´Ï´Ù. Bootstrap ¾ÀºÎÅÍ ½ÇÇàÇØ¾ß ÇÕ´Ï´Ù.");
+                "SaveManagerê°€ ì—†ìŠµë‹ˆë‹¤. Bootstrap ì”¬ë¶€í„° ì‹¤í–‰í•´ì•¼ í•©ë‹ˆë‹¤.");
         }
 
-        // Ä³¸¯ÅÍ ID¸¦ CharacterData·Î º¯È¯ÇÒ µ¥ÀÌÅÍº£ÀÌ½º°¡ ÇÊ¿äÇÏ´Ù.
+        // ìºë¦­í„° IDë¥¼ CharacterDataë¡œ ë³€í™˜í•  ë°ì´í„°ë² ì´ìŠ¤ê°€ í•„ìš”í•˜ë‹¤.
         if (_characterDatabase == null)
         {
             throw new InvalidOperationException(
-                "EquipmentManager¿¡ CharacterDatabase°¡ ¿¬°áµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+                "EquipmentManagerì— CharacterDatabaseê°€ ì—°ê²°ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
         }
 
-        // EquipmentManage View°¡ ¿¬°áµÇÁö ¾Ê¾Ò´Ù¸é UI¸¦ Ç¥½ÃÇÒ ¼ö ¾ø´Ù.
+        // EquipmentManage Viewê°€ ì—°ê²°ë˜ì§€ ì•Šì•˜ë‹¤ë©´ UIë¥¼ í‘œì‹œí•  ìˆ˜ ì—†ë‹¤.
         if (_view == null)
         {
             throw new InvalidOperationException(
-                "EquipmentManager¿¡ EquipmentManageView°¡ ¿¬°áµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+                "EquipmentManagerì— EquipmentManageViewê°€ ì—°ê²°ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
         }
 
-        // EquipmentCharacterSelect¿¡¼­ ¼±ÅÃÇÑ Ä³¸¯ÅÍ ID¸¦ °¡Á®¿Â´Ù.
+        // EquipmentCharacterSelectì—ì„œ ì„ íƒí•œ ìºë¦­í„° IDë¥¼ ê°€ì ¸ì˜¨ë‹¤.
         string selectedCharacterId =
             GameSessionManager.Instance.SelectedCharacterId;
 
-        // Ä³¸¯ÅÍ¸¦ ¼±ÅÃÇÏÁö ¾Ê°í EquipmentManage·Î µé¾î¿Â °æ¿ì´Ù.
+        // ìºë¦­í„°ë¥¼ ì„ íƒí•˜ì§€ ì•Šê³  EquipmentManageë¡œ ë“¤ì–´ì˜¨ ê²½ìš°ë‹¤.
         if (string.IsNullOrWhiteSpace(selectedCharacterId))
         {
             throw new InvalidOperationException(
-                "Àåºñ¸¦ ÆíÁıÇÒ Ä³¸¯ÅÍ°¡ ¼±ÅÃµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+                "ì¥ë¹„ë¥¼ í¸ì§‘í•  ìºë¦­í„°ê°€ ì„ íƒë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
         }
 
-        // ¼±ÅÃÇÑ ID¿¡ ¸Â´Â CharacterData¸¦ °¡Á®¿Â´Ù.
+        // ì„ íƒí•œ IDì— ë§ëŠ” CharacterDataë¥¼ ê°€ì ¸ì˜¨ë‹¤.
         _selectedCharacterData =
             _characterDatabase.GetCharacterData(selectedCharacterId);
 
-        // ¼±ÅÃÇÑ Ä³¸¯ÅÍÀÇ JSON Àåºñ ÀúÀå µ¥ÀÌÅÍ¸¦ ¸ÕÀú °¡Á®¿Â´Ù.
+        // ì„ íƒí•œ ìºë¦­í„°ì˜ JSON ì¥ë¹„ ì €ì¥ ë°ì´í„°ë¥¼ ë¨¼ì € ê°€ì ¸ì˜¨ë‹¤.
         _selectedCharacterLoadout =
             SaveManager.Instance.GetOrCreateCharacterLoadout(
                 selectedCharacterId);
 
-        // Ä³¸¯ÅÍ ¿øº» µ¥ÀÌÅÍ¿Í ÀúÀå µ¥ÀÌÅÍ¸¦ ÀÌ¿ëÇØ ModelÀ» »ı¼ºÇÑ´Ù.
+        // ìºë¦­í„° ì›ë³¸ ë°ì´í„°ì™€ ì €ì¥ ë°ì´í„°ë¥¼ ì´ìš©í•´ Modelì„ ìƒì„±í•œë‹¤.
         _model = new EquipmentModel(
             _selectedCharacterData,
             _selectedCharacterLoadout,
             SaveManager.Instance);
 
-        // »ı¼ºÇÑ Model°ú Inspector¿¡¼­ ¿¬°áÇÑ View¸¦ ÀÌ¿ëÇØ Presenter¸¦ »ı¼ºÇÑ´Ù.
+        // ìƒì„±í•œ Modelê³¼ Inspectorì—ì„œ ì—°ê²°í•œ Viewë¥¼ ì´ìš©í•´ Presenterë¥¼ ìƒì„±í•œë‹¤.
         _presenter = new EquipmentPresenter(
             _model,
             _view);
 
-        // Ä³¸¯ÅÍ, ·¹º§, °ñµå, ÇöÀç ÀåÂø ¹«±â¸¦ Ã³À½ È­¸é¿¡ Ç¥½ÃÇÑ´Ù.
+        // ìºë¦­í„°, ë ˆë²¨, ê³¨ë“œ, í˜„ì¬ ì¥ì°© ë¬´ê¸°ë¥¼ ì²˜ìŒ í™”ë©´ì— í‘œì‹œí•œë‹¤.
         _presenter.Initialize();
 
         Debug.Log(
-                    $"Àåºñ °ü¸® Ä³¸¯ÅÍ¸¦ ºÒ·¯¿Ô½À´Ï´Ù: " +
+                    $"ì¥ë¹„ ê´€ë¦¬ ìºë¦­í„°ë¥¼ ë¶ˆëŸ¬ì™”ìŠµë‹ˆë‹¤: " +
             $"{_selectedCharacterData.CharacterName}");
     }
 
-    // TownÀ» À¯ÁöÇÑ »óÅÂ·Î Ã¢ ¾ÈÀÇ È­¸é¸¸ Ä³¸¯ÅÍ ¼±ÅÃÀ¸·Î ¹Ù²Û´Ù.
+    // Townì„ ìœ ì§€í•œ ìƒíƒœë¡œ ì°½ ì•ˆì˜ í™”ë©´ë§Œ ìºë¦­í„° ì„ íƒìœ¼ë¡œ ë°”ê¾¼ë‹¤.
     public void BackToCharacterSelect()
     {
         if (_isLeaving)
@@ -174,16 +174,17 @@ public class EquipmentManager : MonoBehaviour
         if (session == null || CharacterSelectionRequested == null)
         {
             Debug.LogError(
-                "¼¼¼Ç ¸Å´ÏÀú¿Í Ä³¸¯ÅÍ ¼±ÅÃ º¹±Í ÀÌº¥Æ®¸¦ È®ÀÎÇØÁÖ¼¼¿ä.",
+                "ì„¸ì…˜ ë§¤ë‹ˆì €ì™€ ìºë¦­í„° ì„ íƒ ë³µê·€ ì´ë²¤íŠ¸ë¥¼ í™•ì¸í•´ì£¼ì„¸ìš”.",
                 this);
             return;
         }
 
-        // ±¸¸Å¡¤ÀåÂø ÀúÀå µ¥ÀÌÅÍ´Â À¯ÁöÇÏ°í, »õ·Î ¼±ÅÃÇÒ Ä³¸¯ÅÍ Á¤º¸¸¸ ÃÊ±âÈ­ÇÑ´Ù.
+        // êµ¬ë§¤Â·ì¥ì°© ì €ì¥ ë°ì´í„°ëŠ” ìœ ì§€í•˜ê³ , ìƒˆë¡œ ì„ íƒí•  ìºë¦­í„° ì •ë³´ë§Œ ì´ˆê¸°í™”í•œë‹¤.
         session.BeginCharacterSelection(
             CharacterSelectPurpose.LoadoutEdit);
 
         _isLeaving = true;
+        GameAudio.Play(GameSound.UiBack);
         CharacterSelectionRequested.Invoke();
     }
 }

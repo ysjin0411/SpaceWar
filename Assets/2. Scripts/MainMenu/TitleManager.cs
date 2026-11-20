@@ -67,6 +67,8 @@ public class TitleManager : MonoBehaviour
                 "Town 씬을 만들고 빌드 씬 목록에 등록해주세요.");
             return;
         }
+        // 로그인과 씬 유효성 검사를 통과한 뒤 플레이 버튼 소리를 재생한다.
+        UIAudioPlayer.Play(UISound.ButtonClick);
 
         SceneManager.LoadScene("Town");
     }
@@ -76,4 +78,17 @@ public class TitleManager : MonoBehaviour
 	{
 		SceneManager.LoadScene("Setting");
 	}
+    /// <summary>
+    /// 게임을 종료하며, Unity 에디터에서는 플레이 모드만 종료합니다.
+    /// </summary>
+    public void QuitGame()
+    {
+#if UNITY_EDITOR
+        // 에디터에서는 테스트 중인 플레이 모드만 종료한다.
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        // 빌드된 게임에서는 실행 중인 애플리케이션을 종료한다.
+        Application.Quit();
+#endif
+    }
 }

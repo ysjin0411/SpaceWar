@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _crackLifetime: 40
   _shieldDamageReductionPercent: 30
-  _barrageFirstDelay: 20
-  _barrageCooldown: 30
+  _barrageFirstDelay: 25
+  _barrageCooldown: 35

@@ -1,11 +1,11 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-// º¸½º ÆĞÅÏÀÌ È®ÀÎÇÒ UI ÁøÇà °á°ú´Ù.
+// ë³´ìŠ¤ íŒ¨í„´ì´ í™•ì¸í•  UI ì§„í–‰ ê²°ê³¼ë‹¤.
 public enum ConfusionResult
 {
     None,
@@ -16,111 +16,111 @@ public enum ConfusionResult
 }
 
 /// <summary>
-/// Á¤½Å È¥¶õÀÇ Å° ÀÔ·Â, Á¦ÇÑ ½Ã°£, Life¿Í ÀÔ·Â ¿¬ÃâÀ» Ã³¸®ÇÑ´Ù.
-/// °ÔÀÓ ½Ã°£ Á¤Áö¿Í ÇÃ·¹ÀÌ¾î ÇÇÇØ´Â º¸½º ÆĞÅÏÀÌ ´ã´çÇÑ´Ù.
+/// ì •ì‹  í˜¼ë€ì˜ í‚¤ ì…ë ¥, ì œí•œ ì‹œê°„, Lifeì™€ ì…ë ¥ ì—°ì¶œì„ ì²˜ë¦¬í•œë‹¤.
+/// ê²Œì„ ì‹œê°„ ì •ì§€ì™€ í”Œë ˆì´ì–´ í”¼í•´ëŠ” ë³´ìŠ¤ íŒ¨í„´ì´ ë‹´ë‹¹í•œë‹¤.
 /// </summary>
 public sealed class MentalConfusionUI : MonoBehaviour
 {
-    // ¾ËÆÄºªµéÀÌ ¹èÄ¡µÇ´Â ¸¶½ºÅ© ³»ºÎ °ø°£ÀÌ´Ù.
+    // ì•ŒíŒŒë²³ë“¤ì´ ë°°ì¹˜ë˜ëŠ” ë§ˆìŠ¤í¬ ë‚´ë¶€ ê³µê°„ì´ë‹¤.
     [SerializeField] RectTransform _keyContainer;
 
-    // Á¤´ä ¾ËÆÄºªÀÌ ¸¶½ºÅ© ¹Û¿¡¼­ »ç¶óÁö´Â °ø°£ÀÌ´Ù.
+    // ì •ë‹µ ì•ŒíŒŒë²³ì´ ë§ˆìŠ¤í¬ ë°–ì—ì„œ ì‚¬ë¼ì§€ëŠ” ê³µê°„ì´ë‹¤.
     [SerializeField] RectTransform _keyEffectRoot;
 
-    // ÇöÀç ÀÔ·Â À§Ä¡¸¦ ³ªÅ¸³»´Â ¿øÀÌ´Ù.
+    // í˜„ì¬ ì…ë ¥ ìœ„ì¹˜ë¥¼ ë‚˜íƒ€ë‚´ëŠ” ì›ì´ë‹¤.
     [SerializeField] RectTransform _currentKeyRing;
 
-    // ¿ø ¾ÈÂÊ¿¡ ÆÄ¶õ»ö ¶Ç´Â »¡°£»öÀ¸·Î Á¡¸êÇÒ Image´Ù.
+    // ì› ì•ˆìª½ì— íŒŒë€ìƒ‰ ë˜ëŠ” ë¹¨ê°„ìƒ‰ìœ¼ë¡œ ì ë©¸í•  Imageë‹¤.
     [SerializeField] Image _feedbackFlash;
 
-    // ³²Àº ½Ã°£ ºñÀ²À» Ç¥½ÃÇÏ´Â Filled Image´Ù.
+    // ë‚¨ì€ ì‹œê°„ ë¹„ìœ¨ì„ í‘œì‹œí•˜ëŠ” Filled Imageë‹¤.
     [SerializeField] Image _timerFill;
 
-    // Life ¾ÆÀÌÄÜµéÀ» ¹èÄ¡ÇÒ °ø°£ÀÌ´Ù.
+    // Life ì•„ì´ì½˜ë“¤ì„ ë°°ì¹˜í•  ê³µê°„ì´ë‹¤.
     [SerializeField] RectTransform _lifeContainer;
 
-    // ¾ËÆÄºª ÇÑ °³¸¦ Ç¥½ÃÇÏ´Â TMP ÇÁ¸®ÆÕÀÌ´Ù.
+    // ì•ŒíŒŒë²³ í•œ ê°œë¥¼ í‘œì‹œí•˜ëŠ” TMP í”„ë¦¬íŒ¹ì´ë‹¤.
     [SerializeField] TMP_Text _keyPrefab;
 
-    // Life ÇÑ °³¸¦ Ç¥½ÃÇÏ´Â Image ÇÁ¸®ÆÕÀÌ´Ù.
+    // Life í•œ ê°œë¥¼ í‘œì‹œí•˜ëŠ” Image í”„ë¦¬íŒ¹ì´ë‹¤.
     [SerializeField] Image _lifePrefab;
 
-    // ³²¾Æ ÀÖ´Â LifeÀÇ ÀÌ¹ÌÁö´Ù.
+    // ë‚¨ì•„ ìˆëŠ” Lifeì˜ ì´ë¯¸ì§€ë‹¤.
     [SerializeField] Sprite _lifeFullSprite;
 
-    // ¼ÒÁøµÈ LifeÀÇ ÀÌ¹ÌÁö´Ù.
+    // ì†Œì§„ëœ Lifeì˜ ì´ë¯¸ì§€ë‹¤.
     [SerializeField] Sprite _lifeEmptySprite;
 
-    // ´ë±â¿­ ¾ËÆÄºª »çÀÌÀÇ °Å¸®´Ù.
+    // ëŒ€ê¸°ì—´ ì•ŒíŒŒë²³ ì‚¬ì´ì˜ ê±°ë¦¬ë‹¤.
     [Min(1f)]
     [SerializeField] float _keySpacing = 170f;
 
-    // Life ¾ÆÀÌÄÜ »çÀÌÀÇ °Å¸®´Ù.
+    // Life ì•„ì´ì½˜ ì‚¬ì´ì˜ ê±°ë¦¬ë‹¤.
     [Min(1f)]
     [SerializeField] float _lifeSpacing = 44f;
 
-    // ´ÙÀ½ ¾ËÆÄºªµéÀÌ ¿ŞÂÊÀ¸·Î ÀÌµ¿ÇÏ´Â ½Ã°£ÀÌ´Ù.
+    // ë‹¤ìŒ ì•ŒíŒŒë²³ë“¤ì´ ì™¼ìª½ìœ¼ë¡œ ì´ë™í•˜ëŠ” ì‹œê°„ì´ë‹¤.
     [Min(0.01f)]
     [SerializeField] float _slideDuration = 0.15f;
 
-    // Á¤´ä ¾ËÆÄºªÀÌ À§·Î »ç¶óÁö´Â ½Ã°£ÀÌ´Ù.
+    // ì •ë‹µ ì•ŒíŒŒë²³ì´ ìœ„ë¡œ ì‚¬ë¼ì§€ëŠ” ì‹œê°„ì´ë‹¤.
     [Min(0.01f)]
     [SerializeField] float _vanishDuration = 0.18f;
 
-    // Á¤´ä ¾ËÆÄºªÀÌ À§·Î ÀÌµ¿ÇÒ °Å¸®´Ù.
+    // ì •ë‹µ ì•ŒíŒŒë²³ì´ ìœ„ë¡œ ì´ë™í•  ê±°ë¦¬ë‹¤.
     [Min(0f)]
     [SerializeField] float _vanishDistance = 45f;
 
-    // ¿øÀÇ Á¡¸ê°ú È®´ë¡¤Èçµé¸²¿¡ »ç¿ëÇÒ ½Ã°£ÀÌ´Ù.
+    // ì›ì˜ ì ë©¸ê³¼ í™•ëŒ€Â·í”ë“¤ë¦¼ì— ì‚¬ìš©í•  ì‹œê°„ì´ë‹¤.
     [Min(0.01f)]
     [SerializeField] float _feedbackDuration = 0.15f;
 
-    // Á¤´ä ¿¬Ãâ¿¡ »ç¿ëÇÒ ÆÄ¶õ»öÀÌ´Ù.
+    // ì •ë‹µ ì—°ì¶œì— ì‚¬ìš©í•  íŒŒë€ìƒ‰ì´ë‹¤.
     [SerializeField]
     Color _successColor =
         new Color(0.15f, 0.65f, 1f, 1f);
 
-    // ¿À´ä ¿¬Ãâ¿¡ »ç¿ëÇÒ »¡°£»öÀÌ´Ù.
+    // ì˜¤ë‹µ ì—°ì¶œì— ì‚¬ìš©í•  ë¹¨ê°„ìƒ‰ì´ë‹¤.
     [SerializeField]
     Color _failureColor =
         new Color(1f, 0.15f, 0.15f, 1f);
 
-    // ÀÔ·ÂÇØ¾ß ÇÒ ÀüÃ¼ ¹®ÀÚ¿­°ú ÇöÀç ÀÔ·Â ¼ø¼­´Ù.
+    // ì…ë ¥í•´ì•¼ í•  ì „ì²´ ë¬¸ìì—´ê³¼ í˜„ì¬ ì…ë ¥ ìˆœì„œë‹¤.
     string _sequence = string.Empty;
     int _currentIndex;
 
-    // ½ÇÇà Áß »ı¼ºÇÑ ¾ËÆÄºª°ú Life ¾ÆÀÌÄÜÀÌ´Ù.
+    // ì‹¤í–‰ ì¤‘ ìƒì„±í•œ ì•ŒíŒŒë²³ê³¼ Life ì•„ì´ì½˜ì´ë‹¤.
     readonly List<TMP_Text> _keys = new List<TMP_Text>();
     readonly List<Image> _lives = new List<Image>();
 
-    // Á¦ÇÑ ½Ã°£°ú ÇöÀç ³²Àº ½Ã°£ÀÌ´Ù.
+    // ì œí•œ ì‹œê°„ê³¼ í˜„ì¬ ë‚¨ì€ ì‹œê°„ì´ë‹¤.
     float _timeLimit;
     float _remainingTime;
 
-    // ³²Àº Life´Ù.
+    // ë‚¨ì€ Lifeë‹¤.
     int _remainingLives;
 
-    // ´ë±â¿­ Ã¹ ¾ËÆÄºªÀÌ µµÂøÇÒ À§Ä¡´Ù.
+    // ëŒ€ê¸°ì—´ ì²« ì•ŒíŒŒë²³ì´ ë„ì°©í•  ìœ„ì¹˜ë‹¤.
     Vector3 _firstKeyPosition;
 
-    // ¿¬ÃâÀ» ¹İº¹ÇØµµ ¿øÀÇ À§Ä¡¿Í Å©±â°¡ ´©ÀûµÇÁö ¾Ê°Ô º¸°üÇÑ´Ù.
+    // ì—°ì¶œì„ ë°˜ë³µí•´ë„ ì›ì˜ ìœ„ì¹˜ì™€ í¬ê¸°ê°€ ëˆ„ì ë˜ì§€ ì•Šê²Œ ë³´ê´€í•œë‹¤.
     Vector2 _ringPosition;
     Vector3 _ringScale;
 
-    // UI »ı¼º¿¡ »ç¿ëµÈ Å° ÀÔ·ÂÀ» °°Àº ÇÁ·¹ÀÓ¿¡ Àç»ç¿ëÇÏÁö ¾Ê´Â´Ù.
+    // UI ìƒì„±ì— ì‚¬ìš©ëœ í‚¤ ì…ë ¥ì„ ê°™ì€ í”„ë ˆì„ì— ì¬ì‚¬ìš©í•˜ì§€ ì•ŠëŠ”ë‹¤.
     int _startFrame;
 
-    // ¸¶Áö¸· Á¤´ä¡¤¿À´ä ¿¬ÃâÀÌ ³¡³­ µÚ °á°ú¸¦ È®Á¤ÇÑ´Ù.
+    // ë§ˆì§€ë§‰ ì •ë‹µÂ·ì˜¤ë‹µ ì—°ì¶œì´ ëë‚œ ë’¤ ê²°ê³¼ë¥¼ í™•ì •í•œë‹¤.
     ConfusionResult _pendingResult;
     float _resultDelay;
 
-    // ÇÁ¸®ÆÕ ÇÑ ÀÎ½ºÅÏ½º´Â ÇÑ ¹øÀÇ ÆĞÅÏ¿¡ »ç¿ëÇÑ´Ù.
+    // í”„ë¦¬íŒ¹ í•œ ì¸ìŠ¤í„´ìŠ¤ëŠ” í•œ ë²ˆì˜ íŒ¨í„´ì— ì‚¬ìš©í•œë‹¤.
     bool _hasBegun;
 
-    // º¸½º ÆĞÅÏ¿¡¼­ Á¶È¸ÇÒ ÇöÀç °á°ú´Ù.
+    // ë³´ìŠ¤ íŒ¨í„´ì—ì„œ ì¡°íšŒí•  í˜„ì¬ ê²°ê³¼ë‹¤.
     public ConfusionResult Result { get; private set; }
 
-    // ¸¶Áö¸· ÀÔ·Â ¿¬Ãâ±îÁö ³¡³­ »óÅÂÀÎÁö ¹İÈ¯ÇÑ´Ù.
+    // ë§ˆì§€ë§‰ ì…ë ¥ ì—°ì¶œê¹Œì§€ ëë‚œ ìƒíƒœì¸ì§€ ë°˜í™˜í•œë‹¤.
     public bool IsFinished =>
         Result == ConfusionResult.Success ||
         Result == ConfusionResult.Failed ||
@@ -128,7 +128,7 @@ public sealed class MentalConfusionUI : MonoBehaviour
 
     private void Awake()
     {
-        // ÇÊ¼ö UI ¿¬°áÀÌ ¾øÀ¸¸é ½ÇÇà Àü¿¡ ¿øÀÎÀ» ¾Ë¸°´Ù.
+        // í•„ìˆ˜ UI ì—°ê²°ì´ ì—†ìœ¼ë©´ ì‹¤í–‰ ì „ì— ì›ì¸ì„ ì•Œë¦°ë‹¤.
         if (_keyContainer == null ||
             _keyEffectRoot == null ||
             _currentKeyRing == null ||
@@ -142,10 +142,10 @@ public sealed class MentalConfusionUI : MonoBehaviour
             _lifeEmptySprite == null)
         {
             throw new InvalidOperationException(
-                $"{name}: Á¤½Å È¥¶õ UIÀÇ Inspector ÂüÁ¶¸¦ ¸ğµÎ ¿¬°áÇÏ¼¼¿ä.");
+                $"{name}: ì •ì‹  í˜¼ë€ UIì˜ Inspector ì°¸ì¡°ë¥¼ ëª¨ë‘ ì—°ê²°í•˜ì„¸ìš”.");
         }
 
-        // ¿¬ÃâÀÌ ³¡³ª¸é º¹±ÍÇÒ ¿øÀÇ ±âº» »óÅÂ´Ù.
+        // ì—°ì¶œì´ ëë‚˜ë©´ ë³µê·€í•  ì›ì˜ ê¸°ë³¸ ìƒíƒœë‹¤.
         _ringPosition = _currentKeyRing.anchoredPosition;
         _ringScale = _currentKeyRing.localScale;
 
@@ -154,33 +154,33 @@ public sealed class MentalConfusionUI : MonoBehaviour
     }
 
     /// <summary>
-    /// º¸½º ÆĞÅÏÀÌ UI »ı¼º Á÷ÈÄ È£ÃâÇÑ´Ù.
-    /// ¹®ÀÚ¿­Àº ´ë¼Ò¹®ÀÚ¸¦ ±¸ºĞÇÏÁö ¾Ê°í A~Z¸¸ Çã¿ëÇÑ´Ù.
+    /// ë³´ìŠ¤ íŒ¨í„´ì´ UI ìƒì„± ì§í›„ í˜¸ì¶œí•œë‹¤.
+    /// ë¬¸ìì—´ì€ ëŒ€ì†Œë¬¸ìë¥¼ êµ¬ë¶„í•˜ì§€ ì•Šê³  A~Zë§Œ í—ˆìš©í•œë‹¤.
     /// </summary>
     public void Begin(string sequence, float timeLimit, int lifeCount)
     {
         if (_hasBegun)
         {
             throw new InvalidOperationException(
-                $"{name}: ÀÌ¹Ì ½ÃÀÛÇÑ UIÀÔ´Ï´Ù. »õ ÇÁ¸®ÆÕÀ» »ı¼ºÇÏ¼¼¿ä.");
+                $"{name}: ì´ë¯¸ ì‹œì‘í•œ UIì…ë‹ˆë‹¤. ìƒˆ í”„ë¦¬íŒ¹ì„ ìƒì„±í•˜ì„¸ìš”.");
         }
 
         if (string.IsNullOrWhiteSpace(sequence) ||
             timeLimit <= 0f || lifeCount <= 0)
         {
             throw new ArgumentException(
-                "ÀÔ·Â ¹®ÀÚ¿­, Á¦ÇÑ ½Ã°£, Life¸¦ È®ÀÎÇÏ¼¼¿ä.");
+                "ì…ë ¥ ë¬¸ìì—´, ì œí•œ ì‹œê°„, Lifeë¥¼ í™•ì¸í•˜ì„¸ìš”.");
         }
 
         string normalized = sequence.ToUpperInvariant();
 
-        // Ç¥½ÃÇÒ ¹®ÀÚ¿Í ½ÇÁ¦ Å° ÆÇÁ¤ ¹üÀ§¸¦ ÀÏÄ¡½ÃÅ²´Ù.
+        // í‘œì‹œí•  ë¬¸ìì™€ ì‹¤ì œ í‚¤ íŒì • ë²”ìœ„ë¥¼ ì¼ì¹˜ì‹œí‚¨ë‹¤.
         foreach (char letter in normalized)
         {
             if (letter < 'A' || letter > 'Z')
             {
                 throw new ArgumentException(
-                    "Á¤½Å È¥¶õ ÀÔ·Â ¹®ÀÚ¿­¿¡´Â A~Z¸¸ »ç¿ëÇÒ ¼ö ÀÖ½À´Ï´Ù.");
+                    "ì •ì‹  í˜¼ë€ ì…ë ¥ ë¬¸ìì—´ì—ëŠ” A~Zë§Œ ì‚¬ìš©í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.");
             }
         }
 
@@ -192,7 +192,7 @@ public sealed class MentalConfusionUI : MonoBehaviour
         _currentIndex = 0;
         _pendingResult = ConfusionResult.None;
 
-        // Canvas ¹èÄ¡¸¦ °»½ÅÇÑ µÚ ¿øÀÇ À§Ä¡¸¦ ´ë±â¿­ ÁÂÇ¥·Î º¯È¯ÇÑ´Ù.
+        // Canvas ë°°ì¹˜ë¥¼ ê°±ì‹ í•œ ë’¤ ì›ì˜ ìœ„ì¹˜ë¥¼ ëŒ€ê¸°ì—´ ì¢Œí‘œë¡œ ë³€í™˜í•œë‹¤.
         Canvas.ForceUpdateCanvases();
 
         _firstKeyPosition = _keyContainer.InverseTransformPoint(
@@ -209,8 +209,8 @@ public sealed class MentalConfusionUI : MonoBehaviour
     }
 
     /// <summary>
-    /// ÀüÃ¼ ¹®ÀÚ¿­¿¡ ¸ÂÃç ¾ËÆÄºªÀ» »ı¼ºÇÑ´Ù.
-    /// È­¸é ¹Û ¾ËÆÄºªÀº ±âÁ¸ RectMask2D°¡ °¡¸°´Ù.
+    /// ì „ì²´ ë¬¸ìì—´ì— ë§ì¶° ì•ŒíŒŒë²³ì„ ìƒì„±í•œë‹¤.
+    /// í™”ë©´ ë°– ì•ŒíŒŒë²³ì€ ê¸°ì¡´ RectMask2Dê°€ ê°€ë¦°ë‹¤.
     /// </summary>
     private void CreateKeys()
     {
@@ -237,11 +237,11 @@ public sealed class MentalConfusionUI : MonoBehaviour
     }
 
     /// <summary>
-    /// Life ¾ÆÀÌÄÜµéÀ» ÄÁÅ×ÀÌ³Ê Áß¾Ó¿¡ ³ª¶õÈ÷ ¹èÄ¡ÇÑ´Ù.
+    /// Life ì•„ì´ì½˜ë“¤ì„ ì»¨í…Œì´ë„ˆ ì¤‘ì•™ì— ë‚˜ë€íˆ ë°°ì¹˜í•œë‹¤.
     /// </summary>
     private void CreateLives()
     {
-        // ¼³Á¤ÇÑ °³¼ö°¡ ¸¹À¸¸é °£°İÀ» ÁÙ¿© ÄÁÅ×ÀÌ³Ê ¾È¿¡ ¹èÄ¡ÇÑ´Ù.
+        // ì„¤ì •í•œ ê°œìˆ˜ê°€ ë§ìœ¼ë©´ ê°„ê²©ì„ ì¤„ì—¬ ì»¨í…Œì´ë„ˆ ì•ˆì— ë°°ì¹˜í•œë‹¤.
         float availableWidth = Mathf.Max(
             0f,
             _lifeContainer.rect.width -
@@ -284,7 +284,7 @@ public sealed class MentalConfusionUI : MonoBehaviour
             return;
         }
 
-        // ½ÂÆĞ°¡ °áÁ¤µÆ´Ù¸é Ãß°¡ ÀÔ·Â ¾øÀÌ ¸¶Áö¸· ¿¬Ãâ¸¸ ±â´Ù¸°´Ù.
+        // ìŠ¹íŒ¨ê°€ ê²°ì •ëë‹¤ë©´ ì¶”ê°€ ì…ë ¥ ì—†ì´ ë§ˆì§€ë§‰ ì—°ì¶œë§Œ ê¸°ë‹¤ë¦°ë‹¤.
         if (_pendingResult != ConfusionResult.None)
         {
             _resultDelay -= Time.unscaledDeltaTime;
@@ -297,13 +297,13 @@ public sealed class MentalConfusionUI : MonoBehaviour
             return;
         }
 
-        // °ÔÀÓÀÌ Á¤ÁöµÇ¾îµµ ÆĞÅÏÀÇ Á¦ÇÑ ½Ã°£Àº Èå¸¥´Ù.
+        // ê²Œì„ì´ ì •ì§€ë˜ì–´ë„ íŒ¨í„´ì˜ ì œí•œ ì‹œê°„ì€ íë¥¸ë‹¤.
         _remainingTime = Mathf.Max(
             0f, _remainingTime - Time.unscaledDeltaTime);
 
         _timerFill.fillAmount = _remainingTime / _timeLimit;
 
-        // ½Ã°£ÀÌ ³¡³­ ÇÁ·¹ÀÓ¿¡´Â Ãß°¡ Á¤´äÀ» ÀÎÁ¤ÇÏÁö ¾Ê´Â´Ù.
+        // ì‹œê°„ì´ ëë‚œ í”„ë ˆì„ì—ëŠ” ì¶”ê°€ ì •ë‹µì„ ì¸ì •í•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (_remainingTime <= 0f)
         {
             PlayFeedback(false);
@@ -311,7 +311,7 @@ public sealed class MentalConfusionUI : MonoBehaviour
             return;
         }
 
-        // ¹®ÀÚ ÀÔ·Â ´ë½Å ¹°¸® Å°¸¦ È®ÀÎÇÏ¹Ç·Î ÇÑ±Û ÀÔ·Â »óÅÂ¿¡µµ ´ëÀÀÇÑ´Ù.
+        // ë¬¸ì ì…ë ¥ ëŒ€ì‹  ë¬¼ë¦¬ í‚¤ë¥¼ í™•ì¸í•˜ë¯€ë¡œ í•œê¸€ ì…ë ¥ ìƒíƒœì—ë„ ëŒ€ì‘í•œë‹¤.
         int pressedCount = 0;
         char pressedLetter = '\0';
 
@@ -331,8 +331,8 @@ public sealed class MentalConfusionUI : MonoBehaviour
             return;
         }
 
-        // ¿©·¯ ¾ËÆÄºªÀ» µ¿½Ã¿¡ ´­·¯ Á¤´äÀ» ¹«ÀÛÀ§·Î ¸ÂÈ÷´Â °ÍÀ» ¸·´Â´Ù.
-        // °°Àº ÇÁ·¹ÀÓÀÇ µ¿½Ã ÀÔ·ÂÀº ¿À´ä ÇÑ ¹øÀ¸·Î Ã³¸®ÇÑ´Ù.
+        // ì—¬ëŸ¬ ì•ŒíŒŒë²³ì„ ë™ì‹œì— ëˆŒëŸ¬ ì •ë‹µì„ ë¬´ì‘ìœ„ë¡œ ë§íˆëŠ” ê²ƒì„ ë§‰ëŠ”ë‹¤.
+        // ê°™ì€ í”„ë ˆì„ì˜ ë™ì‹œ ì…ë ¥ì€ ì˜¤ë‹µ í•œ ë²ˆìœ¼ë¡œ ì²˜ë¦¬í•œë‹¤.
         bool correct =
             pressedCount == 1 &&
             pressedLetter == _sequence[_currentIndex];
@@ -348,14 +348,16 @@ public sealed class MentalConfusionUI : MonoBehaviour
     }
 
     /// <summary>
-    /// Á¤´ä ÆÇÁ¤À» Áï½Ã ´ÙÀ½ Å°·Î ³Ñ±â°í ½Ã°¢ ¿¬ÃâÀ» ½ÇÇàÇÑ´Ù.
-    /// ¿¬Ãâ Áß¿¡µµ ´ÙÀ½ ÇÁ·¹ÀÓÀÇ Å° ÀÔ·ÂÀ» ¹ŞÀ» ¼ö ÀÖ´Ù.
+    /// ì •ë‹µ íŒì •ì„ ì¦‰ì‹œ ë‹¤ìŒ í‚¤ë¡œ ë„˜ê¸°ê³  ì‹œê° ì—°ì¶œì„ ì‹¤í–‰í•œë‹¤.
+    /// ì—°ì¶œ ì¤‘ì—ë„ ë‹¤ìŒ í”„ë ˆì„ì˜ í‚¤ ì…ë ¥ì„ ë°›ì„ ìˆ˜ ìˆë‹¤.
     /// </summary>
     private void AcceptKey()
     {
         TMP_Text accepted = _keys[_currentIndex];
         _currentIndex++;
 
+        // ì‹¤ì œ ì •ë‹µ íŒì •ë§ˆë‹¤ ì§§ì€ í™•ì¸ìŒì„ ì¬ìƒí•œë‹¤.
+        GameAudio.Play(GameSound.HeadConfusionCorrect);
         PlayFeedback(true);
         VanishKey(accepted);
         SlideRemainingKeys();
@@ -367,16 +369,18 @@ public sealed class MentalConfusionUI : MonoBehaviour
     }
 
     /// <summary>
-    /// ¿À´äÀº ÇöÀç ¾ËÆÄºªÀ» À¯ÁöÇÏ°í Life¸¸ ÇÏ³ª Â÷°¨ÇÑ´Ù.
+    /// ì˜¤ë‹µì€ í˜„ì¬ ì•ŒíŒŒë²³ì„ ìœ ì§€í•˜ê³  Lifeë§Œ í•˜ë‚˜ ì°¨ê°í•œë‹¤.
     /// </summary>
     private void RejectKey()
     {
         _remainingLives--;
+        // Lifeê°€ ì°¨ê°ëœ ì˜¤ë‹µì—ë§Œ ê²½ê³ ìŒì„ ì¬ìƒí•œë‹¤.
+        GameAudio.Play(GameSound.HeadConfusionWrong);
         PlayFeedback(false);
 
         Image lostLife = _lives[_remainingLives];
 
-        // Â÷°¨µÉ Life¸¦ »¡°²°Ô Á¡¸ê½ÃÅ² µÚ ¼ÒÁø ÀÌ¹ÌÁö·Î ¹Ù²Û´Ù.
+        // ì°¨ê°ë  Lifeë¥¼ ë¹¨ê°›ê²Œ ì ë©¸ì‹œí‚¨ ë’¤ ì†Œì§„ ì´ë¯¸ì§€ë¡œ ë°”ê¾¼ë‹¤.
         Sequence sequence = DOTween.Sequence();
         sequence.SetUpdate(true);
         sequence.SetId(this);
@@ -399,11 +403,11 @@ public sealed class MentalConfusionUI : MonoBehaviour
     }
 
     /// <summary>
-    /// ÆÄ¶õ Á¡¸ê°ú È®´ë ¶Ç´Â »¡°£ Á¡¸ê°ú ÁÂ¿ì Èçµé¸²À» ½ÇÇàÇÑ´Ù.
+    /// íŒŒë€ ì ë©¸ê³¼ í™•ëŒ€ ë˜ëŠ” ë¹¨ê°„ ì ë©¸ê³¼ ì¢Œìš° í”ë“¤ë¦¼ì„ ì‹¤í–‰í•œë‹¤.
     /// </summary>
     private void PlayFeedback(bool correct)
     {
-        // ¿¬¼Ó ÀÔ·ÂÀ¸·Î ±âÁ¸ ¿¬ÃâÀ» ²÷¾îµµ ±âº» À§Ä¡¿Í Å©±â·Î º¹¿øÇÑ´Ù.
+        // ì—°ì† ì…ë ¥ìœ¼ë¡œ ê¸°ì¡´ ì—°ì¶œì„ ëŠì–´ë„ ê¸°ë³¸ ìœ„ì¹˜ì™€ í¬ê¸°ë¡œ ë³µì›í•œë‹¤.
         _feedbackFlash.DOKill();
         _currentKeyRing.DOKill();
 
@@ -446,16 +450,16 @@ public sealed class MentalConfusionUI : MonoBehaviour
     }
 
     /// <summary>
-    /// Á¤´ä ¾ËÆÄºªÀ» ¸¶½ºÅ© ¹ÛÀ¸·Î ¿Å±ä µÚ À§·Î ¿Ã¸®¸ç ¼û±ä´Ù.
+    /// ì •ë‹µ ì•ŒíŒŒë²³ì„ ë§ˆìŠ¤í¬ ë°–ìœ¼ë¡œ ì˜®ê¸´ ë’¤ ìœ„ë¡œ ì˜¬ë¦¬ë©° ìˆ¨ê¸´ë‹¤.
     /// </summary>
     private void VanishKey(TMP_Text key)
     {
         RectTransform rect = key.rectTransform;
 
-        // ´ë±â¿­ ÀÌµ¿ ÁßÀÎ ±ÛÀÚµµ Áï½Ã Á¤´ä ¼Ò¸ê ¿¬Ãâ·Î ÀüÈ¯ÇÑ´Ù.
+        // ëŒ€ê¸°ì—´ ì´ë™ ì¤‘ì¸ ê¸€ìë„ ì¦‰ì‹œ ì •ë‹µ ì†Œë©¸ ì—°ì¶œë¡œ ì „í™˜í•œë‹¤.
         rect.DOKill();
 
-        // ÇöÀç È­¸é À§Ä¡¸¦ À¯ÁöÇÑ Ã¤ ¸¶½ºÅ© ¹ÛÀ¸·Î ¿Å±ä´Ù.
+        // í˜„ì¬ í™”ë©´ ìœ„ì¹˜ë¥¼ ìœ ì§€í•œ ì±„ ë§ˆìŠ¤í¬ ë°–ìœ¼ë¡œ ì˜®ê¸´ë‹¤.
         rect.SetParent(_keyEffectRoot, true);
         key.color = _successColor;
 
@@ -483,7 +487,7 @@ public sealed class MentalConfusionUI : MonoBehaviour
     }
 
     /// <summary>
-    /// ³²Àº ±ÛÀÚµéÀ» »õ ¼ø¼­¿¡ ¸Â´Â À§Ä¡·Î ÀÌµ¿½ÃÅ²´Ù.
+    /// ë‚¨ì€ ê¸€ìë“¤ì„ ìƒˆ ìˆœì„œì— ë§ëŠ” ìœ„ì¹˜ë¡œ ì´ë™ì‹œí‚¨ë‹¤.
     /// </summary>
     private void SlideRemainingKeys()
     {
@@ -491,7 +495,7 @@ public sealed class MentalConfusionUI : MonoBehaviour
         {
             RectTransform rect = _keys[i].rectTransform;
 
-            // ºü¸¥ ¿¬¼Ó ÀÔ·Â ½Ã ÇöÀç À§Ä¡¿¡¼­ »õ ¸ñÀûÁö·Î ÀÌµ¿ÇÑ´Ù.
+            // ë¹ ë¥¸ ì—°ì† ì…ë ¥ ì‹œ í˜„ì¬ ìœ„ì¹˜ì—ì„œ ìƒˆ ëª©ì ì§€ë¡œ ì´ë™í•œë‹¤.
             rect.DOKill();
 
             Vector3 target =
@@ -506,7 +510,7 @@ public sealed class MentalConfusionUI : MonoBehaviour
     }
 
     /// <summary>
-    /// °á°ú¸¦ ¿¹¾àÇÏ°í ¸¶Áö¸· ÀÔ·Â ¿¬ÃâÀÌ ³¡³¯ ¶§±îÁö UI¸¦ À¯ÁöÇÑ´Ù.
+    /// ê²°ê³¼ë¥¼ ì˜ˆì•½í•˜ê³  ë§ˆì§€ë§‰ ì…ë ¥ ì—°ì¶œì´ ëë‚  ë•Œê¹Œì§€ UIë¥¼ ìœ ì§€í•œë‹¤.
     /// </summary>
     private void Finish(bool success)
     {
@@ -521,10 +525,10 @@ public sealed class MentalConfusionUI : MonoBehaviour
 
     private void OnDisable()
     {
-        // ÀÌ UI°¡ ¸¸µç Tween¸¸ Á¾·áÇÑ´Ù.
+        // ì´ UIê°€ ë§Œë“  Tweenë§Œ ì¢…ë£Œí•œë‹¤.
         DOTween.Kill(this);
 
-        // ÆĞÅÏ µµÁß UI°¡ Á¦°ÅµÇ¸é ¼º°ø¡¤½ÇÆĞ¿Í ±¸ºĞÇØ¼­ ¾Ë¸°´Ù.
+        // íŒ¨í„´ ë„ì¤‘ UIê°€ ì œê±°ë˜ë©´ ì„±ê³µÂ·ì‹¤íŒ¨ì™€ êµ¬ë¶„í•´ì„œ ì•Œë¦°ë‹¤.
         if (Result == ConfusionResult.Running)
         {
             Result = ConfusionResult.Cancelled;

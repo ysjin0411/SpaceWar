@@ -161,8 +161,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed8b1ae4e4e52b34ea557c1c11e076fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_CategoryHash: 0.009161512
-  m_labelHash: 1.6673169e-24
+  m_CategoryHash: 3.3544492e-28
+  m_labelHash: 6.18272e-29
   m_SpriteKey: 0
   m_SpriteHash: 1070521604
 --- !u!95 &7177751443503475103
@@ -255,7 +255,7 @@ MonoBehaviour:
   - _groupName: Money
     _entries:
     - _prefab: {fileID: 523677333196082315, guid: 02f86527c15f5bc4cad8b61a57339f3d, type: 3}
-      _count: 10
+      _count: 20
   - _groupName: Quest
     _entries:
     - _prefab: {fileID: 1741529324464940269, guid: 1056bdc6af0943f4e9c5f854691450f8, type: 3}
@@ -277,11 +277,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bossName: Dog
+  _defeatSound: 141
   _bossIcon: {fileID: 21300000, guid: f4d1b4e92c156974f8b0c6c3cffe071e, type: 3}
   _firePoint: {fileID: 8735207689797437126}
-  _maxHp: 300
+  _maxHp: 1000
   _crashDamage: 10
-  _userExpReward: 10
+  _userExpReward: 40
   _animator: {fileID: 7177751443503475103}
   _bossBodyCollider: {fileID: 4757110715007747093}
   _currentHp: 400
@@ -290,8 +291,8 @@ MonoBehaviour:
   _moveSpeed: 2
   _movementHalfRange: {x: 3, y: 3}
   _arrivalDistance: 0.1
-  _normalPatternFirstDelay: 2
-  _normalPatternInterval: 2
+  _normalPatternFirstDelay: 3
+  _normalPatternInterval: 3
   _previousPatternWeightMultiplier: 0.1
   _timedPatternEntries:
   - _pattern: {fileID: 11400000, guid: 2c88e89dc62ddb7408ee1a3d56d0bdc3, type: 2}
@@ -299,9 +300,9 @@ MonoBehaviour:
   - _pattern: {fileID: 11400000, guid: 78f7af7718e744d4fbb537b663305b1c, type: 2}
     _weight: 10
   _healthSpecialPatternEntries:
-  - _healthPercent: 70
+  - _healthPercent: 65
     _pattern: {fileID: 11400000, guid: 909094ff4d83fcb458950b82ddc7479f, type: 2}
-  - _healthPercent: 40
+  - _healthPercent: 30
     _pattern: {fileID: 11400000, guid: 36ad2c337abc4ff458cf9b30a782e2d0, type: 2}
 --- !u!50 &486255449174284901
 Rigidbody2D:

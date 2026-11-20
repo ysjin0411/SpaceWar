@@ -22,5 +22,10 @@ MonoBehaviour:
   _shakeAmplitude: 0.15
   _shakeFrequency: 8
   _throwSpeed: 22
-  _wallImpactDamage: 10
+  _wallImpactDamage: 18
   _animationTimeout: 3
+  _throwAngleRange: {x: -60, y: 60}
+  _reboundDuration: 1.2
+  _reboundSpeedMultiplier: 0.6
+  _spinSpeed: 720
+  _maxFlightDuration: 3

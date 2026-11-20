@@ -701,8 +701,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed8b1ae4e4e52b34ea557c1c11e076fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_CategoryHash: 0.009161512
-  m_labelHash: 1.3098045e-14
+  m_CategoryHash: 0.0000037545133
+  m_labelHash: 0.112246275
   m_SpriteKey: 0
   m_SpriteHash: 549643528
 --- !u!95 &7177751443503475103
@@ -819,7 +819,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad9681ca23ed1a4459d2db9ca520cd8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHp: 300
+  _maxHp: 220
 --- !u!60 &1500061644768603648
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -930,7 +930,7 @@ MonoBehaviour:
   - _groupName: Money
     _entries:
     - _prefab: {fileID: 523677333196082315, guid: 02f86527c15f5bc4cad8b61a57339f3d, type: 3}
-      _count: 10
+      _count: 35
   - _groupName: Quest
     _entries:
     - _prefab: {fileID: 1741529324464940269, guid: 1056bdc6af0943f4e9c5f854691450f8, type: 3}
@@ -952,11 +952,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bossName: Cruiser
+  _defeatSound: 104
   _bossIcon: {fileID: 21300000, guid: d058589bca3682f479627072e2b72694, type: 3}
   _firePoint: {fileID: 8735207689797437126}
-  _maxHp: 500
+  _maxHp: 1300
   _crashDamage: 5
-  _userExpReward: 10
+  _userExpReward: 60
   _animator: {fileID: 7177751443503475103}
   _bossBodyCollider: {fileID: 2774303358448054241}
   _currentHp: 0
@@ -965,12 +966,12 @@ MonoBehaviour:
   _moveSpeed: 1
   _movementHalfRange: {x: 2, y: 3}
   _arrivalDistance: 0.1
-  _normalPatternFirstDelay: 2
-  _normalPatternInterval: 2
+  _normalPatternFirstDelay: 3
+  _normalPatternInterval: 3
   _previousPatternWeightMultiplier: 0.1
   _timedPatternEntries:
   - _pattern: {fileID: 11400000, guid: 0edb24d3bbaa6bc4199b7e77fd8ffed4, type: 2}
-    _weight: 0
+    _weight: 10
   _towerShield: {fileID: 1680823157461556225}
   _towerAttacks:
   - {fileID: 9102130370089527094}
@@ -978,10 +979,10 @@ MonoBehaviour:
   - {fileID: 7029288748810509100}
   _invulnerabilityShield: {fileID: 8728023208225889953}
   _phase1SpecialPatterns:
-  - _healthPercent: 80
+  - _healthPercent: 65
     _pattern: {fileID: 11400000, guid: c2c622949117af842b315df7039cfe80, type: 2}
   _phase2SpecialPatterns:
-  - _healthPercent: 70
+  - _healthPercent: 55
     _pattern: {fileID: 11400000, guid: 97956c758f4af4e4fbcb1688f19e2020, type: 2}
   _summonPointA: {fileID: 7407049284673796881}
   _summonPointB: {fileID: 7224590412404264560}
@@ -1077,7 +1078,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad9681ca23ed1a4459d2db9ca520cd8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHp: 200
+  _maxHp: 220
 --- !u!60 &7545340061158921356
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -1259,7 +1260,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad9681ca23ed1a4459d2db9ca520cd8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHp: 100
+  _maxHp: 220
 --- !u!60 &1271443874010494283
 PolygonCollider2D:
   m_ObjectHideFlags: 0

@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: move_speed
   _name: "\uC774\uB3D9\uC18D\uB3C4 \uAC15\uD654"
-  _info: "\uCE90\uB9AD\uD130\uC758 \uC774\uB3D9\uC18D\uB3C4\uB97C 2\uB9CC\uD07C \uC5BB\uB294\uB2E4."
+  _info: "\uC774\uB3D9\uC18D\uB3C4\uAC00 0.5 \uC99D\uAC00\uD569\uB2C8\uB2E4."
   _icon: {fileID: -3458589160365740604, guid: 79b94d8569b582f439d375b705572f2c, type: 3}
   _type: 0
   _target: 0
-  _value: 2
+  _value: 0.5

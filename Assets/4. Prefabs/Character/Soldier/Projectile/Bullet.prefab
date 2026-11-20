@@ -52,6 +52,7 @@ MonoBehaviour:
   _lifeTime: 5
   _damage: 10
   _hitEffectPrefab: {fileID: 8670412759217664541, guid: f51b3329b54450a498239675d859a34e, type: 3}
+  _impactSound: 38
 --- !u!50 &6755460515863587632
 Rigidbody2D:
   serializedVersion: 5

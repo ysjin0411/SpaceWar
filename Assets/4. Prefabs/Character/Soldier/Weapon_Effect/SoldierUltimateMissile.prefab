@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 30
-  _damage: 50
+  _damage: 30
   _explosionRadius: 1.2
   _enemyLayers:
     serializedVersion: 2

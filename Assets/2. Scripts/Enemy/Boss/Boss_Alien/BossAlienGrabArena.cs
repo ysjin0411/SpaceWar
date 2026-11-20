@@ -1,31 +1,31 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-// ´øÁ®Áø ÇÃ·¹ÀÌ¾î¿Í ÀüÅõ ¿µ¿ª °æ°èÀÇ Ãæµ¹À» °Ë»çÇÑ´Ù.
+// ë˜ì ¸ì§„ í”Œë ˆì´ì–´ì™€ ì „íˆ¬ ì˜ì—­ ê²½ê³„ì˜ ì¶©ëŒì„ ê²€ì‚¬í•œë‹¤.
 public sealed class BossAlienGrabArena : MonoBehaviour
 {
-    // ÀüÅõ ¿µ¿ªÀÇ ¾ÈÂÊ °æ°è¸¦ °è»êÇÒ ½ÇÁ¦ º® Äİ¶óÀÌ´õµéÀÌ´Ù.
-    // ³× º®Àº È¸Àü ¾øÀÌ ¹èÄ¡ÇÑ´Ù.
+    // ì „íˆ¬ ì˜ì—­ì˜ ì•ˆìª½ ê²½ê³„ë¥¼ ê³„ì‚°í•  ì‹¤ì œ ë²½ ì½œë¼ì´ë”ë“¤ì´ë‹¤.
+    // ë„¤ ë²½ì€ íšŒì „ ì—†ì´ ë°°ì¹˜í•œë‹¤.
     [SerializeField] private BoxCollider2D _leftWall;
     [SerializeField] private BoxCollider2D _rightWall;
     [SerializeField] private BoxCollider2D _ceiling;
     [SerializeField] private BoxCollider2D _floor;
 
-    // ÀüÅõ ¿µ¿ªÀÇ °æ°è ·¹ÀÌ¾î¸¸ °Ë»çÇÑ´Ù.
+    // ì „íˆ¬ ì˜ì—­ì˜ ê²½ê³„ ë ˆì´ì–´ë§Œ ê²€ì‚¬í•œë‹¤.
     private ContactFilter2D _filter;
 
-    // ¸Å¹ø ¹è¿­À» »ı¼ºÇÏÁö ¾Êµµ·Ï Ãæµ¹ °á°ú ¸ñ·ÏÀ» Àç»ç¿ëÇÑ´Ù.
+    // ë§¤ë²ˆ ë°°ì—´ì„ ìƒì„±í•˜ì§€ ì•Šë„ë¡ ì¶©ëŒ ê²°ê³¼ ëª©ë¡ì„ ì¬ì‚¬ìš©í•œë‹¤.
     private readonly List<RaycastHit2D> _hits =
         new List<RaycastHit2D>();
 
-    // Ã¹ º® Ãæµ¹ÀÇ º¸½º, Ãæµ¹ À§Ä¡, Ç¥¸é ¹æÇâÀ» Àü´ŞÇÑ´Ù.
-    // ÀÌÈÄ ±Õ¿­ »ı¼º°ú Ä«¸Ş¶ó Èçµé¸²À» ¿¬°áÇÒ ¶§ »ç¿ëÇÑ´Ù.
+    // ì²« ë²½ ì¶©ëŒì˜ ë³´ìŠ¤, ì¶©ëŒ ìœ„ì¹˜, í‘œë©´ ë°©í–¥ì„ ì „ë‹¬í•œë‹¤.
+    // ì´í›„ ê· ì—´ ìƒì„±ê³¼ ì¹´ë©”ë¼ í”ë“¤ë¦¼ì„ ì—°ê²°í•  ë•Œ ì‚¬ìš©í•œë‹¤.
     public event Action<Boss_Alien, Vector2, Vector2> ImpactOccurred;
 
     private void Awake()
     {
-        // ½ÃÀÛÇÒ ¶§ °æ°è ¿¬°á°ú ÀüÅõ ¿µ¿ªÀÌ ¿Ã¹Ù¸¥Áö °Ë»çÇÑ´Ù.
+        // ì‹œì‘í•  ë•Œ ê²½ê³„ ì—°ê²°ê³¼ ì „íˆ¬ ì˜ì—­ì´ ì˜¬ë°”ë¥¸ì§€ ê²€ì‚¬í•œë‹¤.
         GetInteriorRect();
 
         int layer = LayerMask.NameToLayer("BossArenaBoundary");
@@ -33,18 +33,18 @@ public sealed class BossAlienGrabArena : MonoBehaviour
         if (layer < 0)
         {
             throw new InvalidOperationException(
-                $"{name}: BossArenaBoundary ·¹ÀÌ¾î°¡ ÇÊ¿äÇÕ´Ï´Ù.");
+                $"{name}: BossArenaBoundary ë ˆì´ì–´ê°€ í•„ìš”í•©ë‹ˆë‹¤.");
         }
 
         _filter = new ContactFilter2D();
         _filter.SetLayerMask(1 << layer);
 
-        // °æ°è¸¦ Trigger·Î ±¸¼ºÇßÀ¸¹Ç·Î °Ë»ç¿¡ Æ÷ÇÔÇÑ´Ù.
+        // ê²½ê³„ë¥¼ Triggerë¡œ êµ¬ì„±í–ˆìœ¼ë¯€ë¡œ ê²€ì‚¬ì— í¬í•¨í•œë‹¤.
         _filter.useTriggers = true;
     }
 
-    // ÇÃ·¹ÀÌ¾î¸¦ ½ÇÁ¦·Î ¿Å±â±â Àü¿¡ È£ÃâÇÑ´Ù.
-    // movement´Â ÀÌ¹ø ÀÌµ¿·®ÀÌ°í, hit¿¡´Â °¡Àå °¡±î¿î Ãæµ¹ÀÌ ¹İÈ¯µÈ´Ù.
+    // í”Œë ˆì´ì–´ë¥¼ ì‹¤ì œë¡œ ì˜®ê¸°ê¸° ì „ì— í˜¸ì¶œí•œë‹¤.
+    // movementëŠ” ì´ë²ˆ ì´ë™ëŸ‰ì´ê³ , hitì—ëŠ” ê°€ì¥ ê°€ê¹Œìš´ ì¶©ëŒì´ ë°˜í™˜ëœë‹¤.
     public bool TryFindImpact(
         Collider2D playerBody,
         Vector2 movement,
@@ -66,12 +66,12 @@ public sealed class BossAlienGrabArena : MonoBehaviour
             return false;
         }
 
-        // °°Àº ÇÁ·¹ÀÓ¿¡ °»½ÅÇÑ À§Ä¡¸¦ ¹°¸® °Ë»ç¿¡ ¹İ¿µÇÑ´Ù.
+        // ê°™ì€ í”„ë ˆì„ì— ê°±ì‹ í•œ ìœ„ì¹˜ë¥¼ ë¬¼ë¦¬ ê²€ì‚¬ì— ë°˜ì˜í•œë‹¤.
         Physics2D.SyncTransforms();
 
         _hits.Clear();
 
-        // ÇÃ·¹ÀÌ¾î Áß½ÉÀÇ ¼± ´ë½Å ½ÇÁ¦ ¸ö Äİ¶óÀÌ´õ ÀüÃ¼¸¦ ÀÌµ¿½ÃÄÑ °Ë»çÇÑ´Ù.
+        // í”Œë ˆì´ì–´ ì¤‘ì‹¬ì˜ ì„  ëŒ€ì‹  ì‹¤ì œ ëª¸ ì½œë¼ì´ë” ì „ì²´ë¥¼ ì´ë™ì‹œì¼œ ê²€ì‚¬í•œë‹¤.
         playerBody.Cast(
             movement / distance,
             _filter,
@@ -85,7 +85,7 @@ public sealed class BossAlienGrabArena : MonoBehaviour
         {
             RaycastHit2D candidate = _hits[i];
 
-            // ÀÌ ÀüÅõ ¿µ¿ª ¾Æ·¡¿¡ ÀÖ´Â °æ°è¸¸ »ç¿ëÇÑ´Ù.
+            // ì´ ì „íˆ¬ ì˜ì—­ ì•„ë˜ì— ìˆëŠ” ê²½ê³„ë§Œ ì‚¬ìš©í•œë‹¤.
             if (candidate.collider == null ||
                 !candidate.collider.transform.IsChildOf(transform) ||
                 candidate.distance >= nearestDistance)
@@ -101,7 +101,7 @@ public sealed class BossAlienGrabArena : MonoBehaviour
         return found;
     }
 
-    // ´øÁö±â ½ÇÇà ÄÚµå°¡ Ã¹ Ãæµ¹¿¡¸¸ È£ÃâÇÑ´Ù.
+    // ë˜ì§€ê¸° ì‹¤í–‰ ì½”ë“œê°€ ì²« ì¶©ëŒì—ë§Œ í˜¸ì¶œí•œë‹¤.
     public void NotifyFirstImpact(Boss_Alien boss, RaycastHit2D hit)
     {
         if (!isActiveAndEnabled ||
@@ -112,14 +112,16 @@ public sealed class BossAlienGrabArena : MonoBehaviour
             return;
         }
 
+        // ì‹¤ì œ ì²« ì¶©ëŒì—ë§Œ ì¬ìƒí•œë‹¤.
+        GameAudio.Play(GameSound.AlienWallCrash);
         if (ImpactOccurred != null)
         {
             ImpactOccurred.Invoke(boss, hit.point, hit.normal);
         }
     }
 
-    // º® µÎ²²¸¦ Á¦¿ÜÇÑ ½ÇÁ¦ ÀüÅõ ¿µ¿ªÀ» ¿ùµå ÁÂÇ¥·Î ¹İÈ¯ÇÑ´Ù.
-    // ¿¹°í, Ãæ°İÆÄ, ¸¶¹«¸® °ø°İÀÌ ¸ğµÎ ÀÌ ¿µ¿ªÀ» ±âÁØÀ¸·Î °è»êÇÑ´Ù.
+    // ë²½ ë‘ê»˜ë¥¼ ì œì™¸í•œ ì‹¤ì œ ì „íˆ¬ ì˜ì—­ì„ ì›”ë“œ ì¢Œí‘œë¡œ ë°˜í™˜í•œë‹¤.
+    // ì˜ˆê³ , ì¶©ê²©íŒŒ, ë§ˆë¬´ë¦¬ ê³µê²©ì´ ëª¨ë‘ ì´ ì˜ì—­ì„ ê¸°ì¤€ìœ¼ë¡œ ê³„ì‚°í•œë‹¤.
     public Rect GetInteriorRect()
     {
         ValidateBoundary(_leftWall);
@@ -127,7 +129,7 @@ public sealed class BossAlienGrabArena : MonoBehaviour
         ValidateBoundary(_ceiling);
         ValidateBoundary(_floor);
 
-        // °°Àº ÇÁ·¹ÀÓ¿¡ º¯°æµÈ TransformÀ» bounds¿¡ ¹İ¿µÇÑ´Ù.
+        // ê°™ì€ í”„ë ˆì„ì— ë³€ê²½ëœ Transformì„ boundsì— ë°˜ì˜í•œë‹¤.
         Physics2D.SyncTransforms();
 
         float left = _leftWall.bounds.max.x;
@@ -138,14 +140,14 @@ public sealed class BossAlienGrabArena : MonoBehaviour
         if (left >= right || bottom >= top)
         {
             throw new InvalidOperationException(
-                $"{name}: º® ¿¬°á ¼ø¼­¿Í ÀüÅõ ¿µ¿ª Å©±â¸¦ È®ÀÎÇÏ¼¼¿ä.");
+                $"{name}: ë²½ ì—°ê²° ìˆœì„œì™€ ì „íˆ¬ ì˜ì—­ í¬ê¸°ë¥¼ í™•ì¸í•˜ì„¸ìš”.");
         }
 
         return Rect.MinMaxRect(left, bottom, right, top);
     }
 
-    // ±Õ¿­ À§Ä¡¿¡¼­ ÁöÁ¤ ¹æÇâÀ¸·Î ÁøÇàÇØ ¹İ´ëÆí °æ°è¿¡ ´ê´Â °Å¸®´Ù.
-    // ¹æÇâÀ» Á¤±ÔÈ­ÇÏ¹Ç·Î ¹İÈ¯°ªÀº ¿ùµå ´ÜÀ§ °Å¸®´Ù.
+    // ê· ì—´ ìœ„ì¹˜ì—ì„œ ì§€ì • ë°©í–¥ìœ¼ë¡œ ì§„í–‰í•´ ë°˜ëŒ€í¸ ê²½ê³„ì— ë‹¿ëŠ” ê±°ë¦¬ë‹¤.
+    // ë°©í–¥ì„ ì •ê·œí™”í•˜ë¯€ë¡œ ë°˜í™˜ê°’ì€ ì›”ë“œ ë‹¨ìœ„ ê±°ë¦¬ë‹¤.
     public float GetTravelDistance(Vector2 origin, Vector2 direction)
     {
         if (!Finite(origin.x) || !Finite(origin.y) ||
@@ -153,12 +155,12 @@ public sealed class BossAlienGrabArena : MonoBehaviour
             direction.sqrMagnitude < 0.0001f)
         {
             throw new ArgumentException(
-                "Ãæ°İÆÄ ½ÃÀÛ À§Ä¡¿Í ¹æÇâÀÌ À¯È¿ÇÏÁö ¾Ê½À´Ï´Ù.");
+                "ì¶©ê²©íŒŒ ì‹œì‘ ìœ„ì¹˜ì™€ ë°©í–¥ì´ ìœ íš¨í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
         }
 
         Rect area = GetInteriorRect();
 
-        // Ãæµ¹ À§Ä¡ °è»ê¿¡¼­ ¹ß»ıÇÒ ¼ö ÀÖ´Â ÀÛÀº ¿ÀÂ÷¸¸ Çã¿ëÇÑ´Ù.
+        // ì¶©ëŒ ìœ„ì¹˜ ê³„ì‚°ì—ì„œ ë°œìƒí•  ìˆ˜ ìˆëŠ” ì‘ì€ ì˜¤ì°¨ë§Œ í—ˆìš©í•œë‹¤.
         const float tolerance = 0.02f;
 
         if (origin.x < area.xMin - tolerance ||
@@ -167,12 +169,12 @@ public sealed class BossAlienGrabArena : MonoBehaviour
             origin.y > area.yMax + tolerance)
         {
             throw new ArgumentOutOfRangeException(
-                nameof(origin), "±Õ¿­ À§Ä¡°¡ ÀüÅõ ¿µ¿ª ¹Û¿¡ ÀÖ½À´Ï´Ù.");
+                nameof(origin), "ê· ì—´ ìœ„ì¹˜ê°€ ì „íˆ¬ ì˜ì—­ ë°–ì— ìˆìŠµë‹ˆë‹¤.");
         }
 
         direction.Normalize();
 
-        // °¢ ÃàÀÇ ÁøÇà ¹æÇâ¿¡ ÀÖ´Â °æ°è±îÁöÀÇ °Å¸®¸¦ ±¸ÇÑ´Ù.
+        // ê° ì¶•ì˜ ì§„í–‰ ë°©í–¥ì— ìˆëŠ” ê²½ê³„ê¹Œì§€ì˜ ê±°ë¦¬ë¥¼ êµ¬í•œë‹¤.
         float xDistance = float.PositiveInfinity;
         float yDistance = float.PositiveInfinity;
 
@@ -194,19 +196,19 @@ public sealed class BossAlienGrabArena : MonoBehaviour
             yDistance = (area.yMin - origin.y) / direction.y;
         }
 
-        // µÎ Ãà Áß ¸ÕÀú ¸¸³ª´Â °æ°è°¡ Ãæ°İÆÄÀÇ µµÂø ÁöÁ¡ÀÌ´Ù.
+        // ë‘ ì¶• ì¤‘ ë¨¼ì € ë§Œë‚˜ëŠ” ê²½ê³„ê°€ ì¶©ê²©íŒŒì˜ ë„ì°© ì§€ì ì´ë‹¤.
         float distance = Mathf.Min(xDistance, yDistance);
 
         if (!Finite(distance) || distance <= 0f)
         {
             throw new InvalidOperationException(
-                $"{name}: Ãæ°İÆÄ ¹æÇâÀÌ ÀüÅõ ¿µ¿ª ¾ÈÂÊÀ» ÇâÇÏ´ÂÁö È®ÀÎÇÏ¼¼¿ä.");
+                $"{name}: ì¶©ê²©íŒŒ ë°©í–¥ì´ ì „íˆ¬ ì˜ì—­ ì•ˆìª½ì„ í–¥í•˜ëŠ”ì§€ í™•ì¸í•˜ì„¸ìš”.");
         }
 
         return distance;
     }
 
-    // ÀÌ Arena ¾Æ·¡¿¡ ÀÖ´Â È°¼ºÈ­µÈ »ç°¢Çü °æ°è¸¸ Çã¿ëÇÑ´Ù.
+    // ì´ Arena ì•„ë˜ì— ìˆëŠ” í™œì„±í™”ëœ ì‚¬ê°í˜• ê²½ê³„ë§Œ í—ˆìš©í•œë‹¤.
     private void ValidateBoundary(BoxCollider2D boundary)
     {
         if (boundary == null ||
@@ -217,19 +219,19 @@ public sealed class BossAlienGrabArena : MonoBehaviour
                 LayerMask.NameToLayer("BossArenaBoundary"))
         {
             throw new InvalidOperationException(
-                $"{name}: ³× °æ°èÀÇ ¿¬°á¡¤È°¼º »óÅÂ¡¤Trigger¡¤·¹ÀÌ¾î¸¦ È®ÀÎÇÏ¼¼¿ä.");
+                $"{name}: ë„¤ ê²½ê³„ì˜ ì—°ê²°Â·í™œì„± ìƒíƒœÂ·TriggerÂ·ë ˆì´ì–´ë¥¼ í™•ì¸í•˜ì„¸ìš”.");
         }
 
-        // È¸ÀüµÈ º®ÀÇ bounds´Â ½ÇÁ¦ Ç¥¸é°ú ´Ù¸£¹Ç·Î »ç¿ëÇÏÁö ¾Ê´Â´Ù.
+        // íšŒì „ëœ ë²½ì˜ boundsëŠ” ì‹¤ì œ í‘œë©´ê³¼ ë‹¤ë¥´ë¯€ë¡œ ì‚¬ìš©í•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (Quaternion.Angle(
                 boundary.transform.rotation, Quaternion.identity) > 0.01f)
         {
             throw new InvalidOperationException(
-                $"{name}: ÀüÅõ °æ°èÀÇ ¿ùµå È¸ÀüÀº 0ÀÌ¾î¾ß ÇÕ´Ï´Ù.");
+                $"{name}: ì „íˆ¬ ê²½ê³„ì˜ ì›”ë“œ íšŒì „ì€ 0ì´ì–´ì•¼ í•©ë‹ˆë‹¤.");
         }
     }
 
-    // ÁÂÇ¥ °è»ê¿¡ »ç¿ëÇÒ ¼ö ÀÖ´Â À¯È¿ÇÑ ¼ıÀÚÀÎÁö È®ÀÎÇÑ´Ù.
+    // ì¢Œí‘œ ê³„ì‚°ì— ì‚¬ìš©í•  ìˆ˜ ìˆëŠ” ìœ íš¨í•œ ìˆ«ìì¸ì§€ í™•ì¸í•œë‹¤.
     private static bool Finite(float value)
     {
         return !float.IsNaN(value) && !float.IsInfinity(value);

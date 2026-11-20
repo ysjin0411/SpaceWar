@@ -1,51 +1,51 @@
-using System;
+ï»¿using System;
 using UnityEngine;
 
-// ÆÈ À§Ä¡°¡ °»½ÅµÈ ´ÙÀ½ ÇÃ·¹ÀÌ¾î¸¦ ¼Õ¿¡ ºÙÀÎ´Ù.
+// íŒ” ìœ„ì¹˜ê°€ ê°±ì‹ ëœ ë‹¤ìŒ í”Œë ˆì´ì–´ë¥¼ ì†ì— ë¶™ì¸ë‹¤.
 [DefaultExecutionOrder(200)]
 public sealed class BossAlienGrabController : MonoBehaviour
 {
-    // ¼ÕÀÇ Àâ±â À§Ä¡¿Í ¿­¸° ¼Õ¡¤´İÈù ¼Õ ÀÌ¹ÌÁö¸¦ °ü¸®ÇÑ´Ù.
+    // ì†ì˜ ì¡ê¸° ìœ„ì¹˜ì™€ ì—´ë¦° ì†Â·ë‹«íŒ ì† ì´ë¯¸ì§€ë¥¼ ê´€ë¦¬í•œë‹¤.
     [SerializeField] private BossAlienArmRig _armRig;
 
-    // »ç¸ÁÇÏ°Å³ª ºñÈ°¼ºÈ­µÇ¸é Àâ±â¸¦ ÇØÁ¦ÇÒ º¸½º´Ù.
+    // ì‚¬ë§í•˜ê±°ë‚˜ ë¹„í™œì„±í™”ë˜ë©´ ì¡ê¸°ë¥¼ í•´ì œí•  ë³´ìŠ¤ë‹¤.
     [SerializeField] private Boss_Alien _boss;
 
-    // ÇöÀç ÀÌµ¿ ±ÇÇÑÀ» °¡Áø ÇÃ·¹ÀÌ¾î´Ù.
+    // í˜„ì¬ ì´ë™ ê¶Œí•œì„ ê°€ì§„ í”Œë ˆì´ì–´ë‹¤.
     private PlayerController _player;
 
-    // ÀâÈù ¼ø°£ ÇÃ·¹ÀÌ¾î¿Í GrabPoint »çÀÌÀÇ °Å¸®´Ù.
+    // ì¡íŒ ìˆœê°„ í”Œë ˆì´ì–´ì™€ GrabPoint ì‚¬ì´ì˜ ê±°ë¦¬ë‹¤.
     private Vector2 _initialOffset;
 
-    // ¼Õ ¾ÈÀ¸·Î ºÎµå·´°Ô ºÙÀÌ´Â ½Ã°£°ú ÁøÇà ½Ã°£ÀÌ´Ù.
+    // ì† ì•ˆìœ¼ë¡œ ë¶€ë“œëŸ½ê²Œ ë¶™ì´ëŠ” ì‹œê°„ê³¼ ì§„í–‰ ì‹œê°„ì´ë‹¤.
     private float _attachDuration;
     private float _attachElapsed;
 
-    // ¼Õ ÃßÀû ÁßÀÌ¸é true, ´øÁö´Â µ¿¾È¿¡´Â false´Ù.
+    // ì† ì¶”ì  ì¤‘ì´ë©´ true, ë˜ì§€ëŠ” ë™ì•ˆì—ëŠ” falseë‹¤.
     private bool _followingHand;
 
-    // ÆĞÅÏÀÌ Àâ±â À¯Áö ¿©ºÎ¿Í ºÙÀÌ±â ¿Ï·á ¿©ºÎ¸¦ È®ÀÎÇÑ´Ù.
+    // íŒ¨í„´ì´ ì¡ê¸° ìœ ì§€ ì—¬ë¶€ì™€ ë¶™ì´ê¸° ì™„ë£Œ ì—¬ë¶€ë¥¼ í™•ì¸í•œë‹¤.
     public bool HasCapturedPlayer => _player != null;
     public bool IsAttached =>
         HasCapturedPlayer &&
         _followingHand &&
         _attachElapsed >= _attachDuration;
 
-    // ´øÁö±â °æ·ÎÀÇ ½ÃÀÛ À§Ä¡¸¦ ÀĞÀ» ¶§ »ç¿ëÇÑ´Ù.
+    // ë˜ì§€ê¸° ê²½ë¡œì˜ ì‹œì‘ ìœ„ì¹˜ë¥¼ ì½ì„ ë•Œ ì‚¬ìš©í•œë‹¤.
     public PlayerController CapturedPlayer => _player;
 
     private void Awake()
     {
-        // ÇÁ¸®ÆÕÀÇ ÇÊ¼ö ¿¬°áÀ» È®ÀÎÇÑ´Ù.
+        // í”„ë¦¬íŒ¹ì˜ í•„ìˆ˜ ì—°ê²°ì„ í™•ì¸í•œë‹¤.
         if (_boss == null || _armRig == null ||
             _armRig.GrabPoint == null)
         {
             throw new InvalidOperationException(
-                $"{name}: Boss¿Í Arm Rig¸¦ ¿¬°áÇÏ¼¼¿ä.");
+                $"{name}: Bossì™€ Arm Rigë¥¼ ì—°ê²°í•˜ì„¸ìš”.");
         }
     }
 
-    // ¼ÕÀÇ Á¢ÃË ÆÇÁ¤¿¡ ¼º°øÇÑ µÚ ÆĞÅÏÀÌ È£ÃâÇÑ´Ù.
+    // ì†ì˜ ì ‘ì´‰ íŒì •ì— ì„±ê³µí•œ ë’¤ íŒ¨í„´ì´ í˜¸ì¶œí•œë‹¤.
     public bool TryCapture(PlayerController player, float attachDuration)
     {
         if (float.IsNaN(attachDuration) ||
@@ -53,7 +53,7 @@ public sealed class BossAlienGrabController : MonoBehaviour
             attachDuration <= 0f)
         {
             throw new ArgumentOutOfRangeException(
-                nameof(attachDuration), "ºÙÀÌ±â ½Ã°£Àº 0º¸´Ù Ä¿¾ß ÇÕ´Ï´Ù.");
+                nameof(attachDuration), "ë¶™ì´ê¸° ì‹œê°„ì€ 0ë³´ë‹¤ ì»¤ì•¼ í•©ë‹ˆë‹¤.");
         }
 
         if (!isActiveAndEnabled ||
@@ -65,7 +65,7 @@ public sealed class BossAlienGrabController : MonoBehaviour
             return false;
         }
 
-        // ´Ù¸¥ ½Ã½ºÅÛÀÌ ÀÌ¹Ì Àâ°í ÀÖ´Ù¸é ±ÇÇÑÀ» »©¾ÑÁö ¾Ê´Â´Ù.
+        // ë‹¤ë¥¸ ì‹œìŠ¤í…œì´ ì´ë¯¸ ì¡ê³  ìˆë‹¤ë©´ ê¶Œí•œì„ ë¹¼ì•—ì§€ ì•ŠëŠ”ë‹¤.
         if (!player.TryBeginForcedMovement(this))
         {
             return false;
@@ -79,9 +79,10 @@ public sealed class BossAlienGrabController : MonoBehaviour
         _initialOffset = (Vector2)_player.transform.position -
             (Vector2)_armRig.GrabPoint.position;
 
-        // »ç¸Á ½Ã ½Ã°£ÀÌ ¸ØÃß´õ¶óµµ Áï½Ã Àâ±â¸¦ Á¤¸®ÇÑ´Ù.
+        // ì‚¬ë§ ì‹œ ì‹œê°„ì´ ë©ˆì¶”ë”ë¼ë„ ì¦‰ì‹œ ì¡ê¸°ë¥¼ ì •ë¦¬í•œë‹¤.
         _player.Died += Release;
         _armRig.SetHandClosed(true);
+        GameAudio.Play(GameSound.AlienGrabCatch); // ì‹¤ì œ ì¡ê¸° ì„±ê³µ.
         return true;
     }
 
@@ -92,7 +93,7 @@ public sealed class BossAlienGrabController : MonoBehaviour
             return;
         }
 
-        // ´øÁö´Â µµÁß¿¡µµ º¸½º¿Í ÇÃ·¹ÀÌ¾î »óÅÂ¸¦ °Ë»çÇÑ´Ù.
+        // ë˜ì§€ëŠ” ë„ì¤‘ì—ë„ ë³´ìŠ¤ì™€ í”Œë ˆì´ì–´ ìƒíƒœë¥¼ ê²€ì‚¬í•œë‹¤.
         if (_boss == null ||
             !_boss.isActiveAndEnabled ||
             _boss.IsDead ||
@@ -111,21 +112,21 @@ public sealed class BossAlienGrabController : MonoBehaviour
         _attachElapsed = Mathf.Min(
             _attachElapsed + Time.deltaTime, _attachDuration);
 
-        // ÃÊ±â °Å¸®¸¸ ¼­¼­È÷ ÁÙ¿© ¿òÁ÷ÀÌ´Â ¼Õ¿¡µµ ÀÚ¿¬½º·´°Ô ºÙÀÎ´Ù.
+        // ì´ˆê¸° ê±°ë¦¬ë§Œ ì„œì„œíˆ ì¤„ì—¬ ì›€ì§ì´ëŠ” ì†ì—ë„ ìì—°ìŠ¤ëŸ½ê²Œ ë¶™ì¸ë‹¤.
         float progress = _attachElapsed / _attachDuration;
         float remaining = 1f - Mathf.SmoothStep(0f, 1f, progress);
 
         Vector2 position = (Vector2)_armRig.GrabPoint.position +
             _initialOffset * remaining;
 
-        // ºÙÀÌ±â°¡ ³¡³ª¸é ¸Å ÇÁ·¹ÀÓ GrabPoint À§Ä¡¸¦ ±×´ë·Î µû¸¥´Ù.
+        // ë¶™ì´ê¸°ê°€ ëë‚˜ë©´ ë§¤ í”„ë ˆì„ GrabPoint ìœ„ì¹˜ë¥¼ ê·¸ëŒ€ë¡œ ë”°ë¥¸ë‹¤.
         if (!_player.TrySetForcedPosition(this, position))
         {
             Release();
         }
     }
 
-    // ´øÁö±â ÀÌº¥Æ®¿¡¼­ È£ÃâÇÑ´Ù. Á¶ÀÛ Àá±İÀº º® µµÂø±îÁö À¯ÁöÇÑ´Ù.
+    // ë˜ì§€ê¸° ì´ë²¤íŠ¸ì—ì„œ í˜¸ì¶œí•œë‹¤. ì¡°ì‘ ì ê¸ˆì€ ë²½ ë„ì°©ê¹Œì§€ ìœ ì§€í•œë‹¤.
     public bool BeginThrow()
     {
         if (!IsAttached)
@@ -135,10 +136,11 @@ public sealed class BossAlienGrabController : MonoBehaviour
 
         _followingHand = false;
         _armRig.SetHandClosed(false);
+        GameAudio.Play(GameSound.AlienGrabThrow); // ì‹¤ì œ ë˜ì§€ê¸° ì‹œì‘.
         return true;
     }
 
-    // ´øÁö±â Áß ÆĞÅÏÀÌ °è»êÇÑ À§Ä¡¸¦ ÇÃ·¹ÀÌ¾î¿¡°Ô Àü´ŞÇÑ´Ù.
+    // ë˜ì§€ê¸° ì¤‘ íŒ¨í„´ì´ ê³„ì‚°í•œ ìœ„ì¹˜ë¥¼ í”Œë ˆì´ì–´ì—ê²Œ ì „ë‹¬í•œë‹¤.
     public bool TryMoveThrownPlayer(Vector2 position)
     {
         if (!HasCapturedPlayer || _followingHand)
@@ -155,10 +157,10 @@ public sealed class BossAlienGrabController : MonoBehaviour
         return true;
     }
 
-    // Á¤»ó Á¾·á¡¤ÆĞÅÏ Ãë¼Ò¡¤»ç¸Á¿¡¼­ °øÅëÀ¸·Î È£ÃâÇÑ´Ù.
+    // ì •ìƒ ì¢…ë£ŒÂ·íŒ¨í„´ ì·¨ì†ŒÂ·ì‚¬ë§ì—ì„œ ê³µí†µìœ¼ë¡œ í˜¸ì¶œí•œë‹¤.
     public void Release()
     {
-        // ÀÌº¥Æ® Ã³¸® Áß ´Ù½Ã È£ÃâµÅµµ ¾ÈÀüÇÏ°Ô ÂüÁ¶¸¦ ¸ÕÀú ºñ¿î´Ù.
+        // ì´ë²¤íŠ¸ ì²˜ë¦¬ ì¤‘ ë‹¤ì‹œ í˜¸ì¶œë¼ë„ ì•ˆì „í•˜ê²Œ ì°¸ì¡°ë¥¼ ë¨¼ì € ë¹„ìš´ë‹¤.
         PlayerController player = _player;
         _player = null;
         _followingHand = false;
@@ -177,7 +179,7 @@ public sealed class BossAlienGrabController : MonoBehaviour
 
     private void OnDisable()
     {
-        // ÄÄÆ÷³ÍÆ®°¡ ²¨Á®µµ ÇÃ·¹ÀÌ¾î Á¶ÀÛ Àá±İÀ» ³²±âÁö ¾Ê´Â´Ù.
+        // ì»´í¬ë„ŒíŠ¸ê°€ êº¼ì ¸ë„ í”Œë ˆì´ì–´ ì¡°ì‘ ì ê¸ˆì„ ë‚¨ê¸°ì§€ ì•ŠëŠ”ë‹¤.
         Release();
     }
 }

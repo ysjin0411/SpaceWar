@@ -26,8 +26,8 @@ MonoBehaviour:
   _playerSpriteLibrary: {fileID: 7108339969198208228, guid: 871250447aca08d42a766a71ce8143c3, type: 3}
   _characterSelectPreviewScale: 1
   _characterSelectPreviewOffset: {x: 0, y: 0}
-  _baseDamage: 10
-  _baseCooltime: 1
+  _baseDamage: 110
+  _baseCooltime: 1.2
   _maximumChargeCount: 0
   _chargeRecoveryTime: 5
   _chargeRecoveryUpgradeValue: 0.5
@@ -36,14 +36,18 @@ MonoBehaviour:
   _shieldRecoveryPerSecond: 5
   _shieldRepairAmount: 100
   _shieldRecoveryUpgradeValue: 1
-  _price: 2000
-  _requiredCharacterLevel: 10
+  _price: 1600
+  _requiredCharacterLevel: 6
   _isInitiallyOwned: 0
-  _fireRateUpgradeValue: 0.01
-  _minimumCooltime: 0.05
-  _info: "\uC804\uBC29\uC744 \uD5A5\uD574 \uC801\uC744 \uAD00\uD1B5\uD558\uB294 \uD0C4\uD658\uC744
-    \uBC1C\uC0AC\uD55C\uB2E4."
-  _upgradeSelectionInfo: "Sniper\uB97C \uAC15\uD654\uD55C\uB2E4."
-  _weaponMoveSpeed: 4
+  _fireRateUpgradeValue: 0.08
+  _minimumCooltime: 0.72
+  _info: "\uAC15\uD55C \uB2E8\uBC1C \uAD00\uD1B5 \uACF5\uACA9. \uAE30\uBCF8 \uD53C\uD574
+    110, \uBC1C\uC0AC \uAC04\uACA9 1.2\uCD08."
+  _damageUpgradeSelectionInfo: "공격력은 기본 피해의 15%씩 증가합니다."
+  _fireRateUpgradeSelectionInfo: "연사 강화는 발사 간격을 0.08초 줄입니다."
+  _meleeFirstDamage: 30
+  _meleeSecondDamage: 30
+  _meleeThirdDamage: 30
+  _weaponMoveSpeed: 5.8
   _lazerHitsPerSecond: 10
   _lazerHitsPerSecondUpgrade: 1

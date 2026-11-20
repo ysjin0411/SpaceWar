@@ -269,7 +269,8 @@ public class UpgradeSelectionView : MonoBehaviour
     /// null 무기 슬롯은 생성하지 않는다.
     /// </summary>
     public void ShowWeaponChoices(
-        IReadOnlyList<WeaponData> equippedWeapons)
+        IReadOnlyList<WeaponData> equippedWeapons,
+        UpgradeType upgradeType)
     {
         if (equippedWeapons == null)
         {
@@ -313,7 +314,8 @@ public class UpgradeSelectionView : MonoBehaviour
             // 표시 번호와 클릭 결과 모두 실제 장착 슬롯 번호를 사용한다.
             slotView.Bind(
                 weaponSlotIndex,
-                weaponData);
+                weaponData,
+                upgradeType);
 
             slotView.Clicked += HandleWeaponSlotClicked;
 

@@ -1,65 +1,65 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System.Collections.Generic;
 
-// ´ëÈ­ µ¥ÀÌÅÍ¿Í View¸¦ ¿¬°áÇÏ°í ´ëÈ­ ÁøÇàÀ» °ü¸®ÇÑ´Ù.
+// ëŒ€í™” ë°ì´í„°ì™€ Viewë¥¼ ì—°ê²°í•˜ê³  ëŒ€í™” ì§„í–‰ì„ ê´€ë¦¬í•œë‹¤.
 public class NpcDialoguePresenter : MonoBehaviour
 {
-    // È­¸é Ç¥½Ã¿Í Å¬¸¯ Àü´ŞÀ» ´ã´çÇÏ´Â View.
+    // í™”ë©´ í‘œì‹œì™€ í´ë¦­ ì „ë‹¬ì„ ë‹´ë‹¹í•˜ëŠ” View.
     [SerializeField] private NpcDialogueUI _view;
 
-    // Äù½ºÆ® ÀÌ¸§ ¸ñ·Ï°ú º¹±Í ¹öÆ°À» Ç¥½ÃÇÏ´Â View.
+    // í€˜ìŠ¤íŠ¸ ì´ë¦„ ëª©ë¡ê³¼ ë³µê·€ ë²„íŠ¼ì„ í‘œì‹œí•˜ëŠ” View.
     [SerializeField] private NpcQuestListView _questListView;
 
-    // Äù½ºÆ® ¼³¸í ¿Ï·á ÈÄ ¼ö¶ô¡¤°ÅÀıÀ» Ç¥½ÃÇÒ View.
+    // í€˜ìŠ¤íŠ¸ ì„¤ëª… ì™„ë£Œ í›„ ìˆ˜ë½Â·ê±°ì ˆì„ í‘œì‹œí•  View.
     [SerializeField] private NpcQuestDecisionView _decisionView;
 
-    // NPC ±â´É Ã¢À» ¿­°í Á¶ÀÛ Àá±İÀ» ÀÌ¾î¹ŞÀ» Presenter.
+    // NPC ê¸°ëŠ¥ ì°½ì„ ì—´ê³  ì¡°ì‘ ì ê¸ˆì„ ì´ì–´ë°›ì„ Presenter.
     [SerializeField] private TownNpcActionPresenter _actionPresenter;
 
-    // ÃÊ´ç Ç¥½ÃÇÒ ±ÛÀÚ ¼ö. Inspector¿¡¼­ Á¶ÀıÇÑ´Ù.
+    // ì´ˆë‹¹ í‘œì‹œí•  ê¸€ì ìˆ˜. Inspectorì—ì„œ ì¡°ì ˆí•œë‹¤.
     [SerializeField, Min(1f)]
     private float _charactersPerSecond = 40f;
 
-    // NPC ´ëÈ­Ã¢¿¡¼­ ¹ŞÀ» º¸»óÀ» Ç¥½ÃÇÏ´Â ¸ñ·Ï.
+    // NPC ëŒ€í™”ì°½ì—ì„œ ë°›ì„ ë³´ìƒì„ í‘œì‹œí•˜ëŠ” ëª©ë¡.
     [SerializeField] private QuestRewardListView _rewardView;
 
-    // ÇöÀç »ç¿ëÇÏ´Â ´ëÈ­ µ¥ÀÌÅÍ¿Í ´ë»ó.
+    // í˜„ì¬ ì‚¬ìš©í•˜ëŠ” ëŒ€í™” ë°ì´í„°ì™€ ëŒ€ìƒ.
     private DialogueData _data;
     private TownNpc _currentNpc;
     private TownPlayerController _lockedPlayer;
 
-    // ÇöÀç NPC¿¡°Ô ¼±ÅÃÇØ¼­ ´ëÈ­ÇÒ ¼ö ÀÖ´Â Äù½ºÆ® ¸ñ·Ï.
+    // í˜„ì¬ NPCì—ê²Œ ì„ íƒí•´ì„œ ëŒ€í™”í•  ìˆ˜ ìˆëŠ” í€˜ìŠ¤íŠ¸ ëª©ë¡.
     private readonly List<QuestData> _dialogueQuests =
         new List<QuestData>();
 
-    // ¼±ÅÃÇÑ Äù½ºÆ®. ¾øÀ¸¸é ÀÏ¹İ ´ëÈ­¸¦ Ç¥½Ã ÁßÀÌ´Ù.
+    // ì„ íƒí•œ í€˜ìŠ¤íŠ¸. ì—†ìœ¼ë©´ ì¼ë°˜ ëŒ€í™”ë¥¼ í‘œì‹œ ì¤‘ì´ë‹¤.
     private QuestData _selectedQuest;
 
-    // ÇöÀç ÁÙ°ú ±ÛÀÚ Ãâ·Â ÁøÇà »óÅÂ.
+    // í˜„ì¬ ì¤„ê³¼ ê¸€ì ì¶œë ¥ ì§„í–‰ ìƒíƒœ.
     private int _lineIndex;
     private int _characterCount;
     private int _visibleCharacters;
     private float _characterProgress;
 
-    // ´ëÈ­¸¦ ¿­ ¶§ ÇÃ·¹ÀÌ¾îÀÇ »óÈ£ÀÛ¿ë Å°¸¦ Àü´Ş¹Ş´Â´Ù.
+    // ëŒ€í™”ë¥¼ ì—´ ë•Œ í”Œë ˆì´ì–´ì˜ ìƒí˜¸ì‘ìš© í‚¤ë¥¼ ì „ë‹¬ë°›ëŠ”ë‹¤.
     private KeyCode _interactionKey;
 
-    // °°Àº ÇÁ·¹ÀÓÀÇ Å¬¸¯°ú Å° ÀÔ·ÂÀÌ Áßº¹ Ã³¸®µÇÁö ¾Êµµ·Ï ÇÑ´Ù.
+    // ê°™ì€ í”„ë ˆì„ì˜ í´ë¦­ê³¼ í‚¤ ì…ë ¥ì´ ì¤‘ë³µ ì²˜ë¦¬ë˜ì§€ ì•Šë„ë¡ í•œë‹¤.
     private int _lastAdvanceFrame = -1;
 
-    // ´İÀº ÇÁ·¹ÀÓ¿¡ °°Àº ÀÔ·ÂÀ¸·Î ´Ù½Ã ¿­¸®´Â °ÍÀ» ¸·´Â´Ù.
+    // ë‹«ì€ í”„ë ˆì„ì— ê°™ì€ ì…ë ¥ìœ¼ë¡œ ë‹¤ì‹œ ì—´ë¦¬ëŠ” ê²ƒì„ ë§‰ëŠ”ë‹¤.
     private int _lastCloseFrame = -1;
 
-    // ¼ö¶ô¡¤°ÅÀı Á÷ÈÄÀÇ ÇÑ ÁÙ ÀÀ´ä ´ë»ç¸¦ Ç¥½Ã ÁßÀÎÁö ±¸ºĞÇÑ´Ù.
+    // ìˆ˜ë½Â·ê±°ì ˆ ì§í›„ì˜ í•œ ì¤„ ì‘ë‹µ ëŒ€ì‚¬ë¥¼ í‘œì‹œ ì¤‘ì¸ì§€ êµ¬ë¶„í•œë‹¤.
     private bool _isDecisionResponse;
 
-    // ¿ÜºÎ¿¡¼­ ´ëÈ­ ÁøÇà ¿©ºÎ¸¦ È®ÀÎÇÑ´Ù.
+    // ì™¸ë¶€ì—ì„œ ëŒ€í™” ì§„í–‰ ì—¬ë¶€ë¥¼ í™•ì¸í•œë‹¤.
     public bool IsOpen { get; private set; }
 
-    // ¾ÆÁ÷ ÇöÀç ¹®ÀåÀ» ÀüºÎ Ç¥½ÃÇÏÁö ¾Ê¾Ò´ÂÁö È®ÀÎÇÑ´Ù.
+    // ì•„ì§ í˜„ì¬ ë¬¸ì¥ì„ ì „ë¶€ í‘œì‹œí•˜ì§€ ì•Šì•˜ëŠ”ì§€ í™•ì¸í•œë‹¤.
     private bool IsTyping => _visibleCharacters < _characterCount;
 
-    // ½ÃÀÛ °¡´ÉÇÑ Äù½ºÆ®ÀÇ ¼Ò°³ ´ëÈ­¸¦ ³¡±îÁö ÀĞ¾úÀ» ¶§¸¸ ¼ö¶ô¡¤°ÅÀıÀ» Çã¿ëÇÑ´Ù.
+    // ì‹œì‘ ê°€ëŠ¥í•œ í€˜ìŠ¤íŠ¸ì˜ ì†Œê°œ ëŒ€í™”ë¥¼ ëê¹Œì§€ ì½ì—ˆì„ ë•Œë§Œ ìˆ˜ë½Â·ê±°ì ˆì„ í—ˆìš©í•œë‹¤.
     private bool CanDecideQuest =>
         IsOpen &&
         !_isDecisionResponse &&
@@ -70,33 +70,33 @@ public class NpcDialoguePresenter : MonoBehaviour
         !IsTyping &&
         _lineIndex == _data.LineCount - 1;
 
-    // ÇÊ¿äÇÑ View ¿¬°áÀ» È®ÀÎÇÑ´Ù.
+    // í•„ìš”í•œ View ì—°ê²°ì„ í™•ì¸í•œë‹¤.
     private void Awake()
     {
         if (_view == null ||
             _questListView == null ||
             _decisionView == null ||
-            // ´ëÈ­Ã¢ º¸»ó ¸ñ·ÏÀÇ ¿¬°áµµ °Ë»çÇÑ´Ù.
+            // ëŒ€í™”ì°½ ë³´ìƒ ëª©ë¡ì˜ ì—°ê²°ë„ ê²€ì‚¬í•œë‹¤.
             _rewardView == null ||
             !_rewardView.IsConfigured)
         {
             Debug.LogError(
-                "NpcDialoguePresenterÀÇ View ¿¬°áÀ» ¸ğµÎ È®ÀÎÇØÁÖ¼¼¿ä.", this);
+                "NpcDialoguePresenterì˜ View ì—°ê²°ì„ ëª¨ë‘ í™•ì¸í•´ì£¼ì„¸ìš”.", this);
 
             enabled = false;
             return;
         }
 
-        // Ã¹ ´ëÈ­¸¦ ½ÃÀÛÇÏ±â Àü¿¡´Â º¸»ó ¿µ¿ªÀ» ¼û±ä´Ù.
+        // ì²« ëŒ€í™”ë¥¼ ì‹œì‘í•˜ê¸° ì „ì—ëŠ” ë³´ìƒ ì˜ì—­ì„ ìˆ¨ê¸´ë‹¤.
         _rewardView.Hide();
     }
 
-    // È­¸é¿¡¼­ ¹ß»ıÇÑ ÀÔ·ÂÀ» ±¸µ¶ÇÑ´Ù.
+    // í™”ë©´ì—ì„œ ë°œìƒí•œ ì…ë ¥ì„ êµ¬ë…í•œë‹¤.
     private void OnEnable()
     {
         if (_view != null)
         {
-            // ´ëÈ­ View¿¡¼­ ¹ß»ıÇÑ ÀÔ·ÂÀ» ±¸µ¶ÇÑ´Ù.
+            // ëŒ€í™” Viewì—ì„œ ë°œìƒí•œ ì…ë ¥ì„ êµ¬ë…í•œë‹¤.
             _view.AdvanceRequested += Advance;
             _view.CloseRequested += Close;
             _view.ActionRequested += HandleActionRequested;
@@ -107,21 +107,21 @@ public class NpcDialoguePresenter : MonoBehaviour
             _questListView.QuestSelected += HandleQuestSelected;
         }
 
-        // ¼ö¶ôÀº ÀúÀå Ã³¸®·Î, °ÅÀıÀº ÀÏ¹İ È­¸é º¹±Í·Î ¿¬°áÇÑ´Ù.
+        // ìˆ˜ë½ì€ ì €ì¥ ì²˜ë¦¬ë¡œ, ê±°ì ˆì€ ì¼ë°˜ í™”ë©´ ë³µê·€ë¡œ ì—°ê²°í•œë‹¤.
         if (_decisionView != null)
         {
             _decisionView.AcceptRequested += HandleAcceptQuest;
-            // °ÅÀı ¸àÆ®¸¦ Ç¥½ÃÇÏ´Â ¸Ş¼­µå·Î ¿¬°áÇÑ´Ù.
+            // ê±°ì ˆ ë©˜íŠ¸ë¥¼ í‘œì‹œí•˜ëŠ” ë©”ì„œë“œë¡œ ì—°ê²°í•œë‹¤.
             _decisionView.DeclineRequested += HandleDeclineQuest;
         }
     }
 
-    // ÀÔ·Â ±¸µ¶°ú ÁøÇà ÁßÀÎ ´ëÈ­¸¦ Á¤¸®ÇÑ´Ù.
+    // ì…ë ¥ êµ¬ë…ê³¼ ì§„í–‰ ì¤‘ì¸ ëŒ€í™”ë¥¼ ì •ë¦¬í•œë‹¤.
     private void OnDisable()
     {
         if (_view != null)
         {
-            // µî·ÏÇß´ø ´ëÈ­ View ÀÔ·ÂÀ» ÇØÁ¦ÇÑ´Ù.
+            // ë“±ë¡í–ˆë˜ ëŒ€í™” View ì…ë ¥ì„ í•´ì œí•œë‹¤.
             _view.AdvanceRequested -= Advance;
             _view.CloseRequested -= Close;
             _view.ActionRequested -= HandleActionRequested;
@@ -132,18 +132,18 @@ public class NpcDialoguePresenter : MonoBehaviour
             _questListView.QuestSelected -= HandleQuestSelected;
         }
 
-        // µî·ÏÇÑ ¼±ÅÃ ÀÌº¥Æ®¸¦ ÇØÁ¦ÇÑ´Ù.
+        // ë“±ë¡í•œ ì„ íƒ ì´ë²¤íŠ¸ë¥¼ í•´ì œí•œë‹¤.
         if (_decisionView != null)
         {
             _decisionView.AcceptRequested -= HandleAcceptQuest;
-            // µî·ÏÇÑ µ¿ÀÏÇÑ ¸Ş¼­µå¸¦ ÇØÁ¦ÇÑ´Ù.
+            // ë“±ë¡í•œ ë™ì¼í•œ ë©”ì„œë“œë¥¼ í•´ì œí•œë‹¤.
             _decisionView.DeclineRequested -= HandleDeclineQuest;
         }
 
         Close();
     }
 
-    // ´ëÈ­ »óÅÂ¿Í ÀÔ·ÂÀ» È®ÀÎÇÏ°í Å¸ÀÌÇÎ ¹× °áÁ¤ ¹öÆ°À» °»½ÅÇÑ´Ù.
+    // ëŒ€í™” ìƒíƒœì™€ ì…ë ¥ì„ í™•ì¸í•˜ê³  íƒ€ì´í•‘ ë° ê²°ì • ë²„íŠ¼ì„ ê°±ì‹ í•œë‹¤.
     private void Update()
     {
         if (!IsOpen)
@@ -173,7 +173,7 @@ public class NpcDialoguePresenter : MonoBehaviour
 
         if (IsTyping)
         {
-            // ÇÁ·¹ÀÓ ¼Óµµ¿Í °ü°è¾øÀÌ ÀÏÁ¤ÇÑ ¼Óµµ·Î ±ÛÀÚ¸¦ Ç¥½ÃÇÑ´Ù.
+            // í”„ë ˆì„ ì†ë„ì™€ ê´€ê³„ì—†ì´ ì¼ì •í•œ ì†ë„ë¡œ ê¸€ìë¥¼ í‘œì‹œí•œë‹¤.
             _characterProgress +=
                 Mathf.Max(1f, _charactersPerSecond) * Time.unscaledDeltaTime;
 
@@ -183,13 +183,13 @@ public class NpcDialoguePresenter : MonoBehaviour
             _view.SetVisibleCharacterCount(_visibleCharacters);
         }
 
-        // ¸¶Áö¸· ¹®ÀåÀÇ Å¸ÀÌÇÎÀÌ ³¡³­ ½ÃÁ¡¿¡ Ç¥½ÃÇÑ´Ù.
+        // ë§ˆì§€ë§‰ ë¬¸ì¥ì˜ íƒ€ì´í•‘ì´ ëë‚œ ì‹œì ì— í‘œì‹œí•œë‹¤.
         _decisionView.SetVisible(CanDecideQuest);
-        // Å¸ÀÌÇÎ ¿Ï·á¿Í Äù½ºÆ® »óÅÂ¿¡ ¸ÂÃç º¸»ó Ç¥½Ã¸¦ °»½ÅÇÑ´Ù.
+        // íƒ€ì´í•‘ ì™„ë£Œì™€ í€˜ìŠ¤íŠ¸ ìƒíƒœì— ë§ì¶° ë³´ìƒ í‘œì‹œë¥¼ ê°±ì‹ í•œë‹¤.
         RefreshRewardView();
     }
 
-    // ÀÏ¹İ ´ëÈ­¸¦ ¿­°í ÇöÀç ·¹º§¿¡ ¸Â´Â Äù½ºÆ® ¸ñ·ÏÀ» Ç¥½ÃÇÑ´Ù.
+    // ì¼ë°˜ ëŒ€í™”ë¥¼ ì—´ê³  í˜„ì¬ ë ˆë²¨ì— ë§ëŠ” í€˜ìŠ¤íŠ¸ ëª©ë¡ì„ í‘œì‹œí•œë‹¤.
     public bool TryOpen(
         TownNpc npc,
         TownPlayerController player,
@@ -214,7 +214,7 @@ public class NpcDialoguePresenter : MonoBehaviour
         if (data == null || !data.TryGetLine(0, out DialogueLine firstLine))
         {
             Debug.LogWarning(
-                "NPCÀÇ Default Dialogue¿Í ¶óÀÎ ¹è¿­À» È®ÀÎÇØÁÖ¼¼¿ä.", npc);
+                "NPCì˜ Default Dialogueì™€ ë¼ì¸ ë°°ì—´ì„ í™•ì¸í•´ì£¼ì„¸ìš”.", npc);
 
             return false;
         }
@@ -222,22 +222,22 @@ public class NpcDialoguePresenter : MonoBehaviour
         if (npc.DialogueVisual == null)
         {
             Debug.LogWarning(
-                "NPCÀÇ Dialogue VisualÀ» ¿¬°áÇØÁÖ¼¼¿ä.", npc);
+                "NPCì˜ Dialogue Visualì„ ì—°ê²°í•´ì£¼ì„¸ìš”.", npc);
 
             return false;
         }
 
-        // ÀÌ¹ø¿¡ ½ÃÀÛÇÒ ´ëÈ­¿Í NPC, ÇÃ·¹ÀÌ¾î¸¦ ÀúÀåÇÑ´Ù.
+        // ì´ë²ˆì— ì‹œì‘í•  ëŒ€í™”ì™€ NPC, í”Œë ˆì´ì–´ë¥¼ ì €ì¥í•œë‹¤.
         _data = data;
         _currentNpc = npc;
         _lockedPlayer = player;
         _interactionKey = interactionKey;
 
-        // »õ ´ëÈ­´Â Äù½ºÆ® ¼±ÅÃ°ú ÀÀ´ä Ç¥½Ã°¡ ¾ø´Â »óÅÂ·Î ½ÃÀÛÇÑ´Ù.
+        // ìƒˆ ëŒ€í™”ëŠ” í€˜ìŠ¤íŠ¸ ì„ íƒê³¼ ì‘ë‹µ í‘œì‹œê°€ ì—†ëŠ” ìƒíƒœë¡œ ì‹œì‘í•œë‹¤.
         _selectedQuest = null;
-        _isDecisionResponse = false; // Ãß°¡ÇÒ ÁÙ.
+        _isDecisionResponse = false; // ì¶”ê°€í•  ì¤„.
 
-        // Ã¹ ¹øÂ° ´ë»çºÎÅÍ ½ÃÀÛÇÏ°í °°Àº ÇÁ·¹ÀÓÀÇ Áßº¹ ÀÔ·ÂÀ» ¸·´Â´Ù.
+        // ì²« ë²ˆì§¸ ëŒ€ì‚¬ë¶€í„° ì‹œì‘í•˜ê³  ê°™ì€ í”„ë ˆì„ì˜ ì¤‘ë³µ ì…ë ¥ì„ ë§‰ëŠ”ë‹¤.
         _lineIndex = 0;
         _lastAdvanceFrame = Time.frameCount;
 
@@ -248,10 +248,11 @@ public class NpcDialoguePresenter : MonoBehaviour
         BeginLine(firstLine);
 
         RefreshQuestList();
+        GameAudio.Play(GameSound.NpcDialogueOpen);
         return true;
     }
 
-    // ÀÏ¹İ ´ëÈ­¿¡¼­ NPC °íÀ¯ ±â´ÉÀ» ½ÇÇàÇÑ´Ù.
+    // ì¼ë°˜ ëŒ€í™”ì—ì„œ NPC ê³ ìœ  ê¸°ëŠ¥ì„ ì‹¤í–‰í•œë‹¤.
     private void HandleActionRequested()
     {
         if (!IsOpen ||
@@ -265,29 +266,29 @@ public class NpcDialoguePresenter : MonoBehaviour
         if (_actionPresenter == null)
         {
             Debug.LogError(
-                "NpcDialoguePresenterÀÇ Action Presenter¸¦ ¿¬°áÇØÁÖ¼¼¿ä.",
+                "NpcDialoguePresenterì˜ Action Presenterë¥¼ ì—°ê²°í•´ì£¼ì„¸ìš”.",
                 this);
 
             return;
         }
 
-        // ±â´É Ã¢ÀÌ ¿­¸®Áö ¾Ê¾Ò´Ù¸é ÇöÀç ´ëÈ­¸¦ À¯ÁöÇÑ´Ù.
+        // ê¸°ëŠ¥ ì°½ì´ ì—´ë¦¬ì§€ ì•Šì•˜ë‹¤ë©´ í˜„ì¬ ëŒ€í™”ë¥¼ ìœ ì§€í•œë‹¤.
         if (!_actionPresenter.TryOpen(
                 _currentNpc.ActionType, _lockedPlayer))
         {
             return;
         }
 
-        // ±â´É Presenter°¡ Á¶ÀÛ Àá±İÀ» ³Ñ°Ü¹Ş¾Ò´Ù.
-        // ¾Æ·¡ Close()¿¡¼­ Á¶ÀÛÀ» Ç®Áö ¾Êµµ·Ï ÂüÁ¶¸¦ ºñ¿î´Ù.
+        // ê¸°ëŠ¥ Presenterê°€ ì¡°ì‘ ì ê¸ˆì„ ë„˜ê²¨ë°›ì•˜ë‹¤.
+        // ì•„ë˜ Close()ì—ì„œ ì¡°ì‘ì„ í’€ì§€ ì•Šë„ë¡ ì°¸ì¡°ë¥¼ ë¹„ìš´ë‹¤.
         _lockedPlayer = null;
 
-        // ´ëÈ­ UI¿Í ´ëÈ­ µ¥ÀÌÅÍ¸¸ Á¤¸®ÇÑ´Ù.
+        // ëŒ€í™” UIì™€ ëŒ€í™” ë°ì´í„°ë§Œ ì •ë¦¬í•œë‹¤.
         Close();
     }
 
-    // ÀÏ¹İ ´ëÈ­¿¡¼­´Â NPC °íÀ¯ ±â´ÉÀ» Ç¥½ÃÇÑ´Ù.
-    // Äù½ºÆ® ¼³¸í ÁßÀÌ°Å³ª ±â´ÉÀÌ ¾ø´Â NPC¶ó¸é ¼û±ä´Ù.
+    // ì¼ë°˜ ëŒ€í™”ì—ì„œëŠ” NPC ê³ ìœ  ê¸°ëŠ¥ì„ í‘œì‹œí•œë‹¤.
+    // í€˜ìŠ¤íŠ¸ ì„¤ëª… ì¤‘ì´ê±°ë‚˜ ê¸°ëŠ¥ì´ ì—†ëŠ” NPCë¼ë©´ ìˆ¨ê¸´ë‹¤.
     private void RefreshActionButton()
     {
         if (!IsOpen ||
@@ -303,15 +304,15 @@ public class NpcDialoguePresenter : MonoBehaviour
         switch (_currentNpc.ActionType)
         {
             case NpcActionType.Shop:
-                label = "»óÁ¡ ÀÌ¿ëÇÏ±â";
+                label = "ìƒì  ì´ìš©í•˜ê¸°";
                 break;
 
             case NpcActionType.Stage:
-                label = "½ºÅ×ÀÌÁö ¼±ÅÃÇÏ±â";
+                label = "ìŠ¤í…Œì´ì§€ ì„ íƒí•˜ê¸°";
                 break;
 
             case NpcActionType.Achievement:
-                label = "¾÷Àû È®ÀÎÇÏ±â";
+                label = "ì—…ì  í™•ì¸í•˜ê¸°";
                 break;
 
             default:
@@ -322,27 +323,27 @@ public class NpcDialoguePresenter : MonoBehaviour
         _view.SetAction(label, true);
     }
 
-    // »õ ´ë»ç¸¦ ½ÃÀÛÇÏ°í ÇöÀç ´ëÈ­ Á¾·ù¿¡ ¸ÂÃç ¹öÆ°À» °»½ÅÇÑ´Ù.
+    // ìƒˆ ëŒ€ì‚¬ë¥¼ ì‹œì‘í•˜ê³  í˜„ì¬ ëŒ€í™” ì¢…ë¥˜ì— ë§ì¶° ë²„íŠ¼ì„ ê°±ì‹ í•œë‹¤.
     private void BeginLine(DialogueLine line)
     {
-        // »õ ´ë»ç³ª ¼ö¶ô¡¤°ÅÀı¡¤¼ö·É ÀÀ´äÀ¸·Î ¹Ù²î¸é Áï½Ã ¼û±ä´Ù.
+        // ìƒˆ ëŒ€ì‚¬ë‚˜ ìˆ˜ë½Â·ê±°ì ˆÂ·ìˆ˜ë ¹ ì‘ë‹µìœ¼ë¡œ ë°”ë€Œë©´ ì¦‰ì‹œ ìˆ¨ê¸´ë‹¤.
         _rewardView.Hide();
 
-        // Äù½ºÆ® ¼ö¶ô¡¤°ÅÀıÀº ¸¶Áö¸· ÁÙÀ» ¸ğµÎ Ãâ·ÂÇÑ µÚ Ç¥½ÃÇÑ´Ù.
+        // í€˜ìŠ¤íŠ¸ ìˆ˜ë½Â·ê±°ì ˆì€ ë§ˆì§€ë§‰ ì¤„ì„ ëª¨ë‘ ì¶œë ¥í•œ ë’¤ í‘œì‹œí•œë‹¤.
         _decisionView.SetVisible(false);
 
-        // ÀÏ¹İ ´ëÈ­¿Í Äù½ºÆ® ´ëÈ­ÀÇ ±â´É ¿µ¿ªÀ» ºĞ¸®ÇÏ°í »õ ´ë»çÀÇ ½ºÅ©·ÑÀ» ÃÊ±âÈ­ÇÑ´Ù.
+        // ì¼ë°˜ ëŒ€í™”ì™€ í€˜ìŠ¤íŠ¸ ëŒ€í™”ì˜ ê¸°ëŠ¥ ì˜ì—­ì„ ë¶„ë¦¬í•˜ê³  ìƒˆ ëŒ€ì‚¬ì˜ ìŠ¤í¬ë¡¤ì„ ì´ˆê¸°í™”í•œë‹¤.
         _view.SetDialogueMode(_selectedQuest != null || _isDecisionResponse, false);
 
         _visibleCharacters = 0;
         _characterProgress = 0f;
         _characterCount = _view.PrepareLine(line.Text);
 
-        // ÀÏ¹İ ´ëÈ­ ÁøÀÔ, Äù½ºÆ® ¼±ÅÃ, ÀÏ¹İ ´ëÈ­ º¹±Í¿¡ ¸ğµÎ Àû¿ëµÈ´Ù.
+        // ì¼ë°˜ ëŒ€í™” ì§„ì…, í€˜ìŠ¤íŠ¸ ì„ íƒ, ì¼ë°˜ ëŒ€í™” ë³µê·€ì— ëª¨ë‘ ì ìš©ëœë‹¤.
         RefreshActionButton();
     }
 
-    // ½ÃÀÛ °¡´É¡¤ÁøÇà Áß¡¤¿Ï·á »óÅÂ¿¡ ¸Â´Â Äù½ºÆ® ¹öÆ°À» Ç¥½ÃÇÑ´Ù.
+    // ì‹œì‘ ê°€ëŠ¥Â·ì§„í–‰ ì¤‘Â·ì™„ë£Œ ìƒíƒœì— ë§ëŠ” í€˜ìŠ¤íŠ¸ ë²„íŠ¼ì„ í‘œì‹œí•œë‹¤.
     private void RefreshQuestList()
     {
         _dialogueQuests.Clear();
@@ -362,7 +363,7 @@ public class NpcDialoguePresenter : MonoBehaviour
                 continue;
             }
 
-            // ÇöÀç »óÅÂ¿¡¼­ ½ÇÁ¦·Î Ç¥½ÃÇÒ ´ëÈ­°¡ ÀÖ´Â Äù½ºÆ®¸¸ ³Ö´Â´Ù.
+            // í˜„ì¬ ìƒíƒœì—ì„œ ì‹¤ì œë¡œ í‘œì‹œí•  ëŒ€í™”ê°€ ìˆëŠ” í€˜ìŠ¤íŠ¸ë§Œ ë„£ëŠ”ë‹¤.
             if (TryGetQuestDialogue(quest, out _, out _))
             {
                 _dialogueQuests.Add(quest);
@@ -372,7 +373,7 @@ public class NpcDialoguePresenter : MonoBehaviour
         _questListView.ShowQuests(_dialogueQuests);
     }
 
-    // Å¬¸¯ ½ÃÁ¡ÀÇ ÃÖ½Å Äù½ºÆ® »óÅÂ¸¦ È®ÀÎÇØ¼­ ÇØ´ç ´ëÈ­¸¦ ½ÃÀÛÇÑ´Ù.
+    // í´ë¦­ ì‹œì ì˜ ìµœì‹  í€˜ìŠ¤íŠ¸ ìƒíƒœë¥¼ í™•ì¸í•´ì„œ í•´ë‹¹ ëŒ€í™”ë¥¼ ì‹œì‘í•œë‹¤.
     private void HandleQuestSelected(QuestData quest)
     {
         if (!IsOpen || _isDecisionResponse ||
@@ -395,14 +396,14 @@ public class NpcDialoguePresenter : MonoBehaviour
         _data = dialogue;
         _lineIndex = 0;
 
-        // Äù½ºÆ® ¹öÆ°À» ´©¸¥ ÀÔ·ÂÀ¸·Î Ã¹ ÁÙ±îÁö ³Ñ±âÁö ¾Ê´Â´Ù.
+        // í€˜ìŠ¤íŠ¸ ë²„íŠ¼ì„ ëˆ„ë¥¸ ì…ë ¥ìœ¼ë¡œ ì²« ì¤„ê¹Œì§€ ë„˜ê¸°ì§€ ì•ŠëŠ”ë‹¤.
         _lastAdvanceFrame = Time.frameCount;
 
         _questListView.ShowQuestDialogue();
         BeginLine(firstLine);
     }
 
-    // ¼ö¶ô°ú ÀúÀåÀÌ ¼º°øÇÏ¸é ÇØ´ç Äù½ºÆ®ÀÇ ¼ö¶ô ¸àÆ®¸¦ Ç¥½ÃÇÑ´Ù.
+    // ìˆ˜ë½ê³¼ ì €ì¥ì´ ì„±ê³µí•˜ë©´ í•´ë‹¹ í€˜ìŠ¤íŠ¸ì˜ ìˆ˜ë½ ë©˜íŠ¸ë¥¼ í‘œì‹œí•œë‹¤.
     private void HandleAcceptQuest()
     {
         if (!CanDecideQuest ||
@@ -411,22 +412,24 @@ public class NpcDialoguePresenter : MonoBehaviour
             return;
         }
 
-        // °°Àº ÇÁ·¹ÀÓ¿¡ ¹ß»ıÇÑ Áßº¹ ÀÔ·ÂÀ» ¸·´Â´Ù.
+        // ê°™ì€ í”„ë ˆì„ì— ë°œìƒí•œ ì¤‘ë³µ ì…ë ¥ì„ ë§‰ëŠ”ë‹¤.
         _lastAdvanceFrame = Time.frameCount;
 
         QuestData quest = _selectedQuest;
 
         if (!QuestService.TryAccept(quest, out string error))
         {
-            // ÀúÀå ½ÇÆĞ ½Ã¿¡´Â ÀÀ´ä ´ë»ç·Î ³Ñ¾î°¡Áö ¾Ê°í Àç½Ãµµ¸¦ Çã¿ëÇÑ´Ù.
+            // ì €ì¥ ì‹¤íŒ¨ ì‹œì—ëŠ” ì‘ë‹µ ëŒ€ì‚¬ë¡œ ë„˜ì–´ê°€ì§€ ì•Šê³  ì¬ì‹œë„ë¥¼ í—ˆìš©í•œë‹¤.
+            GameAudio.Play(GameSound.UiActionDenied);
             _decisionView.ShowError(error);
             return;
         }
 
+        GameAudio.Play(GameSound.QuestAccept);
         BeginDecisionResponse(quest.AcceptResponse);
     }
 
-    // °ÅÀıÀº ÁøÇà »óÅÂ¸¦ º¯°æÇÏÁö ¾Ê°í °ÅÀı ¸àÆ®¸¸ Ç¥½ÃÇÑ´Ù.
+    // ê±°ì ˆì€ ì§„í–‰ ìƒíƒœë¥¼ ë³€ê²½í•˜ì§€ ì•Šê³  ê±°ì ˆ ë©˜íŠ¸ë§Œ í‘œì‹œí•œë‹¤.
     private void HandleDeclineQuest()
     {
         if (!CanDecideQuest ||
@@ -440,30 +443,30 @@ public class NpcDialoguePresenter : MonoBehaviour
         BeginDecisionResponse(_selectedQuest.DeclineResponse);
     }
 
-    // ConfigÀÇ ¹®ÀÚ¿­À» ±âÁ¸ ´ëÈ­Ã¢¿¡¼­ ÇÑ ÁÙ ´ë»ç·Î Àç»ıÇÑ´Ù.
+    // Configì˜ ë¬¸ìì—´ì„ ê¸°ì¡´ ëŒ€í™”ì°½ì—ì„œ í•œ ì¤„ ëŒ€ì‚¬ë¡œ ì¬ìƒí•œë‹¤.
     private void BeginDecisionResponse(string message)
     {
 
         _isDecisionResponse = true;
 
-        // ÀÌ¹ø ´ë»ç´Â DialogueDataÀÇ ÁÙ ¹è¿­À» »ç¿ëÇÏÁö ¾Ê´Â´Ù.
+        // ì´ë²ˆ ëŒ€ì‚¬ëŠ” DialogueDataì˜ ì¤„ ë°°ì—´ì„ ì‚¬ìš©í•˜ì§€ ì•ŠëŠ”ë‹¤.
         _data = null;
         _lineIndex = 0;
         _lastAdvanceFrame = Time.frameCount;
 
-        // ÀÀ´ä Áß¿¡´Â ¸ñ·Ï°ú µÚ·Î°¡±â ¹öÆ°À» ¼û±ä´Ù.
+        // ì‘ë‹µ ì¤‘ì—ëŠ” ëª©ë¡ê³¼ ë’¤ë¡œê°€ê¸° ë²„íŠ¼ì„ ìˆ¨ê¸´ë‹¤.
         _questListView.ResetView();
 
-        // ¼±ÅÃ Äù½ºÆ®´Â À¯ÁöÇÏ¹Ç·Î NPC ±â´É ¹öÆ°µµ ¼û°ÜÁø »óÅÂ¸¦ À¯ÁöÇÑ´Ù.
-        // ±âÁ¸ Å¸ÀÌÇÎ ±â´É°ú NPC ¾Ö´Ï¸ŞÀÌ¼ÇÀ» ±×´ë·Î »ç¿ëÇÑ´Ù.
+        // ì„ íƒ í€˜ìŠ¤íŠ¸ëŠ” ìœ ì§€í•˜ë¯€ë¡œ NPC ê¸°ëŠ¥ ë²„íŠ¼ë„ ìˆ¨ê²¨ì§„ ìƒíƒœë¥¼ ìœ ì§€í•œë‹¤.
+        // ê¸°ì¡´ íƒ€ì´í•‘ ê¸°ëŠ¥ê³¼ NPC ì• ë‹ˆë©”ì´ì…˜ì„ ê·¸ëŒ€ë¡œ ì‚¬ìš©í•œë‹¤.
         BeginLine(new DialogueLine(message));
     }
 
-    // Å¸ÀÌÇÎ Áß¿¡´Â ¹®ÀåÀ» ¿Ï¼ºÇÏ°í, ÀÏ¹İ ´ëÈ­¿¡¼­´Â ´ÙÀ½ ÁÙ·Î ÁøÇàÇÑ´Ù.
-    // ¼ö¶ô¡¤°ÅÀı ÀÀ´äÀÌ ¿Ï¼ºµÇ¸é ÇöÀç ¸Ş½ÃÁö¸¦ À¯ÁöÇÑ´Ù.
+    // íƒ€ì´í•‘ ì¤‘ì—ëŠ” ë¬¸ì¥ì„ ì™„ì„±í•˜ê³ , ì¼ë°˜ ëŒ€í™”ì—ì„œëŠ” ë‹¤ìŒ ì¤„ë¡œ ì§„í–‰í•œë‹¤.
+    // ìˆ˜ë½Â·ê±°ì ˆ ì‘ë‹µì´ ì™„ì„±ë˜ë©´ í˜„ì¬ ë©”ì‹œì§€ë¥¼ ìœ ì§€í•œë‹¤.
     private void Advance()
     {
-        // ´ëÈ­°¡ ´İÇô ÀÖ°Å³ª °°Àº ÇÁ·¹ÀÓ¿¡ ÀÌ¹Ì Ã³¸®ÇÑ ÀÔ·ÂÀÌ¸é ¹«½ÃÇÑ´Ù.
+        // ëŒ€í™”ê°€ ë‹«í˜€ ìˆê±°ë‚˜ ê°™ì€ í”„ë ˆì„ì— ì´ë¯¸ ì²˜ë¦¬í•œ ì…ë ¥ì´ë©´ ë¬´ì‹œí•œë‹¤.
         if (!IsOpen || Time.frameCount == _lastAdvanceFrame)
         {
             return;
@@ -471,32 +474,34 @@ public class NpcDialoguePresenter : MonoBehaviour
 
         _lastAdvanceFrame = Time.frameCount;
 
-        // Ãâ·Â ÁßÀÎ ¹®ÀåÀº Å¬¸¯ ÇÑ ¹øÀ¸·Î ¸ğµÎ Ç¥½ÃÇÑ´Ù.
+        // ì¶œë ¥ ì¤‘ì¸ ë¬¸ì¥ì€ í´ë¦­ í•œ ë²ˆìœ¼ë¡œ ëª¨ë‘ í‘œì‹œí•œë‹¤.
         if (IsTyping)
         {
             _visibleCharacters = _characterCount;
             _characterProgress = _characterCount;
             _view.SetVisibleCharacterCount(_characterCount);
+            GameAudio.Play(GameSound.NpcDialogueNext);
             return;
         }
 
-        // ¼ö¶ô¡¤°ÅÀı ¸Ş½ÃÁö µÚ¿¡´Â ´Ù¸¥ ´ëÈ­·Î ÁøÇàÇÏÁö ¾Ê´Â´Ù.
-        // ´ëÈ­ Á¾·á´Â ±âÁ¸ ´İ±â Ã³¸®¿¡¼­ ´ã´çÇÑ´Ù.
+        // ìˆ˜ë½Â·ê±°ì ˆ ë©”ì‹œì§€ ë’¤ì—ëŠ” ë‹¤ë¥¸ ëŒ€í™”ë¡œ ì§„í–‰í•˜ì§€ ì•ŠëŠ”ë‹¤.
+        // ëŒ€í™” ì¢…ë£ŒëŠ” ê¸°ì¡´ ë‹«ê¸° ì²˜ë¦¬ì—ì„œ ë‹´ë‹¹í•œë‹¤.
         if (_isDecisionResponse)
         {
             return;
         }
 
-        // ´ÙÀ½ ´ë»ç°¡ ÀÖÀ¸¸é ÇØ´ç ÁÙÀ» Ç¥½ÃÇÏ°í ÀÌ¹ø ÀÔ·Â Ã³¸®¸¦ ³¡³½´Ù.
+        // ë‹¤ìŒ ëŒ€ì‚¬ê°€ ìˆìœ¼ë©´ í•´ë‹¹ ì¤„ì„ í‘œì‹œí•˜ê³  ì´ë²ˆ ì…ë ¥ ì²˜ë¦¬ë¥¼ ëë‚¸ë‹¤.
         if (_data != null &&
             _data.TryGetLine(_lineIndex + 1, out DialogueLine nextLine))
         {
             _lineIndex++;
             BeginLine(nextLine);
+            GameAudio.Play(GameSound.NpcDialogueNext);
             return;
         }
 
-        // ¼ö·É °¡´ÉÇÑ Äù½ºÆ®ÀÇ ¿Ï·á ´ë»ç¸¦ ³¡±îÁö ÀĞÀº °æ¿ì¸¸ Ã³¸®ÇÑ´Ù.
+        // ìˆ˜ë ¹ ê°€ëŠ¥í•œ í€˜ìŠ¤íŠ¸ì˜ ì™„ë£Œ ëŒ€ì‚¬ë¥¼ ëê¹Œì§€ ì½ì€ ê²½ìš°ë§Œ ì²˜ë¦¬í•œë‹¤.
         if (_selectedQuest == null ||
             QuestService.GetState(_selectedQuest) != QuestState.ReadyToTurnIn ||
             _data == null ||
@@ -506,21 +511,22 @@ public class NpcDialoguePresenter : MonoBehaviour
             return;
         }
 
-        // ½ÇÆĞÇÏ¸é ÇöÀç ´ëÈ­¿¡¼­ ¿À·ù¸¦ Ç¥½ÃÇÏ°í ´Ù½Ã ÁøÇàÇØ Àç½ÃµµÇÒ ¼ö ÀÖ´Ù.
+        // ì‹¤íŒ¨í•˜ë©´ í˜„ì¬ ëŒ€í™”ì—ì„œ ì˜¤ë¥˜ë¥¼ í‘œì‹œí•˜ê³  ë‹¤ì‹œ ì§„í–‰í•´ ì¬ì‹œë„í•  ìˆ˜ ìˆë‹¤.
         if (!QuestService.TryClaimReward(_selectedQuest, out string error))
         {
             BeginLine(new DialogueLine(error));
             return;
         }
 
-        // ¼º°ø ÀÀ´ä Áß¿¡´Â Ãß°¡ ÁøÇà ÀÔ·ÂÀ» ¸·´Â ±âÁ¸ ±â´ÉÀ» Àç»ç¿ëÇÑ´Ù.
-        BeginDecisionResponse("Äù½ºÆ® º¸»óÀ» ¹Ş¾Ò½À´Ï´Ù.");
+        // ì„±ê³µ ì‘ë‹µ ì¤‘ì—ëŠ” ì¶”ê°€ ì§„í–‰ ì…ë ¥ì„ ë§‰ëŠ” ê¸°ì¡´ ê¸°ëŠ¥ì„ ì¬ì‚¬ìš©í•œë‹¤.
+        GameAudio.Play(GameSound.QuestReward);
+        BeginDecisionResponse("í€˜ìŠ¤íŠ¸ ë³´ìƒì„ ë°›ì•˜ìŠµë‹ˆë‹¤.");
     }
 
-    // ´ëÈ­¿Í Äù½ºÆ® ¸ñ·ÏÀ» Á¤¸®ÇÏ°í ÇÃ·¹ÀÌ¾î Á¶ÀÛÀ» º¹¿øÇÑ´Ù.
+    // ëŒ€í™”ì™€ í€˜ìŠ¤íŠ¸ ëª©ë¡ì„ ì •ë¦¬í•˜ê³  í”Œë ˆì´ì–´ ì¡°ì‘ì„ ë³µì›í•œë‹¤.
     public void Close()
     {
-        // ÀÌ¹Ì ´İÈù »óÅÂ¿¡¼­µµ ³²¾Æ ÀÖ´Â º¸»ó Ç¥½Ã¸¦ Á¤¸®ÇÑ´Ù.
+        // ì´ë¯¸ ë‹«íŒ ìƒíƒœì—ì„œë„ ë‚¨ì•„ ìˆëŠ” ë³´ìƒ í‘œì‹œë¥¼ ì •ë¦¬í•œë‹¤.
         if (_rewardView != null)
         {
             _rewardView.Hide();
@@ -531,9 +537,12 @@ public class NpcDialoguePresenter : MonoBehaviour
             return;
         }
 
+        // ì”¬ ì •ë¦¬ë‚˜ ì„œë¹„ìŠ¤ í™”ë©´ìœ¼ë¡œ ì´ë™í•˜ëŠ” ê²½ë¡œì—ì„œëŠ” ë‹«ê¸°ìŒì„ ìƒëµí•œë‹¤.
+        if (isActiveAndEnabled && _lockedPlayer != null && !_lockedPlayer.CanControl)
+            GameAudio.Play(GameSound.NpcDialogueClose);
         IsOpen = false;
 
-        // ´ëÈ­°¡ ´İÈú ¶§ ¼ö¶ô¡¤°ÅÀı ¿µ¿ªµµ Á¤¸®ÇÑ´Ù.
+        // ëŒ€í™”ê°€ ë‹«í ë•Œ ìˆ˜ë½Â·ê±°ì ˆ ì˜ì—­ë„ ì •ë¦¬í•œë‹¤.
         if (_decisionView != null)
         {
             _decisionView.SetVisible(false);
@@ -556,18 +565,18 @@ public class NpcDialoguePresenter : MonoBehaviour
             _lockedPlayer.SetControlEnabled(true);
         }
 
-        // ´ëÈ­°¡ ³¡³µÀ¸¹Ç·Î ¸ñ·Ï°ú ¼±ÅÃ »óÅÂ¸¦ Á¤¸®ÇÑ´Ù.
+        // ëŒ€í™”ê°€ ëë‚¬ìœ¼ë¯€ë¡œ ëª©ë¡ê³¼ ì„ íƒ ìƒíƒœë¥¼ ì •ë¦¬í•œë‹¤.
         _dialogueQuests.Clear();
         _selectedQuest = null;
-        _isDecisionResponse = false; // Ãß°¡ÇÒ ÁÙ.
+        _isDecisionResponse = false; // ì¶”ê°€í•  ì¤„.
 
-        // ÀÌÀü ´ëÈ­¿¡¼­ »ç¿ëÇÑ ÂüÁ¶¸¦ ÇØÁ¦ÇÑ´Ù.
+        // ì´ì „ ëŒ€í™”ì—ì„œ ì‚¬ìš©í•œ ì°¸ì¡°ë¥¼ í•´ì œí•œë‹¤.
         _data = null;
         _currentNpc = null;
         _lockedPlayer = null;
     }
 
-    // ÇöÀç Äù½ºÆ® »óÅÂ¿¡ ¸Â´Â ´ëÈ­¿Í Ã¹ ¹øÂ° ÁÙÀ» °¡Á®¿Â´Ù.
+    // í˜„ì¬ í€˜ìŠ¤íŠ¸ ìƒíƒœì— ë§ëŠ” ëŒ€í™”ì™€ ì²« ë²ˆì§¸ ì¤„ì„ ê°€ì ¸ì˜¨ë‹¤.
     private bool TryGetQuestDialogue(
         QuestData quest,
         out DialogueData dialogue,
@@ -581,39 +590,39 @@ public class NpcDialoguePresenter : MonoBehaviour
             return false;
         }
 
-        // Äù½ºÆ® »óÅÂ¿¡ µû¶ó NPC¿¡¼­ º¸¿©ÁÙ ´ëÈ­¸¦ °áÁ¤ÇÑ´Ù.
+        // í€˜ìŠ¤íŠ¸ ìƒíƒœì— ë”°ë¼ NPCì—ì„œ ë³´ì—¬ì¤„ ëŒ€í™”ë¥¼ ê²°ì •í•œë‹¤.
         switch (QuestService.GetState(quest))
         {
             case QuestState.Available:
-                // ¼ö¶ô °¡´ÉÇÑ Äù½ºÆ®´Â Á¦¾È ´ëÈ­¸¦ Ç¥½ÃÇÑ´Ù.
+                // ìˆ˜ë½ ê°€ëŠ¥í•œ í€˜ìŠ¤íŠ¸ëŠ” ì œì•ˆ ëŒ€í™”ë¥¼ í‘œì‹œí•œë‹¤.
                 dialogue = quest.OfferDialogue;
                 break;
 
             case QuestState.InProgress:
-                // ÁøÇà ÁßÀÎ Äù½ºÆ®´Â ÁøÇà ´ëÈ­¸¦ Ç¥½ÃÇÑ´Ù.
+                // ì§„í–‰ ì¤‘ì¸ í€˜ìŠ¤íŠ¸ëŠ” ì§„í–‰ ëŒ€í™”ë¥¼ í‘œì‹œí•œë‹¤.
                 dialogue = quest.InProgressDialogue;
                 break;
 
             case QuestState.ReadyToTurnIn:
-                // ¸ñÇ¥¸¦ ´Ş¼ºÇßÁö¸¸ º¸»óÀ» ¹Ş±â Àü¿¡´Â ¿Ï·á ´ëÈ­¸¦ Ç¥½ÃÇÑ´Ù.
+                // ëª©í‘œë¥¼ ë‹¬ì„±í–ˆì§€ë§Œ ë³´ìƒì„ ë°›ê¸° ì „ì—ëŠ” ì™„ë£Œ ëŒ€í™”ë¥¼ í‘œì‹œí•œë‹¤.
                 dialogue = quest.CompletionDialogue;
                 break;
 
             case QuestState.RewardClaimed:
-                // º¸»óÀ» ¹ŞÀº Äù½ºÆ®´Â NPC ¸ñ·Ï°ú ´ëÈ­ ¼±ÅÃ¿¡¼­ Á¦¿ÜÇÑ´Ù.
+                // ë³´ìƒì„ ë°›ì€ í€˜ìŠ¤íŠ¸ëŠ” NPC ëª©ë¡ê³¼ ëŒ€í™” ì„ íƒì—ì„œ ì œì™¸í•œë‹¤.
                 return false;
 
             default:
-                // Àá±ä Äù½ºÆ® µî ´ëÈ­ÇÒ ¼ö ¾ø´Â »óÅÂ´Â Á¦¿ÜÇÑ´Ù.
+                // ì ê¸´ í€˜ìŠ¤íŠ¸ ë“± ëŒ€í™”í•  ìˆ˜ ì—†ëŠ” ìƒíƒœëŠ” ì œì™¸í•œë‹¤.
                 return false;
         }
 
-        // ´©¶ôµÈ Config¸¦ ´Ù¸¥ ´ëÈ­·Î ´ëÃ¼ÇÏÁö ¾Ê°í ¼³Á¤ ¿À·ù¸¦ ¾Ë¸°´Ù.
+        // ëˆ„ë½ëœ Configë¥¼ ë‹¤ë¥¸ ëŒ€í™”ë¡œ ëŒ€ì²´í•˜ì§€ ì•Šê³  ì„¤ì • ì˜¤ë¥˜ë¥¼ ì•Œë¦°ë‹¤.
         if (dialogue == null ||
             !dialogue.TryGetLine(0, out firstLine))
         {
             Debug.LogWarning(
-                $"Äù½ºÆ® '{quest.QuestName}'ÀÇ ÇöÀç »óÅÂ¿¡ ÇØ´çÇÏ´Â Dialogue¿Í Lines¸¦ È®ÀÎÇØÁÖ¼¼¿ä.",
+                $"í€˜ìŠ¤íŠ¸ '{quest.QuestName}'ì˜ í˜„ì¬ ìƒíƒœì— í•´ë‹¹í•˜ëŠ” Dialogueì™€ Linesë¥¼ í™•ì¸í•´ì£¼ì„¸ìš”.",
                 quest);
 
             return false;
@@ -622,10 +631,10 @@ public class NpcDialoguePresenter : MonoBehaviour
         return true;
     }
 
-    // ÇöÀç ´ëÈ­°¡ º¸»óÀ» º¸¿©ÁÙ ½ÃÁ¡ÀÎÁö °Ë»çÇÑ´Ù.
+    // í˜„ì¬ ëŒ€í™”ê°€ ë³´ìƒì„ ë³´ì—¬ì¤„ ì‹œì ì¸ì§€ ê²€ì‚¬í•œë‹¤.
     private void RefreshRewardView()
     {
-        // ÀÏ¹İ ´ëÈ­, ÀÀ´ä ¸Ş½ÃÁö, Å¸ÀÌÇÎ Áß¿¡´Â ¼û±ä´Ù.
+        // ì¼ë°˜ ëŒ€í™”, ì‘ë‹µ ë©”ì‹œì§€, íƒ€ì´í•‘ ì¤‘ì—ëŠ” ìˆ¨ê¸´ë‹¤.
         if (!IsOpen ||
             _isDecisionResponse ||
             _selectedQuest == null ||
@@ -640,12 +649,12 @@ public class NpcDialoguePresenter : MonoBehaviour
 
         QuestState state = QuestService.GetState(_selectedQuest);
 
-        // ¼ö¶ô Àü¿¡´Â OfferÀÇ ¸¶Áö¸· ´ë»ç¿¡¼­ Ç¥½ÃÇÑ´Ù.
+        // ìˆ˜ë½ ì „ì—ëŠ” Offerì˜ ë§ˆì§€ë§‰ ëŒ€ì‚¬ì—ì„œ í‘œì‹œí•œë‹¤.
         bool isOffer =
             state == QuestState.Available &&
             _data == _selectedQuest.OfferDialogue;
 
-        // ¼ö·É Àü¿¡´Â CompletionÀÇ ¸¶Áö¸· ´ë»ç¿¡¼­ Ç¥½ÃÇÑ´Ù.
+        // ìˆ˜ë ¹ ì „ì—ëŠ” Completionì˜ ë§ˆì§€ë§‰ ëŒ€ì‚¬ì—ì„œ í‘œì‹œí•œë‹¤.
         bool isCompletion =
             state == QuestState.ReadyToTurnIn &&
             _data == _selectedQuest.CompletionDialogue;

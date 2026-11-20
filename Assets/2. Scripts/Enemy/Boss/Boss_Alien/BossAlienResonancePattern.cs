@@ -1,35 +1,35 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// ±Õ¿­ °ø¸íÀÇ ½ÇÇà ¼ø¼­¸¦ ´ã´çÇÑ´Ù.
-// ½ÇÇà ÁßÀÎ »óÅÂ´Â Áö¿ª º¯¼ö·Î º¸°üÇØ ¼³Á¤ ¿¡¼Â¿¡ ³²±âÁö ¾Ê´Â´Ù.
+// ê· ì—´ ê³µëª…ì˜ ì‹¤í–‰ ìˆœì„œë¥¼ ë‹´ë‹¹í•œë‹¤.
+// ì‹¤í–‰ ì¤‘ì¸ ìƒíƒœëŠ” ì§€ì—­ ë³€ìˆ˜ë¡œ ë³´ê´€í•´ ì„¤ì • ì—ì…‹ì— ë‚¨ê¸°ì§€ ì•ŠëŠ”ë‹¤.
 [CreateAssetMenu(
     menuName = "Boss/Patterns/Alien Resonance",
     fileName = "BossAlienResonancePattern")]
 public sealed class BossAlienResonancePattern : BossPattern
 {
-    // °ø°İ ½Ã°£, ÇÇÇØ·®, Ãæ°İÆÄ Å©±â¸¦ ÀĞÀ» ¼³Á¤ÀÌ´Ù.
+    // ê³µê²© ì‹œê°„, í”¼í•´ëŸ‰, ì¶©ê²©íŒŒ í¬ê¸°ë¥¼ ì½ì„ ì„¤ì •ì´ë‹¤.
     [SerializeField] private BossAlienResonanceConfig _config;
 
-    // °ø°İ °æ·Î¿Í ¸¶¹«¸® °ø°İ ¹üÀ§¸¦ Ç¥½ÃÇÒ ¿¹°í ÇÁ¸®ÆÕÀÌ´Ù.
+    // ê³µê²© ê²½ë¡œì™€ ë§ˆë¬´ë¦¬ ê³µê²© ë²”ìœ„ë¥¼ í‘œì‹œí•  ì˜ˆê³  í”„ë¦¬íŒ¹ì´ë‹¤.
     [SerializeField] private BossAlienAttackWarning _warningPrefab;
 
-    // °¢ ±Õ¿­¿¡¼­ ¹ß»çÇÒ Ãæ°İÆÄ ÇÁ¸®ÆÕÀÌ´Ù.
+    // ê° ê· ì—´ì—ì„œ ë°œì‚¬í•  ì¶©ê²©íŒŒ í”„ë¦¬íŒ¹ì´ë‹¤.
     [SerializeField] private BossAlienResonanceWave _wavePrefab;
 
-    // °¢ ±Õ¿­¿¡¼­ Ãæ°İÆÄ¸¦ ¹ß»çÇÒ ¶§ Àç»ıÇÒ Æø¹ß ÀÌÆåÆ®.
+    // ê° ê· ì—´ì—ì„œ ì¶©ê²©íŒŒë¥¼ ë°œì‚¬í•  ë•Œ ì¬ìƒí•  í­ë°œ ì´í™íŠ¸.
     [SerializeField] private SpriteOneShotEffect _crackBurstPrefab;
 
-    // ¸¶Áö¸· °ø°İÀÇ ÁÂ¿ì ÇÇÇØ ¿µ¿ª¿¡ Ç¥½ÃÇÒ ±¤¿ª ¹æÀü ÀÌÆåÆ®.
+    // ë§ˆì§€ë§‰ ê³µê²©ì˜ ì¢Œìš° í”¼í•´ ì˜ì—­ì— í‘œì‹œí•  ê´‘ì—­ ë°©ì „ ì´í™íŠ¸.
     [SerializeField] private BossAlienFinalAreaEffect _finalAreaEffectPrefab;
 
     public override IEnumerator Execute(BossPatternContext context)
     {
         Boss_Alien boss = context.Boss as Boss_Alien;
 
-        // °ø°İ¿¡ ÇÊ¿äÇÑ ¼³Á¤°ú ÀÌÆåÆ® ÇÁ¸®ÆÕÀÌ ¸ğµÎ ¿¬°áµÆ´ÂÁö È®ÀÎÇÑ´Ù.
+        // ê³µê²©ì— í•„ìš”í•œ ì„¤ì •ê³¼ ì´í™íŠ¸ í”„ë¦¬íŒ¹ì´ ëª¨ë‘ ì—°ê²°ëëŠ”ì§€ í™•ì¸í•œë‹¤.
         if (boss == null || _config == null ||
             _warningPrefab == null || _wavePrefab == null ||
             _crackBurstPrefab == null || _finalAreaEffectPrefab == null ||
@@ -37,7 +37,7 @@ public sealed class BossAlienResonancePattern : BossPattern
         {
             Debug.LogError(
                 $"{name}: Config, Warning/Wave/Crack Burst/Final Area Effect " +
-                "ÇÁ¸®ÆÕ°ú Pause Random Movement¸¦ È®ÀÎÇÏ¼¼¿ä.");
+                "í”„ë¦¬íŒ¹ê³¼ Pause Random Movementë¥¼ í™•ì¸í•˜ì„¸ìš”.");
             yield break;
         }
 
@@ -55,47 +55,47 @@ public sealed class BossAlienResonancePattern : BossPattern
             !arenas[0].isActiveAndEnabled)
         {
             Debug.LogError(
-                $"{name}: È°¼º ±Õ¿­ 3°³¿Í Arena ÇÏ³ª°¡ ÇÊ¿äÇÕ´Ï´Ù.");
+                $"{name}: í™œì„± ê· ì—´ 3ê°œì™€ Arena í•˜ë‚˜ê°€ í•„ìš”í•©ë‹ˆë‹¤.");
             yield break;
         }
 
         BossAlienGrabArena arena = arenas[0];
         Rect area = arena.GetInteriorRect();
-        // ÇöÀç ¾ÀÀÇ Ä«¸Ş¶ó ¿¬Ãâ ÄÄÆ÷³ÍÆ®¸¦ °¡Á®¿Â´Ù.
+        // í˜„ì¬ ì”¬ì˜ ì¹´ë©”ë¼ ì—°ì¶œ ì»´í¬ë„ŒíŠ¸ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
         Camera battleCamera = Camera.main;
         BattleCameraShake cameraShake = battleCamera != null
             ? battleCamera.GetComponent<BattleCameraShake>()
             : null;
 
-        // Ä«¸Ş¶ó ¿¬Ãâ ´©¶ôÀÌ °ø°İ ÀÚÃ¼¸¦ ¸·Áö´Â ¾ÊÁö¸¸ ¼³Á¤ ¿À·ù´Â ¾Ë·ÁÁØ´Ù.
+        // ì¹´ë©”ë¼ ì—°ì¶œ ëˆ„ë½ì´ ê³µê²© ìì²´ë¥¼ ë§‰ì§€ëŠ” ì•Šì§€ë§Œ ì„¤ì • ì˜¤ë¥˜ëŠ” ì•Œë ¤ì¤€ë‹¤.
         if (cameraShake == null)
         {
             Debug.LogWarning(
-                $"{name}: Main Camera¿¡ BattleCameraShake¸¦ Ãß°¡ÇÏ¼¼¿ä.");
+                $"{name}: Main Cameraì— BattleCameraShakeë¥¼ ì¶”ê°€í•˜ì„¸ìš”.");
         }
 
         if (!ValidSettings(area))
         {
             Debug.LogError(
-                $"{name}: °ø¸í ConfigÀÇ ½Ã°£¡¤Å©±â¡¤ÇÇÇØ ¼³Á¤À» È®ÀÎÇÏ¼¼¿ä.");
+                $"{name}: ê³µëª… Configì˜ ì‹œê°„Â·í¬ê¸°Â·í”¼í•´ ì„¤ì •ì„ í™•ì¸í•˜ì„¸ìš”.");
             yield break;
         }
 
-        // »ı¼º ¼ø¼­¸¦ À¯ÁöÇÑ Ã¤ ÀÌ¹ø °ø°İ¿¡¼­ »ç¿ëÇÒ À§Ä¡¸¦ °íÁ¤ÇÑ´Ù.
+        // ìƒì„± ìˆœì„œë¥¼ ìœ ì§€í•œ ì±„ ì´ë²ˆ ê³µê²©ì—ì„œ ì‚¬ìš©í•  ìœ„ì¹˜ë¥¼ ê³ ì •í•œë‹¤.
         var sources =
             new List<BossAlienCrackController.Crack>(cracks.Cracks);
 
-        // Á¤»ó Á¾·á¿Í °­Á¦ Ãë¼Ò¿¡¼­ Á¦°ÅÇÒ »ı¼º¹° ¸ñ·ÏÀÌ´Ù.
+        // ì •ìƒ ì¢…ë£Œì™€ ê°•ì œ ì·¨ì†Œì—ì„œ ì œê±°í•  ìƒì„±ë¬¼ ëª©ë¡ì´ë‹¤.
         var warnings = new List<BossAlienAttackWarning>();
         var waves = new List<BossAlienResonanceWave>();
 
-        // ÆĞÅÏ Ãë¼Ò ½Ã ¾ÆÁ÷ Àç»ı ÁßÀÎ Æø¹ßµµ Á¦°ÅÇÏ±â À§ÇÑ ¸ñ·Ï.
+        // íŒ¨í„´ ì·¨ì†Œ ì‹œ ì•„ì§ ì¬ìƒ ì¤‘ì¸ í­ë°œë„ ì œê±°í•˜ê¸° ìœ„í•œ ëª©ë¡.
         var crackBursts = new List<SpriteOneShotEffect>();
 
-        // Á¤»ó Á¾·á¿Í ÆĞÅÏ Ãë¼Ò ½Ã ÁÂ¿ì ¹æÀü ÀÌÆåÆ®¸¦ ÇÔ²² Á¤¸®ÇÑ´Ù.
+        // ì •ìƒ ì¢…ë£Œì™€ íŒ¨í„´ ì·¨ì†Œ ì‹œ ì¢Œìš° ë°©ì „ ì´í™íŠ¸ë¥¼ í•¨ê»˜ ì •ë¦¬í•œë‹¤.
         var finalAreaEffects = new List<BossAlienFinalAreaEffect>();
 
-        // °ø°İ Á¾·á³ª °­Á¦ Ãë¼Ò ½Ã ±¤¿ª ÀÌÆåÆ®¸¦ Áï½Ã ¼û±â°í Á¦°ÅÇÑ´Ù.
+        // ê³µê²© ì¢…ë£Œë‚˜ ê°•ì œ ì·¨ì†Œ ì‹œ ê´‘ì—­ ì´í™íŠ¸ë¥¼ ì¦‰ì‹œ ìˆ¨ê¸°ê³  ì œê±°í•œë‹¤.
         void ClearFinalAreaEffects()
         {
             foreach (BossAlienFinalAreaEffect effect in finalAreaEffects)
@@ -110,7 +110,7 @@ public sealed class BossAlienResonancePattern : BossPattern
             finalAreaEffects.Clear();
         }
 
-        // ¸¶¹«¸® °ø°İÀÇ ¹°¸® °Ë»ç °á°ú¸¦ Àç»ç¿ëÇÑ´Ù.
+        // ë§ˆë¬´ë¦¬ ê³µê²©ì˜ ë¬¼ë¦¬ ê²€ì‚¬ ê²°ê³¼ë¥¼ ì¬ì‚¬ìš©í•œë‹¤.
         var hits = new List<Collider2D>();
         ContactFilter2D filter = new ContactFilter2D();
         filter.SetLayerMask(
@@ -124,7 +124,7 @@ public sealed class BossAlienResonancePattern : BossPattern
                 cracks != null && cracks.isActiveAndEnabled;
         }
 
-        // ´ë±â Áß¿¡µµ »ç¸Á¡¤ºñÈ°¼ºÈ­¸¦ °Ë»çÇÑ´Ù.
+        // ëŒ€ê¸° ì¤‘ì—ë„ ì‚¬ë§Â·ë¹„í™œì„±í™”ë¥¼ ê²€ì‚¬í•œë‹¤.
         IEnumerator Wait(float duration, Action<float> onProgress = null)
         {
             float elapsed = 0f;
@@ -142,7 +142,7 @@ public sealed class BossAlienResonancePattern : BossPattern
             }
         }
 
-        // »ı¼º Áï½Ã ¸ñ·Ï¿¡ ±â·ÏÇØ ÀÌÈÄ ÃÊ±âÈ­°¡ ½ÇÆĞÇØµµ Á¤¸®ÇÑ´Ù.
+        // ìƒì„± ì¦‰ì‹œ ëª©ë¡ì— ê¸°ë¡í•´ ì´í›„ ì´ˆê¸°í™”ê°€ ì‹¤íŒ¨í•´ë„ ì •ë¦¬í•œë‹¤.
         BossAlienAttackWarning CreateWarning(
             Vector2 center, Vector2 size, float angle)
         {
@@ -154,13 +154,14 @@ public sealed class BossAlienResonancePattern : BossPattern
             return warning;
         }
 
+        GameAudio.Handle resonanceAudio = default; // ì´ íŒ¨í„´ ì‹¤í–‰ë§Œ ì†Œìœ í•˜ëŠ” ì¤€ë¹„ìŒ.
         try
         {
-            // ±×·¦ÀÌ ³¡³µ¾îµµ ½Ã½ºÅÛ °æ°í°¡ ³²¾Æ ÀÖÀ¸¸é Á¾·áµÉ ¶§±îÁö ±â´Ù¸°´Ù.
-            // °æ°í°¡ ¸ÕÀú ³¡³µ´Ù¸é ´ë±â ¾øÀÌ ´ÙÀ½ ´Ü°è·Î ÁøÇàÇÑ´Ù.
+            // ê·¸ë©ì´ ëë‚¬ì–´ë„ ì‹œìŠ¤í…œ ê²½ê³ ê°€ ë‚¨ì•„ ìˆìœ¼ë©´ ì¢…ë£Œë  ë•Œê¹Œì§€ ê¸°ë‹¤ë¦°ë‹¤.
+            // ê²½ê³ ê°€ ë¨¼ì € ëë‚¬ë‹¤ë©´ ëŒ€ê¸° ì—†ì´ ë‹¤ìŒ ë‹¨ê³„ë¡œ ì§„í–‰í•œë‹¤.
             while (boss.IsResonanceWarningPending)
             {
-                // ´ë±â Áß »ç¸ÁÇÏ°Å³ª ºñÈ°¼ºÈ­µÇ¸é ÆĞÅÏÀ» Á¾·áÇÑ´Ù.
+                // ëŒ€ê¸° ì¤‘ ì‚¬ë§í•˜ê±°ë‚˜ ë¹„í™œì„±í™”ë˜ë©´ íŒ¨í„´ì„ ì¢…ë£Œí•œë‹¤.
                 if (!CanContinue())
                 {
                     yield break;
@@ -169,13 +170,13 @@ public sealed class BossAlienResonancePattern : BossPattern
                 yield return null;
             }
 
-            // °æ°í Á¾·á Á÷ÈÄ¿¡µµ ÀüÅõ¸¦ °è¼ÓÇÒ ¼ö ÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
+            // ê²½ê³  ì¢…ë£Œ ì§í›„ì—ë„ ì „íˆ¬ë¥¼ ê³„ì†í•  ìˆ˜ ìˆëŠ”ì§€ í™•ì¸í•œë‹¤.
             if (!CanContinue())
             {
                 yield break;
             }
 
-            // 1. ±Õ¿­ »ı¼º ¼ø¼­´ë·Î °æ·Î¸¦ ¿¹°íÇÏ°í Ãæ°İÆÄ¸¦ ¹ß»çÇÑ´Ù.
+            // 1. ê· ì—´ ìƒì„± ìˆœì„œëŒ€ë¡œ ê²½ë¡œë¥¼ ì˜ˆê³ í•˜ê³  ì¶©ê²©íŒŒë¥¼ ë°œì‚¬í•œë‹¤.
             foreach (BossAlienCrackController.Crack source in sources)
             {
                 if (!CanContinue())
@@ -189,8 +190,8 @@ public sealed class BossAlienResonancePattern : BossPattern
                 float angle =
                     Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-                // ÀÌµ¿ÇÏ´Â »ç°¢ÇüÀÇ ÀüÃ¼ °æ·Î´Ù.
-                // ½ÃÀÛ¡¤µµÂø ÁöÁ¡¿¡¼­ µ¹ÃâµÇ´Â Ãæ°İÆÄÀÇ ¹İ µÎ²²µµ Æ÷ÇÔÇÑ´Ù.
+                // ì´ë™í•˜ëŠ” ì‚¬ê°í˜•ì˜ ì „ì²´ ê²½ë¡œë‹¤.
+                // ì‹œì‘Â·ë„ì°© ì§€ì ì—ì„œ ëŒì¶œë˜ëŠ” ì¶©ê²©íŒŒì˜ ë°˜ ë‘ê»˜ë„ í¬í•¨í•œë‹¤.
                 Vector2 center =
                     source.Position + direction * (distance * 0.5f);
 
@@ -200,6 +201,8 @@ public sealed class BossAlienResonancePattern : BossPattern
 
                 BossAlienAttackWarning warning =
                     CreateWarning(center, size, angle);
+                GameAudio.Stop(resonanceAudio);
+                resonanceAudio = GameAudio.PlayOwned(GameSound.AlienResonanceCharge, boss);
 
                 yield return Wait(_config.WarningDuration, progress =>
                 {
@@ -216,21 +219,25 @@ public sealed class BossAlienResonancePattern : BossPattern
 
                 Destroy(warning.gameObject);
 
-                // ±Õ¿­ À§Ä¡¿¡¼­ Ãæ°İÆÄ ÁøÇà ¹æÇâÀ¸·Î Æø¹ßÀ» Àç»ıÇÑ´Ù.
-                // ºÎ¸ğ ¾øÀÌ »ı¼ºÇØ ±âÁ¸ ±Õ¿­ÀÇ Scale 6À» »ó¼Ó¹ŞÁö ¾Ê´Â´Ù.
+                // ê· ì—´ ìœ„ì¹˜ì—ì„œ ì¶©ê²©íŒŒ ì§„í–‰ ë°©í–¥ìœ¼ë¡œ í­ë°œì„ ì¬ìƒí•œë‹¤.
+                // ë¶€ëª¨ ì—†ì´ ìƒì„±í•´ ê¸°ì¡´ ê· ì—´ì˜ Scale 6ì„ ìƒì†ë°›ì§€ ì•ŠëŠ”ë‹¤.
                 SpriteOneShotEffect burst = Instantiate(
                     _crackBurstPrefab,
                     source.Position,
                     Quaternion.Euler(0f, 0f, angle));
 
                 crackBursts.Add(burst);
+                // ê° ê· ì—´ì˜ ì‹¤ì œ í­ë°œ ì´í™íŠ¸ ìƒì„± ì‹œì ì— ë§ì¶˜ë‹¤.
+                GameAudio.Play(GameSound.AlienCrackBurst);
 
                 BossAlienResonanceWave wave = Instantiate(_wavePrefab);
                 waves.Add(wave);
                 wave.Initialize(
                     boss, _config, source.Position, direction, distance);
+                GameAudio.Stop(resonanceAudio);
+                GameAudio.Play(GameSound.AlienResonanceWave);
 
-                // Ãæ°İÆÄ¸¦ ¹ß»çÇÏ´Â ¼ø°£ Ä«¸Ş¶ó¸¦ ¾àÇÏ°Ô Èçµç´Ù.
+                // ì¶©ê²©íŒŒë¥¼ ë°œì‚¬í•˜ëŠ” ìˆœê°„ ì¹´ë©”ë¼ë¥¼ ì•½í•˜ê²Œ í”ë“ ë‹¤.
                 if (cameraShake != null)
                 {
                     cameraShake.Shake(
@@ -242,7 +249,7 @@ public sealed class BossAlienResonancePattern : BossPattern
                 yield return Wait(_config.WaveInterval);
             }
 
-            // ¼øÂ÷ Ãæ°İÆÄ°¡ ¸ğµÎ »ç¶óÁø µÚ ¸¶¹«¸® °ø°İÀ» ½ÃÀÛÇÑ´Ù.
+            // ìˆœì°¨ ì¶©ê²©íŒŒê°€ ëª¨ë‘ ì‚¬ë¼ì§„ ë’¤ ë§ˆë¬´ë¦¬ ê³µê²©ì„ ì‹œì‘í•œë‹¤.
             while (CanContinue() && waves.Exists(wave => wave != null))
             {
                 yield return null;
@@ -253,8 +260,8 @@ public sealed class BossAlienResonancePattern : BossPattern
                 yield break;
             }
 
-            // 2. ¿¹°í ½ÃÀÛ ¼ø°£ ÇÃ·¹ÀÌ¾î X¸¦ ±âÁØÀ¸·Î ¾ÈÀü Åë·Î¸¦ °íÁ¤ÇÑ´Ù.
-            // ÀÌÈÄ ÇÃ·¹ÀÌ¾î¸¦ µû¶ó ¿òÁ÷ÀÌÁö ¾Ê¾Æ ¿¹°í´ë·Î ÇÇÇÒ ¼ö ÀÖ´Ù.
+            // 2. ì˜ˆê³  ì‹œì‘ ìˆœê°„ í”Œë ˆì´ì–´ Xë¥¼ ê¸°ì¤€ìœ¼ë¡œ ì•ˆì „ í†µë¡œë¥¼ ê³ ì •í•œë‹¤.
+            // ì´í›„ í”Œë ˆì´ì–´ë¥¼ ë”°ë¼ ì›€ì§ì´ì§€ ì•Šì•„ ì˜ˆê³ ëŒ€ë¡œ í”¼í•  ìˆ˜ ìˆë‹¤.
             float halfSafe = _config.SafeLaneWidth * 0.5f;
             const float edgeMargin = 0.05f;
 
@@ -266,7 +273,7 @@ public sealed class BossAlienResonancePattern : BossPattern
             float safeLeft = safeCenter - halfSafe;
             float safeRight = safeCenter + halfSafe;
 
-            // ¾ÈÀü Åë·Î¸¦ Á¦¿ÜÇÑ ¿ŞÂÊ¡¤¿À¸¥ÂÊ ¿µ¿ª¸¸ °ø°İÇÑ´Ù.
+            // ì•ˆì „ í†µë¡œë¥¼ ì œì™¸í•œ ì™¼ìª½Â·ì˜¤ë¥¸ìª½ ì˜ì—­ë§Œ ê³µê²©í•œë‹¤.
             Rect leftArea = Rect.MinMaxRect(
                 area.xMin, area.yMin, safeLeft, area.yMax);
 
@@ -278,6 +285,7 @@ public sealed class BossAlienResonancePattern : BossPattern
 
             BossAlienAttackWarning rightWarning =
                 CreateWarning(rightArea.center, rightArea.size, 0f);
+            resonanceAudio = GameAudio.PlayOwned(GameSound.AlienResonanceCharge, boss);
 
             yield return Wait(_config.FinalWarningDuration, progress =>
             {
@@ -297,23 +305,25 @@ public sealed class BossAlienResonancePattern : BossPattern
                 yield break;
             }
 
-            // 3. ¿¹°í ¹üÀ§¸¦ ¹à°Ô ¹Ù²ã ½ÇÁ¦ °ø°İ ½ÃÀÛÀ» ±¸ºĞÇÑ´Ù.
+            // 3. ì˜ˆê³  ë²”ìœ„ë¥¼ ë°ê²Œ ë°”ê¿” ì‹¤ì œ ê³µê²© ì‹œì‘ì„ êµ¬ë¶„í•œë‹¤.
+            GameAudio.Stop(resonanceAudio);
+            GameAudio.Play(GameSound.AlienResonanceWave);
             ShowAttack(leftWarning);
             ShowAttack(rightWarning);
 
-            // ÇÇÇØ ÆÇÁ¤¿¡ »ç¿ëÇÏ´Â ¿ŞÂÊ »ç°¢ÇüÀ» ±×´ë·Î Ç¥½ÃÇÑ´Ù.
+            // í”¼í•´ íŒì •ì— ì‚¬ìš©í•˜ëŠ” ì™¼ìª½ ì‚¬ê°í˜•ì„ ê·¸ëŒ€ë¡œ í‘œì‹œí•œë‹¤.
             BossAlienFinalAreaEffect leftEffect =
                 Instantiate(_finalAreaEffectPrefab);
             finalAreaEffects.Add(leftEffect);
             leftEffect.Initialize(leftArea);
 
-            // ¿À¸¥ÂÊµµ º°µµ·Î Ç¥½ÃÇØ °¡¿îµ¥ ¾ÈÀü Åë·Î¸¦ ºñ¿ö µĞ´Ù.
+            // ì˜¤ë¥¸ìª½ë„ ë³„ë„ë¡œ í‘œì‹œí•´ ê°€ìš´ë° ì•ˆì „ í†µë¡œë¥¼ ë¹„ì›Œ ë‘”ë‹¤.
             BossAlienFinalAreaEffect rightEffect =
                 Instantiate(_finalAreaEffectPrefab);
             finalAreaEffects.Add(rightEffect);
             rightEffect.Initialize(rightArea);
 
-            // ¸¶¹«¸® °ø°İÀÌ ½ÃÀÛµÇ´Â ¼ø°£ Ä«¸Ş¶ó¸¦ °­ÇÏ°Ô Èçµç´Ù.
+            // ë§ˆë¬´ë¦¬ ê³µê²©ì´ ì‹œì‘ë˜ëŠ” ìˆœê°„ ì¹´ë©”ë¼ë¥¼ ê°•í•˜ê²Œ í”ë“ ë‹¤.
             if (cameraShake != null)
             {
                 cameraShake.Shake(
@@ -328,7 +338,7 @@ public sealed class BossAlienResonancePattern : BossPattern
             while (activeElapsed < _config.FinalActiveDuration &&
                    CanContinue())
             {
-                // ÇÇÇØ ÆÇÁ¤°ú °°Àº °æ°ú ½Ã°£À¸·Î ¾çÂÊ ÀÌÆåÆ®ÀÇ ÇÁ·¹ÀÓÀ» °»½ÅÇÑ´Ù.
+                // í”¼í•´ íŒì •ê³¼ ê°™ì€ ê²½ê³¼ ì‹œê°„ìœ¼ë¡œ ì–‘ìª½ ì´í™íŠ¸ì˜ í”„ë ˆì„ì„ ê°±ì‹ í•œë‹¤.
                 float progress = activeElapsed / _config.FinalActiveDuration;
                 leftEffect.SetProgress(progress);
                 rightEffect.SetProgress(progress);
@@ -337,7 +347,7 @@ public sealed class BossAlienResonancePattern : BossPattern
                 {
                     Physics2D.SyncTransforms();
 
-                    // ¾çÂÊ ¿µ¿ªÀ» ÇÕÃÄ ¸¶¹«¸® °ø°İ ÀüÃ¼¿¡¼­ ÇÑ ¹ø¸¸ Ã³¸®ÇÑ´Ù.
+                    // ì–‘ìª½ ì˜ì—­ì„ í•©ì³ ë§ˆë¬´ë¦¬ ê³µê²© ì „ì²´ì—ì„œ í•œ ë²ˆë§Œ ì²˜ë¦¬í•œë‹¤.
                     hitConsumed =
                         TryHitArea(leftArea, context.TargetPlayer, filter, hits) ||
                         TryHitArea(rightArea, context.TargetPlayer, filter, hits);
@@ -347,7 +357,7 @@ public sealed class BossAlienResonancePattern : BossPattern
                 yield return null;
             }
 
-            // ½ÇÁ¦ °ø°İ ½Ã°£ÀÌ ³¡³ª¸é È¸º¹ ´ë±â¿¡ µé¾î°¡±â Àü¿¡ Á¦°ÅÇÑ´Ù.
+            // ì‹¤ì œ ê³µê²© ì‹œê°„ì´ ëë‚˜ë©´ íšŒë³µ ëŒ€ê¸°ì— ë“¤ì–´ê°€ê¸° ì „ì— ì œê±°í•œë‹¤.
             ClearFinalAreaEffects();
 
             if (!CanContinue())
@@ -358,22 +368,23 @@ public sealed class BossAlienResonancePattern : BossPattern
             Destroy(leftWarning.gameObject);
             Destroy(rightWarning.gameObject);
 
-            // 4. °ø°İÀÌ ³¡³ª¸é ±Õ¿­°ú ¹æ¾î ½Çµå¸¦ Á¦°ÅÇÏ°í È¸º¹ÇÑ´Ù.
+            // 4. ê³µê²©ì´ ëë‚˜ë©´ ê· ì—´ê³¼ ë°©ì–´ ì‹¤ë“œë¥¼ ì œê±°í•˜ê³  íšŒë³µí•œë‹¤.
             cracks.ClearAll();
             yield return Wait(_config.RecoveryDuration);
         }
         finally
         {
-            // °ø°İ µµÁß »ç¸ÁÇÏ°Å³ª ÄÚ·çÆ¾ÀÌ Áß´ÜµÅµµ ÀÌÆåÆ®¸¦ ³²±âÁö ¾Ê´Â´Ù.
+            GameAudio.Stop(resonanceAudio); // ì¤‘ë‹¨Â·ì‚¬ë§ ë•Œ ì¤€ë¹„ìŒ ì •ë¦¬.
+            // ê³µê²© ë„ì¤‘ ì‚¬ë§í•˜ê±°ë‚˜ ì½”ë£¨í‹´ì´ ì¤‘ë‹¨ë¼ë„ ì´í™íŠ¸ë¥¼ ë‚¨ê¸°ì§€ ì•ŠëŠ”ë‹¤.
             ClearFinalAreaEffects();
 
-            // ÆĞÅÏÀÌ Á¾·áµÇ°Å³ª Ãë¼ÒµÇ¸é Ä«¸Ş¶ó¸¦ ¿ø·¡ À§Ä¡·Î º¹±¸ÇÑ´Ù.
+            // íŒ¨í„´ì´ ì¢…ë£Œë˜ê±°ë‚˜ ì·¨ì†Œë˜ë©´ ì¹´ë©”ë¼ë¥¼ ì›ë˜ ìœ„ì¹˜ë¡œ ë³µêµ¬í•œë‹¤.
             if (cameraShake != null)
             {
                 cameraShake.StopShake(boss);
             }
 
-            // »ç¸Á¡¤ÆĞÅÏ Ãë¼Ò ¶§µµ ¿¹°í¿Í °ø°İ ÆÇÁ¤À» ³²±âÁö ¾Ê´Â´Ù.
+            // ì‚¬ë§Â·íŒ¨í„´ ì·¨ì†Œ ë•Œë„ ì˜ˆê³ ì™€ ê³µê²© íŒì •ì„ ë‚¨ê¸°ì§€ ì•ŠëŠ”ë‹¤.
             foreach (BossAlienAttackWarning warning in warnings)
             {
                 if (warning != null)
@@ -392,8 +403,8 @@ public sealed class BossAlienResonancePattern : BossPattern
                 }
             }
 
-            // »ç¸ÁÀÌ³ª ÆĞÅÏ Ãë¼Ò ½Ã ³²¾Æ ÀÖ´Â Æø¹ß ÀÌÆåÆ®¸¦ Á¤¸®ÇÑ´Ù.
-            // Á¤»ó Àç»ıÀ» ¸¶Ä¡°í ÀÌ¹Ì Á¦°ÅµÈ ÀÌÆåÆ®´Â °Ç³Ê¶Ú´Ù.
+            // ì‚¬ë§ì´ë‚˜ íŒ¨í„´ ì·¨ì†Œ ì‹œ ë‚¨ì•„ ìˆëŠ” í­ë°œ ì´í™íŠ¸ë¥¼ ì •ë¦¬í•œë‹¤.
+            // ì •ìƒ ì¬ìƒì„ ë§ˆì¹˜ê³  ì´ë¯¸ ì œê±°ëœ ì´í™íŠ¸ëŠ” ê±´ë„ˆë›´ë‹¤.
             foreach (SpriteOneShotEffect burst in crackBursts)
             {
                 if (burst != null)
@@ -410,13 +421,13 @@ public sealed class BossAlienResonancePattern : BossPattern
         }
     }
 
-    // °ø°İ ½ÃÀÛ ½Ã Ç¥½Ã º¯°æÀº ¿¹°í ÄÄÆ÷³ÍÆ®°¡ ´ã´çÇÑ´Ù.
+    // ê³µê²© ì‹œì‘ ì‹œ í‘œì‹œ ë³€ê²½ì€ ì˜ˆê³  ì»´í¬ë„ŒíŠ¸ê°€ ë‹´ë‹¹í•œë‹¤.
     private static void ShowAttack(BossAlienAttackWarning warning)
     {
         warning.ShowAttack();
     }
 
-    // ¸¶¹«¸® °ø°İ ¹üÀ§ ¾ÈÀÇ ¹æÆĞ ¶Ç´Â ÇÃ·¹ÀÌ¾î¿¡°Ô ÇÇÇØ¸¦ ½ÃµµÇÑ´Ù.
+    // ë§ˆë¬´ë¦¬ ê³µê²© ë²”ìœ„ ì•ˆì˜ ë°©íŒ¨ ë˜ëŠ” í”Œë ˆì´ì–´ì—ê²Œ í”¼í•´ë¥¼ ì‹œë„í•œë‹¤.
     private bool TryHitArea(
         Rect area,
         PlayerController target,
@@ -426,7 +437,7 @@ public sealed class BossAlienResonancePattern : BossPattern
         hits.Clear();
         Physics2D.OverlapBox(area.center, area.size, 0f, filter, hits);
 
-        // ¹üÀ§ °ø°İÀº ±âÁ¸ Æø¹ß °ø°İ°ú µ¿ÀÏÇÏ°Ô ¹æÆĞ¸¦ ¸ÕÀú °Ë»çÇÑ´Ù.
+        // ë²”ìœ„ ê³µê²©ì€ ê¸°ì¡´ í­ë°œ ê³µê²©ê³¼ ë™ì¼í•˜ê²Œ ë°©íŒ¨ë¥¼ ë¨¼ì € ê²€ì‚¬í•œë‹¤.
         foreach (Collider2D hit in hits)
         {
             if (hit.TryGetComponent(out Shield shield) &&
@@ -448,7 +459,7 @@ public sealed class BossAlienResonancePattern : BossPattern
 
             if (hit.GetComponentInParent<PlayerController>() == target)
             {
-                // ±âÁ¸ ÇÇ°İ ¹«Àû°ú Àâ±â º¸È£ ±ÔÄ¢À» µû¸¥´Ù.
+                // ê¸°ì¡´ í”¼ê²© ë¬´ì ê³¼ ì¡ê¸° ë³´í˜¸ ê·œì¹™ì„ ë”°ë¥¸ë‹¤.
                 target.TakeHit(_config.FinalDamage);
                 return true;
             }
@@ -457,7 +468,7 @@ public sealed class BossAlienResonancePattern : BossPattern
         return false;
     }
 
-    // ¾ÈÀü Åë·Î°¡ ÀüÀåÀ» ÀüºÎ µ¤°Å³ª Àß¸øµÈ ½Ã°£À¸·Î ´ë±âÇÏÁö ¾Ê°Ô ÇÑ´Ù.
+    // ì•ˆì „ í†µë¡œê°€ ì „ì¥ì„ ì „ë¶€ ë®ê±°ë‚˜ ì˜ëª»ëœ ì‹œê°„ìœ¼ë¡œ ëŒ€ê¸°í•˜ì§€ ì•Šê²Œ í•œë‹¤.
     private bool ValidSettings(Rect area)
     {
         return Positive(_config.WarningDuration) &&
@@ -474,7 +485,7 @@ public sealed class BossAlienResonancePattern : BossPattern
             NonNegative(_config.RecoveryDuration);
     }
 
-    // ¼³Á¤ °ËÁõ¿¡ »ç¿ëÇÒ À¯È¿ÇÑ ¼ıÀÚ °Ë»ç´Ù.
+    // ì„¤ì • ê²€ì¦ì— ì‚¬ìš©í•  ìœ íš¨í•œ ìˆ«ì ê²€ì‚¬ë‹¤.
     private static bool NonNegative(float value)
     {
         return !float.IsNaN(value) &&

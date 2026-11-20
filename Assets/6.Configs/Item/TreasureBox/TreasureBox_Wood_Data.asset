@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _grade: 1
   _visualPrefab: {fileID: 229731012742728882, guid: d41a277db97862b4ba50129cb02d662c, type: 3}
-  _requiredDamage: 100
-  _selectionWeight: 1
+  _requiredDamage: 80
+  _selectionWeight: 45
   _rewards:
   - _rewardPrefab: {fileID: 523677333196082315, guid: 02f86527c15f5bc4cad8b61a57339f3d, type: 3}
-    _count: 2
+    _count: 6

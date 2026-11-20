@@ -1,33 +1,33 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 
 /// <summary>
-/// UpgradeModel°ú UpgradeSelectionView¸¦ ¿¬°áÇÑ´Ù.
-/// »ç¿ëÀÚÀÇ ¼±ÅÃÀ» ¹Ş¾Æ Model¿¡ Àü´ŞÇÏ°í,
-/// Ã³¸® °á°ú¿¡ µû¶ó ´ÙÀ½ È­¸éÀ» View¿¡ ¿äÃ»ÇÑ´Ù.
+/// UpgradeModelê³¼ UpgradeSelectionViewë¥¼ ì—°ê²°í•œë‹¤.
+/// ì‚¬ìš©ìì˜ ì„ íƒì„ ë°›ì•„ Modelì— ì „ë‹¬í•˜ê³ ,
+/// ì²˜ë¦¬ ê²°ê³¼ì— ë”°ë¼ ë‹¤ìŒ í™”ë©´ì„ Viewì— ìš”ì²­í•œë‹¤.
 /// </summary>
 public sealed class UpgradePresenter : IDisposable
 {
-    // Áõ°­ ÈÄº¸ ÃßÃ·°ú È¿°ú Àû¿ëÀ» ´ã´çÇÏ´Â Model
+    // ì¦ê°• í›„ë³´ ì¶”ì²¨ê³¼ íš¨ê³¼ ì ìš©ì„ ë‹´ë‹¹í•˜ëŠ” Model
     private readonly UpgradeModel _model;
 
-    // Áõ°­ ½½·Ô »ı¼º°ú È­¸é Ç¥½Ã¸¦ ´ã´çÇÏ´Â View
+    // ì¦ê°• ìŠ¬ë¡¯ ìƒì„±ê³¼ í™”ë©´ í‘œì‹œë¥¼ ë‹´ë‹¹í•˜ëŠ” View
     private readonly UpgradeSelectionView _view;
 
-    // Áõ°­ Á¾·á¿Í °ÔÀÌÁö Àç½ÃÀÛÀ» ´ã´çÇÏ´Â GameManager
+    // ì¦ê°• ì¢…ë£Œì™€ ê²Œì´ì§€ ì¬ì‹œì‘ì„ ë‹´ë‹¹í•˜ëŠ” GameManager
     private readonly GameManager _gameManager;
 
-    // ÇÑ ¹ø¿¡ È­¸é¿¡ Ç¥½ÃÇÒ Áõ°­ ÈÄº¸ °³¼ö
+    // í•œ ë²ˆì— í™”ë©´ì— í‘œì‹œí•  ì¦ê°• í›„ë³´ ê°œìˆ˜
     private readonly int _displayChoiceCount;
 
-    // ÇöÀç Áõ°­ ¼±ÅÃ È­¸éÀÌ ¿­·Á ÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
+    // í˜„ì¬ ì¦ê°• ì„ íƒ í™”ë©´ì´ ì—´ë ¤ ìˆëŠ”ì§€ í™•ì¸í•œë‹¤.
     private bool _isOpen;
 
-    // ¿¬¼Ó Å¬¸¯À¸·Î °°Àº Áõ°­ÀÌ Áßº¹ Ã³¸®µÇ´Â °ÍÀ» ¹æÁöÇÑ´Ù.
+    // ì—°ì† í´ë¦­ìœ¼ë¡œ ê°™ì€ ì¦ê°•ì´ ì¤‘ë³µ ì²˜ë¦¬ë˜ëŠ” ê²ƒì„ ë°©ì§€í•œë‹¤.
     private bool _isInputLocked;
 
     /// <summary>
-    /// Model, View, ½ºÅ×ÀÌÁö Èå¸§À» Àü´Ş¹Ş°í View ÀÌº¥Æ®¸¦ ±¸µ¶ÇÑ´Ù.
+    /// Model, View, ìŠ¤í…Œì´ì§€ íë¦„ì„ ì „ë‹¬ë°›ê³  View ì´ë²¤íŠ¸ë¥¼ êµ¬ë…í•œë‹¤.
     /// </summary>
     public UpgradePresenter(
         UpgradeModel model,
@@ -48,13 +48,13 @@ public sealed class UpgradePresenter : IDisposable
         {
             throw new ArgumentOutOfRangeException(
                 nameof(displayChoiceCount),
-                "Ç¥½ÃÇÒ Áõ°­ ÈÄº¸ °³¼ö´Â 1°³ ÀÌ»óÀÌ¾î¾ß ÇÕ´Ï´Ù.");
+                "í‘œì‹œí•  ì¦ê°• í›„ë³´ ê°œìˆ˜ëŠ” 1ê°œ ì´ìƒì´ì–´ì•¼ í•©ë‹ˆë‹¤.");
         }
 
         _displayChoiceCount = displayChoiceCount;
 
-        // View´Â Å¬¸¯ »ç½Ç¸¸ ¾Ë¸®°í,
-        // ½ÇÁ¦ ¼±ÅÃ °á°ú´Â Presenter°¡ ÆÇ´ÜÇÑ´Ù.
+        // ViewëŠ” í´ë¦­ ì‚¬ì‹¤ë§Œ ì•Œë¦¬ê³ ,
+        // ì‹¤ì œ ì„ íƒ ê²°ê³¼ëŠ” Presenterê°€ íŒë‹¨í•œë‹¤.
         _view.UpgradeChoiceClicked +=
             HandleUpgradeChoiceClicked;
 
@@ -63,12 +63,12 @@ public sealed class UpgradePresenter : IDisposable
     }
 
     /// <summary>
-    /// »õ·Î¿î Áõ°­ ¼±ÅÃÀ» ½ÃÀÛÇÑ´Ù.
-    /// Model¿¡¼­ ÈÄº¸¸¦ ÃßÃ·ÇÏ°í View¿¡ Ç¥½Ã¸¦ ¿äÃ»ÇÑ´Ù.
+    /// ìƒˆë¡œìš´ ì¦ê°• ì„ íƒì„ ì‹œì‘í•œë‹¤.
+    /// Modelì—ì„œ í›„ë³´ë¥¼ ì¶”ì²¨í•˜ê³  Viewì— í‘œì‹œë¥¼ ìš”ì²­í•œë‹¤.
     /// </summary>
     public void Open()
     {
-        // ÀÌ¹Ì ¿­·Á ÀÖ´Ù¸é ÈÄº¸¸¦ ´Ù½Ã ÃßÃ·ÇÏÁö ¾Ê´Â´Ù.
+        // ì´ë¯¸ ì—´ë ¤ ìˆë‹¤ë©´ í›„ë³´ë¥¼ ë‹¤ì‹œ ì¶”ì²¨í•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (_isOpen)
         {
             return;
@@ -85,8 +85,8 @@ public sealed class UpgradePresenter : IDisposable
     }
 
     /// <summary>
-    /// 1Â÷ Áõ°­ ½½·Ô ¼±ÅÃ ÈÄ ÅğÀå ¿¬ÃâÀ» ½ÃÀÛÇÑ´Ù.
-    /// ½ÇÁ¦ È¿°ú Àû¿ëÀº ¿¬Ãâ ¿Ï·á Äİ¹é¿¡¼­ Ã³¸®ÇÑ´Ù.
+    /// 1ì°¨ ì¦ê°• ìŠ¬ë¡¯ ì„ íƒ í›„ í‡´ì¥ ì—°ì¶œì„ ì‹œì‘í•œë‹¤.
+    /// ì‹¤ì œ íš¨ê³¼ ì ìš©ì€ ì—°ì¶œ ì™„ë£Œ ì½œë°±ì—ì„œ ì²˜ë¦¬í•œë‹¤.
     /// </summary>
     private void HandleUpgradeChoiceClicked(
         int choiceIndex)
@@ -105,7 +105,7 @@ public sealed class UpgradePresenter : IDisposable
     }
 
     /// <summary>
-    /// 1Â÷ ¼±ÅÃ ÅğÀå ¿¬ÃâÀÌ ³¡³­ µÚ Áõ°­ È¿°ú¸¦ Ã³¸®ÇÑ´Ù.
+    /// 1ì°¨ ì„ íƒ í‡´ì¥ ì—°ì¶œì´ ëë‚œ ë’¤ ì¦ê°• íš¨ê³¼ë¥¼ ì²˜ë¦¬í•œë‹¤.
     /// </summary>
     private void ResolveUpgradeChoice(
         int choiceIndex)
@@ -115,24 +115,24 @@ public sealed class UpgradePresenter : IDisposable
 
         if (selectedTarget == UpgradeTarget.Player)
         {
-            // Player Áõ°­Àº Áï½Ã Àû¿ëµÆÀ¸¹Ç·Î ÀüÃ¼ ¼±ÅÃÀ» Á¾·áÇÑ´Ù.
+            // Player ì¦ê°•ì€ ì¦‰ì‹œ ì ìš©ëìœ¼ë¯€ë¡œ ì „ì²´ ì„ íƒì„ ì¢…ë£Œí•œë‹¤.
             CompleteUpgradeSelection();
             return;
         }
 
         if (selectedTarget == UpgradeTarget.Weapon)
         {
-            // Weapon Áõ°­Àº Àû¿ë ´ë»óÀ» Á¤ÇÏ±â À§ÇØ 2Â÷ È­¸éÀ¸·Î ³Ñ¾î°£´Ù.
+            // Weapon ì¦ê°•ì€ ì ìš© ëŒ€ìƒì„ ì •í•˜ê¸° ìœ„í•´ 2ì°¨ í™”ë©´ìœ¼ë¡œ ë„˜ì–´ê°„ë‹¤.
             ShowWeaponSelection();
             return;
         }
 
         throw new InvalidOperationException(
-            $"Áö¿øÇÏÁö ¾Ê´Â Áõ°­ ´ë»óÀÔ´Ï´Ù: {selectedTarget}");
+            $"ì§€ì›í•˜ì§€ ì•ŠëŠ” ì¦ê°• ëŒ€ìƒì…ë‹ˆë‹¤: {selectedTarget}");
     }
 
     /// <summary>
-    /// ÇöÀç ÀåÂøµÈ ¹«±â¸¦ °¡Á®¿Í 2Â÷ ¼±ÅÃ È­¸é¿¡ Ç¥½ÃÇÑ´Ù.
+    /// í˜„ì¬ ì¥ì°©ëœ ë¬´ê¸°ë¥¼ ê°€ì ¸ì™€ 2ì°¨ ì„ íƒ í™”ë©´ì— í‘œì‹œí•œë‹¤.
     /// </summary>
     private void ShowWeaponSelection()
     {
@@ -142,17 +142,18 @@ public sealed class UpgradePresenter : IDisposable
         if (!HasSelectableWeapon(equippedWeapons))
         {
             throw new InvalidOperationException(
-                "Áõ°­À» Àû¿ëÇÒ ¼ö ÀÖ´Â ÀåÂø ¹«±â°¡ ¾ø½À´Ï´Ù.");
+                "ì¦ê°•ì„ ì ìš©í•  ìˆ˜ ìˆëŠ” ì¥ì°© ë¬´ê¸°ê°€ ì—†ìŠµë‹ˆë‹¤.");
         }
 
-        _view.ShowWeaponChoices(equippedWeapons);
+        // 1ì°¨ì—ì„œ ê³ ë¥¸ ì¦ê°• ì¢…ë¥˜ë¥¼ ì „ë‹¬í•´ í•´ë‹¹ ì„¤ëª…ë§Œ í‘œì‹œí•œë‹¤.
+        _view.ShowWeaponChoices(equippedWeapons, _model.PendingWeaponUpgradeType);
 
-        // »õ·Î »ı¼ºµÈ 2Â÷ ½½·ÔÀº ´Ù½Ã ÀÔ·Â¹ŞÀ» ¼ö ÀÖ´Ù.
+        // ìƒˆë¡œ ìƒì„±ëœ 2ì°¨ ìŠ¬ë¡¯ì€ ë‹¤ì‹œ ì…ë ¥ë°›ì„ ìˆ˜ ìˆë‹¤.
         _isInputLocked = false;
     }
 
     /// <summary>
-    /// 2Â÷ ¹«±â ½½·Ô ¼±ÅÃ ÈÄ ÅğÀå ¿¬ÃâÀ» ½ÃÀÛÇÑ´Ù.
+    /// 2ì°¨ ë¬´ê¸° ìŠ¬ë¡¯ ì„ íƒ í›„ í‡´ì¥ ì—°ì¶œì„ ì‹œì‘í•œë‹¤.
     /// </summary>
     private void HandleWeaponChoiceClicked(
         int weaponSlotIndex)
@@ -173,7 +174,7 @@ public sealed class UpgradePresenter : IDisposable
     }
 
     /// <summary>
-    /// 2Â÷ ¼±ÅÃ ÅğÀå ¿¬ÃâÀÌ ³¡³­ µÚ ¼±ÅÃµÈ ¹«±â¿¡ Áõ°­À» Àû¿ëÇÑ´Ù.
+    /// 2ì°¨ ì„ íƒ í‡´ì¥ ì—°ì¶œì´ ëë‚œ ë’¤ ì„ íƒëœ ë¬´ê¸°ì— ì¦ê°•ì„ ì ìš©í•œë‹¤.
     /// </summary>
     private void ResolveWeaponChoice(
         int weaponSlotIndex)
@@ -185,21 +186,22 @@ public sealed class UpgradePresenter : IDisposable
     }
 
     /// <summary>
-    /// ¼±ÅÃ UI¸¦ ´İ°í GameManager¿¡ Áõ°­ Á¾·á¸¦ ¾Ë¸°´Ù.
+    /// ì„ íƒ UIë¥¼ ë‹«ê³  GameManagerì— ì¦ê°• ì¢…ë£Œë¥¼ ì•Œë¦°ë‹¤.
     /// </summary>
     private void CompleteUpgradeSelection()
     {
+        GameAudio.Play(GameSound.UpgradeSelect); // ì‹¤ì œ ì ìš© ì™„ë£Œ.
         _view.Hide();
 
         _isOpen = false;
         _isInputLocked = false;
 
-        // Time.timeScale º¹±¸¿Í °ÔÀÌÁö Àç½ÃÀÛÀº GameManager°¡ ´ã´çÇÑ´Ù.
+        // Time.timeScale ë³µêµ¬ì™€ ê²Œì´ì§€ ì¬ì‹œì‘ì€ GameManagerê°€ ë‹´ë‹¹í•œë‹¤.
         _gameManager.ExitUpgrade();
     }
 
     /// <summary>
-    /// ÀåÂø ¹«±â ¸ñ·Ï¿¡ ½ÇÁ¦ ¼±ÅÃ °¡´ÉÇÑ ¹«±â°¡ ÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
+    /// ì¥ì°© ë¬´ê¸° ëª©ë¡ì— ì‹¤ì œ ì„ íƒ ê°€ëŠ¥í•œ ë¬´ê¸°ê°€ ìˆëŠ”ì§€ í™•ì¸í•œë‹¤.
     /// </summary>
     private bool HasSelectableWeapon(
         IReadOnlyList<WeaponData> equippedWeapons)
@@ -223,7 +225,7 @@ public sealed class UpgradePresenter : IDisposable
     }
 
     /// <summary>
-    /// Presenter°¡ Á¦°ÅµÉ ¶§ View ÀÌº¥Æ® ±¸µ¶À» ÇØÁ¦ÇÑ´Ù.
+    /// Presenterê°€ ì œê±°ë  ë•Œ View ì´ë²¤íŠ¸ êµ¬ë…ì„ í•´ì œí•œë‹¤.
     /// </summary>
     public void Dispose()
     {

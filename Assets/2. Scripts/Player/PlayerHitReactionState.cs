@@ -1,28 +1,28 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
-// ÇÃ·¹ÀÌ¾î ÇÇ°İ ¾Ö´Ï¸ŞÀÌ¼Ç »óÅÂÀÇ Á¾·á¸¦ °¨ÁöÇÑ´Ù.
+// í”Œë ˆì´ì–´ í”¼ê²© ì• ë‹ˆë©”ì´ì…˜ ìƒíƒœì˜ ì¢…ë£Œë¥¼ ê°ì§€í•œë‹¤.
 public class PlayerHitReactionState : StateMachineBehaviour
 {
-    // ±ôºıÀÓ »óÅÂ¿¡¼­ ºüÁ®³ª°¥ ¶§ ÇÃ·¹ÀÌ¾îÀÇ ÇÇ°İ ¹«ÀûÀ» ÇØÁ¦ÇÑ´Ù.
+    // ê¹œë¹¡ì„ ìƒíƒœì—ì„œ ë¹ ì ¸ë‚˜ê°ˆ ë•Œ í”Œë ˆì´ì–´ì˜ í”¼ê²© ë¬´ì ì„ í•´ì œí•œë‹¤.
     public override void OnStateExit(
         Animator animator,
         AnimatorStateInfo stateInfo,
         int layerIndex)
     {
-        // Animator´Â Renderer ÀÚ½Ä¿¡ ÀÖÀ¸¹Ç·Î ºÎ¸ğ¿¡¼­ ÇÃ·¹ÀÌ¾î¸¦ Ã£´Â´Ù.
+        // AnimatorëŠ” Renderer ìì‹ì— ìˆìœ¼ë¯€ë¡œ ë¶€ëª¨ì—ì„œ í”Œë ˆì´ì–´ë¥¼ ì°¾ëŠ”ë‹¤.
         PlayerController player =
             animator.GetComponentInParent<PlayerController>();
 
-        // Àß¸øµÈ Animator¿¡ ¿¬°áÇß´Ù¸é ¼³Á¤ ¿À·ù¸¦ ¾Ë¸°´Ù.
+        // ì˜ëª»ëœ Animatorì— ì—°ê²°í–ˆë‹¤ë©´ ì„¤ì • ì˜¤ë¥˜ë¥¼ ì•Œë¦°ë‹¤.
         if (player == null)
         {
             Debug.LogError(
-                "PlayerHitReactionStateÀÇ ºÎ¸ğ¿¡ PlayerController°¡ ¾ø½À´Ï´Ù.",
+                "PlayerHitReactionStateì˜ ë¶€ëª¨ì— PlayerControllerê°€ ì—†ìŠµë‹ˆë‹¤.",
                 animator);
             return;
         }
 
-        // ½ÇÁ¦ ±ôºıÀÓ »óÅÂÀÇ Á¾·á¿Í ¹«Àû ÇØÁ¦ ½ÃÁ¡À» ¸ÂÃá´Ù.
+        // ì‹¤ì œ ê¹œë¹¡ì„ ìƒíƒœì˜ ì¢…ë£Œì™€ ë¬´ì  í•´ì œ ì‹œì ì„ ë§ì¶˜ë‹¤.
         player.EndHitInvulnerability();
     }
 }

@@ -26,7 +26,7 @@ MonoBehaviour:
   _playerSpriteLibrary: {fileID: 7108339969198208228, guid: 8cfed8262fe99fa4d9701f5aa7829674, type: 3}
   _characterSelectPreviewScale: 3.5
   _characterSelectPreviewOffset: {x: -34, y: 23}
-  _baseDamage: 30
+  _baseDamage: 45
   _baseCooltime: 1
   _maximumChargeCount: 0
   _chargeRecoveryTime: 5
@@ -39,10 +39,15 @@ MonoBehaviour:
   _price: 0
   _requiredCharacterLevel: 1
   _isInitiallyOwned: 1
-  _fireRateUpgradeValue: 0.01
-  _minimumCooltime: 0.05
-  _info: "\uAC70\uB300\uD55C \uAC80\uC744 \uD718\uB450\uB978\uB2E4."
-  _upgradeSelectionInfo: "Giant Sword\uB97C \uAC15\uD654\uD55C\uB2E4."
-  _weaponMoveSpeed: 8
+  _fireRateUpgradeValue: 0.06
+  _minimumCooltime: 0.65
+  _info: "\uADFC\uC811 3\uC5F0\uACA9. \uAE30\uBCF8 \uD53C\uD574\uB294 \uC21C\uC11C\uB300\uB85C
+    45, 50, 85\uC785\uB2C8\uB2E4."
+  _damageUpgradeSelectionInfo: "공격력 증강은 모든 연격의 기본 피해를 15%씩 높입니다."
+  _fireRateUpgradeSelectionInfo: "연사 강화는 공격 동작을 빠르게 합니다."
+  _meleeFirstDamage: 45
+  _meleeSecondDamage: 50
+  _meleeThirdDamage: 85
+  _weaponMoveSpeed: 6.5
   _lazerHitsPerSecond: 10
   _lazerHitsPerSecondUpgrade: 1

@@ -22,7 +22,7 @@ MonoBehaviour:
     _lockDuration: 0.2
     _activeDuration: 0.15
     _recoveryDuration: 0.25
-    _damage: 10
+    _damage: 12
     _hitboxSize: {x: 3, y: 2.5}
   - _chaseSpeed: 10
     _chaseAnimationSpeed: 2
@@ -30,7 +30,7 @@ MonoBehaviour:
     _lockDuration: 0.2
     _activeDuration: 0.15
     _recoveryDuration: 0.25
-    _damage: 10
+    _damage: 14
     _hitboxSize: {x: 3, y: 2.5}
   - _chaseSpeed: 15
     _chaseAnimationSpeed: 2
@@ -38,5 +38,5 @@ MonoBehaviour:
     _lockDuration: 0.35
     _activeDuration: 0.2
     _recoveryDuration: 0.7
-    _damage: 15
+    _damage: 22
     _hitboxSize: {x: 4, y: 2}

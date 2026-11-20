@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
@@ -8,90 +8,90 @@ using DG.Tweening;
 
 public class StageSelectManager : MonoBehaviour
 {
-    // Áöµµ¿¡ ¹èÄ¡µÈ ¹öÆ° ÇÏ³ª¿Í ±× ¹öÆ°ÀÇ µ¥ÀÌÅÍ¸¦ ¹­´Â´Ù.
+    // ì§€ë„ì— ë°°ì¹˜ëœ ë²„íŠ¼ í•˜ë‚˜ì™€ ê·¸ ë²„íŠ¼ì˜ ë°ì´í„°ë¥¼ ë¬¶ëŠ”ë‹¤.
     [Serializable]
     private class StageNode
     {
-        // ºñ¿öµÎ¸é ¾ÆÁ÷ ÁØºñµÇÁö ¾ÊÀº ½ºÅ×ÀÌÁö·Î Ã³¸®ÇÑ´Ù.
+        // ë¹„ì›Œë‘ë©´ ì•„ì§ ì¤€ë¹„ë˜ì§€ ì•Šì€ ìŠ¤í…Œì´ì§€ë¡œ ì²˜ë¦¬í•œë‹¤.
         public StageData Data;
 
-        // Áöµµ¿¡¼­ ¼±ÅÃÇÒ ½ºÅ×ÀÌÁö ¹öÆ°.
+        // ì§€ë„ì—ì„œ ì„ íƒí•  ìŠ¤í…Œì´ì§€ ë²„íŠ¼.
         public Button Button;
 
-        // ¼±ÅÃµÈ ½ºÅ×ÀÌÁö¸¦ °¨½Î´Â ¸µ ÀÌ¹ÌÁö.
+        // ì„ íƒëœ ìŠ¤í…Œì´ì§€ë¥¼ ê°ì‹¸ëŠ” ë§ ì´ë¯¸ì§€.
         public Image SelectionRing;
     }
 
-    [Header("½ºÅ×ÀÌÁö ¸ñ·Ï")]
-    // Áöµµ¿¡ ¹èÄ¡ÇÑ ¼ø¼­´ë·Î ¿¬°áÇÑ´Ù.
+    [Header("ìŠ¤í…Œì´ì§€ ëª©ë¡")]
+    // ì§€ë„ì— ë°°ì¹˜í•œ ìˆœì„œëŒ€ë¡œ ì—°ê²°í•œë‹¤.
     [SerializeField] StageNode[] _stageNodes;
 
-    [Header("Áöµµ ÀÌµ¿")]
-    // ¹è°æ, °æ·Î, ½ºÅ×ÀÌÁö ¾ÆÀÌÄÜÀ» Æ÷ÇÔÇÏ´Â ÀÌµ¿ ´ë»ó.
+    [Header("ì§€ë„ ì´ë™")]
+    // ë°°ê²½, ê²½ë¡œ, ìŠ¤í…Œì´ì§€ ì•„ì´ì½˜ì„ í¬í•¨í•˜ëŠ” ì´ë™ ëŒ€ìƒ.
     [SerializeField] RectTransform _mapContent;
 
-    // ¼±ÅÃµÈ ¾ÆÀÌÄÜÀÌ µµÂøÇÒ È­¸é»óÀÇ ±âÁØ À§Ä¡.
+    // ì„ íƒëœ ì•„ì´ì½˜ì´ ë„ì°©í•  í™”ë©´ìƒì˜ ê¸°ì¤€ ìœ„ì¹˜.
     [SerializeField] RectTransform _focusAnchor;
 
-    // Áöµµ ÀÌµ¿¿¡ °É¸®´Â ½Ã°£.
+    // ì§€ë„ ì´ë™ì— ê±¸ë¦¬ëŠ” ì‹œê°„.
     [SerializeField, Min(0.01f)] float _moveDuration = 0.45f;
 
-    [Header("Á¤º¸ ÆĞ³Î")]
-    // StageInfoPanel¿¡ ºÙ¾î ÀÖ´Â CanvasGroup.
+    [Header("ì •ë³´ íŒ¨ë„")]
+    // StageInfoPanelì— ë¶™ì–´ ìˆëŠ” CanvasGroup.
     [SerializeField] CanvasGroup _infoPanel;
 
-    // StageInfoPanel ¹Ù·Î ¾Æ·¡¿¡ ÀÖ´Â Àá±İ ÀÌ¹ÌÁö ¿ÀºêÁ§Æ®.
+    // StageInfoPanel ë°”ë¡œ ì•„ë˜ì— ìˆëŠ” ì ê¸ˆ ì´ë¯¸ì§€ ì˜¤ë¸Œì íŠ¸.
     [SerializeField] GameObject _lockedImage;
 
-    // ¼±ÅÃÇÑ ½ºÅ×ÀÌÁö ÀÌ¸§°ú ÃÖ´Ü Å¬¸®¾î ±â·Ï.
+    // ì„ íƒí•œ ìŠ¤í…Œì´ì§€ ì´ë¦„ê³¼ ìµœë‹¨ í´ë¦¬ì–´ ê¸°ë¡.
     [SerializeField] TMP_Text _stageNameText;
     [SerializeField] TMP_Text _clearTimeText;
 
-    // Áß°£ º¸½ºÀÇ ÀÌ¸§°ú ¾ÆÀÌÄÜ.
+    // ì¤‘ê°„ ë³´ìŠ¤ì˜ ì´ë¦„ê³¼ ì•„ì´ì½˜.
     [SerializeField] TMP_Text _midBossNameText;
     [SerializeField] Image _midBossIcon;
 
-    // ÃÖÁ¾ º¸½ºÀÇ ÀÌ¸§°ú ¾ÆÀÌÄÜ.
+    // ìµœì¢… ë³´ìŠ¤ì˜ ì´ë¦„ê³¼ ì•„ì´ì½˜.
     [SerializeField] TMP_Text _finalBossNameText;
     [SerializeField] Image _finalBossIcon;
 
-    // ¼±ÅÃÇÑ ½ºÅ×ÀÌÁö·Î Ãâ°İÇÏ´Â ¹öÆ°.
+    // ì„ íƒí•œ ìŠ¤í…Œì´ì§€ë¡œ ì¶œê²©í•˜ëŠ” ë²„íŠ¼.
     [SerializeField] Button _enterButton;
 
-    // Á¤º¸ ÆĞ³ÎÀÌ ³ªÅ¸³ª´Â ½Ã°£.
+    // ì •ë³´ íŒ¨ë„ì´ ë‚˜íƒ€ë‚˜ëŠ” ì‹œê°„.
     [SerializeField, Min(0.01f)] float _panelFadeDuration = 0.2f;
 
-    [Header("¼±ÅÃ ¸µ")]
-    // ¸µÀÌ ÇÑ ¹ÙÄû È¸ÀüÇÏ´Â ½Ã°£.
+    [Header("ì„ íƒ ë§")]
+    // ë§ì´ í•œ ë°”í€´ íšŒì „í•˜ëŠ” ì‹œê°„.
     [SerializeField, Min(0.01f)] float _ringRotationDuration = 8f;
 
-    // ¸µÀÌ ¹à¾ÆÁ³´Ù Èå·ÁÁö´Â Æíµµ ½Ã°£.
+    // ë§ì´ ë°ì•„ì¡Œë‹¤ íë ¤ì§€ëŠ” í¸ë„ ì‹œê°„.
     [SerializeField, Min(0.01f)] float _ringPulseDuration = 0.65f;
 
-    // ¸µÀÌ °¡Àå Èå·ÁÁ³À» ¶§ÀÇ Åõ¸íµµ.
+    // ë§ì´ ê°€ì¥ íë ¤ì¡Œì„ ë•Œì˜ íˆ¬ëª…ë„.
     [SerializeField, Range(0f, 1f)] float _ringMinimumAlpha = 0.45f;
 
-    // ¹è¿­¿¡¼­ ¼±ÅÃµÈ Ç×¸ñÀÇ ¹øÈ£. ÀúÀå¿ë StageIndex¿Í´Â ´Ù¸£´Ù.
+    // ë°°ì—´ì—ì„œ ì„ íƒëœ í•­ëª©ì˜ ë²ˆí˜¸. ì €ì¥ìš© StageIndexì™€ëŠ” ë‹¤ë¥´ë‹¤.
     private int _selectedNodeIndex = -1;
 
-    // Ãâ°İ ¹öÆ° µîÀÇ Áßº¹ ½ÇÇàÀ» ¸·´Â´Ù.
+    // ì¶œê²© ë²„íŠ¼ ë“±ì˜ ì¤‘ë³µ ì‹¤í–‰ì„ ë§‰ëŠ”ë‹¤.
     private bool _isLeaving;
 
-    // ÀÌ È­¸é¿¡¼­ »ı¼ºÇÑ Æ®À©¸¸ °³º°ÀûÀ¸·Î °ü¸®ÇÑ´Ù.
+    // ì´ í™”ë©´ì—ì„œ ìƒì„±í•œ íŠ¸ìœˆë§Œ ê°œë³„ì ìœ¼ë¡œ ê´€ë¦¬í•œë‹¤.
     private Tween _mapTween;
     private Tween _panelTween;
     private Tween _ringRotationTween;
     private Tween _ringPulseTween;
 
-    // Ã¢ ¾È¿¡¼­ »ç¿ë ÁßÀÏ ¶§ Ä³¸¯ÅÍ ¼±ÅÃ È­¸éÀ¸·Î ÀÌµ¿ÇÏµµ·Ï ¿äÃ»ÇÑ´Ù.
+    // ì°½ ì•ˆì—ì„œ ì‚¬ìš© ì¤‘ì¼ ë•Œ ìºë¦­í„° ì„ íƒ í™”ë©´ìœ¼ë¡œ ì´ë™í•˜ë„ë¡ ìš”ì²­í•œë‹¤.
     public event Action CharacterSelectionRequested;
 
     private void Start()
     {
-        // ÇÊ¿äÇÑ ¿¬°áÀÌ ºüÁ³´Ù¸é ½ÃÀÛ ½ÃÁ¡¿¡ ¾Ë·ÁÁØ´Ù.
+        // í•„ìš”í•œ ì—°ê²°ì´ ë¹ ì¡Œë‹¤ë©´ ì‹œì‘ ì‹œì ì— ì•Œë ¤ì¤€ë‹¤.
         ValidateReferences();
 
-        // Ã¹ È­¸é¿¡¼­´Â Á¤º¸ ÆĞ³Î°ú ¼±ÅÃ Ç¥½Ã¸¦ ¼û±ä´Ù.
+        // ì²« í™”ë©´ì—ì„œëŠ” ì •ë³´ íŒ¨ë„ê³¼ ì„ íƒ í‘œì‹œë¥¼ ìˆ¨ê¸´ë‹¤.
         _infoPanel.alpha = 0f;
         _infoPanel.interactable = false;
         _infoPanel.blocksRaycasts = false;
@@ -103,17 +103,17 @@ public class StageSelectManager : MonoBehaviour
 
             node.SelectionRing.gameObject.SetActive(false);
 
-            // µ¥ÀÌÅÍ°¡ ¾ø´Â ½ºÅ×ÀÌÁö´Â ¼±ÅÃÇÏÁö ¸øÇÏ°Ô ÇÑ´Ù.
+            // ë°ì´í„°ê°€ ì—†ëŠ” ìŠ¤í…Œì´ì§€ëŠ” ì„ íƒí•˜ì§€ ëª»í•˜ê²Œ í•œë‹¤.
             node.Button.interactable = node.Data != null;
 
             if (node.Data != null)
             {
-                // ½ºÅ×ÀÌÁö ¾ÆÀÌÄÜµµ StageData¿¡¼­ °¡Á®¿Â´Ù.
+                // ìŠ¤í…Œì´ì§€ ì•„ì´ì½˜ë„ StageDataì—ì„œ ê°€ì ¸ì˜¨ë‹¤.
                 node.Button.image.sprite = node.Data.StageIcon;
             }
         }
 
-        // EventSystemÀÇ ÃÊ±â ¼±ÅÃ ¶§¹®¿¡ ÀÚµ¿ ¼±ÅÃµÇÁö ¾Ê°Ô ÇÑ´Ù.
+        // EventSystemì˜ ì´ˆê¸° ì„ íƒ ë•Œë¬¸ì— ìë™ ì„ íƒë˜ì§€ ì•Šê²Œ í•œë‹¤.
         if (EventSystem.current != null)
         {
             EventSystem.current.SetSelectedGameObject(null);
@@ -122,7 +122,7 @@ public class StageSelectManager : MonoBehaviour
 
     private void LateUpdate()
     {
-        // ÀÌ¹Ì ¾ÀÀ» ÀÌµ¿ ÁßÀÌ°Å³ª UI ÀÔ·Â ½Ã½ºÅÛÀÌ ¾øÀ¸¸é Ã³¸®ÇÏÁö ¾Ê´Â´Ù.
+        // ì´ë¯¸ ì”¬ì„ ì´ë™ ì¤‘ì´ê±°ë‚˜ UI ì…ë ¥ ì‹œìŠ¤í…œì´ ì—†ìœ¼ë©´ ì²˜ë¦¬í•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (_isLeaving || EventSystem.current == null)
         {
             return;
@@ -133,7 +133,7 @@ public class StageSelectManager : MonoBehaviour
 
         if (selected == null)
         {
-            // ±âÁ¸Ã³·³ Ã¹ ¹æÇâÅ° ÀÔ·ÂÀ¸·Î »ç¿ë °¡´ÉÇÑ ½ºÅ×ÀÌÁö¸¦ ¼±ÅÃÇÑ´Ù.
+            // ê¸°ì¡´ì²˜ëŸ¼ ì²« ë°©í–¥í‚¤ ì…ë ¥ìœ¼ë¡œ ì‚¬ìš© ê°€ëŠ¥í•œ ìŠ¤í…Œì´ì§€ë¥¼ ì„ íƒí•œë‹¤.
             if (IsAnyArrowKeyDown())
             {
                 SelectFirstAvailableStage();
@@ -141,8 +141,8 @@ public class StageSelectManager : MonoBehaviour
         }
         else
         {
-            // ¹æÇâÅ°·Î ÀÌµ¿ÇÑ ½ºÅ×ÀÌÁö Á¤º¸¸¦ ¸ÕÀú ¹İ¿µÇÑ´Ù.
-            // ¹æÇâÅ°¿Í Enter¸¦ ÇÔ²² ´­·¯µµ ÇöÀç ¼±ÅÃÇÑ ½ºÅ×ÀÌÁö·Î ÁøÀÔÇÑ´Ù.
+            // ë°©í–¥í‚¤ë¡œ ì´ë™í•œ ìŠ¤í…Œì´ì§€ ì •ë³´ë¥¼ ë¨¼ì € ë°˜ì˜í•œë‹¤.
+            // ë°©í–¥í‚¤ì™€ Enterë¥¼ í•¨ê»˜ ëˆŒëŸ¬ë„ í˜„ì¬ ì„ íƒí•œ ìŠ¤í…Œì´ì§€ë¡œ ì§„ì…í•œë‹¤.
             for (int i = 0; i < _stageNodes.Length; i++)
             {
                 if (_stageNodes[i].Button.gameObject == selected)
@@ -153,7 +153,7 @@ public class StageSelectManager : MonoBehaviour
             }
         }
 
-        // ÀÏ¹İ Enter¿Í ¼ıÀÚÆĞµå Enter¸¦ ¸ğµÎ Çã¿ëÇÑ´Ù.
+        // ì¼ë°˜ Enterì™€ ìˆ«ìíŒ¨ë“œ Enterë¥¼ ëª¨ë‘ í—ˆìš©í•œë‹¤.
         bool enterPressed =
             Input.GetKeyDown(KeyCode.Return) ||
             Input.GetKeyDown(KeyCode.KeypadEnter);
@@ -163,8 +163,8 @@ public class StageSelectManager : MonoBehaviour
             return;
         }
 
-        // ½ºÅ×ÀÌÁö¸¦ ¼±ÅÃÇÏ°í Á¤º¸Ã¢ÀÌ ¿­¸° »óÅÂ¿¡¼­¸¸ ÁøÀÔÇÑ´Ù.
-        // ¹öÆ°ÀÌ ºñÈ°¼º »óÅÂ¶ó¸é Å°º¸µå·Îµµ ½ÇÇàÇÏÁö ¾Ê´Â´Ù.
+        // ìŠ¤í…Œì´ì§€ë¥¼ ì„ íƒí•˜ê³  ì •ë³´ì°½ì´ ì—´ë¦° ìƒíƒœì—ì„œë§Œ ì§„ì…í•œë‹¤.
+        // ë²„íŠ¼ì´ ë¹„í™œì„± ìƒíƒœë¼ë©´ í‚¤ë³´ë“œë¡œë„ ì‹¤í–‰í•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (_selectedNodeIndex < 0 ||
             !_infoPanel.gameObject.activeInHierarchy ||
             !_infoPanel.interactable ||
@@ -175,13 +175,13 @@ public class StageSelectManager : MonoBehaviour
             return;
         }
 
-        // ¸¶¿ì½º·Î ¼±ÅÃÇÏ±â ¹öÆ°À» Å¬¸¯ÇßÀ» ¶§¿Í °°Àº µ¿ÀÛÀ» ½ÇÇàÇÑ´Ù.
+        // ë§ˆìš°ìŠ¤ë¡œ ì„ íƒí•˜ê¸° ë²„íŠ¼ì„ í´ë¦­í–ˆì„ ë•Œì™€ ê°™ì€ ë™ì‘ì„ ì‹¤í–‰í•œë‹¤.
         _enterButton.onClick.Invoke();
     }
 
     public void SelectingStage(int nodeIndex)
     {
-        // Àß¸øµÈ ¹øÈ£³ª ÀÌ¹Ì ¼±ÅÃµÈ Ç×¸ñÀº Ã³¸®ÇÏÁö ¾Ê´Â´Ù.
+        // ì˜ëª»ëœ ë²ˆí˜¸ë‚˜ ì´ë¯¸ ì„ íƒëœ í•­ëª©ì€ ì²˜ë¦¬í•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (_isLeaving ||
             nodeIndex < 0 ||
             nodeIndex >= _stageNodes.Length ||
@@ -197,14 +197,15 @@ public class StageSelectManager : MonoBehaviour
             return;
         }
 
-        // ÀÌÀü ¸µ ¿¬ÃâÀ» Á¤¸®ÇÑ µÚ »õ·Î¿î ¼±ÅÃÀ» Ç¥½ÃÇÑ´Ù.
+        // ì´ì „ ë§ ì—°ì¶œì„ ì •ë¦¬í•œ ë’¤ ìƒˆë¡œìš´ ì„ íƒì„ í‘œì‹œí•œë‹¤.
         HideSelectedRing();
         _selectedNodeIndex = nodeIndex;
+        GameAudio.Play(GameSound.StageSelectChange);
 
-        // Àá±İ »óÅÂ¿¡ ¸ÂÃç Á¤º¸ ÆĞ³Î°ú ÀÔÀå ¹öÆ°À» °»½ÅÇÑ´Ù.
+        // ì ê¸ˆ ìƒíƒœì— ë§ì¶° ì •ë³´ íŒ¨ë„ê³¼ ì…ì¥ ë²„íŠ¼ì„ ê°±ì‹ í•œë‹¤.
         RefreshPanelContents(node.Data);
 
-        // Àá±İ ¿©ºÎ¿Í °ü°è¾øÀÌ Áöµµ ÀÌµ¿°ú ¼±ÅÃ Ç¥½Ã´Â À¯ÁöÇÑ´Ù.
+        // ì ê¸ˆ ì—¬ë¶€ì™€ ê´€ê³„ì—†ì´ ì§€ë„ ì´ë™ê³¼ ì„ íƒ í‘œì‹œëŠ” ìœ ì§€í•œë‹¤.
         MoveMapToNode(node);
         ShowSelectedRing(node.SelectionRing);
         ShowInformationPanel();
@@ -223,7 +224,7 @@ public class StageSelectManager : MonoBehaviour
         RectTransform nodeRect =
             (RectTransform)node.Button.transform;
 
-        // µÎ À§Ä¡¸¦ °°Àº ºÎ¸ğ ÁÂÇ¥°è·Î º¯È¯ÇÑ´Ù.
+        // ë‘ ìœ„ì¹˜ë¥¼ ê°™ì€ ë¶€ëª¨ ì¢Œí‘œê³„ë¡œ ë³€í™˜í•œë‹¤.
         Vector3 targetPosition =
             parent.InverseTransformPoint(_focusAnchor.position);
 
@@ -231,7 +232,7 @@ public class StageSelectManager : MonoBehaviour
             parent.InverseTransformPoint(
                 nodeRect.TransformPoint(nodeRect.rect.center));
 
-        // ¼¼·Î ¹èÄ¡´Â À¯ÁöÇÏ°í °¡·Î À§Ä¡¸¸ ±âÁØÁ¡¿¡ ¸ÂÃá´Ù.
+        // ì„¸ë¡œ ë°°ì¹˜ëŠ” ìœ ì§€í•˜ê³  ê°€ë¡œ ìœ„ì¹˜ë§Œ ê¸°ì¤€ì ì— ë§ì¶˜ë‹¤.
         float destinationX =
             _mapContent.anchoredPosition.x
             + targetPosition.x
@@ -243,21 +244,21 @@ public class StageSelectManager : MonoBehaviour
             .SetUpdate(true);
     }
 
-    // StageData¿¡ ¹Ì¸® ÀúÀåµÈ Á¤º¸·Î ¼±ÅÃ È­¸éÀ» °»½ÅÇÑ´Ù.
+    // StageDataì— ë¯¸ë¦¬ ì €ì¥ëœ ì •ë³´ë¡œ ì„ íƒ í™”ë©´ì„ ê°±ì‹ í•œë‹¤.
     private void RefreshStageInformation(StageData data)
     {
-        // ¼±ÅÃÇÑ ½ºÅ×ÀÌÁö ÀÌ¸§À» Ç¥½ÃÇÑ´Ù.
+        // ì„ íƒí•œ ìŠ¤í…Œì´ì§€ ì´ë¦„ì„ í‘œì‹œí•œë‹¤.
         _stageNameText.text = data.StageName;
 
-        // º¸½º ÇÁ¸®ÆÕÀ» °ÅÄ¡Áö ¾Ê°í Áß°£ º¸½º Á¤º¸¸¦ Ç¥½ÃÇÑ´Ù.
+        // ë³´ìŠ¤ í”„ë¦¬íŒ¹ì„ ê±°ì¹˜ì§€ ì•Šê³  ì¤‘ê°„ ë³´ìŠ¤ ì •ë³´ë¥¼ í‘œì‹œí•œë‹¤.
         _midBossNameText.text = data.MidBossName;
         _midBossIcon.sprite = data.MidBossIcon;
 
-        // º¸½º ÇÁ¸®ÆÕÀ» °ÅÄ¡Áö ¾Ê°í ÃÖÁ¾ º¸½º Á¤º¸¸¦ Ç¥½ÃÇÑ´Ù.
+        // ë³´ìŠ¤ í”„ë¦¬íŒ¹ì„ ê±°ì¹˜ì§€ ì•Šê³  ìµœì¢… ë³´ìŠ¤ ì •ë³´ë¥¼ í‘œì‹œí•œë‹¤.
         _finalBossNameText.text = data.FinalBossName;
         _finalBossIcon.sprite = data.FinalBossIcon;
 
-        // ÇØ´ç ½ºÅ×ÀÌÁöÀÇ ÃÖ°í Å¬¸®¾î ±â·ÏÀ» ÀĞ¾î Ç¥½ÃÇÑ´Ù.
+        // í•´ë‹¹ ìŠ¤í…Œì´ì§€ì˜ ìµœê³  í´ë¦¬ì–´ ê¸°ë¡ì„ ì½ì–´ í‘œì‹œí•œë‹¤.
         float bestClearTime =
             SaveManager.Instance.GetBestClearTime(data.StageIndex);
 
@@ -271,7 +272,7 @@ public class StageSelectManager : MonoBehaviour
             _panelTween.Kill();
         }
 
-        // Ã¹ ¼±ÅÃ»Ó ¾Æ´Ï¶ó ´Ù¸¥ ½ºÅ×ÀÌÁö ¼±ÅÃ ½Ã¿¡µµ ºÎµå·´°Ô Ç¥½ÃÇÑ´Ù.
+        // ì²« ì„ íƒë¿ ì•„ë‹ˆë¼ ë‹¤ë¥¸ ìŠ¤í…Œì´ì§€ ì„ íƒ ì‹œì—ë„ ë¶€ë“œëŸ½ê²Œ í‘œì‹œí•œë‹¤.
         _infoPanel.alpha = 0f;
         _infoPanel.interactable = true;
         _infoPanel.blocksRaycasts = true;
@@ -283,7 +284,7 @@ public class StageSelectManager : MonoBehaviour
 
     private void ShowSelectedRing(Image ring)
     {
-        // ¸Å¹ø °°Àº È¸Àü°¢°ú ¹à±â¿¡¼­ ¿¬ÃâÀ» ½ÃÀÛÇÑ´Ù.
+        // ë§¤ë²ˆ ê°™ì€ íšŒì „ê°ê³¼ ë°ê¸°ì—ì„œ ì—°ì¶œì„ ì‹œì‘í•œë‹¤.
         ring.gameObject.SetActive(true);
         ring.rectTransform.localRotation = Quaternion.identity;
 
@@ -291,7 +292,7 @@ public class StageSelectManager : MonoBehaviour
         color.a = 1f;
         ring.color = color;
 
-        // ¼±ÅÃ ¸µÀ» ÀÏÁ¤ÇÑ ¼Óµµ·Î È¸Àü½ÃÅ²´Ù.
+        // ì„ íƒ ë§ì„ ì¼ì •í•œ ì†ë„ë¡œ íšŒì „ì‹œí‚¨ë‹¤.
         _ringRotationTween = ring.rectTransform
             .DOLocalRotate(
                 new Vector3(0f, 0f, -360f),
@@ -301,7 +302,7 @@ public class StageSelectManager : MonoBehaviour
             .SetLoops(-1, LoopType.Restart)
             .SetUpdate(true);
 
-        // ¹à±â°¡ ºÎµå·´°Ô ¹İº¹ÇØ¼­ º¯ÇÏµµ·Ï ÇÑ´Ù.
+        // ë°ê¸°ê°€ ë¶€ë“œëŸ½ê²Œ ë°˜ë³µí•´ì„œ ë³€í•˜ë„ë¡ í•œë‹¤.
         _ringPulseTween = ring
             .DOFade(_ringMinimumAlpha, _ringPulseDuration)
             .SetEase(Ease.InOutSine)
@@ -330,7 +331,7 @@ public class StageSelectManager : MonoBehaviour
 
     private void SelectFirstAvailableStage()
     {
-        // µ¥ÀÌÅÍ°¡ ÁØºñµÈ Ã¹ ¹øÂ° ¹öÆ°À¸·Î Å°º¸µå Æ÷Ä¿½º¸¦ ¿Å±ä´Ù.
+        // ë°ì´í„°ê°€ ì¤€ë¹„ëœ ì²« ë²ˆì§¸ ë²„íŠ¼ìœ¼ë¡œ í‚¤ë³´ë“œ í¬ì»¤ìŠ¤ë¥¼ ì˜®ê¸´ë‹¤.
         for (int i = 0; i < _stageNodes.Length; i++)
         {
             StageNode node = _stageNodes[i];
@@ -350,7 +351,7 @@ public class StageSelectManager : MonoBehaviour
 
     private bool IsAnyArrowKeyDown()
     {
-        // ±âÁ¸ ¹æÇâÅ° ÀÔ·Â ¹æ½ÄÀ» À¯ÁöÇÑ´Ù.
+        // ê¸°ì¡´ ë°©í–¥í‚¤ ì…ë ¥ ë°©ì‹ì„ ìœ ì§€í•œë‹¤.
         return Input.GetKeyDown(KeyCode.UpArrow)
             || Input.GetKeyDown(KeyCode.DownArrow)
             || Input.GetKeyDown(KeyCode.LeftArrow)
@@ -366,19 +367,20 @@ public class StageSelectManager : MonoBehaviour
 
         StageData data = _stageNodes[_selectedNodeIndex].Data;
 
-        // ¹öÆ° ÀÌº¥Æ® µî¿¡¼­ Á÷Á¢ È£ÃâµÇ¾îµµ Àá±ä ½ºÅ×ÀÌÁö¿¡´Â ÀÔÀåÇÏÁö ¾Ê´Â´Ù.
+        // ë²„íŠ¼ ì´ë²¤íŠ¸ ë“±ì—ì„œ ì§ì ‘ í˜¸ì¶œë˜ì–´ë„ ì ê¸´ ìŠ¤í…Œì´ì§€ì—ëŠ” ì…ì¥í•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (data == null || data.IsLocked)
         {
             return;
         }
 
-        // ±âÁ¸ Ä³¸¯ÅÍ ¼±ÅÃ ÁøÀÔ Èå¸§À» À¯ÁöÇÑ´Ù.
+        // ê¸°ì¡´ ìºë¦­í„° ì„ íƒ ì§„ì… íë¦„ì„ ìœ ì§€í•œë‹¤.
         _isLeaving = true;
+        GameAudio.Play(GameSound.UiConfirm);
         GameSessionManager.Instance.SelectStage(data.StageIndex);
         GameSessionManager.Instance.BeginCharacterSelection(
             CharacterSelectPurpose.Battle);
 
-        // Ã¢¿¡ ¿¬°áµÇ¾î ÀÖÀ¸¸é ÀüÃ¼ ¾À ÀÌµ¿ ´ë½Å Ã¢ ³»ºÎ ÀüÈ¯À» ¿äÃ»ÇÑ´Ù.
+        // ì°½ì— ì—°ê²°ë˜ì–´ ìˆìœ¼ë©´ ì „ì²´ ì”¬ ì´ë™ ëŒ€ì‹  ì°½ ë‚´ë¶€ ì „í™˜ì„ ìš”ì²­í•œë‹¤.
         if (CharacterSelectionRequested != null)
         {
             CharacterSelectionRequested.Invoke();
@@ -391,7 +393,7 @@ public class StageSelectManager : MonoBehaviour
 
     private string FormatBestClearTime(float bestClearTime)
     {
-        // ±â·ÏÀÌ ¾øÀ¸¸é ½Ã°£ ´ë½Å ºó ±â·Ï Ç¥½Ã¸¦ »ç¿ëÇÑ´Ù.
+        // ê¸°ë¡ì´ ì—†ìœ¼ë©´ ì‹œê°„ ëŒ€ì‹  ë¹ˆ ê¸°ë¡ í‘œì‹œë¥¼ ì‚¬ìš©í•œë‹¤.
         if (bestClearTime <= 0f)
         {
             return "ClearTime: -- : --";
@@ -406,15 +408,15 @@ public class StageSelectManager : MonoBehaviour
 
     private void ValidateReferences()
     {
-        // ÀúÀå°ú ´ÙÀ½ ¾À ÁøÀÔ¿¡ ÇÊ¿äÇÑ ¸Å´ÏÀú¸¦ È®ÀÎÇÑ´Ù.
+        // ì €ì¥ê³¼ ë‹¤ìŒ ì”¬ ì§„ì…ì— í•„ìš”í•œ ë§¤ë‹ˆì €ë¥¼ í™•ì¸í•œë‹¤.
         if (SaveManager.Instance == null ||
             GameSessionManager.Instance == null)
         {
             throw new InvalidOperationException(
-                "SaveManager ¶Ç´Â GameSessionManager°¡ ¾ø½À´Ï´Ù.");
+                "SaveManager ë˜ëŠ” GameSessionManagerê°€ ì—†ìŠµë‹ˆë‹¤.");
         }
 
-        // °øÅë UI ¿¬°áÀ» È®ÀÎÇÑ´Ù.
+        // ê³µí†µ UI ì—°ê²°ì„ í™•ì¸í•œë‹¤.
         if (_mapContent == null ||
             _focusAnchor == null ||
             _infoPanel == null ||
@@ -428,16 +430,16 @@ public class StageSelectManager : MonoBehaviour
             _lockedImage == null)
         {
             throw new InvalidOperationException(
-                "StageSelectManagerÀÇ Áöµµ ¶Ç´Â Á¤º¸ ÆĞ³Î ¿¬°áÀÌ ºüÁ³½À´Ï´Ù.");
+                "StageSelectManagerì˜ ì§€ë„ ë˜ëŠ” ì •ë³´ íŒ¨ë„ ì—°ê²°ì´ ë¹ ì¡ŒìŠµë‹ˆë‹¤.");
         }
 
         if (_stageNodes == null || _stageNodes.Length == 0)
         {
             throw new InvalidOperationException(
-                "Stage Nodes¿¡ ½ºÅ×ÀÌÁö ¹öÆ°À» ¿¬°áÇØÁÖ¼¼¿ä.");
+                "Stage Nodesì— ìŠ¤í…Œì´ì§€ ë²„íŠ¼ì„ ì—°ê²°í•´ì£¼ì„¸ìš”.");
         }
 
-        // °¢ Ç×¸ñÀÇ ¹öÆ°°ú ÁØºñµÈ µ¥ÀÌÅÍ ³»¿ëÀ» È®ÀÎÇÑ´Ù.
+        // ê° í•­ëª©ì˜ ë²„íŠ¼ê³¼ ì¤€ë¹„ëœ ë°ì´í„° ë‚´ìš©ì„ í™•ì¸í•œë‹¤.
         for (int i = 0; i < _stageNodes.Length; i++)
         {
             StageNode node = _stageNodes[i];
@@ -448,10 +450,10 @@ public class StageSelectManager : MonoBehaviour
                 node.SelectionRing == null)
             {
                 throw new InvalidOperationException(
-                    $"Stage NodesÀÇ Element {i} ¿¬°áÀÌ ºüÁ³½À´Ï´Ù.");
+                    $"Stage Nodesì˜ Element {i} ì—°ê²°ì´ ë¹ ì¡ŒìŠµë‹ˆë‹¤.");
             }
 
-            // µ¥ÀÌÅÍ°¡ ¾ø´Â Ç×¸ñÀº Àá±ä ½ºÅ×ÀÌÁöÀÌ¹Ç·Î Çã¿ëÇÑ´Ù.
+            // ë°ì´í„°ê°€ ì—†ëŠ” í•­ëª©ì€ ì ê¸´ ìŠ¤í…Œì´ì§€ì´ë¯€ë¡œ í—ˆìš©í•œë‹¤.
             if (node.Data == null)
             {
                 continue;
@@ -459,36 +461,36 @@ public class StageSelectManager : MonoBehaviour
 
             StageData data = node.Data;
 
-            // Àá±ä ½ºÅ×ÀÌÁöµµ Áöµµ¿¡´Â Ç¥½ÃÇÏ¹Ç·Î ½ºÅ×ÀÌÁö ¾ÆÀÌÄÜÀº ÇÊ¿äÇÏ´Ù.
+            // ì ê¸´ ìŠ¤í…Œì´ì§€ë„ ì§€ë„ì—ëŠ” í‘œì‹œí•˜ë¯€ë¡œ ìŠ¤í…Œì´ì§€ ì•„ì´ì½˜ì€ í•„ìš”í•˜ë‹¤.
             if (data.StageIcon == null)
             {
                 throw new InvalidOperationException(
-                    $"{data.name}: Stage IconÀ» ¿¬°áÇØÁÖ¼¼¿ä.");
+                    $"{data.name}: Stage Iconì„ ì—°ê²°í•´ì£¼ì„¸ìš”.");
             }
 
-            // Àá±ä ½ºÅ×ÀÌÁö¿¡´Â º¸½º Á¤º¸°¡ ¾ø¾îµµ µÈ´Ù.
+            // ì ê¸´ ìŠ¤í…Œì´ì§€ì—ëŠ” ë³´ìŠ¤ ì •ë³´ê°€ ì—†ì–´ë„ ëœë‹¤.
             if (data.IsLocked)
             {
                 continue;
             }
 
-            // ÀÔÀå °¡´ÉÇÑ ½ºÅ×ÀÌÁö´Â º¸½º ÀÌ¸§°ú ¾ÆÀÌÄÜÀÌ ÁØºñµÇ¾î ÀÖ¾î¾ß ÇÑ´Ù.
+            // ì…ì¥ ê°€ëŠ¥í•œ ìŠ¤í…Œì´ì§€ëŠ” ë³´ìŠ¤ ì´ë¦„ê³¼ ì•„ì´ì½˜ì´ ì¤€ë¹„ë˜ì–´ ìˆì–´ì•¼ í•œë‹¤.
             if (string.IsNullOrWhiteSpace(data.MidBossName) ||
                 string.IsNullOrWhiteSpace(data.FinalBossName) ||
                 data.MidBossIcon == null ||
                 data.FinalBossIcon == null)
             {
-                // ÀÚµ¿ ÃßÃâÀ» ½ÇÇàÇÏÁö ¾Ê¾Ò°Å³ª ¿øº» º¸½º Á¤º¸°¡ ºñ¾î ÀÖÀ¸¸é ¾Ë¸°´Ù.
+                // ìë™ ì¶”ì¶œì„ ì‹¤í–‰í•˜ì§€ ì•Šì•˜ê±°ë‚˜ ì›ë³¸ ë³´ìŠ¤ ì •ë³´ê°€ ë¹„ì–´ ìˆìœ¼ë©´ ì•Œë¦°ë‹¤.
                 throw new InvalidOperationException(
-                    $"{data.name}: º¸½º ÀÌ¸§°ú ¾ÆÀÌÄÜÀÌ ¾ø½À´Ï´Ù. " +
-                    "StageData¿¡¼­ '¾À¿¡¼­ º¸½º Á¤º¸ »õ·Î°íÄ§'À» ½ÇÇàÇØÁÖ¼¼¿ä.");
+                    $"{data.name}: ë³´ìŠ¤ ì´ë¦„ê³¼ ì•„ì´ì½˜ì´ ì—†ìŠµë‹ˆë‹¤. " +
+                    "StageDataì—ì„œ 'ì”¬ì—ì„œ ë³´ìŠ¤ ì •ë³´ ìƒˆë¡œê³ ì¹¨'ì„ ì‹¤í–‰í•´ì£¼ì„¸ìš”.");
             }
         }
     }
 
     private void OnDestroy()
     {
-        // ¾ÀÀ» ³ª°¥ ¶§ ÀÌ È­¸é¿¡¼­ »ı¼ºÇÑ ¿¬Ãâ¸¸ Á¾·áÇÑ´Ù.
+        // ì”¬ì„ ë‚˜ê°ˆ ë•Œ ì´ í™”ë©´ì—ì„œ ìƒì„±í•œ ì—°ì¶œë§Œ ì¢…ë£Œí•œë‹¤.
         if (_mapTween != null)
         {
             _mapTween.Kill();
@@ -510,13 +512,13 @@ public class StageSelectManager : MonoBehaviour
         }
     }
 
-    // Àá±ä ½ºÅ×ÀÌÁö¿¡¼­´Â LockedImage¸¸ Ç¥½ÃÇÑ´Ù.
-    // ÀÏ¹İ ½ºÅ×ÀÌÁö¿¡¼­´Â ³ª¸ÓÁö Á¤º¸ ¿ÀºêÁ§Æ®¸¦ Ç¥½ÃÇÑ´Ù.
+    // ì ê¸´ ìŠ¤í…Œì´ì§€ì—ì„œëŠ” LockedImageë§Œ í‘œì‹œí•œë‹¤.
+    // ì¼ë°˜ ìŠ¤í…Œì´ì§€ì—ì„œëŠ” ë‚˜ë¨¸ì§€ ì •ë³´ ì˜¤ë¸Œì íŠ¸ë¥¼ í‘œì‹œí•œë‹¤.
     private void RefreshPanelContents(StageData data)
     {
         bool isLocked = data.IsLocked;
 
-        // ÇöÀç ¾À ±¸Á¶Ã³·³ StageInfoPanelÀÇ Á÷°è ÀÚ½ÄµéÀ» ÀüÈ¯ÇÑ´Ù.
+        // í˜„ì¬ ì”¬ êµ¬ì¡°ì²˜ëŸ¼ StageInfoPanelì˜ ì§ê³„ ìì‹ë“¤ì„ ì „í™˜í•œë‹¤.
         foreach (Transform child in _infoPanel.transform)
         {
             bool isLockedImage = child.gameObject == _lockedImage;
@@ -525,13 +527,13 @@ public class StageSelectManager : MonoBehaviour
                 isLockedImage ? isLocked : !isLocked);
         }
 
-        // Àá±ä ½ºÅ×ÀÌÁö´Â º¸½º Á¤º¸°¡ ¾øÀ¸¹Ç·Î ÀĞÁö ¾Ê´Â´Ù.
+        // ì ê¸´ ìŠ¤í…Œì´ì§€ëŠ” ë³´ìŠ¤ ì •ë³´ê°€ ì—†ìœ¼ë¯€ë¡œ ì½ì§€ ì•ŠëŠ”ë‹¤.
         if (!isLocked)
         {
             RefreshStageInformation(data);
         }
 
-        // ¹öÆ°°ú ±âÁ¸ Enter Å° Ã³¸® ¸ğµÎ ÀÔÀåÀ» ¸·´Â´Ù.
+        // ë²„íŠ¼ê³¼ ê¸°ì¡´ Enter í‚¤ ì²˜ë¦¬ ëª¨ë‘ ì…ì¥ì„ ë§‰ëŠ”ë‹¤.
         _enterButton.interactable = !isLocked;
     }
 }

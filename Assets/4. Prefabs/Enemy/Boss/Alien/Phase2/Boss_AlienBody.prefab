@@ -137,11 +137,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bossName: Boss_Alien
+  _defeatSound: 122
   _bossIcon: {fileID: 21300000, guid: f07c2b47ad40741419afcff3c42dbba1, type: 3}
   _firePoint: {fileID: 9003560544677093542}
-  _maxHp: 500
+  _maxHp: 1800
   _crashDamage: 0
-  _userExpReward: 0
+  _userExpReward: 90
   _animator: {fileID: 6631965692925312279}
   _bossBodyCollider: {fileID: 6183799444648065689}
   _currentHp: 0
@@ -150,8 +151,8 @@ MonoBehaviour:
   _moveSpeed: 2
   _movementHalfRange: {x: 2, y: 3}
   _arrivalDistance: 0.1
-  _normalPatternFirstDelay: 2
-  _normalPatternInterval: 2
+  _normalPatternFirstDelay: 3
+  _normalPatternInterval: 2.5
   _previousPatternWeightMultiplier: 0.1
   _timedPatternEntries:
   - _pattern: {fileID: 11400000, guid: 0155a5c0ad6ece048986429af3e65978, type: 2}
@@ -159,7 +160,7 @@ MonoBehaviour:
   - _pattern: {fileID: 11400000, guid: f55d232e3de8a774a96aeb9760a6f724, type: 2}
     _weight: 10
   _healthSpecialPatternEntries:
-  - _healthPercent: 60
+  - _healthPercent: 55
     _pattern: {fileID: 11400000, guid: 25fa76af269c07843a01eaaa921d9aee, type: 2}
 --- !u!50 &8308409412224067852
 Rigidbody2D:
@@ -250,7 +251,7 @@ MonoBehaviour:
   - _groupName: Money
     _entries:
     - _prefab: {fileID: 523677333196082315, guid: 02f86527c15f5bc4cad8b61a57339f3d, type: 3}
-      _count: 20
+      _count: 50
   _stageDrops:
   - _prefab: {fileID: 4012495091504343507, guid: 2f2fd5caed3b9a540866aa6a368269ad, type: 3}
     _dropChancePercent: 100
@@ -405,8 +406,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed8b1ae4e4e52b34ea557c1c11e076fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_CategoryHash: 0.42249307
-  m_labelHash: 1.3650094e-21
+  m_CategoryHash: 8.963668e-26
+  m_labelHash: 7.081115e-11
   m_SpriteKey: 0
   m_SpriteHash: 115483996
 --- !u!95 &6631965692925312279

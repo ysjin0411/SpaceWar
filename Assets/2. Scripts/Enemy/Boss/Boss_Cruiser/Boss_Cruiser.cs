@@ -1,19 +1,19 @@
-using System;
+ï»¿using System;
 using UnityEngine;
 using System.Collections.Generic;
 
 public class Boss_Cruiser : BossEnemy
 {
-    // Å©·çÀú°¡ ¼ÒÈ¯ÇÑ ¿ÀºêÁ§Æ®¿Í ´ç½Ã ´ë¿© ¹øÈ£¸¦ º¸°üÇÑ´Ù.
+    // í¬ë£¨ì €ê°€ ì†Œí™˜í•œ ì˜¤ë¸Œì íŠ¸ì™€ ë‹¹ì‹œ ëŒ€ì—¬ ë²ˆí˜¸ë¥¼ ë³´ê´€í•œë‹¤.
     private struct SummonedEnemyEntry
     {
-        // ¼ÒÈ¯ÇÑ ÀûÀÇ Ç® ¹İ³³À» ´ã´çÇÏ´Â ÄÄÆ÷³ÍÆ®.
+        // ì†Œí™˜í•œ ì ì˜ í’€ ë°˜ë‚©ì„ ë‹´ë‹¹í•˜ëŠ” ì»´í¬ë„ŒíŠ¸.
         public PoolObject Object;
 
-        // ¼ÒÈ¯ ´ç½ÃÀÇ ´ë¿© ¹øÈ£. ÀÌÈÄ Àç»ç¿ëµÇ¾ú´ÂÁö ÆÇ´ÜÇÑ´Ù.
+        // ì†Œí™˜ ë‹¹ì‹œì˜ ëŒ€ì—¬ ë²ˆí˜¸. ì´í›„ ì¬ì‚¬ìš©ë˜ì—ˆëŠ”ì§€ íŒë‹¨í•œë‹¤.
         public ulong Version;
 
-        // ¼ÒÈ¯ ½ÃÁ¡ÀÇ ¿ÀºêÁ§Æ®¿Í ´ë¿© ¹øÈ£¸¦ ÀúÀåÇÑ´Ù.
+        // ì†Œí™˜ ì‹œì ì˜ ì˜¤ë¸Œì íŠ¸ì™€ ëŒ€ì—¬ ë²ˆí˜¸ë¥¼ ì €ì¥í•œë‹¤.
         public SummonedEnemyEntry(PoolObject poolObject, ulong version)
         {
             Object = poolObject;
@@ -21,150 +21,152 @@ public class Boss_Cruiser : BossEnemy
         }
     }
 
-    // Å¸¿ö¿Í ÀüÅõÇÏ´Â ´Ü°è¿Í º»Ã¼¿Í ÀüÅõÇÏ´Â ´Ü°è¸¦ ±¸ºĞÇÑ´Ù.
+    // íƒ€ì›Œì™€ ì „íˆ¬í•˜ëŠ” ë‹¨ê³„ì™€ ë³¸ì²´ì™€ ì „íˆ¬í•˜ëŠ” ë‹¨ê³„ë¥¼ êµ¬ë¶„í•œë‹¤.
     public enum CruiserPhase
     {
         Towers,
         Entity
     }
 
-    // Å¸¿öµéÀÇ ÇÕ»ê Ã¼·ÂÀ» Á¦°øÇÏ´Â ÄÄÆ÷³ÍÆ®´Ù.
+    // íƒ€ì›Œë“¤ì˜ í•©ì‚° ì²´ë ¥ì„ ì œê³µí•˜ëŠ” ì»´í¬ë„ŒíŠ¸ë‹¤.
     [SerializeField] private BossTowerShield _towerShield;
 
-    // ÃÖ»ó´Ü º¸½º°¡ °ø°İ ½Ã°£À» °ü¸®ÇÒ Å¸¿ö °ø°İ ÄÄÆ÷³ÍÆ®µéÀÌ´Ù.
+    // ìµœìƒë‹¨ ë³´ìŠ¤ê°€ ê³µê²© ì‹œê°„ì„ ê´€ë¦¬í•  íƒ€ì›Œ ê³µê²© ì»´í¬ë„ŒíŠ¸ë“¤ì´ë‹¤.
     [SerializeField]
     private TowerAttack[] _towerAttacks =
         new TowerAttack[0];
 
-    // Å¸¿ö°¡ »ì¾Æ ÀÖ´Â 1ÆäÀÌÁî¿¡ º»Ã¼ÀÇ ¹«Àû »óÅÂ¸¦ Ç¥½ÃÇÑ´Ù.
+    // íƒ€ì›Œê°€ ì‚´ì•„ ìˆëŠ” 1í˜ì´ì¦ˆì— ë³¸ì²´ì˜ ë¬´ì  ìƒíƒœë¥¼ í‘œì‹œí•œë‹¤.
     [SerializeField] private SpriteRenderer _invulnerabilityShield;
 
-    // 1ÆäÀÌÁî: Å¸¿ö ÇÕ»ê Ã¼·ÂÀ» ±âÁØÀ¸·Î ¿äÃ»ÇÒ Æ¯¼öÆĞÅÏ ¸ñ·Ï.
-    // ¿©·¯ Á¶°ÇÀ» µ¿½Ã¿¡ ¸¸Á·ÇÏ¸é ¸ñ·Ï ¼ø¼­´ë·Î ¿äÃ»ÇÑ´Ù.
+    // 1í˜ì´ì¦ˆ: íƒ€ì›Œ í•©ì‚° ì²´ë ¥ì„ ê¸°ì¤€ìœ¼ë¡œ ìš”ì²­í•  íŠ¹ìˆ˜íŒ¨í„´ ëª©ë¡.
+    // ì—¬ëŸ¬ ì¡°ê±´ì„ ë™ì‹œì— ë§Œì¡±í•˜ë©´ ëª©ë¡ ìˆœì„œëŒ€ë¡œ ìš”ì²­í•œë‹¤.
     [SerializeField]
     private List<HealthBossPatternEntry> _phase1SpecialPatterns =
         new List<HealthBossPatternEntry>();
 
-    // 2ÆäÀÌÁî: º»Ã¼ Ã¼·ÂÀ» ±âÁØÀ¸·Î ¿äÃ»ÇÒ Æ¯¼öÆĞÅÏ ¸ñ·Ï.
+    // 2í˜ì´ì¦ˆ: ë³¸ì²´ ì²´ë ¥ì„ ê¸°ì¤€ìœ¼ë¡œ ìš”ì²­í•  íŠ¹ìˆ˜íŒ¨í„´ ëª©ë¡.
     [SerializeField]
     private List<HealthBossPatternEntry> _phase2SpecialPatterns =
         new List<HealthBossPatternEntry>();
 
-    // Å¸¿ö°¡ »ç¶óÁø µÚ¿¡µµ À¯ÁöµÇ´Â ±¸¸Ûº° ¼ÒÈ¯ À§Ä¡.
+    // íƒ€ì›Œê°€ ì‚¬ë¼ì§„ ë’¤ì—ë„ ìœ ì§€ë˜ëŠ” êµ¬ë©ë³„ ì†Œí™˜ ìœ„ì¹˜.
     [SerializeField] private Transform _summonPointA;
     [SerializeField] private Transform _summonPointB;
     [SerializeField] private Transform _summonPointC;
 
-    // Å©·çÀú°¡ ¼ÒÈ¯ÇÑ ÀûÀÇ ´ë¿© Á¤º¸¸¦ º¸°üÇÑ´Ù.
+    // í¬ë£¨ì €ê°€ ì†Œí™˜í•œ ì ì˜ ëŒ€ì—¬ ì •ë³´ë¥¼ ë³´ê´€í•œë‹¤.
     private readonly List<SummonedEnemyEntry> _summonedEnemies =
         new List<SummonedEnemyEntry>();
 
-    // °°Àº ÆĞÅÏ ¿¡¼ÂÀ» ¿©·¯ Ç×¸ñ¿¡ ³Ö¾îµµ °¢ Ç×¸ñÀ» ÇÑ ¹ø¾¿ ½ÇÇàÇÑ´Ù.
+    // ê°™ì€ íŒ¨í„´ ì—ì…‹ì„ ì—¬ëŸ¬ í•­ëª©ì— ë„£ì–´ë„ ê° í•­ëª©ì„ í•œ ë²ˆì”© ì‹¤í–‰í•œë‹¤.
     private bool[] _phase1Requested = Array.Empty<bool>();
     private bool[] _phase2Requested = Array.Empty<bool>();
 
-    // °¢ Å¸¿ö°¡ ´ÙÀ½ °ø°İ±îÁö ±â´Ù¸± ½Ã°£À» º°µµ·Î ÀúÀåÇÑ´Ù.
+    // ê° íƒ€ì›Œê°€ ë‹¤ìŒ ê³µê²©ê¹Œì§€ ê¸°ë‹¤ë¦´ ì‹œê°„ì„ ë³„ë„ë¡œ ì €ì¥í•œë‹¤.
     private float[] _remainingAttackTimes = new float[0];
 
-    // °ø°İÇÒ Å¸¿ö¿Í ÇÃ·¹ÀÌ¾î¸¦ ÁöÁ¤ÇØ ¿äÃ»À» Àü´ŞÇÑ´Ù.
+    // ê³µê²©í•  íƒ€ì›Œì™€ í”Œë ˆì´ì–´ë¥¼ ì§€ì •í•´ ìš”ì²­ì„ ì „ë‹¬í•œë‹¤.
     public event Action<TowerAttack, PlayerController> TowerAttackRequested;
 
-    // »ı¼º Á÷ÈÄ¿¡´Â Å¸¿ö¸¦ ¸ÕÀú ÆÄ±«ÇÏ´Â 1ÆäÀÌÁî·Î ½ÃÀÛÇÑ´Ù.
+    // ìƒì„± ì§í›„ì—ëŠ” íƒ€ì›Œë¥¼ ë¨¼ì € íŒŒê´´í•˜ëŠ” 1í˜ì´ì¦ˆë¡œ ì‹œì‘í•œë‹¤.
     private CruiserPhase _currentPhase = CruiserPhase.Towers;
 
-    // º¸½º °ü¸®ÀÚ°¡ ÇÃ·¹ÀÌ¾î¿Í °ÔÀÓ Á¤º¸¸¦ Àü´ŞÇß´ÂÁö ±â·ÏÇÑ´Ù.
+    // ë³´ìŠ¤ ê´€ë¦¬ìê°€ í”Œë ˆì´ì–´ì™€ ê²Œì„ ì •ë³´ë¥¼ ì „ë‹¬í–ˆëŠ”ì§€ ê¸°ë¡í•œë‹¤.
     private bool _isBattleInitialized;
 
-    // EntityRootÀÇ Renderer¿¡ ÀÖ´Â º»Ã¼ Animator´Ù.
+    // EntityRootì˜ Rendererì— ìˆëŠ” ë³¸ì²´ Animatorë‹¤.
     [SerializeField]
     private Animator _phaseAnimator;
 
-    // Å¸¿ö ÆÄ±« ÈÄ º»Ã¼ ÀüÅõ¸¦ ½ÃÀÛÇÏ±â Àü±îÁöÀÇ ¿¬Ãâ ÁøÇà »óÅÂ´Ù.
+    // íƒ€ì›Œ íŒŒê´´ í›„ ë³¸ì²´ ì „íˆ¬ë¥¼ ì‹œì‘í•˜ê¸° ì „ê¹Œì§€ì˜ ì—°ì¶œ ì§„í–‰ ìƒíƒœë‹¤.
     private bool _isPhaseTransitioning;
+    // ë³¸ì²´ ì „í™˜ ì—°ì¶œìŒì˜ ìˆ˜ëª….
+    private GameAudio.Handle _transitionAudio;
 
-    // 1ÆäÀÌÁî¿¡¼­ 2ÆäÀÌÁî·Î ³Ñ¾î°¡´Â ÀüÈ¯ ¾Ö´Ï¸ŞÀÌ¼Ç »óÅÂ´Ù.
+    // 1í˜ì´ì¦ˆì—ì„œ 2í˜ì´ì¦ˆë¡œ ë„˜ì–´ê°€ëŠ” ì „í™˜ ì• ë‹ˆë©”ì´ì…˜ ìƒíƒœë‹¤.
     private static readonly int PhaseTransitionState =
         Animator.StringToHash(
             "Base Layer.Boss_Cruiser_PhaseTransition_3p5s");
 
-    // ÀüÈ¯ ¿¬ÃâÀÌ ³¡³­ µÚ µ¹¾Æ°¥ ±âº» ´ë±â »óÅÂ´Ù.
+    // ì „í™˜ ì—°ì¶œì´ ëë‚œ ë’¤ ëŒì•„ê°ˆ ê¸°ë³¸ ëŒ€ê¸° ìƒíƒœë‹¤.
     private static readonly int EntityIdleState =
         Animator.StringToHash("Base Layer.Idle");
 
-    // ¿ÜºÎ¿¡¼­ ÇöÀç ÆäÀÌÁî¸¦ È®ÀÎÇÒ ¼ö ÀÖ°Ô ÇÑ´Ù.
+    // ì™¸ë¶€ì—ì„œ í˜„ì¬ í˜ì´ì¦ˆë¥¼ í™•ì¸í•  ìˆ˜ ìˆê²Œ í•œë‹¤.
     public CruiserPhase CurrentPhase => _currentPhase;
 
-    // Å©·çÀú´Â Å¸¿ö¿Í º»Ã¼·Î ±¸¼ºµÈ 2ÆäÀÌÁî º¸½º´Ù.
+    // í¬ë£¨ì €ëŠ” íƒ€ì›Œì™€ ë³¸ì²´ë¡œ êµ¬ì„±ëœ 2í˜ì´ì¦ˆ ë³´ìŠ¤ë‹¤.
     public override int TotalPhaseCount => 2;
 
-    // ±âÁ¸ Å¸¿ö/º»Ã¼ »óÅÂ¸¦ 1ºÎÅÍ ½ÃÀÛÇÏ´Â ÆäÀÌÁî ¹øÈ£·Î º¯È¯ÇÑ´Ù.
+    // ê¸°ì¡´ íƒ€ì›Œ/ë³¸ì²´ ìƒíƒœë¥¼ 1ë¶€í„° ì‹œì‘í•˜ëŠ” í˜ì´ì¦ˆ ë²ˆí˜¸ë¡œ ë³€í™˜í•œë‹¤.
     public override int CurrentPhaseNumber =>
         _currentPhase == CruiserPhase.Towers ? 1 : 2;
 
-    // ÀÌÈÄ °ø°İ ´ã´ç ÄÚµå°¡ ÆäÀÌÁî º¯°æÀ» Àü´Ş¹ŞÀ» ¶§ »ç¿ëÇÑ´Ù.
+    // ì´í›„ ê³µê²© ë‹´ë‹¹ ì½”ë“œê°€ í˜ì´ì¦ˆ ë³€ê²½ì„ ì „ë‹¬ë°›ì„ ë•Œ ì‚¬ìš©í•œë‹¤.
     public event Action<CruiserPhase> PhaseChanged;
 
-    // ÃÊ±âÈ­°¡ ³¡³ª°í 2ÆäÀÌÁî¿¡ ÁøÀÔÇÑ º»Ã¼¸¸ ÇÇÇØ¸¦ ¹Ş´Â´Ù.
+    // ì´ˆê¸°í™”ê°€ ëë‚˜ê³  2í˜ì´ì¦ˆì— ì§„ì…í•œ ë³¸ì²´ë§Œ í”¼í•´ë¥¼ ë°›ëŠ”ë‹¤.
     protected override bool CanReceiveDamage =>
         _isBattleInitialized &&
         _currentPhase == CruiserPhase.Entity;
 
-    // Å©·çÀú´Â ÀüÅõ ÃÊ±âÈ­°¡ ³¡³ª°í º»Ã¼°¡ ½Î¿ì´Â 2ÆäÀÌÁîºÎÅÍ
-    // ÀÏ¹İ ÆĞÅÏ Å¸ÀÌ¸Ó¸¦ ÁøÇàÇÑ´Ù.
+    // í¬ë£¨ì €ëŠ” ì „íˆ¬ ì´ˆê¸°í™”ê°€ ëë‚˜ê³  ë³¸ì²´ê°€ ì‹¸ìš°ëŠ” 2í˜ì´ì¦ˆë¶€í„°
+    // ì¼ë°˜ íŒ¨í„´ íƒ€ì´ë¨¸ë¥¼ ì§„í–‰í•œë‹¤.
     protected override bool CanUseNormalPatterns =>
         _isBattleInitialized &&
         _currentPhase == CruiserPhase.Entity;
 
     /// <summary>
-    /// ÄÄÆ÷³ÍÆ® ÂüÁ¶¿Í ÃÊ±â ½ÇÇà »óÅÂ¸¦ ÁØºñÇÑ´Ù.
+    /// ì»´í¬ë„ŒíŠ¸ ì°¸ì¡°ì™€ ì´ˆê¸° ì‹¤í–‰ ìƒíƒœë¥¼ ì¤€ë¹„í•œë‹¤.
     /// </summary>
     protected override void Awake()
     {
-        // °øÅë º¸½º Ã¼·Â°ú ÀÌµ¿, Animator ÂüÁ¶¸¦ ÁØºñÇÑ´Ù.
+        // ê³µí†µ ë³´ìŠ¤ ì²´ë ¥ê³¼ ì´ë™, Animator ì°¸ì¡°ë¥¼ ì¤€ë¹„í•œë‹¤.
         base.Awake();
 
-        // º»Ã¼ Animator¿Í ÀüÈ¯¿¡ ÇÊ¿äÇÑ »óÅÂ°¡ ÁØºñµÆ´ÂÁö È®ÀÎÇÑ´Ù.
+        // ë³¸ì²´ Animatorì™€ ì „í™˜ì— í•„ìš”í•œ ìƒíƒœê°€ ì¤€ë¹„ëëŠ”ì§€ í™•ì¸í•œë‹¤.
         if (_phaseAnimator == null ||
             !_phaseAnimator.HasState(0, PhaseTransitionState) ||
             !_phaseAnimator.HasState(0, EntityIdleState))
         {
             throw new InvalidOperationException(
-                $"{name}: Phase AnimatorÀÇ º»Ã¼ ¿¬°á°ú ÀüÈ¯¡¤Idle »óÅÂ¸¦ È®ÀÎÇÏ¼¼¿ä.");
+                $"{name}: Phase Animatorì˜ ë³¸ì²´ ì—°ê²°ê³¼ ì „í™˜Â·Idle ìƒíƒœë¥¼ í™•ì¸í•˜ì„¸ìš”.");
         }
 
-        // Ã³À½ »ı¼ºµÉ ¶§´Â ÀüÈ¯ ¿¬ÃâÀ» ÁøÇàÇÏ°í ÀÖÁö ¾Ê´Ù.
+        // ì²˜ìŒ ìƒì„±ë  ë•ŒëŠ” ì „í™˜ ì—°ì¶œì„ ì§„í–‰í•˜ê³  ìˆì§€ ì•Šë‹¤.
         _isPhaseTransitioning = false;
 
         if (_towerShield == null)
         {
             throw new InvalidOperationException(
-                $"{name}: BossTowerShield¸¦ ¿¬°áÇÏ¼¼¿ä.");
+                $"{name}: BossTowerShieldë¥¼ ì—°ê²°í•˜ì„¸ìš”.");
         }
 
-        // »ı¼º Á÷ÈÄºÎÅÍ º»Ã¼´Â °ø°İ¿¡ ¸ÂÁö ¾Êµµ·Ï ÇÑ´Ù.
+        // ìƒì„± ì§í›„ë¶€í„° ë³¸ì²´ëŠ” ê³µê²©ì— ë§ì§€ ì•Šë„ë¡ í•œë‹¤.
         _currentPhase = CruiserPhase.Towers;
         BodyCollider.enabled = false;
 
-        // ¹«Àû Ç¥½Ã¿ë ½Çµå°¡ ¿¬°áµÇ¾î ÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
+        // ë¬´ì  í‘œì‹œìš© ì‹¤ë“œê°€ ì—°ê²°ë˜ì–´ ìˆëŠ”ì§€ í™•ì¸í•œë‹¤.
         if (_invulnerabilityShield == null)
         {
             throw new InvalidOperationException(
-                $"{name}: ¹«Àû Ç¥½Ã¿ë ShieldVisualÀ» ¿¬°áÇÏ¼¼¿ä.");
+                $"{name}: ë¬´ì  í‘œì‹œìš© ShieldVisualì„ ì—°ê²°í•˜ì„¸ìš”.");
         }
 
-        // º»Ã¼°¡ º¸È£¹Ş´Â 1ÆäÀÌÁî¿¡´Â ½Çµå¸¦ Ç¥½ÃÇÑ´Ù.
+        // ë³¸ì²´ê°€ ë³´í˜¸ë°›ëŠ” 1í˜ì´ì¦ˆì—ëŠ” ì‹¤ë“œë¥¼ í‘œì‹œí•œë‹¤.
         _invulnerabilityShield.enabled = true;
     }
 
     /// <summary>
-    /// È°¼ºÈ­ ½Ã ÃÊ±â »óÅÂ¿Í ÀÌº¥Æ® ¿¬°áÀ» ÁØºñÇÑ´Ù.
+    /// í™œì„±í™” ì‹œ ì´ˆê¸° ìƒíƒœì™€ ì´ë²¤íŠ¸ ì—°ê²°ì„ ì¤€ë¹„í•œë‹¤.
     /// </summary>
     private void OnEnable()
     {
-        // Å¸¿öµéÀÇ ÇÕ»ê Ã¼·ÂÀÌ º¯°æµÉ ¶§ ÆäÀÌÁî ÀüÈ¯À» °Ë»çÇÑ´Ù.
+        // íƒ€ì›Œë“¤ì˜ í•©ì‚° ì²´ë ¥ì´ ë³€ê²½ë  ë•Œ í˜ì´ì¦ˆ ì „í™˜ì„ ê²€ì‚¬í•œë‹¤.
         _towerShield.ShieldChanged += HandleShieldChanged;
 
-        // ÀçÈ°¼ºÈ­ Àü¿¡ Å¸¿ö Ã¼·ÂÀÌ ¹Ù²ï °æ¿ìµµ ÇöÀç °ªÀ¸·Î È®ÀÎÇÑ´Ù.
+        // ì¬í™œì„±í™” ì „ì— íƒ€ì›Œ ì²´ë ¥ì´ ë°”ë€ ê²½ìš°ë„ í˜„ì¬ ê°’ìœ¼ë¡œ í™•ì¸í•œë‹¤.
         if (_isBattleInitialized)
         {
             HandleShieldChanged(
@@ -174,13 +176,13 @@ public class Boss_Cruiser : BossEnemy
     }
 
     /// <summary>
-    /// OnBossInitialized µ¿ÀÛ¿¡ ÇÊ¿äÇÑ »óÅÂ¿Í Ã³¸® Èå¸§À» ½ÇÇàÇÑ´Ù.
+    /// OnBossInitialized ë™ì‘ì— í•„ìš”í•œ ìƒíƒœì™€ ì²˜ë¦¬ íë¦„ì„ ì‹¤í–‰í•œë‹¤.
     /// </summary>
     protected override void OnBossInitialized()
     {
         base.OnBossInitialized();
 
-        // Å¸¿ö¸¶´Ù µ¶¸³ÀûÀÎ Ã¹ °ø°İ ´ë±â ½Ã°£À» ÁØºñÇÑ´Ù.
+        // íƒ€ì›Œë§ˆë‹¤ ë…ë¦½ì ì¸ ì²« ê³µê²© ëŒ€ê¸° ì‹œê°„ì„ ì¤€ë¹„í•œë‹¤.
         _remainingAttackTimes = new float[_towerAttacks.Length];
 
         var registeredTowers =
@@ -190,61 +192,61 @@ public class Boss_Cruiser : BossEnemy
         {
             TowerAttack attack = _towerAttacks[i];
 
-            // °°Àº Å¸¿ö¸¦ Áßº¹ µî·ÏÇÏ°Å³ª ´Ù¸¥ º¸½ºÀÇ Å¸¿ö¸¦ µî·ÏÇÏÁö ¸øÇÏ°Ô ÇÑ´Ù.
+            // ê°™ì€ íƒ€ì›Œë¥¼ ì¤‘ë³µ ë“±ë¡í•˜ê±°ë‚˜ ë‹¤ë¥¸ ë³´ìŠ¤ì˜ íƒ€ì›Œë¥¼ ë“±ë¡í•˜ì§€ ëª»í•˜ê²Œ í•œë‹¤.
             if (attack == null ||
                 attack.Owner == null ||
                 attack.GetComponentInParent<Boss_Cruiser>() != this ||
                 !registeredTowers.Add(attack.Owner))
             {
                 throw new InvalidOperationException(
-                    $"{name}: Å¸¿ö °ø°İ ¸ñ·ÏÀÇ ´©¶ô¡¤Áßº¹¡¤¼Ò¼ÓÀ» È®ÀÎÇÏ¼¼¿ä.");
+                    $"{name}: íƒ€ì›Œ ê³µê²© ëª©ë¡ì˜ ëˆ„ë½Â·ì¤‘ë³µÂ·ì†Œì†ì„ í™•ì¸í•˜ì„¸ìš”.");
             }
 
             _remainingAttackTimes[i] = attack.FirstDelay;
         }
 
-        // Ã¼·Â ÀÌº¥Æ® Ã³¸®¸¦ Çã¿ëÇÏ±â Àü¿¡ µÎ ¸ñ·ÏÀ» ÁØºñÇÑ´Ù.
+        // ì²´ë ¥ ì´ë²¤íŠ¸ ì²˜ë¦¬ë¥¼ í—ˆìš©í•˜ê¸° ì „ì— ë‘ ëª©ë¡ì„ ì¤€ë¹„í•œë‹¤.
         _phase1Requested = InitializeHealthPatterns(
             _phase1SpecialPatterns, "Phase 1 Special Patterns");
 
         _phase2Requested = InitializeHealthPatterns(
             _phase2SpecialPatterns, "Phase 2 Special Patterns");
 
-        // ÀÌÁ¦ º¸½º ÀüÅõ¿¡ ÇÊ¿äÇÑ ¿ÜºÎ ÂüÁ¶°¡ ÁØºñµÇ¾ú´Ù.
+        // ì´ì œ ë³´ìŠ¤ ì „íˆ¬ì— í•„ìš”í•œ ì™¸ë¶€ ì°¸ì¡°ê°€ ì¤€ë¹„ë˜ì—ˆë‹¤.
         _isBattleInitialized = true;
 
-        // ÃÊ±âÈ­ Àü¿¡ ¹ß»ıÇÑ Ã¼·Â ÀÌº¥Æ®¸¦ ³õÃÆ´õ¶óµµ ÇöÀç °ªÀ» È®ÀÎÇÑ´Ù.
+        // ì´ˆê¸°í™” ì „ì— ë°œìƒí•œ ì²´ë ¥ ì´ë²¤íŠ¸ë¥¼ ë†“ì³¤ë”ë¼ë„ í˜„ì¬ ê°’ì„ í™•ì¸í•œë‹¤.
         HandleShieldChanged(
             _towerShield.CurrentShield,
             _towerShield.MaxShield);
     }
 
     /// <summary>
-    /// º¯°æµÈ ½Çµå ¼öÄ¡¸¦ Ç¥½Ã¿Í »óÅÂ¿¡ ¹İ¿µÇÑ´Ù.
+    /// ë³€ê²½ëœ ì‹¤ë“œ ìˆ˜ì¹˜ë¥¼ í‘œì‹œì™€ ìƒíƒœì— ë°˜ì˜í•œë‹¤.
     /// </summary>
     private void HandleShieldChanged(float currentShield, float maxShield)
     {
-        // ÀüÈ¯ Áß¿¡ µé¾î¿À´Â Ãß°¡ ¾Ë¸²À¸·Î ÆĞÅÏÀ» ¿äÃ»ÇÏÁö ¾Ê´Â´Ù.
+        // ì „í™˜ ì¤‘ì— ë“¤ì–´ì˜¤ëŠ” ì¶”ê°€ ì•Œë¦¼ìœ¼ë¡œ íŒ¨í„´ì„ ìš”ì²­í•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (!_isBattleInitialized || IsDead || _isPhaseTransitioning)
         {
             return;
         }
 
-        // Å¸¿ö ÇÕ»ê Ã¼·ÂÀº 1ÆäÀÌÁî¿¡¼­¸¸ »ç¿ëÇÑ´Ù.
+        // íƒ€ì›Œ í•©ì‚° ì²´ë ¥ì€ 1í˜ì´ì¦ˆì—ì„œë§Œ ì‚¬ìš©í•œë‹¤.
         if (_currentPhase != CruiserPhase.Towers || maxShield <= 0)
         {
             return;
         }
 
-        // ¸ğµç Å¸¿ö°¡ ÆÄ±«µÇ¸é »õ ÆĞÅÏº¸´Ù ÆäÀÌÁî ÀüÈ¯À» ¿ì¼±ÇÑ´Ù.
+        // ëª¨ë“  íƒ€ì›Œê°€ íŒŒê´´ë˜ë©´ ìƒˆ íŒ¨í„´ë³´ë‹¤ í˜ì´ì¦ˆ ì „í™˜ì„ ìš°ì„ í•œë‹¤.
         if (currentShield <= 0)
         {
-            // Áï½Ã º»Ã¼ ÀüÅõ¸¦ ½ÃÀÛÇÏÁö ¾Ê°í ÀüÈ¯ ¿¬ÃâºÎÅÍ Àç»ıÇÑ´Ù.
+            // ì¦‰ì‹œ ë³¸ì²´ ì „íˆ¬ë¥¼ ì‹œì‘í•˜ì§€ ì•Šê³  ì „í™˜ ì—°ì¶œë¶€í„° ì¬ìƒí•œë‹¤.
             BeginEntityPhaseTransition();
             return;
         }
 
-        // ÆÄ¶õ Ã¼·Â¹ÙÀÇ ½ÇÁ¦ Ã¼·Â ºñÀ²·Î 1ÆäÀÌÁî ¸ñ·ÏÀ» °Ë»çÇÑ´Ù.
+        // íŒŒë€ ì²´ë ¥ë°”ì˜ ì‹¤ì œ ì²´ë ¥ ë¹„ìœ¨ë¡œ 1í˜ì´ì¦ˆ ëª©ë¡ì„ ê²€ì‚¬í•œë‹¤.
         RequestHealthPatterns(
             _phase1SpecialPatterns,
             _phase1Requested,
@@ -252,41 +254,42 @@ public class Boss_Cruiser : BossEnemy
             maxShield);
     }
 
-    // ÀüÈ¯ ¿¬ÃâÀÌ ³¡³­ µÚ º»Ã¼ ÀüÅõ¸¦ ½ÃÀÛÇÑ´Ù.
+    // ì „í™˜ ì—°ì¶œì´ ëë‚œ ë’¤ ë³¸ì²´ ì „íˆ¬ë¥¼ ì‹œì‘í•œë‹¤.
     /// <summary>
-    /// ÀüÈ¯ ¿¬ÃâÀÌ ³¡³­ µÚ º»Ã¼ ÀüÅõ¸¦ ½ÃÀÛÇÑ´Ù.
+    /// ì „í™˜ ì—°ì¶œì´ ëë‚œ ë’¤ ë³¸ì²´ ì „íˆ¬ë¥¼ ì‹œì‘í•œë‹¤.
     /// </summary>
     private void EnterEntityPhase()
     {
-        // ÀüÈ¯ ÁßÀÌ ¾Æ´Ï°Å³ª ÀÌ¹Ì »ç¸ÁÇß´Ù¸é Áßº¹À¸·Î ÁøÀÔÇÏÁö ¾Ê´Â´Ù.
+        GameAudio.Stop(_transitionAudio);
+        // ì „í™˜ ì¤‘ì´ ì•„ë‹ˆê±°ë‚˜ ì´ë¯¸ ì‚¬ë§í–ˆë‹¤ë©´ ì¤‘ë³µìœ¼ë¡œ ì§„ì…í•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (!_isPhaseTransitioning || IsDead)
             return;
 
-        // ÀüÈ¯À» Á¾·áÇÏ°í º»Ã¼ ÀüÅõ ´Ü°è·Î ¹Ù²Û´Ù.
+        // ì „í™˜ì„ ì¢…ë£Œí•˜ê³  ë³¸ì²´ ì „íˆ¬ ë‹¨ê³„ë¡œ ë°”ê¾¼ë‹¤.
         _isPhaseTransitioning = false;
         _currentPhase = CruiserPhase.Entity;
 
-        // ÀÌÁ¦ºÎÅÍ º»Ã¼°¡ ÇÇÇØ¸¦ ¹ŞÀ» ¼ö ÀÖµµ·Ï ÇÑ´Ù.
+        // ì´ì œë¶€í„° ë³¸ì²´ê°€ í”¼í•´ë¥¼ ë°›ì„ ìˆ˜ ìˆë„ë¡ í•œë‹¤.
         BodyCollider.enabled = true;
         _invulnerabilityShield.enabled = false;
 
-        // ÀüÈ¯ ¶§¹®¿¡ ¸ØÃè´ø ÀÌµ¿À» Àç°³ÇÑ´Ù.
+        // ì „í™˜ ë•Œë¬¸ì— ë©ˆì·„ë˜ ì´ë™ì„ ì¬ê°œí•œë‹¤.
         SetControllable(true);
 
-        // ¿ÜºÎ ½Ã½ºÅÛ¿¡ ½ÇÁ¦ 2ÆäÀÌÁî ½ÃÀÛÀ» ¾Ë¸°´Ù.
+        // ì™¸ë¶€ ì‹œìŠ¤í…œì— ì‹¤ì œ 2í˜ì´ì¦ˆ ì‹œì‘ì„ ì•Œë¦°ë‹¤.
         if (PhaseChanged != null)
         {
             PhaseChanged.Invoke(_currentPhase);
         }
     }
 
-    // ¸¶Áö¸· Å¸¿ö°¡ ÆÄ±«µÇ¸é º»Ã¼ ÀüÅõ ´ë½Å ÀüÈ¯ ¿¬ÃâÀ» ½ÃÀÛÇÑ´Ù.
+    // ë§ˆì§€ë§‰ íƒ€ì›Œê°€ íŒŒê´´ë˜ë©´ ë³¸ì²´ ì „íˆ¬ ëŒ€ì‹  ì „í™˜ ì—°ì¶œì„ ì‹œì‘í•œë‹¤.
     /// <summary>
-    /// ¸¶Áö¸· Å¸¿ö°¡ ÆÄ±«µÇ¸é º»Ã¼ ÀüÅõ ´ë½Å ÀüÈ¯ ¿¬ÃâÀ» ½ÃÀÛÇÑ´Ù.
+    /// ë§ˆì§€ë§‰ íƒ€ì›Œê°€ íŒŒê´´ë˜ë©´ ë³¸ì²´ ì „íˆ¬ ëŒ€ì‹  ì „í™˜ ì—°ì¶œì„ ì‹œì‘í•œë‹¤.
     /// </summary>
     private void BeginEntityPhaseTransition()
     {
-        // ÃÊ±âÈ­ Àü, »ç¸Á ÈÄ, ÀüÈ¯ Áß¿¡´Â Áßº¹À¸·Î ½ÃÀÛÇÏÁö ¾Ê´Â´Ù.
+        // ì´ˆê¸°í™” ì „, ì‚¬ë§ í›„, ì „í™˜ ì¤‘ì—ëŠ” ì¤‘ë³µìœ¼ë¡œ ì‹œì‘í•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (!_isBattleInitialized ||
             IsDead ||
             _isPhaseTransitioning ||
@@ -295,31 +298,32 @@ public class Boss_Cruiser : BossEnemy
             return;
         }
 
-        // ±âÁ¸ ÆĞÅÏÀ» Á¾·áÇÏ´Â µ¿¾È ÀçÁøÀÔÇÏÁö ¾Êµµ·Ï ¸ÕÀú ±â·ÏÇÑ´Ù.
+        // ê¸°ì¡´ íŒ¨í„´ì„ ì¢…ë£Œí•˜ëŠ” ë™ì•ˆ ì¬ì§„ì…í•˜ì§€ ì•Šë„ë¡ ë¨¼ì € ê¸°ë¡í•œë‹¤.
         _isPhaseTransitioning = true;
 
-        // ÁøÇà ÁßÀÎ ÆĞÅÏ°ú ´ë±â ÁßÀÎ ¿äÃ»À» Á¤¸®ÇÑ´Ù.
+        // ì§„í–‰ ì¤‘ì¸ íŒ¨í„´ê³¼ ëŒ€ê¸° ì¤‘ì¸ ìš”ì²­ì„ ì •ë¦¬í•œë‹¤.
         StopPatternsForPhaseChange();
 
-        // ÆĞÅÏ Á¤¸®°¡ ÀÌµ¿À» Àç°³ÇÒ ¼ö ÀÖÀ¸¹Ç·Î Á¤¸® ÈÄ ÀÌµ¿À» ¸ØÃá´Ù.
+        // íŒ¨í„´ ì •ë¦¬ê°€ ì´ë™ì„ ì¬ê°œí•  ìˆ˜ ìˆìœ¼ë¯€ë¡œ ì •ë¦¬ í›„ ì´ë™ì„ ë©ˆì¶˜ë‹¤.
         SetControllable(false);
 
-        // ¿¬Ãâ Áß¿¡´Â º»Ã¼¸¦ °ø°İÇÒ ¼ö ¾ø°í, º¸È£¸· ÀÌ¹ÌÁö´Â ¼û±ä´Ù.
+        // ì—°ì¶œ ì¤‘ì—ëŠ” ë³¸ì²´ë¥¼ ê³µê²©í•  ìˆ˜ ì—†ê³ , ë³´í˜¸ë§‰ ì´ë¯¸ì§€ëŠ” ìˆ¨ê¸´ë‹¤.
         BodyCollider.enabled = false;
         _invulnerabilityShield.enabled = false;
 
-        // ÀüÈ¯ Å¬¸³ÀÇ Ã¹ ÇÁ·¹ÀÓºÎÅÍ Àç»ıÇÑ´Ù.
+        // ì „í™˜ í´ë¦½ì˜ ì²« í”„ë ˆì„ë¶€í„° ì¬ìƒí•œë‹¤.
         _phaseAnimator.Play(PhaseTransitionState, 0, 0f);
+        _transitionAudio = GameAudio.PlayOwned(GameSound.CruiserTransition3p5s, this);
         _phaseAnimator.Update(0f);
     }
 
-    // ÀüÈ¯ Å¬¸³ÀÌ ³¡³µ´ÂÁö È®ÀÎÇÏ°í, ¿Ï·áµÇ¸é º»Ã¼ ÀüÅõ¸¦ ½ÃÀÛÇÑ´Ù.
+    // ì „í™˜ í´ë¦½ì´ ëë‚¬ëŠ”ì§€ í™•ì¸í•˜ê³ , ì™„ë£Œë˜ë©´ ë³¸ì²´ ì „íˆ¬ë¥¼ ì‹œì‘í•œë‹¤.
     /// <summary>
-    /// ÀüÈ¯ Å¬¸³ÀÌ ³¡³µ´ÂÁö È®ÀÎÇÏ°í, ¿Ï·áµÇ¸é º»Ã¼ ÀüÅõ¸¦ ½ÃÀÛÇÑ´Ù.
+    /// ì „í™˜ í´ë¦½ì´ ëë‚¬ëŠ”ì§€ í™•ì¸í•˜ê³ , ì™„ë£Œë˜ë©´ ë³¸ì²´ ì „íˆ¬ë¥¼ ì‹œì‘í•œë‹¤.
     /// </summary>
     private void UpdateEntityPhaseTransition()
     {
-        // ÀÏ½ÃÁ¤Áö³ª ÀüÅõ Á¾·á Áß¿¡´Â ´ÙÀ½ ÆäÀÌÁî¸¦ ¿­Áö ¾Ê´Â´Ù.
+        // ì¼ì‹œì •ì§€ë‚˜ ì „íˆ¬ ì¢…ë£Œ ì¤‘ì—ëŠ” ë‹¤ìŒ í˜ì´ì¦ˆë¥¼ ì—´ì§€ ì•ŠëŠ”ë‹¤.
         if (!_isPhaseTransitioning ||
             IsDead ||
             Time.deltaTime <= 0f ||
@@ -334,72 +338,73 @@ public class Boss_Cruiser : BossEnemy
         AnimatorStateInfo state =
             _phaseAnimator.GetCurrentAnimatorStateInfo(0);
 
-        // ÀüÈ¯ Å¬¸³À» ³¡±îÁö Àç»ıÇÑ °æ¿ì¿¡¸¸ ¿Ï·á Ã³¸®ÇÑ´Ù.
+        // ì „í™˜ í´ë¦½ì„ ëê¹Œì§€ ì¬ìƒí•œ ê²½ìš°ì—ë§Œ ì™„ë£Œ ì²˜ë¦¬í•œë‹¤.
         if (state.fullPathHash != PhaseTransitionState ||
             state.normalizedTime < 1f)
         {
             return;
         }
 
-        // ÀüÈ¯ ¸¶Áö¸· ÀÚ¼¼¿¡¼­ ±âº» ´ë±â ¾Ö´Ï¸ŞÀÌ¼ÇÀ¸·Î µ¹¾Æ°£´Ù.
+        // ì „í™˜ ë§ˆì§€ë§‰ ìì„¸ì—ì„œ ê¸°ë³¸ ëŒ€ê¸° ì• ë‹ˆë©”ì´ì…˜ìœ¼ë¡œ ëŒì•„ê°„ë‹¤.
         _phaseAnimator.Play(EntityIdleState, 0, 0f);
         _phaseAnimator.Update(0f);
 
-        // ±âÁ¸ º»Ã¼ ÆäÀÌÁî ÁøÀÔ Ã³¸®¸¦ È£ÃâÇÑ´Ù.
+        // ê¸°ì¡´ ë³¸ì²´ í˜ì´ì¦ˆ ì§„ì… ì²˜ë¦¬ë¥¼ í˜¸ì¶œí•œë‹¤.
         EnterEntityPhase();
     }
 
     /// <summary>
-    /// OnTriggerEnter2D µ¿ÀÛ¿¡ ÇÊ¿äÇÑ »óÅÂ¿Í Ã³¸® Èå¸§À» ½ÇÇàÇÑ´Ù.
+    /// OnTriggerEnter2D ë™ì‘ì— í•„ìš”í•œ ìƒíƒœì™€ ì²˜ë¦¬ íë¦„ì„ ì‹¤í–‰í•œë‹¤.
     /// </summary>
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
-        // ÀÚ½Ä Å¸¿öÀÇ Ãæµ¹ÀÌ ÃÖ»ó´Ü Rigidbody2D¿¡ Àü´ŞµÇ´õ¶óµµ
-        // 1ÆäÀÌÁî¿¡´Â °øÅë º¸½ºÀÇ º»Ã¼ Á¢ÃË ÇÇÇØ¸¦ ½ÇÇàÇÏÁö ¾Ê´Â´Ù.
+        // ìì‹ íƒ€ì›Œì˜ ì¶©ëŒì´ ìµœìƒë‹¨ Rigidbody2Dì— ì „ë‹¬ë˜ë”ë¼ë„
+        // 1í˜ì´ì¦ˆì—ëŠ” ê³µí†µ ë³´ìŠ¤ì˜ ë³¸ì²´ ì ‘ì´‰ í”¼í•´ë¥¼ ì‹¤í–‰í•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (!_isBattleInitialized ||
             _currentPhase != CruiserPhase.Entity)
         {
             return;
         }
 
-        // 2ÆäÀÌÁî¿¡´Â ±âÁ¸ º¸½ºÀÇ ÇÃ·¹ÀÌ¾î Á¢ÃË ÇÇÇØ¸¦ »ç¿ëÇÑ´Ù.
+        // 2í˜ì´ì¦ˆì—ëŠ” ê¸°ì¡´ ë³´ìŠ¤ì˜ í”Œë ˆì´ì–´ ì ‘ì´‰ í”¼í•´ë¥¼ ì‚¬ìš©í•œë‹¤.
         base.OnTriggerEnter2D(collision);
     }
 
     /// <summary>
-    /// ºñÈ°¼ºÈ­ ½Ã ÀÌº¥Æ® ¿¬°á°ú ½ÇÇà »óÅÂ¸¦ Á¤¸®ÇÑ´Ù.
+    /// ë¹„í™œì„±í™” ì‹œ ì´ë²¤íŠ¸ ì—°ê²°ê³¼ ì‹¤í–‰ ìƒíƒœë¥¼ ì •ë¦¬í•œë‹¤.
     /// </summary>
     protected override void OnDisable()
     {
-        // ºñÈ°¼ºÈ­µÈ µÚ ÀÌÀü ÀüÈ¯ »óÅÂ°¡ ³²Áö ¾Êµµ·Ï Á¤¸®ÇÑ´Ù.
+        GameAudio.Stop(_transitionAudio);
+        // ë¹„í™œì„±í™”ëœ ë’¤ ì´ì „ ì „í™˜ ìƒíƒœê°€ ë‚¨ì§€ ì•Šë„ë¡ ì •ë¦¬í•œë‹¤.
         _isPhaseTransitioning = false;
 
-        // ºñÈ°¼ºÈ­ÇÒ ¶§ ÀÌº¥Æ® ±¸µ¶À» ÇØÁ¦ÇÑ´Ù.
+        // ë¹„í™œì„±í™”í•  ë•Œ ì´ë²¤íŠ¸ êµ¬ë…ì„ í•´ì œí•œë‹¤.
         if (_towerShield != null)
         {
             _towerShield.ShieldChanged -= HandleShieldChanged;
         }
 
-        // º¸½º°¡ ºñÈ°¼ºÈ­µÇ´Â °æ¿ì¿¡µµ ³²Àº ¼ÒÈ¯ ÀûÀ» Á¤¸®ÇÑ´Ù.
+        // ë³´ìŠ¤ê°€ ë¹„í™œì„±í™”ë˜ëŠ” ê²½ìš°ì—ë„ ë‚¨ì€ ì†Œí™˜ ì ì„ ì •ë¦¬í•œë‹¤.
         ClearSummonedEnemies();
 
-        // °øÅë º¸½º°¡ °ü¸®ÇÏ´Â Ãæµ¹ ¹«½Ã »óÅÂµµ Á¤¸®ÇÑ´Ù.
+        // ê³µí†µ ë³´ìŠ¤ê°€ ê´€ë¦¬í•˜ëŠ” ì¶©ëŒ ë¬´ì‹œ ìƒíƒœë„ ì •ë¦¬í•œë‹¤.
         base.OnDisable();
     }
 
     /// <summary>
-    /// ÇÁ·¹ÀÓÀÇ ÀÌµ¿ °á°ú¿¡ ¸ÂÃç ÈÄ¼Ó »óÅÂ¸¦ °»½ÅÇÑ´Ù.
+    /// í”„ë ˆì„ì˜ ì´ë™ ê²°ê³¼ì— ë§ì¶° í›„ì† ìƒíƒœë¥¼ ê°±ì‹ í•œë‹¤.
     /// </summary>
     private void LateUpdate()
     {
-        // ÀüÈ¯ Áß¿¡´Â Å¬¸³ÀÇ ¿Ï·á ¿©ºÎ¸¸ È®ÀÎÇÏ°í Å¸¿ö °ø°İÀº °»½ÅÇÏÁö ¾Ê´Â´Ù.
+        // ì „í™˜ ì¤‘ì—ëŠ” í´ë¦½ì˜ ì™„ë£Œ ì—¬ë¶€ë§Œ í™•ì¸í•˜ê³  íƒ€ì›Œ ê³µê²©ì€ ê°±ì‹ í•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (_isPhaseTransitioning)
         {
             UpdateEntityPhaseTransition();
             return;
         }
 
-        // 1ÆäÀÌÁî¿¡¼­¸¸ Å¸¿öÀÇ °ø°İ ½Ã°£À» °è»êÇÑ´Ù.
+        // 1í˜ì´ì¦ˆì—ì„œë§Œ íƒ€ì›Œì˜ ê³µê²© ì‹œê°„ì„ ê³„ì‚°í•œë‹¤.
         if (!_isBattleInitialized ||
             IsDead ||
             _currentPhase != CruiserPhase.Towers ||
@@ -412,7 +417,7 @@ public class Boss_Cruiser : BossEnemy
         {
             TowerAttack attack = _towerAttacks[i];
 
-            // ÆÄ±«µÇ°Å³ª ºñÈ°¼ºÈ­µÈ Å¸¿ö´Â °ø°İÇÏÁö ¾Ê´Â´Ù.
+            // íŒŒê´´ë˜ê±°ë‚˜ ë¹„í™œì„±í™”ëœ íƒ€ì›ŒëŠ” ê³µê²©í•˜ì§€ ì•ŠëŠ”ë‹¤.
             if (attack == null ||
                 !attack.isActiveAndEnabled ||
                 !attack.Owner.isActiveAndEnabled ||
@@ -421,8 +426,8 @@ public class Boss_Cruiser : BossEnemy
                 continue;
             }
 
-            // ÀÌ Å¸¿ö°¡ °ø°İ ÁßÀÌ¾îµµ ´Ù¸¥ Å¸¿öÀÇ ½Ã°£Àº °è¼Ó °è»êÇÑ´Ù.
-            // ÄğÅ¸ÀÓÀº ÀÌ Å¸¿öÀÇ °ø°İ ¾Ö´Ï¸ŞÀÌ¼Ç Á¾·á ÈÄºÎÅÍ Èå¸¥´Ù.
+            // ì´ íƒ€ì›Œê°€ ê³µê²© ì¤‘ì´ì–´ë„ ë‹¤ë¥¸ íƒ€ì›Œì˜ ì‹œê°„ì€ ê³„ì† ê³„ì‚°í•œë‹¤.
+            // ì¿¨íƒ€ì„ì€ ì´ íƒ€ì›Œì˜ ê³µê²© ì• ë‹ˆë©”ì´ì…˜ ì¢…ë£Œ í›„ë¶€í„° íë¥¸ë‹¤.
             if (attack.IsAttacking)
             {
                 continue;
@@ -436,13 +441,13 @@ public class Boss_Cruiser : BossEnemy
                 continue;
             }
 
-            // ÇØ´ç Å¸¿ö¿¡ °ø°İ ¿äÃ»À» Àü´ŞÇÑ´Ù.
+            // í•´ë‹¹ íƒ€ì›Œì— ê³µê²© ìš”ì²­ì„ ì „ë‹¬í•œë‹¤.
             if (TowerAttackRequested != null)
             {
                 TowerAttackRequested.Invoke(attack, TargetPlayer);
             }
 
-            // ½ÇÁ¦·Î °ø°İÀ» ½ÃÀÛÇÑ °æ¿ì¿¡¸¸ ´ÙÀ½ ÄğÅ¸ÀÓÀ» ¼³Á¤ÇÑ´Ù.
+            // ì‹¤ì œë¡œ ê³µê²©ì„ ì‹œì‘í•œ ê²½ìš°ì—ë§Œ ë‹¤ìŒ ì¿¨íƒ€ì„ì„ ì„¤ì •í•œë‹¤.
             if (attack.IsAttacking)
             {
                 _remainingAttackTimes[i] = attack.Cooldown;
@@ -450,9 +455,9 @@ public class Boss_Cruiser : BossEnemy
         }
     }
 
-    // ¸ñ·Ï ¼³Á¤À» °Ë»çÇÏ°í, °¢ Ç×¸ñÀÇ ½ÇÇà ¿©ºÎ¸¦ ±â·ÏÇÒ ¹è¿­À» ¸¸µç´Ù.
+    // ëª©ë¡ ì„¤ì •ì„ ê²€ì‚¬í•˜ê³ , ê° í•­ëª©ì˜ ì‹¤í–‰ ì—¬ë¶€ë¥¼ ê¸°ë¡í•  ë°°ì—´ì„ ë§Œë“ ë‹¤.
     /// <summary>
-    /// ¸ñ·Ï ¼³Á¤À» °Ë»çÇÏ°í, °¢ Ç×¸ñÀÇ ½ÇÇà ¿©ºÎ¸¦ ±â·ÏÇÒ ¹è¿­À» ¸¸µç´Ù.
+    /// ëª©ë¡ ì„¤ì •ì„ ê²€ì‚¬í•˜ê³ , ê° í•­ëª©ì˜ ì‹¤í–‰ ì—¬ë¶€ë¥¼ ê¸°ë¡í•  ë°°ì—´ì„ ë§Œë“ ë‹¤.
     /// </summary>
     private bool[] InitializeHealthPatterns(
         List<HealthBossPatternEntry> entries,
@@ -461,7 +466,7 @@ public class Boss_Cruiser : BossEnemy
         if (entries == null)
         {
             throw new InvalidOperationException(
-                $"{name}: {listName} ¸ñ·ÏÀÌ ¾ø½À´Ï´Ù.");
+                $"{name}: {listName} ëª©ë¡ì´ ì—†ìŠµë‹ˆë‹¤.");
         }
 
         for (int i = 0; i < entries.Count; i++)
@@ -471,26 +476,26 @@ public class Boss_Cruiser : BossEnemy
             if (entry == null || entry.Pattern == null)
             {
                 throw new InvalidOperationException(
-                    $"{name}: {listName}ÀÇ Element {i}¿¡ ÆĞÅÏÀ» ¿¬°áÇÏ¼¼¿ä.");
+                    $"{name}: {listName}ì˜ Element {i}ì— íŒ¨í„´ì„ ì—°ê²°í•˜ì„¸ìš”.");
             }
 
-            // »ç¸Á ½ÃÁ¡ÀÎ 0%¿Í ÀüÅõ ½ÃÀÛ ½ÃÁ¡ÀÎ 100%´Â Á¦¿ÜÇÑ´Ù.
+            // ì‚¬ë§ ì‹œì ì¸ 0%ì™€ ì „íˆ¬ ì‹œì‘ ì‹œì ì¸ 100%ëŠ” ì œì™¸í•œë‹¤.
             if (!(entry.HealthPercent > 0f &&
                   entry.HealthPercent < 100f))
             {
                 throw new InvalidOperationException(
-                    $"{name}: {listName}ÀÇ Element {i} Ã¼·Â ±âÁØÀº " +
-                    "0º¸´Ù Å©°í 100º¸´Ù ÀÛ¾Æ¾ß ÇÕ´Ï´Ù.");
+                    $"{name}: {listName}ì˜ Element {i} ì²´ë ¥ ê¸°ì¤€ì€ " +
+                    "0ë³´ë‹¤ í¬ê³  100ë³´ë‹¤ ì‘ì•„ì•¼ í•©ë‹ˆë‹¤.");
             }
         }
 
-        // ºó ¸ñ·Ïµµ Çã¿ëÇÑ´Ù. ÇØ´ç ÆäÀÌÁîÀÇ Æ¯¼öÆĞÅÏÀÌ ¾ø´Ù´Â ÀÇ¹Ì´Ù.
+        // ë¹ˆ ëª©ë¡ë„ í—ˆìš©í•œë‹¤. í•´ë‹¹ í˜ì´ì¦ˆì˜ íŠ¹ìˆ˜íŒ¨í„´ì´ ì—†ë‹¤ëŠ” ì˜ë¯¸ë‹¤.
         return new bool[entries.Count];
     }
 
-    // ÇöÀç Ã¼·ÂÀÌ Á¶°Ç ÀÌÇÏÀÎ Ç×¸ñÀ» ±âÁ¸ Æ¯¼öÆĞÅÏ ½ÇÇà±â¿¡ ¿äÃ»ÇÑ´Ù.
+    // í˜„ì¬ ì²´ë ¥ì´ ì¡°ê±´ ì´í•˜ì¸ í•­ëª©ì„ ê¸°ì¡´ íŠ¹ìˆ˜íŒ¨í„´ ì‹¤í–‰ê¸°ì— ìš”ì²­í•œë‹¤.
     /// <summary>
-    /// ÇöÀç Ã¼·ÂÀÌ Á¶°Ç ÀÌÇÏÀÎ Ç×¸ñÀ» ±âÁ¸ Æ¯¼öÆĞÅÏ ½ÇÇà±â¿¡ ¿äÃ»ÇÑ´Ù.
+    /// í˜„ì¬ ì²´ë ¥ì´ ì¡°ê±´ ì´í•˜ì¸ í•­ëª©ì„ ê¸°ì¡´ íŠ¹ìˆ˜íŒ¨í„´ ì‹¤í–‰ê¸°ì— ìš”ì²­í•œë‹¤.
     /// </summary>
     private void RequestHealthPatterns(
         List<HealthBossPatternEntry> entries,
@@ -498,7 +503,7 @@ public class Boss_Cruiser : BossEnemy
         float currentHealth,
         float maxHealth)
     {
-        // Ä¡¸íÀûÀÎ ÇÇÇØ¿¡¼­´Â »õ ÆĞÅÏÀ» ¿äÃ»ÇÏÁö ¾Ê´Â´Ù.
+        // ì¹˜ëª…ì ì¸ í”¼í•´ì—ì„œëŠ” ìƒˆ íŒ¨í„´ì„ ìš”ì²­í•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (IsDead || currentHealth <= 0 || maxHealth <= 0)
         {
             return;
@@ -520,30 +525,30 @@ public class Boss_Cruiser : BossEnemy
                 continue;
             }
 
-            // ¿äÃ» °úÁ¤¿¡¼­ ÀÌº¥Æ®°¡ ¹ß»ıÇØµµ Áßº¹ ¿äÃ»ÇÏÁö ¾Êµµ·Ï ¸ÕÀú ±â·ÏÇÑ´Ù.
+            // ìš”ì²­ ê³¼ì •ì—ì„œ ì´ë²¤íŠ¸ê°€ ë°œìƒí•´ë„ ì¤‘ë³µ ìš”ì²­í•˜ì§€ ì•Šë„ë¡ ë¨¼ì € ê¸°ë¡í•œë‹¤.
             requested[i] = true;
 
-            // BossEnemy¿¡¼­ »ó¼Ó¹ŞÀº Æ¯¼öÆĞÅÏ ¿äÃ» ±â´ÉÀ» »ç¿ëÇÑ´Ù.
+            // BossEnemyì—ì„œ ìƒì†ë°›ì€ íŠ¹ìˆ˜íŒ¨í„´ ìš”ì²­ ê¸°ëŠ¥ì„ ì‚¬ìš©í•œë‹¤.
             RequestSpecialPattern(entry.Pattern);
         }
     }
 
-    // BossEnemy.TakeHit()ÀÌ º»Ã¼ Ã¼·ÂÀ» °¨¼Ò½ÃÅ² µÚ È£ÃâÇÏ´Â ÇÔ¼ö´Ù.
+    // BossEnemy.TakeHit()ì´ ë³¸ì²´ ì²´ë ¥ì„ ê°ì†Œì‹œí‚¨ ë’¤ í˜¸ì¶œí•˜ëŠ” í•¨ìˆ˜ë‹¤.
     /// <summary>
-    /// º¸½º ÇÇ°İ ÀÌÈÄ »óÅÂ¿Í ÆĞÅÏÀ» °»½ÅÇÑ´Ù.
+    /// ë³´ìŠ¤ í”¼ê²© ì´í›„ ìƒíƒœì™€ íŒ¨í„´ì„ ê°±ì‹ í•œë‹¤.
     /// </summary>
     protected override void OnBossDamaged(float damage)
     {
         base.OnBossDamaged(damage);
 
-        // º»Ã¼ Ã¼·Â¿¡ µû¸¥ ÆĞÅÏÀº 2ÆäÀÌÁî¿¡¼­¸¸ ¿äÃ»ÇÑ´Ù.
+        // ë³¸ì²´ ì²´ë ¥ì— ë”°ë¥¸ íŒ¨í„´ì€ 2í˜ì´ì¦ˆì—ì„œë§Œ ìš”ì²­í•œë‹¤.
         if (!_isBattleInitialized ||
             _currentPhase != CruiserPhase.Entity)
         {
             return;
         }
 
-        // º»Ã¼ÀÇ ÇöÀç Ã¼·Â°ú ÃÖ´ë Ã¼·ÂÀº BossEnemy¿¡¼­ »ó¼Ó¹Ş´Â´Ù.
+        // ë³¸ì²´ì˜ í˜„ì¬ ì²´ë ¥ê³¼ ìµœëŒ€ ì²´ë ¥ì€ BossEnemyì—ì„œ ìƒì†ë°›ëŠ”ë‹¤.
         RequestHealthPatterns(
             _phase2SpecialPatterns,
             _phase2Requested,
@@ -551,10 +556,10 @@ public class Boss_Cruiser : BossEnemy
             MaxHp);
     }
 
-    // ¼ÒÈ¯ ÆĞÅÏÀÌ ±¸¸ÛÀÇ ÇöÀç À§Ä¡¸¦ °¡Á®¿Â´Ù.
-    // 0Àº A, 1Àº B, 2´Â C´Ù.
+    // ì†Œí™˜ íŒ¨í„´ì´ êµ¬ë©ì˜ í˜„ì¬ ìœ„ì¹˜ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
+    // 0ì€ A, 1ì€ B, 2ëŠ” Cë‹¤.
     /// <summary>
-    /// 0Àº A, 1Àº B, 2´Â C´Ù.
+    /// 0ì€ A, 1ì€ B, 2ëŠ” Cë‹¤.
     /// </summary>
     public Transform GetSummonPoint(int holeIndex)
     {
@@ -581,13 +586,13 @@ public class Boss_Cruiser : BossEnemy
         if (point == null || !point.gameObject.activeInHierarchy)
         {
             throw new InvalidOperationException(
-                $"{name}: ¼ÒÈ¯ À§Ä¡ {holeIndex}ÀÇ ¿¬°á°ú È°¼º »óÅÂ¸¦ È®ÀÎÇÏ¼¼¿ä.");
+                $"{name}: ì†Œí™˜ ìœ„ì¹˜ {holeIndex}ì˜ ì—°ê²°ê³¼ í™œì„± ìƒíƒœë¥¼ í™•ì¸í•˜ì„¸ìš”.");
         }
 
         return point;
     }
 
-    // Å©·çÀú°¡ ¼ÒÈ¯ÇÑ ÀûÀÇ ÇöÀç ´ë¿© Á¤º¸¸¦ µî·ÏÇÑ´Ù.
+    // í¬ë£¨ì €ê°€ ì†Œí™˜í•œ ì ì˜ í˜„ì¬ ëŒ€ì—¬ ì •ë³´ë¥¼ ë“±ë¡í•œë‹¤.
     public void RegisterSummonedEnemy(SmallEnemy enemy)
     {
         if (enemy == null)
@@ -595,63 +600,64 @@ public class Boss_Cruiser : BossEnemy
             throw new ArgumentNullException(nameof(enemy));
         }
 
-        // Àû¿¡°Ô ºÙÀº PoolObject¸¦ °¡Á®¿À°í ´ë¿© »óÅÂ¸¦ È®ÀÎÇÑ´Ù.
+        // ì ì—ê²Œ ë¶™ì€ PoolObjectë¥¼ ê°€ì ¸ì˜¤ê³  ëŒ€ì—¬ ìƒíƒœë¥¼ í™•ì¸í•œë‹¤.
         if (!enemy.TryGetComponent(out PoolObject poolObject) ||
             !poolObject.IsBorrowed)
         {
             throw new InvalidOperationException(
-                $"{name}: ¼ÒÈ¯ ÀûÀº Ç®¿¡¼­ ´ë¿©ÇÑ »óÅÂ¿©¾ß ÇÕ´Ï´Ù.");
+                $"{name}: ì†Œí™˜ ì ì€ í’€ì—ì„œ ëŒ€ì—¬í•œ ìƒíƒœì—¬ì•¼ í•©ë‹ˆë‹¤.");
         }
 
-        // ÆÄ±«¡¤¹İ³³¡¤Àç´ë¿©µÈ ±â·ÏÀ» Á¦°ÅÇÑ´Ù.
-        // °°Àº ¿ÀºêÁ§Æ®ÀÇ ±âÁ¸ ±â·Ïµµ Á¦°ÅÇÏ¿© Áßº¹ µî·ÏÀ» ¸·´Â´Ù.
+        // íŒŒê´´Â·ë°˜ë‚©Â·ì¬ëŒ€ì—¬ëœ ê¸°ë¡ì„ ì œê±°í•œë‹¤.
+        // ê°™ì€ ì˜¤ë¸Œì íŠ¸ì˜ ê¸°ì¡´ ê¸°ë¡ë„ ì œê±°í•˜ì—¬ ì¤‘ë³µ ë“±ë¡ì„ ë§‰ëŠ”ë‹¤.
         _summonedEnemies.RemoveAll(entry =>
             entry.Object == null ||
             !entry.Object.IsBorrowed ||
             entry.Object.BorrowVersion != entry.Version ||
             entry.Object == poolObject);
 
-        // ÇöÀç ¿ÀºêÁ§Æ®¿Í ´ë¿© ¹øÈ£¸¦ ±¸Á¶Ã¼¿¡ ÀúÀåÇÑ´Ù.
+        // í˜„ì¬ ì˜¤ë¸Œì íŠ¸ì™€ ëŒ€ì—¬ ë²ˆí˜¸ë¥¼ êµ¬ì¡°ì²´ì— ì €ì¥í•œë‹¤.
         _summonedEnemies.Add(
             new SummonedEnemyEntry(poolObject, poolObject.BorrowVersion));
     }
 
-    // Å©·çÀú°¡ ¼ÒÈ¯ÇÑ ´ë¿© °Ç¿¡ ÇØ´çÇÏ´Â Àû¸¸ Ç®·Î ¹İ³³ÇÑ´Ù.
+    // í¬ë£¨ì €ê°€ ì†Œí™˜í•œ ëŒ€ì—¬ ê±´ì— í•´ë‹¹í•˜ëŠ” ì ë§Œ í’€ë¡œ ë°˜ë‚©í•œë‹¤.
     private void ClearSummonedEnemies()
     {
-        // ¸¶Áö¸· Ç×¸ñºÎÅÍ ²¨³»¸ç ¸ñ·ÏÀÌ ºô ¶§±îÁö Á¤¸®ÇÑ´Ù.
+        // ë§ˆì§€ë§‰ í•­ëª©ë¶€í„° êº¼ë‚´ë©° ëª©ë¡ì´ ë¹Œ ë•Œê¹Œì§€ ì •ë¦¬í•œë‹¤.
         while (_summonedEnemies.Count > 0)
         {
             int lastIndex = _summonedEnemies.Count - 1;
             SummonedEnemyEntry entry = _summonedEnemies[lastIndex];
 
-            // ¹İ³³À¸·Î OnDisableÀÌ È£ÃâµÇ±â Àü¿¡ ±â·ÏºÎÅÍ Á¦°ÅÇÑ´Ù.
+            // ë°˜ë‚©ìœ¼ë¡œ OnDisableì´ í˜¸ì¶œë˜ê¸° ì „ì— ê¸°ë¡ë¶€í„° ì œê±°í•œë‹¤.
             _summonedEnemies.RemoveAt(lastIndex);
 
-            // ÀÌ¹Ì ÆÄ±«µÇ¾ú°Å³ª ¹İ³³µÈ ¿ÀºêÁ§Æ®´Â °Ç³Ê¶Ú´Ù.
+            // ì´ë¯¸ íŒŒê´´ë˜ì—ˆê±°ë‚˜ ë°˜ë‚©ëœ ì˜¤ë¸Œì íŠ¸ëŠ” ê±´ë„ˆë›´ë‹¤.
             if (entry.Object == null || !entry.Object.IsBorrowed)
             {
                 continue;
             }
 
-            // ´Ù¸¥ ´ë¿© °ÇÀ¸·Î Àç»ç¿ëµÈ ¿ÀºêÁ§Æ®´Â °Çµå¸®Áö ¾Ê´Â´Ù.
+            // ë‹¤ë¥¸ ëŒ€ì—¬ ê±´ìœ¼ë¡œ ì¬ì‚¬ìš©ëœ ì˜¤ë¸Œì íŠ¸ëŠ” ê±´ë“œë¦¬ì§€ ì•ŠëŠ”ë‹¤.
             if (entry.Object.BorrowVersion != entry.Version)
             {
                 continue;
             }
 
-            // Ã³Ä¡ º¸»ó ¾øÀÌ Ç®·Î ¹İ³³ÇÑ´Ù.
-            // ºñÈ°¼ºÈ­¿Í º¸°ü À§Ä¡ ÀÌµ¿Àº Ç® ¸Å´ÏÀú°¡ Ã³¸®ÇÑ´Ù.
+            // ì²˜ì¹˜ ë³´ìƒ ì—†ì´ í’€ë¡œ ë°˜ë‚©í•œë‹¤.
+            // ë¹„í™œì„±í™”ì™€ ë³´ê´€ ìœ„ì¹˜ ì´ë™ì€ í’€ ë§¤ë‹ˆì €ê°€ ì²˜ë¦¬í•œë‹¤.
             entry.Object.ReturnToPool();
         }
     }
 
-    // º¸½ºÀÇ Ã¼·ÂÀÌ 0ÀÌ µÇ´Â ½ÃÁ¡¿¡ È£ÃâµÈ´Ù.
+    // ë³´ìŠ¤ì˜ ì²´ë ¥ì´ 0ì´ ë˜ëŠ” ì‹œì ì— í˜¸ì¶œëœë‹¤.
     /// <summary>
-    /// º¸½ºÀÇ Ã¼·ÂÀÌ 0ÀÌ µÇ´Â ½ÃÁ¡¿¡ È£ÃâµÈ´Ù.
+    /// ë³´ìŠ¤ì˜ ì²´ë ¥ì´ 0ì´ ë˜ëŠ” ì‹œì ì— í˜¸ì¶œëœë‹¤.
     /// </summary>
     protected override void OnBossDefeated()
     {
+        GameAudio.Stop(_transitionAudio);
         ClearSummonedEnemies();
         base.OnBossDefeated();
     }

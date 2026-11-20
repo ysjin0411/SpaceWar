@@ -226,6 +226,15 @@ public sealed class BossAlienBarragePattern : BossPattern
                     yield return null;
                     elapsed += Time.deltaTime;
                 }
+
+                // 이번 회차의 예고를 지워 다음 회차와 구분하고 순서를 기억하게 한다.
+                foreach (MissileRuntime missile in round.Missiles)
+                {
+                    // 폭격 데이터는 보존하고 예고 표시만 제거한다.
+                    if (missile.Warning == null) continue;
+                    missile.Warning.Remove();
+                    missile.Warning = null;
+                }
             }
 
             // 마지막 회차의 예고 시간까지 끝난 뒤에만 First Delay를 시작한다.

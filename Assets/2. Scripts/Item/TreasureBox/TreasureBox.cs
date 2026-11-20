@@ -1,123 +1,123 @@
-using System;
+ï»¿using System;
 using UnityEngine;
 using DG.Tweening;
 using System.Collections;
 
-// »óÀÚÀÇ ÇÇ°İ ¹× °³ºÀ ÁøÇà »óÅÂ´Ù.
+// ìƒìì˜ í”¼ê²© ë° ê°œë´‰ ì§„í–‰ ìƒíƒœë‹¤.
 public enum TreasureBoxState
 {
-    Waiting = 0,         // ÃÊ±âÈ­ ¶Ç´Â ³«ÇÏ ¿¬Ãâ Áß
-    ReceivingDamage = 1, // ÇÇÇØ¸¦ ´©ÀûÇÏ´Â Áß
-    Charge = 2,          // ½Â±Ş ¶Ç´Â °³ºÀÀ» À§ÇÑ Ãß°¡ Å¸°İ ´ë±â
-    Opened = 3,          // °³ºÀ ¿Ï·á
-    Upgrading = 4        // ´ÙÀ½ µî±ŞÀ¸·Î ¹Ù²î´Â ¿¬Ãâ Áß
+    Waiting = 0,         // ì´ˆê¸°í™” ë˜ëŠ” ë‚™í•˜ ì—°ì¶œ ì¤‘
+    ReceivingDamage = 1, // í”¼í•´ë¥¼ ëˆ„ì í•˜ëŠ” ì¤‘
+    Charge = 2,          // ìŠ¹ê¸‰ ë˜ëŠ” ê°œë´‰ì„ ìœ„í•œ ì¶”ê°€ íƒ€ê²© ëŒ€ê¸°
+    Opened = 3,          // ê°œë´‰ ì™„ë£Œ
+    Upgrading = 4        // ë‹¤ìŒ ë“±ê¸‰ìœ¼ë¡œ ë°”ë€ŒëŠ” ì—°ì¶œ ì¤‘
 }
 
 [RequireComponent(typeof(BoxCollider2D))]
 public class TreasureBox : MonoBehaviour, IDamageable
 {
-    // Wood, Silver, Gold, Emerald, Diamond ¼ø¼­·Î µ¥ÀÌÅÍ¸¦ ¿¬°áÇÑ´Ù.
+    // Wood, Silver, Gold, Emerald, Diamond ìˆœì„œë¡œ ë°ì´í„°ë¥¼ ì—°ê²°í•œë‹¤.
     [SerializeField]
     TreasureBoxGradeData[] _gradeDatas = new TreasureBoxGradeData[5];
 
-    // µî±Şº° ¿ÜÇü ÇÁ¸®ÆÕÀ» »ı¼ºÇÒ ºó ÀÚ½Ä ¿ÀºêÁ§Æ®´Ù.
+    // ë“±ê¸‰ë³„ ì™¸í˜• í”„ë¦¬íŒ¹ì„ ìƒì„±í•  ë¹ˆ ìì‹ ì˜¤ë¸Œì íŠ¸ë‹¤.
     [SerializeField]
     Transform _visualRoot;
 
-    // ÇÃ·¹ÀÌ Áß ÇöÀç »óÀÚÀÇ »óÅÂ¸¦ È®ÀÎÇÏ±â À§ÇÑ °ªÀÌ´Ù.
+    // í”Œë ˆì´ ì¤‘ í˜„ì¬ ìƒìì˜ ìƒíƒœë¥¼ í™•ì¸í•˜ê¸° ìœ„í•œ ê°’ì´ë‹¤.
     [SerializeField]
     TreasureBoxState _state = TreasureBoxState.Waiting;
 
-    // ÇöÀç È­¸é¿¡ Ç¥½ÃµÇ´Â µî±ŞÀÌ´Ù.
+    // í˜„ì¬ í™”ë©´ì— í‘œì‹œë˜ëŠ” ë“±ê¸‰ì´ë‹¤.
     [SerializeField]
     TreasureBoxGrade _currentGrade = TreasureBoxGrade.Wood;
 
-    // µîÀå ½Ã ÇÑ ¹ø °áÁ¤µÇ°í ÀÌÈÄ¿¡´Â ¹Ù²îÁö ¾Ê´Â ÃÖÁ¾ º¸»ó µî±ŞÀÌ´Ù.
+    // ë“±ì¥ ì‹œ í•œ ë²ˆ ê²°ì •ë˜ê³  ì´í›„ì—ëŠ” ë°”ë€Œì§€ ì•ŠëŠ” ìµœì¢… ë³´ìƒ ë“±ê¸‰ì´ë‹¤.
     [SerializeField]
     TreasureBoxGrade _finalGrade;
 
-    // ÇöÀç µî±Ş¿¡¼­ ´©ÀûµÈ ÇÇÇØ·®ÀÌ´Ù.
+    // í˜„ì¬ ë“±ê¸‰ì—ì„œ ëˆ„ì ëœ í”¼í•´ëŸ‰ì´ë‹¤.
     [SerializeField]
     float _accumulatedDamage;
 
-    // ±âÁ¸ »óÀÚ°¡ ÀÛ¾ÆÁ® »ç¶óÁö´Â ½Ã°£ÀÌ´Ù.
+    // ê¸°ì¡´ ìƒìê°€ ì‘ì•„ì ¸ ì‚¬ë¼ì§€ëŠ” ì‹œê°„ì´ë‹¤.
     [SerializeField, Min(0.01f)]
     float _upgradeShrinkDuration = 0.12f;
 
-    // ´ÙÀ½ µî±Ş »óÀÚ°¡ ¿ø·¡ Å©±â·Î ÆîÃÄÁö´Â ½Ã°£ÀÌ´Ù.
+    // ë‹¤ìŒ ë“±ê¸‰ ìƒìê°€ ì›ë˜ í¬ê¸°ë¡œ í¼ì³ì§€ëŠ” ì‹œê°„ì´ë‹¤.
     [SerializeField, Min(0.01f)]
     float _upgradeGrowDuration = 0.22f;
 
-    // »óÀÚ°¡ Á¦°ÅµÉ ¶§ ½Â±Ş ¿¬Ãâµµ Á¤¸®ÇÏ±â À§ÇØ º¸°üÇÑ´Ù.
+    // ìƒìê°€ ì œê±°ë  ë•Œ ìŠ¹ê¸‰ ì—°ì¶œë„ ì •ë¦¬í•˜ê¸° ìœ„í•´ ë³´ê´€í•œë‹¤.
     Sequence _upgradeSequence;
 
-    // °øÅë »óÀÚ º»Ã¼ÀÇ ÇÇ°İ ¿µ¿ªÀÌ´Ù.
+    // ê³µí†µ ìƒì ë³¸ì²´ì˜ í”¼ê²© ì˜ì—­ì´ë‹¤.
     BoxCollider2D _hitCollider;
 
-    // ÇöÀç »ı¼ºµÇ¾î ÀÖ´Â µî±Şº° ¿ÜÇüÀÌ´Ù.
+    // í˜„ì¬ ìƒì„±ë˜ì–´ ìˆëŠ” ë“±ê¸‰ë³„ ì™¸í˜•ì´ë‹¤.
     GameObject _currentVisual;
 
-    // ÇöÀç µî±Ş ¿ÜÇüÀÇ ¿­¸° ½ºÇÁ¶óÀÌÆ® ÀüÈ¯À» ´ã´çÇÑ´Ù.
+    // í˜„ì¬ ë“±ê¸‰ ì™¸í˜•ì˜ ì—´ë¦° ìŠ¤í”„ë¼ì´íŠ¸ ì „í™˜ì„ ë‹´ë‹¹í•œë‹¤.
     TreasureBoxVisual _currentVisualController;
 
-    // ÃÊ±âÈ­°¡ ¿Ï·áµÇ¾ú´ÂÁö È®ÀÎÇÑ´Ù.
+    // ì´ˆê¸°í™”ê°€ ì™„ë£Œë˜ì—ˆëŠ”ì§€ í™•ì¸í•œë‹¤.
     bool _isInitialized;
 
-    // ±âÁ¸ IDamageable ±Ô¾à¿¡ ¸ÂÃá ÇÇ°İ ¾Ë¸²ÀÌ´Ù.
+    // ê¸°ì¡´ IDamageable ê·œì•½ì— ë§ì¶˜ í”¼ê²© ì•Œë¦¼ì´ë‹¤.
     public event Action<float> Damaged;
 
-    // ÀÌÈÄ Charge µîÀÇ ½Ã°¢ È¿°ú¸¦ ¿¬°áÇÒ »óÅÂ º¯°æ ¾Ë¸²ÀÌ´Ù.
+    // ì´í›„ Charge ë“±ì˜ ì‹œê° íš¨ê³¼ë¥¼ ì—°ê²°í•  ìƒíƒœ ë³€ê²½ ì•Œë¦¼ì´ë‹¤.
     public event Action<TreasureBoxState> StateChanged;
 
-    // °³ºÀ ½Ã ÃÖÁ¾ µî±Ş µ¥ÀÌÅÍ¸¦ Àü´ŞÇÑ´Ù.
-    // ½ÇÁ¦ º¸»ó »ı¼º°ú Áö±ŞÀº ÀÌ ÀÌº¥Æ®¸¦ ¹Ş´Â ÂÊ¿¡¼­ Ã³¸®ÇÑ´Ù.
+    // ê°œë´‰ ì‹œ ìµœì¢… ë“±ê¸‰ ë°ì´í„°ë¥¼ ì „ë‹¬í•œë‹¤.
+    // ì‹¤ì œ ë³´ìƒ ìƒì„±ê³¼ ì§€ê¸‰ì€ ì´ ì´ë²¤íŠ¸ë¥¼ ë°›ëŠ” ìª½ì—ì„œ ì²˜ë¦¬í•œë‹¤.
     public event Action<TreasureBoxGradeData> Opened;
 
-    // ¿­¸° »óÀÚ´Â ´õ ÀÌ»ó °ø°İ ´ë»óÀ¸·Î Ãë±ŞÇÏÁö ¾Ê´Â´Ù.
+    // ì—´ë¦° ìƒìëŠ” ë” ì´ìƒ ê³µê²© ëŒ€ìƒìœ¼ë¡œ ì·¨ê¸‰í•˜ì§€ ì•ŠëŠ”ë‹¤.
     public bool IsDead => _state == TreasureBoxState.Opened;
 
-    // À¯µµÅº µîÀÌ »ç¿ëÇÒ °ø°İ ´ë»ó À§Ä¡´Ù.
+    // ìœ ë„íƒ„ ë“±ì´ ì‚¬ìš©í•  ê³µê²© ëŒ€ìƒ ìœ„ì¹˜ë‹¤.
     public Transform TargetTransform => transform;
 
-    // ¿ÜºÎ¿¡¼­ ÇöÀç »óÅÂ¿Í µî±ŞÀ» È®ÀÎÇÒ ¶§ »ç¿ëÇÑ´Ù.
+    // ì™¸ë¶€ì—ì„œ í˜„ì¬ ìƒíƒœì™€ ë“±ê¸‰ì„ í™•ì¸í•  ë•Œ ì‚¬ìš©í•œë‹¤.
     public TreasureBoxState State => _state;
     public TreasureBoxGrade CurrentGrade => _currentGrade;
-    // ÇöÀç µî±Ş ¿ÜÇü¿¡ ¼³Á¤ÇÑ º¸»ó Ãâ¹ß À§Ä¡¸¦ Àü´ŞÇÑ´Ù.
-    // ¿ÜÇü ÃÊ±âÈ­°¡ ¿Ï·áµÈ ÀÌÈÄ¿¡ »ç¿ëÇÑ´Ù.
+    // í˜„ì¬ ë“±ê¸‰ ì™¸í˜•ì— ì„¤ì •í•œ ë³´ìƒ ì¶œë°œ ìœ„ì¹˜ë¥¼ ì „ë‹¬í•œë‹¤.
+    // ì™¸í˜• ì´ˆê¸°í™”ê°€ ì™„ë£Œëœ ì´í›„ì— ì‚¬ìš©í•œë‹¤.
     public Vector3 RewardPosition => _currentVisualController.RewardPosition;
 
-    // µî±Ş ¹øÈ£´Â 1ºÎÅÍ, ¹è¿­ ÀÎµ¦½º´Â 0ºÎÅÍ ½ÃÀÛÇÑ´Ù.
+    // ë“±ê¸‰ ë²ˆí˜¸ëŠ” 1ë¶€í„°, ë°°ì—´ ì¸ë±ìŠ¤ëŠ” 0ë¶€í„° ì‹œì‘í•œë‹¤.
     TreasureBoxGradeData CurrentData =>
         _gradeDatas[(int)_currentGrade - 1];
 
     /// <summary>
-    /// ÄÄÆ÷³ÍÆ® ÂüÁ¶¿Í ÃÊ±â ½ÇÇà »óÅÂ¸¦ ÁØºñÇÑ´Ù.
+    /// ì»´í¬ë„ŒíŠ¸ ì°¸ì¡°ì™€ ì´ˆê¸° ì‹¤í–‰ ìƒíƒœë¥¼ ì¤€ë¹„í•œë‹¤.
     /// </summary>
     private void Awake()
     {
-        // ³«ÇÏ ¿¬ÃâÀÌ ³¡³ª±â Àü¿¡´Â °ø°İ¹ŞÁö ¾Ê´Â´Ù.
+        // ë‚™í•˜ ì—°ì¶œì´ ëë‚˜ê¸° ì „ì—ëŠ” ê³µê²©ë°›ì§€ ì•ŠëŠ”ë‹¤.
         _hitCollider = GetComponent<BoxCollider2D>();
         _hitCollider.isTrigger = true;
         _hitCollider.enabled = false;
     }
 
-    // ¿ÜºÎ¿¡¼­ ÃßÃ·ÇÑ ÃÖÁ¾ µî±ŞÀ» Àü´ŞÇÑ´Ù.
-    // ÃÖÁ¾ µî±Ş°ú °ü°è¾øÀÌ ¿ÜÇüÀº Ç×»ó WoodºÎÅÍ ½ÃÀÛÇÑ´Ù.
+    // ì™¸ë¶€ì—ì„œ ì¶”ì²¨í•œ ìµœì¢… ë“±ê¸‰ì„ ì „ë‹¬í•œë‹¤.
+    // ìµœì¢… ë“±ê¸‰ê³¼ ê´€ê³„ì—†ì´ ì™¸í˜•ì€ í•­ìƒ Woodë¶€í„° ì‹œì‘í•œë‹¤.
     /// <summary>
-    /// ÃÖÁ¾ µî±Ş°ú °ü°è¾øÀÌ ¿ÜÇüÀº Ç×»ó WoodºÎÅÍ ½ÃÀÛÇÑ´Ù.
+    /// ìµœì¢… ë“±ê¸‰ê³¼ ê´€ê³„ì—†ì´ ì™¸í˜•ì€ í•­ìƒ Woodë¶€í„° ì‹œì‘í•œë‹¤.
     /// </summary>
     public void Initialize(TreasureBoxGrade finalGrade)
     {
-        // °°Àº »óÀÚÀÇ ÃÖÁ¾ µî±ŞÀ» ´Ù½Ã ¼³Á¤ÇÏÁö ¾Ê´Â´Ù.
+        // ê°™ì€ ìƒìì˜ ìµœì¢… ë“±ê¸‰ì„ ë‹¤ì‹œ ì„¤ì •í•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (_isInitialized)
         {
             throw new InvalidOperationException(
-                $"{name}: ÀÌ¹Ì ÃÊ±âÈ­µÈ »óÀÚÀÔ´Ï´Ù.");
+                $"{name}: ì´ë¯¸ ì´ˆê¸°í™”ëœ ìƒìì…ë‹ˆë‹¤.");
         }
 
         ValidateSettings();
 
-        // Á¤ÀÇµÈ 5°³ µî±Ş¸¸ ÃÖÁ¾ µî±ŞÀ¸·Î Çã¿ëÇÑ´Ù.
+        // ì •ì˜ëœ 5ê°œ ë“±ê¸‰ë§Œ ìµœì¢… ë“±ê¸‰ìœ¼ë¡œ í—ˆìš©í•œë‹¤.
         if ((int)finalGrade < 1 || (int)finalGrade > 5)
         {
             throw new ArgumentOutOfRangeException(nameof(finalGrade));
@@ -130,15 +130,16 @@ public class TreasureBox : MonoBehaviour, IDamageable
 
         ChangeVisual();
         _isInitialized = true;
+        GameAudio.Play(GameSound.TreasureAppear);
     }
 
-    // ³«ÇÏ¿Í µÎ ¹øÀÇ ¹İµ¿ÀÌ ¸ğµÎ ³¡³µÀ» ¶§ È£ÃâÇÑ´Ù.
+    // ë‚™í•˜ì™€ ë‘ ë²ˆì˜ ë°˜ë™ì´ ëª¨ë‘ ëë‚¬ì„ ë•Œ í˜¸ì¶œí•œë‹¤.
     /// <summary>
-    /// ³«ÇÏ¿Í µÎ ¹øÀÇ ¹İµ¿ÀÌ ¸ğµÎ ³¡³µÀ» ¶§ È£ÃâÇÑ´Ù.
+    /// ë‚™í•˜ì™€ ë‘ ë²ˆì˜ ë°˜ë™ì´ ëª¨ë‘ ëë‚¬ì„ ë•Œ í˜¸ì¶œí•œë‹¤.
     /// </summary>
     public void BeginReceivingDamage()
     {
-        // ÃÊ±âÈ­ ÀüÀÌ°Å³ª ÀÌ¹Ì ½ÃÀÛÇÑ »óÀÚ´Â Ã³¸®ÇÏÁö ¾Ê´Â´Ù.
+        // ì´ˆê¸°í™” ì „ì´ê±°ë‚˜ ì´ë¯¸ ì‹œì‘í•œ ìƒìëŠ” ì²˜ë¦¬í•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (!_isInitialized || _state != TreasureBoxState.Waiting)
         {
             return;
@@ -148,14 +149,14 @@ public class TreasureBox : MonoBehaviour, IDamageable
         ChangeState(TreasureBoxState.ReceivingDamage);
     }
 
-    // ±âÁ¸ ¹«±â°¡ IDamageableÀ» ÅëÇØ È£ÃâÇÏ´Â ÇÇ°İ Ã³¸®´Ù.
+    // ê¸°ì¡´ ë¬´ê¸°ê°€ IDamageableì„ í†µí•´ í˜¸ì¶œí•˜ëŠ” í”¼ê²© ì²˜ë¦¬ë‹¤.
     /// <summary>
-    /// ¼Ò¼öÁ¡ ÇÇÇØ¸¦ ¹İ¿µÇÏ°í ÇÇ°İ ¹× »ç¸Á Ã³¸®¸¦ ½ÇÇàÇÑ´Ù.
+    /// ì†Œìˆ˜ì  í”¼í•´ë¥¼ ë°˜ì˜í•˜ê³  í”¼ê²© ë° ì‚¬ë§ ì²˜ë¦¬ë¥¼ ì‹¤í–‰í•œë‹¤.
     /// </summary>
     public void TakeHit(float damage)
     {
-        // ÃÊ±âÈ­°¡ ³¡³ª°í ÇÇÇØ ´©Àû ¶Ç´Â Charge »óÅÂÀÏ ¶§¸¸ Å¸°İÀ» Ã³¸®ÇÑ´Ù.
-        // ³«ÇÏ, ½Â±Ş ¿¬Ãâ, °³ºÀ ¿Ï·á »óÅÂ¿¡¼­´Â ÇÇÇØ¸¦ ¹ŞÁö ¾Ê´Â´Ù.
+        // ì´ˆê¸°í™”ê°€ ëë‚˜ê³  í”¼í•´ ëˆ„ì  ë˜ëŠ” Charge ìƒíƒœì¼ ë•Œë§Œ íƒ€ê²©ì„ ì²˜ë¦¬í•œë‹¤.
+        // ë‚™í•˜, ìŠ¹ê¸‰ ì—°ì¶œ, ê°œë´‰ ì™„ë£Œ ìƒíƒœì—ì„œëŠ” í”¼í•´ë¥¼ ë°›ì§€ ì•ŠëŠ”ë‹¤.
         if (!_isInitialized ||
             (_state != TreasureBoxState.ReceivingDamage &&
              _state != TreasureBoxState.Charge) ||
@@ -164,7 +165,7 @@ public class TreasureBox : MonoBehaviour, IDamageable
             return;
         }
 
-        // ÀÌ¹Ì Charge¿´´Ù¸é ÀÌ¹ø Å¸°İÀ¸·Î ½Â±Ş ¶Ç´Â °³ºÀÇÑ´Ù.
+        // ì´ë¯¸ Chargeì˜€ë‹¤ë©´ ì´ë²ˆ íƒ€ê²©ìœ¼ë¡œ ìŠ¹ê¸‰ ë˜ëŠ” ê°œë´‰í•œë‹¤.
         if (_state == TreasureBoxState.Charge)
         {
             ResolveChargedHit();
@@ -172,14 +173,14 @@ public class TreasureBox : MonoBehaviour, IDamageable
             return;
         }
 
-        // ÇÊ¿äÇÑ ¸¸Å­¸¸ ´©ÀûÇÏ¿© ±âÁØÀ» ³Ñ´Â ÇÇÇØ´Â ¹ö¸°´Ù.
+        // í•„ìš”í•œ ë§Œí¼ë§Œ ëˆ„ì í•˜ì—¬ ê¸°ì¤€ì„ ë„˜ëŠ” í”¼í•´ëŠ” ë²„ë¦°ë‹¤.
         float remainingDamage =
             CurrentData.RequiredDamage - _accumulatedDamage;
 
         _accumulatedDamage += Mathf.Min(damage, remainingDamage);
 
-        // ±âÁØ¿¡ µµ´ŞÇÑ Å¸°İÀº Charge ÁøÀÔ±îÁö¸¸ Ã³¸®ÇÑ´Ù.
-        // ÀÌ È£Ãâ ¾È¿¡¼­ ½Â±ŞÇÏ°Å³ª °³ºÀÇÏÁö ¾Ê´Â´Ù.
+        // ê¸°ì¤€ì— ë„ë‹¬í•œ íƒ€ê²©ì€ Charge ì§„ì…ê¹Œì§€ë§Œ ì²˜ë¦¬í•œë‹¤.
+        // ì´ í˜¸ì¶œ ì•ˆì—ì„œ ìŠ¹ê¸‰í•˜ê±°ë‚˜ ê°œë´‰í•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (_accumulatedDamage >= CurrentData.RequiredDamage)
         {
             ChangeState(TreasureBoxState.Charge);
@@ -188,66 +189,66 @@ public class TreasureBox : MonoBehaviour, IDamageable
         Damaged?.Invoke(damage);
     }
 
-    // Charge »óÅÂ¿¡¼­ ¹ŞÀº Ãß°¡ Å¸°İÀ¸·Î ½Â±ŞÇÏ°Å³ª º¸»óÀ» ¿äÃ»ÇÑ´Ù.
+    // Charge ìƒíƒœì—ì„œ ë°›ì€ ì¶”ê°€ íƒ€ê²©ìœ¼ë¡œ ìŠ¹ê¸‰í•˜ê±°ë‚˜ ë³´ìƒì„ ìš”ì²­í•œë‹¤.
     /// <summary>
-    /// Charge »óÅÂ¿¡¼­ ¹ŞÀº Ãß°¡ Å¸°İÀ¸·Î ½Â±ŞÇÏ°Å³ª º¸»óÀ» ¿äÃ»ÇÑ´Ù.
+    /// Charge ìƒíƒœì—ì„œ ë°›ì€ ì¶”ê°€ íƒ€ê²©ìœ¼ë¡œ ìŠ¹ê¸‰í•˜ê±°ë‚˜ ë³´ìƒì„ ìš”ì²­í•œë‹¤.
     /// </summary>
     private void ResolveChargedHit()
     {
         if (_currentGrade < _finalGrade)
         {
-            // ´ÙÀ½ µî±ŞÀÌ ³²¾Æ ÀÖ´Ù¸é Áï½Ã ±³Ã¼ÇÏÁö ¾Ê°í ½Â±Ş ¿¬ÃâÀ» ½ÃÀÛÇÑ´Ù.
+            // ë‹¤ìŒ ë“±ê¸‰ì´ ë‚¨ì•„ ìˆë‹¤ë©´ ì¦‰ì‹œ êµì²´í•˜ì§€ ì•Šê³  ìŠ¹ê¸‰ ì—°ì¶œì„ ì‹œì‘í•œë‹¤.
             PlayUpgrade();
             return;
         }
 
-        // ÃÖÁ¾ µî±ŞÀÇ °³ºÀÀ» È®Á¤ÇÏ°í Ãß°¡ ÇÇ°İ°ú Charge ¿¬ÃâÀ» Á¾·áÇÑ´Ù.
+        // ìµœì¢… ë“±ê¸‰ì˜ ê°œë´‰ì„ í™•ì •í•˜ê³  ì¶”ê°€ í”¼ê²©ê³¼ Charge ì—°ì¶œì„ ì¢…ë£Œí•œë‹¤.
         _hitCollider.enabled = false;
         ChangeState(TreasureBoxState.Opened);
 
-        // °ñµå¸¦ »ı¼ºÇÏ±â Àü¿¡ ¿­¸° »óÀÚ ±×¸²À¸·Î ¹Ù²Û´Ù.
+        // ê³¨ë“œë¥¼ ìƒì„±í•˜ê¸° ì „ì— ì—´ë¦° ìƒì ê·¸ë¦¼ìœ¼ë¡œ ë°”ê¾¼ë‹¤.
         _currentVisualController.ShowOpened();
 
-        // ¿­¸° ¸ğ½ÀÀ¸·Î ¹Ù²ï µÚ ÇØ´ç µî±ŞÀÇ º¸»óÀ» ¿äÃ»ÇÑ´Ù.
+        // ì—´ë¦° ëª¨ìŠµìœ¼ë¡œ ë°”ë€ ë’¤ í•´ë‹¹ ë“±ê¸‰ì˜ ë³´ìƒì„ ìš”ì²­í•œë‹¤.
         if (Opened != null)
         {
             Opened.Invoke(CurrentData);
         }
     }
 
-    // °øÅë º»Ã¼´Â À¯ÁöÇÏ°í µî±Şº° ¿ÜÇü¸¸ ±³Ã¼ÇÑ´Ù.
+    // ê³µí†µ ë³¸ì²´ëŠ” ìœ ì§€í•˜ê³  ë“±ê¸‰ë³„ ì™¸í˜•ë§Œ êµì²´í•œë‹¤.
     /// <summary>
-    /// °øÅë º»Ã¼´Â À¯ÁöÇÏ°í µî±Şº° ¿ÜÇü¸¸ ±³Ã¼ÇÑ´Ù.
+    /// ê³µí†µ ë³¸ì²´ëŠ” ìœ ì§€í•˜ê³  ë“±ê¸‰ë³„ ì™¸í˜•ë§Œ êµì²´í•œë‹¤.
     /// </summary>
     private void ChangeVisual()
     {
         if (_currentVisual != null)
         {
-            // Destroy´Â ÇÁ·¹ÀÓ ³¡¿¡ Ã³¸®µÇ¹Ç·Î ¸ÕÀú ¼û°Ü °ãÄ§À» ¸·´Â´Ù.
+            // DestroyëŠ” í”„ë ˆì„ ëì— ì²˜ë¦¬ë˜ë¯€ë¡œ ë¨¼ì € ìˆ¨ê²¨ ê²¹ì¹¨ì„ ë§‰ëŠ”ë‹¤.
             _currentVisual.SetActive(false);
             Destroy(_currentVisual);
         }
 
-        // ÇÁ¸®ÆÕ ³»ºÎ È¿°úÀÇ À§Ä¡¿Í Å©±â´Â ±×´ë·Î À¯ÁöÇÑ´Ù.
+        // í”„ë¦¬íŒ¹ ë‚´ë¶€ íš¨ê³¼ì˜ ìœ„ì¹˜ì™€ í¬ê¸°ëŠ” ê·¸ëŒ€ë¡œ ìœ ì§€í•œë‹¤.
         _currentVisual = Instantiate(
             CurrentData.VisualPrefab, _visualRoot, false);
 
-        // ¿ÜÇü ·çÆ®´Â °øÅë ±âÁØÁ¡¿¡ ¸ÂÃá´Ù.
+        // ì™¸í˜• ë£¨íŠ¸ëŠ” ê³µí†µ ê¸°ì¤€ì ì— ë§ì¶˜ë‹¤.
         _currentVisual.transform.localPosition = Vector3.zero;
         _currentVisual.transform.localRotation = Quaternion.identity;
 
-        // »õ·Î »ı¼ºÇÑ µî±Ş ¿ÜÇü¿¡¼­ ½ºÇÁ¶óÀÌÆ® ÀüÈ¯ ÄÄÆ÷³ÍÆ®¸¦ °¡Á®¿Â´Ù.
+        // ìƒˆë¡œ ìƒì„±í•œ ë“±ê¸‰ ì™¸í˜•ì—ì„œ ìŠ¤í”„ë¼ì´íŠ¸ ì „í™˜ ì»´í¬ë„ŒíŠ¸ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
         if (!_currentVisual.TryGetComponent<TreasureBoxVisual>(
                 out _currentVisualController))
         {
             throw new InvalidOperationException(
-                $"{name}: µî±Şº° ¿ÜÇüÀÇ ÃÖ»óÀ§¿¡ TreasureBoxVisualÀÌ ÇÊ¿äÇÕ´Ï´Ù.");
+                $"{name}: ë“±ê¸‰ë³„ ì™¸í˜•ì˜ ìµœìƒìœ„ì— TreasureBoxVisualì´ í•„ìš”í•©ë‹ˆë‹¤.");
         }
     }
 
-    // »óÅÂ¸¦ º¯°æÇÏ°í ¿¬Ãâ ´ã´ç ÄÚµå¿¡ ¾Ë¸°´Ù.
+    // ìƒíƒœë¥¼ ë³€ê²½í•˜ê³  ì—°ì¶œ ë‹´ë‹¹ ì½”ë“œì— ì•Œë¦°ë‹¤.
     /// <summary>
-    /// »óÅÂ¸¦ º¯°æÇÏ°í ¿¬Ãâ ´ã´ç ÄÚµå¿¡ ¾Ë¸°´Ù.
+    /// ìƒíƒœë¥¼ ë³€ê²½í•˜ê³  ì—°ì¶œ ë‹´ë‹¹ ì½”ë“œì— ì•Œë¦°ë‹¤.
     /// </summary>
     private void ChangeState(TreasureBoxState nextState)
     {
@@ -257,27 +258,29 @@ public class TreasureBox : MonoBehaviour, IDamageable
         }
 
         _state = nextState;
+        if (nextState == TreasureBoxState.Charge) GameAudio.Play(GameSound.TreasureCharge);
+        else if (nextState == TreasureBoxState.Opened) GameAudio.Play(GameSound.TreasureOpen);
         StateChanged?.Invoke(_state);
 
         Debug.Log($"{name}: {_currentGrade} / {_state}", this);
     }
 
-    // ¹è¿­ ´©¶ôÀÌ³ª ¼ø¼­ ¿À·ù¸¦ ÃÊ±âÈ­ ½ÃÁ¡¿¡ È®ÀÎÇÑ´Ù.
+    // ë°°ì—´ ëˆ„ë½ì´ë‚˜ ìˆœì„œ ì˜¤ë¥˜ë¥¼ ì´ˆê¸°í™” ì‹œì ì— í™•ì¸í•œë‹¤.
     /// <summary>
-    /// ¹è¿­ ´©¶ôÀÌ³ª ¼ø¼­ ¿À·ù¸¦ ÃÊ±âÈ­ ½ÃÁ¡¿¡ È®ÀÎÇÑ´Ù.
+    /// ë°°ì—´ ëˆ„ë½ì´ë‚˜ ìˆœì„œ ì˜¤ë¥˜ë¥¼ ì´ˆê¸°í™” ì‹œì ì— í™•ì¸í•œë‹¤.
     /// </summary>
     private void ValidateSettings()
     {
         if (_visualRoot == null || _visualRoot == transform)
         {
             throw new InvalidOperationException(
-                $"{name}: Visual Root¿¡ º°µµÀÇ ºó ÀÚ½ÄÀ» ¿¬°áÇÏ¼¼¿ä.");
+                $"{name}: Visual Rootì— ë³„ë„ì˜ ë¹ˆ ìì‹ì„ ì—°ê²°í•˜ì„¸ìš”.");
         }
 
         if (_gradeDatas == null || _gradeDatas.Length != 5)
         {
             throw new InvalidOperationException(
-                $"{name}: µî±Ş µ¥ÀÌÅÍ 5°³¸¦ ¿¬°áÇÏ¼¼¿ä.");
+                $"{name}: ë“±ê¸‰ ë°ì´í„° 5ê°œë¥¼ ì—°ê²°í•˜ì„¸ìš”.");
         }
 
         for (int i = 0; i < _gradeDatas.Length; i++)
@@ -290,22 +293,22 @@ public class TreasureBox : MonoBehaviour, IDamageable
                 data.RequiredDamage < 1)
             {
                 throw new InvalidOperationException(
-                    $"{name}: {i + 1}´Ü°è µ¥ÀÌÅÍÀÇ µî±Ş, ¿ÜÇü, ÇÇÇØ·®À» È®ÀÎÇÏ¼¼¿ä.");
+                    $"{name}: {i + 1}ë‹¨ê³„ ë°ì´í„°ì˜ ë“±ê¸‰, ì™¸í˜•, í”¼í•´ëŸ‰ì„ í™•ì¸í•˜ì„¸ìš”.");
             }
         }
     }
 
-    // µî±Şº° °¡ÁßÄ¡·Î ÃÖÁ¾ µî±ŞÀ» ÇÑ ¹ø ÃßÃ·ÇÏ°í »óÀÚ¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+    // ë“±ê¸‰ë³„ ê°€ì¤‘ì¹˜ë¡œ ìµœì¢… ë“±ê¸‰ì„ í•œ ë²ˆ ì¶”ì²¨í•˜ê³  ìƒìë¥¼ ì´ˆê¸°í™”í•œë‹¤.
     /// <summary>
-    /// µî±Şº° °¡ÁßÄ¡·Î ÃÖÁ¾ µî±ŞÀ» ÇÑ ¹ø ÃßÃ·ÇÏ°í »óÀÚ¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+    /// ë“±ê¸‰ë³„ ê°€ì¤‘ì¹˜ë¡œ ìµœì¢… ë“±ê¸‰ì„ í•œ ë²ˆ ì¶”ì²¨í•˜ê³  ìƒìë¥¼ ì´ˆê¸°í™”í•œë‹¤.
     /// </summary>
     public void InitializeRandom()
     {
-        // ÀÌ¹Ì ÃÊ±âÈ­µÈ »óÀÚ´Â ÀçÃßÃ·ÇÏÁö ¾Ê´Â´Ù.
+        // ì´ë¯¸ ì´ˆê¸°í™”ëœ ìƒìëŠ” ì¬ì¶”ì²¨í•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (_isInitialized)
         {
             throw new InvalidOperationException(
-                $"{name}: ÀÌ¹Ì ÃÊ±âÈ­µÈ »óÀÚÀÔ´Ï´Ù.");
+                $"{name}: ì´ë¯¸ ì´ˆê¸°í™”ëœ ìƒìì…ë‹ˆë‹¤.");
         }
 
         ValidateSettings();
@@ -317,16 +320,16 @@ public class TreasureBox : MonoBehaviour, IDamageable
         {
             float weight = data.SelectionWeight;
 
-            // Àß¸øµÈ °¡ÁßÄ¡´Â ÃßÃ· Àü¿¡ ¼³Á¤ ¿À·ù·Î ¾Ë¸°´Ù.
+            // ì˜ëª»ëœ ê°€ì¤‘ì¹˜ëŠ” ì¶”ì²¨ ì „ì— ì„¤ì • ì˜¤ë¥˜ë¡œ ì•Œë¦°ë‹¤.
             if (float.IsNaN(weight) ||
                 float.IsInfinity(weight) ||
                 weight < 0f)
             {
                 throw new InvalidOperationException(
-                    $"{name}: {data.Grade}ÀÇ °¡ÁßÄ¡¸¦ È®ÀÎÇÏ¼¼¿ä.");
+                    $"{name}: {data.Grade}ì˜ ê°€ì¤‘ì¹˜ë¥¼ í™•ì¸í•˜ì„¸ìš”.");
             }
 
-            // °¡ÁßÄ¡°¡ 0ÀÎ µî±ŞÀº ÃÖÁ¾ µî±Ş ÃßÃ·¿¡¼­ Á¦¿ÜÇÑ´Ù.
+            // ê°€ì¤‘ì¹˜ê°€ 0ì¸ ë“±ê¸‰ì€ ìµœì¢… ë“±ê¸‰ ì¶”ì²¨ì—ì„œ ì œì™¸í•œë‹¤.
             if (weight == 0f)
             {
                 continue;
@@ -339,10 +342,10 @@ public class TreasureBox : MonoBehaviour, IDamageable
         if (totalWeight <= 0)
         {
             throw new InvalidOperationException(
-                $"{name}: ÇÏ³ª ÀÌ»óÀÇ µî±Ş °¡ÁßÄ¡°¡ 0º¸´Ù Ä¿¾ß ÇÕ´Ï´Ù.");
+                $"{name}: í•˜ë‚˜ ì´ìƒì˜ ë“±ê¸‰ ê°€ì¤‘ì¹˜ê°€ 0ë³´ë‹¤ ì»¤ì•¼ í•©ë‹ˆë‹¤.");
         }
 
-        // ÀüÃ¼ °¡ÁßÄ¡ ±¸°£¿¡¼­ À§Ä¡ ÇÏ³ª¸¦ »Ì´Â´Ù.
+        // ì „ì²´ ê°€ì¤‘ì¹˜ êµ¬ê°„ì—ì„œ ìœ„ì¹˜ í•˜ë‚˜ë¥¼ ë½‘ëŠ”ë‹¤.
         double roll = UnityEngine.Random.value * totalWeight;
 
         foreach (TreasureBoxGradeData data in _gradeDatas)
@@ -352,7 +355,7 @@ public class TreasureBox : MonoBehaviour, IDamageable
                 continue;
             }
 
-            // ¼±ÅÃÇÑ À§Ä¡°¡ ÇöÀç µî±ŞÀÇ ±¸°£ ¾È¿¡ ÀÖÀ¸¸é È®Á¤ÇÑ´Ù.
+            // ì„ íƒí•œ ìœ„ì¹˜ê°€ í˜„ì¬ ë“±ê¸‰ì˜ êµ¬ê°„ ì•ˆì— ìˆìœ¼ë©´ í™•ì •í•œë‹¤.
             if (roll < data.SelectionWeight)
             {
                 Initialize(data.Grade);
@@ -362,38 +365,38 @@ public class TreasureBox : MonoBehaviour, IDamageable
             roll -= data.SelectionWeight;
         }
 
-        // Random.value°¡ Á¤È®È÷ 1ÀÎ °æ¿ì ¸¶Áö¸· À¯È¿ µî±ŞÀ» ¼±ÅÃÇÑ´Ù.
+        // Random.valueê°€ ì •í™•íˆ 1ì¸ ê²½ìš° ë§ˆì§€ë§‰ ìœ íš¨ ë“±ê¸‰ì„ ì„ íƒí•œë‹¤.
         Initialize(lastSelectableGrade);
     }
 
-    // ±âÁ¸ ¿ÜÇüÀ» Ãà¼ÒÇÑ µÚ ´ÙÀ½ µî±Ş ¿ÜÇüÀ» ÆîÄ£´Ù.
+    // ê¸°ì¡´ ì™¸í˜•ì„ ì¶•ì†Œí•œ ë’¤ ë‹¤ìŒ ë“±ê¸‰ ì™¸í˜•ì„ í¼ì¹œë‹¤.
     /// <summary>
-    /// ±âÁ¸ ¿ÜÇüÀ» Ãà¼ÒÇÑ µÚ ´ÙÀ½ µî±Ş ¿ÜÇüÀ» ÆîÄ£´Ù.
+    /// ê¸°ì¡´ ì™¸í˜•ì„ ì¶•ì†Œí•œ ë’¤ ë‹¤ìŒ ë“±ê¸‰ ì™¸í˜•ì„ í¼ì¹œë‹¤.
     /// </summary>
     private void PlayUpgrade()
     {
-        // ¿¬Ãâ Áß¿¡´Â Ãæµ¹ ÆÇÁ¤°ú Á÷Á¢ Àü´ŞµÇ´Â Ãß°¡ ÇÇÇØ¸¦ ¸ğµÎ ¸·´Â´Ù.
+        // ì—°ì¶œ ì¤‘ì—ëŠ” ì¶©ëŒ íŒì •ê³¼ ì§ì ‘ ì „ë‹¬ë˜ëŠ” ì¶”ê°€ í”¼í•´ë¥¼ ëª¨ë‘ ë§‰ëŠ”ë‹¤.
         _hitCollider.enabled = false;
         ChangeState(TreasureBoxState.Upgrading);
 
-        // À§ »óÅÂ º¯°æÀ¸·Î Charge È¿°ú°¡ Á¾·áµÇ°í ¿ø·¡ Å©±â·Î º¹±¸µÈ´Ù.
-        // º¹±¸µÈ Å©±â¸¦ ½Â±Ş ¿¬ÃâÀÇ ÃÖÁ¾ Å©±â·Î »ç¿ëÇÑ´Ù.
+        // ìœ„ ìƒíƒœ ë³€ê²½ìœ¼ë¡œ Charge íš¨ê³¼ê°€ ì¢…ë£Œë˜ê³  ì›ë˜ í¬ê¸°ë¡œ ë³µêµ¬ëœë‹¤.
+        // ë³µêµ¬ëœ í¬ê¸°ë¥¼ ìŠ¹ê¸‰ ì—°ì¶œì˜ ìµœì¢… í¬ê¸°ë¡œ ì‚¬ìš©í•œë‹¤.
         Vector3 originalScale = _visualRoot.localScale;
 
-        // ÀÌÀü µî±Ş¿¡¼­ ´©ÀûµÈ ÇÇÇØ´Â ´ÙÀ½ µî±ŞÀ¸·Î ³Ñ±âÁö ¾Ê´Â´Ù.
+        // ì´ì „ ë“±ê¸‰ì—ì„œ ëˆ„ì ëœ í”¼í•´ëŠ” ë‹¤ìŒ ë“±ê¸‰ìœ¼ë¡œ ë„˜ê¸°ì§€ ì•ŠëŠ”ë‹¤.
         _accumulatedDamage = 0;
 
         _upgradeSequence = DOTween.Sequence();
 
-        // »óÀÚ º»Ã¼°¡ Á¦°ÅµÇ¸é ¿¬°áµÈ ½Â±Ş ¿¬Ãâµµ Á¾·áÇÑ´Ù.
+        // ìƒì ë³¸ì²´ê°€ ì œê±°ë˜ë©´ ì—°ê²°ëœ ìŠ¹ê¸‰ ì—°ì¶œë„ ì¢…ë£Œí•œë‹¤.
         _upgradeSequence.SetLink(gameObject);
 
-        // ±âÁ¸ »óÀÚ¿Í È¿°ú¸¦ Áß¾ÓÀ¸·Î ºü¸£°Ô ¼öÃà½ÃÅ²´Ù.
+        // ê¸°ì¡´ ìƒìì™€ íš¨ê³¼ë¥¼ ì¤‘ì•™ìœ¼ë¡œ ë¹ ë¥´ê²Œ ìˆ˜ì¶•ì‹œí‚¨ë‹¤.
         _upgradeSequence.Append(
             _visualRoot.DOScale(Vector3.zero, _upgradeShrinkDuration)
                 .SetEase(Ease.InQuad));
 
-        // ¿ÜÇüÀÌ º¸ÀÌÁö ¾Ê´Â ½ÃÁ¡¿¡ ÇÑ ´Ü°è ½Â±ŞÇÏ°í ÇÁ¸®ÆÕÀ» ±³Ã¼ÇÑ´Ù.
+        // ì™¸í˜•ì´ ë³´ì´ì§€ ì•ŠëŠ” ì‹œì ì— í•œ ë‹¨ê³„ ìŠ¹ê¸‰í•˜ê³  í”„ë¦¬íŒ¹ì„ êµì²´í•œë‹¤.
         _upgradeSequence.AppendCallback(() =>
         {
             _currentGrade =
@@ -402,7 +405,7 @@ public class TreasureBox : MonoBehaviour, IDamageable
             ChangeVisual();
         });
 
-        // »õ ¿ÜÇüÀÌ ¾à°£ Å©°Ô Æ¢¾î³ª¿Ô´Ù ¿ø·¡ Å©±â·Î ÀÚ¸® Àâµµ·Ï ÇÑ´Ù.
+        // ìƒˆ ì™¸í˜•ì´ ì•½ê°„ í¬ê²Œ íŠ€ì–´ë‚˜ì™”ë‹¤ ì›ë˜ í¬ê¸°ë¡œ ìë¦¬ ì¡ë„ë¡ í•œë‹¤.
         _upgradeSequence.Append(
             _visualRoot.DOScale(originalScale, _upgradeGrowDuration)
                 .SetEase(Ease.OutBack));
@@ -411,32 +414,32 @@ public class TreasureBox : MonoBehaviour, IDamageable
         {
             _upgradeSequence = null;
 
-            // ¿¬ÃâÀÌ ³¡³­ Å©±â¸¦ Á¤È®ÇÏ°Ô ¸ÂÃá´Ù.
+            // ì—°ì¶œì´ ëë‚œ í¬ê¸°ë¥¼ ì •í™•í•˜ê²Œ ë§ì¶˜ë‹¤.
             _visualRoot.localScale = originalScale;
 
-            // »õ µî±ŞÀÇ ÇÇÇØ ´©ÀûÀ» ½ÃÀÛÇÑ´Ù.
+            // ìƒˆ ë“±ê¸‰ì˜ í”¼í•´ ëˆ„ì ì„ ì‹œì‘í•œë‹¤.
             ChangeState(TreasureBoxState.ReceivingDamage);
             _hitCollider.enabled = true;
         });
     }
 
-    // ½ÇÆĞ³ª ¾À ÀüÈ¯À¸·Î »óÀÚ°¡ Á¦°ÅµÇ¸é ÁøÇà ÁßÀÎ ½Â±Ş ¿¬ÃâÀ» Á¤¸®ÇÑ´Ù.
+    // ì‹¤íŒ¨ë‚˜ ì”¬ ì „í™˜ìœ¼ë¡œ ìƒìê°€ ì œê±°ë˜ë©´ ì§„í–‰ ì¤‘ì¸ ìŠ¹ê¸‰ ì—°ì¶œì„ ì •ë¦¬í•œë‹¤.
     /// <summary>
-    /// ½ÇÆĞ³ª ¾À ÀüÈ¯À¸·Î »óÀÚ°¡ Á¦°ÅµÇ¸é ÁøÇà ÁßÀÎ ½Â±Ş ¿¬ÃâÀ» Á¤¸®ÇÑ´Ù.
+    /// ì‹¤íŒ¨ë‚˜ ì”¬ ì „í™˜ìœ¼ë¡œ ìƒìê°€ ì œê±°ë˜ë©´ ì§„í–‰ ì¤‘ì¸ ìŠ¹ê¸‰ ì—°ì¶œì„ ì •ë¦¬í•œë‹¤.
     /// </summary>
     private void OnDestroy()
     {
         if (_upgradeSequence != null)
         {
-            // ¿Ï·á Ã³¸®¸¦ ½ÇÇàÇÏÁö ¾Ê°í ¿¬ÃâÀ» Á¾·áÇÑ´Ù.
+            // ì™„ë£Œ ì²˜ë¦¬ë¥¼ ì‹¤í–‰í•˜ì§€ ì•Šê³  ì—°ì¶œì„ ì¢…ë£Œí•œë‹¤.
             _upgradeSequence.Kill();
             _upgradeSequence = null;
         }
     }
 
-    // ÇöÀç µî±Ş ¿ÜÇüÀÇ ÅğÀåÀÌ ³¡³¯ ¶§±îÁö ¿ÜºÎ¿¡¼­ ±â´Ù¸± ¼ö ÀÖ°Ô ÇÑ´Ù.
+    // í˜„ì¬ ë“±ê¸‰ ì™¸í˜•ì˜ í‡´ì¥ì´ ëë‚  ë•Œê¹Œì§€ ì™¸ë¶€ì—ì„œ ê¸°ë‹¤ë¦´ ìˆ˜ ìˆê²Œ í•œë‹¤.
     /// <summary>
-    /// ÇöÀç µî±Ş ¿ÜÇüÀÇ ÅğÀåÀÌ ³¡³¯ ¶§±îÁö ¿ÜºÎ¿¡¼­ ±â´Ù¸± ¼ö ÀÖ°Ô ÇÑ´Ù.
+    /// í˜„ì¬ ë“±ê¸‰ ì™¸í˜•ì˜ í‡´ì¥ì´ ëë‚  ë•Œê¹Œì§€ ì™¸ë¶€ì—ì„œ ê¸°ë‹¤ë¦´ ìˆ˜ ìˆê²Œ í•œë‹¤.
     /// </summary>
     public IEnumerator PlayExit(float duration)
     {

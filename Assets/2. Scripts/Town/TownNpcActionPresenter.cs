@@ -1,25 +1,25 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
-// NPCÀÇ °íÀ¯ ±â´É Ã¢À» ¿­°í, Ã¢À» »ç¿ëÇÏ´Â µ¿¾È Á¶ÀÛÀ» Àá±Ù´Ù.
+// NPCì˜ ê³ ìœ  ê¸°ëŠ¥ ì°½ì„ ì—´ê³ , ì°½ì„ ì‚¬ìš©í•˜ëŠ” ë™ì•ˆ ì¡°ì‘ì„ ì ê·¼ë‹¤.
 public class TownNpcActionPresenter : MonoBehaviour
 {
-    // TownÀÇ Canvas ¾Æ·¡¿¡ ¹èÄ¡ÇÑ ¾÷Àû Ã¢ View.
+    // Townì˜ Canvas ì•„ë˜ì— ë°°ì¹˜í•œ ì—…ì  ì°½ View.
     [SerializeField] private AchievementWindowView _achievementView;
 
-    // ±âÁ¸ Stage Service ÇÊµå¿¡ ¿¬°áµÈ ÄÄÆ÷³ÍÆ® ÂüÁ¶¸¦ À¯ÁöÇÑ´Ù.
+    // ê¸°ì¡´ Stage Service í•„ë“œì— ì—°ê²°ëœ ì»´í¬ë„ŒíŠ¸ ì°¸ì¡°ë¥¼ ìœ ì§€í•œë‹¤.
     [UnityEngine.Serialization.FormerlySerializedAs("_stageService")]
 
-    // ½ºÅ×ÀÌÁö¿Í »óÁ¡ È­¸éÀ» °°Àº NPC ¼­ºñ½º Ã¢¿¡¼­ °ü¸®ÇÑ´Ù.
+    // ìŠ¤í…Œì´ì§€ì™€ ìƒì  í™”ë©´ì„ ê°™ì€ NPC ì„œë¹„ìŠ¤ ì°½ì—ì„œ ê´€ë¦¬í•œë‹¤.
     [SerializeField] private TownNpcServicePresenter _serviceWindow;
 
-    // ÇöÀç ±â´É Ã¢À» ÀÌ¿ëÇÏ´Â ÇÃ·¹ÀÌ¾î.
+    // í˜„ì¬ ê¸°ëŠ¥ ì°½ì„ ì´ìš©í•˜ëŠ” í”Œë ˆì´ì–´.
     private TownPlayerController _player;
 
-    // ±â´É Ã¢ÀÇ »ç¿ë »óÅÂ¿Í ´İ±â ¿¬Ãâ ÁøÇà ¿©ºÎ.
+    // ê¸°ëŠ¥ ì°½ì˜ ì‚¬ìš© ìƒíƒœì™€ ë‹«ê¸° ì—°ì¶œ ì§„í–‰ ì—¬ë¶€.
     private bool _isOpen;
     private bool _isClosing;
 
-    // ¾÷Àû Ã¢ÀÌ ¿ÏÀüÈ÷ ´İÈ÷´Â ½ÃÁ¡À» ±¸µ¶ÇÑ´Ù.
+    // ì—…ì  ì°½ì´ ì™„ì „íˆ ë‹«íˆëŠ” ì‹œì ì„ êµ¬ë…í•œë‹¤.
     private void OnEnable()
     {
         if (_achievementView != null)
@@ -28,8 +28,8 @@ public class TownNpcActionPresenter : MonoBehaviour
         }
     }
 
-    // NPC Á¾·ù¿¡ ÇØ´çÇÏ´Â ±â´ÉÀ» ¿¬´Ù.
-    // ¼º°øÇÑ °æ¿ì ´ëÈ­ Presenter¿¡¼­ Á¶ÀÛ Àá±İÀÇ Ã¥ÀÓÀ» ³Ñ°Ü¹Ş´Â´Ù.
+    // NPC ì¢…ë¥˜ì— í•´ë‹¹í•˜ëŠ” ê¸°ëŠ¥ì„ ì—°ë‹¤.
+    // ì„±ê³µí•œ ê²½ìš° ëŒ€í™” Presenterì—ì„œ ì¡°ì‘ ì ê¸ˆì˜ ì±…ì„ì„ ë„˜ê²¨ë°›ëŠ”ë‹¤.
     public bool TryOpen(
         NpcActionType actionType,
         TownPlayerController player)
@@ -40,14 +40,14 @@ public class TownNpcActionPresenter : MonoBehaviour
             return false;
         }
 
-        // ½ºÅ×ÀÌÁö¿Í »óÁ¡Àº °ø¿ë Ã¢ °ü¸®ÀÚ°¡ È­¸é ÀüÈ¯°ú Á¶ÀÛ Àá±İÀ» ´ã´çÇÑ´Ù.
+        // ìŠ¤í…Œì´ì§€ì™€ ìƒì ì€ ê³µìš© ì°½ ê´€ë¦¬ìê°€ í™”ë©´ ì „í™˜ê³¼ ì¡°ì‘ ì ê¸ˆì„ ë‹´ë‹¹í•œë‹¤.
         if (actionType == NpcActionType.Stage ||
             actionType == NpcActionType.Shop)
         {
             if (_serviceWindow == null)
             {
                 Debug.LogError(
-                    "TownNpcActionPresenterÀÇ Service Window¸¦ ¿¬°áÇØÁÖ¼¼¿ä.",
+                    "TownNpcActionPresenterì˜ Service Windowë¥¼ ì—°ê²°í•´ì£¼ì„¸ìš”.",
                     this);
                 return false;
             }
@@ -55,8 +55,8 @@ public class TownNpcActionPresenter : MonoBehaviour
             return _serviceWindow.TryOpen(actionType, player);
         }
 
-        // ÀÌ¹ø ´Ü°è¿¡¼­´Â ¾÷Àû ±â´ÉÀ» ¿¬°áÇÑ´Ù.
-        // ¿¬°áµÇÁö ¾ÊÀº ±â´ÉÀº ´ëÈ­Ã¢À» ±×´ë·Î À¯ÁöÇÑ´Ù.
+        // ì´ë²ˆ ë‹¨ê³„ì—ì„œëŠ” ì—…ì  ê¸°ëŠ¥ì„ ì—°ê²°í•œë‹¤.
+        // ì—°ê²°ë˜ì§€ ì•Šì€ ê¸°ëŠ¥ì€ ëŒ€í™”ì°½ì„ ê·¸ëŒ€ë¡œ ìœ ì§€í•œë‹¤.
         if (actionType != NpcActionType.Achievement)
         {
             return false;
@@ -69,13 +69,13 @@ public class TownNpcActionPresenter : MonoBehaviour
             AchievementManager.Instance == null)
         {
             Debug.LogError(
-                "¾÷Àû View, ·Î±×ÀÎ »óÅÂ, AchievementManager¸¦ È®ÀÎÇØÁÖ¼¼¿ä.",
+                "ì—…ì  View, ë¡œê·¸ì¸ ìƒíƒœ, AchievementManagerë¥¼ í™•ì¸í•´ì£¼ì„¸ìš”.",
                 this);
 
             return false;
         }
 
-        // ºÎ¸ğ Canvas°¡ ²¨Á® ÀÖÀ¸¸é Ã¢À» Ç¥½ÃÇÒ ¼ö ¾ø´Ù.
+        // ë¶€ëª¨ Canvasê°€ êº¼ì ¸ ìˆìœ¼ë©´ ì°½ì„ í‘œì‹œí•  ìˆ˜ ì—†ë‹¤.
         Transform parent = _achievementView.transform.parent;
 
         if (parent != null && !parent.gameObject.activeInHierarchy)
@@ -89,23 +89,24 @@ public class TownNpcActionPresenter : MonoBehaviour
 
         _player.SetControlEnabled(false);
         _achievementView.OpenWindow();
+        GameAudio.Play(GameSound.UiWindowOpen);
 
-        // NPC °íÀ¯±â´ÉÀ¸·Î ¾÷ÀûÃ¢À» ¿¬ µÚ ÇØ´ç Äù½ºÆ® ¸ñÇ¥¸¦ °Ë»çÇÑ´Ù.
+        // NPC ê³ ìœ ê¸°ëŠ¥ìœ¼ë¡œ ì—…ì ì°½ì„ ì—° ë’¤ í•´ë‹¹ í€˜ìŠ¤íŠ¸ ëª©í‘œë¥¼ ê²€ì‚¬í•œë‹¤.
         try
         {
             SaveManager.Instance.RecordAchievementWindowOpened();
         }
         catch (System.Exception exception)
         {
-            // ÀúÀå¿¡ ½ÇÆĞÇØµµ ÀÌ¹Ì ¿­¸° ¾÷ÀûÃ¢ÀÇ Á¶ÀÛ Èå¸§Àº À¯ÁöÇÑ´Ù.
-            // ¸ñÇ¥ ´Ş¼º »óÅÂ´Â ÀúÀå ÄÚµå¿¡¼­ ÁøÇà ÁßÀ¸·Î º¹±¸µÈ´Ù.
+            // ì €ì¥ì— ì‹¤íŒ¨í•´ë„ ì´ë¯¸ ì—´ë¦° ì—…ì ì°½ì˜ ì¡°ì‘ íë¦„ì€ ìœ ì§€í•œë‹¤.
+            // ëª©í‘œ ë‹¬ì„± ìƒíƒœëŠ” ì €ì¥ ì½”ë“œì—ì„œ ì§„í–‰ ì¤‘ìœ¼ë¡œ ë³µêµ¬ëœë‹¤.
             Debug.LogException(exception, this);
         }
 
         return true;
     }
 
-    // Escape·Îµµ ¾÷Àû Ã¢ÀÇ ±âÁ¸ ´İ±â ¿¬ÃâÀ» ½ÇÇàÇÑ´Ù.
+    // Escapeë¡œë„ ì—…ì  ì°½ì˜ ê¸°ì¡´ ë‹«ê¸° ì—°ì¶œì„ ì‹¤í–‰í•œë‹¤.
     private void Update()
     {
         if (!_isOpen || _isClosing)
@@ -120,7 +121,7 @@ public class TownNpcActionPresenter : MonoBehaviour
         }
     }
 
-    // Ã¢ÀÌ ½ÇÁ¦·Î ´İÈù µÚ¿¡¸¸ ÇÃ·¹ÀÌ¾î Á¶ÀÛÀ» º¹±¸ÇÑ´Ù.
+    // ì°½ì´ ì‹¤ì œë¡œ ë‹«íŒ ë’¤ì—ë§Œ í”Œë ˆì´ì–´ ì¡°ì‘ì„ ë³µêµ¬í•œë‹¤.
     private void HandleClosed()
     {
         if (!_isOpen)
@@ -128,6 +129,7 @@ public class TownNpcActionPresenter : MonoBehaviour
             return;
         }
 
+        if (isActiveAndEnabled) GameAudio.Play(GameSound.UiWindowClose);
         _isOpen = false;
         _isClosing = false;
 
@@ -139,14 +141,14 @@ public class TownNpcActionPresenter : MonoBehaviour
         _player = null;
     }
 
-    // °ü¸®ÀÚ°¡ ²¨Áú ¶§µµ ³²Àº Ã¢°ú Á¶ÀÛ Àá±İÀ» Á¤¸®ÇÑ´Ù.
+    // ê´€ë¦¬ìê°€ êº¼ì§ˆ ë•Œë„ ë‚¨ì€ ì°½ê³¼ ì¡°ì‘ ì ê¸ˆì„ ì •ë¦¬í•œë‹¤.
     private void OnDisable()
     {
         if (_achievementView != null)
         {
             _achievementView.Closed -= HandleClosed;
 
-            // ÀÌ Presenter°¡ ¿­¾ú´ø Ã¢¸¸ ´İ´Â´Ù.
+            // ì´ Presenterê°€ ì—´ì—ˆë˜ ì°½ë§Œ ë‹«ëŠ”ë‹¤.
             if (_isOpen)
             {
                 _achievementView.gameObject.SetActive(false);

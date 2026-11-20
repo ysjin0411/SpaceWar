@@ -1,42 +1,43 @@
-using System;
+ï»¿using System;
 using UnityEngine;
 
-// Æø¹ß ¹İ°æ¿¡ ¸ÂÃç ½Ã°¢ È¿°úÀÇ Å©±â¸¦ Á¶ÀıÇÑ´Ù.
+// í­ë°œ ë°˜ê²½ì— ë§ì¶° ì‹œê° íš¨ê³¼ì˜ í¬ê¸°ë¥¼ ì¡°ì ˆí•œë‹¤.
 public sealed class BossAlienMissileExplosion : MonoBehaviour
 {
-    // Æø¹ß ¾Ö´Ï¸ŞÀÌ¼ÇÀÌ Àç»ıµÇ´Â ÀÚ½Ä ¿ÀºêÁ§Æ®´Ù.
+    // í­ë°œ ì• ë‹ˆë©”ì´ì…˜ì´ ì¬ìƒë˜ëŠ” ìì‹ ì˜¤ë¸Œì íŠ¸ë‹¤.
     [SerializeField] private Transform _visual;
 
-    // VisualÀÇ ScaleÀÌ 1ÀÏ ¶§ ÃÖ´ë Æø¹ß ÀÌ¹ÌÁöÀÇ ±âÁØ ¹İ°æÀÌ´Ù.
-    // ÇöÀç ½ºÇÁ¶óÀÌÆ®´Â PPU600¿¡¼­ Áö¸§ÀÌ ¾à 1.96À¯´ÖÀÌ´Ù.
+    // Visualì˜ Scaleì´ 1ì¼ ë•Œ ìµœëŒ€ í­ë°œ ì´ë¯¸ì§€ì˜ ê¸°ì¤€ ë°˜ê²½ì´ë‹¤.
+    // í˜„ì¬ ìŠ¤í”„ë¼ì´íŠ¸ëŠ” PPU600ì—ì„œ ì§€ë¦„ì´ ì•½ 1.96ìœ ë‹›ì´ë‹¤.
     [SerializeField, Min(0.01f)]
     private float _referenceRadius = 0.98f;
 
     private void Awake()
     {
-        // Å©±â º¯°æ ´ë»óÀÌ ÀÌ ÇÁ¸®ÆÕÀÇ ÀÚ½ÄÀÎÁö È®ÀÎÇÑ´Ù.
+        // í¬ê¸° ë³€ê²½ ëŒ€ìƒì´ ì´ í”„ë¦¬íŒ¹ì˜ ìì‹ì¸ì§€ í™•ì¸í•œë‹¤.
         if (_visual == null ||
             _visual == transform ||
             !_visual.IsChildOf(transform))
         {
             throw new InvalidOperationException(
-                $"{name}: Visual¿¡ Æø¹ß ¾Ö´Ï¸ŞÀÌ¼Ç ÀÚ½ÄÀ» ¿¬°áÇÏ¼¼¿ä.");
+                $"{name}: Visualì— í­ë°œ ì• ë‹ˆë©”ì´ì…˜ ìì‹ì„ ì—°ê²°í•˜ì„¸ìš”.");
         }
 
         ValidateRadius(_referenceRadius);
     }
 
-    // »ı¼º Á÷ÈÄ ¹Ì»çÀÏÀÌ ConfigÀÇ Æø¹ß ¹İ°æÀ» Àü´ŞÇÑ´Ù.
+    // ìƒì„± ì§í›„ ë¯¸ì‚¬ì¼ì´ Configì˜ í­ë°œ ë°˜ê²½ì„ ì „ë‹¬í•œë‹¤.
     public void Initialize(float explosionRadius)
     {
         ValidateRadius(explosionRadius);
 
-        // ±âÁØ ¹İ°æ¿¡ ´ëÇÑ ºñÀ²·Î ÀÌ¹ÌÁö Å©±â¸¦ ¸ÂÃá´Ù.
+        // ê¸°ì¤€ ë°˜ê²½ì— ëŒ€í•œ ë¹„ìœ¨ë¡œ ì´ë¯¸ì§€ í¬ê¸°ë¥¼ ë§ì¶˜ë‹¤.
         float scale = explosionRadius / _referenceRadius;
         _visual.localScale = new Vector3(scale, scale, 1f);
+        GameAudio.Play(GameSound.AlienBarrageBlast); // í­ë°œ ì´í™íŠ¸ ìƒì„±ë‹¹ í•œ ë²ˆ.
     }
 
-    // Àß¸øµÈ ¹İ°æÀ¸·Î ÀÌÆåÆ®°¡ »ç¶óÁö°Å³ª µÚÁıÈ÷´Â °ÍÀ» ¸·´Â´Ù.
+    // ì˜ëª»ëœ ë°˜ê²½ìœ¼ë¡œ ì´í™íŠ¸ê°€ ì‚¬ë¼ì§€ê±°ë‚˜ ë’¤ì§‘íˆëŠ” ê²ƒì„ ë§‰ëŠ”ë‹¤.
     private static void ValidateRadius(float radius)
     {
         if (float.IsNaN(radius) ||
@@ -44,7 +45,7 @@ public sealed class BossAlienMissileExplosion : MonoBehaviour
             radius <= 0f)
         {
             throw new ArgumentOutOfRangeException(
-                nameof(radius), "Æø¹ß ¹İ°æÀº 0º¸´Ù Ä¿¾ß ÇÕ´Ï´Ù.");
+                nameof(radius), "í­ë°œ ë°˜ê²½ì€ 0ë³´ë‹¤ ì»¤ì•¼ í•©ë‹ˆë‹¤.");
         }
     }
 }

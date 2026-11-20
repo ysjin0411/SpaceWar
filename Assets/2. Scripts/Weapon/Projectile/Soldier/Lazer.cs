@@ -1,20 +1,20 @@
-using System;
+ï»¿using System;
 using UnityEngine;
 
-// ´©¸£´Â µ¿¾È À¯ÁöµÇ¸ç Ãâ·Â¿¡ µû¶ó »ö»ó°ú Æ½ ÇÇÇØ·®ÀÌ Áõ°¡ÇÏ´Â ºöÀÌ´Ù.
+// ëˆ„ë¥´ëŠ” ë™ì•ˆ ìœ ì§€ë˜ë©° ì¶œë ¥ì— ë”°ë¼ ìƒ‰ìƒê³¼ í‹± í”¼í•´ëŸ‰ì´ ì¦ê°€í•˜ëŠ” ë¹”ì´ë‹¤.
 public class Lazer : MonoBehaviour
 {
-    // ºöÀÇ ½ÃÀÛ, ¹İº¹ ¸öÅë, ³¡ ºÎºĞÀ» ÇÔ²² Àç»ıÇÏ´Â Animator´Ù.
+    // ë¹”ì˜ ì‹œì‘, ë°˜ë³µ ëª¸í†µ, ë ë¶€ë¶„ì„ í•¨ê»˜ ì¬ìƒí•˜ëŠ” Animatorë‹¤.
     [SerializeField] Animator _beamAnimator;
     [SerializeField] SpriteRenderer _bodyRenderer;
     [SerializeField] Transform _endCap;
-    // Ãæµ¹ÇÑ Àû±îÁö¸¸ ºöÀ» Ç¥½ÃÇÑ´Ù. ±âÁ¸ Enemy ·¹ÀÌ¾î¸¦ À¯ÁöÇÑ´Ù.
+    // ì¶©ëŒí•œ ì ê¹Œì§€ë§Œ ë¹”ì„ í‘œì‹œí•œë‹¤. ê¸°ì¡´ Enemy ë ˆì´ì–´ë¥¼ ìœ ì§€í•œë‹¤.
     [SerializeField] LayerMask _enemyLayerMask;
     [SerializeField, Min(0.1f)] float _maxDistance = 20f;
-    // ÀúÃâ·Â, Áß°£ Ãâ·Â, ÃÖ´ë Ãâ·Â ¼ø¼­ÀÇ ¸íÁß ÀÌÆåÆ®´Ù.
+    // ì €ì¶œë ¥, ì¤‘ê°„ ì¶œë ¥, ìµœëŒ€ ì¶œë ¥ ìˆœì„œì˜ ëª…ì¤‘ ì´í™íŠ¸ë‹¤.
     [SerializeField] SpriteOneShotEffect[] _hitEffects;
 
-    // ÃÊ´ç Å¸°İ È½¼öÀÇ ¿ª¼ö·Î ÇÇÇØ °£°İÀ» °è»êÇÑ´Ù.
+    // ì´ˆë‹¹ íƒ€ê²© íšŸìˆ˜ì˜ ì—­ìˆ˜ë¡œ í”¼í•´ ê°„ê²©ì„ ê³„ì‚°í•œë‹¤.
     float DamageInterval => 1f / _weapon.CurrentLazerHitsPerSecond;
     float _previousDamageInterval;
     const int StageCount = 17;
@@ -25,19 +25,22 @@ public class Lazer : MonoBehaviour
     float _tickTimer;
     int _stage = -1;
     bool _isInitialized;
+    // ë ˆì´ì € ìˆ˜ëª…ì— ë§ì¶° ëŠì„ ì§€ì†ìŒê³¼ ìµœëŒ€ ì¶œë ¥ ì „í™˜ ìƒíƒœ.
+    private GameAudio.Handle _beamAudio;
+    private bool _maximumAudio;
 
-    // È­¸é Ç¥½Ã¿Í °ËÁõ¿¡ »ç¿ëÇÒ ÇöÀç Ãâ·Â ¹× Æ½ ÇÇÇØ·®ÀÌ´Ù.
+    // í™”ë©´ í‘œì‹œì™€ ê²€ì¦ì— ì‚¬ìš©í•  í˜„ì¬ ì¶œë ¥ ë° í‹± í”¼í•´ëŸ‰ì´ë‹¤.
     public float ChargeRatio => _charge;
     public float CurrentTickDamage => _weapon == null ? 0f :
         _weapon.CurrentDamage * Mathf.Lerp(1f, _weapon.Data.LazerMaxDamageMultiplier, _charge);
 
     /// <summary>
-    /// »ç¿ëÇÒ ÄÄÆ÷³ÍÆ®¿Í ÃÊ±â ÂüÁ¶¸¦ ÁØºñÇÑ´Ù.
+    /// ì‚¬ìš©í•  ì»´í¬ë„ŒíŠ¸ì™€ ì´ˆê¸° ì°¸ì¡°ë¥¼ ì¤€ë¹„í•œë‹¤.
     /// </summary>
     private void Awake()
     {
 
-        // »ç¿ëÇÒ ÄÄÆ÷³ÍÆ®¿Í ÃÊ±â ÂüÁ¶¸¦ ÁØºñÇÑ´Ù.
+        // ì‚¬ìš©í•  ì»´í¬ë„ŒíŠ¸ì™€ ì´ˆê¸° ì°¸ì¡°ë¥¼ ì¤€ë¹„í•œë‹¤.
         if (_beamAnimator == null || _bodyRenderer == null || _endCap == null ||
             _hitEffects == null || _hitEffects.Length != 3)
             throw new InvalidOperationException("Lazer visual references are incomplete.");
@@ -48,12 +51,12 @@ public class Lazer : MonoBehaviour
     }
 
     /// <summary>
-    /// Àü´Ş¹ŞÀº ¼³Á¤À¸·Î ½ÇÇà »óÅÂ¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+    /// ì „ë‹¬ë°›ì€ ì„¤ì •ìœ¼ë¡œ ì‹¤í–‰ ìƒíƒœë¥¼ ì´ˆê¸°í™”í•œë‹¤.
     /// </summary>
     public void Initialize(WeaponRuntimeState weapon, Transform firePoint)
     {
 
-        // Àü´Ş¹ŞÀº ¼³Á¤À¸·Î ½ÇÇà »óÅÂ¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+        // ì „ë‹¬ë°›ì€ ì„¤ì •ìœ¼ë¡œ ì‹¤í–‰ ìƒíƒœë¥¼ ì´ˆê¸°í™”í•œë‹¤.
         if (weapon == null || firePoint == null)
             throw new ArgumentException("Lazer requires weapon state and fire point.");
         if (weapon.Data.Type != WeaponType.Lazer || weapon.CurrentDamage <= 0 ||
@@ -68,29 +71,40 @@ public class Lazer : MonoBehaviour
         _isInitialized = true;
         UpdateBeamPosition();
         UpdateStage();
+        GameAudio.Stop(_beamAudio);
+        GameAudio.Play(GameSound.LaserStart);
+        _maximumAudio = false;
+        _beamAudio = GameAudio.PlayOwned(GameSound.LaserSustainLoop, this, true);
     }
 
     /// <summary>
-    /// LateUpdate Ã³¸®¿¡¼­ º¯°æµÈ ÀüÅõ ¼öÄ¡¿Í »óÅÂ¸¦ ¹İ¿µÇÑ´Ù.
+    /// LateUpdate ì²˜ë¦¬ì—ì„œ ë³€ê²½ëœ ì „íˆ¬ ìˆ˜ì¹˜ì™€ ìƒíƒœë¥¼ ë°˜ì˜í•œë‹¤.
     /// </summary>
     private void LateUpdate()
     {
 
-        // LateUpdate Ã³¸®¿¡¼­ º¯°æµÈ ÀüÅõ ¼öÄ¡¿Í »óÅÂ¸¦ ¹İ¿µÇÑ´Ù.
+        // LateUpdate ì²˜ë¦¬ì—ì„œ ë³€ê²½ëœ ì „íˆ¬ ìˆ˜ì¹˜ì™€ ìƒíƒœë¥¼ ë°˜ì˜í•œë‹¤.
         if (!_isInitialized || Time.deltaTime <= 0f) return;
         if (_firePoint == null) { StopBeam(); return; }
         RaycastHit2D hit = UpdateBeamPosition();
         AdvanceOutput(Time.deltaTime, hit);
+        // ìµœëŒ€ ì¶œë ¥ìœ¼ë¡œ ì˜¬ë¼ê°„ ìˆœê°„ì— ìœ ì§€ìŒì„ êµì²´í•œë‹¤.
+        if (!_maximumAudio && _charge >= 0.99999f)
+        {
+            _maximumAudio = true;
+            GameAudio.Stop(_beamAudio);
+            _beamAudio = GameAudio.PlayOwned(GameSound.LaserMaxChargeLoop, this, true);
+        }
         UpdateStage();
     }
 
     /// <summary>
-    /// Ãæµ¹ À§Ä¡¿¡ ¸ÂÃç ºöÀÇ ¹æÇâ°ú ±æÀÌ¸¦ °»½ÅÇÑ´Ù.
+    /// ì¶©ëŒ ìœ„ì¹˜ì— ë§ì¶° ë¹”ì˜ ë°©í–¥ê³¼ ê¸¸ì´ë¥¼ ê°±ì‹ í•œë‹¤.
     /// </summary>
     private RaycastHit2D UpdateBeamPosition()
     {
 
-        // Ãæµ¹ À§Ä¡¿¡ ¸ÂÃç ºöÀÇ ¹æÇâ°ú ±æÀÌ¸¦ °»½ÅÇÑ´Ù.
+        // ì¶©ëŒ ìœ„ì¹˜ì— ë§ì¶° ë¹”ì˜ ë°©í–¥ê³¼ ê¸¸ì´ë¥¼ ê°±ì‹ í•œë‹¤.
         Vector2 origin = _firePoint.position;
         Vector2 direction = _firePoint.right.normalized;
         transform.SetPositionAndRotation(origin,
@@ -102,13 +116,13 @@ public class Lazer : MonoBehaviour
         return hit;
     }
 
-    // ´À¸° ÇÁ·¹ÀÓ¿¡¼­µµ °¢ ÇÇÇØ ÁÖ±â °æ°èÀÇ Ãâ·ÂÀ¸·Î ¼Ò¼öÁ¡ ÇÇÇØ¸¦ °è»êÇÑ´Ù.
+    // ëŠë¦° í”„ë ˆì„ì—ì„œë„ ê° í”¼í•´ ì£¼ê¸° ê²½ê³„ì˜ ì¶œë ¥ìœ¼ë¡œ ì†Œìˆ˜ì  í”¼í•´ë¥¼ ê³„ì‚°í•œë‹¤.
     /// <summary>
-    /// °æ°ú ½Ã°£¿¡ µû¶ó Ãâ·ÂÀ» ¿Ã¸®°í Å¸°İ ÁÖ±â¸¶´Ù ÇÇÇØ¸¦ Àû¿ëÇÑ´Ù.
+    /// ê²½ê³¼ ì‹œê°„ì— ë”°ë¼ ì¶œë ¥ì„ ì˜¬ë¦¬ê³  íƒ€ê²© ì£¼ê¸°ë§ˆë‹¤ í”¼í•´ë¥¼ ì ìš©í•œë‹¤.
     /// </summary>
     private void AdvanceOutput(float deltaTime, RaycastHit2D hit)
     {
-        // ÃæÀü ½Ã°£Àº °íÁ¤ÇÏ¸ç ¿¬»ç °­È­ ½Ã ÁøÇà ÁßÀÎ Æ½ÀÇ ºñÀ²Àº À¯ÁöÇÑ´Ù.
+        // ì¶©ì „ ì‹œê°„ì€ ê³ ì •í•˜ë©° ì—°ì‚¬ ê°•í™” ì‹œ ì§„í–‰ ì¤‘ì¸ í‹±ì˜ ë¹„ìœ¨ì€ ìœ ì§€í•œë‹¤.
         float chargeDuration = _weapon.Data.LazerChargeDuration;
         float interval = DamageInterval;
         if (!Mathf.Approximately(interval, _previousDamageInterval))
@@ -132,28 +146,28 @@ public class Lazer : MonoBehaviour
     }
 
     /// <summary>
-    /// À¯È¿ÇÑ ´ë»ó¿¡ ÇöÀç Ãâ·ÂÀÇ ¼Ò¼öÁ¡ ÇÇÇØ¸¦ Àü´ŞÇÑ´Ù.
+    /// ìœ íš¨í•œ ëŒ€ìƒì— í˜„ì¬ ì¶œë ¥ì˜ ì†Œìˆ˜ì  í”¼í•´ë¥¼ ì „ë‹¬í•œë‹¤.
     /// </summary>
     private void DamageTarget(RaycastHit2D hit)
     {
         if (hit.collider == null) return;
         IDamageable target = hit.collider.GetComponentInParent<IDamageable>();
         if (target == null || target.IsDead) return;
-        // Å¸°İ Á÷Àü Ãâ·ÂÀ¸·Î »ö»ó°ú ÇÇÇØ¸¦ ÇÔ²² °áÁ¤ÇÑ´Ù.
+        // íƒ€ê²© ì§ì „ ì¶œë ¥ìœ¼ë¡œ ìƒ‰ìƒê³¼ í”¼í•´ë¥¼ í•¨ê»˜ ê²°ì •í•œë‹¤.
         int heat = _charge >= 0.99999f ? 2 : _charge >= 0.5f ? 1 : 0;
         Instantiate(_hitEffects[heat], hit.point, Quaternion.identity);
         target.TakeHit(CurrentTickDamage);
     }
 
     /// <summary>
-    /// ÇöÀç Ãâ·Â¿¡ ¸Â´Â ·¹ÀÌÀú »ö»ó ´Ü°è¸¦ Ç¥½ÃÇÑ´Ù.
+    /// í˜„ì¬ ì¶œë ¥ì— ë§ëŠ” ë ˆì´ì € ìƒ‰ìƒ ë‹¨ê³„ë¥¼ í‘œì‹œí•œë‹¤.
     /// </summary>
     private void UpdateStage()
     {
         int stage = _charge >= 0.99999f ? StageCount - 1 :
             Mathf.Min(StageCount - 2, Mathf.FloorToInt(_charge * (StageCount - 1)));
         if (stage == _stage) return;
-        // »ö ´Ü°è°¡ ¹Ù²î¾îµµ ¹İº¹ ¾Ö´Ï¸ŞÀÌ¼ÇÀÇ ½Ã°£Àº ÀÌ¾î °£´Ù.
+        // ìƒ‰ ë‹¨ê³„ê°€ ë°”ë€Œì–´ë„ ë°˜ë³µ ì• ë‹ˆë©”ì´ì…˜ì˜ ì‹œê°„ì€ ì´ì–´ ê°„ë‹¤.
         float phase = _stage < 0 ? 0f : Mathf.Repeat(_beamAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime, 1f);
         _stage = stage;
         _beamAnimator.Play(_stageHashes[stage], 0, phase);
@@ -161,15 +175,28 @@ public class Lazer : MonoBehaviour
     }
 
     /// <summary>
-    /// Áö¼Ó ºöÀ» Á¾·áÇÏ°í Ãâ·Â°ú Å¸°İ Å¸ÀÌ¸Ó¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+    /// ì§€ì† ë¹”ì„ ì¢…ë£Œí•˜ê³  ì¶œë ¥ê³¼ íƒ€ê²© íƒ€ì´ë¨¸ë¥¼ ì´ˆê¸°í™”í•œë‹¤.
     /// </summary>
     public void StopBeam()
     {
-        // Destroy Ã³¸® Àü °°Àº ÇÁ·¹ÀÓ¿¡ ÇÇÇØ°¡ µé¾î°¡´Â °ÍÀ» ¸·´Â´Ù.
+        // ëª…ì‹œì ì¸ ë°œì‚¬ ì¢…ë£Œì—ì„œë§Œ ì¢…ë£ŒìŒì„ ë‚´ê³  ë£¨í”„ë¥¼ ì •ë¦¬í•œë‹¤.
+        if (!_isInitialized) return;
+        GameAudio.Stop(_beamAudio);
+        GameAudio.Play(GameSound.LaserStop);
+        // Destroy ì²˜ë¦¬ ì „ ê°™ì€ í”„ë ˆì„ì— í”¼í•´ê°€ ë“¤ì–´ê°€ëŠ” ê²ƒì„ ë§‰ëŠ”ë‹¤.
         _isInitialized = false;
         _charge = 0f;
         _tickTimer = 0f;
         gameObject.SetActive(false);
         Destroy(gameObject);
     }
+
+    /// <summary>ì‚¬ë§ì´ë‚˜ ì”¬ ì •ë¦¬ë¡œ ë¹„í™œì„±í™”ë¼ë„ ë ˆì´ì € ì§€ì†ìŒì„ ì¢…ë£Œí•©ë‹ˆë‹¤.</summary>
+    private void OnDisable()
+    {
+        // ê°•ì œ ë¹„í™œì„±í™”ì—ì„œëŠ” ì¢…ë£ŒìŒì„ ì¶”ê°€ë¡œ ì¤‘ë³µ ì¬ìƒí•˜ì§€ ì•ŠëŠ”ë‹¤.
+        GameAudio.Stop(_beamAudio);
+        _isInitialized = false;
+    }
+
 }

@@ -145,7 +145,11 @@ public class WeaponData : ScriptableObject
     [TextArea(2, 5)][SerializeField] string _info; // 장비 상세 화면과 툴팁에 표시할 무기 설명
                                                    // 2차 증강 대상 선택 화면에서 표시할 전용 설명
     [TextArea(2, 5)]
-    [SerializeField] private string _upgradeSelectionInfo;
+    [SerializeField] private string _damageUpgradeSelectionInfo;
+
+    // 연사 증강의 2차 무기 선택 화면에 표시할 전용 설명.
+    [TextArea(2, 5)]
+    [SerializeField] private string _fireRateUpgradeSelectionInfo;
 
     // 자이언트 소드와 해머의 1타 기본 데미지.
     [SerializeField, Min(0f)]
@@ -257,8 +261,24 @@ public class WeaponData : ScriptableObject
     // UI
     public string Info => _info;
     // 2차 증강 대상 선택 슬롯에 표시할 전용 설명
-    public string UpgradeSelectionInfo =>
-        _upgradeSelectionInfo;
+    /// <summary>
+    /// 선택한 증강 종류에 해당하는 무기별 설명만 반환한다.
+    /// </summary>
+    public string GetUpgradeSelectionInfo(UpgradeType upgradeType)
+    {
+        // 공격력과 연사 설명은 서로 독립된 데이터로 관리한다.
+        switch (upgradeType)
+        {
+            case UpgradeType.Damage:
+                return _damageUpgradeSelectionInfo;
+            case UpgradeType.FireRate:
+                return _fireRateUpgradeSelectionInfo;
+            default:
+                // 무기 선택과 관계없는 증강이 전달되면 연결 오류를 알린다.
+                throw new System.ArgumentOutOfRangeException(
+                    nameof(upgradeType), upgradeType, "무기 증강 종류가 아닙니다.");
+        }
+    }
 
     // 실드 전용 동작을 사용하는 무기인지 확인한다.
     public bool IsShield => _type == WeaponType.Shield;

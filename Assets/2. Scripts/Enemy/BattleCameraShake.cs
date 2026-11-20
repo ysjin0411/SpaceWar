@@ -1,126 +1,41 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
-// °íÁ¤ ÀüÅõ Ä«¸Ş¶ó¿¡ ÀÏ½ÃÀûÀÎ XY Èçµé¸²À» Àû¿ëÇÑ´Ù.
-// ÀüÅõ °æ°è³ª °ø°İ ¿ÀºêÁ§Æ®ÀÇ À§Ä¡´Â º¯°æÇÏÁö ¾Ê´Â´Ù.
+/// <summary>ê¸°ì¡´ ë³´ìŠ¤ íŒ¨í„´ì˜ í”ë“¤ë¦¼ ìš”ì²­ì„ ê³µìš© ì¹´ë©”ë¼ ì»¨íŠ¸ë¡¤ëŸ¬ì— ì „ë‹¬í•œë‹¤.</summary>
 [DisallowMultipleComponent]
-[RequireComponent(typeof(Camera))]
-[DefaultExecutionOrder(1000)]
+[RequireComponent(typeof(CameraController))]
 public sealed class BattleCameraShake : MonoBehaviour
 {
-    // Èçµé¸²À» ¿äÃ»ÇÑ º¸½º´Ù. ÇØ´ç º¸½º¸¸ ÀÚ½ÅÀÇ Èçµé¸²À» Ãë¼ÒÇÑ´Ù.
+    // ì‹¤ì œ ìœ„ì¹˜ ë³€ê²½ì€ CameraController í•˜ë‚˜ì—ì„œ ë‹´ë‹¹í•œë‹¤.
+    private CameraController _controller;
+    // ë¹„í™œì„±í™” ì‹œ ìì‹ ì´ ì „ë‹¬í•œ ë³´ìŠ¤ ìš”ì²­ë§Œ ì •ë¦¬í•œë‹¤.
     private BossEnemy _owner;
 
-    // Èçµé¸²À» ½ÃÀÛÇÏ±â ÀüÀÇ Ä«¸Ş¶ó À§Ä¡´Ù.
-    private Vector3 _restPosition;
+    /// <summary>ê°™ì€ ì¹´ë©”ë¼ì˜ ê³µìš© ì»¨íŠ¸ë¡¤ëŸ¬ë¥¼ ì¤€ë¹„í•œë‹¤.</summary>
+    private void Awake()
+    {
+        // RequireComponentë¡œ ë³´ì¥ëœ ì»´í¬ë„ŒíŠ¸ë¥¼ ìºì‹±í•œë‹¤.
+        _controller = GetComponent<CameraController>();
+    }
 
-    // ÀÌ¹ø Èçµé¸²ÀÇ °­µµ, Áö¼Ó½Ã°£, °æ°ú½Ã°£ÀÌ´Ù.
-    private float _strength;
-    private float _duration;
-    private float _elapsed;
-
-    // Èçµé¸² ÁøÇà ¿©ºÎ´Ù.
-    private bool _shaking;
-
-    // ¿¬¼ÓÀ¸·Î È£ÃâµÇ¸é ±âÁ¸ Èçµé¸²À» Á¤¸®ÇÏ°í »õ Ãæ°İÀ» Àû¿ëÇÑ´Ù.
+    /// <summary>ë³´ìŠ¤ì˜ í”ë“¤ë¦¼ì„ ì‹œì‘í•œë‹¤.</summary>
     public void Shake(BossEnemy owner, float strength, float duration)
     {
-        if (!isActiveAndEnabled ||
-            owner == null ||
-            !owner.isActiveAndEnabled ||
-            owner.IsDead ||
-            !Positive(strength) ||
-            !Positive(duration))
-        {
-            return;
-        }
-
-        // Èçµé¸° À§Ä¡¸¦ ´ÙÀ½ ±âÁØ À§Ä¡·Î ÀúÀåÇÏÁö ¾Êµµ·Ï ¸ÕÀú º¹±¸ÇÑ´Ù.
-        Restore();
-
+        // ê¸°ì¡´ íŒ¨í„´ì˜ ê³µê°œ í˜¸ì¶œ ë°©ì‹ì„ ìœ ì§€í•œë‹¤.
+        if (!isActiveAndEnabled) return;
         _owner = owner;
-        _restPosition = transform.localPosition;
-        _strength = strength;
-        _duration = duration;
-        _elapsed = 0f;
-        _shaking = true;
+        _controller.ShakeBoss(owner, strength, duration);
     }
 
-    private void LateUpdate()
-    {
-        if (!_shaking)
-        {
-            return;
-        }
-
-        // º¸½º°¡ Á¦°ÅµÇ°Å³ª »ç¸ÁÇÏ¸é ½Ã°£ÀÌ ¸ØÃçµµ Áï½Ã º¹±¸ÇÑ´Ù.
-        if (_owner == null ||
-            !_owner.isActiveAndEnabled ||
-            _owner.IsDead)
-        {
-            Restore();
-            return;
-        }
-
-        // ÀÏ½ÃÁ¤Áö Áß¿¡´Â Ä«¸Ş¶ó¸¦ ±âÁØ À§Ä¡¿¡ µÎ°í ½Ã°£µµ ÁøÇàÇÏÁö ¾Ê´Â´Ù.
-        if (Time.deltaTime <= 0f)
-        {
-            transform.localPosition = _restPosition;
-            return;
-        }
-
-        _elapsed += Time.deltaTime;
-
-        if (_elapsed >= _duration)
-        {
-            Restore();
-            return;
-        }
-
-        // Á¾·á ½ÃÁ¡¿¡ °¡±î¿öÁú¼ö·Ï °­µµ¸¦ ÁÙÀÎ´Ù.
-        float remaining = 1f - _elapsed / _duration;
-        float amplitude = _strength * remaining * remaining;
-
-        // ¼­·Î ´Ù¸¥ ÁÖ±âÀÇ Áøµ¿À» »ç¿ëÇÑ´Ù.
-        // °ÔÀÓÀÇ ÆĞÅÏ ¼±ÅÃ¿¡ ¾²ÀÌ´Â Random »óÅÂ´Â º¯°æÇÏÁö ¾Ê´Â´Ù.
-        float x = Mathf.Sin(_elapsed * 137f);
-        float y = Mathf.Sin(_elapsed * 173f);
-
-        transform.localPosition = _restPosition +
-            new Vector3(x, y, 0f) * amplitude;
-    }
-
-    // ÆĞÅÏÀÇ finally¿¡¼­ ÀÚ½ÅÀÇ Èçµé¸²¸¸ Ãë¼ÒÇÑ´Ù.
+    /// <summary>í•´ë‹¹ ë³´ìŠ¤ì˜ í”ë“¤ë¦¼ë§Œ ì •ì§€í•œë‹¤.</summary>
     public void StopShake(BossEnemy owner)
     {
-        if (_shaking && _owner == owner)
-        {
-            Restore();
-        }
+        // í”Œë ˆì´ì–´ í”¼ê²© ì±„ë„ì€ ì·¨ì†Œí•˜ì§€ ì•ŠëŠ”ë‹¤.
+        if (_controller != null) _controller.StopBossShake(owner);
     }
-
-    // Á¤»ó Á¾·á¿Í °­Á¦ Áß´ÜÀÇ °øÅë Á¤¸®´Ù.
-    private void Restore()
-    {
-        if (!_shaking)
-        {
-            return;
-        }
-
-        transform.localPosition = _restPosition;
-        _shaking = false;
-        _owner = null;
-    }
-
+    /// <summary>ì „ë‹¬ ì»´í¬ë„ŒíŠ¸ê°€ êº¼ì§€ë©´ ìì‹ ì´ ë§¡ì€ ë³´ìŠ¤ í”ë“¤ë¦¼ì„ ì¢…ë£Œí•œë‹¤.</summary>
     private void OnDisable()
     {
-        Restore();
-    }
-
-    // 0 °­µµ´Â Èçµé¸²À» ²ô´Â ¼³Á¤À¸·Î Ãë±ŞÇÑ´Ù.
-    private static bool Positive(float value)
-    {
-        return !float.IsNaN(value) &&
-            !float.IsInfinity(value) &&
-            value > 0f;
-    }
-}
+        // ì¹´ë©”ë¼ ì»¨íŠ¸ë¡¤ëŸ¬ê°€ ë¨¼ì € ì¢…ë£Œë˜ì–´ë„ ì•ˆì „í•˜ê²Œ ì •ë¦¬í•œë‹¤.
+        if (_controller != null && _owner != null) _controller.StopBossShake(_owner);
+        _owner = null;
+    }}

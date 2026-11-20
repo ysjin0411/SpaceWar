@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: clear_stage_1_within_time
   _achievementName: "\uC2A4\uD53C\uB4DC \uB7EC\uB108"
-  _description: "Stage 1\uC744 10\uCD08 \uC774\uB0B4\uB85C \uD074\uB9AC\uC5B4\uD558\uC138\uC694."
+  _description: "Stage 1\uC744 5\uBD84 \uC774\uB0B4\uB85C \uD074\uB9AC\uC5B4\uD558\uC138\uC694."
   _icon: {fileID: 1988379810222012904, guid: 2857bf1925b9120468c2c75e0109ec5e, type: 3}
   _conditionType: 0
   _targetStageIndex: 0
-  _targetClearTimeSeconds: 10
+  _targetClearTimeSeconds: 300
   _targetCharacterId: 
   _targetCharacterLevel: 1
   _rewardType: 0
-  _rewardValue: 300
+  _rewardValue: 250

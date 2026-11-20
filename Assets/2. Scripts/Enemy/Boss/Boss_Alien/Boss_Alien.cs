@@ -1,128 +1,137 @@
-using System;
+ï»¿using System;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 
-// ¿Ü°èÀÎ º¸½ºÀÇ ÂüÁ¶¿Í ÆÈÀÇ ±âº» »óÅÂ¸¦ °ü¸®ÇÑ´Ù.
+// ì™¸ê³„ì¸ ë³´ìŠ¤ì˜ ì°¸ì¡°ì™€ íŒ”ì˜ ê¸°ë³¸ ìƒíƒœë¥¼ ê´€ë¦¬í•œë‹¤.
 public sealed class Boss_Alien : BossEnemy
 {
-    // ·Îº¿ ÆÄ±«ºÎÅÍ º»Ã¼ µîÀå ¿Ï·á±îÁö ÀüÈ¯ »óÅÂ¸¦ À¯ÁöÇÑ´Ù.
+    // ë¡œë´‡ íŒŒê´´ë¶€í„° ë³¸ì²´ ë“±ì¥ ì™„ë£Œê¹Œì§€ ì „í™˜ ìƒíƒœë¥¼ ìœ ì§€í•œë‹¤.
     private bool _isPhaseTransitioning;
 
-    // ÀüÈ¯ ¿¬Ãâ Áß¿¡´Â º¸½º¿¡°Ô µé¾î¿À´Â ÇÇÇØ¸¦ Â÷´ÜÇÑ´Ù.
+    // ì „í™˜ ì—°ì¶œ ì¤‘ì—ëŠ” ë³´ìŠ¤ì—ê²Œ ë“¤ì–´ì˜¤ëŠ” í”¼í•´ë¥¼ ì°¨ë‹¨í•œë‹¤.
     protected override bool CanReceiveDamage =>
         base.CanReceiveDamage && !_isPhaseTransitioning;
 
-    // ÆÈ°ú ¼ÕÀÇ ½Ã°¢Àû ¿¬°áÀ» ´ã´çÇÑ´Ù.
+    // íŒ”ê³¼ ì†ì˜ ì‹œê°ì  ì—°ê²°ì„ ë‹´ë‹¹í•œë‹¤.
     [SerializeField] private BossAlienArmRig _armRig;
 
-    // Á¶ÁØ ¹æÇâ°ú ÃÖ´ë ÆÈ ±æÀÌ¸¦ °è»êÇÏ´Â ¾î±ú À§Ä¡´Ù.
+    // ì¡°ì¤€ ë°©í–¥ê³¼ ìµœëŒ€ íŒ” ê¸¸ì´ë¥¼ ê³„ì‚°í•˜ëŠ” ì–´ê¹¨ ìœ„ì¹˜ë‹¤.
     [SerializeField] private Transform _armSocket;
 
-    // ÁØºñ ÀÚ¼¼¿¡¼­ ¼Õ¸ñÀÌ ÀÌµ¿ÇÒ À§Ä¡´Ù.
-    // HandRootÀÇ ÀÚ½ÄÀ¸·Î ¸¸µéÁö ¾Ê´Â´Ù.
+    // ì¤€ë¹„ ìì„¸ì—ì„œ ì†ëª©ì´ ì´ë™í•  ìœ„ì¹˜ë‹¤.
+    // HandRootì˜ ìì‹ìœ¼ë¡œ ë§Œë“¤ì§€ ì•ŠëŠ”ë‹¤.
     [SerializeField] private Transform _handPreparePoint;
 
-    // º»Ã¼ ¾Ö´Ï¸ŞÀÌ¼Ç¿¡¼­ ¹ß»ıÇÏ´Â °ø°İ Å¸ÀÌ¹ÖÀ» Àü´ŞÇÑ´Ù.
+    // ë³¸ì²´ ì• ë‹ˆë©”ì´ì…˜ì—ì„œ ë°œìƒí•˜ëŠ” ê³µê²© íƒ€ì´ë°ì„ ì „ë‹¬í•œë‹¤.
     [SerializeField] private BossAlienAnimationEventRelay _animationEventRelay;
 
-    // ¹Ì»çÀÏ ¹ß»ç À§Ä¡¸¦ ¼ø¼­´ë·Î ¿¬°áÇÑ´Ù.
-    // ¹è¿­ ÀÎµ¦½º 0~3ÀÌ °¢ ¼ÒÄÏ ¹øÈ£¿¡ ´ëÀÀÇÑ´Ù.
+    // ë¯¸ì‚¬ì¼ ë°œì‚¬ ìœ„ì¹˜ë¥¼ ìˆœì„œëŒ€ë¡œ ì—°ê²°í•œë‹¤.
+    // ë°°ì—´ ì¸ë±ìŠ¤ 0~3ì´ ê° ì†Œì¼“ ë²ˆí˜¸ì— ëŒ€ì‘í•œë‹¤.
     [SerializeField] private Transform[] _missileSockets;
 
-    // ÆÈÀ» »¸´Â µ¿¾È ÇÃ·¹ÀÌ¾î¿Í Á¢ÃËÇß´ÂÁö °Ë»çÇÑ´Ù.
+    // íŒ”ì„ ë»—ëŠ” ë™ì•ˆ í”Œë ˆì´ì–´ì™€ ì ‘ì´‰í–ˆëŠ”ì§€ ê²€ì‚¬í•œë‹¤.
     [SerializeField] private BossAlienGrabSensor _grabSensor;
 
-    // ÀâÈù ÇÃ·¹ÀÌ¾îÀÇ ÀÌµ¿ ±ÇÇÑ°ú ¼Õ ÃßÀûÀ» °ü¸®ÇÑ´Ù.
+    // ì¡íŒ í”Œë ˆì´ì–´ì˜ ì´ë™ ê¶Œí•œê³¼ ì† ì¶”ì ì„ ê´€ë¦¬í•œë‹¤.
     [SerializeField] private BossAlienGrabController _grabController;
 
-    // ÀâÀº ÇÃ·¹ÀÌ¾î¸¦ ¿Å°Ü Èçµé ¶§ »ç¿ëÇÒ ¼Õ¸ñ ±âÁØ À§Ä¡´Ù.
+    // ì¡ì€ í”Œë ˆì´ì–´ë¥¼ ì˜®ê²¨ í”ë“¤ ë•Œ ì‚¬ìš©í•  ì†ëª© ê¸°ì¤€ ìœ„ì¹˜ë‹¤.
     [SerializeField] private Transform _handHoldPoint;
 
-    // ´øÁö±â Á÷Àü¿¡ ¼Õ¸ñÀ» ´ç±æ À§Ä¡´Ù.
+    // ë˜ì§€ê¸° ì§ì „ì— ì†ëª©ì„ ë‹¹ê¸¸ ìœ„ì¹˜ë‹¤.
     [SerializeField] private Transform _handThrowWindupPoint;
 
-    // ±Õ¿­ ½ÇµåÀÇ ÇÇÇØ °¨¼ÒÀ²À» ÀĞÀ» ¼³Á¤ÀÌ´Ù.
+    // ê· ì—´ ì‹¤ë“œì˜ í”¼í•´ ê°ì†Œìœ¨ì„ ì½ì„ ì„¤ì •ì´ë‹¤.
     [SerializeField] private BossAlienPhaseOneConfig _phaseOneConfig;
 
-    // ÇöÀç ³²¾Æ ÀÖ´Â ±Õ¿­ ¼ö¿Í º¯°æ ÀÌº¥Æ®¸¦ Á¦°øÇÑ´Ù.
+    // í˜„ì¬ ë‚¨ì•„ ìˆëŠ” ê· ì—´ ìˆ˜ì™€ ë³€ê²½ ì´ë²¤íŠ¸ë¥¼ ì œê³µí•œë‹¤.
     [SerializeField] private BossAlienCrackController _crackController;
 
-    // ÄÑ°í ²ø ½Çµå ¿ÜÇüÀÌ´Ù. ÀÚ½Ä ShieldVisualÀ» ¿¬°áÇÑ´Ù.
+    // ì¼œê³  ëŒ ì‹¤ë“œ ì™¸í˜•ì´ë‹¤. ìì‹ ShieldVisualì„ ì—°ê²°í•œë‹¤.
     [SerializeField] private GameObject _shieldVisual;
 
-    // º»Ã¼ µîÀå ¿¬ÃâÀ» Àç»ıÇÒ BodyVisualÀÇ Animator´Ù.
+    // ë³¸ì²´ ë“±ì¥ ì—°ì¶œì„ ì¬ìƒí•  BodyVisualì˜ Animatorë‹¤.
     [SerializeField] private Animator _phaseTransitionAnimator;
 
-    // ÀüÈ¯ ½ºÇÁ¶óÀÌÆ®¿¡ ÆÈÀÌ Æ÷ÇÔµÇ¾î ÀÖÀ¸¹Ç·Î ¼û±æ ±âÁ¸ GrabArmÀÌ´Ù.
+    // ì „í™˜ ìŠ¤í”„ë¼ì´íŠ¸ì— íŒ”ì´ í¬í•¨ë˜ì–´ ìˆìœ¼ë¯€ë¡œ ìˆ¨ê¸¸ ê¸°ì¡´ GrabArmì´ë‹¤.
     [SerializeField] private GameObject _robotArmRoot;
 
-    // ·Îº¿ ÆÄ±« ¿¬ÃâÀÌ ³¡³­ µÚ °ü¸®ÀÚ°¡ »ı¼ºÇÒ º»Ã¼ ÇÁ¸®ÆÕÀÌ´Ù.
+    // ë¡œë´‡ íŒŒê´´ ì—°ì¶œì´ ëë‚œ ë’¤ ê´€ë¦¬ìê°€ ìƒì„±í•  ë³¸ì²´ í”„ë¦¬íŒ¹ì´ë‹¤.
     [SerializeField] private Boss_AlienBody _phaseTwoPrefab;
 
-    // º»Ã¼ ·çÆ®°¡ »ı¼ºµÉ ¿ùµå À§Ä¡¿Í È¸ÀüÀ» Á¦°øÇÑ´Ù.
+    // ë³¸ì²´ ë£¨íŠ¸ê°€ ìƒì„±ë  ì›”ë“œ ìœ„ì¹˜ì™€ íšŒì „ì„ ì œê³µí•œë‹¤.
     [SerializeField] private Transform _phaseTwoSpawnPoint;
 
-    // ºñÈ°¼ºÈ­³ª ÇÃ·¹ÀÌ¾î »ç¸Á ½Ã Áß´ÜÇÒ ÀüÈ¯ ÄÚ·çÆ¾ÀÌ´Ù.
+    // ë¹„í™œì„±í™”ë‚˜ í”Œë ˆì´ì–´ ì‚¬ë§ ì‹œ ì¤‘ë‹¨í•  ì „í™˜ ì½”ë£¨í‹´ì´ë‹¤.
     private Coroutine _phaseTransitionRoutine;
 
-    // AnimatorÀÇ Base Layer¿¡ ¸¸µç ÀüÈ¯ »óÅÂ¸¦ °¡¸®Å²´Ù.
+    // ìƒì„± ê´€ë¦¬ìê°€ ì „ë‹¬í•œ í™”ë©´ ì•ˆì˜ ì „íˆ¬ ë„ì°© ìœ„ì¹˜.
+    private Vector3 _phaseTransitionPosition;
+    // ì „í™˜ ìœ„ì¹˜ê°€ ì •ìƒì ìœ¼ë¡œ ì „ë‹¬ë˜ì—ˆëŠ”ì§€ í™•ì¸í•œë‹¤.
+    private bool _hasPhaseTransitionPosition;
+    // í˜„ì¬ ìœ„ì¹˜ì—ì„œ ì „í™˜ ìœ„ì¹˜ë¡œ ë³µê·€í•˜ëŠ” ê²Œì„ ì‹œê°„.
+    [SerializeField, Min(0.01f)] private float _phaseTransitionMoveDuration = 0.5f;
+    // ì „í™˜ ì• ë‹ˆë©”ì´ì…˜ê³¼ í•¨ê»˜ ì¬ìƒí•˜ê³  ì·¨ì†Œ ì‹œ ì •ì§€í•  5ì´ˆ ì—°ì¶œìŒ.
+    private GameAudio.Handle _transitionAudio;
+
+    // Animatorì˜ Base Layerì— ë§Œë“  ì „í™˜ ìƒíƒœë¥¼ ê°€ë¦¬í‚¨ë‹¤.
     private static readonly int PhaseTransitionState =
         Animator.StringToHash("Base Layer.Alien_PhaseTransition");
 
-    [Header("Ã¼·Â Æ¯¼ö ÆĞÅÏ")]
+    [Header("ì²´ë ¥ íŠ¹ìˆ˜ íŒ¨í„´")]
 
-    // ¹Ì»çÀÏ Æ÷À§ Æ÷°İÃ³·³ Ã¼·Â Á¶°ÇÀ¸·Î ¹ßµ¿ÇÒ ÆĞÅÏÀ» µî·ÏÇÑ´Ù.
-    // ±Õ¿­ °ø¸íÀº ÀÌ ¸ñ·Ï¿¡ ³ÖÁö ¾Ê´Â´Ù.
-    // ³ôÀº Ã¼·Â ÆÛ¼¾Æ®ºÎÅÍ µî·ÏÇÑ´Ù.
+    // ë¯¸ì‚¬ì¼ í¬ìœ„ í¬ê²©ì²˜ëŸ¼ ì²´ë ¥ ì¡°ê±´ìœ¼ë¡œ ë°œë™í•  íŒ¨í„´ì„ ë“±ë¡í•œë‹¤.
+    // ê· ì—´ ê³µëª…ì€ ì´ ëª©ë¡ì— ë„£ì§€ ì•ŠëŠ”ë‹¤.
+    // ë†’ì€ ì²´ë ¥ í¼ì„¼íŠ¸ë¶€í„° ë“±ë¡í•œë‹¤.
     [SerializeField]
     private List<HealthBossPatternEntry> _healthSpecialPatternEntries =
     new List<HealthBossPatternEntry>();
 
-    [Header("±Õ¿­ Æ¯¼ö ÆĞÅÏ")]
+    [Header("ê· ì—´ íŠ¹ìˆ˜ íŒ¨í„´")]
 
-    // Ã¼·Â ¸ñ·Ï°ú º°°³·Î, ±Õ¿­ 3°³¿¡¼­¸¸ ¿äÃ»ÇÒ ½ÇÇà ÆĞÅÏÀÌ´Ù.
+    // ì²´ë ¥ ëª©ë¡ê³¼ ë³„ê°œë¡œ, ê· ì—´ 3ê°œì—ì„œë§Œ ìš”ì²­í•  ì‹¤í–‰ íŒ¨í„´ì´ë‹¤.
     [SerializeField]
     private BossAlienResonancePattern _resonancePattern;
 
-    // ±Õ¿­ 3½ºÅÃÀÌ ¿Ï¼ºµÈ ¼ø°£ ½Ã½ºÅÛ ´ÙÀÌ¾î·Î±×¿¡ Ç¥½ÃÇÒ °æ°í´Ù.
+    // ê· ì—´ 3ìŠ¤íƒì´ ì™„ì„±ëœ ìˆœê°„ ì‹œìŠ¤í…œ ë‹¤ì´ì–´ë¡œê·¸ì— í‘œì‹œí•  ê²½ê³ ë‹¤.
     [SerializeField, TextArea(2, 3)]
     private string _resonanceWarningMessage =
-        "°æ°í! ±Õ¿­ °ø¸í °¨Áö. Ãæ°İÆÄ ¹ß»ı¿¡ ´ëºñÇÏ½Ê½Ã¿À.";
+        "ê²½ê³ ! ê· ì—´ ê³µëª… ê°ì§€. ì¶©ê²©íŒŒ ë°œìƒì— ëŒ€ë¹„í•˜ì‹­ì‹œì˜¤.";
 
-    // ±Õ¿­ °ø¸í °æ°í°¡ ¾ÆÁ÷ Ç¥½Ã ÁßÀÎÁö ±â¾ïÇÑ´Ù.
+    // ê· ì—´ ê³µëª… ê²½ê³ ê°€ ì•„ì§ í‘œì‹œ ì¤‘ì¸ì§€ ê¸°ì–µí•œë‹¤.
     private bool _isResonanceWarningPending;
 
-    // °ø¸í ÆĞÅÏÀÌ °æ°í Á¾·á¸¦ ±â´Ù¸± ¶§ È®ÀÎÇÑ´Ù.
+    // ê³µëª… íŒ¨í„´ì´ ê²½ê³  ì¢…ë£Œë¥¼ ê¸°ë‹¤ë¦´ ë•Œ í™•ì¸í•œë‹¤.
     public bool IsResonanceWarningPending => _isResonanceWarningPending;
 
-    // °¢ Ç×¸ñÀ» ÀÌ¹Ì ¿äÃ»Çß´ÂÁö ±â·ÏÇÑ´Ù.
-    // µ¿ÀÏÇÑ ÆĞÅÏÀ» ¿©·¯ ±âÁØ¿¡ ³Ö¾îµµ Ç×¸ñ¸¶´Ù ÇÑ ¹ø¾¿ ¿äÃ»ÇÑ´Ù.
+    // ê° í•­ëª©ì„ ì´ë¯¸ ìš”ì²­í–ˆëŠ”ì§€ ê¸°ë¡í•œë‹¤.
+    // ë™ì¼í•œ íŒ¨í„´ì„ ì—¬ëŸ¬ ê¸°ì¤€ì— ë„£ì–´ë„ í•­ëª©ë§ˆë‹¤ í•œ ë²ˆì”© ìš”ì²­í•œë‹¤.
     private bool[] _hasRequestedHealthPatterns = Array.Empty<bool>();
 
-    // ¼³Á¤ °Ë»ç°¡ ³¡³­ µÚ¿¡¸¸ Ã¼·Â Á¶°ÇÀ» °Ë»çÇÑ´Ù.
+    // ì„¤ì • ê²€ì‚¬ê°€ ëë‚œ ë’¤ì—ë§Œ ì²´ë ¥ ì¡°ê±´ì„ ê²€ì‚¬í•œë‹¤.
     private bool _isHealthPatternReady;
 
-    // ±âº» ¼Õ¸ñ À§Ä¡¸¦ º¸½º ·çÆ®ÀÇ ·ÎÄÃ ÁÂÇ¥·Î º¸°üÇÑ´Ù.
+    // ê¸°ë³¸ ì†ëª© ìœ„ì¹˜ë¥¼ ë³´ìŠ¤ ë£¨íŠ¸ì˜ ë¡œì»¬ ì¢Œí‘œë¡œ ë³´ê´€í•œë‹¤.
     private Vector3 _restHandLocalPosition;
 
-    // ÇÊ¼ö ÂüÁ¶¿Í ±âº» À§Ä¡ ÀúÀåÀÌ ³¡³µ´ÂÁö È®ÀÎÇÑ´Ù.
+    // í•„ìˆ˜ ì°¸ì¡°ì™€ ê¸°ë³¸ ìœ„ì¹˜ ì €ì¥ì´ ëë‚¬ëŠ”ì§€ í™•ì¸í•œë‹¤.
     private bool _isArmReady;
 
-    // ÆĞÅÏÀÌ »ç¿ëÇÒ ÆÈ°ú À§Ä¡ Á¤º¸¸¦ Á¦°øÇÑ´Ù.
+    // íŒ¨í„´ì´ ì‚¬ìš©í•  íŒ”ê³¼ ìœ„ì¹˜ ì •ë³´ë¥¼ ì œê³µí•œë‹¤.
     public BossAlienArmRig ArmRig => _armRig;
     public Transform ArmSocket => _armSocket;
 
-    // ½ÇÇà ÁßÀÎ ÆĞÅÏÀÌ °ø°İ ÀÌº¥Æ®¸¦ ±¸µ¶ÇÏ°í ÇØÁ¦ÇÒ ¶§ »ç¿ëÇÑ´Ù.
+    // ì‹¤í–‰ ì¤‘ì¸ íŒ¨í„´ì´ ê³µê²© ì´ë²¤íŠ¸ë¥¼ êµ¬ë…í•˜ê³  í•´ì œí•  ë•Œ ì‚¬ìš©í•œë‹¤.
     public BossAlienAnimationEventRelay AnimationEventRelay =>
         _animationEventRelay;
     public Vector3 PrepareHandPosition => _handPreparePoint.position;
 
-    // º¸½º°¡ ÀÌµ¿ÇØµµ ±âº» ¼Õ À§Ä¡°¡ ÇÔ²² ÀÌµ¿ÇÏµµ·Ï °è»êÇÑ´Ù.
+    // ë³´ìŠ¤ê°€ ì´ë™í•´ë„ ê¸°ë³¸ ì† ìœ„ì¹˜ê°€ í•¨ê»˜ ì´ë™í•˜ë„ë¡ ê³„ì‚°í•œë‹¤.
     public Vector3 RestHandPosition =>
         transform.TransformPoint(_restHandLocalPosition);
 
-    // ·Îº¿ÀÌ ÀüÅõ ÁßÀÌ°í ÀüÈ¯ ¿¬Ãâ¿¡ µé¾î°¡Áö ¾Ê¾ÒÀ» ¶§¸¸ °ø°İÇÑ´Ù.
+    // ë¡œë´‡ì´ ì „íˆ¬ ì¤‘ì´ê³  ì „í™˜ ì—°ì¶œì— ë“¤ì–´ê°€ì§€ ì•Šì•˜ì„ ë•Œë§Œ ê³µê²©í•œë‹¤.
     public bool CanRunArmPattern =>
         !_isPhaseTransitioning &&
         _isArmReady &&
@@ -133,34 +142,34 @@ public sealed class Boss_Alien : BossEnemy
         TargetPlayer.isActiveAndEnabled &&
         !TargetPlayer.IsDead;
 
-    // ÇÃ·¹ÀÌ¾î »ç¸Á ÈÄ ÀÏ¹İ ÆĞÅÏÀÌ ´Ù½Ã ¿äÃ»µÇ´Â °ÍÀ» ¸·´Â´Ù.
+    // í”Œë ˆì´ì–´ ì‚¬ë§ í›„ ì¼ë°˜ íŒ¨í„´ì´ ë‹¤ì‹œ ìš”ì²­ë˜ëŠ” ê²ƒì„ ë§‰ëŠ”ë‹¤.
     protected override bool CanUseNormalPatterns => CanRunArmPattern;
 
-    // Grab ÆĞÅÏ¿¡ ÇÊ¿äÇÑ ÄÄÆ÷³ÍÆ®¿Í ÇöÀç ¿ùµå À§Ä¡¸¦ Á¦°øÇÑ´Ù.
+    // Grab íŒ¨í„´ì— í•„ìš”í•œ ì»´í¬ë„ŒíŠ¸ì™€ í˜„ì¬ ì›”ë“œ ìœ„ì¹˜ë¥¼ ì œê³µí•œë‹¤.
     public BossAlienGrabSensor GrabSensor => _grabSensor;
     public BossAlienGrabController GrabController => _grabController;
     public Vector3 HoldHandPosition => _handHoldPoint.position;
     public Vector3 ThrowWindupHandPosition => _handThrowWindupPoint.position;
 
-    // ·Îº¿°ú º»Ã¼¸¦ ÇÕÃÄ ÃÑ 2ÆäÀÌÁîÀÎ º¸½º´Ù.
+    // ë¡œë´‡ê³¼ ë³¸ì²´ë¥¼ í•©ì³ ì´ 2í˜ì´ì¦ˆì¸ ë³´ìŠ¤ë‹¤.
     public override int TotalPhaseCount => 2;
 
-    // ÀÌ ÇÁ¸®ÆÕÀº ·Îº¿ÀÎ 1ÆäÀÌÁî¸¸ ´ã´çÇÑ´Ù.
+    // ì´ í”„ë¦¬íŒ¹ì€ ë¡œë´‡ì¸ 1í˜ì´ì¦ˆë§Œ ë‹´ë‹¹í•œë‹¤.
     public override int CurrentPhaseNumber => 1;
 
-    // ·Îº¿ÀÇ Ã¼·ÂÀº ½Çµå¹Ù À§Ä¡¿¡ Ç¥½ÃÇÑ´Ù.
-    // ½ÇÁ¦ ÇÇÇØ¸¦ ¸·´Â ¼ÕÅé ½Çµå¿Í´Â º°°³ÀÇ UI ¼³Á¤ÀÌ´Ù.
+    // ë¡œë´‡ì˜ ì²´ë ¥ì€ ì‹¤ë“œë°” ìœ„ì¹˜ì— í‘œì‹œí•œë‹¤.
+    // ì‹¤ì œ í”¼í•´ë¥¼ ë§‰ëŠ” ì†í†± ì‹¤ë“œì™€ëŠ” ë³„ê°œì˜ UI ì„¤ì •ì´ë‹¤.
     public override bool UsesShieldHealthBar => true;
 
     /// <summary>
-    /// ÄÄÆ÷³ÍÆ® ÂüÁ¶¿Í ÃÊ±â ½ÇÇà »óÅÂ¸¦ ÁØºñÇÑ´Ù.
+    /// ì»´í¬ë„ŒíŠ¸ ì°¸ì¡°ì™€ ì´ˆê¸° ì‹¤í–‰ ìƒíƒœë¥¼ ì¤€ë¹„í•œë‹¤.
     /// </summary>
     protected override void Awake()
     {
-        // °øÅë Ã¼·Â, ÀÌµ¿ °´Ã¼, ÇÊ¼ö ÄÄÆ÷³ÍÆ®¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+        // ê³µí†µ ì²´ë ¥, ì´ë™ ê°ì²´, í•„ìˆ˜ ì»´í¬ë„ŒíŠ¸ë¥¼ ì´ˆê¸°í™”í•œë‹¤.
         base.Awake();
 
-        // ±Õ¿­ ½Çµå¿Í °ø¸í ½ÇÇà¿¡ ÇÊ¿äÇÑ ¿¬°áÀ» °Ë»çÇÑ´Ù.
+        // ê· ì—´ ì‹¤ë“œì™€ ê³µëª… ì‹¤í–‰ì— í•„ìš”í•œ ì—°ê²°ì„ ê²€ì‚¬í•œë‹¤.
         if (_phaseOneConfig == null ||
             _crackController == null ||
             _shieldVisual == null ||
@@ -168,64 +177,64 @@ public sealed class Boss_Alien : BossEnemy
         {
             throw new InvalidOperationException(
                 $"{name}: Phase One Config, Crack Controller, " +
-                "Shield Visual, Resonance PatternÀ» ¿¬°áÇÏ¼¼¿ä.");
+                "Shield Visual, Resonance Patternì„ ì—°ê²°í•˜ì„¸ìš”.");
         }
 
-        // º¸½º ·çÆ®¸¦ ²ô´Â Àß¸øµÈ ¿¬°áÀ» ¹æÁöÇÑ´Ù.
+        // ë³´ìŠ¤ ë£¨íŠ¸ë¥¼ ë„ëŠ” ì˜ëª»ëœ ì—°ê²°ì„ ë°©ì§€í•œë‹¤.
         if (_shieldVisual == gameObject ||
             !_shieldVisual.transform.IsChildOf(transform))
         {
             throw new InvalidOperationException(
-                $"{name}: Shield Visual¿¡´Â º¸½ºÀÇ ÀÚ½Ä ¿ÜÇüÀ» ¿¬°áÇÏ¼¼¿ä.");
+                $"{name}: Shield Visualì—ëŠ” ë³´ìŠ¤ì˜ ìì‹ ì™¸í˜•ì„ ì—°ê²°í•˜ì„¸ìš”.");
         }
 
-        // ÀüÅõ ½ÃÀÛ ½Ã¿¡´Â ±Õ¿­ÀÌ ¾øÀ¸¹Ç·Î ½Çµå¸¦ ²ö´Ù.
+        // ì „íˆ¬ ì‹œì‘ ì‹œì—ëŠ” ê· ì—´ì´ ì—†ìœ¼ë¯€ë¡œ ì‹¤ë“œë¥¼ ëˆë‹¤.
         _shieldVisual.SetActive(false);
 
-        // °ø°İ Å¸ÀÌ¹ÖÀ» ¹ŞÀ» ÄÄÆ÷³ÍÆ®°¡ ¿¬°áµÇ¾î ÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
+        // ê³µê²© íƒ€ì´ë°ì„ ë°›ì„ ì»´í¬ë„ŒíŠ¸ê°€ ì—°ê²°ë˜ì–´ ìˆëŠ”ì§€ í™•ì¸í•œë‹¤.
         if (_animationEventRelay == null)
         {
             throw new InvalidOperationException(
-                $"{name}: Animation Event Relay¸¦ ¿¬°áÇÏ¼¼¿ä.");
+                $"{name}: Animation Event Relayë¥¼ ì—°ê²°í•˜ì„¸ìš”.");
         }
 
-        // ÆÈ ÆĞÅÏ¿¡ ÇÊ¿äÇÑ ÇÁ¸®ÆÕ ÂüÁ¶¸¦ °Ë»çÇÑ´Ù.
+        // íŒ” íŒ¨í„´ì— í•„ìš”í•œ í”„ë¦¬íŒ¹ ì°¸ì¡°ë¥¼ ê²€ì‚¬í•œë‹¤.
         if (_armRig == null ||
             _armRig.HandRoot == null ||
             _armSocket == null ||
             _handPreparePoint == null)
         {
             throw new InvalidOperationException(
-                $"{name}: Arm Rig, Arm Socket, Hand Prepare Point¸¦ ¿¬°áÇÏ¼¼¿ä.");
+                $"{name}: Arm Rig, Arm Socket, Hand Prepare Pointë¥¼ ì—°ê²°í•˜ì„¸ìš”.");
         }
 
-        // ÁØºñ À§Ä¡°¡ ¼ÕÀ» µû¶ó ¿òÁ÷ÀÌ´Â Àß¸øµÈ °èÃşÀ» ¸·´Â´Ù.
+        // ì¤€ë¹„ ìœ„ì¹˜ê°€ ì†ì„ ë”°ë¼ ì›€ì§ì´ëŠ” ì˜ëª»ëœ ê³„ì¸µì„ ë§‰ëŠ”ë‹¤.
         if (_handPreparePoint.IsChildOf(_armRig.HandRoot))
         {
             throw new InvalidOperationException(
-                $"{name}: Hand Prepare Point´Â HandRoot ¹Û¿¡ ¹èÄ¡ÇÏ¼¼¿ä.");
+                $"{name}: Hand Prepare PointëŠ” HandRoot ë°–ì— ë°°ì¹˜í•˜ì„¸ìš”.");
         }
 
-        // »ı¼º ´ç½ÃÀÇ ±âº» ¼Õ¸ñ À§Ä¡¸¦ ÀúÀåÇÑ´Ù.
+        // ìƒì„± ë‹¹ì‹œì˜ ê¸°ë³¸ ì†ëª© ìœ„ì¹˜ë¥¼ ì €ì¥í•œë‹¤.
         _restHandLocalPosition =
             transform.InverseTransformPoint(_armRig.HandRoot.position);
 
-        // Àâ±â¿Í ´øÁö±â¿¡ ÇÊ¿äÇÑ ¿¬°áÀÌ ºüÁ³´ÂÁö È®ÀÎÇÑ´Ù.
+        // ì¡ê¸°ì™€ ë˜ì§€ê¸°ì— í•„ìš”í•œ ì—°ê²°ì´ ë¹ ì¡ŒëŠ”ì§€ í™•ì¸í•œë‹¤.
         if (_grabSensor == null ||
             _grabController == null ||
             _handHoldPoint == null ||
             _handThrowWindupPoint == null)
         {
             throw new InvalidOperationException(
-                $"{name}: Grab Sensor, Grab Controller¿Í ¼Õ À§Ä¡ µÎ °÷À» ¿¬°áÇÏ¼¼¿ä.");
+                $"{name}: Grab Sensor, Grab Controllerì™€ ì† ìœ„ì¹˜ ë‘ ê³³ì„ ì—°ê²°í•˜ì„¸ìš”.");
         }
 
-        // ¸ñÀûÁö°¡ ¼ÕÀ» µû¶ó ¿òÁ÷ÀÌ¸é µµÂøÇÒ ¼ö ¾øÀ¸¹Ç·Î Àß¸øµÈ °èÃşÀ» ¸·´Â´Ù.
+        // ëª©ì ì§€ê°€ ì†ì„ ë”°ë¼ ì›€ì§ì´ë©´ ë„ì°©í•  ìˆ˜ ì—†ìœ¼ë¯€ë¡œ ì˜ëª»ëœ ê³„ì¸µì„ ë§‰ëŠ”ë‹¤.
         if (_handHoldPoint.IsChildOf(_armRig.HandRoot) ||
             _handThrowWindupPoint.IsChildOf(_armRig.HandRoot))
         {
             throw new InvalidOperationException(
-                $"{name}: Hold Point¿Í Throw Windup Point´Â HandRoot ¹Û¿¡ µÎ¼¼¿ä.");
+                $"{name}: Hold Pointì™€ Throw Windup PointëŠ” HandRoot ë°–ì— ë‘ì„¸ìš”.");
         }
 
         _isArmReady = true;
@@ -233,57 +242,57 @@ public sealed class Boss_Alien : BossEnemy
     }
 
     /// <summary>
-    /// OnBossInitialized µ¿ÀÛ¿¡ ÇÊ¿äÇÑ »óÅÂ¿Í Ã³¸® Èå¸§À» ½ÇÇàÇÑ´Ù.
+    /// OnBossInitialized ë™ì‘ì— í•„ìš”í•œ ìƒíƒœì™€ ì²˜ë¦¬ íë¦„ì„ ì‹¤í–‰í•œë‹¤.
     /// </summary>
     protected override void OnBossInitialized()
     {
         base.OnBossInitialized();
 
-        // ÃÊ±âÈ­µÈ ÇÃ·¹ÀÌ¾îÀÇ »ç¸Á ½Ã ÆĞÅÏÀ» Áï½Ã Áß´ÜÇÑ´Ù.
+        // ì´ˆê¸°í™”ëœ í”Œë ˆì´ì–´ì˜ ì‚¬ë§ ì‹œ íŒ¨í„´ì„ ì¦‰ì‹œ ì¤‘ë‹¨í•œë‹¤.
         TargetPlayer.Died -= HandlePlayerDied;
         TargetPlayer.Died += HandlePlayerDied;
 
-        // ÀüÅõ ½ÃÀÛ ½Ã Ã¼·Â Æ¯¼öÆĞÅÏ ¼³Á¤°ú ¹ßµ¿ ±â·ÏÀ» ÁØºñÇÑ´Ù.
+        // ì „íˆ¬ ì‹œì‘ ì‹œ ì²´ë ¥ íŠ¹ìˆ˜íŒ¨í„´ ì„¤ì •ê³¼ ë°œë™ ê¸°ë¡ì„ ì¤€ë¹„í•œë‹¤.
         InitializeHealthPatterns();
     }
 
     /// <summary>
-    /// È°¼ºÈ­ ½Ã ÃÊ±â »óÅÂ¿Í ÀÌº¥Æ® ¿¬°áÀ» ÁØºñÇÑ´Ù.
+    /// í™œì„±í™” ì‹œ ì´ˆê¸° ìƒíƒœì™€ ì´ë²¤íŠ¸ ì—°ê²°ì„ ì¤€ë¹„í•œë‹¤.
     /// </summary>
     private void OnEnable()
     {
-        // ÀüÅõ µµÁß ºñÈ°¼ºÈ­µÆ´Ù°¡ ÄÑÁø °æ¿ì ±¸µ¶À» º¹±¸ÇÑ´Ù.
+        // ì „íˆ¬ ë„ì¤‘ ë¹„í™œì„±í™”ëë‹¤ê°€ ì¼œì§„ ê²½ìš° êµ¬ë…ì„ ë³µêµ¬í•œë‹¤.
         if (TargetPlayer != null)
         {
             TargetPlayer.Died -= HandlePlayerDied;
             TargetPlayer.Died += HandlePlayerDied;
         }
 
-        // ±Õ¿­ °³¼ö°¡ ¹Ù²ğ ¶§¸¸ ½Çµå ¿ÜÇüÀ» °»½ÅÇÑ´Ù.
+        // ê· ì—´ ê°œìˆ˜ê°€ ë°”ë€” ë•Œë§Œ ì‹¤ë“œ ì™¸í˜•ì„ ê°±ì‹ í•œë‹¤.
         _crackController.CountChanged += HandleCrackCountChanged;
 
-        // ±Õ¿­ 3½ºÅÃ µµ´Ş ÀÌº¥Æ®¸¦ ¹Ş´Â´Ù.
+        // ê· ì—´ 3ìŠ¤íƒ ë„ë‹¬ ì´ë²¤íŠ¸ë¥¼ ë°›ëŠ”ë‹¤.
         _crackController.MaxStacksReached += HandleMaxCracksReached;
 
         HandleCrackCountChanged(_crackController.Count);
     }
 
     /// <summary>
-    /// ºñÈ°¼ºÈ­ ½Ã ÀÌº¥Æ® ¿¬°á°ú ½ÇÇà »óÅÂ¸¦ Á¤¸®ÇÑ´Ù.
+    /// ë¹„í™œì„±í™” ì‹œ ì´ë²¤íŠ¸ ì—°ê²°ê³¼ ì‹¤í–‰ ìƒíƒœë¥¼ ì •ë¦¬í•œë‹¤.
     /// </summary>
     protected override void OnDisable()
     {
-        // ÀüÅõ Áß´Ü ½Ã ÁøÇà ÁßÀÎ º»Ã¼ µîÀå Ã³¸®¸¦ Ãë¼ÒÇÑ´Ù.
+        // ì „íˆ¬ ì¤‘ë‹¨ ì‹œ ì§„í–‰ ì¤‘ì¸ ë³¸ì²´ ë“±ì¥ ì²˜ë¦¬ë¥¼ ì·¨ì†Œí•œë‹¤.
         StopPhaseTransitionRoutine();
 
-        // ºñÈ°¼ºÈ­µÈ º¸½º°¡ ´ÙÀÌ¾î·Î±× ¿Ï·á ÀÌº¥Æ®¸¦ ¹ŞÁö ¾Êµµ·Ï Á¤¸®ÇÑ´Ù.
+        // ë¹„í™œì„±í™”ëœ ë³´ìŠ¤ê°€ ë‹¤ì´ì–´ë¡œê·¸ ì™„ë£Œ ì´ë²¤íŠ¸ë¥¼ ë°›ì§€ ì•Šë„ë¡ ì •ë¦¬í•œë‹¤.
         ClearResonanceWarningWait();
 
-        // ºñÈ°¼ºÈ­µÈ º¸½º°¡ ±Õ¿­ ÀÌº¥Æ®¸¦ °è¼Ó ¹ŞÁö ¾Êµµ·Ï Á¤¸®ÇÑ´Ù.
+        // ë¹„í™œì„±í™”ëœ ë³´ìŠ¤ê°€ ê· ì—´ ì´ë²¤íŠ¸ë¥¼ ê³„ì† ë°›ì§€ ì•Šë„ë¡ ì •ë¦¬í•œë‹¤.
         if (_crackController != null)
         {
             _crackController.CountChanged -= HandleCrackCountChanged;
-            // ºñÈ°¼ºÈ­ ÈÄ¿¡´Â »õ °ø¸í ÆĞÅÏÀ» ¿äÃ»ÇÏÁö ¾Ê´Â´Ù.
+            // ë¹„í™œì„±í™” í›„ì—ëŠ” ìƒˆ ê³µëª… íŒ¨í„´ì„ ìš”ì²­í•˜ì§€ ì•ŠëŠ”ë‹¤.
             _crackController.MaxStacksReached -= HandleMaxCracksReached;
         }
 
@@ -292,23 +301,23 @@ public sealed class Boss_Alien : BossEnemy
             _shieldVisual.SetActive(false);
         }
 
-        // Á¦°ÅµÇ°Å³ª ºñÈ°¼ºÈ­µÉ ¶§ ÀÌº¥Æ® ±¸µ¶À» ÇØÁ¦ÇÑ´Ù.
+        // ì œê±°ë˜ê±°ë‚˜ ë¹„í™œì„±í™”ë  ë•Œ ì´ë²¤íŠ¸ êµ¬ë…ì„ í•´ì œí•œë‹¤.
         if (TargetPlayer != null)
         {
             TargetPlayer.Died -= HandlePlayerDied;
         }
 
-        // ½ÇÇà Áß ¹İº¹ÀÚ¸¦ Á¤¸®ÇÏ¿© ÆĞÅÏÀÇ finally±îÁö ½ÇÇàÇÑ´Ù.
+        // ì‹¤í–‰ ì¤‘ ë°˜ë³µìë¥¼ ì •ë¦¬í•˜ì—¬ íŒ¨í„´ì˜ finallyê¹Œì§€ ì‹¤í–‰í•œë‹¤.
         StopPatternsForPhaseChange();
 
-        // ½ÇÇà Àü ´ë±â ÁßÀÌ´ø °ø¸íÀÇ ±Õ¿­ º¸Á¸ »óÅÂµµ Á¤¸®ÇÑ´Ù.
+        // ì‹¤í–‰ ì „ ëŒ€ê¸° ì¤‘ì´ë˜ ê³µëª…ì˜ ê· ì—´ ë³´ì¡´ ìƒíƒœë„ ì •ë¦¬í•œë‹¤.
         if (_crackController != null)
         {
             _crackController.ClearAll();
         }
 
-        // Runner°¡ Áß´Ü °úÁ¤¿¡¼­ ÀÌµ¿À» Àç°³ÇÒ ¼ö ÀÖÀ¸¹Ç·Î
-        // Áß´Ü Ã³¸® ´ÙÀ½¿¡ ÀÌµ¿À» Àá±Ù´Ù.
+        // Runnerê°€ ì¤‘ë‹¨ ê³¼ì •ì—ì„œ ì´ë™ì„ ì¬ê°œí•  ìˆ˜ ìˆìœ¼ë¯€ë¡œ
+        // ì¤‘ë‹¨ ì²˜ë¦¬ ë‹¤ìŒì— ì´ë™ì„ ì ê·¼ë‹¤.
         SetControllable(false);
         ResetArm();
 
@@ -316,17 +325,17 @@ public sealed class Boss_Alien : BossEnemy
     }
 
     /// <summary>
-    /// HandlePlayerDied µ¿ÀÛ¿¡ ÇÊ¿äÇÑ »óÅÂ¿Í Ã³¸® Èå¸§À» ½ÇÇàÇÑ´Ù.
+    /// HandlePlayerDied ë™ì‘ì— í•„ìš”í•œ ìƒíƒœì™€ ì²˜ë¦¬ íë¦„ì„ ì‹¤í–‰í•œë‹¤.
     /// </summary>
     private void HandlePlayerDied()
     {
-        // ÀüÅõ Áß´Ü ½Ã ÁøÇà ÁßÀÎ º»Ã¼ µîÀå Ã³¸®¸¦ Ãë¼ÒÇÑ´Ù.
+        // ì „íˆ¬ ì¤‘ë‹¨ ì‹œ ì§„í–‰ ì¤‘ì¸ ë³¸ì²´ ë“±ì¥ ì²˜ë¦¬ë¥¼ ì·¨ì†Œí•œë‹¤.
         StopPhaseTransitionRoutine();
 
-        // ÇÃ·¹ÀÌ¾î »ç¸ÁÀº timeScaleÀÌ 0ÀÌ¾îµµ Áï½Ã Á¤¸®ÇÑ´Ù.
+        // í”Œë ˆì´ì–´ ì‚¬ë§ì€ timeScaleì´ 0ì´ì–´ë„ ì¦‰ì‹œ ì •ë¦¬í•œë‹¤.
         StopPatternsForPhaseChange();
 
-        // ½ÇÇà Àü ´ë±â ÁßÀÌ´ø °ø¸íÀÇ ±Õ¿­ º¸Á¸ »óÅÂµµ Á¤¸®ÇÑ´Ù.
+        // ì‹¤í–‰ ì „ ëŒ€ê¸° ì¤‘ì´ë˜ ê³µëª…ì˜ ê· ì—´ ë³´ì¡´ ìƒíƒœë„ ì •ë¦¬í•œë‹¤.
         if (_crackController != null)
         {
             _crackController.ClearAll();
@@ -337,26 +346,26 @@ public sealed class Boss_Alien : BossEnemy
     }
 
     /// <summary>
-    /// ResetArm µ¿ÀÛ¿¡ ÇÊ¿äÇÑ »óÅÂ¿Í Ã³¸® Èå¸§À» ½ÇÇàÇÑ´Ù.
+    /// ResetArm ë™ì‘ì— í•„ìš”í•œ ìƒíƒœì™€ ì²˜ë¦¬ íë¦„ì„ ì‹¤í–‰í•œë‹¤.
     /// </summary>
     public void ResetArm()
     {
-        // Awake µµÁß ¼³Á¤ ¿À·ù°¡ ³­ °æ¿ì¿¡µµ ¾ÈÀüÇÏ°Ô Á¾·áÇÑ´Ù.
+        // Awake ë„ì¤‘ ì„¤ì • ì˜¤ë¥˜ê°€ ë‚œ ê²½ìš°ì—ë„ ì•ˆì „í•˜ê²Œ ì¢…ë£Œí•œë‹¤.
         if (!_isArmReady || _armRig == null ||
             _armRig.HandRoot == null)
         {
             return;
         }
 
-        // Á¤»ó Á¾·á¿Í Áß´Ü ¸ğµÎ ¿­¸° ¼Õ°ú ±âº» À§Ä¡·Î º¹±¸ÇÑ´Ù.
+        // ì •ìƒ ì¢…ë£Œì™€ ì¤‘ë‹¨ ëª¨ë‘ ì—´ë¦° ì†ê³¼ ê¸°ë³¸ ìœ„ì¹˜ë¡œ ë³µêµ¬í•œë‹¤.
         _armRig.SetHandClosed(false);
         _armRig.SetHandPosition(RestHandPosition);
     }
 
-    // ÁöÁ¤ÇÑ ¼ÒÄÏÀÇ ÇöÀç ¿ùµå À§Ä¡¸¦ ¹İÈ¯ÇÑ´Ù.
-    // º¸½º°¡ ÀÌµ¿ÇØµµ ÀÌµ¿ÇÑ ¼ÒÄÏ À§Ä¡¿¡¼­ ¹ß»çÇÒ ¼ö ÀÖ´Ù.
+    // ì§€ì •í•œ ì†Œì¼“ì˜ í˜„ì¬ ì›”ë“œ ìœ„ì¹˜ë¥¼ ë°˜í™˜í•œë‹¤.
+    // ë³´ìŠ¤ê°€ ì´ë™í•´ë„ ì´ë™í•œ ì†Œì¼“ ìœ„ì¹˜ì—ì„œ ë°œì‚¬í•  ìˆ˜ ìˆë‹¤.
     /// <summary>
-    /// º¸½º°¡ ÀÌµ¿ÇØµµ ÀÌµ¿ÇÑ ¼ÒÄÏ À§Ä¡¿¡¼­ ¹ß»çÇÒ ¼ö ÀÖ´Ù.
+    /// ë³´ìŠ¤ê°€ ì´ë™í•´ë„ ì´ë™í•œ ì†Œì¼“ ìœ„ì¹˜ì—ì„œ ë°œì‚¬í•  ìˆ˜ ìˆë‹¤.
     /// </summary>
     public Vector3 GetMissileSpawnPosition(int socketIndex)
     {
@@ -365,37 +374,37 @@ public sealed class Boss_Alien : BossEnemy
             socketIndex >= _missileSockets.Length)
         {
             throw new ArgumentOutOfRangeException(
-                nameof(socketIndex), "¹Ì»çÀÏ ¼ÒÄÏ ¹üÀ§¸¦ ¹ş¾î³µ½À´Ï´Ù.");
+                nameof(socketIndex), "ë¯¸ì‚¬ì¼ ì†Œì¼“ ë²”ìœ„ë¥¼ ë²—ì–´ë‚¬ìŠµë‹ˆë‹¤.");
         }
 
         if (_missileSockets[socketIndex] == null)
         {
             throw new InvalidOperationException(
-                $"{name}: Missile SocketsÀÇ {socketIndex}¹øÀ» ¿¬°áÇÏ¼¼¿ä.");
+                $"{name}: Missile Socketsì˜ {socketIndex}ë²ˆì„ ì—°ê²°í•˜ì„¸ìš”.");
         }
 
         return _missileSockets[socketIndex].position;
     }
 
-    // ±Õ¿­ °³¼ö¿¡ µû¶ó ½Çµå¸¦ °»½ÅÇÏ°í, ±Õ¿­ÀÌ ¾ø¾îÁö¸é °æ°í ´ë±âµµ ÇØÁ¦ÇÑ´Ù.
+    // ê· ì—´ ê°œìˆ˜ì— ë”°ë¼ ì‹¤ë“œë¥¼ ê°±ì‹ í•˜ê³ , ê· ì—´ì´ ì—†ì–´ì§€ë©´ ê²½ê³  ëŒ€ê¸°ë„ í•´ì œí•œë‹¤.
     /// <summary>
-    /// ±Õ¿­ °³¼ö¿¡ µû¶ó ½Çµå¸¦ °»½ÅÇÏ°í, ±Õ¿­ÀÌ ¾ø¾îÁö¸é °æ°í ´ë±âµµ ÇØÁ¦ÇÑ´Ù.
+    /// ê· ì—´ ê°œìˆ˜ì— ë”°ë¼ ì‹¤ë“œë¥¼ ê°±ì‹ í•˜ê³ , ê· ì—´ì´ ì—†ì–´ì§€ë©´ ê²½ê³  ëŒ€ê¸°ë„ í•´ì œí•œë‹¤.
     /// </summary>
     private void HandleCrackCountChanged(int count)
     {
         _shieldVisual.SetActive(
             isActiveAndEnabled && !IsDead && count > 0);
 
-        // ÆĞÅÏ Á¾·á³ª »ç¸ÁÀ¸·Î ±Õ¿­ÀÌ Á¦°ÅµÈ °æ¿ìµµ ÇÔ²² Ã³¸®ÇÑ´Ù.
+        // íŒ¨í„´ ì¢…ë£Œë‚˜ ì‚¬ë§ìœ¼ë¡œ ê· ì—´ì´ ì œê±°ëœ ê²½ìš°ë„ í•¨ê»˜ ì²˜ë¦¬í•œë‹¤.
         if (count == 0)
         {
             ClearResonanceWarningWait();
         }
     }
 
-    // ±Õ¿­ ¼ö¿Í °ü°è¾øÀÌ ¼³Á¤µÈ °¨¼ÒÀ²À» ÇÑ ¹ø¸¸ Àû¿ëÇÑ´Ù.
+    // ê· ì—´ ìˆ˜ì™€ ê´€ê³„ì—†ì´ ì„¤ì •ëœ ê°ì†Œìœ¨ì„ í•œ ë²ˆë§Œ ì ìš©í•œë‹¤.
     /// <summary>
-    /// ¹æ¾î È¿°ú¸¦ Àû¿ëÇÑ ½ÇÁ¦ ÇÇÇØ¸¦ ¼Ò¼öÁ¡±îÁö °è»êÇÑ´Ù.
+    /// ë°©ì–´ íš¨ê³¼ë¥¼ ì ìš©í•œ ì‹¤ì œ í”¼í•´ë¥¼ ì†Œìˆ˜ì ê¹Œì§€ ê³„ì‚°í•œë‹¤.
     /// </summary>
     protected override float CalculateIncomingDamage(float damage)
     {
@@ -408,19 +417,19 @@ public sealed class Boss_Alien : BossEnemy
         float reduction = Mathf.Clamp(
             _phaseOneConfig.ShieldDamageReductionPercent, 0f, 100f);
 
-        // 100% °¨¼Ò´Â ÇÇÇØ¸¦ ¿ÏÀüÈ÷ Â÷´ÜÇÑ´Ù.
+        // 100% ê°ì†ŒëŠ” í”¼í•´ë¥¼ ì™„ì „íˆ ì°¨ë‹¨í•œë‹¤.
         if (reduction >= 100f)
         {
             return 0;
         }
 
-        // ÇÇÇØ °¨¼Ò¸¦ Àû¿ëÇÑ ¼Ò¼öÁ¡ ¼öÄ¡¸¦ ±×´ë·Î ¹İÈ¯ÇÑ´Ù.
+        // í”¼í•´ ê°ì†Œë¥¼ ì ìš©í•œ ì†Œìˆ˜ì  ìˆ˜ì¹˜ë¥¼ ê·¸ëŒ€ë¡œ ë°˜í™˜í•œë‹¤.
         return Mathf.Max(0f, damage * (1f - reduction / 100f));
     }
 
-    // »ç¸Á ¼ø°£ ±Õ¿­°ú ½Çµå¸¦ ÇÔ²² Á¤¸®ÇÑ´Ù.
+    // ì‚¬ë§ ìˆœê°„ ê· ì—´ê³¼ ì‹¤ë“œë¥¼ í•¨ê»˜ ì •ë¦¬í•œë‹¤.
     /// <summary>
-    /// »ç¸Á ¼ø°£ ±Õ¿­°ú ½Çµå¸¦ ÇÔ²² Á¤¸®ÇÑ´Ù.
+    /// ì‚¬ë§ ìˆœê°„ ê· ì—´ê³¼ ì‹¤ë“œë¥¼ í•¨ê»˜ ì •ë¦¬í•œë‹¤.
     /// </summary>
     protected override void OnBossDefeated()
     {
@@ -430,9 +439,9 @@ public sealed class Boss_Alien : BossEnemy
         base.OnBossDefeated();
     }
 
-    // Ã¼·Â Á¶°ÇÀ» °ËÁõÇÏ°í ÀÌ¹ø ÀüÅõÀÇ ¹ßµ¿ ±â·ÏÀ» ÃÊ±âÈ­ÇÑ´Ù.
+    // ì²´ë ¥ ì¡°ê±´ì„ ê²€ì¦í•˜ê³  ì´ë²ˆ ì „íˆ¬ì˜ ë°œë™ ê¸°ë¡ì„ ì´ˆê¸°í™”í•œë‹¤.
     /// <summary>
-    /// Ã¼·Â Á¶°ÇÀ» °ËÁõÇÏ°í ÀÌ¹ø ÀüÅõÀÇ ¹ßµ¿ ±â·ÏÀ» ÃÊ±âÈ­ÇÑ´Ù.
+    /// ì²´ë ¥ ì¡°ê±´ì„ ê²€ì¦í•˜ê³  ì´ë²ˆ ì „íˆ¬ì˜ ë°œë™ ê¸°ë¡ì„ ì´ˆê¸°í™”í•œë‹¤.
     /// </summary>
     private void InitializeHealthPatterns()
     {
@@ -446,21 +455,21 @@ public sealed class Boss_Alien : BossEnemy
             if (entry == null || entry.Pattern == null)
             {
                 throw new InvalidOperationException(
-                    $"{name}: Ã¼·Â Æ¯¼öÆĞÅÏ {i + 1}¹øÀÇ PatternÀ» ¿¬°áÇÏ¼¼¿ä.");
+                    $"{name}: ì²´ë ¥ íŠ¹ìˆ˜íŒ¨í„´ {i + 1}ë²ˆì˜ Patternì„ ì—°ê²°í•˜ì„¸ìš”.");
             }
 
-            // À¯È¿ÇÏÁö ¾ÊÀº ¼ıÀÚ¿Í 0%, 100% ±âÁØÀ» Á¦¿ÜÇÑ´Ù.
+            // ìœ íš¨í•˜ì§€ ì•Šì€ ìˆ«ìì™€ 0%, 100% ê¸°ì¤€ì„ ì œì™¸í•œë‹¤.
             if (!(entry.HealthPercent > 0f && entry.HealthPercent < 100f))
             {
                 throw new InvalidOperationException(
-                    $"{name}: Ã¼·Â ±âÁØÀº 0º¸´Ù Å©°í 100º¸´Ù ÀÛ¾Æ¾ß ÇÕ´Ï´Ù.");
+                    $"{name}: ì²´ë ¥ ê¸°ì¤€ì€ 0ë³´ë‹¤ í¬ê³  100ë³´ë‹¤ ì‘ì•„ì•¼ í•©ë‹ˆë‹¤.");
             }
 
-            // ÇÑ ¹ø¿¡ ¿©·¯ ±âÁØÀ» ³ÑÀ¸¸é ¸ñ·Ï ¼ø¼­´ë·Î ¿äÃ»ÇÑ´Ù.
+            // í•œ ë²ˆì— ì—¬ëŸ¬ ê¸°ì¤€ì„ ë„˜ìœ¼ë©´ ëª©ë¡ ìˆœì„œëŒ€ë¡œ ìš”ì²­í•œë‹¤.
             if (entry.HealthPercent > previousPercent)
             {
                 throw new InvalidOperationException(
-                    $"{name}: Ã¼·Â Æ¯¼öÆĞÅÏÀº ³ôÀº ÆÛ¼¾Æ®ºÎÅÍ µî·ÏÇÏ¼¼¿ä.");
+                    $"{name}: ì²´ë ¥ íŠ¹ìˆ˜íŒ¨í„´ì€ ë†’ì€ í¼ì„¼íŠ¸ë¶€í„° ë“±ë¡í•˜ì„¸ìš”.");
             }
 
             previousPercent = entry.HealthPercent;
@@ -473,21 +482,21 @@ public sealed class Boss_Alien : BossEnemy
         CheckHealthPatterns();
     }
 
-    // ºÎ¸ğ°¡ ÇÇÇØ °¨¼Ò¿Í Ã¼·Â Â÷°¨À» Ã³¸®ÇÑ µÚ È£ÃâÇÑ´Ù.
+    // ë¶€ëª¨ê°€ í”¼í•´ ê°ì†Œì™€ ì²´ë ¥ ì°¨ê°ì„ ì²˜ë¦¬í•œ ë’¤ í˜¸ì¶œí•œë‹¤.
     /// <summary>
-    /// º¸½º ÇÇ°İ ÀÌÈÄ »óÅÂ¿Í ÆĞÅÏÀ» °»½ÅÇÑ´Ù.
+    /// ë³´ìŠ¤ í”¼ê²© ì´í›„ ìƒíƒœì™€ íŒ¨í„´ì„ ê°±ì‹ í•œë‹¤.
     /// </summary>
     protected override void OnBossDamaged(float damage)
     {
         base.OnBossDamaged(damage);
 
-        // ½ÇÁ¦·Î °¨¼ÒÇÑ ·Îº¿ Ã¼·ÂÀ» ±âÁØÀ¸·Î ¹ßµ¿ ¿©ºÎ¸¦ °Ë»çÇÑ´Ù.
+        // ì‹¤ì œë¡œ ê°ì†Œí•œ ë¡œë´‡ ì²´ë ¥ì„ ê¸°ì¤€ìœ¼ë¡œ ë°œë™ ì—¬ë¶€ë¥¼ ê²€ì‚¬í•œë‹¤.
         CheckHealthPatterns();
     }
 
-    // Á¶°ÇÀ» ¸¸Á·ÇÑ Ç×¸ñÀ» ÀüÅõ Áß ÇÑ ¹ø¾¿ ¿äÃ»ÇÑ´Ù.
+    // ì¡°ê±´ì„ ë§Œì¡±í•œ í•­ëª©ì„ ì „íˆ¬ ì¤‘ í•œ ë²ˆì”© ìš”ì²­í•œë‹¤.
     /// <summary>
-    /// Á¶°ÇÀ» ¸¸Á·ÇÑ Ç×¸ñÀ» ÀüÅõ Áß ÇÑ ¹ø¾¿ ¿äÃ»ÇÑ´Ù.
+    /// ì¡°ê±´ì„ ë§Œì¡±í•œ í•­ëª©ì„ ì „íˆ¬ ì¤‘ í•œ ë²ˆì”© ìš”ì²­í•œë‹¤.
     /// </summary>
     private void CheckHealthPatterns()
     {
@@ -515,17 +524,17 @@ public sealed class Boss_Alien : BossEnemy
                 continue;
             }
 
-            // ½ÇÇà °úÁ¤¿¡¼­ ´Ù½Ã ÇÇÇØ°¡ µé¾î¿Íµµ Áßº¹ ¿äÃ»ÇÏÁö ¾Ê´Â´Ù.
+            // ì‹¤í–‰ ê³¼ì •ì—ì„œ ë‹¤ì‹œ í”¼í•´ê°€ ë“¤ì–´ì™€ë„ ì¤‘ë³µ ìš”ì²­í•˜ì§€ ì•ŠëŠ”ë‹¤.
             _hasRequestedHealthPatterns[i] = true;
 
-            // ÁøÇà ÁßÀÎ ÆĞÅÏÀ» ²÷Áö ¾Ê°í ±âÁ¸ Æ¯¼öÆĞÅÏ ´ë±â¿­¿¡ µî·ÏÇÑ´Ù.
+            // ì§„í–‰ ì¤‘ì¸ íŒ¨í„´ì„ ëŠì§€ ì•Šê³  ê¸°ì¡´ íŠ¹ìˆ˜íŒ¨í„´ ëŒ€ê¸°ì—´ì— ë“±ë¡í•œë‹¤.
             RequestSpecialPattern(entry.Pattern);
         }
     }
 
-    // ±Õ¿­ 3°³°¡ ¿Ï¼ºµÇ¸é Áï½Ã °æ°í¸¦ Ç¥½ÃÇÏ°í °ø¸íÀ» ¿¹¾àÇÑ´Ù.
+    // ê· ì—´ 3ê°œê°€ ì™„ì„±ë˜ë©´ ì¦‰ì‹œ ê²½ê³ ë¥¼ í‘œì‹œí•˜ê³  ê³µëª…ì„ ì˜ˆì•½í•œë‹¤.
     /// <summary>
-    /// ±Õ¿­ 3°³°¡ ¿Ï¼ºµÇ¸é Áï½Ã °æ°í¸¦ Ç¥½ÃÇÏ°í °ø¸íÀ» ¿¹¾àÇÑ´Ù.
+    /// ê· ì—´ 3ê°œê°€ ì™„ì„±ë˜ë©´ ì¦‰ì‹œ ê²½ê³ ë¥¼ í‘œì‹œí•˜ê³  ê³µëª…ì„ ì˜ˆì•½í•œë‹¤.
     /// </summary>
     private void HandleMaxCracksReached()
     {
@@ -535,21 +544,23 @@ public sealed class Boss_Alien : BossEnemy
             return;
         }
 
-        // ÀÌÀü ±¸µ¶À» Á¤¸®ÇÏ°í, Ç¥½Ã ¿äÃ» Àü¿¡ ¿Ï·á ½ÅÈ£¸¦ ¹ŞÀ» ÁØºñ¸¦ ÇÑ´Ù.
+        // ì´ì „ êµ¬ë…ì„ ì •ë¦¬í•˜ê³ , í‘œì‹œ ìš”ì²­ ì „ì— ì™„ë£Œ ì‹ í˜¸ë¥¼ ë°›ì„ ì¤€ë¹„ë¥¼ í•œë‹¤.
         ClearResonanceWarningWait();
+        // 3ìŠ¤íƒ ê³µëª… ì˜ˆì•½ì´ ì„±ê³µí–ˆì„ ë•Œ í•œ ë²ˆ ì•Œë¦°ë‹¤.
+        GameAudio.Play(GameSound.AlienCrackReady);
         _isResonanceWarningPending = true;
         SystemDialogueCompleted += ClearResonanceWarningWait;
 
-        // ±âÁ¸ ½Ã½ºÅÛ ´ÙÀÌ¾î·Î±× UI¿¡ °æ°í¸¦ Ç¥½ÃÇÑ´Ù.
+        // ê¸°ì¡´ ì‹œìŠ¤í…œ ë‹¤ì´ì–´ë¡œê·¸ UIì— ê²½ê³ ë¥¼ í‘œì‹œí•œë‹¤.
         RequestSystemDialogue(_resonanceWarningMessage);
 
-        // ÇöÀç ±×·¦ÀÌ ³¡³­ µÚ °ø¸íÀ» ¿ì¼± ½ÇÇàÇÑ´Ù.
+        // í˜„ì¬ ê·¸ë©ì´ ëë‚œ ë’¤ ê³µëª…ì„ ìš°ì„  ì‹¤í–‰í•œë‹¤.
         RequestSpecialPattern(_resonancePattern, prioritize: true);
     }
 
-    // °æ°í°¡ ³¡³µ°Å³ª °ø¸íÀÌ Ãë¼ÒµÇ¸é ´ë±â »óÅÂ¿Í ÀÌº¥Æ® ±¸µ¶À» Á¤¸®ÇÑ´Ù.
+    // ê²½ê³ ê°€ ëë‚¬ê±°ë‚˜ ê³µëª…ì´ ì·¨ì†Œë˜ë©´ ëŒ€ê¸° ìƒíƒœì™€ ì´ë²¤íŠ¸ êµ¬ë…ì„ ì •ë¦¬í•œë‹¤.
     /// <summary>
-    /// °æ°í°¡ ³¡³µ°Å³ª °ø¸íÀÌ Ãë¼ÒµÇ¸é ´ë±â »óÅÂ¿Í ÀÌº¥Æ® ±¸µ¶À» Á¤¸®ÇÑ´Ù.
+    /// ê²½ê³ ê°€ ëë‚¬ê±°ë‚˜ ê³µëª…ì´ ì·¨ì†Œë˜ë©´ ëŒ€ê¸° ìƒíƒœì™€ ì´ë²¤íŠ¸ êµ¬ë…ì„ ì •ë¦¬í•œë‹¤.
     /// </summary>
     private void ClearResonanceWarningWait()
     {
@@ -557,19 +568,42 @@ public sealed class Boss_Alien : BossEnemy
         _isResonanceWarningPending = false;
     }
 
-    // ·Îº¿ Ã¼·ÂÀÌ ¼ÒÁøµÇ¸é ÃÖÁ¾ »ç¸Á ´ë½Å º»Ã¼ µîÀå ¿¬ÃâÀ» ½ÃÀÛÇÑ´Ù.
+    /// <summary>ìƒì„± ê´€ë¦¬ìë¡œë¶€í„° í˜ì´ì¦ˆ ì „í™˜ ì—°ì¶œì˜ ê¸°ì¤€ ìœ„ì¹˜ë¥¼ ë°›ëŠ”ë‹¤.</summary>
+    public void SetPhaseTransitionPosition(Vector3 position)
+    {
+        // í”„ë¦¬íŒ¹ì—ì„œ ì”¬ Transformì„ ì§ì ‘ ì°¸ì¡°í•˜ì§€ ì•Šê³  ì¢Œí‘œë¥¼ ì „ë‹¬ë°›ëŠ”ë‹¤.
+        _phaseTransitionPosition = position;
+        _hasPhaseTransitionPosition = true;
+    }
+
+    /// <summary>ë³µê·€ ì´ë™ê³¼ ì „í™˜ ì—°ì¶œì„ ê³„ì†í•  ìˆ˜ ìˆëŠ” ì „íˆ¬ ìƒíƒœì¸ì§€ í™•ì¸í•œë‹¤.</summary>
+    private bool CanContinuePhaseTransition()
+    {
+        // í”Œë ˆì´ì–´ ì‚¬ë§ì´ë‚˜ ê°ì²´ ë¹„í™œì„±í™” ì´í›„ì—ëŠ” ìƒˆ ë³¸ì²´ë¥¼ ìƒì„±í•˜ì§€ ì•ŠëŠ”ë‹¤.
+        return isActiveAndEnabled && !IsDead &&
+            TargetPlayer != null && TargetPlayer.isActiveAndEnabled && !TargetPlayer.IsDead;
+    }
+
+    // ë¡œë´‡ ì²´ë ¥ì´ ì†Œì§„ë˜ë©´ ìµœì¢… ì‚¬ë§ ëŒ€ì‹  ë³¸ì²´ ë“±ì¥ ì—°ì¶œì„ ì‹œì‘í•œë‹¤.
     /// <summary>
-    /// ·Îº¿ Ã¼·ÂÀÌ ¼ÒÁøµÇ¸é ÃÖÁ¾ »ç¸Á ´ë½Å º»Ã¼ µîÀå ¿¬ÃâÀ» ½ÃÀÛÇÑ´Ù.
+    /// ë¡œë´‡ ì²´ë ¥ì´ ì†Œì§„ë˜ë©´ ìµœì¢… ì‚¬ë§ ëŒ€ì‹  ë³¸ì²´ ë“±ì¥ ì—°ì¶œì„ ì‹œì‘í•œë‹¤.
     /// </summary>
     protected override bool TryBeginNextPhase()
     {
-        // ÀüÈ¯ Áß¿¡ ´Ù½Ã È£ÃâµÇ¾îµµ ¿¬ÃâÀÌ³ª »ç¸Á Ã³¸®¸¦ ¹İº¹ÇÏÁö ¾Ê´Â´Ù.
+        // ì „í™˜ ì¤‘ì— ë‹¤ì‹œ í˜¸ì¶œë˜ì–´ë„ ì—°ì¶œì´ë‚˜ ì‚¬ë§ ì²˜ë¦¬ë¥¼ ë°˜ë³µí•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (_isPhaseTransitioning)
         {
             return true;
         }
 
-        // ÀüÈ¯¿¡ ÇÊ¿äÇÑ ¿¬Ãâ, º»Ã¼ ÇÁ¸®ÆÕ, »ı¼º À§Ä¡¸¦ °Ë»çÇÑ´Ù.
+        // ì„ì˜ì˜ ì›ì ìœ¼ë¡œ ë³µê·€í•˜ì§€ ì•Šë„ë¡ ê´€ë¦¬ì ì—°ê²°ì„ í™•ì¸í•œë‹¤.
+        if (!_hasPhaseTransitionPosition)
+        {
+            throw new InvalidOperationException(
+                $"{name}: BossEncounterManagerì—ì„œ ì „í™˜ ìœ„ì¹˜ë¥¼ ì „ë‹¬í•´ì•¼ í•©ë‹ˆë‹¤.");
+        }
+
+        // ì „í™˜ì— í•„ìš”í•œ ì—°ì¶œ, ë³¸ì²´ í”„ë¦¬íŒ¹, ìƒì„± ìœ„ì¹˜ë¥¼ ê²€ì‚¬í•œë‹¤.
         if (_phaseTransitionAnimator == null ||
             !_phaseTransitionAnimator.isActiveAndEnabled ||
             !_phaseTransitionAnimator.HasState(0, PhaseTransitionState) ||
@@ -578,86 +612,118 @@ public sealed class Boss_Alien : BossEnemy
             _phaseTwoSpawnPoint == null)
         {
             throw new InvalidOperationException(
-                $"{name}: ÀüÈ¯ Animator, Alien_PhaseTransition, " +
+                $"{name}: ì „í™˜ Animator, Alien_PhaseTransition, " +
                 "Robot Arm Root, Phase Two Prefab, " +
-                "Phase Two Spawn Point¸¦ È®ÀÎÇÏ¼¼¿ä.");
+                "Phase Two Spawn Pointë¥¼ í™•ì¸í•˜ì„¸ìš”.");
         }
 
-        // »ı¼º À§Ä¡°¡ ·Îº¿ÀÇ ÀÚ½ÄÀÎÁö È®ÀÎÇÑ´Ù.
+        // ìƒì„± ìœ„ì¹˜ê°€ ë¡œë´‡ì˜ ìì‹ì¸ì§€ í™•ì¸í•œë‹¤.
         if (!_phaseTwoSpawnPoint.IsChildOf(transform))
         {
             throw new InvalidOperationException(
-                $"{name}: Phase Two Spawn Point´Â ·Îº¿ÀÇ ÀÚ½ÄÀÌ¾î¾ß ÇÕ´Ï´Ù.");
+                $"{name}: Phase Two Spawn PointëŠ” ë¡œë´‡ì˜ ìì‹ì´ì–´ì•¼ í•©ë‹ˆë‹¤.");
         }
 
-        // Á¤¸® Áß Ãß°¡ ÇÇÇØ°¡ µé¾î¿Íµµ ÀüÈ¯À» ¹æÇØÇÏÁö ¸øÇÏ°Ô ÇÑ´Ù.
+        // ì •ë¦¬ ì¤‘ ì¶”ê°€ í”¼í•´ê°€ ë“¤ì–´ì™€ë„ ì „í™˜ì„ ë°©í•´í•˜ì§€ ëª»í•˜ê²Œ í•œë‹¤.
         _isPhaseTransitioning = true;
 
-        // ½ÇÇà ÁßÀÎ °ø°İ°ú ¿¹¾àµÈ °ø°İÀ» Ãë¼ÒÇÑ´Ù.
+        // ì‹¤í–‰ ì¤‘ì¸ ê³µê²©ê³¼ ì˜ˆì•½ëœ ê³µê²©ì„ ì·¨ì†Œí•œë‹¤.
         StopPatternsForPhaseChange();
 
-        // ÀÌÀü °æ°í ¿Ï·á¸¦ ±â´Ù¸®´ø ±¸µ¶À» Á¤¸®ÇÑ´Ù.
+        // ì´ì „ ê²½ê³  ì™„ë£Œë¥¼ ê¸°ë‹¤ë¦¬ë˜ êµ¬ë…ì„ ì •ë¦¬í•œë‹¤.
         ClearResonanceWarningWait();
 
-        // ·Îº¿ÀÇ ±Õ¿­°ú ½Çµå ¿ÜÇüÀ» Á¦°ÅÇÑ´Ù.
+        // ë¡œë´‡ì˜ ê· ì—´ê³¼ ì‹¤ë“œ ì™¸í˜•ì„ ì œê±°í•œë‹¤.
         _crackController.ClearAll();
         _shieldVisual.SetActive(false);
 
-        // ÆĞÅÏ Á¾·á °úÁ¤¿¡¼­ ÀÌµ¿ÀÌ Àç°³µÉ ¼ö ÀÖÀ¸¹Ç·Î ¸¶Áö¸·¿¡ Àá±Ù´Ù.
+        // íŒ¨í„´ ì¢…ë£Œ ê³¼ì •ì—ì„œ ì´ë™ì´ ì¬ê°œë  ìˆ˜ ìˆìœ¼ë¯€ë¡œ ë§ˆì§€ë§‰ì— ì ê·¼ë‹¤.
         SetControllable(false);
 
-        // ÀâÈù ÇÃ·¹ÀÌ¾î¿Í ÆÈ »óÅÂ¸¦ Á¤¸®ÇÏ°í ±âÁ¸ ÆÈ ¿ÜÇüÀ» ¼û±ä´Ù.
+        // ì¡íŒ í”Œë ˆì´ì–´ì™€ íŒ” ìƒíƒœë¥¼ ì •ë¦¬í•˜ê³  ê¸°ì¡´ íŒ” ì™¸í˜•ì„ ìˆ¨ê¸´ë‹¤.
         ResetArm();
         _robotArmRoot.SetActive(false);
 
-        // ÀüÈ¯ Áß ·Îº¿ ¸öÃ¼°¡ ÇÃ·¹ÀÌ¾î¿¡°Ô Á¢ÃË ÇÇÇØ¸¦ ÁÖÁö ¾Ê°Ô ÇÑ´Ù.
-        // ½Ã°¢Àû ¾Ö´Ï¸ŞÀÌ¼ÇÀº ¹°¸® ½Ã¹Ä·¹ÀÌ¼Ç°ú º°°³·Î °è¼Ó Àç»ıµÈ´Ù.
+        // ì „í™˜ ì¤‘ ë¡œë´‡ ëª¸ì²´ê°€ í”Œë ˆì´ì–´ì—ê²Œ ì ‘ì´‰ í”¼í•´ë¥¼ ì£¼ì§€ ì•Šê²Œ í•œë‹¤.
+        // ì‹œê°ì  ì• ë‹ˆë©”ì´ì…˜ì€ ë¬¼ë¦¬ ì‹œë®¬ë ˆì´ì…˜ê³¼ ë³„ê°œë¡œ ê³„ì† ì¬ìƒëœë‹¤.
         if (TryGetComponent(out Rigidbody2D body))
         {
             body.linearVelocity = Vector2.zero;
             body.simulated = false;
         }
 
-        // Á¤¸®°¡ ³¡³­ ·Îº¿¿¡¼­ ÆÄ±« ¹× º»Ã¼ µîÀå ¿¬ÃâÀ» Àç»ıÇÑ´Ù.
+        // ì •ë¦¬ê°€ ëë‚œ ë¡œë´‡ì—ì„œ íŒŒê´´ ë° ë³¸ì²´ ë“±ì¥ ì—°ì¶œì„ ì¬ìƒí•œë‹¤.
         _phaseTransitionRoutine = StartCoroutine(PlayPhaseTransition());
 
-        // ºÎ¸ğÀÇ ÃÖÁ¾ »ç¸Á¡¤º¸»ó Ã³¸®¸¦ ½ÇÇàÇÏÁö ¾Ê´Â´Ù.
+        // ë¶€ëª¨ì˜ ìµœì¢… ì‚¬ë§Â·ë³´ìƒ ì²˜ë¦¬ë¥¼ ì‹¤í–‰í•˜ì§€ ì•ŠëŠ”ë‹¤.
         return true;
     }
 
-    // ÀüÈ¯ ¿¬ÃâÀÌ ³¡³ª¸é °ü¸®ÀÚ¿¡°Ô º»Ã¼ ÇÁ¸®ÆÕ ±³Ã¼¸¦ ¿äÃ»ÇÑ´Ù.
+    // ì „í™˜ ì—°ì¶œì´ ëë‚˜ë©´ ê´€ë¦¬ìì—ê²Œ ë³¸ì²´ í”„ë¦¬íŒ¹ êµì²´ë¥¼ ìš”ì²­í•œë‹¤.
     /// <summary>
-    /// ÀüÈ¯ ¿¬ÃâÀÌ ³¡³ª¸é °ü¸®ÀÚ¿¡°Ô º»Ã¼ ÇÁ¸®ÆÕ ±³Ã¼¸¦ ¿äÃ»ÇÑ´Ù.
+    /// ì „í™˜ ì—°ì¶œì´ ëë‚˜ë©´ ê´€ë¦¬ìì—ê²Œ ë³¸ì²´ í”„ë¦¬íŒ¹ êµì²´ë¥¼ ìš”ì²­í•œë‹¤.
     /// </summary>
     private IEnumerator PlayPhaseTransition()
     {
-        // ·Îº¿ÀÇ ÀüÈ¯ ¿¬ÃâÀ» Ã³À½ºÎÅÍ Àç»ıÇÑ´Ù.
-        _phaseTransitionAnimator.Play(PhaseTransitionState, 0, 0f);
+        // ë¬¼ë¦¬ì™€ íŒ¨í„´ì€ TryBeginNextPhaseì—ì„œ ì¤‘ë‹¨ëœ ìƒíƒœë‹¤.
+        // ë£¨íŠ¸ ì „ì²´ë¥¼ ì´ë™í•˜ì—¬ ìì‹ ì—°ì¶œê³¼ ë³¸ì²´ ìƒì„± ì§€ì ì„ í•¨ê»˜ ì˜®ê¸´ë‹¤.
+        Vector3 startPosition = transform.position;
+        float elapsed = 0f;
+        float duration = Mathf.Max(0.01f, _phaseTransitionMoveDuration);
+        while (elapsed < duration)
+        {
+            if (!CanContinuePhaseTransition())
+            {
+                _phaseTransitionRoutine = null;
+                yield break;
+            }
 
-        // Animator°¡ »õ »óÅÂ¸¦ Æò°¡ÇÒ ½Ã°£À» ÁØ´Ù.
+            // ì¼ì‹œì •ì§€ ì¤‘ì—ëŠ” ë³µê·€ ì´ë™ë„ ë©ˆì¶˜ë‹¤.
+            elapsed = Mathf.Min(elapsed + Time.deltaTime, duration);
+            float progress = Mathf.SmoothStep(0f, 1f, elapsed / duration);
+            transform.position = Vector3.Lerp(startPosition, _phaseTransitionPosition, progress);
+            yield return null;
+        }
+
+        // ë§ˆì§€ë§‰ yield ì´í›„ì— ì „íˆ¬ê°€ ì¤‘ë‹¨ëëŠ”ì§€ë„ í™•ì¸í•œë‹¤.
+        if (!CanContinuePhaseTransition())
+        {
+            _phaseTransitionRoutine = null;
+            yield break;
+        }
+        transform.position = _phaseTransitionPosition;
+
+        // ëª©ì ì§€ ë„ì°© í›„ ì „í™˜ ì• ë‹ˆë©”ì´ì…˜ê³¼ ì‚¬ìš´ë“œë¥¼ í•¨ê»˜ ì‹œì‘í•œë‹¤.
+        _phaseTransitionAnimator.Play(PhaseTransitionState, 0, 0f);
+        GameAudio.SetMusic(GameSound.None); // í•˜ìš¸ë§ ë™ì•ˆ 1í˜ì´ì¦ˆ ìŒì•…ì„ ê°ì‡ .
+        _transitionAudio = GameAudio.PlayOwned(GameSound.AlienTransitionFull5s, this);
+
+        // Animatorê°€ ìƒˆ ìƒíƒœë¥¼ í‰ê°€í•  ì‹œê°„ì„ ì¤€ë‹¤.
         yield return null;
 
         while (true)
         {
-            // ÀüÅõ°¡ Áß´ÜµÆ´Ù¸é º»Ã¼¸¦ »ı¼ºÇÏÁö ¾Ê´Â´Ù.
+            // ì „íˆ¬ê°€ ì¤‘ë‹¨ëë‹¤ë©´ ë³¸ì²´ë¥¼ ìƒì„±í•˜ì§€ ì•ŠëŠ”ë‹¤.
             if (!isActiveAndEnabled ||
                 IsDead ||
                 TargetPlayer == null ||
                 !TargetPlayer.isActiveAndEnabled ||
                 TargetPlayer.IsDead)
             {
+                GameAudio.Stop(_transitionAudio); // ì „í™˜ ì¤‘ë‹¨ ì‹œ ë‚¨ì€ í•˜ìš¸ë§ ì •ì§€.
                 _phaseTransitionRoutine = null;
                 yield break;
             }
 
-            // Animator ºñÈ°¼ºÈ­¸¦ Á¤»óÀûÀÎ ¿¬Ãâ ¿Ï·á·Î Ãë±ŞÇÏÁö ¾Ê´Â´Ù.
+            // Animator ë¹„í™œì„±í™”ë¥¼ ì •ìƒì ì¸ ì—°ì¶œ ì™„ë£Œë¡œ ì·¨ê¸‰í•˜ì§€ ì•ŠëŠ”ë‹¤.
             if (_phaseTransitionAnimator == null ||
                 !_phaseTransitionAnimator.isActiveAndEnabled)
             {
                 Debug.LogError(
-                    $"{name}: ÀüÈ¯ Áß Animator°¡ ºñÈ°¼ºÈ­µÆ½À´Ï´Ù.",
+                    $"{name}: ì „í™˜ ì¤‘ Animatorê°€ ë¹„í™œì„±í™”ëìŠµë‹ˆë‹¤.",
                     this);
 
+                GameAudio.Stop(_transitionAudio); // ì „í™˜ ì¤‘ë‹¨ ì‹œ ë‚¨ì€ í•˜ìš¸ë§ ì •ì§€.
                 _phaseTransitionRoutine = null;
                 yield break;
             }
@@ -665,18 +731,19 @@ public sealed class Boss_Alien : BossEnemy
             AnimatorStateInfo state =
                 _phaseTransitionAnimator.GetCurrentAnimatorStateInfo(0);
 
-            // ´Ù¸¥ »óÅÂ°¡ ÀüÈ¯ ¿¬ÃâÀ» µ¤¾î½è´Ù¸é ±³Ã¼¸¦ Áß´ÜÇÑ´Ù.
+            // ë‹¤ë¥¸ ìƒíƒœê°€ ì „í™˜ ì—°ì¶œì„ ë®ì–´ì¼ë‹¤ë©´ êµì²´ë¥¼ ì¤‘ë‹¨í•œë‹¤.
             if (state.fullPathHash != PhaseTransitionState)
             {
                 Debug.LogError(
-                    $"{name}: ÆäÀÌÁî ÀüÈ¯ ¾Ö´Ï¸ŞÀÌ¼ÇÀÌ Áß´ÜµÆ½À´Ï´Ù.",
+                    $"{name}: í˜ì´ì¦ˆ ì „í™˜ ì• ë‹ˆë©”ì´ì…˜ì´ ì¤‘ë‹¨ëìŠµë‹ˆë‹¤.",
                     this);
 
+                GameAudio.Stop(_transitionAudio); // ì „í™˜ ì¤‘ë‹¨ ì‹œ ë‚¨ì€ í•˜ìš¸ë§ ì •ì§€.
                 _phaseTransitionRoutine = null;
                 yield break;
             }
 
-            // ¹İº¹ÇÏÁö ¾Ê´Â ÀüÈ¯ Å¬¸³ÀÌ ³¡³µÀ» ¶§¸¸ ±³Ã¼ÇÑ´Ù.
+            // ë°˜ë³µí•˜ì§€ ì•ŠëŠ” ì „í™˜ í´ë¦½ì´ ëë‚¬ì„ ë•Œë§Œ êµì²´í•œë‹¤.
             if (state.normalizedTime >= 1f)
             {
                 break;
@@ -685,27 +752,31 @@ public sealed class Boss_Alien : BossEnemy
             yield return null;
         }
 
-        // ¿äÃ» Áß °ü¸®ÀÚ°¡ ·Îº¿À» ºñÈ°¼ºÈ­ÇÏ¹Ç·Î ÁÂÇ¥¸¦ ¸ÕÀú º¸°üÇÑ´Ù.
+        // ìš”ì²­ ì¤‘ ê´€ë¦¬ìê°€ ë¡œë´‡ì„ ë¹„í™œì„±í™”í•˜ë¯€ë¡œ ì¢Œí‘œë¥¼ ë¨¼ì € ë³´ê´€í•œë‹¤.
+        GameAudio.Stop(_transitionAudio); // ì •ìƒì ì¸ ì „í™˜ ì¢…ë£Œ.
+        _transitionAudio = default;
         Vector3 spawnPosition = _phaseTwoSpawnPoint.position;
         Quaternion spawnRotation = _phaseTwoSpawnPoint.rotation;
 
-        // OnDisable¿¡¼­ ¿Ï·á Á÷ÀüÀÇ ÄÚ·çÆ¾À» ´Ù½Ã Áß´ÜÇÏÁö ¾Êµµ·Ï ºñ¿î´Ù.
+        // OnDisableì—ì„œ ì™„ë£Œ ì§ì „ì˜ ì½”ë£¨í‹´ì„ ë‹¤ì‹œ ì¤‘ë‹¨í•˜ì§€ ì•Šë„ë¡ ë¹„ìš´ë‹¤.
         _phaseTransitionRoutine = null;
 
-        // ·Îº¿ÀÇ Ã¼·ÂÀ» È¸º¹ÇÏ°Å³ª ¹«ÀûÀ» ÇØÁ¦ÇÏÁö ¾Ê´Â´Ù.
-        // °ü¸®ÀÚ°¡ »õ º»Ã¼¸¦ ÁØºñÇÑ µÚ ·Îº¿À» Á¦°ÅÇÑ´Ù.
+        // ë¡œë´‡ì˜ ì²´ë ¥ì„ íšŒë³µí•˜ê±°ë‚˜ ë¬´ì ì„ í•´ì œí•˜ì§€ ì•ŠëŠ”ë‹¤.
+        // ê´€ë¦¬ìê°€ ìƒˆ ë³¸ì²´ë¥¼ ì¤€ë¹„í•œ ë’¤ ë¡œë´‡ì„ ì œê±°í•œë‹¤.
         RequestPhaseReplacement(
             _phaseTwoPrefab,
             spawnPosition,
             spawnRotation);
     }
 
-    // ÀüÅõ Áß´Ü ÈÄ ÀüÈ¯ ÄÚ·çÆ¾ÀÌ µÚ´Ê°Ô ¿Ï·áµÇ´Â °ÍÀ» ¸·´Â´Ù.
+    // ì „íˆ¬ ì¤‘ë‹¨ í›„ ì „í™˜ ì½”ë£¨í‹´ì´ ë’¤ëŠ¦ê²Œ ì™„ë£Œë˜ëŠ” ê²ƒì„ ë§‰ëŠ”ë‹¤.
     /// <summary>
-    /// ÀüÅõ Áß´Ü ÈÄ ÀüÈ¯ ÄÚ·çÆ¾ÀÌ µÚ´Ê°Ô ¿Ï·áµÇ´Â °ÍÀ» ¸·´Â´Ù.
+    /// ì „íˆ¬ ì¤‘ë‹¨ í›„ ì „í™˜ ì½”ë£¨í‹´ì´ ë’¤ëŠ¦ê²Œ ì™„ë£Œë˜ëŠ” ê²ƒì„ ë§‰ëŠ”ë‹¤.
     /// </summary>
     private void StopPhaseTransitionRoutine()
     {
+        GameAudio.Stop(_transitionAudio); // ì½”ë£¨í‹´ ì°¸ì¡°ë³´ë‹¤ ë¨¼ì € ì¬ìƒì„ ì •ë¦¬.
+        _transitionAudio = default;
         if (_phaseTransitionRoutine == null)
         {
             return;
@@ -714,7 +785,7 @@ public sealed class Boss_Alien : BossEnemy
         StopCoroutine(_phaseTransitionRoutine);
         _phaseTransitionRoutine = null;
 
-        // ÀüÅõ Áß´ÜÀ» Á¤»óÀûÀÎ µîÀå ¿Ï·á·Î Ãë±ŞÇÏÁö ¾Ê´Â´Ù.
-        // ¿©±â¼­´Â ¹«ÀûÀ» ÇØÁ¦ÇÏÁö ¾Ê´Â´Ù.
+        // ì „íˆ¬ ì¤‘ë‹¨ì„ ì •ìƒì ì¸ ë“±ì¥ ì™„ë£Œë¡œ ì·¨ê¸‰í•˜ì§€ ì•ŠëŠ”ë‹¤.
+        // ì—¬ê¸°ì„œëŠ” ë¬´ì ì„ í•´ì œí•˜ì§€ ì•ŠëŠ”ë‹¤.
     }
 }

@@ -26,8 +26,8 @@ MonoBehaviour:
   _playerSpriteLibrary: {fileID: 7108339969198208228, guid: 3660a97f90bb5e047b0d5f7911f184c9, type: 3}
   _characterSelectPreviewScale: 4
   _characterSelectPreviewOffset: {x: 0, y: 80}
-  _baseDamage: 50
-  _baseCooltime: 0.3
+  _baseDamage: 42
+  _baseCooltime: 0.65
   _maximumChargeCount: 0
   _chargeRecoveryTime: 5
   _chargeRecoveryUpgradeValue: 0.5
@@ -39,10 +39,15 @@ MonoBehaviour:
   _price: 0
   _requiredCharacterLevel: 1
   _isInitiallyOwned: 1
-  _fireRateUpgradeValue: 0.01
-  _minimumCooltime: 0.05
-  _info: "\uC804\uBC29\uC744 \uD5A5\uD574 \uCC38\uACA9\uC744 \uB0A0\uB9B0\uB2E4."
-  _upgradeSelectionInfo: "Slash\uB97C \uAC15\uD654\uD55C\uB2E4."
-  _weaponMoveSpeed: 5
+  _fireRateUpgradeValue: 0.04
+  _minimumCooltime: 0.4
+  _info: "\uBA40\uB9AC \uC788\uB294 \uC801\uC744 \uACAC\uC81C\uD558\uB294 \uAC80\uAE30.
+    \uAE30\uBCF8 \uD53C\uD574 42, \uBC1C\uC0AC \uAC04\uACA9 0.65\uCD08."
+  _damageUpgradeSelectionInfo: "공격력은 기본 피해의 15%씩 증가합니다."
+  _fireRateUpgradeSelectionInfo: "연사 강화는 발사 간격을 0.04초 줄입니다."
+  _meleeFirstDamage: 30
+  _meleeSecondDamage: 30
+  _meleeThirdDamage: 30
+  _weaponMoveSpeed: 6
   _lazerHitsPerSecond: 10
   _lazerHitsPerSecondUpgrade: 1

@@ -1,77 +1,77 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-// ÀÎº¥Åä¸® ¿­±â¡¤´İ±â, ÀÔ·Â Â÷´Ü, ½½·Ô Ç¥½Ã, µå·¡±× ±³È¯À» Á¶Á¤ÇÑ´Ù.
+// ì¸ë²¤í† ë¦¬ ì—´ê¸°Â·ë‹«ê¸°, ì…ë ¥ ì°¨ë‹¨, ìŠ¬ë¡¯ í‘œì‹œ, ë“œë˜ê·¸ êµí™˜ì„ ì¡°ì •í•œë‹¤.
 public class InventoryPresenter : MonoBehaviour
 {
-    // ÄÑ°í ²ø Canvas_InventoryÀÇ Canvas´Ù.
+    // ì¼œê³  ëŒ Canvas_Inventoryì˜ Canvasë‹¤.
     [SerializeField] private Canvas _inventoryCanvas;
 
-    // ±âÁ¸ 18°³ ½½·ÔÀÌ Á÷Á¢ ÀÚ½ÄÀ¸·Î ¹èÄ¡µÈ Content´Ù.
+    // ê¸°ì¡´ 18ê°œ ìŠ¬ë¡¯ì´ ì§ì ‘ ìì‹ìœ¼ë¡œ ë°°ì¹˜ëœ Contentë‹¤.
     [SerializeField] private Transform _content;
 
-    // ÀúÀåµÈ ¾ÆÀÌÅÛ ID·Î ÀÌ¸§°ú ¾ÆÀÌÄÜÀ» Ã£´Â µ¥ÀÌÅÍº£ÀÌ½º´Ù.
+    // ì €ì¥ëœ ì•„ì´í…œ IDë¡œ ì´ë¦„ê³¼ ì•„ì´ì½˜ì„ ì°¾ëŠ” ë°ì´í„°ë² ì´ìŠ¤ë‹¤.
     [SerializeField] private ItemDatabase _database;
 
-    // ÀÎº¥Åä¸®°¡ ¿­¸° µ¿¾È Á¶ÀÛÀ» Â÷´ÜÇÒ Town ÇÃ·¹ÀÌ¾î´Ù.
+    // ì¸ë²¤í† ë¦¬ê°€ ì—´ë¦° ë™ì•ˆ ì¡°ì‘ì„ ì°¨ë‹¨í•  Town í”Œë ˆì´ì–´ë‹¤.
     [SerializeField] private TownPlayerController _player;
 
-    // È­¸é ¿ŞÂÊ °¡¹æ ¹öÆ°ÀÌ´Ù.
+    // í™”ë©´ ì™¼ìª½ ê°€ë°© ë²„íŠ¼ì´ë‹¤.
     [SerializeField] private Button _bagButton;
 
-    // ÀÎº¥Åä¸® ¿ìÃø »ó´Ü ´İ±â ¹öÆ°ÀÌ´Ù.
+    // ì¸ë²¤í† ë¦¬ ìš°ì¸¡ ìƒë‹¨ ë‹«ê¸° ë²„íŠ¼ì´ë‹¤.
     [SerializeField] private Button _closeButton;
 
-    // °¡¹æ ¹öÆ°¿¡ Ãß°¡ÇÒ Canvas´Ù.
-    // ÀÎº¥Åä¸®°¡ ¿­·ÈÀ» ¶§¸¸ ¹öÆ°À» Â÷´Ü¸· À§·Î ¿Ã¸°´Ù.
+    // ê°€ë°© ë²„íŠ¼ì— ì¶”ê°€í•  Canvasë‹¤.
+    // ì¸ë²¤í† ë¦¬ê°€ ì—´ë ¸ì„ ë•Œë§Œ ë²„íŠ¼ì„ ì°¨ë‹¨ë§‰ ìœ„ë¡œ ì˜¬ë¦°ë‹¤.
     [SerializeField] private Canvas _bagCanvas;
 
-    // Å°º¸µå·Î ¹è°æ UI¸¦ ¼±ÅÃÇÏ°Å³ª ½ÇÇàÇÏ´Â °ÍÀ» Â÷´ÜÇÑ´Ù.
+    // í‚¤ë³´ë“œë¡œ ë°°ê²½ UIë¥¼ ì„ íƒí•˜ê±°ë‚˜ ì‹¤í–‰í•˜ëŠ” ê²ƒì„ ì°¨ë‹¨í•œë‹¤.
     [SerializeField] private EventSystem _eventSystem;
 
-    // ¾ÆÀÌÅÛ »ó¼¼ Á¤º¸¸¦ Ç¥½ÃÇÒ ÅøÆÁÀÌ´Ù.
+    // ì•„ì´í…œ ìƒì„¸ ì •ë³´ë¥¼ í‘œì‹œí•  íˆ´íŒì´ë‹¤.
     [SerializeField] private InventoryTooltipView _tooltip;
 
-    // Canvas ¾Æ·¡ DraggingSlotÀÇ ÃÖ»óÀ§ RectTransformÀÌ´Ù.
+    // Canvas ì•„ë˜ DraggingSlotì˜ ìµœìƒìœ„ RectTransformì´ë‹¤.
     [SerializeField] private RectTransform _draggingSlot;
 
-    // DraggingSlot ÀÚ½Ä IconÀÇ Image´Ù.
+    // DraggingSlot ìì‹ Iconì˜ Imageë‹¤.
     [SerializeField] private Image _dragIcon;
 
-    // Context Menu·Î Áö±ŞÇÒ ¾ÆÀÌÅÛ ÇÁ¸®ÆÕÀÇ ItemÀÌ´Ù.
-    // ItemDatabase¿¡ µî·ÏµÈ ÇÁ¸®ÆÕÀ» ¿¬°áÇÑ´Ù.
+    // Context Menuë¡œ ì§€ê¸‰í•  ì•„ì´í…œ í”„ë¦¬íŒ¹ì˜ Itemì´ë‹¤.
+    // ItemDatabaseì— ë“±ë¡ëœ í”„ë¦¬íŒ¹ì„ ì—°ê²°í•œë‹¤.
     [SerializeField] private Item _testItem;
 
-    // Context Menu¸¦ ÇÑ ¹ø ½ÇÇàÇÒ ¶§ Áö±ŞÇÒ ¼ö·®ÀÌ´Ù.
+    // Context Menuë¥¼ í•œ ë²ˆ ì‹¤í–‰í•  ë•Œ ì§€ê¸‰í•  ìˆ˜ëŸ‰ì´ë‹¤.
     [SerializeField, Min(1)] private int _testItemAmount = 1;
 
-    // ±âÁ¸ ½½·Ô°ú ÇöÀç Ç¥½ÃÇÑ ¾ÆÀÌÅÛ Á¤º¸¸¦ º¸°üÇÑ´Ù.
+    // ê¸°ì¡´ ìŠ¬ë¡¯ê³¼ í˜„ì¬ í‘œì‹œí•œ ì•„ì´í…œ ì •ë³´ë¥¼ ë³´ê´€í•œë‹¤.
     private readonly InventorySlotView[] _slots =
         new InventorySlotView[InventoryService.Capacity];
 
     private readonly Item[] _items =
         new Item[InventoryService.Capacity];
 
-    // ÇöÀç ÀÎº¥Åä¸®°¡ ±¸µ¶ÇÏ´Â ÀúÀå °ü¸®ÀÚ´Ù.
+    // í˜„ì¬ ì¸ë²¤í† ë¦¬ê°€ êµ¬ë…í•˜ëŠ” ì €ì¥ ê´€ë¦¬ìë‹¤.
     private SaveManager _saveManager;
 
-    // ÃÊ±âÈ­¡¤¿­¸² »óÅÂ¿Í ¿­±â Àü UI Å°º¸µå Å½»ö ¼³Á¤ÀÌ´Ù.
+    // ì´ˆê¸°í™”Â·ì—´ë¦¼ ìƒíƒœì™€ ì—´ê¸° ì „ UI í‚¤ë³´ë“œ íƒìƒ‰ ì„¤ì •ì´ë‹¤.
     private bool _ready;
     private bool _isOpen;
     private bool _previousNavigation;
 
-    // ¸¶¿ì½º°¡ ¿Ã¶ó°£ ½½·Ô°ú µå·¡±× Ãâ¹ß ½½·ÔÀÌ´Ù.
-    // -1Àº ÇØ´ç ½½·ÔÀÌ ¾ø´Ù´Â ¶æÀÌ´Ù.
+    // ë§ˆìš°ìŠ¤ê°€ ì˜¬ë¼ê°„ ìŠ¬ë¡¯ê³¼ ë“œë˜ê·¸ ì¶œë°œ ìŠ¬ë¡¯ì´ë‹¤.
+    // -1ì€ í•´ë‹¹ ìŠ¬ë¡¯ì´ ì—†ë‹¤ëŠ” ëœ»ì´ë‹¤.
     private int _hoverIndex = -1;
     private int _dragIndex = -1;
 
-    // IÅ°¿Í ¹öÆ°ÀÌ °°Àº ÇÁ·¹ÀÓ¿¡ µé¾î¿Í µÎ ¹ø Åä±ÛµÇ´Â °ÍÀ» ¸·´Â´Ù.
+    // Ií‚¤ì™€ ë²„íŠ¼ì´ ê°™ì€ í”„ë ˆì„ì— ë“¤ì–´ì™€ ë‘ ë²ˆ í† ê¸€ë˜ëŠ” ê²ƒì„ ë§‰ëŠ”ë‹¤.
     private int _lastToggleFrame = -1;
 
-    // Inspector È°¼º »óÅÂ¿Í °ü°è¾øÀÌ ´İÈù »óÅÂ·Î ÁØºñÇÑ´Ù.
+    // Inspector í™œì„± ìƒíƒœì™€ ê´€ê³„ì—†ì´ ë‹«íŒ ìƒíƒœë¡œ ì¤€ë¹„í•œë‹¤.
     private void Awake()
     {
         if (_inventoryCanvas == null || _content == null ||
@@ -81,26 +81,26 @@ public class InventoryPresenter : MonoBehaviour
             _tooltip == null || _draggingSlot == null || _dragIcon == null)
         {
             throw new InvalidOperationException(
-                "InventoryPresenterÀÇ Inspector ¿¬°áÀ» È®ÀÎÇØÁÖ¼¼¿ä.");
+                "InventoryPresenterì˜ Inspector ì—°ê²°ì„ í™•ì¸í•´ì£¼ì„¸ìš”.");
         }
 
         if (transform.IsChildOf(_inventoryCanvas.transform))
         {
             throw new InvalidOperationException(
-                "InventoryManager´Â Canvas_Inventory ¹Û¿¡ ¹èÄ¡ÇØÁÖ¼¼¿ä.");
+                "InventoryManagerëŠ” Canvas_Inventory ë°–ì— ë°°ì¹˜í•´ì£¼ì„¸ìš”.");
         }
 
-        // ÇöÀç Town ¾ÀÀÇ Screen Space Overlay ¹æ½ÄÀ» »ç¿ëÇÑ´Ù.
+        // í˜„ì¬ Town ì”¬ì˜ Screen Space Overlay ë°©ì‹ì„ ì‚¬ìš©í•œë‹¤.
         if (_inventoryCanvas.renderMode != RenderMode.ScreenSpaceOverlay)
         {
             throw new InvalidOperationException(
-                "Canvas_Inventory¸¦ Screen Space Overlay·Î ¼³Á¤ÇØÁÖ¼¼¿ä.");
+                "Canvas_Inventoryë¥¼ Screen Space Overlayë¡œ ì„¤ì •í•´ì£¼ì„¸ìš”.");
         }
 
         if (_content.childCount != InventoryService.Capacity)
         {
             throw new InvalidOperationException(
-                "ContentÀÇ Á÷Á¢ ÀÚ½ÄÀº ÀÎº¥Åä¸® ½½·Ô 18°³¿©¾ß ÇÕ´Ï´Ù.");
+                "Contentì˜ ì§ì ‘ ìì‹ì€ ì¸ë²¤í† ë¦¬ ìŠ¬ë¡¯ 18ê°œì—¬ì•¼ í•©ë‹ˆë‹¤.");
         }
 
         for (int i = 0; i < _slots.Length; i++)
@@ -111,7 +111,7 @@ public class InventoryPresenter : MonoBehaviour
             if (slot == null)
             {
                 throw new InvalidOperationException(
-                    $"ContentÀÇ {i}¹ø ÀÚ½Ä¿¡ InventorySlotView°¡ ¾ø½À´Ï´Ù.");
+                    $"Contentì˜ {i}ë²ˆ ìì‹ì— InventorySlotViewê°€ ì—†ìŠµë‹ˆë‹¤.");
             }
 
             _slots[i] = slot;
@@ -121,11 +121,11 @@ public class InventoryPresenter : MonoBehaviour
 
         _tooltip.Initialize();
 
-        // µå·¡±× ÀÌ¹ÌÁöÀÇ Áß½ÉÀ» Ä¿¼­¿¡ ¸ÂÃá´Ù.
+        // ë“œë˜ê·¸ ì´ë¯¸ì§€ì˜ ì¤‘ì‹¬ì„ ì»¤ì„œì— ë§ì¶˜ë‹¤.
         _draggingSlot.pivot = new Vector2(0.5f, 0.5f);
         _dragIcon.preserveAspect = true;
 
-        // µå·¡±× ÀÌ¹ÌÁö°¡ ¾Æ·¡ÂÊ ½½·ÔÀÇ µå·Ó ÆÇÁ¤À» ¸·Áö ¾Ê°Ô ÇÑ´Ù.
+        // ë“œë˜ê·¸ ì´ë¯¸ì§€ê°€ ì•„ë˜ìª½ ìŠ¬ë¡¯ì˜ ë“œë¡­ íŒì •ì„ ë§‰ì§€ ì•Šê²Œ í•œë‹¤.
         foreach (Graphic graphic in
                  _draggingSlot.GetComponentsInChildren<Graphic>(true))
         {
@@ -135,13 +135,13 @@ public class InventoryPresenter : MonoBehaviour
         _draggingSlot.gameObject.SetActive(false);
         _inventoryCanvas.gameObject.SetActive(false);
 
-        // Æò¼Ò¿¡´Â ±âÁ¸ HUDÀÇ Á¤·ÄÀ» µû¸¥´Ù.
+        // í‰ì†Œì—ëŠ” ê¸°ì¡´ HUDì˜ ì •ë ¬ì„ ë”°ë¥¸ë‹¤.
         _bagCanvas.overrideSorting = false;
 
         _ready = true;
     }
 
-    // ¹öÆ° ÀÌº¥Æ®¸¦ ÄÚµå¿¡¼­ ¿¬°áÇÑ´Ù.
+    // ë²„íŠ¼ ì´ë²¤íŠ¸ë¥¼ ì½”ë“œì—ì„œ ì—°ê²°í•œë‹¤.
     private void OnEnable()
     {
         if (!_ready)
@@ -153,7 +153,7 @@ public class InventoryPresenter : MonoBehaviour
         _closeButton.onClick.AddListener(Close);
     }
 
-    // ÀÎº¥Åä¸®ÀÇ À¯Áö Á¶°Ç°ú ¿­±â¡¤´İ±â Å° ÀÔ·ÂÀ» È®ÀÎÇÑ´Ù.
+    // ì¸ë²¤í† ë¦¬ì˜ ìœ ì§€ ì¡°ê±´ê³¼ ì—´ê¸°Â·ë‹«ê¸° í‚¤ ì…ë ¥ì„ í™•ì¸í•œë‹¤.
     private void Update()
     {
         if (!_ready)
@@ -161,7 +161,7 @@ public class InventoryPresenter : MonoBehaviour
             return;
         }
 
-        // ·Î±×¾Æ¿ôÀÌ³ª ¿ÜºÎ ºñÈ°¼ºÈ­ ½Ã Á¶ÀÛ Àá±İµµ ÇÔ²² ÇØÁ¦ÇÑ´Ù.
+        // ë¡œê·¸ì•„ì›ƒì´ë‚˜ ì™¸ë¶€ ë¹„í™œì„±í™” ì‹œ ì¡°ì‘ ì ê¸ˆë„ í•¨ê»˜ í•´ì œí•œë‹¤.
         if (_isOpen &&
             (!_inventoryCanvas.gameObject.activeInHierarchy ||
              _saveManager == null || !_saveManager.IsLoggedIn ||
@@ -172,25 +172,25 @@ public class InventoryPresenter : MonoBehaviour
             return;
         }
 
-        // Esc´Â ¿­¸° ÀÎº¥Åä¸®¸¦ ´İ±â¸¸ ÇÑ´Ù.
+        // EscëŠ” ì—´ë¦° ì¸ë²¤í† ë¦¬ë¥¼ ë‹«ê¸°ë§Œ í•œë‹¤.
         if (_isOpen && Input.GetKeyDown(KeyCode.Escape))
         {
-            // °°Àº ÇÁ·¹ÀÓÀÇ IÅ°³ª °¡¹æ ¹öÆ°ÀÌ ´Ù½Ã ¿©´Â °ÍÀ» ¸·´Â´Ù.
+            // ê°™ì€ í”„ë ˆì„ì˜ Ií‚¤ë‚˜ ê°€ë°© ë²„íŠ¼ì´ ë‹¤ì‹œ ì—¬ëŠ” ê²ƒì„ ë§‰ëŠ”ë‹¤.
             _lastToggleFrame = Time.frameCount;
 
-            // ±âÁ¸ ´İ±â Ã³¸®°¡ µå·¡±×, ÅøÆÁ, Á¶ÀÛ Àá±İ±îÁö Á¤¸®ÇÑ´Ù.
+            // ê¸°ì¡´ ë‹«ê¸° ì²˜ë¦¬ê°€ ë“œë˜ê·¸, íˆ´íŒ, ì¡°ì‘ ì ê¸ˆê¹Œì§€ ì •ë¦¬í•œë‹¤.
             Close();
             return;
         }
 
-        // IÅ°´Â ÀÎº¥Åä¸®ÀÇ ¿­¸² »óÅÂ¸¦ ÀüÈ¯ÇÑ´Ù.
+        // Ií‚¤ëŠ” ì¸ë²¤í† ë¦¬ì˜ ì—´ë¦¼ ìƒíƒœë¥¼ ì „í™˜í•œë‹¤.
         if (Input.GetKeyDown(KeyCode.I))
         {
             Toggle();
         }
     }
 
-    // °¡¹æ ¹öÆ°°ú IÅ°°¡ »ç¿ëÇÏ´Â °øÅë Åä±ÛÀÌ´Ù.
+    // ê°€ë°© ë²„íŠ¼ê³¼ Ií‚¤ê°€ ì‚¬ìš©í•˜ëŠ” ê³µí†µ í† ê¸€ì´ë‹¤.
     public void Toggle()
     {
         if (!_ready || !isActiveAndEnabled ||
@@ -211,7 +211,7 @@ public class InventoryPresenter : MonoBehaviour
         }
     }
 
-    // ´Ù¸¥ ´ëÈ­³ª Ã¢ÀÌ ÇÃ·¹ÀÌ¾î Á¶ÀÛÀ» Àá±Ù »óÅÂ¿¡¼­´Â ¿­Áö ¾Ê´Â´Ù.
+    // ë‹¤ë¥¸ ëŒ€í™”ë‚˜ ì°½ì´ í”Œë ˆì´ì–´ ì¡°ì‘ì„ ì ê·¼ ìƒíƒœì—ì„œëŠ” ì—´ì§€ ì•ŠëŠ”ë‹¤.
     private void Open()
     {
         SaveManager saveManager = SaveManager.Instance;
@@ -225,7 +225,7 @@ public class InventoryPresenter : MonoBehaviour
 
         _saveManager = saveManager;
 
-        // µ¥ÀÌÅÍ ¿À·ù°¡ ÀÖÀ¸¸é Á¶ÀÛÀ» Àá±×±â Àü¿¡ ¾Ë¸°´Ù.
+        // ë°ì´í„° ì˜¤ë¥˜ê°€ ìˆìœ¼ë©´ ì¡°ì‘ì„ ì ê·¸ê¸° ì „ì— ì•Œë¦°ë‹¤.
         try
         {
             Render();
@@ -246,20 +246,21 @@ public class InventoryPresenter : MonoBehaviour
 
         _player.SetControlEnabled(false);
 
-        // ¿­¸° »óÅÂ¿¡¼­µµ °¡¹æ ¹öÆ°À¸·Î ´Ù½Ã ´İÀ» ¼ö ÀÖ°Ô ÇÑ´Ù.
+        // ì—´ë¦° ìƒíƒœì—ì„œë„ ê°€ë°© ë²„íŠ¼ìœ¼ë¡œ ë‹¤ì‹œ ë‹«ì„ ìˆ˜ ìˆê²Œ í•œë‹¤.
         _bagCanvas.sortingLayerID = _inventoryCanvas.sortingLayerID;
         _bagCanvas.overrideSorting = true;
         _bagCanvas.sortingOrder = _inventoryCanvas.sortingOrder + 1;
 
-        // ±âÁ¸ SaveToFileÀÌ ÀúÀå ¼º°ø ÈÄ ¹ß»ı½ÃÅ°´Â ÀÌº¥Æ®¸¦ ±¸µ¶ÇÑ´Ù.
+        // ê¸°ì¡´ SaveToFileì´ ì €ì¥ ì„±ê³µ í›„ ë°œìƒì‹œí‚¤ëŠ” ì´ë²¤íŠ¸ë¥¼ êµ¬ë…í•œë‹¤.
         _saveManager.UserStatusChanged += HandleSaved;
 
         _inventoryCanvas.gameObject.SetActive(true);
+        GameAudio.Play(GameSound.UiWindowOpen);
         _tooltip.Hide();
         _draggingSlot.gameObject.SetActive(false);
     }
 
-    // ´İ±â ¹öÆ°, IÅ°, °¡¹æ ¹öÆ°ÀÇ ´İ±â Ã³¸®¸¦ ÅëÇÕÇÑ´Ù.
+    // ë‹«ê¸° ë²„íŠ¼, Ií‚¤, ê°€ë°© ë²„íŠ¼ì˜ ë‹«ê¸° ì²˜ë¦¬ë¥¼ í†µí•©í•œë‹¤.
     public void Close()
     {
         if (!_ready || !_isOpen)
@@ -267,6 +268,7 @@ public class InventoryPresenter : MonoBehaviour
             return;
         }
 
+        if (isActiveAndEnabled) GameAudio.Play(GameSound.UiWindowClose);
         _isOpen = false;
         _hoverIndex = -1;
         _dragIndex = -1;
@@ -285,20 +287,20 @@ public class InventoryPresenter : MonoBehaviour
         _eventSystem.SetSelectedGameObject(null);
         _eventSystem.sendNavigationEvents = _previousNavigation;
 
-        // ÀÌ Ã¢ÀÌ ¿­¸®¸é¼­ Àá±Ù Á¶ÀÛÀ» º¹±¸ÇÑ´Ù.
+        // ì´ ì°½ì´ ì—´ë¦¬ë©´ì„œ ì ê·¼ ì¡°ì‘ì„ ë³µêµ¬í•œë‹¤.
         if (_player != null)
         {
             _player.SetControlEnabled(true);
         }
     }
 
-    // ÀúÀåµÈ ½½·Ô ¼ø¼­´ë·Î ±âÁ¸ 18°³ UI¸¦ °»½ÅÇÑ´Ù.
+    // ì €ì¥ëœ ìŠ¬ë¡¯ ìˆœì„œëŒ€ë¡œ ê¸°ì¡´ 18ê°œ UIë¥¼ ê°±ì‹ í•œë‹¤.
     private void Render()
     {
         List<InventoryItemSaveData> entries =
             InventoryService.ReadSlots(_saveManager.PlayerSaveData);
 
-        // ¸ÕÀú ¸ğµç ID¸¦ È®ÀÎÇØ¼­ Àß¸øµÈ µ¥ÀÌÅÍ·Î ÀÏºÎ¸¸ °»½ÅÇÏÁö ¾Ê´Â´Ù.
+        // ë¨¼ì € ëª¨ë“  IDë¥¼ í™•ì¸í•´ì„œ ì˜ëª»ëœ ë°ì´í„°ë¡œ ì¼ë¶€ë§Œ ê°±ì‹ í•˜ì§€ ì•ŠëŠ”ë‹¤.
         for (int i = 0; i < _items.Length; i++)
         {
             _items[i] = entries[i].count > 0
@@ -312,7 +314,7 @@ public class InventoryPresenter : MonoBehaviour
         }
     }
 
-    // Ã¢ÀÌ ¿­¸° Áß¿¡ ÀúÀå µ¥ÀÌÅÍ°¡ ¹Ù²î¸é ÇöÀç Ç¥½Ãµµ °»½ÅÇÑ´Ù.
+    // ì°½ì´ ì—´ë¦° ì¤‘ì— ì €ì¥ ë°ì´í„°ê°€ ë°”ë€Œë©´ í˜„ì¬ í‘œì‹œë„ ê°±ì‹ í•œë‹¤.
     private void HandleSaved()
     {
         if (!_isOpen)
@@ -320,7 +322,7 @@ public class InventoryPresenter : MonoBehaviour
             return;
         }
 
-        // µ¥ÀÌÅÍ°¡ º¯°æµÇ¸é ÀÌÀü ¾ÆÀÌÅÛÀ» ²ø´ø µå·¡±×´Â Á¾·áÇÑ´Ù.
+        // ë°ì´í„°ê°€ ë³€ê²½ë˜ë©´ ì´ì „ ì•„ì´í…œì„ ëŒë˜ ë“œë˜ê·¸ëŠ” ì¢…ë£Œí•œë‹¤.
         _dragIndex = -1;
         _draggingSlot.gameObject.SetActive(false);
         _tooltip.Hide();
@@ -329,7 +331,7 @@ public class InventoryPresenter : MonoBehaviour
         RefreshTooltip();
     }
 
-    // ½½·Ô ÁøÀÔÀ» ±â·ÏÇÏ°í Ç¥½Ã °¡´ÉÇÑ °æ¿ì ÅøÆÁÀ» ¿¬´Ù.
+    // ìŠ¬ë¡¯ ì§„ì…ì„ ê¸°ë¡í•˜ê³  í‘œì‹œ ê°€ëŠ¥í•œ ê²½ìš° íˆ´íŒì„ ì—°ë‹¤.
     public void Hover(int index)
     {
         if (!_isOpen)
@@ -341,7 +343,7 @@ public class InventoryPresenter : MonoBehaviour
         RefreshTooltip();
     }
 
-    // ÇöÀç ¸¶¿ì½º°¡ ÀÖ´ø ½½·ÔÀ» ¹ş¾î³µÀ» ¶§¸¸ ÅøÆÁÀ» ´İ´Â´Ù.
+    // í˜„ì¬ ë§ˆìš°ìŠ¤ê°€ ìˆë˜ ìŠ¬ë¡¯ì„ ë²—ì–´ë‚¬ì„ ë•Œë§Œ íˆ´íŒì„ ë‹«ëŠ”ë‹¤.
     public void Leave(int index)
     {
         if (_hoverIndex != index)
@@ -353,7 +355,7 @@ public class InventoryPresenter : MonoBehaviour
         _tooltip.Hide();
     }
 
-    // ºóÄ­ÀÌ³ª µå·¡±× Áß¿¡´Â ÅøÆÁÀ» Ç¥½ÃÇÏÁö ¾Ê´Â´Ù.
+    // ë¹ˆì¹¸ì´ë‚˜ ë“œë˜ê·¸ ì¤‘ì—ëŠ” íˆ´íŒì„ í‘œì‹œí•˜ì§€ ì•ŠëŠ”ë‹¤.
     private void RefreshTooltip()
     {
         if (!_isOpen || _dragIndex >= 0 ||
@@ -368,7 +370,7 @@ public class InventoryPresenter : MonoBehaviour
             _slots[_hoverIndex].Rect);
     }
 
-    // ¾ÆÀÌÅÛÀÌ ÀÖ´Â ½½·Ô¿¡¼­¸¸ µå·¡±×¸¦ ½ÃÀÛÇÑ´Ù.
+    // ì•„ì´í…œì´ ìˆëŠ” ìŠ¬ë¡¯ì—ì„œë§Œ ë“œë˜ê·¸ë¥¼ ì‹œì‘í•œë‹¤.
     public void BeginDrag(int index, Vector2 screenPosition)
     {
         if (!_isOpen || _dragIndex >= 0 || _items[index] == null)
@@ -377,6 +379,7 @@ public class InventoryPresenter : MonoBehaviour
         }
 
         _dragIndex = index;
+        GameAudio.Play(GameSound.InventoryItemSelect);
         _tooltip.Hide();
 
         _dragIcon.sprite = _items[index].Icon;
@@ -386,7 +389,7 @@ public class InventoryPresenter : MonoBehaviour
         MoveDrag(screenPosition);
     }
 
-    // Overlay CanvasÀÇ ÁÂÇ¥·Î Ä¿¼­ À§Ä¡¸¦ º¯È¯ÇÑ´Ù.
+    // Overlay Canvasì˜ ì¢Œí‘œë¡œ ì»¤ì„œ ìœ„ì¹˜ë¥¼ ë³€í™˜í•œë‹¤.
     public void MoveDrag(Vector2 screenPosition)
     {
         if (!_isOpen || _dragIndex < 0)
@@ -404,7 +407,7 @@ public class InventoryPresenter : MonoBehaviour
         }
     }
 
-    // ½½·Ô¿¡ ³õ¾ÒÀ» ¶§¸¸ ÀúÀå µ¥ÀÌÅÍÀÇ µÎ À§Ä¡¸¦ ±³È¯ÇÑ´Ù.
+    // ìŠ¬ë¡¯ì— ë†“ì•˜ì„ ë•Œë§Œ ì €ì¥ ë°ì´í„°ì˜ ë‘ ìœ„ì¹˜ë¥¼ êµí™˜í•œë‹¤.
     public void Drop(int targetIndex)
     {
         if (!_isOpen || _dragIndex < 0 || _dragIndex == targetIndex)
@@ -419,7 +422,7 @@ public class InventoryPresenter : MonoBehaviour
         }
     }
 
-    // ¿©¹é¿¡ ³õÀº °æ¿ì¿¡´Â ±³È¯ ¾øÀÌ µå·¡±× Ç¥½Ã¸¸ Á¾·áÇÑ´Ù.
+    // ì—¬ë°±ì— ë†“ì€ ê²½ìš°ì—ëŠ” êµí™˜ ì—†ì´ ë“œë˜ê·¸ í‘œì‹œë§Œ ì¢…ë£Œí•œë‹¤.
     public void EndDrag()
     {
         _dragIndex = -1;
@@ -427,7 +430,7 @@ public class InventoryPresenter : MonoBehaviour
         RefreshTooltip();
     }
 
-    // Ã¢ ¹ÛÀ¸·Î Æ÷Ä¿½º¸¦ ÀÒÀ¸¸é µå·¡±× Ç¥½Ã°¡ ³²Áö ¾Ê°Ô ÇÑ´Ù.
+    // ì°½ ë°–ìœ¼ë¡œ í¬ì»¤ìŠ¤ë¥¼ ìƒìœ¼ë©´ ë“œë˜ê·¸ í‘œì‹œê°€ ë‚¨ì§€ ì•Šê²Œ í•œë‹¤.
     private void OnApplicationFocus(bool hasFocus)
     {
         if (_ready && !hasFocus)
@@ -436,7 +439,7 @@ public class InventoryPresenter : MonoBehaviour
         }
     }
 
-    // °ü¸®ÀÚ ºñÈ°¼ºÈ­³ª ¾À Á¾·á ½Ã ÀÌº¥Æ®¿Í Á¶ÀÛ Àá±İÀ» Á¤¸®ÇÑ´Ù.
+    // ê´€ë¦¬ì ë¹„í™œì„±í™”ë‚˜ ì”¬ ì¢…ë£Œ ì‹œ ì´ë²¤íŠ¸ì™€ ì¡°ì‘ ì ê¸ˆì„ ì •ë¦¬í•œë‹¤.
     private void OnDisable()
     {
         if (!_ready)
@@ -450,23 +453,23 @@ public class InventoryPresenter : MonoBehaviour
         Close();
     }
 
-    // InspectorÀÇ ÄÄÆ÷³ÍÆ® ¸Ş´º¿¡¼­ ÁöÁ¤ÇÑ ¾ÆÀÌÅÛÀ» Áö±ŞÇÑ´Ù.
-    [ContextMenu("ÀÎº¥Åä¸® Å×½ºÆ®/ÁöÁ¤ ¾ÆÀÌÅÛ Ãß°¡")]
+    // Inspectorì˜ ì»´í¬ë„ŒíŠ¸ ë©”ë‰´ì—ì„œ ì§€ì •í•œ ì•„ì´í…œì„ ì§€ê¸‰í•œë‹¤.
+    [ContextMenu("ì¸ë²¤í† ë¦¬ í…ŒìŠ¤íŠ¸/ì§€ì • ì•„ì´í…œ ì¶”ê°€")]
     private void AddTestItem()
     {
-        // ÆíÁı »óÅÂ¿¡¼­´Â ½ÇÁ¦ ÀúÀå µ¥ÀÌÅÍ¸¦ º¯°æÇÏÁö ¾Ê´Â´Ù.
+        // í¸ì§‘ ìƒíƒœì—ì„œëŠ” ì‹¤ì œ ì €ì¥ ë°ì´í„°ë¥¼ ë³€ê²½í•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (!Application.isPlaying)
         {
-            Debug.LogWarning("ÇÃ·¹ÀÌ ¸ğµå¿¡¼­ ½ÇÇàÇØÁÖ¼¼¿ä.", this);
+            Debug.LogWarning("í”Œë ˆì´ ëª¨ë“œì—ì„œ ì‹¤í–‰í•´ì£¼ì„¸ìš”.", this);
             return;
         }
 
-        // ÀÎº¥Åä¸® Ã¢À» ¿­±â Àü¿¡µµ »ç¿ëÇÒ ¼ö ÀÖµµ·Ï Á÷Á¢ Á¶È¸ÇÑ´Ù.
+        // ì¸ë²¤í† ë¦¬ ì°½ì„ ì—´ê¸° ì „ì—ë„ ì‚¬ìš©í•  ìˆ˜ ìˆë„ë¡ ì§ì ‘ ì¡°íšŒí•œë‹¤.
         SaveManager saveManager = SaveManager.Instance;
 
         if (saveManager == null || !saveManager.IsLoggedIn)
         {
-            Debug.LogWarning("·Î±×ÀÎÇÑ µÚ ½ÇÇàÇØÁÖ¼¼¿ä.", this);
+            Debug.LogWarning("ë¡œê·¸ì¸í•œ ë’¤ ì‹¤í–‰í•´ì£¼ì„¸ìš”.", this);
             return;
         }
 
@@ -476,12 +479,12 @@ public class InventoryPresenter : MonoBehaviour
             _testItemAmount <= 0)
         {
             Debug.LogWarning(
-                "Database, Test Item, ¾ÆÀÌÅÛ ID, Áö±Ş ¼ö·®À» È®ÀÎÇØÁÖ¼¼¿ä.",
+                "Database, Test Item, ì•„ì´í…œ ID, ì§€ê¸‰ ìˆ˜ëŸ‰ì„ í™•ì¸í•´ì£¼ì„¸ìš”.",
                 this);
             return;
         }
 
-        // Áö±Ş ÈÄ UI¿¡¼­ Ã£À» ¼ö ÀÖ´Â ¾ÆÀÌÅÛÀÎÁö ¸ÕÀú °Ë»çÇÑ´Ù.
+        // ì§€ê¸‰ í›„ UIì—ì„œ ì°¾ì„ ìˆ˜ ìˆëŠ” ì•„ì´í…œì¸ì§€ ë¨¼ì € ê²€ì‚¬í•œë‹¤.
         Item registeredItem;
 
         try
@@ -494,16 +497,16 @@ public class InventoryPresenter : MonoBehaviour
             return;
         }
 
-        // ´Ù¸¥ ÇÁ¸®ÆÕÀÌ °°Àº ID¸¦ »ç¿ëÇÑ °æ¿ì Àß¸øµÈ Áö±ŞÀ» ¸·´Â´Ù.
+        // ë‹¤ë¥¸ í”„ë¦¬íŒ¹ì´ ê°™ì€ IDë¥¼ ì‚¬ìš©í•œ ê²½ìš° ì˜ëª»ëœ ì§€ê¸‰ì„ ë§‰ëŠ”ë‹¤.
         if (registeredItem != _testItem)
         {
             Debug.LogWarning(
-                "Test Item¿¡´Â ItemDatabase¿¡ µî·ÏÇÑ ÇÁ¸®ÆÕÀ» ¿¬°áÇØÁÖ¼¼¿ä.",
+                "Test Itemì—ëŠ” ItemDatabaseì— ë“±ë¡í•œ í”„ë¦¬íŒ¹ì„ ì—°ê²°í•´ì£¼ì„¸ìš”.",
                 this);
             return;
         }
 
-        // ½ÇÁ¦ È¹µæ°ú µ¿ÀÏÇÑ °æ·Î·Î °ø°£ °Ë»ç, ¼ö·® Áõ°¡, ÀúÀåÀ» ¼öÇàÇÑ´Ù.
+        // ì‹¤ì œ íšë“ê³¼ ë™ì¼í•œ ê²½ë¡œë¡œ ê³µê°„ ê²€ì‚¬, ìˆ˜ëŸ‰ ì¦ê°€, ì €ì¥ì„ ìˆ˜í–‰í•œë‹¤.
         if (!saveManager.TryAddItem(
                 registeredItem, _testItemAmount, out string error))
         {
@@ -511,13 +514,13 @@ public class InventoryPresenter : MonoBehaviour
             return;
         }
 
-        // ÃÖÁ¾ º¸À¯ ¼ö·®À» Ãâ·ÂÇØ Å×½ºÆ® °á°ú¸¦ È®ÀÎÇÑ´Ù.
+        // ìµœì¢… ë³´ìœ  ìˆ˜ëŸ‰ì„ ì¶œë ¥í•´ í…ŒìŠ¤íŠ¸ ê²°ê³¼ë¥¼ í™•ì¸í•œë‹¤.
         int totalCount = saveManager.PlayerSaveData.GetItemCount(
             registeredItem.Id);
 
         Debug.Log(
-            $"{registeredItem.DisplayName} {_testItemAmount}°³ Ãß°¡ ¿Ï·á. " +
-            $"ÇöÀç º¸À¯ ¼ö·®: {totalCount}°³",
+            $"{registeredItem.DisplayName} {_testItemAmount}ê°œ ì¶”ê°€ ì™„ë£Œ. " +
+            $"í˜„ì¬ ë³´ìœ  ìˆ˜ëŸ‰: {totalCount}ê°œ",
             this);
     }
 }

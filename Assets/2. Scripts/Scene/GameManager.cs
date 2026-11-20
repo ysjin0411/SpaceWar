@@ -1,84 +1,84 @@
-using System;
+ï»¿using System;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
 /// <summary>
-/// ½ºÅ×ÀÌÁöÀÇ Áõ°­ °ÔÀÌÁö¿Í Áõ°­ ½ÃÀÛ¡¤Á¾·á Èå¸§À» °ü¸®ÇÑ´Ù.
-/// Áõ°­ ÈÄº¸ ¼±ÅÃ°ú UI Ç¥½Ã´Â Upgrader MVP ½Ã½ºÅÛ¿¡ À§ÀÓÇÑ´Ù.
+/// ìŠ¤í…Œì´ì§€ì˜ ì¦ê°• ê²Œì´ì§€ì™€ ì¦ê°• ì‹œì‘Â·ì¢…ë£Œ íë¦„ì„ ê´€ë¦¬í•œë‹¤.
+/// ì¦ê°• í›„ë³´ ì„ íƒê³¼ UI í‘œì‹œëŠ” Upgrader MVP ì‹œìŠ¤í…œì— ìœ„ì„í•œë‹¤.
 /// </summary>
 public class GameManager : MonoBehaviour
 {
-    [Header("½ºÅ×ÀÌÁö UI")]
-    // Áõ°­ °ÔÀÌÁö È­¸é Ç¥½Ã¿Í ¿¬ÃâÀ» ´ã´çÇÏ´Â UI
+    [Header("ìŠ¤í…Œì´ì§€ UI")]
+    // ì¦ê°• ê²Œì´ì§€ í™”ë©´ í‘œì‹œì™€ ì—°ì¶œì„ ë‹´ë‹¹í•˜ëŠ” UI
     [SerializeField] private GaugeUIManager _gaugeUIManager;
 
-    [Header("Áõ°­ °ÔÀÌÁö")]
+    [Header("ì¦ê°• ê²Œì´ì§€")]
 
-    // Áõ°­ ¼±ÅÃÀÌ ¿­¸®´Â ÃÖ´ë °ÔÀÌÁö
+    // ì¦ê°• ì„ íƒì´ ì—´ë¦¬ëŠ” ìµœëŒ€ ê²Œì´ì§€
     [Min(0.01f)]
     [SerializeField] private float _maxGaugeBar = 100f;
 
-    // ÇöÀç±îÁö ÃæÀüµÈ Áõ°­ °ÔÀÌÁö
+    // í˜„ì¬ê¹Œì§€ ì¶©ì „ëœ ì¦ê°• ê²Œì´ì§€
     [SerializeField] private float _timeCharge;
 
-    // Áõ°­ÀÌ Àû¿ëµÇÁö ¾Ê¾ÒÀ» ¶§ÀÇ ÃÊ´ç ÀÚ¿¬ ÃæÀü·®
+    // ì¦ê°•ì´ ì ìš©ë˜ì§€ ì•Šì•˜ì„ ë•Œì˜ ì´ˆë‹¹ ìì—° ì¶©ì „ëŸ‰
     [Min(0f)]
     [SerializeField] private float _naturalGaugeChargePerSecond = 1f;
 
-    [Header("½ºÅ×ÀÌÁö È¹µæ·®")]
+    [Header("ìŠ¤í…Œì´ì§€ íšë“ëŸ‰")]
 
-    // ÀÌ¹ø ½ºÅ×ÀÌÁö¿¡¼­ È¹µæÇÑ °æÇèÄ¡ ÃÑÇÕ
+    // ì´ë²ˆ ìŠ¤í…Œì´ì§€ì—ì„œ íšë“í•œ ê²½í—˜ì¹˜ ì´í•©
     [SerializeField] int _stageEarnedExperience;
 
-    // ÀÌ¹ø ½ºÅ×ÀÌÁö¿¡¼­ ½ÇÁ¦·Î È¹µæÇÑ °ñµå ÃÑÇÕ
+    // ì´ë²ˆ ìŠ¤í…Œì´ì§€ì—ì„œ ì‹¤ì œë¡œ íšë“í•œ ê³¨ë“œ ì´í•©
     [SerializeField] int _stageEarnedGold;
 
-    // ÀÌ¹ø ½ºÅ×ÀÌÁö¿¡¼­ ½ÇÁ¦·Î Áö±ŞÇÑ User °æÇèÄ¡ÀÇ ÃÑÇÕ.
-    // ´©Àû ÇÕ°è´Â ³Ë³ËÇÑ Á¤¼ö ¹üÀ§·Î °ü¸®ÇÑ´Ù.
+    // ì´ë²ˆ ìŠ¤í…Œì´ì§€ì—ì„œ ì‹¤ì œë¡œ ì§€ê¸‰í•œ User ê²½í—˜ì¹˜ì˜ ì´í•©.
+    // ëˆ„ì  í•©ê³„ëŠ” ë„‰ë„‰í•œ ì •ìˆ˜ ë²”ìœ„ë¡œ ê´€ë¦¬í•œë‹¤.
     [SerializeField] private long _stageEarnedUserExperience;
 
-    // ÀçÈ­ Á¾·ùº° ¼öÁı UI ¸ñ·ÏÀÌ´Ù.
-    // °°Àº MoneyTypeÀ» Ã³¸®ÇÏ´Â UI´Â ÇÏ³ª¸¸ µî·ÏÇÑ´Ù.
+    // ì¬í™” ì¢…ë¥˜ë³„ ìˆ˜ì§‘ UI ëª©ë¡ì´ë‹¤.
+    // ê°™ì€ MoneyTypeì„ ì²˜ë¦¬í•˜ëŠ” UIëŠ” í•˜ë‚˜ë§Œ ë“±ë¡í•œë‹¤.
     [SerializeField] private MoneyUI[] _moneyUIs = new MoneyUI[0];
 
-    // ¿ùµåÀÇ º¸½º À§Ä¡¸¦ È­¸é ÁÂÇ¥·Î º¯È¯ÇÒ °ÔÀÓ Ä«¸Ş¶ó.
+    // ì›”ë“œì˜ ë³´ìŠ¤ ìœ„ì¹˜ë¥¼ í™”ë©´ ì¢Œí‘œë¡œ ë³€í™˜í•  ê²Œì„ ì¹´ë©”ë¼.
     [SerializeField] private Camera _itemWorldCamera;
 
-    // È­¸é ÀüÃ¼¸¦ µ¤´Â Overlay Canvas ¾Æ·¡ÀÇ ¾ÆÀÌÅÛ ¿¬Ãâ ¿µ¿ª.
+    // í™”ë©´ ì „ì²´ë¥¼ ë®ëŠ” Overlay Canvas ì•„ë˜ì˜ ì•„ì´í…œ ì—°ì¶œ ì˜ì—­.
     [SerializeField] private RectTransform _itemEffectRoot;
 
-    // ±âÁ¸ STAGE ¾È³» À§Ä¡¿¡ Äù½ºÆ® ÁøÇàµµ¸¦ Ç¥½ÃÇÒ ´ã´çÀÚ.
+    // ê¸°ì¡´ STAGE ì•ˆë‚´ ìœ„ì¹˜ì— í€˜ìŠ¤íŠ¸ ì§„í–‰ë„ë¥¼ í‘œì‹œí•  ë‹´ë‹¹ì.
     [SerializeField] private StageFlowManager _itemNoticeFlow;
 
-    // ¿©·¯ ¾ÆÀÌÅÛÀ» ¾ò¾úÀ» ¶§ ¿¬ÃâÀÌ °ãÄ¡Áö ¾Êµµ·Ï ¼ø¼­´ë·Î º¸°üÇÑ´Ù.
+    // ì—¬ëŸ¬ ì•„ì´í…œì„ ì–»ì—ˆì„ ë•Œ ì—°ì¶œì´ ê²¹ì¹˜ì§€ ì•Šë„ë¡ ìˆœì„œëŒ€ë¡œ ë³´ê´€í•œë‹¤.
     private readonly Queue<IEnumerator> _itemEffectQueue =
         new Queue<IEnumerator>();
 
-    // ¿¬Ãâ ´ë±â¿­ÀÌ Áßº¹À¸·Î ½ÇÇàµÇ´Â °ÍÀ» ¸·´Â´Ù.
+    // ì—°ì¶œ ëŒ€ê¸°ì—´ì´ ì¤‘ë³µìœ¼ë¡œ ì‹¤í–‰ë˜ëŠ” ê²ƒì„ ë§‰ëŠ”ë‹¤.
     private bool _isPlayingItemEffects;
 
-    // Money UIs¿¡¼­ Ã£Àº °ñµå UI¸¦ º¸°üÇÑ´Ù.
-    // °ñµå È¹µæ ÀÌº¥Æ®¸¦ ±¸µ¶ÇÏ°í, Á¾·á ½Ã °°Àº ´ë»ó¿¡¼­ ÇØÁ¦ÇÑ´Ù.
+    // Money UIsì—ì„œ ì°¾ì€ ê³¨ë“œ UIë¥¼ ë³´ê´€í•œë‹¤.
+    // ê³¨ë“œ íšë“ ì´ë²¤íŠ¸ë¥¼ êµ¬ë…í•˜ê³ , ì¢…ë£Œ ì‹œ ê°™ì€ ëŒ€ìƒì—ì„œ í•´ì œí•œë‹¤.
     private GoldUI _goldUI;
 
-    // °á°úÃ¢¿¡¼­ ÀÌ¹ø ÆÇÀÇ User °æÇèÄ¡ È¹µæ·®À» ÀĞ´Â´Ù.
+    // ê²°ê³¼ì°½ì—ì„œ ì´ë²ˆ íŒì˜ User ê²½í—˜ì¹˜ íšë“ëŸ‰ì„ ì½ëŠ”ë‹¤.
     public long StageEarnedUserExperience => _stageEarnedUserExperience;
 
-    // °á°úÃ¢¿¡¼­ ÀĞÀ» ¼ö ÀÖµµ·Ï È¹µæ·®À» ÀĞ±â Àü¿ëÀ¸·Î °ø°³ÇÑ´Ù.
+    // ê²°ê³¼ì°½ì—ì„œ ì½ì„ ìˆ˜ ìˆë„ë¡ íšë“ëŸ‰ì„ ì½ê¸° ì „ìš©ìœ¼ë¡œ ê³µê°œí•œë‹¤.
     public int StageEarnedExperience => _stageEarnedExperience;
     public int StageEarnedGold => _stageEarnedGold;
 
-    // °°Àº GameObject¿¡ Á¸ÀçÇÏ´Â Ä³¸¯ÅÍ ¼ºÀå ½Ã½ºÅÛ
+    // ê°™ì€ GameObjectì— ì¡´ì¬í•˜ëŠ” ìºë¦­í„° ì„±ì¥ ì‹œìŠ¤í…œ
     private CharacterProgression _characterProgression;
 
-    // °°Àº GameObject¿¡ Á¸ÀçÇÏ´Â Áõ°­ Composition Root
+    // ê°™ì€ GameObjectì— ì¡´ì¬í•˜ëŠ” ì¦ê°• Composition Root
     private Upgrader _upgrader;
 
-    // ÇöÀç Áõ°­ ¼±ÅÃ È­¸éÀÌ ¿­·Á ÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
+    // í˜„ì¬ ì¦ê°• ì„ íƒ í™”ë©´ì´ ì—´ë ¤ ìˆëŠ”ì§€ í™•ì¸í•œë‹¤.
     private bool _isUpgradeOpen;
 
-    // ÀÌ¹ø ½ºÅ×ÀÌÁö¿¡¼­ °æÇèÄ¡¸¦ È¹µæÇÒ ¶§ È¹µæ·®À» ¿ÜºÎ¿¡ ¾Ë¸°´Ù.
+    // ì´ë²ˆ ìŠ¤í…Œì´ì§€ì—ì„œ ê²½í—˜ì¹˜ë¥¼ íšë“í•  ë•Œ íšë“ëŸ‰ì„ ì™¸ë¶€ì— ì•Œë¦°ë‹¤.
     public event Action<int> ExperienceGained;
 
     private void Awake()
@@ -92,60 +92,60 @@ public class GameManager : MonoBehaviour
         if (_characterProgression == null)
         {
             throw new MissingComponentException(
-                $"{name}¿¡ CharacterProgression ÄÄÆ÷³ÍÆ®°¡ ¾ø½À´Ï´Ù.");
+                $"{name}ì— CharacterProgression ì»´í¬ë„ŒíŠ¸ê°€ ì—†ìŠµë‹ˆë‹¤.");
         }
 
         if (_upgrader == null)
         {
             throw new MissingComponentException(
-                $"{name}¿¡ Upgrader ÄÄÆ÷³ÍÆ®°¡ ¾ø½À´Ï´Ù.");
+                $"{name}ì— Upgrader ì»´í¬ë„ŒíŠ¸ê°€ ì—†ìŠµë‹ˆë‹¤.");
         }
 
         if (_gaugeUIManager == null)
         {
             throw new InvalidOperationException(
-                $"{name}ÀÇ GaugeUIManager°¡ ¿¬°áµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+                $"{name}ì˜ GaugeUIManagerê°€ ì—°ê²°ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
         }
 
         if (_maxGaugeBar <= 0f)
         {
             throw new InvalidOperationException(
-                $"{name}ÀÇ MaxGaugeBar´Â 0º¸´Ù Ä¿¾ß ÇÕ´Ï´Ù.");
+                $"{name}ì˜ MaxGaugeBarëŠ” 0ë³´ë‹¤ ì»¤ì•¼ í•©ë‹ˆë‹¤.");
         }
 
         if (_naturalGaugeChargePerSecond < 0f)
         {
             throw new InvalidOperationException(
-                $"{name}ÀÇ ÀÚ¿¬ °ÔÀÌÁö ÃæÀü¼Óµµ´Â 0 ÀÌ»óÀÌ¾î¾ß ÇÕ´Ï´Ù.");
+                $"{name}ì˜ ìì—° ê²Œì´ì§€ ì¶©ì „ì†ë„ëŠ” 0 ì´ìƒì´ì–´ì•¼ í•©ë‹ˆë‹¤.");
         }
 
-        // Inspector¿¡¼­ µî·ÏÇÑ Money UIs ¸ñ·Ï¿¡¼­ °ñµå¿ë UI¸¦ Ã£´Â´Ù.
+        // Inspectorì—ì„œ ë“±ë¡í•œ Money UIs ëª©ë¡ì—ì„œ ê³¨ë“œìš© UIë¥¼ ì°¾ëŠ”ë‹¤.
         MoneyUI moneyUI = GetMoneyUI(MoneyType.Gold);
 
-        // °ñµå È¹µæ ÀÌº¥Æ®¸¦ Á¦°øÇÏ´Â GoldUIÀÎÁö È®ÀÎÇÑ´Ù.
+        // ê³¨ë“œ íšë“ ì´ë²¤íŠ¸ë¥¼ ì œê³µí•˜ëŠ” GoldUIì¸ì§€ í™•ì¸í•œë‹¤.
         if (!(moneyUI is GoldUI goldUI))
         {
             throw new InvalidOperationException(
-                $"{name}: Gold Á¾·ùÀÇ Money UI¿¡´Â GoldUI¸¦ µî·ÏÇØÁÖ¼¼¿ä.");
+                $"{name}: Gold ì¢…ë¥˜ì˜ Money UIì—ëŠ” GoldUIë¥¼ ë“±ë¡í•´ì£¼ì„¸ìš”.");
         }
 
-        // ÀÌº¥Æ® ±¸µ¶°ú ÇØÁ¦¿¡ »ç¿ëÇÒ ´ë»óÀ» ±â¾ïÇÑ´Ù.
+        // ì´ë²¤íŠ¸ êµ¬ë…ê³¼ í•´ì œì— ì‚¬ìš©í•  ëŒ€ìƒì„ ê¸°ì–µí•œë‹¤.
         _goldUI = goldUI;
 
-        // ½ÇÁ¦ °ñµå Áö±ŞÀÌ ³¡³µÀ» ¶§ ½ºÅ×ÀÌÁö È¹µæ·®À» Áı°èÇÑ´Ù.
+        // ì‹¤ì œ ê³¨ë“œ ì§€ê¸‰ì´ ëë‚¬ì„ ë•Œ ìŠ¤í…Œì´ì§€ íšë“ëŸ‰ì„ ì§‘ê³„í•œë‹¤.
         _goldUI.GoldCollected += HandleGoldCollected;
     }
 
     private void Start()
     {
-        // »õ·Î¿î ½ºÅ×ÀÌÁö°¡ ½ÃÀÛµÆÀ¸¹Ç·Î ÀÌ¹ø ÆÇÀÇ È¹µæ·®À» ÃÊ±âÈ­ÇÑ´Ù.
+        // ìƒˆë¡œìš´ ìŠ¤í…Œì´ì§€ê°€ ì‹œì‘ëìœ¼ë¯€ë¡œ ì´ë²ˆ íŒì˜ íšë“ëŸ‰ì„ ì´ˆê¸°í™”í•œë‹¤.
         _stageEarnedExperience = 0;
         _stageEarnedGold = 0;
-        // »õ ½ºÅ×ÀÌÁö ¶Ç´Â Àç½ÃÀÛ ½Ã ÀÌ¹ø ÆÇÀÇ Áı°è¸¸ ÃÊ±âÈ­ÇÑ´Ù.
-        // ÀúÀåµÈ User °æÇèÄ¡´Â À¯ÁöÇÑ´Ù.
+        // ìƒˆ ìŠ¤í…Œì´ì§€ ë˜ëŠ” ì¬ì‹œì‘ ì‹œ ì´ë²ˆ íŒì˜ ì§‘ê³„ë§Œ ì´ˆê¸°í™”í•œë‹¤.
+        // ì €ì¥ëœ User ê²½í—˜ì¹˜ëŠ” ìœ ì§€í•œë‹¤.
         _stageEarnedUserExperience = 0;
 
-        // »õ·Î¿î ½ºÅ×ÀÌÁö¿¡¼­´Â ºó °ÔÀÌÁöºÎÅÍ ½ÃÀÛÇÑ´Ù.
+        // ìƒˆë¡œìš´ ìŠ¤í…Œì´ì§€ì—ì„œëŠ” ë¹ˆ ê²Œì´ì§€ë¶€í„° ì‹œì‘í•œë‹¤.
         _timeCharge = 0f;
         _isUpgradeOpen = false;
 
@@ -155,30 +155,31 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// ÇöÀç ½ºÅ×ÀÌÁöÀÇ Ä³¸¯ÅÍ¿¡°Ô °æÇèÄ¡¸¦ Áö±ŞÇÑ´Ù.
-    /// Áö±ŞµÈ °æÇèÄ¡ ¾çÀ» °á°ú Áı°è ½Ã½ºÅÛ¿¡ ¾Ë¸°´Ù.
+    /// í˜„ì¬ ìŠ¤í…Œì´ì§€ì˜ ìºë¦­í„°ì—ê²Œ ê²½í—˜ì¹˜ë¥¼ ì§€ê¸‰í•œë‹¤.
+    /// ì§€ê¸‰ëœ ê²½í—˜ì¹˜ ì–‘ì„ ê²°ê³¼ ì§‘ê³„ ì‹œìŠ¤í…œì— ì•Œë¦°ë‹¤.
     /// </summary>
     public void AddExperience(int amount)
     {
-        // 0 ÀÌÇÏÀÇ °æÇèÄ¡´Â Áö±ŞÇÏ°Å³ª Áı°èÇÏÁö ¾Ê´Â´Ù.
+        // 0 ì´í•˜ì˜ ê²½í—˜ì¹˜ëŠ” ì§€ê¸‰í•˜ê±°ë‚˜ ì§‘ê³„í•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (amount <= 0)
         {
             return;
         }
 
-        // °á°úÃ¢¿¡ Ç¥½ÃÇÏ±â À§ÇØ ÀÌ¹ø ½ºÅ×ÀÌÁö È¹µæ °æÇèÄ¡¸¦ ´©ÀûÇÑ´Ù.
+        // ê²°ê³¼ì°½ì— í‘œì‹œí•˜ê¸° ìœ„í•´ ì´ë²ˆ ìŠ¤í…Œì´ì§€ íšë“ ê²½í—˜ì¹˜ë¥¼ ëˆ„ì í•œë‹¤.
         _stageEarnedExperience += amount;
+        GameAudio.Play(GameSound.PickupExperience); // ê°™ì€ í”„ë ˆì„ ë‹¤ìˆ˜ ì²˜ì¹˜ëŠ” ì¹´íƒˆë¡œê·¸ì—ì„œ ì œí•œ.
 
-        // ±âÁ¸ Ä³¸¯ÅÍ °æÇèÄ¡ Áö±Ş
+        // ê¸°ì¡´ ìºë¦­í„° ê²½í—˜ì¹˜ ì§€ê¸‰
         _characterProgression.AddExp(amount);
 
-        // ÀÌ¹ø ½ºÅ×ÀÌÁö¿¡¼­ È¹µæÇÑ °æÇèÄ¡ ¾çÀ» ¿ÜºÎ¿¡ ¾Ë¸°´Ù.
+        // ì´ë²ˆ ìŠ¤í…Œì´ì§€ì—ì„œ íšë“í•œ ê²½í—˜ì¹˜ ì–‘ì„ ì™¸ë¶€ì— ì•Œë¦°ë‹¤.
         ExperienceGained?.Invoke(amount);
     }
 
     /// <summary>
-    /// Àû Ã³Ä¡ µîÀÇ º¸»óÀ¸·Î °ÔÀÌÁö¸¦ Áï½Ã Áõ°¡½ÃÅ²´Ù.
-    /// ÀÚ¿¬ ÃæÀü¼Óµµ Áõ°­Àº ÀÌ º¸³Ê½º¿¡´Â ¿µÇâÀ» ÁÖÁö ¾Ê´Â´Ù.
+    /// ì  ì²˜ì¹˜ ë“±ì˜ ë³´ìƒìœ¼ë¡œ ê²Œì´ì§€ë¥¼ ì¦‰ì‹œ ì¦ê°€ì‹œí‚¨ë‹¤.
+    /// ìì—° ì¶©ì „ì†ë„ ì¦ê°•ì€ ì´ ë³´ë„ˆìŠ¤ì—ëŠ” ì˜í–¥ì„ ì£¼ì§€ ì•ŠëŠ”ë‹¤.
     /// </summary>
     public void BonusGauge(float amount)
     {
@@ -187,7 +188,7 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        // Áõ°­ ¼±ÅÃ Áß¿¡´Â Ãß°¡ °ÔÀÌÁö¸¦ ¹ŞÁö ¾Ê´Â´Ù.
+        // ì¦ê°• ì„ íƒ ì¤‘ì—ëŠ” ì¶”ê°€ ê²Œì´ì§€ë¥¼ ë°›ì§€ ì•ŠëŠ”ë‹¤.
         if (_isUpgradeOpen)
         {
             return;
@@ -209,7 +210,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        // Áõ°­ ¼±ÅÃ Áß¿¡´Â ÀÚ¿¬ °ÔÀÌÁö¸¦ ÃæÀüÇÏÁö ¾Ê´Â´Ù.
+        // ì¦ê°• ì„ íƒ ì¤‘ì—ëŠ” ìì—° ê²Œì´ì§€ë¥¼ ì¶©ì „í•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (_isUpgradeOpen)
         {
             return;
@@ -227,24 +228,24 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Áõ°­ ¼±ÅÃÀ» Á¾·áÇÏ°í ÀÎ°ÔÀÓ°ú °ÔÀÌÁö ÃæÀüÀ» Àç°³ÇÑ´Ù.
-    /// Áõ°­ UI Á¾·á´Â UpgradeSelectionView°¡ ´ã´çÇÑ´Ù.
+    /// ì¦ê°• ì„ íƒì„ ì¢…ë£Œí•˜ê³  ì¸ê²Œì„ê³¼ ê²Œì´ì§€ ì¶©ì „ì„ ì¬ê°œí•œë‹¤.
+    /// ì¦ê°• UI ì¢…ë£ŒëŠ” UpgradeSelectionViewê°€ ë‹´ë‹¹í•œë‹¤.
     /// </summary>
     public void ExitUpgrade()
     {
         _isUpgradeOpen = false;
         _timeCharge = 0f;
 
-        // Áõ°­ ¼±ÅÃ Áß ¸ØÃè´ø ÀÎ°ÔÀÓ ½Ã°£À» º¹±¸ÇÑ´Ù.
+        // ì¦ê°• ì„ íƒ ì¤‘ ë©ˆì·„ë˜ ì¸ê²Œì„ ì‹œê°„ì„ ë³µêµ¬í•œë‹¤.
         Time.timeScale = 1f;
 
-        // ºó °ÔÀÌÁöºÎÅÍ ´ÙÀ½ Áõ°­ ÃæÀüÀ» ½ÃÀÛÇÑ´Ù.
+        // ë¹ˆ ê²Œì´ì§€ë¶€í„° ë‹¤ìŒ ì¦ê°• ì¶©ì „ì„ ì‹œì‘í•œë‹¤.
         _gaugeUIManager.StartCharging(
             _timeCharge,
             _maxGaugeBar);
     }
 
-    // ÀçÈ­ Á¾·ù¿¡ ¸Â´Â UI·Î »ı¼º ¿äÃ»À» Àü´ŞÇÑ´Ù.
+    // ì¬í™” ì¢…ë¥˜ì— ë§ëŠ” UIë¡œ ìƒì„± ìš”ì²­ì„ ì „ë‹¬í•œë‹¤.
     public void SpawnMoney(
         Money prefab,
         Vector3 worldPosition,
@@ -264,12 +265,12 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// °ÔÀÌÁö°¡ ÃÖ´ëÄ¡¿¡ µµ´ŞÇÏ¸é Áõ°­ ¼±ÅÃÀ» ½ÃÀÛÇÑ´Ù.
+    /// ê²Œì´ì§€ê°€ ìµœëŒ€ì¹˜ì— ë„ë‹¬í•˜ë©´ ì¦ê°• ì„ íƒì„ ì‹œì‘í•œë‹¤.
     /// </summary>
     private void OpenUpgrade()
     {
-        // ´Ù¸¥ ½Ã½ºÅÛÀÌ °ÔÀÓÀ» Á¤ÁöÇÑ µ¿¾È¿¡´Â Áõ°­Ã¢À» ¿­Áö ¾Ê´Â´Ù.
-        // °ÔÀÌÁö´Â À¯ÁöµÇ¹Ç·Î °ÔÀÓ Àç°³ ÈÄ Update¿¡¼­ ´Ù½Ã ½ÃµµÇÑ´Ù.
+        // ë‹¤ë¥¸ ì‹œìŠ¤í…œì´ ê²Œì„ì„ ì •ì§€í•œ ë™ì•ˆì—ëŠ” ì¦ê°•ì°½ì„ ì—´ì§€ ì•ŠëŠ”ë‹¤.
+        // ê²Œì´ì§€ëŠ” ìœ ì§€ë˜ë¯€ë¡œ ê²Œì„ ì¬ê°œ í›„ Updateì—ì„œ ë‹¤ì‹œ ì‹œë„í•œë‹¤.
         if (_isUpgradeOpen || Time.timeScale <= 0f)
         {
             return;
@@ -277,18 +278,18 @@ public class GameManager : MonoBehaviour
 
         _isUpgradeOpen = true;
 
-        // °ÔÀÌÁö¸¦ Á¤È®È÷ ÃÖ´ëÄ¡ »óÅÂ·Î Ç¥½ÃÇÑ´Ù.
+        // ê²Œì´ì§€ë¥¼ ì •í™•íˆ ìµœëŒ€ì¹˜ ìƒíƒœë¡œ í‘œì‹œí•œë‹¤.
         _gaugeUIManager.CompleteGauge();
 
-        // Áõ°­ ¼±ÅÃ Áß¿¡´Â ÀÎ°ÔÀÓ ½Ã°£À» Á¤ÁöÇÑ´Ù.
+        // ì¦ê°• ì„ íƒ ì¤‘ì—ëŠ” ì¸ê²Œì„ ì‹œê°„ì„ ì •ì§€í•œë‹¤.
         Time.timeScale = 0f;
 
-        // ÈÄº¸ ÃßÃ·°ú È­¸é Ç¥½Ã´Â Upgrader¿¡ À§ÀÓÇÑ´Ù.
+        // í›„ë³´ ì¶”ì²¨ê³¼ í™”ë©´ í‘œì‹œëŠ” Upgraderì— ìœ„ì„í•œë‹¤.
         _upgrader.UpgradeSelectFirst();
     }
 
     /// <summary>
-    /// ½Ã°£¿¡ µû¶ó ÃæÀüµÇ´Â °ÔÀÌÁöÀÇ ÃÊ´ç ÃæÀü·®À» Áõ°¡½ÃÅ²´Ù.
+    /// ì‹œê°„ì— ë”°ë¼ ì¶©ì „ë˜ëŠ” ê²Œì´ì§€ì˜ ì´ˆë‹¹ ì¶©ì „ëŸ‰ì„ ì¦ê°€ì‹œí‚¨ë‹¤.
     /// </summary>
     public void IncreaseNaturalGaugeChargeRate(float amount)
     {
@@ -301,7 +302,7 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// °ñµå°¡ ½ÇÁ¦·Î Áö±ŞµÆÀ» ¶§ ÀÌ¹ø ½ºÅ×ÀÌÁö È¹µæ °ñµå¸¦ ´©ÀûÇÑ´Ù.
+    /// ê³¨ë“œê°€ ì‹¤ì œë¡œ ì§€ê¸‰ëì„ ë•Œ ì´ë²ˆ ìŠ¤í…Œì´ì§€ íšë“ ê³¨ë“œë¥¼ ëˆ„ì í•œë‹¤.
     /// </summary>
     private void HandleGoldCollected(int amount)
     {
@@ -315,17 +316,17 @@ public class GameManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        // ÆÄ±«µÈ GameManagerÀÇ ÇÔ¼ö°¡ È£ÃâµÇÁö ¾Êµµ·Ï ÀÌº¥Æ® ¿¬°áÀ» ÇØÁ¦ÇÑ´Ù.
+        // íŒŒê´´ëœ GameManagerì˜ í•¨ìˆ˜ê°€ í˜¸ì¶œë˜ì§€ ì•Šë„ë¡ ì´ë²¤íŠ¸ ì—°ê²°ì„ í•´ì œí•œë‹¤.
         if (_goldUI != null)
         {
             _goldUI.GoldCollected -= HandleGoldCollected;
         }
     }
 
-    // ¸ó½ºÅÍ Ã³Ä¡·Î ¾òÀº User °æÇèÄ¡¸¦ Áö±ŞÇÏ°í °á°úÃ¢¿ëÀ¸·Î Áı°èÇÑ´Ù.
+    // ëª¬ìŠ¤í„° ì²˜ì¹˜ë¡œ ì–»ì€ User ê²½í—˜ì¹˜ë¥¼ ì§€ê¸‰í•˜ê³  ê²°ê³¼ì°½ìš©ìœ¼ë¡œ ì§‘ê³„í•œë‹¤.
     public void AddUserExperience(int amount)
     {
-        // º¸»óÀÌ 0ÀÎ ¸ó½ºÅÍ´Â Áö±Ş°ú ÀúÀåÀ» »ı·«ÇÑ´Ù.
+        // ë³´ìƒì´ 0ì¸ ëª¬ìŠ¤í„°ëŠ” ì§€ê¸‰ê³¼ ì €ì¥ì„ ìƒëµí•œë‹¤.
         if (amount <= 0)
         {
             return;
@@ -334,29 +335,29 @@ public class GameManager : MonoBehaviour
         if (SaveManager.Instance == null)
         {
             Debug.LogError(
-                "User °æÇèÄ¡ Áö±Ş¿¡ ÇÊ¿äÇÑ SaveManager°¡ ¾ø½À´Ï´Ù.",
+                "User ê²½í—˜ì¹˜ ì§€ê¸‰ì— í•„ìš”í•œ SaveManagerê°€ ì—†ìŠµë‹ˆë‹¤.",
                 this);
             return;
         }
 
         try
         {
-            // User ·¹º§¾÷°ú ÆÄÀÏ ÀúÀå±îÁö ¿Ï·áÇÑ´Ù.
+            // User ë ˆë²¨ì—…ê³¼ íŒŒì¼ ì €ì¥ê¹Œì§€ ì™„ë£Œí•œë‹¤.
             SaveManager.Instance.AddUserExperience(amount);
         }
         catch (Exception exception)
         {
-            // Áö±Ş ¿À·ù´Â ±â·ÏÇÏµÇ ¸ó½ºÅÍÀÇ ³ª¸ÓÁö »ç¸Á Ã³¸®´Â °è¼Ó ÁøÇàÇÑ´Ù.
-            // ½ÇÆĞÇÑ º¸»óÀº °á°úÃ¢ È¹µæ·®¿¡ Æ÷ÇÔÇÏÁö ¾Ê´Â´Ù.
+            // ì§€ê¸‰ ì˜¤ë¥˜ëŠ” ê¸°ë¡í•˜ë˜ ëª¬ìŠ¤í„°ì˜ ë‚˜ë¨¸ì§€ ì‚¬ë§ ì²˜ë¦¬ëŠ” ê³„ì† ì§„í–‰í•œë‹¤.
+            // ì‹¤íŒ¨í•œ ë³´ìƒì€ ê²°ê³¼ì°½ íšë“ëŸ‰ì— í¬í•¨í•˜ì§€ ì•ŠëŠ”ë‹¤.
             Debug.LogException(exception, this);
             return;
         }
 
-        // ½ÇÁ¦ ÀúÀå¿¡ ¼º°øÇÑ º¸»ó¸¸ ´©ÀûÇÑ´Ù.
+        // ì‹¤ì œ ì €ì¥ì— ì„±ê³µí•œ ë³´ìƒë§Œ ëˆ„ì í•œë‹¤.
         _stageEarnedUserExperience += amount;
     }
 
-    // ÇÁ¸®ÆÕÀÇ ÀçÈ­ Á¾·ù¿¡ ¸Â´Â UI¸¦ Ã£´Â´Ù.
+    // í”„ë¦¬íŒ¹ì˜ ì¬í™” ì¢…ë¥˜ì— ë§ëŠ” UIë¥¼ ì°¾ëŠ”ë‹¤.
     public MoneyUI GetMoneyUI(MoneyType type)
     {
         MoneyUI result = null;
@@ -366,7 +367,7 @@ public class GameManager : MonoBehaviour
             if (moneyUI == null)
             {
                 throw new InvalidOperationException(
-                    "Money UIs¿¡ ºñ¾î ÀÖ´Â Ç×¸ñÀÌ ÀÖ½À´Ï´Ù.");
+                    "Money UIsì— ë¹„ì–´ ìˆëŠ” í•­ëª©ì´ ìˆìŠµë‹ˆë‹¤.");
             }
 
             if (moneyUI.Type != type)
@@ -377,7 +378,7 @@ public class GameManager : MonoBehaviour
             if (result != null)
             {
                 throw new InvalidOperationException(
-                    $"{type}ÀÇ MoneyUI°¡ Áßº¹ µî·ÏµÆ½À´Ï´Ù.");
+                    $"{type}ì˜ MoneyUIê°€ ì¤‘ë³µ ë“±ë¡ëìŠµë‹ˆë‹¤.");
             }
 
             result = moneyUI;
@@ -386,13 +387,13 @@ public class GameManager : MonoBehaviour
         if (result == null)
         {
             throw new InvalidOperationException(
-                $"{type}ÀÇ MoneyUI°¡ µî·ÏµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+                $"{type}ì˜ MoneyUIê°€ ë“±ë¡ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
         }
 
         return result;
     }
 
-    // µå·Ó ÃÊ±âÈ­ ´Ü°è¿¡¼­ ¾ÆÀÌÅÛ ¿¬Ãâ ¿¬°áÀ» °Ë»çÇÑ´Ù.
+    // ë“œë¡­ ì´ˆê¸°í™” ë‹¨ê³„ì—ì„œ ì•„ì´í…œ ì—°ì¶œ ì—°ê²°ì„ ê²€ì‚¬í•œë‹¤.
     public void ValidateItemEffectConfiguration()
     {
         if (_itemWorldCamera == null ||
@@ -400,7 +401,7 @@ public class GameManager : MonoBehaviour
             _itemNoticeFlow == null)
         {
             throw new InvalidOperationException(
-                $"{name}: ¾ÆÀÌÅÛ ¿¬Ãâ Ä«¸Ş¶ó, ¿µ¿ª, StageFlowManager¸¦ ¿¬°áÇØÁÖ¼¼¿ä.");
+                $"{name}: ì•„ì´í…œ ì—°ì¶œ ì¹´ë©”ë¼, ì˜ì—­, StageFlowManagerë¥¼ ì—°ê²°í•´ì£¼ì„¸ìš”.");
         }
 
         Canvas canvas = _itemEffectRoot.GetComponentInParent<Canvas>();
@@ -409,19 +410,19 @@ public class GameManager : MonoBehaviour
             canvas.rootCanvas.renderMode != RenderMode.ScreenSpaceOverlay)
         {
             throw new InvalidOperationException(
-                "Item Effect Root´Â Overlay Canvas ¾Æ·¡¿¡ ¹èÄ¡ÇØÁÖ¼¼¿ä.");
+                "Item Effect RootëŠ” Overlay Canvas ì•„ë˜ì— ë°°ì¹˜í•´ì£¼ì„¸ìš”.");
         }
     }
 
-    // ÀÌ¹Ì Áö±ŞµÈ ¾ÆÀÌÅÛÀÇ ¿¬Ãâ°ú ÁøÇàµµ Ç¥½Ã¸¦ ¿¹¾àÇÑ´Ù.
+    // ì´ë¯¸ ì§€ê¸‰ëœ ì•„ì´í…œì˜ ì—°ì¶œê³¼ ì§„í–‰ë„ í‘œì‹œë¥¼ ì˜ˆì•½í•œë‹¤.
     public void EnqueueItemEffect(
         Item prefab,
         Vector3 worldPosition,
         List<string> progressMessages,
         Action onCompleted)
     {
-        // Ã³Ä¡ ¼ø°£ÀÇ È­¸é À§Ä¡¸¦ ±â¾ïÇÑ´Ù.
-        // ´ë±â Áß º¸½º°¡ Á¦°ÅµÇ´õ¶óµµ TransformÀ» ´Ù½Ã ÂüÁ¶ÇÏÁö ¾Ê´Â´Ù.
+        // ì²˜ì¹˜ ìˆœê°„ì˜ í™”ë©´ ìœ„ì¹˜ë¥¼ ê¸°ì–µí•œë‹¤.
+        // ëŒ€ê¸° ì¤‘ ë³´ìŠ¤ê°€ ì œê±°ë˜ë”ë¼ë„ Transformì„ ë‹¤ì‹œ ì°¸ì¡°í•˜ì§€ ì•ŠëŠ”ë‹¤.
         Vector3 screenPosition =
             _itemWorldCamera.WorldToScreenPoint(worldPosition);
 
@@ -441,7 +442,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(ProcessItemEffects());
     }
 
-    // ´ë±â ÁßÀÎ ¾ÆÀÌÅÛÀ» ÇÏ³ª¾¿ Ç¥½ÃÇÑ´Ù.
+    // ëŒ€ê¸° ì¤‘ì¸ ì•„ì´í…œì„ í•˜ë‚˜ì”© í‘œì‹œí•œë‹¤.
     private IEnumerator ProcessItemEffects()
     {
         while (_itemEffectQueue.Count > 0)
@@ -452,14 +453,14 @@ public class GameManager : MonoBehaviour
         _isPlayingItemEffects = false;
     }
 
-    // ¾ÆÀÌÅÛ ¿¬Ãâ ÈÄ ÇØ´ç È¹µæÀÇ ÁøÇàµµ¸¦ Ç¥½ÃÇÏ°í ¿Ï·á¸¦ ¾Ë¸°´Ù.
+    // ì•„ì´í…œ ì—°ì¶œ í›„ í•´ë‹¹ íšë“ì˜ ì§„í–‰ë„ë¥¼ í‘œì‹œí•˜ê³  ì™„ë£Œë¥¼ ì•Œë¦°ë‹¤.
     private IEnumerator PlayItemEffect(
         Item prefab,
         Vector2 startScreenPosition,
         List<string> progressMessages,
         Action onCompleted)
     {
-        // »ı¼ºÇÑ ÀÎ½ºÅÏ½º¿¡¼­ ItemÀÇ ¿¬ÃâÀ» ½ÇÇàÇÑ´Ù.
+        // ìƒì„±í•œ ì¸ìŠ¤í„´ìŠ¤ì—ì„œ Itemì˜ ì—°ì¶œì„ ì‹¤í–‰í•œë‹¤.
         Item instance = Instantiate(prefab, _itemEffectRoot, false);
 
         yield return instance.PlayCollectEffect(
@@ -467,7 +468,7 @@ public class GameManager : MonoBehaviour
 
         Destroy(instance.gameObject);
 
-        // ¾ÆÀÌÄÜÀÌ »ç¶óÁø ´ÙÀ½ ÁøÇàµµ ¹®±¸¸¦ Ç¥½ÃÇÑ´Ù.
+        // ì•„ì´ì½˜ì´ ì‚¬ë¼ì§„ ë‹¤ìŒ ì§„í–‰ë„ ë¬¸êµ¬ë¥¼ í‘œì‹œí•œë‹¤.
         yield return _itemNoticeFlow.ShowQuestProgress(progressMessages);
 
         if (onCompleted != null)

@@ -20,13 +20,13 @@ MonoBehaviour:
   _icon: {fileID: 21300000, guid: 2851a4fd4ed642142bf16c6403d5293e, type: 3}
   _projectilePrefab: {fileID: 3513938121521209354, guid: d951eb9e79a272d4e8e9bc1b7c7e561d, type: 3}
   _muzzleEffectPrefab: {fileID: 0}
-  _lazerChargeDuration: 3
+  _lazerChargeDuration: 2.5
   _lazerMinimumChargeDuration: 0.5
-  _lazerMaxDamageMultiplier: 3
+  _lazerMaxDamageMultiplier: 2
   _playerSpriteLibrary: {fileID: 7108339969198208228, guid: 7c732848d6c493a46b07d6b65ca1bbf5, type: 3}
   _characterSelectPreviewScale: 1
   _characterSelectPreviewOffset: {x: 0, y: 0}
-  _baseDamage: 10
+  _baseDamage: 5
   _baseCooltime: 0.6
   _maximumChargeCount: 0
   _chargeRecoveryTime: 5
@@ -41,11 +41,14 @@ MonoBehaviour:
   _isInitiallyOwned: 1
   _fireRateUpgradeValue: 0.05
   _minimumCooltime: 0.2
-  _info: "\uACF5\uACA9\uC744 \uC720\uC9C0\uD558\uBA74 \uB808\uC774\uC800 \uCD9C\uB825\uACFC
-    \uC9C0\uC18D \uD53C\uD574\uAC00 \uC99D\uAC00\uD55C\uB2E4."
-  _upgradeSelectionInfo: "\uACF5\uACA9\uB825 \uAC15\uD654\uB294 \uD0C0\uACA9 \uD53C\uD574\uB97C,
-    \uC5F0\uC0AC \uAC15\uD654\uB294 \uCD08\uB2F9 \uD0C0\uACA9 \uD69F\uC218\uB97C
-    \uB192\uC778\uB2E4."
-  _weaponMoveSpeed: 6
+  _info: "\uC720\uC9C0\uD560\uC218\uB85D \uAC15\uD574\uC9C0\uB294 \uAD11\uC120. \uD2F1\uB2F9
+    \uD53C\uD574 5, \uCD08\uB2F9 10\uD68C. 2.5\uCD08 \uC720\uC9C0\uD558\uBA74 \uD53C\uD574\uAC00
+    \uCD5C\uB300 2\uBC30\uAC00 \uB429\uB2C8\uB2E4."
+  _damageUpgradeSelectionInfo: "공격력은 기본 피해의 15%씩 증가합니다."
+  _fireRateUpgradeSelectionInfo: "연사 강화는 초당 타격을 0.75회 늘리며 최대 15회입니다."
+  _meleeFirstDamage: 30
+  _meleeSecondDamage: 30
+  _meleeThirdDamage: 30
+  _weaponMoveSpeed: 5.2
   _lazerHitsPerSecond: 10
-  _lazerHitsPerSecondUpgrade: 1
+  _lazerHitsPerSecondUpgrade: 0.75

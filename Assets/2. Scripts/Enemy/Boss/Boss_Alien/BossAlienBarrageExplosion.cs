@@ -1,41 +1,41 @@
-using System;
+ï»¿using System;
 using DG.Tweening;
 using UnityEngine;
 
-// Æ÷°İÀÇ Æø¹ß ¿ÜÇüÀ» Àç»ıÇÏ°í, ÀÜ±¤À» ÆäÀÌµå¾Æ¿ôÇÑ µÚ Á¦°ÅÇÑ´Ù.
-// ÇÇÇØ ÆÇÁ¤Àº ÀÌ ÄÄÆ÷³ÍÆ®¿¡¼­ Ã³¸®ÇÏÁö ¾Ê´Â´Ù.
+// í¬ê²©ì˜ í­ë°œ ì™¸í˜•ì„ ì¬ìƒí•˜ê³ , ì”ê´‘ì„ í˜ì´ë“œì•„ì›ƒí•œ ë’¤ ì œê±°í•œë‹¤.
+// í”¼í•´ íŒì •ì€ ì´ ì»´í¬ë„ŒíŠ¸ì—ì„œ ì²˜ë¦¬í•˜ì§€ ì•ŠëŠ”ë‹¤.
 [DisallowMultipleComponent]
 public sealed class BossAlienBarrageExplosion : MonoBehaviour
 {
-    // ÀÚ½Ä VisualÀÇ SpriteRenderer¿Í Animator¸¦ ¿¬°áÇÑ´Ù.
+    // ìì‹ Visualì˜ SpriteRendererì™€ Animatorë¥¼ ì—°ê²°í•œë‹¤.
     [SerializeField] private SpriteRenderer _visual;
     [SerializeField] private Animator _animator;
 
-    // Visual ScaleÀÌ 1ÀÏ ¶§ ÃÖ´ë Æø¹ß ÀÌ¹ÌÁöÀÇ ±âÁØ ¹İ°æÀÌ´Ù.
-    // »ı¼ºÇÑ Æø¹ß ÀÌ¹ÌÁöÀÇ PPU600 ±âÁØ ±Ù»ñ°ªÀÌ´Ù.
+    // Visual Scaleì´ 1ì¼ ë•Œ ìµœëŒ€ í­ë°œ ì´ë¯¸ì§€ì˜ ê¸°ì¤€ ë°˜ê²½ì´ë‹¤.
+    // ìƒì„±í•œ í­ë°œ ì´ë¯¸ì§€ì˜ PPU600 ê¸°ì¤€ ê·¼ì‚¿ê°’ì´ë‹¤.
     [SerializeField, Min(0.01f)]
     private float _referenceRadius = 0.97f;
 
-    // ÀüÅõ Á¾·á ¿©ºÎ¸¦ È®ÀÎÇÒ º¸½º´Ù.
+    // ì „íˆ¬ ì¢…ë£Œ ì—¬ë¶€ë¥¼ í™•ì¸í•  ë³´ìŠ¤ë‹¤.
     private Boss_Alien _owner;
 
-    // Config¿¡¼­ Àü´Ş¹ŞÀ» ÆäÀÌµå¾Æ¿ô ½Ã°£ÀÌ´Ù.
+    // Configì—ì„œ ì „ë‹¬ë°›ì„ í˜ì´ë“œì•„ì›ƒ ì‹œê°„ì´ë‹¤.
     private float _fadeDuration;
 
-    // ½ÇÇà ÁßÀÎ Æ®À©À» º¸°üÇÏ¿© Ãë¼Ò ½Ã Á¤¸®ÇÑ´Ù.
+    // ì‹¤í–‰ ì¤‘ì¸ íŠ¸ìœˆì„ ë³´ê´€í•˜ì—¬ ì·¨ì†Œ ì‹œ ì •ë¦¬í•œë‹¤.
     private Tween _fadeTween;
 
-    // ÃÊ±âÈ­ ¿©ºÎ¿Í ÆäÀÌµå¾Æ¿ô ½ÃÀÛ ¿©ºÎ´Ù.
+    // ì´ˆê¸°í™” ì—¬ë¶€ì™€ í˜ì´ë“œì•„ì›ƒ ì‹œì‘ ì—¬ë¶€ë‹¤.
     private bool _initialized;
     private bool _isFading;
 
-    // Á¤»ó Á¾·á¿Í Ãë¼Ò ¸ğµÎ true°¡ µÈ´Ù.
-    // ÆĞÅÏ¿¡¼­´Â »ç¸Á¡¤Ãë¼Ò ¿©ºÎµµ º°µµ·Î È®ÀÎÇÑ´Ù.
+    // ì •ìƒ ì¢…ë£Œì™€ ì·¨ì†Œ ëª¨ë‘ trueê°€ ëœë‹¤.
+    // íŒ¨í„´ì—ì„œëŠ” ì‚¬ë§Â·ì·¨ì†Œ ì—¬ë¶€ë„ ë³„ë„ë¡œ í™•ì¸í•œë‹¤.
     public bool IsFinished { get; private set; }
 
     private void Awake()
     {
-        // Animator¿Í SpriteRenderer´Â °°Àº ÀÚ½Ä Visual¿¡ ÀÖ¾î¾ß ÇÑ´Ù.
+        // Animatorì™€ SpriteRendererëŠ” ê°™ì€ ìì‹ Visualì— ìˆì–´ì•¼ í•œë‹¤.
         if (_visual == null ||
             _animator == null ||
             _visual.gameObject != _animator.gameObject ||
@@ -45,20 +45,20 @@ public sealed class BossAlienBarrageExplosion : MonoBehaviour
             !IsPositive(_referenceRadius))
         {
             throw new InvalidOperationException(
-                $"{name}: ÀÚ½Ä VisualÀÇ ¿¬°á°ú ±âÁØ ¹İ°æÀ» È®ÀÎÇÏ¼¼¿ä.");
+                $"{name}: ìì‹ Visualì˜ ì—°ê²°ê³¼ ê¸°ì¤€ ë°˜ê²½ì„ í™•ì¸í•˜ì„¸ìš”.");
         }
 
-        // È­¸é ¹Û¿¡¼­µµ ¾Ö´Ï¸ŞÀÌ¼ÇÀÌ ¿Ï·áµÇ¾î¾ß ´ë±â°¡ ³¡³­´Ù.
+        // í™”ë©´ ë°–ì—ì„œë„ ì• ë‹ˆë©”ì´ì…˜ì´ ì™„ë£Œë˜ì–´ì•¼ ëŒ€ê¸°ê°€ ëë‚œë‹¤.
         _animator.cullingMode = AnimatorCullingMode.AlwaysAnimate;
 
-        // ÃÊ±âÈ­ Àü¿¡´Â Àç»ıÇÏÁö ¾Ê´Â´Ù.
+        // ì´ˆê¸°í™” ì „ì—ëŠ” ì¬ìƒí•˜ì§€ ì•ŠëŠ”ë‹¤.
         _animator.enabled = false;
         _visual.enabled = false;
     }
 
-    // »ı¼º Á÷ÈÄ È£ÃâÇÑ´Ù.
-    // radius´Â ÇÇÇØ ¹İ°æ, visualScaleÀº ¿ÜÇü¿¡¸¸ Àû¿ëÇÏ´Â Ãß°¡ ¹èÀ²ÀÌ´Ù.
-    // fadeDurationÀº ÀÌÈÄ Æ÷°İ ¼³Á¤¿¡¼­ Àü´ŞÇÑ´Ù.
+    // ìƒì„± ì§í›„ í˜¸ì¶œí•œë‹¤.
+    // radiusëŠ” í”¼í•´ ë°˜ê²½, visualScaleì€ ì™¸í˜•ì—ë§Œ ì ìš©í•˜ëŠ” ì¶”ê°€ ë°°ìœ¨ì´ë‹¤.
+    // fadeDurationì€ ì´í›„ í¬ê²© ì„¤ì •ì—ì„œ ì „ë‹¬í•œë‹¤.
     public void Initialize(
         Boss_Alien owner,
         float radius,
@@ -72,25 +72,26 @@ public sealed class BossAlienBarrageExplosion : MonoBehaviour
             !IsPositive(fadeDuration))
         {
             throw new InvalidOperationException(
-                $"{name}: Æø¹ß ÃÊ±âÈ­ »óÅÂ¿Í Àü´Ş°ªÀ» È®ÀÎÇÏ¼¼¿ä.");
+                $"{name}: í­ë°œ ì´ˆê¸°í™” ìƒíƒœì™€ ì „ë‹¬ê°’ì„ í™•ì¸í•˜ì„¸ìš”.");
         }
 
         _owner = owner;
         _fadeDuration = fadeDuration;
 
-        // ÃÖ´ë Æø¹ß ¿ÜÇüÀ» ¹İ°æ¿¡ ¸ÂÃá µÚ Ãß°¡ ¹èÀ²À» Àû¿ëÇÑ´Ù.
-        // ½ÇÁ¦ ÇÇÇØ ¹İ°æÀº ÀÌ °è»êÀ¸·Î º¯°æµÇÁö ¾Ê´Â´Ù.
+        // ìµœëŒ€ í­ë°œ ì™¸í˜•ì„ ë°˜ê²½ì— ë§ì¶˜ ë’¤ ì¶”ê°€ ë°°ìœ¨ì„ ì ìš©í•œë‹¤.
+        // ì‹¤ì œ í”¼í•´ ë°˜ê²½ì€ ì´ ê³„ì‚°ìœ¼ë¡œ ë³€ê²½ë˜ì§€ ì•ŠëŠ”ë‹¤.
         float scale = radius / _referenceRadius * visualScale;
         _visual.transform.localScale = new Vector3(scale, scale, 1f);
         _visual.color = Color.white;
 
-        // ±âº» Æø¹ß »óÅÂ¸¦ Ã³À½ºÎÅÍ Àç»ıÇÏ°í Ã¹ ÀÌ¹ÌÁö¸¦ Áï½Ã ¹İ¿µÇÑ´Ù.
+        // ê¸°ë³¸ í­ë°œ ìƒíƒœë¥¼ ì²˜ìŒë¶€í„° ì¬ìƒí•˜ê³  ì²« ì´ë¯¸ì§€ë¥¼ ì¦‰ì‹œ ë°˜ì˜í•œë‹¤.
         _animator.enabled = true;
         _animator.Rebind();
         _animator.Update(0f);
 
         _visual.enabled = true;
         _initialized = true;
+        GameAudio.Play(GameSound.AlienBarrageBlast);
     }
 
     private void Update()
@@ -100,21 +101,21 @@ public sealed class BossAlienBarrageExplosion : MonoBehaviour
             return;
         }
 
-        // ½Ã°£ÀÌ ¸ØÃç ÀÖ¾îµµ ÀüÅõ Á¾·á ½Ã Á¤¸®ÇÑ´Ù.
+        // ì‹œê°„ì´ ë©ˆì¶° ìˆì–´ë„ ì „íˆ¬ ì¢…ë£Œ ì‹œ ì •ë¦¬í•œë‹¤.
         if (_owner == null || !_owner.CanRunArmPattern)
         {
             Cancel();
             return;
         }
 
-        // ÆäÀÌµå¾Æ¿ôÀº ÇÑ ¹ø¸¸ ½ÃÀÛÇÑ´Ù.
+        // í˜ì´ë“œì•„ì›ƒì€ í•œ ë²ˆë§Œ ì‹œì‘í•œë‹¤.
         if (_isFading)
         {
             return;
         }
 
-        // ÇöÀç Controller´Â ¹İº¹ÇÏÁö ¾Ê´Â Æø¹ß »óÅÂ ÇÏ³ª·Î ±¸¼ºµÇ¾î ÀÖ´Ù.
-        // normalizedTime 1 ÀÌ»óÀÌ¸é Å¬¸³ ÀüÃ¼ Àç»ıÀÌ ³¡³­ »óÅÂ´Ù.
+        // í˜„ì¬ ControllerëŠ” ë°˜ë³µí•˜ì§€ ì•ŠëŠ” í­ë°œ ìƒíƒœ í•˜ë‚˜ë¡œ êµ¬ì„±ë˜ì–´ ìˆë‹¤.
+        // normalizedTime 1 ì´ìƒì´ë©´ í´ë¦½ ì „ì²´ ì¬ìƒì´ ëë‚œ ìƒíƒœë‹¤.
         AnimatorStateInfo state = _animator.GetCurrentAnimatorStateInfo(0);
 
         if (state.normalizedTime < 1f)
@@ -124,7 +125,7 @@ public sealed class BossAlienBarrageExplosion : MonoBehaviour
 
         _isFading = true;
 
-        // ¸¶Áö¸· ÀÜ±¤ ÀÌ¹ÌÁö¸¦ À¯ÁöÇÑ Ã¤ »ö»óÀÇ ¾ËÆÄ¸¸ ³·Ãá´Ù.
+        // ë§ˆì§€ë§‰ ì”ê´‘ ì´ë¯¸ì§€ë¥¼ ìœ ì§€í•œ ì±„ ìƒ‰ìƒì˜ ì•ŒíŒŒë§Œ ë‚®ì¶˜ë‹¤.
         _animator.enabled = false;
         _fadeTween = _visual
             .DOFade(0f, _fadeDuration)
@@ -132,7 +133,7 @@ public sealed class BossAlienBarrageExplosion : MonoBehaviour
             .OnComplete(Complete);
     }
 
-    // ÆäÀÌµå¾Æ¿ô±îÁö ¿Ï·áµÈ µÚ Á¾·á »óÅÂ¸¦ ¾Ë¸®°í ·çÆ®¸¦ Á¦°ÅÇÑ´Ù.
+    // í˜ì´ë“œì•„ì›ƒê¹Œì§€ ì™„ë£Œëœ ë’¤ ì¢…ë£Œ ìƒíƒœë¥¼ ì•Œë¦¬ê³  ë£¨íŠ¸ë¥¼ ì œê±°í•œë‹¤.
     private void Complete()
     {
         _fadeTween = null;
@@ -142,7 +143,7 @@ public sealed class BossAlienBarrageExplosion : MonoBehaviour
         Destroy(gameObject);
     }
 
-    // ÆĞÅÏ Ãë¼Ò ½Ã ÀÜ±¤À» ±â´Ù¸®Áö ¾Ê°í Áï½Ã Á¤¸®ÇÑ´Ù.
+    // íŒ¨í„´ ì·¨ì†Œ ì‹œ ì”ê´‘ì„ ê¸°ë‹¤ë¦¬ì§€ ì•Šê³  ì¦‰ì‹œ ì •ë¦¬í•œë‹¤.
     public void Cancel()
     {
         StopVisual();
@@ -151,11 +152,11 @@ public sealed class BossAlienBarrageExplosion : MonoBehaviour
 
     private void OnDisable()
     {
-        // ¿ÜºÎ¿¡¼­ ºñÈ°¼ºÈ­ÇÏ°Å³ª Á¦°ÅÇÑ °æ¿ì¿¡µµ Æ®À©À» ³²±âÁö ¾Ê´Â´Ù.
+        // ì™¸ë¶€ì—ì„œ ë¹„í™œì„±í™”í•˜ê±°ë‚˜ ì œê±°í•œ ê²½ìš°ì—ë„ íŠ¸ìœˆì„ ë‚¨ê¸°ì§€ ì•ŠëŠ”ë‹¤.
         StopVisual();
     }
 
-    // ¿Ï·á Äİ¹éÀ» ½ÇÇàÇÏÁö ¾Ê°í Æ®À©°ú ¿ÜÇüÀ» Á¤¸®ÇÑ´Ù.
+    // ì™„ë£Œ ì½œë°±ì„ ì‹¤í–‰í•˜ì§€ ì•Šê³  íŠ¸ìœˆê³¼ ì™¸í˜•ì„ ì •ë¦¬í•œë‹¤.
     private void StopVisual()
     {
         IsFinished = true;
@@ -178,7 +179,7 @@ public sealed class BossAlienBarrageExplosion : MonoBehaviour
         }
     }
 
-    // ¹İ°æ¡¤¹èÀ²¡¤½Ã°£¿¡ »ç¿ëÇÒ À¯È¿ÇÑ ¾ç¼ö¸¦ °Ë»çÇÑ´Ù.
+    // ë°˜ê²½Â·ë°°ìœ¨Â·ì‹œê°„ì— ì‚¬ìš©í•  ìœ íš¨í•œ ì–‘ìˆ˜ë¥¼ ê²€ì‚¬í•œë‹¤.
     private static bool IsPositive(float value)
     {
         return !float.IsNaN(value) &&

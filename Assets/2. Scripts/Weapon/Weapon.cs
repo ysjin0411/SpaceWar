@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.U2D.Animation;
@@ -17,94 +17,94 @@ public enum WeaponType
 }
 
 /// <summary>
-/// ÇöÀç Ä³¸¯ÅÍÀÇ ÀåÂø ¹«±â, ¹«±â º¯°æ, ¹ß»ç¸¦ °ü¸®ÇÑ´Ù.
-/// WeaponUI¿Í WeaponSlotPanelÀº Stage ¾À¿¡ ÀÖÀ¸¹Ç·Î StageManager°¡ InitializeUI()¸¦ ÅëÇØ Àü´ŞÇÑ´Ù.
+/// í˜„ì¬ ìºë¦­í„°ì˜ ì¥ì°© ë¬´ê¸°, ë¬´ê¸° ë³€ê²½, ë°œì‚¬ë¥¼ ê´€ë¦¬í•œë‹¤.
+/// WeaponUIì™€ WeaponSlotPanelì€ Stage ì”¬ì— ìˆìœ¼ë¯€ë¡œ StageManagerê°€ InitializeUI()ë¥¼ í†µí•´ ì „ë‹¬í•œë‹¤.
 /// </summary>
 public class Weapon : MonoBehaviour
 {
-    [Header("ÄÄÆ÷³ÍÆ®")]
+    [Header("ì»´í¬ë„ŒíŠ¸")]
     [SerializeField] Animator _animator;
-    // Ä³¸¯ÅÍ Renderer¿¡ ºÙ¾î ÀÖ´Â SpriteLibrary´Ù.
-    // ¹«±â°¡ ¹Ù²ğ ¶§ ÀÌ ÄÄÆ÷³ÍÆ®ÀÇ Sprite Library AssetÀ» ±³Ã¼ÇÑ´Ù.
+    // ìºë¦­í„° Rendererì— ë¶™ì–´ ìˆëŠ” SpriteLibraryë‹¤.
+    // ë¬´ê¸°ê°€ ë°”ë€” ë•Œ ì´ ì»´í¬ë„ŒíŠ¸ì˜ Sprite Library Assetì„ êµì²´í•œë‹¤.
     [SerializeField] SpriteLibrary _spriteLibrary;
 
 
-    [Header("ÀåÂø ¹«±â ·±Å¸ÀÓ µ¥ÀÌÅÍ")]
+    [Header("ì¥ì°© ë¬´ê¸° ëŸ°íƒ€ì„ ë°ì´í„°")]
     [SerializeField] List<WeaponRuntimeState> _equippedWeapons = new();
 
-    [Header("ÇöÀç ¹«±â ½½·Ô")]
-    // -1ÀÌ¸é ÇöÀç »ç¿ëÇÒ ¼ö ÀÖ´Â ¹«±â°¡ ¾ø´Â »óÅÂ
+    [Header("í˜„ì¬ ë¬´ê¸° ìŠ¬ë¡¯")]
+    // -1ì´ë©´ í˜„ì¬ ì‚¬ìš©í•  ìˆ˜ ìˆëŠ” ë¬´ê¸°ê°€ ì—†ëŠ” ìƒíƒœ
     [SerializeField] int _currentSlotIndex = -1;
 
-    [Header("Ä³¸¯ÅÍ ÇÁ¸®ÆÕ ³»ºÎ ÂüÁ¶")]
-    // Åõ»çÃ¼°¡ »ı¼ºµÉ Ä³¸¯ÅÍ ÇÁ¸®ÆÕ ³»ºÎ À§Ä¡
+    [Header("ìºë¦­í„° í”„ë¦¬íŒ¹ ë‚´ë¶€ ì°¸ì¡°")]
+    // íˆ¬ì‚¬ì²´ê°€ ìƒì„±ë  ìºë¦­í„° í”„ë¦¬íŒ¹ ë‚´ë¶€ ìœ„ì¹˜
     [SerializeField] Transform _firePoint;
 
-    // Soldier°¡ Grenade¸¦ ¼±ÅÃÇßÀ» ¶§ Ç¥½ÃÇÒ Æ÷¹°¼± Á¶ÁØ¼±ÀÌ´Ù.
-    // Grenade°¡ ¾ø´Â Ä³¸¯ÅÍ¿¡¼­´Â ºñ¿öµÑ ¼ö ÀÖ´Ù.
+    // Soldierê°€ Grenadeë¥¼ ì„ íƒí–ˆì„ ë•Œ í‘œì‹œí•  í¬ë¬¼ì„  ì¡°ì¤€ì„ ì´ë‹¤.
+    // Grenadeê°€ ì—†ëŠ” ìºë¦­í„°ì—ì„œëŠ” ë¹„ì›Œë‘˜ ìˆ˜ ìˆë‹¤.
     [SerializeField] GrenadeAimGuide _grenadeAimGuide;
 
-    // ¿ö¸®¾î Renderer ¾Æ·¡ÀÇ ÀÚÀÌ¾ğÆ® ¼Òµå °ø°İ ÆÇÁ¤.
-    // ¼ÖÁ®¿¡¼­´Â ºñ¿öµĞ´Ù.
+    // ì›Œë¦¬ì–´ Renderer ì•„ë˜ì˜ ìì´ì–¸íŠ¸ ì†Œë“œ ê³µê²© íŒì •.
+    // ì†”ì ¸ì—ì„œëŠ” ë¹„ì›Œë‘”ë‹¤.
     [SerializeField] SpriteMeleeAttack _giantSword;
 
-    // ÇØ¸Ó °ø°İ ÆÇÁ¤ ¿ÀºêÁ§Æ®.
+    // í•´ë¨¸ ê³µê²© íŒì • ì˜¤ë¸Œì íŠ¸.
     [SerializeField] SpriteMeleeAttack _hammer;
 
-    // ¿ö¸®¾î Renderer ¾Æ·¡ ShieldGuard¿¡ ºÙÀÎ ½Çµå ÄÄÆ÷³ÍÆ®.
-    // ¼ÖÁ®¿¡¼­´Â ºñ¿öµĞ´Ù.
+    // ì›Œë¦¬ì–´ Renderer ì•„ë˜ ShieldGuardì— ë¶™ì¸ ì‹¤ë“œ ì»´í¬ë„ŒíŠ¸.
+    // ì†”ì ¸ì—ì„œëŠ” ë¹„ì›Œë‘”ë‹¤.
     [SerializeField] Shield _shield;
 
-    // ¿ö¸®¾î°¡ Slash °ø°İ¿¡ »ç¿ëÇÏ´Â Attack4 Å¬¸³.
-    // ¿øº» Àç»ı ½Ã°£À» °¡Á®¿Í ÇöÀç °ø°İ °£°İ¿¡ ¸Â°Ô ¼Óµµ¸¦ °è»êÇÑ´Ù.
+    // ì›Œë¦¬ì–´ê°€ Slash ê³µê²©ì— ì‚¬ìš©í•˜ëŠ” Attack4 í´ë¦½.
+    // ì›ë³¸ ì¬ìƒ ì‹œê°„ì„ ê°€ì ¸ì™€ í˜„ì¬ ê³µê²© ê°„ê²©ì— ë§ê²Œ ì†ë„ë¥¼ ê³„ì‚°í•œë‹¤.
     [SerializeField] AnimationClip _slashAttackClip;
 
-    // SlashÀÇ ÇÑ ¹ø ÈÖµÎ¸£±â°¡ ÁøÇà ÁßÀÎÁö ±â·ÏÇÑ´Ù.
+    // Slashì˜ í•œ ë²ˆ íœ˜ë‘ë¥´ê¸°ê°€ ì§„í–‰ ì¤‘ì¸ì§€ ê¸°ë¡í•œë‹¤.
     bool _isSlashAttacking;
 
-    // Attack »óÅÂÀÇ ¼Óµµ ÆÄ¶ó¹ÌÅÍ.
+    // Attack ìƒíƒœì˜ ì†ë„ íŒŒë¼ë¯¸í„°.
     static readonly int AttackSpeedHash =
         Animator.StringToHash("AttackSpeed");
 
-    // ¿ö¸®¾î ±âº» ·¹ÀÌ¾îÀÇ °ø°İ¡¤´ë±â »óÅÂ.
+    // ì›Œë¦¬ì–´ ê¸°ë³¸ ë ˆì´ì–´ì˜ ê³µê²©Â·ëŒ€ê¸° ìƒíƒœ.
     static readonly int SlashAttackStateHash =
         Animator.StringToHash("Base Layer.SlashAttack");
 
     static readonly int SlashIdleStateHash =
         Animator.StringToHash("Base Layer.Idle");
 
-    // StageManager°¡ ·±Å¸ÀÓ¿¡ Àü´ŞÇÏ´Â Stage UI
+    // StageManagerê°€ ëŸ°íƒ€ì„ì— ì „ë‹¬í•˜ëŠ” Stage UI
     WeaponUI _weaponUI;
     GameObject _weaponSlotPanel;
 
-    // ¹«±â ¼±ÅÃ ÆĞ³ÎÀÌ ÇöÀç ¿­·Á ÀÖ´ÂÁö ÀúÀåÇÑ´Ù.
+    // ë¬´ê¸° ì„ íƒ íŒ¨ë„ì´ í˜„ì¬ ì—´ë ¤ ìˆëŠ”ì§€ ì €ì¥í•œë‹¤.
     bool _isWeaponSlotPanelOpen;
 
-    // ¸¶Áö¸· ¹ß»ç ÀÌÈÄ Èå¸¥ ½Ã°£
+    // ë§ˆì§€ë§‰ ë°œì‚¬ ì´í›„ íë¥¸ ì‹œê°„
     float _timer;
 
-    // À¯Áö ÁßÀÎ ·¹ÀÌÀú ÇÏ³ª¸¸ °ü¸®ÇÑ´Ù.
+    // ìœ ì§€ ì¤‘ì¸ ë ˆì´ì € í•˜ë‚˜ë§Œ ê´€ë¦¬í•œë‹¤.
     Lazer _activeLazer;
 
-    // °°Àº ÇÃ·¹ÀÌ¾î ¿ÀºêÁ§Æ®ÀÇ Á¶ÀÛ °¡´É »óÅÂ¸¦ È®ÀÎÇÑ´Ù.
+    // ê°™ì€ í”Œë ˆì´ì–´ ì˜¤ë¸Œì íŠ¸ì˜ ì¡°ì‘ ê°€ëŠ¥ ìƒíƒœë¥¼ í™•ì¸í•œë‹¤.
     private PlayerController _playerController;
 
-    // Á¶ÀÛÀÌ Çã¿ëµÇ°í »ì¾Æ ÀÖÀ» ¶§¸¸ ¹«±â¸¦ »ç¿ëÇÒ ¼ö ÀÖ´Ù.
+    // ì¡°ì‘ì´ í—ˆìš©ë˜ê³  ì‚´ì•„ ìˆì„ ë•Œë§Œ ë¬´ê¸°ë¥¼ ì‚¬ìš©í•  ìˆ˜ ìˆë‹¤.
     private bool CanUseWeapon =>
         _playerController.CanControl && !_playerController.IsDead;
 
-    // Ä³¸¯ÅÍ ÇÁ¸®ÆÕ¿¡ Ã³À½ºÎÅÍ ¿¬°áµÇ¾î ÀÖ´ø ±âº» Sprite Library´Ù.
-    // Àü¿ë ¶óÀÌºê·¯¸®°¡ ¾ø´Â ¹«±â·Î µ¹¾Æ¿ÔÀ» ¶§ º¹±¸ÇÏ±â À§ÇØ ÀúÀåÇÑ´Ù.
+    // ìºë¦­í„° í”„ë¦¬íŒ¹ì— ì²˜ìŒë¶€í„° ì—°ê²°ë˜ì–´ ìˆë˜ ê¸°ë³¸ Sprite Libraryë‹¤.
+    // ì „ìš© ë¼ì´ë¸ŒëŸ¬ë¦¬ê°€ ì—†ëŠ” ë¬´ê¸°ë¡œ ëŒì•„ì™”ì„ ë•Œ ë³µêµ¬í•˜ê¸° ìœ„í•´ ì €ì¥í•œë‹¤.
     SpriteLibraryAsset _defaultSpriteLibraryAsset;
 
-    // ¹®ÀÚ¿­À» ¸Å ÇÁ·¹ÀÓ °Ë»öÇÏÁö ¾Êµµ·Ï ÆÄ¶ó¹ÌÅÍ ID¸¦ ¹Ì¸® ÀúÀåÇÑ´Ù.
+    // ë¬¸ìì—´ì„ ë§¤ í”„ë ˆì„ ê²€ìƒ‰í•˜ì§€ ì•Šë„ë¡ íŒŒë¼ë¯¸í„° IDë¥¼ ë¯¸ë¦¬ ì €ì¥í•œë‹¤.
     static readonly int AttackHash = Animator.StringToHash("Attack");
 
-    // ÇöÀç ·±Å¸ÀÓ¿¡ ±¸¼ºµÈ ÀåÂø ¹«±â ½½·Ô °³¼ö
+    // í˜„ì¬ ëŸ°íƒ€ì„ì— êµ¬ì„±ëœ ì¥ì°© ë¬´ê¸° ìŠ¬ë¡¯ ê°œìˆ˜
     public int EquippedSlotCount => _equippedWeapons.Count;
 
     /// <summary>
-    /// ÇöÀç ¼±ÅÃÇÑ ½½·ÔÀÇ ¹«±â »óÅÂ¸¦ ¹İÈ¯ÇÑ´Ù. ÀåÂø ¹«±â°¡ ¾ø´Ù¸é nullÀ» ¹İÈ¯ÇÑ´Ù.
+    /// í˜„ì¬ ì„ íƒí•œ ìŠ¬ë¡¯ì˜ ë¬´ê¸° ìƒíƒœë¥¼ ë°˜í™˜í•œë‹¤. ì¥ì°© ë¬´ê¸°ê°€ ì—†ë‹¤ë©´ nullì„ ë°˜í™˜í•œë‹¤.
     /// </summary>
     public WeaponRuntimeState CurrentWeapon
     {
@@ -120,52 +120,52 @@ public class Weapon : MonoBehaviour
     }
 
     /// <summary>
-    /// ÄÄÆ÷³ÍÆ® ÂüÁ¶¿Í ÃÊ±â ½ÇÇà »óÅÂ¸¦ ÁØºñÇÑ´Ù.
+    /// ì»´í¬ë„ŒíŠ¸ ì°¸ì¡°ì™€ ì´ˆê¸° ì‹¤í–‰ ìƒíƒœë¥¼ ì¤€ë¹„í•œë‹¤.
     /// </summary>
     private void Awake()
     {
-        // ÇöÀç ÇÁ·ÎÁ§Æ®´Â ÇÃ·¹ÀÌ¾î¿Í WeaponÀÌ °°Àº ¿ÀºêÁ§Æ®¿¡ ºÙ¾î ÀÖ´Ù.
+        // í˜„ì¬ í”„ë¡œì íŠ¸ëŠ” í”Œë ˆì´ì–´ì™€ Weaponì´ ê°™ì€ ì˜¤ë¸Œì íŠ¸ì— ë¶™ì–´ ìˆë‹¤.
         _playerController = GetComponent<PlayerController>();
 
         if (_playerController == null)
         {
             throw new MissingComponentException(
-                $"{name}: Weapon°ú °°Àº ¿ÀºêÁ§Æ®¿¡ PlayerController°¡ ÇÊ¿äÇÕ´Ï´Ù.");
+                $"{name}: Weaponê³¼ ê°™ì€ ì˜¤ë¸Œì íŠ¸ì— PlayerControllerê°€ í•„ìš”í•©ë‹ˆë‹¤.");
         }
 
-        // Animator ¿¬°á ´©¶ôÀ» °³¹ß ´Ü°è¿¡¼­ ¹Ù·Î È®ÀÎÇÑ´Ù.
+        // Animator ì—°ê²° ëˆ„ë½ì„ ê°œë°œ ë‹¨ê³„ì—ì„œ ë°”ë¡œ í™•ì¸í•œë‹¤.
         if (_animator == null)
         {
             throw new MissingComponentException(
-                $"{name}ÀÇ Weapon¿¡ Animator°¡ ¿¬°áµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+                $"{name}ì˜ Weaponì— Animatorê°€ ì—°ê²°ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
         }
 
-        // ¹«±âº° Ä³¸¯ÅÍ ¿ÜÇüÀ» ±³Ã¼ÇÏ·Á¸é SpriteLibrary°¡ ÇÊ¿äÇÏ´Ù.
+        // ë¬´ê¸°ë³„ ìºë¦­í„° ì™¸í˜•ì„ êµì²´í•˜ë ¤ë©´ SpriteLibraryê°€ í•„ìš”í•˜ë‹¤.
         if (_spriteLibrary == null)
         {
             throw new MissingComponentException(
-                $"{name}ÀÇ Weapon¿¡ SpriteLibrary°¡ ¿¬°áµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+                $"{name}ì˜ Weaponì— SpriteLibraryê°€ ì—°ê²°ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
         }
 
-        // Soldier ÇÁ¸®ÆÕÀÇ °æ¿ì ÇöÀç ¿¬°áµÈ Soldier.spriteLib°¡ ÀúÀåµÈ´Ù.
-        // ³ªÁß¿¡ Bullet, LazerÃ³·³ Àü¿ë ¶óÀÌºê·¯¸®°¡ ¾ø´Â ¹«±â·Î ¹Ù²Ù¸é
-        // ÀÌ ±âº» ¶óÀÌºê·¯¸®·Î ´Ù½Ã º¹±¸ÇÑ´Ù.
+        // Soldier í”„ë¦¬íŒ¹ì˜ ê²½ìš° í˜„ì¬ ì—°ê²°ëœ Soldier.spriteLibê°€ ì €ì¥ëœë‹¤.
+        // ë‚˜ì¤‘ì— Bullet, Lazerì²˜ëŸ¼ ì „ìš© ë¼ì´ë¸ŒëŸ¬ë¦¬ê°€ ì—†ëŠ” ë¬´ê¸°ë¡œ ë°”ê¾¸ë©´
+        // ì´ ê¸°ë³¸ ë¼ì´ë¸ŒëŸ¬ë¦¬ë¡œ ë‹¤ì‹œ ë³µêµ¬í•œë‹¤.
         _defaultSpriteLibraryAsset =
             _spriteLibrary.spriteLibraryAsset;
 
-        // FirePoint´Â Ä³¸¯ÅÍ ÇÁ¸®ÆÕ ³»ºÎ ÂüÁ¶ÀÌ¹Ç·Î ÇÁ¸®ÆÕ¿¡ ¹İµå½Ã ¿¬°áµÇ¾î ÀÖ¾î¾ß ÇÑ´Ù.
+        // FirePointëŠ” ìºë¦­í„° í”„ë¦¬íŒ¹ ë‚´ë¶€ ì°¸ì¡°ì´ë¯€ë¡œ í”„ë¦¬íŒ¹ì— ë°˜ë“œì‹œ ì—°ê²°ë˜ì–´ ìˆì–´ì•¼ í•œë‹¤.
         if (_firePoint == null)
         {
-            throw new InvalidOperationException($"{name}ÀÇ Weapon¿¡ FirePoint°¡ ¿¬°áµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+            throw new InvalidOperationException($"{name}ì˜ Weaponì— FirePointê°€ ì—°ê²°ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
         }
 
     }
 
     /// <summary>
-    /// StageManager°¡ StageÀÇ ¹«±â UI¸¦ Àü´ŞÇÑ´Ù.
+    /// StageManagerê°€ Stageì˜ ë¬´ê¸° UIë¥¼ ì „ë‹¬í•œë‹¤.
     /// </summary>
-    /// <param name="weaponUI">ÇöÀç ¹«±â ¾ÆÀÌÄÜÀ» Ç¥½ÃÇÒ WeaponUI</param>
-    /// <param name="weaponSlotPanel">Tab Å°·Î ¿­°í ´İÀ» ¹«±â ½½·Ô ÆĞ³Î</param>
+    /// <param name="weaponUI">í˜„ì¬ ë¬´ê¸° ì•„ì´ì½˜ì„ í‘œì‹œí•  WeaponUI</param>
+    /// <param name="weaponSlotPanel">Tab í‚¤ë¡œ ì—´ê³  ë‹«ì„ ë¬´ê¸° ìŠ¬ë¡¯ íŒ¨ë„</param>
     public void InitializeUI(WeaponUI weaponUI, GameObject weaponSlotPanel)
     {
         if (weaponUI == null)
@@ -181,26 +181,26 @@ public class Weapon : MonoBehaviour
         _weaponUI = weaponUI;
         _weaponSlotPanel = weaponSlotPanel;
 
-        // Stage ½ÃÀÛ ½Ã ¹«±â ¼±ÅÃ ÆĞ³ÎÀ» ´İ´Â´Ù.
+        // Stage ì‹œì‘ ì‹œ ë¬´ê¸° ì„ íƒ íŒ¨ë„ì„ ë‹«ëŠ”ë‹¤.
         _isWeaponSlotPanelOpen = false;
         _weaponSlotPanel.SetActive(false);
 
-        // ÇöÀç ÀåÂø ¹«±â »óÅÂ¸¦ UI¿¡ ¹İ¿µÇÑ´Ù.
+        // í˜„ì¬ ì¥ì°© ë¬´ê¸° ìƒíƒœë¥¼ UIì— ë°˜ì˜í•œë‹¤.
         UpdateWeaponUI();
     }
 
     /// <summary>
-    /// ½½·Ô ¼ø¼­´ë·Î Àü´Ş¹ŞÀº WeaponData¸¦
-    /// ÀüÅõ¿ë WeaponRuntimeState·Î º¯È¯ÇÑ´Ù.
+    /// ìŠ¬ë¡¯ ìˆœì„œëŒ€ë¡œ ì „ë‹¬ë°›ì€ WeaponDataë¥¼
+    /// ì „íˆ¬ìš© WeaponRuntimeStateë¡œ ë³€í™˜í•œë‹¤.
     /// </summary>
     public void InitializeWeapons(WeaponData[] equippedWeaponDatas)
     {
         if (equippedWeaponDatas == null)
         {
-            throw new ArgumentNullException(nameof(equippedWeaponDatas), "ÀåÂø ¹«±â µ¥ÀÌÅÍ ¹è¿­ÀÌ Àü´ŞµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+            throw new ArgumentNullException(nameof(equippedWeaponDatas), "ì¥ì°© ë¬´ê¸° ë°ì´í„° ë°°ì—´ì´ ì „ë‹¬ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
         }
 
-        // ÀÌÀü ÀüÅõ¿¡¼­ »ç¿ëÇÏ´ø ·±Å¸ÀÓ ¹«±â¸¦ Á¦°ÅÇÑ´Ù.
+        // ì´ì „ ì „íˆ¬ì—ì„œ ì‚¬ìš©í•˜ë˜ ëŸ°íƒ€ì„ ë¬´ê¸°ë¥¼ ì œê±°í•œë‹¤.
         _equippedWeapons.Clear();
 
         _currentSlotIndex = -1;
@@ -209,7 +209,7 @@ public class Weapon : MonoBehaviour
         {
             WeaponData weaponData = equippedWeaponDatas[slotIndex];
 
-            // ºó ½½·Ôµµ null·Î Ãß°¡ÇÏ¿© ½½·Ô À§Ä¡¸¦ º¸Á¸ÇÑ´Ù.
+            // ë¹ˆ ìŠ¬ë¡¯ë„ nullë¡œ ì¶”ê°€í•˜ì—¬ ìŠ¬ë¡¯ ìœ„ì¹˜ë¥¼ ë³´ì¡´í•œë‹¤.
             if (weaponData == null)
             {
                 _equippedWeapons.Add(null);
@@ -220,24 +220,24 @@ public class Weapon : MonoBehaviour
 
             _equippedWeapons.Add(runtimeState);
 
-            // Ã³À½ ¹ß°ßÇÑ ÀåÂø ¹«±â¸¦ ÇöÀç ¹«±â·Î ¼±ÅÃÇÑ´Ù.
+            // ì²˜ìŒ ë°œê²¬í•œ ì¥ì°© ë¬´ê¸°ë¥¼ í˜„ì¬ ë¬´ê¸°ë¡œ ì„ íƒí•œë‹¤.
             if (_currentSlotIndex == -1)
             {
                 _currentSlotIndex = slotIndex;
             }
         }
 
-        // ÀåÂø ¹«±â ÃÊ±âÈ­ Á÷ÈÄ¿¡´Â Ã¹ °ø°İÀ» Áï½Ã »ç¿ëÇÒ ¼ö ÀÖ°Ô ÇÑ´Ù.
+        // ì¥ì°© ë¬´ê¸° ì´ˆê¸°í™” ì§í›„ì—ëŠ” ì²« ê³µê²©ì„ ì¦‰ì‹œ ì‚¬ìš©í•  ìˆ˜ ìˆê²Œ í•œë‹¤.
         _timer = CurrentWeapon != null
             ? CurrentWeapon.CurrentCooltime
             : 0f;
 
-        // ½ºÅ×ÀÌÁö ½ÃÀÛ ½Ã Ã¹ ¹øÂ°·Î ¼±ÅÃµÈ ¹«±âÀÇ ¿ÜÇüÀ» Àû¿ëÇÑ´Ù.
-        // Grenade ¶Ç´Â Sniper°¡ Ã¹ ½½·ÔÀÌ¶ó¸é ½ÃÀÛºÎÅÍ ÇØ´ç ¿ÜÇüÀÌ ³ª¿Â´Ù.
+        // ìŠ¤í…Œì´ì§€ ì‹œì‘ ì‹œ ì²« ë²ˆì§¸ë¡œ ì„ íƒëœ ë¬´ê¸°ì˜ ì™¸í˜•ì„ ì ìš©í•œë‹¤.
+        // Grenade ë˜ëŠ” Sniperê°€ ì²« ìŠ¬ë¡¯ì´ë¼ë©´ ì‹œì‘ë¶€í„° í•´ë‹¹ ì™¸í˜•ì´ ë‚˜ì˜¨ë‹¤.
         ApplyCurrentWeaponSpriteLibrary();
 
-        // StageManager°¡ UI¸¦ Àü´ŞÇÑ »óÅÂ¶ó¸é
-        // JSON ±â¹İ ÀåÂø ¹«±â 3°³ÀÇ ¾ÆÀÌÄÜÀ» Tab ÆĞ³Î¿¡ Ç¥½ÃÇÑ´Ù.
+        // StageManagerê°€ UIë¥¼ ì „ë‹¬í•œ ìƒíƒœë¼ë©´
+        // JSON ê¸°ë°˜ ì¥ì°© ë¬´ê¸° 3ê°œì˜ ì•„ì´ì½˜ì„ Tab íŒ¨ë„ì— í‘œì‹œí•œë‹¤.
         if (_weaponUI != null)
         {
             _weaponUI.UpdateEquippedWeapons(
@@ -248,47 +248,47 @@ public class Weapon : MonoBehaviour
     }
 
     /// <summary>
-    /// ¸Å ÇÁ·¹ÀÓ ÀÔ·Â°ú °æ°ú ½Ã°£¿¡ µû¸¥ »óÅÂ¸¦ °»½ÅÇÑ´Ù.
+    /// ë§¤ í”„ë ˆì„ ì…ë ¥ê³¼ ê²½ê³¼ ì‹œê°„ì— ë”°ë¥¸ ìƒíƒœë¥¼ ê°±ì‹ í•œë‹¤.
     /// </summary>
     private void Update()
     {
-        // ÀÏ½ÃÁ¤Áö Áß¿¡´Â ÀÔ·Â°ú ÄğÅ¸ÀÓÀ» ÁøÇàÇÏÁö ¾Ê´Â´Ù.
-        // ÁøÇà ÁßÀÎ °Ë °ø°İÀÇ Animator ÆÄ¶ó¹ÌÅÍ´Â À¯ÁöÇÑ´Ù.
+        // ì¼ì‹œì •ì§€ ì¤‘ì—ëŠ” ì…ë ¥ê³¼ ì¿¨íƒ€ì„ì„ ì§„í–‰í•˜ì§€ ì•ŠëŠ”ë‹¤.
+        // ì§„í–‰ ì¤‘ì¸ ê²€ ê³µê²©ì˜ Animator íŒŒë¼ë¯¸í„°ëŠ” ìœ ì§€í•œë‹¤.
         if (Time.timeScale <= 0f)
         {
             return;
         }
 
-        // ÇöÀç ¼±ÅÃ ¿©ºÎ¿Í °ü°è¾øÀÌ ÀåÂø ½½·Ô¿¡ µé¾î ÀÖ´Â
-        // ¸ğµç ÃæÀüÇü ¹«±âÀÇ È¸º¹ ½Ã°£À» ÁøÇàÇÑ´Ù.
+        // í˜„ì¬ ì„ íƒ ì—¬ë¶€ì™€ ê´€ê³„ì—†ì´ ì¥ì°© ìŠ¬ë¡¯ì— ë“¤ì–´ ìˆëŠ”
+        // ëª¨ë“  ì¶©ì „í˜• ë¬´ê¸°ì˜ íšŒë³µ ì‹œê°„ì„ ì§„í–‰í•œë‹¤.
         UpdateEquippedWeaponCharges(
             Time.deltaTime);
 
-        // ÇöÀç ¹«±â ¾ÆÀÌÄÜ°ú Tab ÀåÂø ¾ÆÀÌÄÜ¿¡
-        // Grenade ÃæÀü ÁøÇàµµ¿Í º¸À¯·®À» Ç¥½ÃÇÑ´Ù.
+        // í˜„ì¬ ë¬´ê¸° ì•„ì´ì½˜ê³¼ Tab ì¥ì°© ì•„ì´ì½˜ì—
+        // Grenade ì¶©ì „ ì§„í–‰ë„ì™€ ë³´ìœ ëŸ‰ì„ í‘œì‹œí•œë‹¤.
         UpdateWeaponChargeUI();
 
         _timer += Time.deltaTime;
 
-        // ÄğÅ¸ÀÓ°ú ÃæÀü È¸º¹Àº À¯ÁöÇÏµÇ,
-        // ÀÌµ¿ ¿¬ÃâÀÌ³ª »ç¸Á Áß¿¡´Â °ø°İ¡¤¹«±â º¯°æ ÀÔ·ÂÀ» ¹ŞÁö ¾Ê´Â´Ù.
+        // ì¿¨íƒ€ì„ê³¼ ì¶©ì „ íšŒë³µì€ ìœ ì§€í•˜ë˜,
+        // ì´ë™ ì—°ì¶œì´ë‚˜ ì‚¬ë§ ì¤‘ì—ëŠ” ê³µê²©Â·ë¬´ê¸° ë³€ê²½ ì…ë ¥ì„ ë°›ì§€ ì•ŠëŠ”ë‹¤.
         if (!CanUseWeapon)
         {
-            // Á¦¾î¸¦ ÀÒÀ¸¸é ÀúÀåµÈ Z À¯Áö »óÅÂ±îÁö Áö¿ö ÀÚµ¿ ¿¬°İÀ» Áß´ÜÇÑ´Ù.
+            // ì œì–´ë¥¼ ìƒìœ¼ë©´ ì €ì¥ëœ Z ìœ ì§€ ìƒíƒœê¹Œì§€ ì§€ì›Œ ìë™ ì—°ê²©ì„ ì¤‘ë‹¨í•œë‹¤.
             CancelCurrentAttack();
             return;
         }
 
-        // ÇöÀç ¼±ÅÃµÈ ¹«±â¸¦ ÇÑ ¹ø¸¸ °¡Á®¿Í
-        // ÀÌ¹ø ÇÁ·¹ÀÓÀÇ ÀÔ·Â Ã³¸®¿¡ »ç¿ëÇÑ´Ù.
+        // í˜„ì¬ ì„ íƒëœ ë¬´ê¸°ë¥¼ í•œ ë²ˆë§Œ ê°€ì ¸ì™€
+        // ì´ë²ˆ í”„ë ˆì„ì˜ ì…ë ¥ ì²˜ë¦¬ì— ì‚¬ìš©í•œë‹¤.
         WeaponRuntimeState currentWeapon =
             CurrentWeapon;
 
-        // ½ÇÁ¦ Z À¯Áö ÀÔ·ÂÀ» ÀĞ´Â´Ù.
+        // ì‹¤ì œ Z ìœ ì§€ ì…ë ¥ì„ ì½ëŠ”ë‹¤.
         bool isHeld = Input.GetKey(KeyCode.Z);
 
-        // ±ÙÁ¢°ø°İÀº Å° ÇØÁ¦µµ Àü´ŞÇØ¾ß ´ÙÀ½ °ø°İÀ» 1Å¸ºÎÅÍ ½ÃÀÛÇÑ´Ù.
-        // ´©¸£°í ÀÖ´Â µ¿¾ÈÀÇ ½ÇÁ¦ °ø°İ ¿äÃ»Àº ±âÁ¸ Fire() Èå¸§¿¡¼­ Ã³¸®ÇÑ´Ù.
+        // ê·¼ì ‘ê³µê²©ì€ í‚¤ í•´ì œë„ ì „ë‹¬í•´ì•¼ ë‹¤ìŒ ê³µê²©ì„ 1íƒ€ë¶€í„° ì‹œì‘í•œë‹¤.
+        // ëˆ„ë¥´ê³  ìˆëŠ” ë™ì•ˆì˜ ì‹¤ì œ ê³µê²© ìš”ì²­ì€ ê¸°ì¡´ Fire() íë¦„ì—ì„œ ì²˜ë¦¬í•œë‹¤.
         if (currentWeapon != null &&
             (currentWeapon.Data.Type == WeaponType.GiantSword ||
              currentWeapon.Data.Type == WeaponType.Hammer))
@@ -300,25 +300,25 @@ public class Weapon : MonoBehaviour
             if (melee == null || !melee.isActiveAndEnabled)
             {
                 throw new InvalidOperationException(
-                    $"{name}: ÇöÀç ¹«±âÀÇ È°¼ºÈ­µÈ SpriteMeleeAttackÀ» ¿¬°áÇÏ¼¼¿ä.");
+                    $"{name}: í˜„ì¬ ë¬´ê¸°ì˜ í™œì„±í™”ëœ SpriteMeleeAttackì„ ì—°ê²°í•˜ì„¸ìš”.");
             }
 
             melee.SetAttackHeld(isHeld);
         }
 
 
-        // ½Çµå´Â ÀÏ¹İ ¹ß»ç¿Í º°µµ·Î ÀÚ¼¼¸¦ Á¦¾îÇÑ´Ù.
+        // ì‹¤ë“œëŠ” ì¼ë°˜ ë°œì‚¬ì™€ ë³„ë„ë¡œ ìì„¸ë¥¼ ì œì–´í•œë‹¤.
         bool isShield =
             currentWeapon != null &&
             currentWeapon.Data.Type == WeaponType.Shield;
 
-        // °Ë°ú ÇØ¸Óµµ °¢ °ø°İ ÄÄÆ÷³ÍÆ®°¡ ¾Ö´Ï¸ŞÀÌ¼ÇÀ» Á¦¾îÇÑ´Ù.
+        // ê²€ê³¼ í•´ë¨¸ë„ ê° ê³µê²© ì»´í¬ë„ŒíŠ¸ê°€ ì• ë‹ˆë©”ì´ì…˜ì„ ì œì–´í•œë‹¤.
         bool isSpriteMelee =
             currentWeapon != null &&
             (currentWeapon.Data.Type == WeaponType.GiantSword ||
              currentWeapon.Data.Type == WeaponType.Hammer);
 
-        // Slash´Â ½ÇÁ¦ ¹ß»ç ½ÃÁ¡¿¡ ¾Ö´Ï¸ŞÀÌ¼ÇÀ» ½ÃÀÛÇÑ´Ù.
+        // SlashëŠ” ì‹¤ì œ ë°œì‚¬ ì‹œì ì— ì• ë‹ˆë©”ì´ì…˜ì„ ì‹œì‘í•œë‹¤.
         bool isSlash =
             currentWeapon != null &&
             currentWeapon.Data.Type == WeaponType.Slash;
@@ -329,20 +329,20 @@ public class Weapon : MonoBehaviour
             currentWeapon != null &&
             currentWeapon.HasAvailableCharge;
 
-        // ÀÔ·Â ÇØÁ¦ ¶Ç´Â ´Ù¸¥ ¹«±â·Î º¯°æµÇ¸é Ãâ·ÂÀ» ÃÊ±âÈ­ÇÑ´Ù.
+        // ì…ë ¥ í•´ì œ ë˜ëŠ” ë‹¤ë¥¸ ë¬´ê¸°ë¡œ ë³€ê²½ë˜ë©´ ì¶œë ¥ì„ ì´ˆê¸°í™”í•œë‹¤.
         if (!isAttackHeld || currentWeapon.Data.Type != WeaponType.Lazer)
             StopLazer();
 
         if (isShield)
         {
-            // ¿¬°á ´©¶ôÀº ¹Ù·Î È®ÀÎÇÒ ¼ö ÀÖµµ·Ï ¿À·ù·Î ¾Ë¸°´Ù.
+            // ì—°ê²° ëˆ„ë½ì€ ë°”ë¡œ í™•ì¸í•  ìˆ˜ ìˆë„ë¡ ì˜¤ë¥˜ë¡œ ì•Œë¦°ë‹¤.
             if (_shield == null || !_shield.isActiveAndEnabled)
             {
                 throw new InvalidOperationException(
-                    $"{name}: È°¼ºÈ­µÈ ShieldGuardÀÇ Shield¸¦ ¿¬°áÇØ¾ß ÇÕ´Ï´Ù.");
+                    $"{name}: í™œì„±í™”ëœ ShieldGuardì˜ Shieldë¥¼ ì—°ê²°í•´ì•¼ í•©ë‹ˆë‹¤.");
             }
 
-            // ¼±ÅÃµÈ ½ÇµåÀÇ Ã¼·Â µ¥ÀÌÅÍ¿Í ÀÔ·ÂÀ» Àü´ŞÇÑ´Ù.
+            // ì„ íƒëœ ì‹¤ë“œì˜ ì²´ë ¥ ë°ì´í„°ì™€ ì…ë ¥ì„ ì „ë‹¬í•œë‹¤.
             _shield.Tick(
                 currentWeapon,
                 isHeld,
@@ -350,7 +350,7 @@ public class Weapon : MonoBehaviour
         }
         else
         {
-            // °Ë¡¤ÇØ¸Ó¡¤Slash´Â °¢ °ø°İ ½ÃÀÛ°ú Á¾·á°¡ ¾Ö´Ï¸ŞÀÌ¼ÇÀ» Á¦¾îÇÑ´Ù.
+            // ê²€Â·í•´ë¨¸Â·SlashëŠ” ê° ê³µê²© ì‹œì‘ê³¼ ì¢…ë£Œê°€ ì• ë‹ˆë©”ì´ì…˜ì„ ì œì–´í•œë‹¤.
             if (!isSpriteMelee && !isSlash)
             {
                 _animator.SetBool(AttackHash, isAttackHeld);
@@ -360,7 +360,7 @@ public class Weapon : MonoBehaviour
             {
                 if (currentWeapon.Data.Type == WeaponType.Grenade)
                 {
-                    // ¼ö·ùÅºÀº ´©¸¥ ¼ø°£ ÇÑ ¹ø¸¸ ´øÁø´Ù.
+                    // ìˆ˜ë¥˜íƒ„ì€ ëˆ„ë¥¸ ìˆœê°„ í•œ ë²ˆë§Œ ë˜ì§„ë‹¤.
                     if (Input.GetKeyDown(KeyCode.Z) &&
                         currentWeapon.HasAvailableCharge)
                     {
@@ -369,19 +369,19 @@ public class Weapon : MonoBehaviour
                 }
                 else if (isAttackHeld)
                 {
-                    // ³ª¸ÓÁö °ø°İ ¹«±â´Â ±âÁ¸ ¹ß»ç Ã³¸®¸¦ »ç¿ëÇÑ´Ù.
+                    // ë‚˜ë¨¸ì§€ ê³µê²© ë¬´ê¸°ëŠ” ê¸°ì¡´ ë°œì‚¬ ì²˜ë¦¬ë¥¼ ì‚¬ìš©í•œë‹¤.
                     Fire();
                 }
             }
         }
 
-        // Tab ÀÔ·Â ½Ã ¹«±â ¼±ÅÃ ÆĞ³ÎÀ» ¿¬´Ù.
+        // Tab ì…ë ¥ ì‹œ ë¬´ê¸° ì„ íƒ íŒ¨ë„ì„ ì—°ë‹¤.
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             ToggleWeaponSlotPanel();
         }
 
-        // ÆĞ³ÎÀÌ ´İÇô ÀÖÀ¸¸é ½½·Ô ¼±ÅÃ ÀÔ·ÂÀ» Ã³¸®ÇÏÁö ¾Ê´Â´Ù.
+        // íŒ¨ë„ì´ ë‹«í˜€ ìˆìœ¼ë©´ ìŠ¬ë¡¯ ì„ íƒ ì…ë ¥ì„ ì²˜ë¦¬í•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (!_isWeaponSlotPanelOpen)
         {
             return;
@@ -403,8 +403,8 @@ public class Weapon : MonoBehaviour
 
 
     /// <summary>
-    /// ÇöÀç ÀåÂøµÈ ¸ğµç ¹«±âÀÇ ÃæÀü ½Ã°£À» °»½ÅÇÑ´Ù.
-    /// ÇöÀç ¼±ÅÃÇÑ ½½·Ô»Ó ¾Æ´Ï¶ó ÀåÂøµÈ ¼¼ ½½·Ô ÀüÃ¼¸¦ °Ë»çÇÑ´Ù.
+    /// í˜„ì¬ ì¥ì°©ëœ ëª¨ë“  ë¬´ê¸°ì˜ ì¶©ì „ ì‹œê°„ì„ ê°±ì‹ í•œë‹¤.
+    /// í˜„ì¬ ì„ íƒí•œ ìŠ¬ë¡¯ë¿ ì•„ë‹ˆë¼ ì¥ì°©ëœ ì„¸ ìŠ¬ë¡¯ ì „ì²´ë¥¼ ê²€ì‚¬í•œë‹¤.
     /// </summary>
     private void UpdateEquippedWeaponCharges(
         float deltaTime)
@@ -416,31 +416,34 @@ public class Weapon : MonoBehaviour
             WeaponRuntimeState weapon =
                 _equippedWeapons[slotIndex];
 
-            // ºñ¾î ÀÖ´Â ÀåÂø ½½·ÔÀº °Ç³Ê¶Ú´Ù.
+            // ë¹„ì–´ ìˆëŠ” ì¥ì°© ìŠ¬ë¡¯ì€ ê±´ë„ˆë›´ë‹¤.
             if (weapon == null)
             {
                 continue;
             }
 
-            // ÀÏ¹İ ¹«±â¿¡¼­´Â ³»ºÎ °Ë»ç¸¦ ÅëÇØ ¹Ù·Î ¹İÈ¯ÇÏ°í,
-            // Grenade °°Àº ÃæÀüÇü ¹«±â¸¸ ½Ã°£ÀÌ ÁøÇàµÈ´Ù.
+            // ì¼ë°˜ ë¬´ê¸°ì—ì„œëŠ” ë‚´ë¶€ ê²€ì‚¬ë¥¼ í†µí•´ ë°”ë¡œ ë°˜í™˜í•˜ê³ ,
+            // Grenade ê°™ì€ ì¶©ì „í˜• ë¬´ê¸°ë§Œ ì‹œê°„ì´ ì§„í–‰ëœë‹¤.
             weapon.UpdateChargeRecovery(
                 deltaTime);
 
-            // ½Çµå´Â ÀÚ¿¬È¸º¹À» ÁøÇàÇÑ´Ù.
-            // ÇöÀç ¼±ÅÃÇÑ ¹«±â°¡ ¾Æ´Ï¾îµµ ÀåÂø ½½·Ô¿¡ ÀÖÀ¸¸é È¸º¹ÇÑ´Ù.
-            weapon.UpdateShieldRecovery(
-                deltaTime);
+            // ì‹¤ë“œëŠ” ìì—°íšŒë³µì„ ì§„í–‰í•œë‹¤.
+            // í˜„ì¬ ì„ íƒí•œ ë¬´ê¸°ê°€ ì•„ë‹ˆì–´ë„ ì¥ì°© ìŠ¬ë¡¯ì— ìˆìœ¼ë©´ íšŒë³µí•œë‹¤.
+            float previousShield = weapon.ShieldHealthRatio;
+            weapon.UpdateShieldRecovery(deltaTime);
+            // ë°©íŒ¨ ë‚´êµ¬ë„ê°€ ì™„ì „íˆ íšŒë³µë˜ëŠ” ìˆœê°„ë§Œ ì•Œë¦°ë‹¤.
+            if (weapon.Data.Type == WeaponType.Shield && previousShield < 1f && weapon.ShieldHealthRatio >= 1f)
+                GameAudio.Play(GameSound.ShieldRecover);
         }
     }
 
     /// <summary>
-    /// ÇöÀç ¹«±â¿Í ÀåÂøµÈ ¼¼ ¹«±âÀÇ ÃæÀü »óÅÂ¸¦
-    /// Stage WeaponUI¿¡ Àü´ŞÇÑ´Ù.
+    /// í˜„ì¬ ë¬´ê¸°ì™€ ì¥ì°©ëœ ì„¸ ë¬´ê¸°ì˜ ì¶©ì „ ìƒíƒœë¥¼
+    /// Stage WeaponUIì— ì „ë‹¬í•œë‹¤.
     /// </summary>
     private void UpdateWeaponChargeUI()
     {
-        // StageManager°¡ ¾ÆÁ÷ UI¸¦ ¿¬°áÇÏÁö ¾Ê¾Ò´Ù¸é °Ç³Ê¶Ú´Ù.
+        // StageManagerê°€ ì•„ì§ UIë¥¼ ì—°ê²°í•˜ì§€ ì•Šì•˜ë‹¤ë©´ ê±´ë„ˆë›´ë‹¤.
         if (_weaponUI == null)
         {
             return;
@@ -452,11 +455,11 @@ public class Weapon : MonoBehaviour
     }
 
     /// <summary>
-    /// StageÀÇ ¹«±â ½½·Ô ÆĞ³ÎÀ» ¿­°Å³ª ´İ´Â´Ù.
+    /// Stageì˜ ë¬´ê¸° ìŠ¬ë¡¯ íŒ¨ë„ì„ ì—´ê±°ë‚˜ ë‹«ëŠ”ë‹¤.
     /// </summary>
     private void ToggleWeaponSlotPanel()
     {
-        // StageManager°¡ ¾ÆÁ÷ UI¸¦ Àü´ŞÇÏÁö ¾Ê¾Ò´Ù¸é ÆĞ³Î ÀÔ·ÂÀ» Ã³¸®ÇÏÁö ¾Ê´Â´Ù.
+        // StageManagerê°€ ì•„ì§ UIë¥¼ ì „ë‹¬í•˜ì§€ ì•Šì•˜ë‹¤ë©´ íŒ¨ë„ ì…ë ¥ì„ ì²˜ë¦¬í•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (_weaponSlotPanel == null)
         {
             return;
@@ -468,26 +471,27 @@ public class Weapon : MonoBehaviour
     }
 
     /// <summary>
-    /// ÁöÁ¤ÇÑ ÀåÂø ½½·ÔÀÇ ¹«±â¸¦ ÇöÀç ¹«±â·Î ¼±ÅÃÇÑ´Ù.
+    /// ì§€ì •í•œ ì¥ì°© ìŠ¬ë¡¯ì˜ ë¬´ê¸°ë¥¼ í˜„ì¬ ë¬´ê¸°ë¡œ ì„ íƒí•œë‹¤.
     /// </summary>
     public void SelectWeaponSlot(int slotIndex)
     {
         WeaponRuntimeState weapon = GetWeaponAtSlot(slotIndex);
 
-        // ºó ½½·ÔÀÌ°Å³ª Àß¸øµÈ ½½·ÔÀÌ¸é º¯°æÇÏÁö ¾Ê´Â´Ù.
+        // ë¹ˆ ìŠ¬ë¡¯ì´ê±°ë‚˜ ì˜ëª»ëœ ìŠ¬ë¡¯ì´ë©´ ë³€ê²½í•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (weapon == null)
         {
             return;
         }
 
+        if (_currentSlotIndex != slotIndex) GameAudio.Play(GameSound.WeaponSwitch); // ì‹¤ì œ êµì²´ë§Œ ì•Œë¦°ë‹¤.
         _currentSlotIndex = slotIndex;
 
-        // »õ·Î ¼±ÅÃµÈ ¹«±â¿¡ ¸Â´Â Idle/Attack ½ºÇÁ¶óÀÌÆ® ¼¼Æ®·Î ¹Ù²Û´Ù.
+        // ìƒˆë¡œ ì„ íƒëœ ë¬´ê¸°ì— ë§ëŠ” Idle/Attack ìŠ¤í”„ë¼ì´íŠ¸ ì„¸íŠ¸ë¡œ ë°”ê¾¼ë‹¤.
         ApplyCurrentWeaponSpriteLibrary();
 
         UpdateWeaponUI();
 
-        // ¹«±â ¼±ÅÃÀ» ¿Ï·áÇßÀ¸¹Ç·Î ÆĞ³ÎÀ» ´İ´Â´Ù.
+        // ë¬´ê¸° ì„ íƒì„ ì™„ë£Œí–ˆìœ¼ë¯€ë¡œ íŒ¨ë„ì„ ë‹«ëŠ”ë‹¤.
         _isWeaponSlotPanelOpen = false;
 
         if (_weaponSlotPanel != null)
@@ -497,28 +501,28 @@ public class Weapon : MonoBehaviour
     }
 
     /// <summary>
-    /// ÇöÀç ¹«±â¿¡ ¸Â´Â Ä³¸¯ÅÍ Sprite Library¸¦ Àû¿ëÇÏ°í
-    /// Animator¸¦ Idle »óÅÂ·Î ÃÊ±âÈ­ÇÑ´Ù.
+    /// í˜„ì¬ ë¬´ê¸°ì— ë§ëŠ” ìºë¦­í„° Sprite Libraryë¥¼ ì ìš©í•˜ê³ 
+    /// Animatorë¥¼ Idle ìƒíƒœë¡œ ì´ˆê¸°í™”í•œë‹¤.
     /// </summary>
     private void ApplyCurrentWeaponSpriteLibrary()
     {
         StopLazer();
-        // ´Ù¸¥ ¹«±â ¿ÜÇüÀ¸·Î º¯°æÇÏ±â Àü¿¡ Slash °ø°İÀ» Á¾·áÇÑ´Ù.
+        // ë‹¤ë¥¸ ë¬´ê¸° ì™¸í˜•ìœ¼ë¡œ ë³€ê²½í•˜ê¸° ì „ì— Slash ê³µê²©ì„ ì¢…ë£Œí•œë‹¤.
         CancelSlashAnimation();
 
-        // ¹«±â ¿ÜÇüÀÌ ¹Ù²î±â Àü¿¡ ÁøÇà ÁßÀÎ °Ë °ø°İÀ» Á¾·áÇÑ´Ù.
+        // ë¬´ê¸° ì™¸í˜•ì´ ë°”ë€Œê¸° ì „ì— ì§„í–‰ ì¤‘ì¸ ê²€ ê³µê²©ì„ ì¢…ë£Œí•œë‹¤.
         if (_giantSword != null)
         {
             _giantSword.CancelAttack();
         }
 
-        // ÇØ¸Ó °ø°İµµ Á¾·áÇØ¼­ ÀÌÀü ¹«±âÀÇ ÆÇÁ¤ÀÌ ³²Áö ¾Ê°Ô ÇÑ´Ù.
+        // í•´ë¨¸ ê³µê²©ë„ ì¢…ë£Œí•´ì„œ ì´ì „ ë¬´ê¸°ì˜ íŒì •ì´ ë‚¨ì§€ ì•Šê²Œ í•œë‹¤.
         if (_hammer != null)
         {
             _hammer.CancelAttack();
         }
 
-        // ¿ÜÇüÀÌ ¹Ù²î±â Àü¿¡ ½Çµå ÀÚ¼¼¿Í AttackSpeed¸¦ º¹±¸ÇÑ´Ù.
+        // ì™¸í˜•ì´ ë°”ë€Œê¸° ì „ì— ì‹¤ë“œ ìì„¸ì™€ AttackSpeedë¥¼ ë³µêµ¬í•œë‹¤.
         if (_shield != null)
         {
             _shield.CancelGuard();
@@ -526,61 +530,61 @@ public class Weapon : MonoBehaviour
 
         WeaponRuntimeState currentWeapon = CurrentWeapon;
 
-        // ÇöÀç ¼±ÅÃµÈ ¹«±â°¡ ¾ø´Ù¸é ¿ÜÇüÀ» Àû¿ëÇÒ ¼ö ¾ø´Ù.
+        // í˜„ì¬ ì„ íƒëœ ë¬´ê¸°ê°€ ì—†ë‹¤ë©´ ì™¸í˜•ì„ ì ìš©í•  ìˆ˜ ì—†ë‹¤.
         if (currentWeapon == null)
         {
             return;
         }
 
-        // ÇöÀç ¹«±â¿¡ Àü¿ë ¶óÀÌºê·¯¸®°¡ ¿¬°áµÇ¾î ÀÖ´Ù¸é °¡Á®¿Â´Ù.
+        // í˜„ì¬ ë¬´ê¸°ì— ì „ìš© ë¼ì´ë¸ŒëŸ¬ë¦¬ê°€ ì—°ê²°ë˜ì–´ ìˆë‹¤ë©´ ê°€ì ¸ì˜¨ë‹¤.
         SpriteLibraryAsset nextLibrary =
             currentWeapon.Data.PlayerSpriteLibrary;
 
-        // Àü¿ë ¶óÀÌºê·¯¸®°¡ ¾ø´Ù¸é
-        // Soldier ÇÁ¸®ÆÕ¿¡ Ã³À½ ¿¬°áµÇ¾î ÀÖ´ø ±âº» ¶óÀÌºê·¯¸®¸¦ »ç¿ëÇÑ´Ù.
+        // ì „ìš© ë¼ì´ë¸ŒëŸ¬ë¦¬ê°€ ì—†ë‹¤ë©´
+        // Soldier í”„ë¦¬íŒ¹ì— ì²˜ìŒ ì—°ê²°ë˜ì–´ ìˆë˜ ê¸°ë³¸ ë¼ì´ë¸ŒëŸ¬ë¦¬ë¥¼ ì‚¬ìš©í•œë‹¤.
         if (nextLibrary == null)
         {
             nextLibrary = _defaultSpriteLibraryAsset;
         }
 
-        // Àü¿ë ¶óÀÌºê·¯¸®¿Í ±âº» ¶óÀÌºê·¯¸®°¡ ¸ğµÎ ¾ø´Ù¸é
-        // Ä³¸¯ÅÍ ¿ÜÇüÀ» Ç¥½ÃÇÒ ¼ö ¾ø´Ù.
+        // ì „ìš© ë¼ì´ë¸ŒëŸ¬ë¦¬ì™€ ê¸°ë³¸ ë¼ì´ë¸ŒëŸ¬ë¦¬ê°€ ëª¨ë‘ ì—†ë‹¤ë©´
+        // ìºë¦­í„° ì™¸í˜•ì„ í‘œì‹œí•  ìˆ˜ ì—†ë‹¤.
         if (nextLibrary == null)
         {
             throw new InvalidOperationException(
-                $"{name}¿¡ Àû¿ëÇÒ Sprite Library°¡ ¾ø½À´Ï´Ù.");
+                $"{name}ì— ì ìš©í•  Sprite Libraryê°€ ì—†ìŠµë‹ˆë‹¤.");
         }
 
-        // ¶óÀÌºê·¯¸®°¡ °°´õ¶óµµ ¹«±â¸¦ º¯°æÇÒ ¶§´Â
-        // °ø°İ ÆÄ¶ó¹ÌÅÍ¿Í Idle »óÅÂ¸¦ ÃÊ±âÈ­ÇØ¾ß ÇÑ´Ù.
+        // ë¼ì´ë¸ŒëŸ¬ë¦¬ê°€ ê°™ë”ë¼ë„ ë¬´ê¸°ë¥¼ ë³€ê²½í•  ë•ŒëŠ”
+        // ê³µê²© íŒŒë¼ë¯¸í„°ì™€ Idle ìƒíƒœë¥¼ ì´ˆê¸°í™”í•´ì•¼ í•œë‹¤.
         _animator.SetBool(AttackHash, false);
 
-        // ÇöÀç ¶óÀÌºê·¯¸®¿Í »õ ¶óÀÌºê·¯¸®°¡ ´Ù¸¦ ¶§¸¸ ±³Ã¼ÇÑ´Ù.
-        // °°Àº ¿¡¼ÂÀ» ´Ù½Ã ³Ö´Â ºÒÇÊ¿äÇÑ °»½Å¸¸ ¹æÁöÇÑ´Ù.
+        // í˜„ì¬ ë¼ì´ë¸ŒëŸ¬ë¦¬ì™€ ìƒˆ ë¼ì´ë¸ŒëŸ¬ë¦¬ê°€ ë‹¤ë¥¼ ë•Œë§Œ êµì²´í•œë‹¤.
+        // ê°™ì€ ì—ì…‹ì„ ë‹¤ì‹œ ë„£ëŠ” ë¶ˆí•„ìš”í•œ ê°±ì‹ ë§Œ ë°©ì§€í•œë‹¤.
         if (_spriteLibrary.spriteLibraryAsset != nextLibrary)
         {
             _spriteLibrary.spriteLibraryAsset = nextLibrary;
         }
 
-        // ¶óÀÌºê·¯¸®°¡ °°µç ´Ù¸£µç Ç×»ó Idle Ã¹ ÇÁ·¹ÀÓºÎÅÍ Àç»ıÇÑ´Ù.
+        // ë¼ì´ë¸ŒëŸ¬ë¦¬ê°€ ê°™ë“  ë‹¤ë¥´ë“  í•­ìƒ Idle ì²« í”„ë ˆì„ë¶€í„° ì¬ìƒí•œë‹¤.
         _animator.Play("Idle", 0, 0f);
 
-        // ÇöÀç ¹«±â°¡ GrenadeÀÎÁö È®ÀÎÇÏ¿©
-        // Æ÷¹°¼± Á¶ÁØ¼±À» Ç¥½ÃÇÏ°Å³ª ¼û±ä´Ù.
+        // í˜„ì¬ ë¬´ê¸°ê°€ Grenadeì¸ì§€ í™•ì¸í•˜ì—¬
+        // í¬ë¬¼ì„  ì¡°ì¤€ì„ ì„ í‘œì‹œí•˜ê±°ë‚˜ ìˆ¨ê¸´ë‹¤.
         UpdateGrenadeAimGuide(
             currentWeapon);
     }
 
     /// <summary>
-    /// ÇöÀç ¹«±â°¡ Grenade¶ó¸é Æ÷¹°¼± Á¶ÁØ¼±À» Ç¥½ÃÇÏ°í,
-    /// ´Ù¸¥ ¹«±â¶ó¸é ±âÁ¸ Á¶ÁØ¼±À» ¼û±ä´Ù.
+    /// í˜„ì¬ ë¬´ê¸°ê°€ Grenadeë¼ë©´ í¬ë¬¼ì„  ì¡°ì¤€ì„ ì„ í‘œì‹œí•˜ê³ ,
+    /// ë‹¤ë¥¸ ë¬´ê¸°ë¼ë©´ ê¸°ì¡´ ì¡°ì¤€ì„ ì„ ìˆ¨ê¸´ë‹¤.
     /// </summary>
     private void UpdateGrenadeAimGuide(
         WeaponRuntimeState currentWeapon)
     {
         if (currentWeapon.Data.Type != WeaponType.Grenade)
         {
-            // WarriorÃ³·³ GrenadeAimGuide°¡ ¾ø´Â Ä³¸¯ÅÍµµ Çã¿ëÇÑ´Ù.
+            // Warriorì²˜ëŸ¼ GrenadeAimGuideê°€ ì—†ëŠ” ìºë¦­í„°ë„ í—ˆìš©í•œë‹¤.
             if (_grenadeAimGuide != null)
             {
                 _grenadeAimGuide.Hide();
@@ -592,7 +596,7 @@ public class Weapon : MonoBehaviour
         if (_grenadeAimGuide == null)
         {
             throw new InvalidOperationException(
-                $"{name}ÀÇ Weapon¿¡ Grenade Aim Guide°¡ ¿¬°áµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+                $"{name}ì˜ Weaponì— Grenade Aim Guideê°€ ì—°ê²°ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
         }
 
         GameObject projectilePrefab =
@@ -603,40 +607,40 @@ public class Weapon : MonoBehaviour
                 out Grenade grenadePrefab))
         {
             throw new MissingComponentException(
-                $"¹«±â '{currentWeapon.Data.WeaponName}'ÀÇ ÇÁ¸®ÆÕ¿¡ Grenade ÄÄÆ÷³ÍÆ®°¡ ¾ø½À´Ï´Ù.");
+                $"ë¬´ê¸° '{currentWeapon.Data.WeaponName}'ì˜ í”„ë¦¬íŒ¹ì— Grenade ì»´í¬ë„ŒíŠ¸ê°€ ì—†ìŠµë‹ˆë‹¤.");
         }
 
-        // Grenade ÇÁ¸®ÆÕÀÇ ½ÇÁ¦ ¼Óµµ, Áß·Â, ½Å°ü ½Ã°£À¸·Î
-        // Á¶ÁØ¼± °è»êÀ» ½ÃÀÛÇÑ´Ù.
+        // Grenade í”„ë¦¬íŒ¹ì˜ ì‹¤ì œ ì†ë„, ì¤‘ë ¥, ì‹ ê´€ ì‹œê°„ìœ¼ë¡œ
+        // ì¡°ì¤€ì„  ê³„ì‚°ì„ ì‹œì‘í•œë‹¤.
         _grenadeAimGuide.Show(
             grenadePrefab);
     }
 
     /// <summary>
-    /// ÇöÀç ¼±ÅÃÇÑ ¹«±âÀÇ FireMode¿¡ ¸Â´Â °ø°İÀ» ½ÇÇàÇÑ´Ù.
-    /// ProjectileÀº ÀÌµ¿Çü Åõ»çÃ¼¸¦ »ı¼ºÇÏ°í,
-    /// PulseBeamÀº ¹ß»ç ÁöÁ¡¿¡¼­ ÆŞ½º ·¹ÀÌÀú¸¦ »ı¼ºÇÑ´Ù.
+    /// í˜„ì¬ ì„ íƒí•œ ë¬´ê¸°ì˜ FireModeì— ë§ëŠ” ê³µê²©ì„ ì‹¤í–‰í•œë‹¤.
+    /// Projectileì€ ì´ë™í˜• íˆ¬ì‚¬ì²´ë¥¼ ìƒì„±í•˜ê³ ,
+    /// PulseBeamì€ ë°œì‚¬ ì§€ì ì—ì„œ í„ìŠ¤ ë ˆì´ì €ë¥¼ ìƒì„±í•œë‹¤.
     /// </summary>
     public void Fire()
     {
-        // ´Ù¸¥ ÄÚµå¿¡¼­ Fire¸¦ Á÷Á¢ È£ÃâÇØµµ Àá±İ Áß¿¡´Â ¹ß»çÇÏÁö ¾Ê´Â´Ù.
+        // ë‹¤ë¥¸ ì½”ë“œì—ì„œ Fireë¥¼ ì§ì ‘ í˜¸ì¶œí•´ë„ ì ê¸ˆ ì¤‘ì—ëŠ” ë°œì‚¬í•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (!isActiveAndEnabled || !CanUseWeapon)
         {
             return;
         }
 
-        // ÇöÀç ¼±ÅÃµÈ ½½·ÔÀÇ ·±Å¸ÀÓ ¹«±â¸¦ °¡Á®¿Â´Ù.
+        // í˜„ì¬ ì„ íƒëœ ìŠ¬ë¡¯ì˜ ëŸ°íƒ€ì„ ë¬´ê¸°ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
         WeaponRuntimeState weapon = CurrentWeapon;
 
-        // ½Çµå´Â TickÀ¸·Î Á¦¾îÇÏ¹Ç·Î °ø°İ ÇÁ¸®ÆÕÀ» »ı¼ºÇÏÁö ¾Ê´Â´Ù.
+        // ì‹¤ë“œëŠ” Tickìœ¼ë¡œ ì œì–´í•˜ë¯€ë¡œ ê³µê²© í”„ë¦¬íŒ¹ì„ ìƒì„±í•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (weapon == null ||
             weapon.Data.Type == WeaponType.Shield)
         {
             return;
         }
 
-        // Slash´Â ½ÃÀÛÇÑ ÈÖµÎ¸£±â°¡ ³¡³ª±â Àü¿¡ ´ÙÀ½ ¹ßÀ» »ı¼ºÇÏÁö ¾Ê´Â´Ù.
-        // Áö¼Ó ·¹ÀÌÀú´Â ÀÏ¹İ ¹ß»ç ÄğÅ¸ÀÓ°ú ´Ü¹ß ÃÑ±¸ ÀÌÆåÆ®¸¦ »ç¿ëÇÏÁö ¾Ê´Â´Ù.
+        // SlashëŠ” ì‹œì‘í•œ íœ˜ë‘ë¥´ê¸°ê°€ ëë‚˜ê¸° ì „ì— ë‹¤ìŒ ë°œì„ ìƒì„±í•˜ì§€ ì•ŠëŠ”ë‹¤.
+        // ì§€ì† ë ˆì´ì €ëŠ” ì¼ë°˜ ë°œì‚¬ ì¿¨íƒ€ì„ê³¼ ë‹¨ë°œ ì´êµ¬ ì´í™íŠ¸ë¥¼ ì‚¬ìš©í•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (weapon.Data.Type == WeaponType.Lazer)
         {
             StartLazer(weapon);
@@ -650,44 +654,44 @@ public class Weapon : MonoBehaviour
                 return;
             }
 
-            // ÇÁ¸®ÆÕÀ» »ı¼ºÇÏ±â Àü¿¡ ¾Ö´Ï¸ŞÀÌ¼Ç ¿¬°áÀ» °Ë»çÇÑ´Ù.
+            // í”„ë¦¬íŒ¹ì„ ìƒì„±í•˜ê¸° ì „ì— ì• ë‹ˆë©”ì´ì…˜ ì—°ê²°ì„ ê²€ì‚¬í•œë‹¤.
             if (_slashAttackClip == null || _slashAttackClip.length <= 0f)
             {
                 throw new InvalidOperationException(
-                    $"{name}: Slash Attack Clip¿¡ Attack4¸¦ ¿¬°áÇØ¾ß ÇÕ´Ï´Ù.");
+                    $"{name}: Slash Attack Clipì— Attack4ë¥¼ ì—°ê²°í•´ì•¼ í•©ë‹ˆë‹¤.");
             }
         }
 
-        // ÃæÀüÇü ¹«±â´Â ÀÏ¹İ °ø°İ ÄğÅ¸ÀÓ ´ë½Å
-        // ÇöÀç »ç¿ëÇÒ ¼ö ÀÖ´Â ÃæÀü·®ÀÌ ÀÖ´ÂÁö °Ë»çÇÑ´Ù.
-        // ±ÙÁ¢°ø°İÀº ÀÚÃ¼ ´ë±â½Ã°£À» »ç¿ëÇÏ¹Ç·Î °ø¿ë ¹ß»ç Å¸ÀÌ¸Óº¸´Ù ¸ÕÀú Ã³¸®ÇÑ´Ù.
+        // ì¶©ì „í˜• ë¬´ê¸°ëŠ” ì¼ë°˜ ê³µê²© ì¿¨íƒ€ì„ ëŒ€ì‹ 
+        // í˜„ì¬ ì‚¬ìš©í•  ìˆ˜ ìˆëŠ” ì¶©ì „ëŸ‰ì´ ìˆëŠ”ì§€ ê²€ì‚¬í•œë‹¤.
+        // ê·¼ì ‘ê³µê²©ì€ ìì²´ ëŒ€ê¸°ì‹œê°„ì„ ì‚¬ìš©í•˜ë¯€ë¡œ ê³µìš© ë°œì‚¬ íƒ€ì´ë¨¸ë³´ë‹¤ ë¨¼ì € ì²˜ë¦¬í•œë‹¤.
         if (weapon.Data.Type == WeaponType.GiantSword ||
             weapon.Data.Type == WeaponType.Hammer)
         {
-            // ÇöÀç ¹«±â¿¡ ¸Â´Â °ø°İ ÆÇÁ¤ ¿ÀºêÁ§Æ®¸¦ ¼±ÅÃÇÑ´Ù.
+            // í˜„ì¬ ë¬´ê¸°ì— ë§ëŠ” ê³µê²© íŒì • ì˜¤ë¸Œì íŠ¸ë¥¼ ì„ íƒí•œë‹¤.
             SpriteMeleeAttack meleeAttack =
                 weapon.Data.Type == WeaponType.GiantSword
                     ? _giantSword
                     : _hammer;
 
-            // ¿¬°á ´©¶ôÀÌ³ª ¿ÀºêÁ§Æ® ºñÈ°¼ºÈ­¸¦ È®ÀÎÇÑ´Ù.
+            // ì—°ê²° ëˆ„ë½ì´ë‚˜ ì˜¤ë¸Œì íŠ¸ ë¹„í™œì„±í™”ë¥¼ í™•ì¸í•œë‹¤.
             if (meleeAttack == null ||
                 !meleeAttack.isActiveAndEnabled)
             {
                 throw new InvalidOperationException(
-                    $"{name}: {weapon.Data.WeaponName}ÀÇ " +
-                    "È°¼ºÈ­µÈ ±ÙÁ¢ °ø°İ ¿ÀºêÁ§Æ®¸¦ ¿¬°áÇØ¾ß ÇÕ´Ï´Ù.");
+                    $"{name}: {weapon.Data.WeaponName}ì˜ " +
+                    "í™œì„±í™”ëœ ê·¼ì ‘ ê³µê²© ì˜¤ë¸Œì íŠ¸ë¥¼ ì—°ê²°í•´ì•¼ í•©ë‹ˆë‹¤.");
             }
 
-            // °­È­·Î ÁÙ¾îµç ÄğÅ¸ÀÓÀ» ´ë±â½Ã°£ÀÌ ¾Æ´Ñ ÈÖµÎ¸£±â ¼Óµµ ¹èÀ²·Î »ç¿ëÇÑ´Ù.
+            // ê°•í™”ë¡œ ì¤„ì–´ë“  ì¿¨íƒ€ì„ì„ ëŒ€ê¸°ì‹œê°„ì´ ì•„ë‹Œ íœ˜ë‘ë¥´ê¸° ì†ë„ ë°°ìœ¨ë¡œ ì‚¬ìš©í•œë‹¤.
             float baseCooltime = weapon.Data.BaseCooltime;
             float currentCooltime = weapon.CurrentCooltime;
             if (baseCooltime <= 0f || currentCooltime <= 0f)
-                throw new InvalidOperationException("±ÙÁ¢ ¹«±âÀÇ ÄğÅ¸ÀÓÀº 0º¸´Ù Ä¿¾ß ÇÕ´Ï´Ù.");
+                throw new InvalidOperationException("ê·¼ì ‘ ë¬´ê¸°ì˜ ì¿¨íƒ€ì„ì€ 0ë³´ë‹¤ ì»¤ì•¼ í•©ë‹ˆë‹¤.");
 
             float attackSpeedMultiplier = baseCooltime / currentCooltime;
 
-            // ÇöÀç ¹«±âÀÇ Config, °­È­°¡ ¹İ¿µµÈ °ø°İ·Â, °ø°İ¼Óµµ¸¦ Àü´ŞÇÑ´Ù.
+            // í˜„ì¬ ë¬´ê¸°ì˜ Config, ê°•í™”ê°€ ë°˜ì˜ëœ ê³µê²©ë ¥, ê³µê²©ì†ë„ë¥¼ ì „ë‹¬í•œë‹¤.
             meleeAttack.BeginAttack(
                 weapon.Data,
                 weapon.CurrentDamage,
@@ -705,101 +709,102 @@ public class Weapon : MonoBehaviour
         }
         else
         {
-            // Bullet, Missile, Sniper µîÀÇ ÀÏ¹İ ¹«±â´Â
-            // ±âÁ¸ °ø°İ ÄğÅ¸ÀÓÀÌ Áö³ª¾ß ¹ß»çÇÒ ¼ö ÀÖ´Ù.
+            // Bullet, Missile, Sniper ë“±ì˜ ì¼ë°˜ ë¬´ê¸°ëŠ”
+            // ê¸°ì¡´ ê³µê²© ì¿¨íƒ€ì„ì´ ì§€ë‚˜ì•¼ ë°œì‚¬í•  ìˆ˜ ìˆë‹¤.
             if (_timer < weapon.CurrentCooltime)
             {
                 return;
             }
         }
 
-        // ½ºÇÁ¶óÀÌÆ® ±â¹İ ±ÙÁ¢ °ø°İÀº Ä³¸¯ÅÍÀÇ ÀÚ½Ä ÆÇÁ¤À» »ç¿ëÇÑ´Ù.
+        // ìŠ¤í”„ë¼ì´íŠ¸ ê¸°ë°˜ ê·¼ì ‘ ê³µê²©ì€ ìºë¦­í„°ì˜ ìì‹ íŒì •ì„ ì‚¬ìš©í•œë‹¤.
 
 
-        // ÇöÀç ¹«±â¿¡ °ø°İ ÇÁ¸®ÆÕÀÌ ¿¬°áµÇ¾î ÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
-        // ÀÌ ¾Æ·¡ ±âÁ¸ ÇÁ¸®ÆÕ »ı¼º ÄÚµå´Â ±×´ë·Î À¯ÁöÇÑ´Ù.
+        // í˜„ì¬ ë¬´ê¸°ì— ê³µê²© í”„ë¦¬íŒ¹ì´ ì—°ê²°ë˜ì–´ ìˆëŠ”ì§€ í™•ì¸í•œë‹¤.
+        // ì´ ì•„ë˜ ê¸°ì¡´ í”„ë¦¬íŒ¹ ìƒì„± ì½”ë“œëŠ” ê·¸ëŒ€ë¡œ ìœ ì§€í•œë‹¤.
 
-        // ÇöÀç ¹«±â¿¡ °ø°İ ÇÁ¸®ÆÕÀÌ ¿¬°áµÇ¾î ÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
+        // í˜„ì¬ ë¬´ê¸°ì— ê³µê²© í”„ë¦¬íŒ¹ì´ ì—°ê²°ë˜ì–´ ìˆëŠ”ì§€ í™•ì¸í•œë‹¤.
         if (weapon.Data.ProjectilePrefab == null)
         {
             throw new InvalidOperationException(
-                $"¹«±â '{weapon.Data.WeaponName}'¿¡ °ø°İ ÇÁ¸®ÆÕÀÌ ¿¬°áµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+                $"ë¬´ê¸° '{weapon.Data.WeaponName}'ì— ê³µê²© í”„ë¦¬íŒ¹ì´ ì—°ê²°ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
         }
 
-        // ÇöÀç ¹«±âÀÇ ÇÁ¸®ÆÕ¿¡ ´ëÀÀÇÏ´Â Ç®¿¡¼­ Åõ»çÃ¼¸¦ ²¨³½´Ù.
+        // í˜„ì¬ ë¬´ê¸°ì˜ í”„ë¦¬íŒ¹ì— ëŒ€ì‘í•˜ëŠ” í’€ì—ì„œ íˆ¬ì‚¬ì²´ë¥¼ êº¼ë‚¸ë‹¤.
         GameObject attackObject = ProjectilePoolManager.Instance.Spawn(
             weapon.Data.ProjectilePrefab,
             _firePoint.position,
             _firePoint.rotation);
 
-        // ÀÌ¹ø ¹ß»çÀÇ °ø°İ·Â°ú ¹æÇâÀ» Àû¿ëÇÑ´Ù.
+        // ì´ë²ˆ ë°œì‚¬ì˜ ê³µê²©ë ¥ê³¼ ë°©í–¥ì„ ì ìš©í•œë‹¤.
         InitializeProjectileAttack(attackObject, weapon);
 
-        // ÇÁ¸®ÆÕ »ı¼º°ú ÃÊ±âÈ­°¡ Á¤»óÀûÀ¸·Î ³¡³­ ´ÙÀ½
-        // ÃæÀüÇü ¹«±âÀÇ º¸À¯·®À» ÇÑ °³ ¼ÒºñÇÑ´Ù.
+        // í”„ë¦¬íŒ¹ ìƒì„±ê³¼ ì´ˆê¸°í™”ê°€ ì •ìƒì ìœ¼ë¡œ ëë‚œ ë‹¤ìŒ
+        // ì¶©ì „í˜• ë¬´ê¸°ì˜ ë³´ìœ ëŸ‰ì„ í•œ ê°œ ì†Œë¹„í•œë‹¤.
         if (weapon.Data.UsesCharges &&
             !weapon.TryConsumeCharge())
         {
-            // ¹ß»ç¸¦ ¿Ï·áÇÏÁö ¸øÇÑ Åõ»çÃ¼µµ ÆÄ±«ÇÏÁö ¾Ê°í ¹İ³³ÇÑ´Ù.
+            // ë°œì‚¬ë¥¼ ì™„ë£Œí•˜ì§€ ëª»í•œ íˆ¬ì‚¬ì²´ë„ íŒŒê´´í•˜ì§€ ì•Šê³  ë°˜ë‚©í•œë‹¤.
             attackObject.GetComponent<PoolObject>().ReturnToPool();
             return;
         }
 
-        // ÅºÈ¯ »ı¼º°ú ÃæÀü È½¼ö Â÷°¨ÀÌ ¼º°øÇÑ µÚ ÃÑ±¸ ¼¶±¤À» Àç»ıÇÑ´Ù.
+        // íƒ„í™˜ ìƒì„±ê³¼ ì¶©ì „ íšŸìˆ˜ ì°¨ê°ì´ ì„±ê³µí•œ ë’¤ ì´êµ¬ ì„¬ê´‘ì„ ì¬ìƒí•œë‹¤.
+        PlayProjectileFireSound(weapon.Data.Type); // ë°œì‚¬ì™€ íƒ„ì•½ ì†Œë¹„ê°€ ìŠ¹ì¸ëœ ë’¤ í•œ ë²ˆ ì¬ìƒ.
         SpriteOneShotEffect muzzlePrefab = weapon.Data.MuzzleEffectPrefab;
 
         if (muzzlePrefab != null)
         {
-            // ´ÙÀ½ ¹ß»ç Àü¿¡ ²¨Áöµµ·Ï ¹ß»ç °£°İÀÇ 60%¸¸ »ç¿ëÇÑ´Ù.
-            // ´À¸° ¿¬»ç¿¡¼­µµ ¼¶±¤ÀÌ ¿À·¡ ³²Áö ¾Êµµ·Ï ÃÖ´ë 0.2ÃÊ·Î Á¦ÇÑÇÑ´Ù.
+            // ë‹¤ìŒ ë°œì‚¬ ì „ì— êº¼ì§€ë„ë¡ ë°œì‚¬ ê°„ê²©ì˜ 60%ë§Œ ì‚¬ìš©í•œë‹¤.
+            // ëŠë¦° ì—°ì‚¬ì—ì„œë„ ì„¬ê´‘ì´ ì˜¤ë˜ ë‚¨ì§€ ì•Šë„ë¡ ìµœëŒ€ 0.2ì´ˆë¡œ ì œí•œí•œë‹¤.
             float muzzleDuration = Mathf.Min(
                 0.2f,
                 weapon.CurrentCooltime * 0.6f);
 
-            // ÅºÈ¯ÀÌ »ı¼ºµÈ ÃÑ±¸ À§Ä¡¿Í ¹æÇâ¿¡ ÀÌÆåÆ®¸¦ »ı¼ºÇÑ´Ù.
+            // íƒ„í™˜ì´ ìƒì„±ëœ ì´êµ¬ ìœ„ì¹˜ì™€ ë°©í–¥ì— ì´í™íŠ¸ë¥¼ ìƒì„±í•œë‹¤.
             SpriteOneShotEffect muzzleEffect = Instantiate(
                 muzzlePrefab,
                 _firePoint.position,
                 _firePoint.rotation);
 
-            // ÇöÀç ¿¬»ç °£°İ¿¡ ¸ÂÃç ¾Ö´Ï¸ŞÀÌ¼Ç°ú Á¦°Å ½ÃÁ¡À» Á¶Á¤ÇÑ´Ù.
+            // í˜„ì¬ ì—°ì‚¬ ê°„ê²©ì— ë§ì¶° ì• ë‹ˆë©”ì´ì…˜ê³¼ ì œê±° ì‹œì ì„ ì¡°ì •í•œë‹¤.
             muzzleEffect.SetPlaybackDuration(muzzleDuration);
 
-            // Àç»ı Áß¿¡´Â ÃÑ±¸¸¦ µû¶ó°¡µÇ ÇöÀç ¿ùµå Å©±â¸¦ À¯ÁöÇÑ´Ù.
-            // Àç»ı ½Ã°£ ¼³Á¤ ÈÄ ºÎ¸ğ¸¦ ¿¬°áÇØ¾ß Å©±â ÃÊ±âÈ­ÀÇ ¿µÇâÀ» ÇÇÇÑ´Ù.
+            // ì¬ìƒ ì¤‘ì—ëŠ” ì´êµ¬ë¥¼ ë”°ë¼ê°€ë˜ í˜„ì¬ ì›”ë“œ í¬ê¸°ë¥¼ ìœ ì§€í•œë‹¤.
+            // ì¬ìƒ ì‹œê°„ ì„¤ì • í›„ ë¶€ëª¨ë¥¼ ì—°ê²°í•´ì•¼ í¬ê¸° ì´ˆê¸°í™”ì˜ ì˜í–¥ì„ í”¼í•œë‹¤.
             muzzleEffect.transform.SetParent(_firePoint, true);
         }
 
-        // »ı¼º°ú ÃÊ±âÈ­°¡ ¼º°øÇÑ Slash ÇÑ ¹ß¿¡ ÈÖµÎ¸£±â ÇÑ ¹øÀ» ´ëÀÀ½ÃÅ²´Ù.
+        // ìƒì„±ê³¼ ì´ˆê¸°í™”ê°€ ì„±ê³µí•œ Slash í•œ ë°œì— íœ˜ë‘ë¥´ê¸° í•œ ë²ˆì„ ëŒ€ì‘ì‹œí‚¨ë‹¤.
         if (weapon.Data.Type == WeaponType.Slash)
         {
             BeginSlashAnimation(weapon.CurrentCooltime);
         }
 
-        // °ø°İÀÌ Á¤»óÀûÀ¸·Î ½ÇÇàµÆÀ¸¹Ç·Î ÄğÅ¸ÀÓÀ» Ã³À½ºÎÅÍ ÃøÁ¤ÇÑ´Ù.
+        // ê³µê²©ì´ ì •ìƒì ìœ¼ë¡œ ì‹¤í–‰ëìœ¼ë¯€ë¡œ ì¿¨íƒ€ì„ì„ ì²˜ìŒë¶€í„° ì¸¡ì •í•œë‹¤.
         _timer = 0f;
     }
 
     /// <summary>
-    /// »ı¼ºÇÑ °ø°İ ¿ÀºêÁ§Æ®¸¦ ÀÌµ¿Çü Åõ»çÃ¼·Î ÃÊ±âÈ­ÇÑ´Ù.
-    /// Bullet°ú Missile µîÀÌ ÀÌ ¹æ½ÄÀ» »ç¿ëÇÑ´Ù.
+    /// ìƒì„±í•œ ê³µê²© ì˜¤ë¸Œì íŠ¸ë¥¼ ì´ë™í˜• íˆ¬ì‚¬ì²´ë¡œ ì´ˆê¸°í™”í•œë‹¤.
+    /// Bulletê³¼ Missile ë“±ì´ ì´ ë°©ì‹ì„ ì‚¬ìš©í•œë‹¤.
     /// </summary>
     private void InitializeProjectileAttack(
         GameObject attackObject,
         WeaponRuntimeState weapon)
     {
-        // »ı¼ºÇÑ ÇÁ¸®ÆÕ¿¡¼­ Projectile ºÎ¸ğ ÄÄÆ÷³ÍÆ®¸¦ Ã£´Â´Ù.
+        // ìƒì„±í•œ í”„ë¦¬íŒ¹ì—ì„œ Projectile ë¶€ëª¨ ì»´í¬ë„ŒíŠ¸ë¥¼ ì°¾ëŠ”ë‹¤.
         if (!attackObject.TryGetComponent(out Projectile projectile))
         {
-            // ¹ß»ç¸¦ ¿Ï·áÇÏÁö ¸øÇÑ Åõ»çÃ¼µµ ÆÄ±«ÇÏÁö ¾Ê°í ¹İ³³ÇÑ´Ù.
+            // ë°œì‚¬ë¥¼ ì™„ë£Œí•˜ì§€ ëª»í•œ íˆ¬ì‚¬ì²´ë„ íŒŒê´´í•˜ì§€ ì•Šê³  ë°˜ë‚©í•œë‹¤.
             attackObject.GetComponent<PoolObject>().ReturnToPool();
 
             throw new MissingComponentException(
-                $"¹«±â '{weapon.Data.WeaponName}'Àº Projectile ¹æ½ÄÀÌÁö¸¸ " +
-                "°ø°İ ÇÁ¸®ÆÕ¿¡ ProjectileÀ» »ó¼ÓÇÑ ÄÄÆ÷³ÍÆ®°¡ ¾ø½À´Ï´Ù.");
+                $"ë¬´ê¸° '{weapon.Data.WeaponName}'ì€ Projectile ë°©ì‹ì´ì§€ë§Œ " +
+                "ê³µê²© í”„ë¦¬íŒ¹ì— Projectileì„ ìƒì†í•œ ì»´í¬ë„ŒíŠ¸ê°€ ì—†ìŠµë‹ˆë‹¤.");
         }
 
-        // ±âº» Åõ»çÃ¼´Â ±âÁ¸Ã³·³ FirePointÀÇ ¿À¸¥ÂÊÀ¸·Î ¹ß»çÇÑ´Ù.
+        // ê¸°ë³¸ íˆ¬ì‚¬ì²´ëŠ” ê¸°ì¡´ì²˜ëŸ¼ FirePointì˜ ì˜¤ë¥¸ìª½ìœ¼ë¡œ ë°œì‚¬í•œë‹¤.
         Vector2 fireDirection =
             _firePoint.right;
 
@@ -807,15 +812,15 @@ public class Weapon : MonoBehaviour
         {
             if (_grenadeAimGuide == null)
             {
-                // ¹ß»ç¸¦ ¿Ï·áÇÏÁö ¸øÇÑ Åõ»çÃ¼µµ ÆÄ±«ÇÏÁö ¾Ê°í ¹İ³³ÇÑ´Ù.
+                // ë°œì‚¬ë¥¼ ì™„ë£Œí•˜ì§€ ëª»í•œ íˆ¬ì‚¬ì²´ë„ íŒŒê´´í•˜ì§€ ì•Šê³  ë°˜ë‚©í•œë‹¤.
                 attackObject.GetComponent<PoolObject>().ReturnToPool();
 
                 throw new InvalidOperationException(
-                    $"{name}ÀÇ Weapon¿¡ Grenade Aim Guide°¡ ¿¬°áµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+                    $"{name}ì˜ Weaponì— Grenade Aim Guideê°€ ì—°ê²°ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
             }
 
-            // ZÅ°¸¦ ´©¸¥ ¹Ù·Î ±× ¼ø°£ Á¶ÁØ¼±ÀÌ °¡¸®Å°´ø
-            // Æ÷¹°¼± ÃÖÃÊ ¹æÇâÀ» Grenade¿¡ Àü´ŞÇÑ´Ù.
+            // Zí‚¤ë¥¼ ëˆ„ë¥¸ ë°”ë¡œ ê·¸ ìˆœê°„ ì¡°ì¤€ì„ ì´ ê°€ë¦¬í‚¤ë˜
+            // í¬ë¬¼ì„  ìµœì´ˆ ë°©í–¥ì„ Grenadeì— ì „ë‹¬í•œë‹¤.
             fireDirection =
                 _grenadeAimGuide.CurrentDirection;
         }
@@ -825,9 +830,9 @@ public class Weapon : MonoBehaviour
             fireDirection);
     }
 
-    // »ı¼ºµÈ ·¹ÀÌÀú¿¡ ÇöÀç °ø°İ·Â°ú ¹ß»ç À§Ä¡¸¦ Àü´ŞÇÑ´Ù.
+    // ìƒì„±ëœ ë ˆì´ì €ì— í˜„ì¬ ê³µê²©ë ¥ê³¼ ë°œì‚¬ ìœ„ì¹˜ë¥¼ ì „ë‹¬í•œë‹¤.
     /// <summary>
-    /// »ı¼ºµÈ ·¹ÀÌÀú¿¡ ÇöÀç °ø°İ·Â°ú ¹ß»ç À§Ä¡¸¦ Àü´ŞÇÑ´Ù.
+    /// ìƒì„±ëœ ë ˆì´ì €ì— í˜„ì¬ ê³µê²©ë ¥ê³¼ ë°œì‚¬ ìœ„ì¹˜ë¥¼ ì „ë‹¬í•œë‹¤.
     /// </summary>
     private void StartLazer(WeaponRuntimeState weapon)
     {
@@ -839,9 +844,9 @@ public class Weapon : MonoBehaviour
         _activeLazer.Initialize(weapon, _firePoint);
     }
 
-    // ÀÔ·Â ÇØÁ¦, ¹«±â º¯°æ, »ç¸Á ¹× Á¶ÀÛ ºÒ°¡ »óÅÂ¿¡¼­ °øÅëÀ¸·Î È£ÃâÇÑ´Ù.
+    // ì…ë ¥ í•´ì œ, ë¬´ê¸° ë³€ê²½, ì‚¬ë§ ë° ì¡°ì‘ ë¶ˆê°€ ìƒíƒœì—ì„œ ê³µí†µìœ¼ë¡œ í˜¸ì¶œí•œë‹¤.
     /// <summary>
-    /// ÀÔ·Â ÇØÁ¦, ¹«±â º¯°æ, »ç¸Á ¹× Á¶ÀÛ ºÒ°¡ »óÅÂ¿¡¼­ °øÅëÀ¸·Î È£ÃâÇÑ´Ù.
+    /// ì…ë ¥ í•´ì œ, ë¬´ê¸° ë³€ê²½, ì‚¬ë§ ë° ì¡°ì‘ ë¶ˆê°€ ìƒíƒœì—ì„œ ê³µí†µìœ¼ë¡œ í˜¸ì¶œí•œë‹¤.
     /// </summary>
     private void StopLazer()
     {
@@ -850,11 +855,11 @@ public class Weapon : MonoBehaviour
         _activeLazer = null;
     }
 
-    // ¼±ÅÃÇÑ ½½·Ô¿¡ °ø°İ·Â Áõ°­ È¿°ú¸¦ Àü´ŞÇÑ´Ù.
+    // ì„ íƒí•œ ìŠ¬ë¡¯ì— ê³µê²©ë ¥ ì¦ê°• íš¨ê³¼ë¥¼ ì „ë‹¬í•œë‹¤.
     /// <summary>
-    /// ¼Ò¼öÁ¡ °ø°İ·Â Áõ°­À» ÇöÀç ¹«±â °ø°İ·Â¿¡ ´õÇÑ´Ù.
+    /// ì§€ì •í•œ ìŠ¬ë¡¯ ë¬´ê¸°ì— ê¸°ë³¸ í”¼í•´ ê¸°ì¤€ ë¹„ìœ¨ ì¦ê°•ì„ ì ìš©í•©ë‹ˆë‹¤.
     /// </summary>
-    public void AddDamage(int slotIndex, float value)
+    public void AddDamageRatio(int slotIndex, float value)
     {
         WeaponRuntimeState weapon = GetWeaponAtSlot(slotIndex);
 
@@ -863,13 +868,13 @@ public class Weapon : MonoBehaviour
             return;
         }
 
-        // ÀÏ¹İ ¹«±âÀÇ °ø°İ·Â Áõ°¡¿Í ½ÇµåÀÇ Ã¼·Â È¸º¹Àº
-        // WeaponRuntimeState¿¡¼­ ¹«±â Á¾·ù¿¡ µû¶ó Ã³¸®ÇÑ´Ù.
-        weapon.AddDamage(value);
+        // ì¼ë°˜ ë¬´ê¸°ì˜ ê³µê²©ë ¥ ì¦ê°€ì™€ ì‹¤ë“œì˜ ì²´ë ¥ íšŒë³µì€
+        // WeaponRuntimeStateì—ì„œ ë¬´ê¸° ì¢…ë¥˜ì— ë”°ë¼ ì²˜ë¦¬í•œë‹¤.
+        weapon.AddDamageRatio(value);
     }
 
     /// <summary>
-    /// ÁöÁ¤ÇÑ ½½·Ô ¹«±âÀÇ ¿¬»ç·ÂÀ» Áõ°¡½ÃÅ²´Ù.
+    /// ì§€ì •í•œ ìŠ¬ë¡¯ ë¬´ê¸°ì˜ ì—°ì‚¬ë ¥ì„ ì¦ê°€ì‹œí‚¨ë‹¤.
     /// </summary>
     public void AddFireRate(int slotIndex)
     {
@@ -884,7 +889,7 @@ public class Weapon : MonoBehaviour
     }
 
     /// <summary>
-    /// ÁöÁ¤ÇÑ ½½·ÔÀÇ ·±Å¸ÀÓ ¹«±â¸¦ ¾ÈÀüÇÏ°Ô ¹İÈ¯ÇÑ´Ù.
+    /// ì§€ì •í•œ ìŠ¬ë¡¯ì˜ ëŸ°íƒ€ì„ ë¬´ê¸°ë¥¼ ì•ˆì „í•˜ê²Œ ë°˜í™˜í•œë‹¤.
     /// </summary>
     private WeaponRuntimeState GetWeaponAtSlot(int slotIndex)
     {
@@ -897,8 +902,8 @@ public class Weapon : MonoBehaviour
     }
 
     /// <summary>
-    /// ÁöÁ¤ÇÑ ½½·Ô¿¡ ÀåÂøµÈ WeaponData¸¦ ¹İÈ¯ÇÑ´Ù.
-    /// Upgrader°¡ ¹«±â Áõ°­ ´ë»óÀ» È®ÀÎÇÒ ¶§ »ç¿ëÇÑ´Ù.
+    /// ì§€ì •í•œ ìŠ¬ë¡¯ì— ì¥ì°©ëœ WeaponDataë¥¼ ë°˜í™˜í•œë‹¤.
+    /// Upgraderê°€ ë¬´ê¸° ì¦ê°• ëŒ€ìƒì„ í™•ì¸í•  ë•Œ ì‚¬ìš©í•œë‹¤.
     /// </summary>
     public WeaponData GetWeaponDataAtSlot(int slotIndex)
     {
@@ -908,12 +913,12 @@ public class Weapon : MonoBehaviour
     }
 
     /// <summary>
-    /// ÇöÀç ¹«±â ¾ÆÀÌÄÜÀ» StageÀÇ WeaponUI¿¡ Ç¥½ÃÇÑ´Ù.
+    /// í˜„ì¬ ë¬´ê¸° ì•„ì´ì½˜ì„ Stageì˜ WeaponUIì— í‘œì‹œí•œë‹¤.
     /// </summary>
     private void UpdateWeaponUI()
     {
-        // StageManager°¡ ¾ÆÁ÷ WeaponUI¸¦ Àü´ŞÇÏÁö ¾Ê¾Ò´Ù¸é
-        // ·±Å¸ÀÓ ¹«±â µ¥ÀÌÅÍ¸¸ °»½ÅÇÏ°í UI´Â °Ç³Ê¶Ú´Ù.
+        // StageManagerê°€ ì•„ì§ WeaponUIë¥¼ ì „ë‹¬í•˜ì§€ ì•Šì•˜ë‹¤ë©´
+        // ëŸ°íƒ€ì„ ë¬´ê¸° ë°ì´í„°ë§Œ ê°±ì‹ í•˜ê³  UIëŠ” ê±´ë„ˆë›´ë‹¤.
         if (_weaponUI == null)
         {
             return;
@@ -925,14 +930,14 @@ public class Weapon : MonoBehaviour
 
         _weaponUI.UpdateCurrentWeapon(currentIcon);
 
-        // Stage ½ÃÀÛ ¹× ¹«±â ±³Ã¼ Á÷ÈÄ¿¡µµ
-        // ±â´Ù¸®Áö ¾Ê°í ÃæÀü »óÅÂ¸¦ ¹Ù·Î Ç¥½ÃÇÑ´Ù.
+        // Stage ì‹œì‘ ë° ë¬´ê¸° êµì²´ ì§í›„ì—ë„
+        // ê¸°ë‹¤ë¦¬ì§€ ì•Šê³  ì¶©ì „ ìƒíƒœë¥¼ ë°”ë¡œ í‘œì‹œí•œë‹¤.
         UpdateWeaponChargeUI();
     }
 
     /// <summary>
-    /// TABÀ¸·Î ¿­¸®´Â ÀåÂø ¹«±â ÆĞ³ÎÀ» ´İ´Â´Ù.
-    /// Áõ°­ÀÌ³ª ÀÏ½ÃÁ¤ÁöÃ³·³ ´Ù¸¥ ¸ğ´Ş UI°¡ ¿­¸± ¶§ »ç¿ëÇÑ´Ù.
+    /// TABìœ¼ë¡œ ì—´ë¦¬ëŠ” ì¥ì°© ë¬´ê¸° íŒ¨ë„ì„ ë‹«ëŠ”ë‹¤.
+    /// ì¦ê°•ì´ë‚˜ ì¼ì‹œì •ì§€ì²˜ëŸ¼ ë‹¤ë¥¸ ëª¨ë‹¬ UIê°€ ì—´ë¦´ ë•Œ ì‚¬ìš©í•œë‹¤.
     /// </summary>
     public void CloseWeaponSlotPanel()
     {
@@ -944,32 +949,32 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    // ÇöÀç °ø°İ °£°İ ¾È¿¡ Attack Å¬¸³À» ÇÑ ¹ø Àç»ıÇÑ´Ù.
+    // í˜„ì¬ ê³µê²© ê°„ê²© ì•ˆì— Attack í´ë¦½ì„ í•œ ë²ˆ ì¬ìƒí•œë‹¤.
     /// <summary>
-    /// ÇöÀç °ø°İ °£°İ ¾È¿¡ Attack Å¬¸³À» ÇÑ ¹ø Àç»ıÇÑ´Ù.
+    /// í˜„ì¬ ê³µê²© ê°„ê²© ì•ˆì— Attack í´ë¦½ì„ í•œ ë²ˆ ì¬ìƒí•œë‹¤.
     /// </summary>
     private void BeginSlashAnimation(float attackInterval)
     {
         _isSlashAttacking = true;
 
-        // ¿¹: ¿øº» 1ÃÊ / °ø°İ °£°İ 0.2ÃÊ = Àç»ı ¼Óµµ 5¹è.
-        // Áõ°­À¸·Î °£°İÀÌ ÁÙ¸é ´ÙÀ½ °ø°İºÎÅÍ Àç»ı ¼Óµµµµ Áõ°¡ÇÑ´Ù.
+        // ì˜ˆ: ì›ë³¸ 1ì´ˆ / ê³µê²© ê°„ê²© 0.2ì´ˆ = ì¬ìƒ ì†ë„ 5ë°°.
+        // ì¦ê°•ìœ¼ë¡œ ê°„ê²©ì´ ì¤„ë©´ ë‹¤ìŒ ê³µê²©ë¶€í„° ì¬ìƒ ì†ë„ë„ ì¦ê°€í•œë‹¤.
         float duration = Mathf.Max(0.01f, attackInterval);
         float animationSpeed = _slashAttackClip.length / duration;
 
         _animator.SetFloat(AttackSpeedHash, animationSpeed);
         _animator.SetBool(AttackHash, true);
         _animator.Play(SlashAttackStateHash, 0, 0f);
-        // °°Àº ÇÁ·¹ÀÓÀÇ LateUpdate¿¡¼­µµ »õ Slash »óÅÂ¸¦ ÀĞµµ·Ï ¹İ¿µÇÑ´Ù.
+        // ê°™ì€ í”„ë ˆì„ì˜ LateUpdateì—ì„œë„ ìƒˆ Slash ìƒíƒœë¥¼ ì½ë„ë¡ ë°˜ì˜í•œë‹¤.
         _animator.Update(0f);
     }
 
     /// <summary>
-    /// ÇÁ·¹ÀÓÀÇ ÀÌµ¿ °á°ú¿¡ ¸ÂÃç ÈÄ¼Ó »óÅÂ¸¦ °»½ÅÇÑ´Ù.
+    /// í”„ë ˆì„ì˜ ì´ë™ ê²°ê³¼ì— ë§ì¶° í›„ì† ìƒíƒœë¥¼ ê°±ì‹ í•œë‹¤.
     /// </summary>
     private void LateUpdate()
     {
-        // ÀÏ½ÃÁ¤Áö Áß¿¡´Â ÇöÀç °ø°İ »óÅÂ¸¦ À¯ÁöÇÑ´Ù.
+        // ì¼ì‹œì •ì§€ ì¤‘ì—ëŠ” í˜„ì¬ ê³µê²© ìƒíƒœë¥¼ ìœ ì§€í•œë‹¤.
         if (!_isSlashAttacking || Time.timeScale <= 0f)
         {
             return;
@@ -977,27 +982,27 @@ public class Weapon : MonoBehaviour
 
         AnimatorStateInfo state = _animator.GetCurrentAnimatorStateInfo(0);
 
-        // ´Ù¸¥ ÄÚµå¿¡¼­ »óÅÂ°¡ º¯°æµÆ´Ù¸é ÁøÇà Áß Ç¥½Ãµµ Á¤¸®ÇÑ´Ù.
+        // ë‹¤ë¥¸ ì½”ë“œì—ì„œ ìƒíƒœê°€ ë³€ê²½ëë‹¤ë©´ ì§„í–‰ ì¤‘ í‘œì‹œë„ ì •ë¦¬í•œë‹¤.
         if (state.fullPathHash != SlashAttackStateHash)
         {
             CancelSlashAnimation();
             return;
         }
 
-        // normalizedTime 1Àº Å¬¸³ ÇÑ ¹øÀÇ Àç»ıÀÌ ³¡³µ´Ù´Â ¶æÀÌ´Ù.
+        // normalizedTime 1ì€ í´ë¦½ í•œ ë²ˆì˜ ì¬ìƒì´ ëë‚¬ë‹¤ëŠ” ëœ»ì´ë‹¤.
         if (state.normalizedTime >= 1f)
         {
             CancelSlashAnimation();
         }
     }
 
-    // °ø°İ ¿Ï·á, ¹«±â º¯°æ, ºñÈ°¼ºÈ­ ½Ã Slash ¾Ö´Ï¸ŞÀÌ¼ÇÀ» Á¤¸®ÇÑ´Ù.
+    // ê³µê²© ì™„ë£Œ, ë¬´ê¸° ë³€ê²½, ë¹„í™œì„±í™” ì‹œ Slash ì• ë‹ˆë©”ì´ì…˜ì„ ì •ë¦¬í•œë‹¤.
     /// <summary>
-    /// °ø°İ ¿Ï·á, ¹«±â º¯°æ, ºñÈ°¼ºÈ­ ½Ã Slash ¾Ö´Ï¸ŞÀÌ¼ÇÀ» Á¤¸®ÇÑ´Ù.
+    /// ê³µê²© ì™„ë£Œ, ë¬´ê¸° ë³€ê²½, ë¹„í™œì„±í™” ì‹œ Slash ì• ë‹ˆë©”ì´ì…˜ì„ ì •ë¦¬í•œë‹¤.
     /// </summary>
     private void CancelSlashAnimation()
     {
-        // Slash°¡ Á¦¾î ÁßÀÏ ¶§¸¸ Animator¸¦ º¯°æÇÑ´Ù.
+        // Slashê°€ ì œì–´ ì¤‘ì¼ ë•Œë§Œ Animatorë¥¼ ë³€ê²½í•œë‹¤.
         if (!_isSlashAttacking)
         {
             return;
@@ -1011,34 +1016,34 @@ public class Weapon : MonoBehaviour
     }
 
     /// <summary>
-    /// ºñÈ°¼ºÈ­ ½Ã ÀÌº¥Æ® ¿¬°á°ú ½ÇÇà »óÅÂ¸¦ Á¤¸®ÇÑ´Ù.
+    /// ë¹„í™œì„±í™” ì‹œ ì´ë²¤íŠ¸ ì—°ê²°ê³¼ ì‹¤í–‰ ìƒíƒœë¥¼ ì •ë¦¬í•œë‹¤.
     /// </summary>
     private void OnDisable()
     {
-        // ÀçÈ°¼ºÈ­ÇÒ ¶§ ÀÌº¥Æ®°¡ Áßº¹À¸·Î ¿¬°áµÇÁö ¾Êµµ·Ï ÇØÁ¦ÇÑ´Ù.
+        // ì¬í™œì„±í™”í•  ë•Œ ì´ë²¤íŠ¸ê°€ ì¤‘ë³µìœ¼ë¡œ ì—°ê²°ë˜ì§€ ì•Šë„ë¡ í•´ì œí•œë‹¤.
         if (_playerController != null)
         {
             _playerController.ControlStateChanged -= HandleControlStateChanged;
         }
 
-        // ºñÈ°¼ºÈ­ÇÒ ¶§µµ ÁøÇà ÁßÀÎ °ø°İ°ú ¹æ¾î¸¦ Á¤¸®ÇÑ´Ù.
+        // ë¹„í™œì„±í™”í•  ë•Œë„ ì§„í–‰ ì¤‘ì¸ ê³µê²©ê³¼ ë°©ì–´ë¥¼ ì •ë¦¬í•œë‹¤.
         CancelCurrentAttack();
     }
 
     /// <summary>
-    /// È°¼ºÈ­ ½Ã ÃÊ±â »óÅÂ¿Í ÀÌº¥Æ® ¿¬°áÀ» ÁØºñÇÑ´Ù.
+    /// í™œì„±í™” ì‹œ ì´ˆê¸° ìƒíƒœì™€ ì´ë²¤íŠ¸ ì—°ê²°ì„ ì¤€ë¹„í•œë‹¤.
     /// </summary>
     private void OnEnable()
     {
-        // ÀÌµ¿ ¿¬ÃâÀÌ ½ÃÀÛµÇ´Â ¼ø°£ °ø°İÀ» Áß´ÜÇÑ´Ù.
+        // ì´ë™ ì—°ì¶œì´ ì‹œì‘ë˜ëŠ” ìˆœê°„ ê³µê²©ì„ ì¤‘ë‹¨í•œë‹¤.
         _playerController.ControlStateChanged += HandleControlStateChanged;
 
-        // Á¶ÀÛÀÌ ÀÌ¹Ì Àá°Ü ÀÖ´Â »óÅÂ¿¡¼­ È°¼ºÈ­µÈ °æ¿ìµµ ¹İ¿µÇÑ´Ù.
+        // ì¡°ì‘ì´ ì´ë¯¸ ì ê²¨ ìˆëŠ” ìƒíƒœì—ì„œ í™œì„±í™”ëœ ê²½ìš°ë„ ë°˜ì˜í•œë‹¤.
         HandleControlStateChanged(_playerController.CanControl);
     }
 
     /// <summary>
-    /// HandleControlStateChanged µ¿ÀÛ¿¡ ÇÊ¿äÇÑ »óÅÂ¿Í Ã³¸® Èå¸§À» ½ÇÇàÇÑ´Ù.
+    /// HandleControlStateChanged ë™ì‘ì— í•„ìš”í•œ ìƒíƒœì™€ ì²˜ë¦¬ íë¦„ì„ ì‹¤í–‰í•œë‹¤.
     /// </summary>
     private void HandleControlStateChanged(bool canControl)
     {
@@ -1047,23 +1052,23 @@ public class Weapon : MonoBehaviour
             return;
         }
 
-        // ÁøÇà ÁßÀÎ °ø°İ°ú ¹æ¾î ÀÚ¼¼¸¦ Á¤¸®ÇÑ´Ù.
+        // ì§„í–‰ ì¤‘ì¸ ê³µê²©ê³¼ ë°©ì–´ ìì„¸ë¥¼ ì •ë¦¬í•œë‹¤.
         CancelCurrentAttack();
 
-        // ¿¬Ãâ Áß ¹«±â ¼±ÅÃ ÆĞ³Îµµ ´İ´Â´Ù.
+        // ì—°ì¶œ ì¤‘ ë¬´ê¸° ì„ íƒ íŒ¨ë„ë„ ë‹«ëŠ”ë‹¤.
         CloseWeaponSlotPanel();
     }
 
     /// <summary>
-    /// CancelCurrentAttack µ¿ÀÛ¿¡ ÇÊ¿äÇÑ »óÅÂ¿Í Ã³¸® Èå¸§À» ½ÇÇàÇÑ´Ù.
+    /// CancelCurrentAttack ë™ì‘ì— í•„ìš”í•œ ìƒíƒœì™€ ì²˜ë¦¬ íë¦„ì„ ì‹¤í–‰í•œë‹¤.
     /// </summary>
     private void CancelCurrentAttack()
     {
         StopLazer();
-        // SlashÀÇ °ø°İ Áß »óÅÂ¿Í ¾Ö´Ï¸ŞÀÌ¼Ç ¼Óµµ¸¦ Á¤¸®ÇÑ´Ù.
+        // Slashì˜ ê³µê²© ì¤‘ ìƒíƒœì™€ ì• ë‹ˆë©”ì´ì…˜ ì†ë„ë¥¼ ì •ë¦¬í•œë‹¤.
         CancelSlashAnimation();
 
-        // °Ë°ú ¸ÁÄ¡ÀÇ È°¼º °ø°İ ÆÇÁ¤À» Áï½Ã Áß´ÜÇÑ´Ù.
+        // ê²€ê³¼ ë§ì¹˜ì˜ í™œì„± ê³µê²© íŒì •ì„ ì¦‰ì‹œ ì¤‘ë‹¨í•œë‹¤.
         if (_giantSword != null)
         {
             _giantSword.CancelAttack();
@@ -1074,13 +1079,29 @@ public class Weapon : MonoBehaviour
             _hammer.CancelAttack();
         }
 
-        // ¹æ¾î ÁßÀÌ¾ú´Ù¸é ¹æ¾î ÀÚ¼¼¿Í ÆÇÁ¤µµ Áß´ÜÇÑ´Ù.
+        // ë°©ì–´ ì¤‘ì´ì—ˆë‹¤ë©´ ë°©ì–´ ìì„¸ì™€ íŒì •ë„ ì¤‘ë‹¨í•œë‹¤.
         if (_shield != null)
         {
             _shield.CancelGuard();
         }
 
-        // ÀÏ¹İ »ç°İÀÇ °ø°İ ¾Ö´Ï¸ŞÀÌ¼Ç ¿äÃ»µµ ÇØÁ¦ÇÑ´Ù.
+        // ì¼ë°˜ ì‚¬ê²©ì˜ ê³µê²© ì• ë‹ˆë©”ì´ì…˜ ìš”ì²­ë„ í•´ì œí•œë‹¤.
         _animator.SetBool(AttackHash, false);
     }
+
+    /// <summary>ì‹¤ì œ íˆ¬ì‚¬ì²´ ë°œì‚¬ì— í•´ë‹¹í•˜ëŠ” ë¬´ê¸°ìŒì„ ì„ íƒí•©ë‹ˆë‹¤.</summary>
+    private void PlayProjectileFireSound(WeaponType type)
+    {
+        // ì—°ì‚¬ ì´ì•Œì€ ì„¸ ë³€í˜•ì„ ì‚¬ìš©í•˜ê³  ì§€ì† ë ˆì´ì €ëŠ” ìì‹ ì˜ ìˆ˜ëª…ì—ì„œ ì²˜ë¦¬í•œë‹¤.
+        switch (type)
+        {
+            case WeaponType.Bullet:
+                GameAudio.Play((GameSound)((int)GameSound.BulletFire01 + UnityEngine.Random.Range(0, 3))); break;
+            case WeaponType.Missile: GameAudio.Play(GameSound.MissileLaunch); break;
+            case WeaponType.Grenade: GameAudio.Play(GameSound.GrenadeThrow); break;
+            case WeaponType.Sniper: GameAudio.Play(GameSound.SniperFire); break;
+            case WeaponType.Slash: GameAudio.Play(GameSound.SlashWaveLaunch); break;
+        }
+    }
+
 }

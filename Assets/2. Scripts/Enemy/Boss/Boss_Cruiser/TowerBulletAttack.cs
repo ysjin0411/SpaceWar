@@ -1,61 +1,62 @@
-using System;
+ï»¿using System;
 using UnityEngine;
 
 public sealed class TowerBulletAttack : TowerAttack
 {
-    // ±âÁ¸ EnemyBullet ÄÄÆ÷³ÍÆ®°¡ ºÙÀº ÃÑ¾Ë ÇÁ¸®ÆÕÀÌ´Ù.
+    // ê¸°ì¡´ EnemyBullet ì»´í¬ë„ŒíŠ¸ê°€ ë¶™ì€ ì´ì•Œ í”„ë¦¬íŒ¹ì´ë‹¤.
     [SerializeField] private EnemyBullet _bulletPrefab;
 
-    // ÀÌ Å¸¿öÀÇ ÃÑ¾Ë »ı¼º À§Ä¡´Ù.
+    // ì´ íƒ€ì›Œì˜ ì´ì•Œ ìƒì„± ìœ„ì¹˜ë‹¤.
     [SerializeField] private Transform _firePoint;
 
-    // ÇÑ ¹øÀÇ ¹ß»ç ÀÌº¥Æ®¿¡¼­ »ı¼ºÇÒ ÃÑ¾Ë ¼ö´Ù.
+    // í•œ ë²ˆì˜ ë°œì‚¬ ì´ë²¤íŠ¸ì—ì„œ ìƒì„±í•  ì´ì•Œ ìˆ˜ë‹¤.
     [SerializeField, Min(1)] private int _bulletCount = 3;
 
-    // °¡Àå ¿ŞÂÊ ÃÑ¾ËºÎÅÍ ¿À¸¥ÂÊ ÃÑ¾Ë±îÁöÀÇ ÀüÃ¼ °¢µµ´Ù.
+    // ê°€ì¥ ì™¼ìª½ ì´ì•Œë¶€í„° ì˜¤ë¥¸ìª½ ì´ì•Œê¹Œì§€ì˜ ì „ì²´ ê°ë„ë‹¤.
     [SerializeField, Range(0f, 180f)] private float _spreadAngle = 30f;
 
-    // »ı¼ºÇÑ ÃÑ¾Ë¿¡ Àü´ŞÇÒ ÀÌµ¿ ¼Óµµ´Ù.
+    // ìƒì„±í•œ ì´ì•Œì— ì „ë‹¬í•  ì´ë™ ì†ë„ë‹¤.
     [SerializeField, Min(0.1f)] private float _bulletSpeed = 5f;
 
-    // »ı¼ºÇÑ ÃÑ¾Ë¿¡ Àü´ŞÇÒ ÇÇÇØ·®ÀÌ´Ù.
+    // ìƒì„±í•œ ì´ì•Œì— ì „ë‹¬í•  í”¼í•´ëŸ‰ì´ë‹¤.
     [SerializeField, Min(1)] private float _bulletDamage = 5;
 
     /// <summary>
-    /// ÄÄÆ÷³ÍÆ® ÂüÁ¶¿Í ÃÊ±â ½ÇÇà »óÅÂ¸¦ ÁØºñÇÑ´Ù.
+    /// ì»´í¬ë„ŒíŠ¸ ì°¸ì¡°ì™€ ì´ˆê¸° ì‹¤í–‰ ìƒíƒœë¥¼ ì¤€ë¹„í•œë‹¤.
     /// </summary>
     protected override void Awake()
     {
         base.Awake();
 
-        // ¹ß»ç¿¡ ¹İµå½Ã ÇÊ¿äÇÑ ÂüÁ¶¸¦ °Ë»çÇÑ´Ù.
+        // ë°œì‚¬ì— ë°˜ë“œì‹œ í•„ìš”í•œ ì°¸ì¡°ë¥¼ ê²€ì‚¬í•œë‹¤.
         if (_bulletPrefab == null || _firePoint == null)
         {
             throw new InvalidOperationException(
-                $"{name}: ÃÑ¾Ë ÇÁ¸®ÆÕ°ú FirePoint¸¦ ¿¬°áÇÏ¼¼¿ä.");
+                $"{name}: ì´ì•Œ í”„ë¦¬íŒ¹ê³¼ FirePointë¥¼ ì—°ê²°í•˜ì„¸ìš”.");
         }
     }
 
     /// <summary>
-    /// ExecuteAttack µ¿ÀÛ¿¡ ÇÊ¿äÇÑ »óÅÂ¿Í Ã³¸® Èå¸§À» ½ÇÇàÇÑ´Ù.
+    /// ExecuteAttack ë™ì‘ì— í•„ìš”í•œ ìƒíƒœì™€ ì²˜ë¦¬ íë¦„ì„ ì‹¤í–‰í•œë‹¤.
     /// </summary>
     protected override void ExecuteAttack(PlayerController targetPlayer)
     {
-        // ¹ß»ç ¼ø°£ÀÇ ÇÃ·¹ÀÌ¾î À§Ä¡¸¦ ±âÁØÀ¸·Î Á¶ÁØÇÑ´Ù.
+        // ë°œì‚¬ ìˆœê°„ì˜ í”Œë ˆì´ì–´ ìœ„ì¹˜ë¥¼ ê¸°ì¤€ìœ¼ë¡œ ì¡°ì¤€í•œë‹¤.
         Vector2 direction =
             targetPlayer.transform.position - _firePoint.position;
 
-        // ¹ß»çÁ¡°ú ÇÃ·¹ÀÌ¾î°¡ °ãÄ¡¸é ¹ß»çÁ¡ÀÇ ¿ŞÂÊ ¹æÇâÀ» »ç¿ëÇÑ´Ù.
+        // ë°œì‚¬ì ê³¼ í”Œë ˆì´ì–´ê°€ ê²¹ì¹˜ë©´ ë°œì‚¬ì ì˜ ì™¼ìª½ ë°©í–¥ì„ ì‚¬ìš©í•œë‹¤.
         if (direction.sqrMagnitude < 0.0001f)
         {
             direction = -_firePoint.right;
         }
 
         direction.Normalize();
+        GameAudio.Play(GameSound.CruiserTurretFire); // í•œ ë°œì‚¬ ë¬¶ìŒì— í•œ ë²ˆ.
 
         for (int i = 0; i < _bulletCount; i++)
         {
-            // ÇÑ ¹ßÀÌ¸é Á¤¸é, ¿©·¯ ¹ßÀÌ¸é ÀüÃ¼ °¢µµ¿¡ ±ÕµîÇÏ°Ô ¹èÄ¡ÇÑ´Ù.
+            // í•œ ë°œì´ë©´ ì •ë©´, ì—¬ëŸ¬ ë°œì´ë©´ ì „ì²´ ê°ë„ì— ê· ë“±í•˜ê²Œ ë°°ì¹˜í•œë‹¤.
             float angle = _bulletCount == 1
                 ? 0f
                 : -_spreadAngle * 0.5f
@@ -64,16 +65,16 @@ public sealed class TowerBulletAttack : TowerAttack
             Vector2 shotDirection =
                 Quaternion.Euler(0f, 0f, angle) * direction;
 
-            // Æ÷Å¾ÀÇ ÅºÈ¯ ÇÁ¸®ÆÕ¿¡ ÇØ´çÇÏ´Â Ç®¿¡¼­ ¿ÀºêÁ§Æ®¸¦ ²¨³½´Ù.
+            // í¬íƒ‘ì˜ íƒ„í™˜ í”„ë¦¬íŒ¹ì— í•´ë‹¹í•˜ëŠ” í’€ì—ì„œ ì˜¤ë¸Œì íŠ¸ë¥¼ êº¼ë‚¸ë‹¤.
             GameObject bulletObject = ProjectilePoolManager.Instance.Spawn(
                 _bulletPrefab.gameObject,
                 _firePoint.position,
                 Quaternion.identity);
 
-            // ÅºÈ¯ÀÇ ¹æÇâ°ú °ø°İ Á¤º¸¸¦ ¼³Á¤ÇÒ ÄÄÆ÷³ÍÆ®¸¦ °¡Á®¿Â´Ù.
+            // íƒ„í™˜ì˜ ë°©í–¥ê³¼ ê³µê²© ì •ë³´ë¥¼ ì„¤ì •í•  ì»´í¬ë„ŒíŠ¸ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
             EnemyBullet bullet = bulletObject.GetComponent<EnemyBullet>();
 
-            // ±âÁ¸ EnemyBulletÀÇ ¹æÇâ ÁöÁ¤ ÃÊ±âÈ­¸¦ ±×´ë·Î »ç¿ëÇÑ´Ù.
+            // ê¸°ì¡´ EnemyBulletì˜ ë°©í–¥ ì§€ì • ì´ˆê¸°í™”ë¥¼ ê·¸ëŒ€ë¡œ ì‚¬ìš©í•œë‹¤.
             bullet.Init(
                 shotDirection,
                 _bulletSpeed,

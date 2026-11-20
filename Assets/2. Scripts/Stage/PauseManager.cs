@@ -1,76 +1,110 @@
-using System;
+ï»¿using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 /// <summary>
-/// Stage¿¡¼­ Esc ÀÏ½ÃÁ¤Áö¿Í PausePanel ¹öÆ° ÀÔ·ÂÀ» °ü¸®ÇÑ´Ù.
+/// Stageì—ì„œ Esc ì¼ì‹œì •ì§€ì™€ PausePanel ë²„íŠ¼ ì…ë ¥ì„ ê´€ë¦¬í•œë‹¤.
 /// </summary>
 public class PauseManager : MonoBehaviour
 {
-    [Header("ÀÏ½ÃÁ¤Áö UI")]
+    [Header("ì¼ì‹œì •ì§€ UI")]
 
-    [Tooltip("Esc¸¦ ´­·¶À» ¶§ ¿­°í ´İÀ» PausePanel")]
+    [Tooltip("Escë¥¼ ëˆŒë €ì„ ë•Œ ì—´ê³  ë‹«ì„ PausePanel")]
     [SerializeField]
     private GameObject _pausePanel;
 
+    // Stageì˜ í™˜ê²½ì„¤ì • ìƒíƒœë¥¼ í™•ì¸í•˜ê³  í‘œì‹œ ë³€ê²½ ì´ë²¤íŠ¸ë¥¼ êµ¬ë…í•œë‹¤.
+    [SerializeField]
+    private AudioSettingsUI _audioSettingsUI;
 
-    [Header("ÀÏ½ÃÁ¤Áö ¹öÆ°")]
 
-    [Tooltip("°ÔÀÓÀ¸·Î µ¹¾Æ°¡´Â ¸Ç À§ ¹öÆ°")]
+    [Header("ì¼ì‹œì •ì§€ ë²„íŠ¼")]
+
+    [Tooltip("ê²Œì„ìœ¼ë¡œ ëŒì•„ê°€ëŠ” ë§¨ ìœ„ ë²„íŠ¼")]
     [SerializeField]
     private Button _backGameButton;
 
-    [Tooltip("ÇöÀç ½ºÅ×ÀÌÁö¸¦ Ã³À½ºÎÅÍ ´Ù½Ã ½ÃÀÛÇÏ´Â ¹öÆ°")]
+    [Tooltip("í˜„ì¬ ìŠ¤í…Œì´ì§€ë¥¼ ì²˜ìŒë¶€í„° ë‹¤ì‹œ ì‹œì‘í•˜ëŠ” ë²„íŠ¼")]
     [SerializeField]
     private Button _restartStageButton;
 
-    [Tooltip("StageSelect ¾ÀÀ¸·Î µ¹¾Æ°¡´Â ¹öÆ°")]
+    [Tooltip("StageSelect ì”¬ìœ¼ë¡œ ëŒì•„ê°€ëŠ” ë²„íŠ¼")]
     [SerializeField]
     private Button _backToStageSelectButton;
 
 
-    // ÇöÀç PausePanelÀÌ ¿­·Á ÀÖ´ÂÁö ³ªÅ¸³½´Ù.
+    // ì´ ê´€ë¦¬ìê°€ ê²Œì„ì„ ì¼ì‹œì •ì§€í–ˆëŠ”ì§€ ë‚˜íƒ€ë‚¸ë‹¤.
+    // í™˜ê²½ì„¤ì •ì„ í‘œì‹œí•˜ëŠ” ë™ì•ˆì—ë„ trueë¥¼ ìœ ì§€í•œë‹¤.
     private bool _isPauseOpen;
 
 
+    /// <summary>
+    /// í•„ìˆ˜ ì—°ê²°ì„ ê²€ì‚¬í•˜ê³  í™˜ê²½ì„¤ì • ì´ë²¤íŠ¸ì™€ ì´ˆê¸° ìƒíƒœë¥¼ ì¤€ë¹„í•œë‹¤.
+    /// </summary>
     private void Awake()
     {
-        // Inspector ¿¬°áÀ» È®ÀÎÇÑ´Ù.
+        // Inspector ì—°ê²°ì„ í™•ì¸í•œë‹¤.
         if (_pausePanel == null)
         {
             throw new InvalidOperationException(
-                "PauseManager¿¡ PausePanelÀÌ ¿¬°áµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+                "PauseManagerì— PausePanelì´ ì—°ê²°ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
         }
 
         if (_backGameButton == null)
         {
             throw new InvalidOperationException(
-                "PauseManager¿¡ BackGameButtonÀÌ ¿¬°áµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+                "PauseManagerì— BackGameButtonì´ ì—°ê²°ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
         }
 
         if (_restartStageButton == null)
         {
             throw new InvalidOperationException(
-                "PauseManager¿¡ RestartStageButtonÀÌ ¿¬°áµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+                "PauseManagerì— RestartStageButtonì´ ì—°ê²°ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
         }
 
         if (_backToStageSelectButton == null)
         {
             throw new InvalidOperationException(
-                "PauseManager¿¡ BackToStageSelectButtonÀÌ ¿¬°áµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+                "PauseManagerì— BackToStageSelectButtonì´ ì—°ê²°ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
         }
 
-        // ½ºÅ×ÀÌÁö ½ÃÀÛ ½Ã ÀÏ½ÃÁ¤Áö ÆĞ³ÎÀ» ´İ¾ÆµĞ´Ù.
+        // í™˜ê²½ì„¤ì • ì—°ê²° ëˆ„ë½ì„ ì‹œì‘ ì‹œì ì— í™•ì¸í•œë‹¤.
+        if (_audioSettingsUI == null)
+        {
+            throw new InvalidOperationException(
+                "PauseManagerì— AudioSettingsUIê°€ ì—°ê²°ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
+        }
+
+        // í™˜ê²½ì„¤ì • í‘œì‹œ ìƒíƒœì— ë§ì¶° PausePanelì„ ì „í™˜í•œë‹¤.
+        _audioSettingsUI.VisibilityChanged += HandleSettingsVisibilityChanged;
+
+        // ìŠ¤í…Œì´ì§€ ì‹œì‘ ì‹œ ì¼ì‹œì •ì§€ íŒ¨ë„ì„ ë‹«ì•„ë‘”ë‹¤.
         _isPauseOpen = false;
         _pausePanel.SetActive(false);
     }
 
 
+    /// <summary>
+    /// í™˜ê²½ì„¤ì • ë‹«ê¸°ë¥¼ ìš°ì„  ì²˜ë¦¬í•˜ê³  Pause ì „í™˜ê³¼ ë²„íŠ¼ ì„ íƒì„ ì²˜ë¦¬í•œë‹¤.
+    /// </summary>
     private void Update()
     {
-        // Esc¸¦ ´©¸£¸é ÀÏ½ÃÁ¤Áö »óÅÂ¸¦ ÀüÈ¯ÇÑ´Ù.
+        // í™˜ê²½ì„¤ì •ì´ ì—´ë ¤ ìˆìœ¼ë©´ í•´ë‹¹ í™”ë©´ì˜ ë‹«ê¸° ì…ë ¥ë§Œ ì²˜ë¦¬í•œë‹¤.
+        if (_audioSettingsUI.IsOpen)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                // ë‹«í˜ ì´ë²¤íŠ¸ê°€ PausePanelì„ ë³µì›í•œë‹¤.
+                _audioSettingsUI.CloseFromButton();
+            }
+
+            // ê°™ì€ ESCê°€ ê²Œì„ ì¬ê°œê¹Œì§€ ì´ì–´ì§€ê±°ë‚˜ ìˆ¨ê¸´ ë²„íŠ¼ì´ ì„ íƒë˜ì§€ ì•Šê²Œ í•œë‹¤.
+            return;
+        }
+
+        // Escë¥¼ ëˆ„ë¥´ë©´ ì¼ì‹œì •ì§€ ìƒíƒœë¥¼ ì „í™˜í•œë‹¤.
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (_isPauseOpen)
@@ -83,26 +117,26 @@ public class PauseManager : MonoBehaviour
             }
         }
 
-        // PausePanelÀÌ ´İÇô ÀÖÀ¸¸é ¹öÆ° ¼±ÅÃ ÀÔ·ÂÀ» Ã³¸®ÇÏÁö ¾Ê´Â´Ù.
+        // PausePanelì´ ë‹«í˜€ ìˆìœ¼ë©´ ë²„íŠ¼ ì„ íƒ ì…ë ¥ì„ ì²˜ë¦¬í•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (!_isPauseOpen)
         {
             return;
         }
 
-        // EventSystemÀÌ ¾ø´Ù¸é UI ¹öÆ°À» ¼±ÅÃÇÒ ¼ö ¾ø´Ù.
+        // EventSystemì´ ì—†ë‹¤ë©´ UI ë²„íŠ¼ì„ ì„ íƒí•  ìˆ˜ ì—†ë‹¤.
         if (EventSystem.current == null)
         {
             return;
         }
 
-        // ÀÌ¹Ì ¼±ÅÃµÈ ¹öÆ°ÀÌ ÀÖ´Ù¸é ±âº» ¼±ÅÃÀ» ´Ù½Ã ÇÏÁö ¾Ê´Â´Ù.
+        // ì´ë¯¸ ì„ íƒëœ ë²„íŠ¼ì´ ìˆë‹¤ë©´ ê¸°ë³¸ ì„ íƒì„ ë‹¤ì‹œ í•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (EventSystem.current.currentSelectedGameObject != null)
         {
             return;
         }
 
-        // ¼±ÅÃµÈ ¹öÆ°ÀÌ ¾ø´Â »óÅÂ¿¡¼­ Ã¹ ¹æÇâÅ° ÀÔ·ÂÀ» ¹ŞÀ¸¸é
-        // °¡Àå À§¿¡ ÀÖ´Â BackGameButtonÀ» ¼±ÅÃÇÑ´Ù.
+        // ì„ íƒëœ ë²„íŠ¼ì´ ì—†ëŠ” ìƒíƒœì—ì„œ ì²« ë°©í–¥í‚¤ ì…ë ¥ì„ ë°›ìœ¼ë©´
+        // ê°€ì¥ ìœ„ì— ìˆëŠ” BackGameButtonì„ ì„ íƒí•œë‹¤.
         if (IsAnyArrowKeyDown())
         {
             _backGameButton.Select();
@@ -111,7 +145,40 @@ public class PauseManager : MonoBehaviour
 
 
     /// <summary>
-    /// ¹æÇâÅ° Áß ÇÏ³ª°¡ ÀÌ¹ø ÇÁ·¹ÀÓ¿¡ ´­·È´ÂÁö È®ÀÎÇÑ´Ù.
+    /// ê²Œì„ ì •ì§€ë¥¼ ìœ ì§€í•˜ë©° í™˜ê²½ì„¤ì • ìƒíƒœì— ë§ì¶° PausePanelì„ ì „í™˜í•œë‹¤.
+    /// </summary>
+    private void HandleSettingsVisibilityChanged(bool isOpen)
+    {
+        // ì´ ê´€ë¦¬ìê°€ ì •ì§€í•œ ìƒíƒœì—ì„œë§Œ PausePanelì„ ê´€ë¦¬í•œë‹¤.
+        if (!_isPauseOpen)
+        {
+            return;
+        }
+
+        // ì´ì „ í™”ë©´ì— ë‚¨ì•„ ìˆëŠ” ë²„íŠ¼ ì„ íƒì„ í•´ì œí•œë‹¤.
+        if (EventSystem.current != null)
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+        }
+
+        // ì‹œê°„ ë°°ìœ¨ì€ ìœ ì§€í•˜ê³  íŒ¨ë„ì˜ í‘œì‹œë§Œ ë°”ê¾¼ë‹¤.
+        _pausePanel.SetActive(!isOpen);
+    }
+
+    /// <summary>
+    /// ê°ì²´ê°€ ì œê±°ë  ë•Œ í™˜ê²½ì„¤ì • ì´ë²¤íŠ¸ êµ¬ë…ì„ í•´ì œí•œë‹¤.
+    /// </summary>
+    private void OnDestroy()
+    {
+        // í™˜ê²½ì„¤ì • UIê°€ ë‚¨ì•„ ìˆìœ¼ë©´ ë“±ë¡í–ˆë˜ ì½œë°±ì„ ì œê±°í•œë‹¤.
+        if (_audioSettingsUI != null)
+        {
+            _audioSettingsUI.VisibilityChanged -= HandleSettingsVisibilityChanged;
+        }
+    }
+
+    /// <summary>
+    /// ë°©í–¥í‚¤ ì¤‘ í•˜ë‚˜ê°€ ì´ë²ˆ í”„ë ˆì„ì— ëˆŒë ¸ëŠ”ì§€ í™•ì¸í•œë‹¤.
     /// </summary>
     private bool IsAnyArrowKeyDown()
     {
@@ -123,12 +190,12 @@ public class PauseManager : MonoBehaviour
 
 
     /// <summary>
-    /// ÀÏ½ÃÁ¤Áö ÆĞ³ÎÀ» ¿¬´Ù.
+    /// ì¼ì‹œì •ì§€ íŒ¨ë„ì„ ì—°ë‹¤.
     /// </summary>
     private void OpenPause()
     {
-        // Áõ°­ ¼±ÅÃÀÌ³ª »ç¸Á µî ´Ù¸¥ ½Ã½ºÅÛÀÌ ÀÌ¹Ì °ÔÀÓÀ»
-        // Á¤ÁöÇÑ »óÅÂ¶ó¸é PausePanelÀ» ¿­Áö ¾Ê´Â´Ù.
+        // ì¦ê°• ì„ íƒì´ë‚˜ ì‚¬ë§ ë“± ë‹¤ë¥¸ ì‹œìŠ¤í…œì´ ì´ë¯¸ ê²Œì„ì„
+        // ì •ì§€í•œ ìƒíƒœë¼ë©´ PausePanelì„ ì—´ì§€ ì•ŠëŠ”ë‹¤.
         if (Time.timeScale <= 0f)
         {
             return;
@@ -136,14 +203,15 @@ public class PauseManager : MonoBehaviour
 
         _isPauseOpen = true;
 
-        // PausePanelÀ» È­¸é¿¡ Ç¥½ÃÇÑ´Ù.
+        // PausePanelì„ í™”ë©´ì— í‘œì‹œí•œë‹¤.
         _pausePanel.SetActive(true);
 
-        // °ÔÀÓ ½Ã°£À» ¸ØÃá´Ù.
+        // ê²Œì„ ì‹œê°„ì„ ë©ˆì¶˜ë‹¤.
         Time.timeScale = 0f;
+        GameAudio.Play(GameSound.PauseOpen);
 
-        // Ã³À½ºÎÅÍ ¹öÆ°À» ¼±ÅÃÇÏÁö ¾Ê°í,
-        // ¹æÇâÅ°¸¦ Ã³À½ ´­·¶À» ¶§ ¸Ç À§ ¹öÆ°À» ¼±ÅÃÇÏ°Ô ÇÑ´Ù.
+        // ì²˜ìŒë¶€í„° ë²„íŠ¼ì„ ì„ íƒí•˜ì§€ ì•Šê³ ,
+        // ë°©í–¥í‚¤ë¥¼ ì²˜ìŒ ëˆŒë €ì„ ë•Œ ë§¨ ìœ„ ë²„íŠ¼ì„ ì„ íƒí•˜ê²Œ í•œë‹¤.
         if (EventSystem.current != null)
         {
             EventSystem.current.SetSelectedGameObject(null);
@@ -152,8 +220,8 @@ public class PauseManager : MonoBehaviour
 
 
     /// <summary>
-    /// ÀÏ½ÃÁ¤Áö¸¦ ÇØÁ¦ÇÏ°í °ÔÀÓÀ¸·Î µ¹¾Æ°£´Ù.
-    /// BackGameButtonÀÇ OnClick¿¡µµ ¿¬°áÇÑ´Ù.
+    /// ì¼ì‹œì •ì§€ë¥¼ í•´ì œí•˜ê³  ê²Œì„ìœ¼ë¡œ ëŒì•„ê°„ë‹¤.
+    /// BackGameButtonì˜ OnClickì—ë„ ì—°ê²°í•œë‹¤.
     /// </summary>
     public void ResumeGame()
     {
@@ -163,14 +231,15 @@ public class PauseManager : MonoBehaviour
         }
 
         _isPauseOpen = false;
+        GameAudio.Play(GameSound.PauseResume);
 
-        // PausePanelÀ» ´İ´Â´Ù.
+        // PausePanelì„ ë‹«ëŠ”ë‹¤.
         _pausePanel.SetActive(false);
 
-        // °ÔÀÓ ½Ã°£À» Á¤»óÈ­ÇÑ´Ù.
+        // ê²Œì„ ì‹œê°„ì„ ì •ìƒí™”í•œë‹¤.
         Time.timeScale = 1f;
 
-        // PausePanel¿¡¼­ ¼±ÅÃÇß´ø ¹öÆ° ¼±ÅÃÀ» ÇØÁ¦ÇÑ´Ù.
+        // PausePanelì—ì„œ ì„ íƒí–ˆë˜ ë²„íŠ¼ ì„ íƒì„ í•´ì œí•œë‹¤.
         if (EventSystem.current != null)
         {
             EventSystem.current.SetSelectedGameObject(null);
@@ -179,39 +248,41 @@ public class PauseManager : MonoBehaviour
 
 
     /// <summary>
-    /// ÇöÀç ÇÃ·¹ÀÌ ÁßÀÎ Stage¸¦ Ã³À½ºÎÅÍ ´Ù½Ã ºÒ·¯¿Â´Ù.
-    /// RestartStageButtonÀÇ OnClick¿¡ ¿¬°áÇÑ´Ù.
+    /// í˜„ì¬ í”Œë ˆì´ ì¤‘ì¸ Stageë¥¼ ì²˜ìŒë¶€í„° ë‹¤ì‹œ ë¶ˆëŸ¬ì˜¨ë‹¤.
+    /// RestartStageButtonì˜ OnClickì— ì—°ê²°í•œë‹¤.
     /// </summary>
     public void RestartStage()
     {
-        // ¾ÀÀ» ´Ù½Ã ºÒ·¯¿Íµµ Á¤Áö »óÅÂ°¡ ³²Áö ¾Êµµ·Ï ¸ÕÀú Á¤»óÈ­ÇÑ´Ù.
+        GameAudio.Play(GameSound.UiConfirm);
+        // ì”¬ì„ ë‹¤ì‹œ ë¶ˆëŸ¬ì™€ë„ ì •ì§€ ìƒíƒœê°€ ë‚¨ì§€ ì•Šë„ë¡ ë¨¼ì € ì •ìƒí™”í•œë‹¤.
         Time.timeScale = 1f;
 
-        // ÇöÀç È°¼ºÈ­µÈ Stage ¾À ÀÌ¸§À» °¡Á®¿Â´Ù.
+        // í˜„ì¬ í™œì„±í™”ëœ Stage ì”¬ ì´ë¦„ì„ ê°€ì ¸ì˜¨ë‹¤.
         string currentSceneName =
             SceneManager.GetActiveScene().name;
 
-        // ÇöÀç Stage¸¦ ´Ù½Ã ºÒ·¯¿Â´Ù.
+        // í˜„ì¬ Stageë¥¼ ë‹¤ì‹œ ë¶ˆëŸ¬ì˜¨ë‹¤.
         SceneManager.LoadScene(currentSceneName);
     }
 
 
     /// <summary>
-    /// ÇöÀç ÀüÅõ¸¦ Á¾·áÇÏ°í StageSelect ¾ÀÀ¸·Î µ¹¾Æ°£´Ù.
-    /// BackToStageSelectButtonÀÇ OnClick¿¡ ¿¬°áÇÑ´Ù.
+    /// í˜„ì¬ ì „íˆ¬ë¥¼ ì¢…ë£Œí•˜ê³  StageSelect ì”¬ìœ¼ë¡œ ëŒì•„ê°„ë‹¤.
+    /// BackToStageSelectButtonì˜ OnClickì— ì—°ê²°í•œë‹¤.
     /// </summary>
     public void BackToTown()
     {
-        // ´ÙÀ½ ¾À¿¡¼­µµ ½Ã°£ÀÌ ¸ØÃç ÀÖÁö ¾Êµµ·Ï Á¤»óÈ­ÇÑ´Ù.
+        GameAudio.Play(GameSound.UiBack);
+        // ë‹¤ìŒ ì”¬ì—ì„œë„ ì‹œê°„ì´ ë©ˆì¶° ìˆì§€ ì•Šë„ë¡ ì •ìƒí™”í•œë‹¤.
         Time.timeScale = 1f;
 
-        // ÇöÀç ÀüÅõ¿¡¼­ »ç¿ëÇÑ ÀÓ½Ã ¼±ÅÃ Á¤º¸¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+        // í˜„ì¬ ì „íˆ¬ì—ì„œ ì‚¬ìš©í•œ ì„ì‹œ ì„ íƒ ì •ë³´ë¥¼ ì´ˆê¸°í™”í•œë‹¤.
         if (GameSessionManager.Instance != null)
         {
             GameSessionManager.Instance.ResetSelection();
         }
 
-        // ÀüÅõ¸¦ Á¾·áÇÏ°í NPC ¼­ºñ½º¸¦ ÀÌ¿ëÇÏ´Â TownÀ¸·Î µ¹¾Æ°£´Ù.
+        // ì „íˆ¬ë¥¼ ì¢…ë£Œí•˜ê³  NPC ì„œë¹„ìŠ¤ë¥¼ ì´ìš©í•˜ëŠ” Townìœ¼ë¡œ ëŒì•„ê°„ë‹¤.
         SceneManager.LoadScene("Town");
     }
 }
