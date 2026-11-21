@@ -25,6 +25,17 @@ public class SavedProfileWindowView : MonoBehaviour
     readonly List<SavedProfileSlotView> _slots =
         new List<SavedProfileSlotView>();
 
+    /// <summary>
+    /// 아이디 목록이 열려 있을 때 Esc로 창을 닫습니다.
+    /// </summary>
+    private void Update()
+    {
+        // X 버튼과 같은 경로로 닫아 로그인 UI의 목록 선택 상태도 해제한다.
+        if (_windowRoot.activeInHierarchy && Input.GetKeyDown(KeyCode.Escape))
+        {
+            Close();
+        }
+    }
     private void Awake()
     {
         // 처음에는 목록 창을 숨긴다.

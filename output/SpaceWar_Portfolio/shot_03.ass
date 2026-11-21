@@ -1,0 +1,19 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1920
+PlayResY: 1080
+WrapStyle: 2
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Body,Malgun Gothic,34,&H00FFFFFF,&H00FFFFFF,&H00100B06,&H00000000,-1,0,0,0,100,100,0,0,1,0,0,5,70,70,0,1
+Style: Label,Malgun Gothic,23,&H00E0D260,&H00FFFFFF,&H00000000,&H00000000,-1,0,0,0,100,100,1,0,1,0,0,4,0,0,0,1
+Style: Speed,Arial,25,&H00C9B9A9,&H00FFFFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,0,0,5,0,0,0,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:08.00,Label,,0,0,0,,{\pos(96,968)}02  /  퀘스트 수락과 진행
+Dialogue: 0,0:00:00.00,0:00:08.00,Speed,,0,0,0,,{\pos(1848,42)}1.5x
+Dialogue: 1,0:00:00.00,0:00:04.00,Body,,0,0,0,,{\pos(960,1020)}NPC 대화에서 퀘스트를 수락하고, 퀘스트 창에서 목표를 확인합니다.
+Dialogue: 1,0:00:04.00,0:00:08.00,Body,,0,0,0,,{\pos(960,1020)}수락 · 목표 달성 · 보상 수령을 서로 다른 상태로 관리합니다.

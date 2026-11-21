@@ -25,6 +25,9 @@ public sealed class AudioSettingsUI : MonoBehaviour
     // 이벤트 연결이 끝났는지 나타낸다.
     private bool _isInitialized;
 
+    // 창을 연 입력이 같은 프레임에 닫기 입력으로 다시 사용되지 않게 한다.
+    private int _openedFrame = -1;
+
     // 설정창의 표시 상태 변경을 알린다. true는 열림, false는 닫힘이다.
     public event Action<bool> VisibilityChanged;
 
@@ -66,6 +69,21 @@ public sealed class AudioSettingsUI : MonoBehaviour
         _settingsCanvas.SetActive(false);
     }
 
+    /// <summary>
+    /// 모든 씬에서 Esc로 설정창을 닫되, 일시정지 입력 처리 이후에 닫습니다.
+    /// </summary>
+    private void LateUpdate()
+    {
+        // PauseManager.Update가 열린 설정창을 먼저 확인하도록 LateUpdate에서 처리한다.
+        // 같은 Esc 입력이 설정창 닫기와 게임 재개를 동시에 실행하지 않게 한다.
+        if (_isInitialized && IsOpen && Time.frameCount != _openedFrame &&
+            Input.GetKeyDown(KeyCode.Escape))
+        {
+            // 닫기 버튼과 동일하게 음량 저장, 효과음, 표시 변경 이벤트를 처리한다.
+            CloseFromButton();
+        }
+    }
+
     // UI에서 사용할 슬라이더 범위와 방향을 설정한다.
     private void ConfigureSlider(UnityEngine.UI.Slider slider)
     {
@@ -104,6 +122,8 @@ public sealed class AudioSettingsUI : MonoBehaviour
         }
 
         RefreshValues();
+        // Esc로 연 프레임에는 LateUpdate의 닫기 처리를 건너뛴다.
+        _openedFrame = Time.frameCount;
         _settingsCanvas.SetActive(true);
 
         // 일시정지 화면 등 구독자가 표시 상태를 전환하도록 알린다.

@@ -91,16 +91,10 @@ public class PauseManager : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        // 환경설정이 열려 있으면 해당 화면의 닫기 입력만 처리한다.
+        // 환경설정의 Esc 닫기는 AudioSettingsUI.LateUpdate에서 처리한다.
         if (_audioSettingsUI.IsOpen)
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                // 닫힘 이벤트가 PausePanel을 복원한다.
-                _audioSettingsUI.CloseFromButton();
-            }
-
-            // 같은 ESC가 게임 재개까지 이어지거나 숨긴 버튼이 선택되지 않게 한다.
+            // 창이 열린 프레임에는 Pause 입력을 건너뛰어 게임 정지를 유지한다.
             return;
         }
 

@@ -100,14 +100,6 @@ public class SaveManager : MonoBehaviour
         _playerSaveData = new PlayerSaveData();
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha9))
-        {
-            Application.OpenURL(Application.persistentDataPath);
-        }
-    }
-
     private void OnDestroy()
     {
         // 현재 등록된 인스턴스 자신이 파괴되는 경우에만 정적 참조를 비운다.

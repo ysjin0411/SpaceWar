@@ -17632,6 +17632,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3589517682117106123}
   - component: {fileID: 8990404410999966095}
+  - component: {fileID: 8990404410999966096}
   m_Layer: 0
   m_Name: SettingsUIController
   m_TagString: Untagged
@@ -20979,6 +20980,22 @@ MonoBehaviour:
   _bgmValueText: {fileID: 2850535870657696580}
   _sfxValueText: {fileID: 6335949953251404217}
   _mainMenuSceneName: 1.MainMenu
+--- !u!114 &8990404410999966096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4092459854191091684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04a90077c34da8244a8c8a8b4b9b1ae8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _player: {fileID: 1984323859}
+  _settingsUI: {fileID: 8990404410999966095}
+  _confirmationDialogs:
+  - {fileID: 1416136969}
 --- !u!224 &9147197066559435536
 RectTransform:
   m_ObjectHideFlags: 0
